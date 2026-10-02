@@ -261,8 +261,8 @@ export const Home = () => {
         aria-label="Agency metrics"
       >
         <div className="max-w-7xl mx-auto relative">
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-9 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.45fr] gap-10 lg:gap-16 items-end mb-12 sm:mb-14">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.25fr] gap-8 lg:gap-14 items-start mb-9 sm:mb-11">
             <div>
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW NUMBERS'}
@@ -286,7 +286,7 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-12% 0px' }}
                   transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative min-h-[240px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022]`}
+                  className={`group relative min-h-[220px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
                 >
                   <div className="flex items-start justify-between gap-6">
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-white">
@@ -296,20 +296,20 @@ export const Home = () => {
                       {stat.index}
                     </span>
                   </div>
-                  <div className="mt-12 sm:mt-14 flex flex-col gap-4">
+                  <div className="mt-8 sm:mt-9 flex flex-col gap-3.5">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[4.3rem] sm:text-[5.25rem] lg:text-[6.1rem] font-display font-semibold leading-[0.82] tracking-[-0.08em] text-white transition-all duration-500 group-hover:text-brand-red group-hover:tracking-[-0.06em]">
+                      <span className="text-[3.7rem] sm:text-[4.65rem] lg:text-[5.35rem] font-display font-semibold leading-[0.84] tracking-[-0.075em] text-white transition-colors duration-500 group-hover:text-brand-red whitespace-nowrap">
                         {stat.value}
                       </span>
                       {stat.suffix && (
-                        <span className="text-xs sm:text-sm font-mono text-[#8A909D]">
+                        <span className="max-w-[110px] text-[10px] sm:text-xs font-mono leading-tight text-[#8A909D]">
                           {stat.suffix}
                         </span>
                       )}
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="h-px w-8 bg-brand-red/60 transition-all duration-500 group-hover:w-14" />
-                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-brand-red/85">
+                      <span className="h-px w-7 bg-brand-red/60 transition-all duration-500 group-hover:w-12" />
+                      <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red/85">
                         {stat.meta}
                       </span>
                     </div>
