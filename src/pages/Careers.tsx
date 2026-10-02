@@ -682,7 +682,7 @@ export const Careers = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <motion.div
             className="absolute -right-40 top-16 h-80 w-80 rounded-full border border-brand-red/[0.035]"
@@ -710,7 +710,7 @@ export const Careers = () => {
               }
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D] mb-6">
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
+              <span className="px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.08] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
               </span>
@@ -718,7 +718,7 @@ export const Careers = () => {
                 <Sparkles size={12} />
                 <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
+              <span className="px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.08]">
                 {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
               </span>
             </div>
@@ -752,11 +752,11 @@ export const Careers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/25 bg-brand-red/[0.045] text-brand-red text-xs font-mono mb-3">
                 <Users className="w-3.5 h-3.5 text-brand-red" />
                 <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-[3.5rem] font-display font-semibold text-white tracking-[-0.055em] leading-[1.02]">
                 {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
               </h2>
             </div>
@@ -796,7 +796,7 @@ export const Careers = () => {
                 >
                   <button
                     onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] bg-[#16181D] transition-all duration-500 hover:scale-[1.04] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] bg-[#16181D] transition-all duration-500 hover:-translate-y-1 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     title={`${talent.name} - ${talent.role}`}
                     aria-label={`View photo and profile of ${talent.name}`}
                   >
@@ -804,7 +804,7 @@ export const Careers = () => {
                     <img 
                       src={talent.image} 
                       alt={talent.name}
-                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.70] contrast-[1.15] saturate-[0.85] group-hover:brightness-[0.92] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out"
+                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.66] contrast-[1.08] saturate-[0.82] group-hover:brightness-[0.86] group-hover:saturate-[0.95] group-hover:scale-[1.03] transition-all duration-700 ease-out"
                       loading="lazy"
                     />
                   </button>
@@ -930,7 +930,7 @@ export const Careers = () => {
                       <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
                         {pos.workplace}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[#8A909D] text-xs font-mono">
+                      <span className="px-3 py-1 rounded-full bg-white/[0.02] border border-white/[0.08] text-[#8A909D] text-xs font-mono">
                         {pos.department}
                       </span>
                       <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
@@ -938,7 +938,7 @@ export const Careers = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-white group-hover:text-brand-red transition-colors">
+                    <h3 className="text-xl sm:text-2xl lg:text-[1.75rem] font-display font-semibold tracking-[-0.04em] text-white group-hover:text-brand-red transition-colors duration-300">
                       {pos.title}
                     </h3>
 
@@ -959,7 +959,7 @@ export const Careers = () => {
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0 pt-2 lg:pt-0">
-                    <span className="px-5 py-2.5 rounded-full bg-[#0B0C0E] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#262930] group-hover:border-brand-red">
+                    <span className="px-5 py-2.5 rounded-full bg-white/[0.02] group-hover:bg-brand-red/[0.08] text-white text-xs font-mono font-semibold uppercase tracking-wider transition-[background-color,border-color,box-shadow] duration-300 flex items-center gap-2 border border-white/[0.09] group-hover:border-brand-red/45">
                       <span>{language === 'id' ? 'Lihat Detail & Lamar' : 'View Role & Apply'}</span>
                       <ArrowUpRight size={14} />
                     </span>
@@ -1072,9 +1072,9 @@ export const Careers = () => {
           {/* 4 In-Depth Information Columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* 1. Keterangan & Deskripsi */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex flex-col justify-between hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-center text-white mb-5">
                   <Layers size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1104,9 +1104,9 @@ export const Careers = () => {
             </div>
 
             {/* 2. Aturan & Ketentuan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex flex-col justify-between hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-center text-white mb-5">
                   <ShieldCheck size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1136,9 +1136,9 @@ export const Careers = () => {
             </div>
 
             {/* 3. Benefit & Keuntungan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex flex-col justify-between hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-center text-white mb-5">
                   <DollarSign size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1168,9 +1168,9 @@ export const Careers = () => {
             </div>
 
             {/* 4. Apa yang Kami Butuhkan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex flex-col justify-between hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-center text-white mb-5">
                   <Code2 size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1229,7 +1229,7 @@ export const Careers = () => {
                 whileHover={{ y: -3 }}
                 className="p-6 sm:p-8 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mb-6">
+                <div className="w-12 h-12 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mb-6">
                   {benefit.icon}
                 </div>
                 <div>
@@ -1458,7 +1458,7 @@ export const Careers = () => {
                             value={formData.portfolio}
                             onChange={handleInputChange}
                             placeholder="https://linkedin.com/in/... or https://behance.net/..."
-                            className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                            className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                           />
                         </div>
                       </div>
@@ -1473,7 +1473,7 @@ export const Careers = () => {
                           value={formData.coverLetter}
                           onChange={handleInputChange}
                           placeholder={language === 'id' ? 'Ceritakan secara singkat pengalaman dan motivasi Anda...' : 'Briefly describe your relevant background and motivations...'}
-                          className="w-full bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                         />
                       </div>
 
@@ -1499,7 +1499,7 @@ export const Careers = () => {
                       </div>
 
                       {applicantSubmitError && (
-                        <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                        <div className="flex items-start gap-2 rounded-xl border border-brand-red/25 bg-brand-red/[0.045] px-4 py-3 text-xs font-mono text-brand-red" role="alert">
                           <AlertCircle size={15} className="mt-0.5 shrink-0" />
                           <span>{applicantSubmitError}</span>
                         </div>
@@ -1691,7 +1691,7 @@ export const Careers = () => {
                           required
                           value={vendorFormData.specialty}
                           onChange={handleVendorInputChange}
-                          className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
                         >
                           <option value="UI/UX & Product Design">UI/UX & Product Design (Figma, Systems, Prototyping)</option>
                           <option value="Frontend Web Development">Frontend Web Dev (React, Next.js, Tailwind, Motion)</option>
@@ -1716,7 +1716,7 @@ export const Careers = () => {
                           value={vendorFormData.portfolio}
                           onChange={handleVendorInputChange}
                           placeholder="https://behance.net/... or https://github.com/..."
-                          className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                         />
                       </div>
 
@@ -1730,7 +1730,7 @@ export const Careers = () => {
                           value={vendorFormData.rateCard}
                           onChange={handleVendorInputChange}
                           placeholder={language === 'id' ? 'e.g. Rp 5.000.000 - Rp 15.000.000 / project' : 'e.g. $25 - $45 / hour or per project range'}
-                          className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                         />
                       </div>
                     </div>
@@ -1744,7 +1744,7 @@ export const Careers = () => {
                           name="experienceYears"
                           value={vendorFormData.experienceYears}
                           onChange={handleVendorInputChange}
-                          className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
                         >
                           <option value="1-2 Years">1 - 2 Years</option>
                           <option value="3-5 Years">3 - 5 Years (Mid-Level)</option>
@@ -1763,13 +1763,13 @@ export const Careers = () => {
                           value={vendorFormData.tools}
                           onChange={handleVendorInputChange}
                           placeholder="e.g. Figma, React, Next.js, After Effects, Blender"
-                          className="w-full min-h-[44px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                         />
                       </div>
                     </div>
 
                     {/* MANDATORY CHECKBOXES (Crucial Requirements) */}
-                    <div className="p-4 rounded-xl bg-[#0B0C0E] border border-[#262930] space-y-3">
+                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-3">
                       <span className="text-[11px] font-mono uppercase text-brand-red font-bold block mb-1">
                         {language === 'id' ? 'Konfirmasi Aturan & Ketentuan Kerja Sama *' : 'Mandatory Terms & Policy Acknowledgment *'}
                       </span>
@@ -1833,7 +1833,7 @@ export const Careers = () => {
                         value={vendorFormData.notes}
                         onChange={handleVendorInputChange}
                         placeholder={language === 'id' ? 'Ceritakan proyek terbaik yang pernah Anda kerjakan atau keahlian spesifik Anda...' : 'Highlight your proudest past projects or unique skill sets...'}
-                        className="w-full bg-[#0B0C0E] border border-[#262930] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                        className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
                       />
                     </div>
 
@@ -1859,7 +1859,7 @@ export const Careers = () => {
                     </div>
 
                     {vendorSubmitError && (
-                      <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                      <div className="flex items-start gap-2 rounded-xl border border-brand-red/25 bg-brand-red/[0.045] px-4 py-3 text-xs font-mono text-brand-red" role="alert">
                         <AlertCircle size={15} className="mt-0.5 shrink-0" />
                         <span>{vendorSubmitError}</span>
                       </div>
