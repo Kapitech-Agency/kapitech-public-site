@@ -57,49 +57,44 @@ export const Home = () => {
   const trustedBrands = [
     {
       name: "Pertamina",
-      src: "https://logotyp.us/file/pertamina.svg",
-      className: "w-[140px] sm:w-[165px] lg:w-[175px]"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pertamina_Logo.svg"
     },
     {
       name: "BTN",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg",
-      className: "w-[82px] sm:w-[96px] lg:w-[104px]"
-    },
-    {
-      name: "IHC",
-      src: "https://vectorseek.com/wp-content/uploads/2023/10/ihc-Logo-Vector.svg-.png",
-      className: "w-[112px] sm:w-[136px] lg:w-[148px]"
-    },
-    {
-      name: "MarkPlus",
-      src: "https://www.markplusinc.com/_next/image?q=50&url=%2Fassets%2Flogo%2Flogo.png&w=3840",
-      className: "w-[118px] sm:w-[142px] lg:w-[154px]"
-    },
-    {
-      name: "Sababay Winery",
-      src: "https://sababaywinery.com/cdn/shop/files/Logo-Sababay-Black_300x300.gif?v=1723305632",
-      className: "w-[104px] sm:w-[126px] lg:w-[138px]"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg"
     },
     {
       name: "Astra International",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ASTRA_international.svg",
-      className: "w-[132px] sm:w-[160px] lg:w-[175px]"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ASTRA_international.svg"
     },
     {
       name: "MRT Jakarta",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/MRT_Jakarta_logo.svg",
-      className: "w-[112px] sm:w-[136px] lg:w-[148px]"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/MRT_Jakarta_logo.svg"
     },
     {
       name: "Telkom Indonesia",
-      src: "https://companieslogo.com/img/orig/TLK_BIG-29afef6e.svg?download=true&t=1720244494",
-      className: "w-[128px] sm:w-[156px] lg:w-[168px]"
+      src: "https://companieslogo.com/img/orig/TLK_BIG-29afef6e.svg?download=true&t=1720244494"
     },
     {
       name: "Sinar Mas Land",
-      src: "https://companieslogo.com/img/orig/A26.SI_BIG-a4ea8d62.svg?download=true&t=1720174751",
-      className: "w-[145px] sm:w-[175px] lg:w-[188px]"
+      src: "https://companieslogo.com/img/orig/A26.SI_BIG-a4ea8d62.svg?download=true&t=1720174751"
     },
+    {
+      name: "Kopi Kenangan",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kopi_Kenangan.svg"
+    },
+    {
+      name: "Kemenparekraf",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kementerian_Pariwisata_Republik_Indonesia_(2024).svg"
+    },
+    {
+      name: "Astra Otoparts",
+      src: "https://drive.google.com/uc?export=download&id=1IRRMIgjlZ0cSgh0Z5MOjr0c-iuSuthOx"
+    },
+    {
+      name: "Pertamina Group",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pertamina_Logo.svg"
+    }
   ];
 
   const techStack = [
@@ -375,7 +370,7 @@ export const Home = () => {
           {/* Marquee Motion Container */}
           <div className="flex w-max">
             <motion.div
-              className="flex items-center gap-8 sm:gap-12 lg:gap-16 shrink-0 pr-8 sm:pr-12 lg:pr-16"
+              className="flex items-center gap-6 sm:gap-8 lg:gap-10 shrink-0 pr-6 sm:pr-8 lg:pr-10"
               animate={{ x: ['0%', '-50%'] }}
               transition={{
                 duration: 28,
@@ -386,15 +381,15 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex min-w-[150px] sm:min-w-[185px] lg:min-w-[210px] h-20 sm:h-24 items-center justify-center shrink-0 px-4 sm:px-6"
+                  className="flex w-[180px] sm:w-[200px] lg:w-[220px] h-20 sm:h-24 items-center justify-center shrink-0 px-5 sm:px-6"
                   aria-label={logo.name}
                 >
                   <img
                     src={logo.src}
-                    alt=""
+                    alt={logo.name}
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className={`${logo.className} max-h-11 sm:max-h-13 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300`}
+                    className="block h-9 w-36 sm:h-10 sm:w-40 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
