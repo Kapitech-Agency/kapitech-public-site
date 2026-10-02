@@ -1066,43 +1066,27 @@
 .kapi-public-shell [data-kapi-spotlight="true"]::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
+  inset: -72px;
+  border-radius: 50%;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
   background: radial-gradient(
-    360px circle at var(--kapi-spotlight-x) var(--kapi-spotlight-y),
-    rgba(229, 9, 20, 0.045),
-    rgba(229, 9, 20, 0.012) 32%,
-    transparent 68%
+    circle,
+    rgba(229, 9, 20, 0.055) 0%,
+    rgba(229, 9, 20, 0.028) 28%,
+    rgba(229, 9, 20, 0.008) 52%,
+    transparent 72%
   );
+  filter: blur(18px);
   transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .kapi-public-shell [data-kapi-spotlight="true"]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 47%,
-    rgba(255,255,255,0.018) 50%,
-    transparent 53%,
-    transparent 100%
-  );
-  background-size: 180% 180%;
-  background-position: calc(100% - var(--kapi-spotlight-x)) calc(100% - var(--kapi-spotlight-y));
-  transition: opacity 520ms ease;
+  display: none;
 }
 
-.kapi-public-shell [data-kapi-spotlight="true"]:hover::before,
-.kapi-public-shell [data-kapi-spotlight="true"]:hover::after {
+.kapi-public-shell [data-kapi-spotlight="true"]:hover::before {
   opacity: 1;
 }
 
@@ -1113,29 +1097,14 @@
 
 .kapi-public-shell [data-kapi-spotlight="true"] h3,
 .kapi-public-shell [data-kapi-spotlight="true"] h4 {
-  transition:
-    color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.kapi-public-shell [data-kapi-spotlight="true"]:hover h3,
-.kapi-public-shell [data-kapi-spotlight="true"]:hover h4 {
-  transform: translateY(-1px);
+  transition: color 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kapi-public-shell [data-kapi-spotlight="true"]::before,
-  .kapi-public-shell [data-kapi-spotlight="true"]::after {
+  .kapi-public-shell [data-kapi-spotlight="true"]::before {
     display: none;
   }
-
-  .kapi-public-shell [data-kapi-spotlight="true"] h3,
-  .kapi-public-shell [data-kapi-spotlight="true"] h4 {
-    transform: none !important;
-    transition: none !important;
-  }
 }
-
 
 /* ==========================================================================
    HIGH-END CUSTOM CURSOR
