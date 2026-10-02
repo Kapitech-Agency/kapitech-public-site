@@ -91,7 +91,18 @@ export const Navbar = () => {
   const design = allSolutionsAndServices.filter(s => s.category === 'Design');
   const development = allSolutionsAndServices.filter(s => s.category === 'Development');
 
+  const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/');
+  const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
+  const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
+
+  const desktopNavItemClass = (active: boolean) =>
+    cn(
+      "relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.16em] leading-none transition-all duration-250",
+      active
+        ? "text-white bg-white/[0.045] border border-brand-red/25 shadow-[0_8px_24px_-18px_rgba(229,9,20,0.9)]"
+        : "text-[#8A909D] border border-transparent hover:text-white hover:bg-white/[0.035]"
+    );
 
   return (
     <>
@@ -150,17 +161,24 @@ export const Navbar = () => {
                   type="button"
                   onClick={() => setIsServicesDropdownOpen(prev => !prev)}
                   className={cn(
-                    "relative inline-flex items-center gap-1.5 h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors cursor-pointer outline-none",
-                    isServicesActive || isServicesDropdownOpen ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
+                    desktopNavItemClass(isServicesActive || isServicesDropdownOpen),
                   )}
                   aria-expanded={isServicesDropdownOpen}
                   aria-haspopup="true"
+                  aria-current={isServicesActive ? 'page' : undefined}
                 >
-                  <span>{t('nav.services')}</span>
-                  <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", isServicesDropdownOpen ? "rotate-180 text-brand-red" : "opacity-70")} />
-                  <span className={cn(
-                    "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                    isServicesActive ? "w-full" : ""
+                  {isServicesActive && (
+                    <motion.span
+                      layoutId="desktop-nav-active"
+                      className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span className="relative z-10">{t('nav.services')}</span>
+                  <ChevronDown className={cn(
+                    "relative z-10 w-3.5 h-3.5 transition-transform duration-250",
+                    isServicesDropdownOpen ? "rotate-180 text-white" : "text-[#8A909D]"
                   )} />
                 </button>
               </div>
@@ -199,14 +217,16 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 overflow-hidden rounded-full border border-brand-red/70 bg-brand-red text-white text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 shadow-[0_10px_28px_-16px_rgba(229,9,20,0.7)] hover:bg-[#FF1E27] hover:border-[#FF1E27]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full text-white text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 shadow-[0_12px_32px_-18px_rgba(229,9,20,0.9)]"
               data-cursor-label="Start"
             >
+              <span
+                className="pointer-events-none absolute -inset-px rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.92)_32deg,transparent_78deg,transparent_360deg)] animate-[spin_3.8s_linear_infinite]"
+                aria-hidden="true"
+              />
+              <span className="absolute inset-[1px] rounded-full bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
-              <ChevronRight size={14} className="relative z-10 opacity-80 transition-transform duration-300 group-hover:translate-x-0.5" />
-              <span className="pointer-events-none absolute inset-x-3 bottom-[4px] h-px overflow-hidden rounded-full bg-white/25" aria-hidden="true">
-                <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/95 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[430%]" />
-              </span>
+              <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
 
             {/* Language Switcher EN | ID */}
@@ -647,14 +667,16 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 overflow-hidden rounded-xl border border-brand-red/70 bg-brand-red hover:bg-[#FF1E27] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
+                  className="group relative isolate w-full h-12 rounded-xl text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
                   data-cursor-label="Start"
                 >
+                  <span
+                    className="pointer-events-none absolute -inset-px rounded-xl bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.9)_35deg,transparent_82deg,transparent_360deg)] animate-[spin_4.2s_linear_infinite]"
+                    aria-hidden="true"
+                  />
+                  <span className="absolute inset-[1px] rounded-[11px] bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  <span className="pointer-events-none absolute inset-x-6 bottom-2 h-px overflow-hidden rounded-full bg-white/25" aria-hidden="true">
-                    <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/95 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[430%]" />
-                  </span>
                 </Link>
               </div>
             </div>
