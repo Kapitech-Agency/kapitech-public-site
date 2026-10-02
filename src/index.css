@@ -138,19 +138,13 @@
 }
 
 /* Public-site focus styling stays out of AMS so modal/control focus states are not cascaded. */
-/* Explicitly blur page content behind the hamburger drawer.
-   Navbar and drawer layers stay sharp above it. */
-body.kapitech-hamburger-open .kapi-public-shell > main,
-body.kapitech-hamburger-open .kapi-public-shell > footer {
+/* The page itself becomes the blurred background layer while the Navbar
+   and hamburger drawer remain sharp above it. */
+body.kapitech-hamburger-open .kapi-public-shell {
   filter: blur(12px);
   transform: scale(1.01);
+  transform-origin: center top;
   transition: filter 260ms ease, transform 260ms ease;
-}
-
-body.kapitech-hamburger-open .kapi-public-shell .kapi-fluid-background,
-body.kapitech-hamburger-open .kapi-public-shell .kapi-noise-overlay {
-  filter: blur(14px);
-  transition: filter 260ms ease;
 }
 
 .kapi-public-shell {
