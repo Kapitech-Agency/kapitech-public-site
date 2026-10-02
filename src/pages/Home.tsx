@@ -358,7 +358,7 @@ export const Home = () => {
           {/* Marquee Motion Container */}
           <div className="flex w-max">
             <motion.div
-              className="flex items-center gap-5 sm:gap-6 lg:gap-8 shrink-0 pr-5 sm:pr-6 lg:pr-8"
+              className="flex items-center gap-4 sm:gap-5 lg:gap-6 shrink-0 pr-4 sm:pr-5 lg:pr-6"
               animate={{ x: ['0%', '-50%'] }}
               transition={{
                 duration: 28,
@@ -369,16 +369,18 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex w-[178px] sm:w-[194px] lg:w-[210px] h-16 sm:h-20 items-center justify-center shrink-0 px-5 sm:px-6"
+                  className="flex w-[196px] sm:w-[224px] lg:w-[248px] h-20 sm:h-24 lg:h-28 items-center justify-center shrink-0"
                   aria-label={logo.name}
                 >
-                  <img
-                    src={logo.src}
-                    alt={logo.name}
-                    loading="lazy"
-                    referrerPolicy="no-referrer"
-                    className="block h-7 w-full max-w-[142px] sm:max-w-[154px] object-contain object-center bg-transparent opacity-65 grayscale brightness-150 contrast-90 hover:opacity-100 transition-opacity duration-300"
-                  />
+                  <div className="flex h-12 sm:h-14 lg:h-16 w-[166px] sm:w-[188px] lg:w-[210px] items-center justify-center">
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      className="block h-full w-full object-contain object-center bg-transparent opacity-70 grayscale brightness-150 contrast-90 hover:opacity-100 transition-opacity duration-300"
+                    />
+                  </div>
                 </div>
               ))}
             </motion.div>
