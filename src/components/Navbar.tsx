@@ -724,6 +724,8 @@ export const Navbar = () => {
                 </a>
                 <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
               </div>
+            </div>
+          </div>
           </motion.div>
         )}
       </AnimatePresence>
