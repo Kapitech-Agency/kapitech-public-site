@@ -1,0 +1,23 @@
+name: Kapitech public site CI
+
+on:
+  push:
+    branches: [main, redesign/v2]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: public-site-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run lint
+      - run: npm run build
