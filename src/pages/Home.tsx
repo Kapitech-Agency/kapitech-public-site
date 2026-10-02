@@ -647,53 +647,110 @@ export const Home = () => {
 
       {/* WORKING PROCESS STEPPING */}
       <section className="relative overflow-hidden py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute right-[-8rem] top-12 h-72 w-72 rounded-full border border-brand-red/[0.08]" />
-          <div className="absolute right-[-5rem] top-24 h-52 w-52 rounded-full border border-white/[0.05]" />
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <motion.div
+            className="absolute right-[-10rem] top-8 h-80 w-80 rounded-full border border-brand-red/[0.08]"
+            animate={{ rotate: [0, 360], scale: [1, 1.035, 1] }}
+            transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute right-[-6rem] top-24 h-56 w-56 rounded-full border border-white/[0.045]"
+            animate={{ rotate: [360, 0], scale: [1, 1.06, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute left-[18%] bottom-[-10rem] h-64 w-64 rounded-full border border-white/[0.035]"
+            animate={{ y: [0, -18, 0], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          />
         </div>
 
         <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 sm:mb-16 lg:mb-20">
             <div className="max-w-3xl">
-              <span className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs"
+              >
                 <span className="h-px w-8 bg-brand-red/60" />
                 {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
-              </span>
-              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.055em] leading-[1.03] text-white">
+              </motion.span>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.7, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.055em] leading-[1.03] text-white"
+              >
                 {language === 'id' ? 'Dari brief pertama hingga produk diluncurkan.' : 'From first brief to final launch.'}
-              </h2>
+              </motion.h2>
             </div>
-            <p className="max-w-md text-xs sm:text-sm lg:text-base leading-[1.7] text-[#8A909D] font-light">
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-md text-xs sm:text-sm lg:text-base leading-[1.7] text-[#8A909D] font-light"
+            >
               {language === 'id'
                 ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
                 : 'Four connected phases keep quality, momentum, and project decisions moving in the same direction.'}
-            </p>
+            </motion.p>
           </div>
 
           <div className="relative">
-            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[38px] h-px bg-[#262930]" aria-hidden="true" />
-            <div className="hidden lg:block absolute left-[12.5%] right-[62.5%] top-[38px] h-px bg-brand-red/55" aria-hidden="true" />
+            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[38px] h-px bg-white/[0.07]" aria-hidden="true" />
+            <motion.div
+              className="hidden lg:block absolute left-[12.5%] top-[37px] h-[2px] origin-left bg-gradient-to-r from-brand-red/0 via-brand-red/65 to-brand-red/0"
+              initial={{ width: '0%' }}
+              whileInView={{ width: '75%' }}
+              viewport={{ once: true, margin: '-8% 0px' }}
+              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
+
+            <motion.div
+              className="hidden lg:block absolute left-[12.5%] top-[31px] h-3 w-3 rounded-full bg-brand-red/80 blur-[1px] shadow-[0_0_20px_rgba(229,9,20,0.55)]"
+              initial={{ opacity: 0, x: 0 }}
+              whileInView={{ opacity: [0, 1, 1, 0], x: ['0%', 'calc(100% - 12px)'] }}
+              viewport={{ once: true, margin: '-8% 0px' }}
+              transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10">
               {processSteps.map((step, index) => (
                 <motion.div
                   key={step.step}
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
-                  transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.65, delay: index * 0.11, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
                   className="group relative"
                 >
                   <div className="relative z-10 flex items-center gap-3 mb-7">
-                    <span className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-[#262930] bg-[#0B0C0E] text-brand-red transition-all duration-500 group-hover:border-brand-red/60 group-hover:bg-brand-red group-hover:text-white">
-                      <span className="text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
-                    </span>
-                    <span className="h-px flex-1 bg-[#262930] sm:hidden" />
+                    <motion.span
+                      initial={{ scale: 0.86, opacity: 0.7 }}
+                      whileInView={{ scale: [0.86, 1.05, 1], opacity: [0.7, 1, 1] }}
+                      viewport={{ once: true, margin: '-10% 0px' }}
+                      transition={{ duration: 0.7, delay: 0.12 + index * 0.11, ease: [0.22, 1, 0.36, 1] }}
+                      className="relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-[#0B0C0E]/72 backdrop-blur-xl text-brand-red shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_36px_-24px_rgba(0,0,0,0.95)] transition-[background-color,border-color,color,box-shadow] duration-500 group-hover:border-brand-red/55 group-hover:bg-brand-red/90 group-hover:text-white group-hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.7)]"
+                    >
+                      <span className="absolute inset-2 rounded-full border border-brand-red/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <span className="relative text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
+                    </motion.span>
+
+                    <span className="h-px flex-1 bg-white/[0.07] sm:hidden" />
                   </div>
 
-                  <div className="pl-1">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]">
+                  <div className="relative pl-1">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-brand-red/85">
                       {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
                     </span>
                     <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold tracking-[-0.03em] text-white group-hover:text-brand-red transition-colors duration-300">
@@ -702,6 +759,13 @@ export const Home = () => {
                     <p className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light">
                       {step.desc}
                     </p>
+                    <motion.div
+                      className="mt-5 h-px w-12 bg-brand-red/45 origin-left"
+                      initial={{ scaleX: 0.5, opacity: 0.45 }}
+                      whileInView={{ scaleX: 1, opacity: 0.85 }}
+                      viewport={{ once: true, margin: '-10% 0px' }}
+                      transition={{ duration: 0.7, delay: 0.2 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    />
                   </div>
                 </motion.div>
               ))}
