@@ -1,8 +1,8 @@
 import React from 'react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 
 export const About = () => {
@@ -285,8 +285,8 @@ export const About = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
-        <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 overflow-hidden">
+undefined
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="max-w-3xl"
