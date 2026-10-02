@@ -35,21 +35,29 @@ export const NotFound = () => {
             : 'The requested architecture could not be located. The path may have been decommissioned or moved to a secure server.'}
         </p>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+        <motion.div
+          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
           <Link 
             to="/" 
+            data-cursor-label="Home"
             className="group px-8 md:px-10 py-4 md:py-5 bg-brand-red text-white rounded-full font-bold flex items-center gap-3 hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(255,26,26,0.3)]"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             {language === 'id' ? 'Kembali ke Beranda' : 'Return to Home'}
           </Link>
-          <Link 
-            to="/contact" 
+          <Link
+            to="/contact"
+            data-cursor-label="Contact"
+ 
             className="px-8 md:px-10 py-4 md:py-5 rounded-full border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/50 transition-all font-semibold tracking-wider uppercase text-xs text-white"
           >
             {language === 'id' ? 'Hubungi Bantuan' : 'Contact Support'}
           </Link>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Technical Details */}
