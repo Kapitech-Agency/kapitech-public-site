@@ -24,8 +24,6 @@ import {
   Award,
   ShieldCheck,
   Zap,
-  DollarSign,
-  Layers,
   Palette,
   Code2,
   Check,
@@ -779,9 +777,9 @@ export const Careers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono mb-3">
-                <Users className="w-3.5 h-3.5 text-brand-red" />
-                <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">{language === 'id' ? 'Orang & Keahlian' : 'People & Craft'}</span>
+                <span className="h-px w-10 bg-line" />
               </div>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                 {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
@@ -1142,7 +1140,8 @@ export const Careers = () => {
                 ))}
               </div>
             </div>
-          </div>        </div>
+          </div>
+        </div>
       </section>
 
       {/* SECTION: Benefits & Perks */}
