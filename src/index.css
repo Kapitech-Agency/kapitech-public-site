@@ -1046,4 +1046,93 @@
 }
 
 
-/* ==========================================================================\n   HIGH-END CUSTOM CURSOR\n   Animate UI-inspired pointer with restrained Kapitech styling.\n   ========================================================================== */\n.kapi-site-cursor-layer {\n  position: fixed;\n  inset: 0;\n  z-index: 9998;\n  pointer-events: none;\n}\n\nhtml.kapi-custom-cursor-enabled,\nhtml.kapi-custom-cursor-enabled * {\n  cursor: none !important;\n}\n\nhtml.kapi-custom-cursor-enabled input,\nhtml.kapi-custom-cursor-enabled textarea {\n  cursor: text !important;\n}\n\nhtml.kapi-custom-cursor-enabled select {\n  cursor: pointer !important;\n}\n\n.kapi-cursor-pointer {\n  position: fixed;\n  width: 30px;\n  height: 30px;\n  transform: translate(-50%, -50%);\n  pointer-events: none;\n  z-index: 9999;\n}\n\n.kapi-cursor-ring {\n  position: absolute;\n  inset: 0;\n  border: 1px solid rgba(255, 255, 255, 0.72);\n  border-radius: 999px;\n  background: radial-gradient(circle at center, rgba(229,9,20,0.08), transparent 62%);\n  box-shadow: 0 0 0 1px rgba(229,9,20,0.10), 0 10px 28px -16px rgba(229,9,20,0.65);\n}\n\n.kapi-cursor-dot {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  width: 5px;\n  height: 5px;\n  transform: translate(-50%, -50%);\n  border-radius: 999px;\n  background: #E50914;\n  box-shadow: 0 0 12px rgba(229,9,20,0.8);\n}\n\n.kapi-cursor-follow {\n  position: fixed;\n  pointer-events: none;\n  z-index: 9998;\n  min-width: 64px;\n  height: 26px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0 10px;\n  border: 1px solid rgba(255,255,255,0.12);\n  border-radius: 999px;\n  background: rgba(15,15,20,0.82);\n  color: rgba(248,250,252,0.94);\n  box-shadow: 0 12px 35px -20px rgba(0,0,0,0.9), 0 8px 24px -18px rgba(229,9,20,0.8);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);\n  font-size: 9px;\n  font-weight: 700;\n  line-height: 1;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n@media (hover: none), (pointer: coarse) {\n  .kapi-site-cursor-layer { display: none; }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .kapi-site-cursor-layer { display: none; }\n  html.kapi-custom-cursor-enabled,\n  html.kapi-custom-cursor-enabled * { cursor: auto !important; }\n}\n
+/* ==========================================================================
+   HIGH-END CUSTOM CURSOR
+   Animate UI-inspired pointer with restrained Kapitech styling.
+   ========================================================================== */
+.kapi-site-cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+html.kapi-custom-cursor-enabled,
+html.kapi-custom-cursor-enabled * {
+  cursor: none !important;
+}
+
+html.kapi-custom-cursor-enabled input,
+html.kapi-custom-cursor-enabled textarea {
+  cursor: text !important;
+}
+
+html.kapi-custom-cursor-enabled select {
+  cursor: pointer !important;
+}
+
+.kapi-cursor-pointer {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.kapi-cursor-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(229,9,20,0.08), transparent 62%);
+  box-shadow: 0 0 0 1px rgba(229,9,20,0.10), 0 10px 28px -16px rgba(229,9,20,0.65);
+}
+
+.kapi-cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: #E50914;
+  box-shadow: 0 0 12px rgba(229,9,20,0.8);
+}
+
+.kapi-cursor-follow {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  min-width: 64px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  background: rgba(15,15,20,0.82);
+  color: rgba(248,250,252,0.94);
+  box-shadow: 0 12px 35px -20px rgba(0,0,0,0.9), 0 8px 24px -18px rgba(229,9,20,0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .kapi-site-cursor-layer { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-site-cursor-layer { display: none; }
+  html.kapi-custom-cursor-enabled,
+  html.kapi-custom-cursor-enabled * { cursor: auto !important; }
+}
