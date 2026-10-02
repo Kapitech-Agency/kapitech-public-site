@@ -128,8 +128,8 @@
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl">
-        <button type="button" onclick="event.stopPropagation()" class="absolute top-8 right-8 text-white" data-mobile-menu-close aria-label="Close navigation menu"><i data-lucide="x" class="w-10 h-10"></i></button>
+    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl" aria-hidden="true">
+        <button type="button" class="absolute top-8 right-8 text-white" data-mobile-menu-close aria-label="Close navigation menu" type="button"><i data-lucide="x" class="w-10 h-10"></i></button>
         <a href="./index.html" class="text-5xl font-display font-bold text-white hover:text-magma">Home</a>
         <a href="./about.html" class="text-5xl font-display font-bold text-magma">About</a>
         <a href="./services.html" class="text-5xl font-display font-bold text-white hover:text-magma">Services</a>
@@ -229,4 +229,63 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
+        const menuClose = document.querySelector('[data-mobile-menu-close]');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function setMobileMenu(open, restoreFocus = false) {
+            if (!mobileMenu) return;
+            mobileMenu.classList.toggle('hidden', !open);
+            mobileMenu.classList.toggle('flex', open);
+            mobileMenu.setAttribute('aria-hidden', String(!open));
+            document.body.classList.toggle('overflow-hidden', open);
+            menuToggle?.setAttribute('aria-expanded', String(open));
+            if (open) window.requestAnimationFrame(() => menuClose?.focus());
+            else if (restoreFocus) menuToggle?.focus();
+        }
+
+        window.toggleMenu = function () {
+            setMobileMenu(Boolean(mobileMenu) && mobileMenu.classList.contains('hidden'));
+        };
+
+        menuToggle?.addEventListener('click', () => setMobileMenu(true));
+        menuClose?.addEventListener('click', () => setMobileMenu(false, true));
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => setMobileMenu(false));
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                setMobileMenu(false, true);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                setMobileMenu(false);
+            }
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        if (!reduceMotion && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, currentObserver) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        currentObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+        } else {
+            revealElements.forEach(el => el.classList.add('active'));
+        }
+    </script>
+
+</body>
 </html>
