@@ -2,20 +2,28 @@
 
 Public-facing website for Kapitech Agency.
 
-## Pages
+## Included
 
-- index.html
-- about.html
-- services.html
-- portfolio.html
-- contact.html
-- academy.html
-- career.html
+- Public agency pages and routing
+- Public-facing navigation, footer, contact and career forms
+- Portfolio, services, case studies and company pages
+- Public CMS hydration hooks with local fallbacks
+- Public assets and SEO files
 
 ## Stack
 
-Static HTML with Tailwind CSS and Lucide Icons loaded from CDN.
+React 19, Vite, TypeScript, Tailwind CSS v4, Motion, Lucide Icons and React Router.
 
-## Build
+## Development
 
-`npm run build` copies the HTML pages into `dist/`.
+`bun install`
+
+`bun run dev`
+
+## Verification
+
+`bun run lint`
+
+`bun run build`
+
+This repository contains the Public Site only. AMS/admin/server/database code is intentionally excluded.
