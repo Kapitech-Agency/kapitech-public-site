@@ -50,6 +50,22 @@ export const Work = () => {
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProject]);
+
   // Drag-to-scroll refs & state for horizontal filter bars
   const serviceScrollRef = React.useRef<HTMLDivElement>(null);
   const [isDraggingService, setIsDraggingService] = useState(false);
@@ -178,26 +194,41 @@ export const Work = () => {
           disableGrayscale={true}
         />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
+          <motion.div
+            className="max-w-3xl"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
               {language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6"
+            >
               {language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
-            </h1>
-            <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+              className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6"
+            >
               {language === 'id' 
-                ? 'Jelajahi 50 studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.'
-                : 'Explore our portfolio of 50 comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.'
+                ? `Jelajahi ${projectsList.length} studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.`
+                : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
               }
-            </p>
+            </motion.p>
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D]">
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-                <span>50 {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies Verified'}</span>
+                <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies Verified'}</span>
               </span>
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
-                12 {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
+                {serviceOptions.filter((item) => item !== 'All').length} {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
               </span>
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
                 {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
@@ -239,19 +270,26 @@ export const Work = () => {
               </div>
             </div>
 
-            <div
-              onClick={() => setSelectedProject(currentFeatured)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  setSelectedProject(currentFeatured);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={language === 'id' ? `Buka studi kasus ${currentFeatured.title}` : `Open case study ${currentFeatured.title}`}
-              className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
-            >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentFeatured.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                onClick={() => setSelectedProject(currentFeatured)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedProject(currentFeatured);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={language === 'id' ? `Buka studi kasus ${currentFeatured.title}` : `Open case study ${currentFeatured.title}`}
+                data-cursor-label="Open"
+                className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
+              >
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0B0C0E]">
                 <img 
                   src={currentFeatured.image} 
@@ -307,7 +345,8 @@ export const Work = () => {
                   </div>
                 </div>
               </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
       )}
@@ -534,7 +573,15 @@ export const Work = () => {
       {/* Case Study Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="case-study-modal-title"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setSelectedProject(null);
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -553,7 +600,7 @@ export const Work = () => {
                       {selectedProject.service}
                     </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-display font-bold text-white truncate">
+                  <h3 id="case-study-modal-title" className="text-sm sm:text-base font-display font-bold text-white truncate">
                     {selectedProject.title} <span className="text-[#8A909D] font-normal">({selectedProject.client})</span>
                   </h3>
                 </div>
