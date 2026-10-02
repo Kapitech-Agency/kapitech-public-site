@@ -119,15 +119,31 @@ export const Navbar = () => {
 
   return (
     <>
+      <AnimatePresence>
+        {isServicesDropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 hidden md:block"
+            aria-hidden="true"
+            style={{
+              backgroundColor: 'rgba(11, 12, 14, 0.58)',
+              backdropFilter: 'blur(28px) saturate(1.15)',
+              WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
           isScrolled
-            ? isServicesDropdownOpen
-              ? `${dropdownGlassMaterial} py-3 sm:py-3.5 border-transparent shadow-none`
-              : `${navbarGlassMaterial} py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]`
+            ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
             : isServicesDropdownOpen
-              ? `${dropdownGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
+              ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
               : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
@@ -308,9 +324,9 @@ export const Navbar = () => {
               onMouseLeave={handleMouseLeaveServices}
               className="hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
               style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.72)',
-                backdropFilter: 'blur(36px) saturate(1.2)',
-                WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
+                backgroundColor: 'rgba(11, 12, 14, 0.92)',
+                backdropFilter: 'blur(28px) saturate(1.15)',
+                WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
               }}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
@@ -458,8 +474,8 @@ export const Navbar = () => {
               aria-hidden="true"
               style={{
                 backgroundColor: 'rgba(11, 12, 14, 0.72)',
-                backdropFilter: 'blur(36px) saturate(1.2)',
-                WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
+                backdropFilter: 'blur(28px) saturate(1.15)',
+                WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
               }}
             />
             <div className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7">
