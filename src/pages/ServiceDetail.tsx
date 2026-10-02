@@ -127,7 +127,7 @@ export const ServiceDetail = () => {
               </Link>
               <a
                 href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-[#2A2A2A] bg-[#161616] text-white font-medium text-sm hover:border-brand-red/50 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-[#262930] bg-[#16181D] text-white font-medium text-sm hover:border-brand-red/50 transition-all duration-200"
               >
                 <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
                 <ChevronDown className="w-4 h-4" />
@@ -137,12 +137,12 @@ export const ServiceDetail = () => {
 
           {/* METRICS SIDEBAR */}
           <div className="lg:col-span-4 w-full">
-            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] backdrop-blur-md p-6 sm:p-8 space-y-6">
+            <div className="rounded-2xl border border-[#262930] bg-[#16181D] backdrop-blur-md p-6 sm:p-8 space-y-6">
               <div className="text-xs font-mono uppercase tracking-widest text-[#8E8E93] flex items-center justify-between">
                 <span>{language === 'id' ? 'METRIK KINERJA' : 'PERFORMANCE METRICS'}</span>
                 <Sparkles className="w-4 h-4 text-brand-red" />
               </div>
-              <div className="space-y-6 divide-y divide-[#2A2A2A]">
+              <div className="space-y-6 divide-y divide-[#262930]">
                 {service.metrics.map((metric, idx) => (
                   <div key={idx} className={idx > 0 ? 'pt-6' : ''}>
                     <div className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
@@ -156,7 +156,7 @@ export const ServiceDetail = () => {
               </div>
 
               {/* Tools Stack */}
-              <div className="pt-6 border-t border-[#2A2A2A]">
+              <div className="pt-6 border-t border-[#262930]">
                 <div className="text-xs font-mono uppercase tracking-wider text-[#8E8E93] mb-3">
                   {language === 'id' ? 'TOOLCHAIN & STANDAR' : 'TOOLCHAIN & STACK'}
                 </div>
@@ -164,7 +164,7 @@ export const ServiceDetail = () => {
                   {service.tools.map((tool, idx) => (
                     <span 
                       key={idx}
-                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93]"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#0A0A0A] border border-[#262930] text-[#8E8E93]"
                     >
                       {tool}
                     </span>
@@ -178,7 +178,7 @@ export const ServiceDetail = () => {
         {/* TESTIMONIAL PULL QUOTE */}
         {service.testimonial && (
           <div className="mb-20 sm:mb-28">
-            <div className="relative rounded-2xl border border-[#2A2A2A] bg-[#161616] p-8 sm:p-12 backdrop-blur-lg overflow-hidden">
+            <div className="relative rounded-2xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 backdrop-blur-lg overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
               <div className="flex items-center gap-1.5 text-brand-red mb-6">
                 {[...Array(5)].map((_, i) => (
@@ -193,7 +193,7 @@ export const ServiceDetail = () => {
                   src={service.testimonial.avatar}
                   alt={service.testimonial.author}
                   referrerPolicy="no-referrer"
-                  className="w-12 h-12 rounded-full object-cover border border-[#2A2A2A]"
+                  className="w-12 h-12 rounded-full object-cover border border-[#262930]"
                 />
                 <div>
                   <div className="text-base font-semibold text-white">
@@ -223,11 +223,11 @@ export const ServiceDetail = () => {
             {service.problemsSolutions.map((item, idx) => (
               <div 
                 key={idx}
-                className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
+                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
               >
                 <div>
                   {/* Problem Block */}
-                  <div className="mb-6 pb-6 border-b border-[#2A2A2A]">
+                  <div className="mb-6 pb-6 border-b border-[#262930]">
                     <div className="text-xs font-mono uppercase tracking-wider text-red-400 mb-2 flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
                       <span>{language === 'id' ? 'Tantangan' : 'The Problem'}</span>
@@ -274,9 +274,9 @@ export const ServiceDetail = () => {
             {service.capabilities.map((cap, idx) => (
               <div 
                 key={idx}
-                className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-6 hover:border-brand-red/40 transition-all duration-300 group"
+                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 hover:border-brand-red/40 transition-all duration-300 group"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
                   <Layers className="w-5 h-5 text-brand-red" />
                 </div>
                 <h3 className="text-base font-medium text-white mb-2">
@@ -315,7 +315,7 @@ export const ServiceDetail = () => {
               <Link
                 key={project.id}
                 to={`/work`}
-                className="group block rounded-2xl border border-[#2A2A2A] bg-[#161616] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
+                className="group block rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#0A0A0A]">
                   <img
@@ -326,7 +326,7 @@ export const ServiceDetail = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-black/80 backdrop-blur-md border border-[#2A2A2A] text-white">
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-black/80 backdrop-blur-md border border-[#262930] text-white">
                       {project.service}
                     </span>
                   </div>
@@ -345,7 +345,7 @@ export const ServiceDetail = () => {
                     {project.technologies.slice(0, 2).map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93]"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#0A0A0A] border border-[#262930] text-[#8E8E93]"
                       >
                         {tech}
                       </span>
@@ -372,7 +372,7 @@ export const ServiceDetail = () => {
             {service.processStages.map((stage, idx) => (
               <div 
                 key={idx}
-                className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-6 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
+                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
               >
                 <div>
                   <div className="text-3xl font-serif text-[#8E8E93] font-light mb-4">
@@ -386,7 +386,7 @@ export const ServiceDetail = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#2A2A2A] space-y-1.5">
+                <div className="pt-4 border-t border-[#262930] space-y-1.5">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-[#8E8E93] mb-2">
                     {language === 'id' ? 'Hasil Kerja:' : 'Deliverables:'}
                   </div>
@@ -404,7 +404,7 @@ export const ServiceDetail = () => {
 
         {/* BUSINESS OUTCOMES & DISCOVERY CALL BANNER */}
         <div className="mb-20 sm:mb-28">
-          <div className="rounded-3xl border border-[#2A2A2A] bg-[#161616] p-8 sm:p-12 lg:p-16">
+          <div className="rounded-3xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 lg:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <div className="text-xs font-mono uppercase tracking-widest text-brand-red">
@@ -426,7 +426,7 @@ export const ServiceDetail = () => {
               </div>
 
               <div className="lg:col-span-5 w-full">
-                <div className="rounded-2xl border border-[#2A2A2A] bg-[#0A0A0A] p-6 sm:p-8 space-y-5 text-center">
+                <div className="rounded-2xl border border-[#262930] bg-[#0A0A0A] p-6 sm:p-8 space-y-5 text-center">
                   <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mx-auto">
                     <Sparkles className="w-6 h-6" />
                   </div>
@@ -472,7 +472,7 @@ export const ServiceDetail = () => {
                 return (
                   <div
                     key={idx}
-                    className="rounded-2xl border border-[#2A2A2A] bg-[#161616] overflow-hidden transition-colors"
+                    className="rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden transition-colors"
                   >
                     <button
                       type="button"
@@ -497,7 +497,7 @@ export const ServiceDetail = () => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <div className="px-6 pb-6 text-sm text-[#8E8E93] leading-relaxed border-t border-[#2A2A2A] pt-4">
+                          <div className="px-6 pb-6 text-sm text-[#8E8E93] leading-relaxed border-t border-[#262930] pt-4">
                             {language === 'id' ? faq.aId : faq.a}
                           </div>
                         </motion.div>
@@ -511,7 +511,7 @@ export const ServiceDetail = () => {
         )}
 
         {/* BOTTOM GLOBAL NAVIGATION STRIP (Browse other services) */}
-        <div className="pt-12 border-t border-[#2A2A2A] flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="pt-12 border-t border-[#262930] flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
             to="/services"
             className="inline-flex items-center gap-2 text-sm text-[#8E8E93] hover:text-white transition-colors"
