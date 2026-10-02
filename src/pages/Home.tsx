@@ -276,12 +276,6 @@ export const Home = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {stats.map((stat, i) => {
-              const layout = [
-                'sm:col-span-5 lg:min-h-[250px]',
-                'sm:col-span-7 lg:min-h-[250px]',
-                'sm:col-span-4 lg:min-h-[270px]',
-                'sm:col-span-8 lg:min-h-[270px]',
-              ][i];
               return (
                 <motion.article
                   key={stat.index}
@@ -289,7 +283,7 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-12% 0px' }}
                   transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative min-h-[240px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] ${layout}`}
+                  className={`group relative min-h-[240px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022]`}
                 >
                   <div className="flex items-start justify-between gap-6">
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-white">
