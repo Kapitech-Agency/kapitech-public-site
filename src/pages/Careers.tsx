@@ -1274,7 +1274,7 @@ export const Careers = () => {
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-brand-red/15 border border-brand-red/40 text-brand-red text-[11px] font-mono font-semibold">
+                      <span className="px-2.5 py-0.5 rounded-full bg-brand-red/[0.055] border border-brand-red/28 text-brand-red text-[10px] font-mono font-semibold">
                         {selectedPosition.workplace}
                       </span>
                       <span className="text-[11px] font-mono text-[#8A909D]">
@@ -1309,7 +1309,7 @@ export const Careers = () => {
                     <span>{selectedPosition.type}</span>
                   </span>
                   {selectedPosition.compensation && (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px]">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.025] border border-white/[0.08] text-[#A9AFBA] text-[10px]">
                       <Award size={13} className="shrink-0" />
                       <span><strong>{language === 'id' ? 'Kompensasi:' : 'Compensation:'}</strong> {selectedPosition.compensation}</span>
                     </span>
@@ -1365,7 +1365,7 @@ export const Careers = () => {
 
                   {isSubmitted ? (
                     <div className="p-6 rounded-xl bg-white/[0.025] border border-white/[0.08] text-center space-y-3">
-                      <CheckCircle2 size={36} className="text-emerald-400 mx-auto" />
+                      <CheckCircle2 size={36} className="text-brand-red mx-auto" />
                       <h5 className="text-lg font-display font-bold text-white">
                         {language === 'id' ? 'Lamaran Berhasil Dikirimkan!' : 'Application Successfully Submitted!'}
                       </h5>
@@ -1553,7 +1553,7 @@ export const Careers = () => {
                       <span className="px-2.5 py-0.5 rounded-full bg-brand-red/15 border border-brand-red/40 text-brand-red text-[11px] font-mono font-semibold">
                         100% WFA • Project-Based
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[11px] font-mono">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/[0.025] border border-white/[0.08] text-[#A9AFBA] text-[10px] font-mono">
                         BYOD (No Device Provided)
                       </span>
                     </div>
