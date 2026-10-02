@@ -446,13 +446,18 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
-            style={{
-              backgroundColor: 'rgba(11, 12, 14, 0.78)',
-              backdropFilter: 'blur(44px) saturate(1.25)',
-              WebkitBackdropFilter: 'blur(44px) saturate(1.25)',
-            }}
+            className="fixed inset-0 z-[100] overflow-hidden"
           >
+            <div
+              className="absolute inset-0"
+              aria-hidden="true"
+              style={{
+                backgroundColor: 'rgba(11, 12, 14, 0.62)',
+                backdropFilter: 'blur(48px) saturate(1.25)',
+                WebkitBackdropFilter: 'blur(48px) saturate(1.25)',
+              }}
+            />
+            <div className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7">
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
               <Link 
@@ -719,7 +724,6 @@ export const Navbar = () => {
                 </a>
                 <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
               </div>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
