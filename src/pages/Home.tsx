@@ -168,7 +168,8 @@ export const Home = () => {
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0C0E] to-transparent" />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10">\n          <div className="max-w-4xl lg:max-w-5xl">
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
