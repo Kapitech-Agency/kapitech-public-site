@@ -22,7 +22,6 @@ import {
   Briefcase
 } from 'lucide-react';
 import Fuse from 'fuse.js';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { ProjectItem } from '../data/projectsData';
 
@@ -657,7 +656,7 @@ export const Work = () => {
                 </div>
 
                 {/* Challenge & Solution */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-[#E50914] mb-2 font-semibold flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#E50914]" />
@@ -668,7 +667,7 @@ export const Work = () => {
                     </p>
                   </div>
 
-                  <div className="p-5 rounded-xl bg-[#0B0C0E] border border-[#262930]">
+                  <div className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 font-semibold flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-brand-red" />
                       <span>{language === 'id' ? 'Solusi & Rekayasa Kapitech' : 'Our Solution & Execution'}</span>
