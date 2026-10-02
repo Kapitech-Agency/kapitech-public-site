@@ -153,9 +153,9 @@ export const Navbar = () => {
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
         style={isMenuOpen ? {
-          backgroundColor: 'rgba(11, 12, 14, 0.64)',
-          backdropFilter: 'blur(36px) saturate(1.2)',
-          WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
+          backgroundColor: 'rgba(11, 12, 14, 0.46)',
+          backdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
+          WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
         } : undefined}
       >
         {/* Scroll Progress Bar */}
