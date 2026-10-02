@@ -1,3 +1,6 @@
+import type { ProjectItem } from '../data/projectsData';
+import type { ServiceItemData } from '../data/servicesData';
+
 const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 const configuredApiBase = String(import.meta.env.VITE_AMS_API_BASE_URL || '').trim();
@@ -127,9 +130,16 @@ export const api = {
       })
   },
   cms: {
-    getPublicSettings: () => apiRequest('/api/cms/public-settings'),
-    getServices: () => apiRequest('/api/cms/services'),
-    getProjects: () => apiRequest('/api/cms/projects'),
-    getTestimonials: () => apiRequest('/api/cms/testimonials')
+    getPublicSettings: () => apiRequest<{
+      settings?: {
+        siteTitle?: string;
+        siteDescription?: string;
+        maintenanceMode?: boolean;
+        defaultLanguage?: string;
+      };
+    }>('/api/cms/public-settings'),
+    getServices: () => apiRequest<{ services?: ServiceItemData[] }>('/api/cms/services'),
+    getProjects: () => apiRequest<{ projects?: ProjectItem[] }>('/api/cms/projects'),
+    getTestimonials: () => apiRequest<{ testimonials?: import('./cmsStore').TestimonialItem[] }>('/api/cms/testimonials')
   }
 };
