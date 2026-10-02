@@ -131,75 +131,69 @@ export const Home = () => {
             speed={0.2}
             depth={0.55}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_35%,rgba(230,57,70,.16),transparent_32rem),linear-gradient(180deg,#08090b_0%,rgba(8,9,11,.45)_52%,#08090b_100%)]" />
+          <div className="kapi-hero-backdrop" />
         </div>
 
         <div className="kapi-container relative z-10 grid grid-cols-1 lg:grid-cols-[1.05fr_.95fr] gap-14 lg:gap-8 items-center pt-28 pb-16">
-          <div>
-            <Reveal>
+          <div className="kapi-hero-copy">
+            <div data-hero-intro>
               <span className="kapi-eyebrow">
                 {language === 'id' ? 'Creative & IT Development Agency' : 'Creative & IT Development Agency'}
               </span>
-            </Reveal>
+            </div>
 
             <div className="mt-5 kapi-hero-title-mask" style={{ perspective: '900px' }}>
               <h1 className="font-display text-[clamp(3.2rem,7.5vw,7rem)] leading-[.9] tracking-[-.065em] font-semibold max-w-[900px]">
-                {language === 'id' ? (
-                  <>
-                    <SplitWords text="Studio digital untuk membangun dan memperluas bisnis Anda." highlight={['membangun', 'memperluas']} />
-                  </>
-                ) : (
-                  <SplitWords text="A digital studio built to build and scale your business." highlight={['build', 'scale']} />
-                )}
+                {language === 'id'
+                  ? <SplitWords text="Studio digital untuk membangun dan memperluas bisnis Anda." highlight={['membangun', 'memperluas']} />
+                  : <SplitWords text="A digital studio built to build and scale your business." highlight={['build', 'scale']} />}
               </h1>
             </div>
 
-            <Reveal delay={0.18}>
+            <div data-hero-copy>
               <p className="mt-6 max-w-[660px] text-base sm:text-lg leading-8 text-white/58">
                 {language === 'id'
                   ? 'Kami merancang dan mengembangkan website, web application, visual systems, dan digital experiences untuk bisnis yang ingin bergerak lebih cepat.'
                   : 'We design and develop websites, web applications, visual systems, and digital experiences for businesses ready to move forward with clarity.'}
               </p>
-            </Reveal>
+            </div>
 
-            <Reveal delay={0.28}>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <GlassButton to="/contact">
-                  {language === 'id' ? 'Mulai proyek' : 'Start a project'}
-                </GlassButton>
-                <GlassButton to="/work" variant="secondary">
-                  {language === 'id' ? 'Lihat portfolio' : 'Explore work'}
-                </GlassButton>
-              </div>
-            </Reveal>
+            <div data-hero-actions className="mt-8 flex flex-col sm:flex-row gap-3">
+              <GlassButton to="/contact">
+                {language === 'id' ? 'Mulai proyek' : 'Start a project'}
+              </GlassButton>
+              <GlassButton to="/work" variant="secondary">
+                {language === 'id' ? 'Lihat portfolio' : 'Explore work'}
+              </GlassButton>
+            </div>
 
-            <Reveal delay={0.36}>
-              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.16em] text-white/34">
-                <span>South Tangerang</span>
-                <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
-                <span>Est. 2021</span>
-                <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
-                <span>Digital products & creative systems</span>
-              </div>
-            </Reveal>
+            <div data-hero-meta className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.16em] text-white/34">
+              <span>South Tangerang</span>
+              <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
+              <span>Est. 2021</span>
+              <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
+              <span>Digital products & creative systems</span>
+            </div>
           </div>
 
-          <Reveal delay={0.15} className="hidden lg:block">
-            <ParallaxMedia strength={5} className="kapi-hero-visual-wrap" ><div className="kapi-hero-visual" data-hero-visual>
-              <div className="kapi-hero-ring" />
-              <div className="kapi-hero-orbit" />
-              <div className="kapi-hero-center">
-                <div className="kapi-hero-grid" />
-                <div className="kapi-hero-mark">
-                  <img
-                    src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png"
-                    alt=""
-                    className="w-12 h-auto"
-                  />
+          <div className="hidden lg:block">
+            <ParallaxMedia strength={5} className="kapi-hero-visual-wrap">
+              <div className="kapi-hero-visual" data-hero-visual data-cursor="view" data-cursor-text="Explore">
+                <div className="kapi-hero-ring" />
+                <div className="kapi-hero-orbit" />
+                <div className="kapi-hero-center">
+                  <div className="kapi-hero-grid" />
+                  <div className="kapi-hero-mark">
+                    <img
+                      src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png"
+                      alt=""
+                      className="w-12 h-auto"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Reveal>
+            </ParallaxMedia>
+          </div>
         </div>
       </section>
 
