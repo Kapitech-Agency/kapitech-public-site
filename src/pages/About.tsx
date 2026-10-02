@@ -565,7 +565,7 @@ export const About = () => {
                     <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
                       {stack.icon}
                     </div>
-                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0B0C0E] text-[#FF6B00] border border-[#262930]">
+                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0B0C0E] text-[#E50914] border border-[#262930]">
                       {stack.badge}
                     </span>
                   </div>
