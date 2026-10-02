@@ -484,7 +484,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
-                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
+                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-colors duration-200",
                       language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
@@ -493,7 +493,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => setLanguage('id')}
                     className={cn(
-                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
+                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-colors duration-200",
                       language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
@@ -669,7 +669,7 @@ export const Navbar = () => {
                 to="/careers"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,transform,border-color] duration-300 min-h-[56px] hover:border-white/20 hover:-translate-y-px",
+                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,border-color] duration-300 min-h-[56px] hover:border-white/20",
                   location.pathname === '/careers' 
                     ? "text-white font-bold border-brand-red/70" 
                     : "text-[#8A909D] hover:text-white"
