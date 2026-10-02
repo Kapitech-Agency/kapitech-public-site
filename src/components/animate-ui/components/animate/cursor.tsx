@@ -4,10 +4,8 @@ import * as React from 'react';
 import {
   motion,
   useMotionValue,
-  useSpring,
   AnimatePresence,
   type HTMLMotionProps,
-  type SpringOptions,
 } from 'motion/react';
 
 type CursorContextType = {
@@ -119,8 +117,6 @@ export function Cursor({ children, style, ...props }: CursorProps) {
   const { cursorPos, active, cursorRef } = useCursor();
   const x = useMotionValue(cursorPos.x);
   const y = useMotionValue(cursorPos.y);
-  const springX = useSpring(x, { stiffness: 900, damping: 58, mass: 0.35 });
-  const springY = useSpring(y, { stiffness: 900, damping: 58, mass: 0.35 });
 
   React.useEffect(() => {
     x.set(cursorPos.x);
@@ -134,11 +130,11 @@ export function Cursor({ children, style, ...props }: CursorProps) {
           ref={cursorRef}
           data-slot="cursor"
           className="kapi-cursor-pointer"
-          style={{ ...style, top: springY, left: springX }}
-          initial={{ opacity: 0, scale: 0.84 }}
+          style={{ ...style, top: y, left: x }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.84 }}
-          transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 0.94 }}
+          transition={{ duration: 0.07, ease: 'linear' }}
           {...props}
         >
           <svg
@@ -151,10 +147,18 @@ export function Cursor({ children, style, ...props }: CursorProps) {
             <path
               d="M5.25 2.95C3.57 2.18 1.82 3.56 2.2 5.38l5.08 24.1c.4 1.9 2.86 2.35 4.04.73l4.18-5.98 6.55 4.65c1.52 1.08 3.48-.25 2.93-1.98L19.1 8.36a2.1 2.1 0 0 0-1.16-1.31L5.25 2.95Z"
               fill="#FFFFFF"
-              stroke="#101216"
-              strokeWidth="1.3"
+              stroke="#111318"
+              strokeWidth="1.25"
               strokeLinejoin="round"
               strokeLinecap="round"
+            />
+            <path
+              d="M6.4 6.1 10.9 27.5"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth="0.9"
+              strokeLinecap="round"
+              opacity="0.48"
             />
           </svg>
         </motion.div>
@@ -163,26 +167,18 @@ export function Cursor({ children, style, ...props }: CursorProps) {
   );
 }
 
-export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
-  transition?: SpringOptions;
-  children: React.ReactNode;
-};
-
 export function CursorFollow({
-  transition = { stiffness: 760, damping: 54, mass: 0.35 },
   children,
   style,
   ...props
 }: CursorFollowProps) {
   const { cursorPos, active } = useCursor();
   const x = useMotionValue(cursorPos.x + 12);
-  const y = useMotionValue(cursorPos.y + 40);
-  const springX = useSpring(x, transition);
-  const springY = useSpring(y, transition);
+  const y = useMotionValue(cursorPos.y + 46);
 
   React.useEffect(() => {
     x.set(cursorPos.x + 12);
-    y.set(cursorPos.y + 40);
+    y.set(cursorPos.y + 46);
   }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
@@ -191,11 +187,11 @@ export function CursorFollow({
         <motion.div
           data-slot="cursor-follow"
           className="kapi-cursor-follow"
-          style={{ ...style, top: springY, left: springX }}
-          initial={{ opacity: 0, scale: 0.78 }}
+          style={{ ...style, top: y, left: x }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.78 }}
-          transition={{ duration: 0.13, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.08, ease: 'linear' }}
           {...props}
         >
           {children}
