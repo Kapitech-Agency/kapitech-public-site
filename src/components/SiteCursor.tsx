@@ -15,7 +15,7 @@ const getCursorLabel = (element: Element | null) => {
 };
 
 export const SiteCursor = () => {
-  const [label, setLabel] = React.useState('Explore');
+  const [label, setLabel] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -24,7 +24,13 @@ export const SiteCursor = () => {
     if (!canHover.matches || reducedMotion.matches) return;
 
     const handlePointerOver = (event: PointerEvent) => {
-      setLabel(getCursorLabel(event.target as Element | null));
+      const target = event.target as Element | null;
+      const interactive = target?.closest('a, button, [role="button"], input, textarea, select');
+      if (!interactive) {
+        setLabel(null);
+        return;
+      }
+      setLabel(getCursorLabel(target));
     };
 
     window.addEventListener('pointerover', handlePointerOver, { passive: true });
@@ -32,17 +38,22 @@ export const SiteCursor = () => {
   }, []);
 
   return (
-    <div aria-hidden="true" className="kapi-site-cursor-layer">
+    <div
+      aria-hidden="true"
+      className={`kapi-site-cursor-layer${label ? ' is-interactive' : ''}`}
+    >
       <CursorProvider global>
         <Cursor />
-        <CursorFollow
-          side="bottom"
-          sideOffset={18}
-          align="end"
-          alignOffset={6}
-        >
-          {label}
-        </CursorFollow>
+        {label && (
+          <CursorFollow
+            side="bottom"
+            sideOffset={18}
+            align="end"
+            alignOffset={6}
+          >
+            {label}
+          </CursorFollow>
+        )}
       </CursorProvider>
     </div>
   );
