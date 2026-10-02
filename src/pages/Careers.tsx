@@ -796,7 +796,7 @@ export const Careers = () => {
                 >
                   <button
                     onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.09] bg-[#16181D] transition-all duration-500 hover:-translate-y-1 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    className="group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/[0.09] bg-white/[0.02] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-[0_18px_40px_-30px_rgba(229,9,20,0.7)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     title={`${talent.name} - ${talent.role}`}
                     aria-label={`View photo and profile of ${talent.name}`}
                   >
@@ -832,7 +832,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+                className="relative w-full max-w-lg bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 sm:p-8 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] overflow-hidden my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
@@ -922,7 +922,7 @@ export const Careers = () => {
                 key={pos.id}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-white/[0.09] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300"
+                className="cursor-pointer group p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
@@ -1227,7 +1227,7 @@ export const Careers = () => {
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -3 }}
-                className="p-6 sm:p-8 rounded-2xl border border-white/[0.09] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+                className="p-6 sm:p-8 rounded-2xl border border-white/[0.09] bg-white/[0.018] hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300 flex flex-col justify-between"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mb-6">
                   {benefit.icon}
@@ -1267,7 +1267,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
               <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
@@ -1541,7 +1541,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#16181D] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
               <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
@@ -1781,7 +1781,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedWfa}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-white/[0.02] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>100% WFA & Project-Based:</strong> {language === 'id' 
@@ -1797,7 +1797,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedDevice}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-white/[0.02] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>BYOD (No Device Provided):</strong> {language === 'id'
@@ -1813,7 +1813,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedNda}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-white/[0.02] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>NDA & Deadline Discipline:</strong> {language === 'id'
