@@ -335,9 +335,9 @@ export const Navbar = () => {
               onMouseLeave={handleMouseLeaveServices}
               className="hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
               style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.68)',
-                backdropFilter: 'none',
-                WebkitBackdropFilter: 'none',
+                backgroundColor: 'rgba(11, 12, 14, 0.52)',
+                backdropFilter: 'blur(38px) saturate(1.18) brightness(0.82)',
+                WebkitBackdropFilter: 'blur(38px) saturate(1.18) brightness(0.82)',
               }}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
