@@ -327,7 +327,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/98 backdrop-blur-2xl border-b border-[#262930] shadow-[0_25px_60px_rgba(0,0,0,0.95)] py-8 px-6 lg:px-12"
+              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.72)] py-8 px-6 lg:px-12"
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
