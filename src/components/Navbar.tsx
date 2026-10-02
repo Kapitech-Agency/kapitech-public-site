@@ -108,7 +108,7 @@ export const Navbar = () => {
   // Shared navbar material used by the scrolled navbar and mobile controls.
   const navbarGlassMaterial = "bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84";
   // Dropdown uses the same dark glass language, with stronger blur and a lighter surface.
-  const dropdownGlassMaterial = "bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54";
+  const dropdownGlassMaterial = "bg-[#0B0C0E]/74 backdrop-blur-lg backdrop-saturate-125 supports-[backdrop-filter]:bg-[#0B0C0E]/68";
   const controlGlassMaterial = "bg-[#0B0C0E]/42 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/34";
 
   const desktopNavItemClass = (active: boolean) =>
