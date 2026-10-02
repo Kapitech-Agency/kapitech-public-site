@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -32,11 +32,25 @@ import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
-import { allProjects } from '../data/projectsData';
+import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
 export const Home = () => {
   const { t, language } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [projectsList, setProjectsList] = useState(() => getCmsProjects());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setProjectsList(getCmsProjects());
+    };
+
+    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void fetchServerCmsProjects().then(() => {
+      setProjectsList(getCmsProjects());
+    });
+
+    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+  }, []);
 
   const clientPartners = [
     { name: "Lumina Property", industry: language === 'id' ? "Teknologi Properti" : "Real Estate Tech", logoText: "LUMINA", desc: language === 'id' ? "Pencarian Properti & Web Interaktif 3D" : "Property Search & 3D Interactive Web" },
@@ -60,7 +74,7 @@ export const Home = () => {
     { name: "AWS & GCP", category: "Cloud", icon: <Shield size={18} /> },
   ];
 
-  const previewProjects = allProjects.slice(0, 4);
+  const previewProjects = projectsList.slice(0, 4);
 
   // Redesigned Simple, High-Contrast Stats
   const stats = [

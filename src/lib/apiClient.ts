@@ -1,10 +1,26 @@
 const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
+const configuredApiBase = String(import.meta.env.VITE_AMS_API_BASE_URL || '').trim();
+const defaultApiBase = import.meta.env.PROD ? 'https://ams.kapitech.id/api' : '/api';
+const API_BASE_URL = (configuredApiBase || defaultApiBase).replace(/\/+$/, '');
+
 function readCookie(name: string): string {
   if (typeof document === 'undefined') return '';
   const prefix = `${name}=`;
   const part = document.cookie.split('; ').find((item) => item.startsWith(prefix));
   return part ? decodeURIComponent(part.slice(prefix.length)) : '';
+}
+
+function resolveApiUrl(endpoint: string): string {
+  const normalizedEndpoint = endpoint === '/api'
+    ? ''
+    : endpoint.startsWith('/api/')
+      ? endpoint.slice(4)
+      : endpoint.startsWith('/')
+        ? endpoint
+        : `/${endpoint}`;
+
+  return `${API_BASE_URL}${normalizedEndpoint}`;
 }
 
 export async function apiRequest<T = unknown>(
@@ -16,22 +32,29 @@ export async function apiRequest<T = unknown>(
 
   try {
     const method = String(options.method || 'GET').toUpperCase();
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string> || {})
-    };
+    const headers = new Headers(options.headers);
+    const hasRequestBody = options.body !== undefined && options.body !== null;
 
-    if (MUTATING_METHODS.has(method)) {
-      const csrfToken = readCookie('kapi_csrf');
-      if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
+    if (hasRequestBody && !headers.has('Content-Type')) {
+      headers.set('Content-Type', 'application/json');
     }
 
-    const url = endpoint.startsWith('/') ? endpoint : `/api/${endpoint}`;
-    const res = await fetch(url, {
+    const targetUrl = resolveApiUrl(endpoint);
+    const targetOrigin = new URL(targetUrl, window.location.href).origin;
+    const isCrossOrigin = targetOrigin !== window.location.origin;
+
+    if (MUTATING_METHODS.has(method) && !isCrossOrigin) {
+      const csrfToken = readCookie('kapi_csrf');
+      if (csrfToken && !headers.has('X-CSRF-Token')) {
+        headers.set('X-CSRF-Token', csrfToken);
+      }
+    }
+
+    const res = await fetch(targetUrl, {
       ...options,
       method,
       headers,
-      credentials: 'same-origin',
+      credentials: isCrossOrigin ? 'omit' : 'same-origin',
       signal: options.signal || controller.signal
     });
 

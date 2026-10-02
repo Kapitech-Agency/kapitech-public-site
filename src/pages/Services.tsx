@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Layout, 
@@ -27,6 +27,7 @@ import {
 import { Link } from 'react-router-dom';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
+import { fetchServerCmsServices, getCmsServices } from '../lib/cmsStore';
 
 export interface ServiceDetail {
   id: string;
@@ -68,6 +69,20 @@ export const Services = () => {
   const { language } = useLanguage();
   const [selectedService, setSelectedService] = useState<ServiceDetail | StrategicSolution | null>(null);
   const [activeCategory, setActiveCategory] = useState<'All' | 'Branding' | 'Design' | 'Development'>('All');
+  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setCmsServices(getCmsServices());
+    };
+
+    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void fetchServerCmsServices().then(() => {
+      setCmsServices(getCmsServices());
+    });
+
+    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+  }, []);
 
   const strategicSolutions: StrategicSolution[] = [
     {
@@ -626,10 +641,53 @@ export const Services = () => {
     }
   ];
 
+  const cmsBySlug = useMemo(
+    () => new Map(cmsServices.map((service) => [service.slug, service])),
+    [cmsServices]
+  );
+
+  const resolvedStrategicSolutions = useMemo(() => strategicSolutions.map((solution) => {
+    const cms = cmsBySlug.get(solution.id);
+    if (!cms) return solution;
+
+    return {
+      ...solution,
+      title: cms.title || solution.title,
+      audience: cms.navSubtitle || solution.audience,
+      audienceId: cms.navSubtitleId || solution.audienceId,
+      description: cms.heroSubtitle || solution.description,
+      descriptionId: cms.heroSubtitleId || solution.descriptionId,
+      badge: cms.badge || solution.badge,
+      badgeId: cms.badgeId || solution.badgeId,
+    };
+  }), [cmsBySlug]);
+
+  const resolvedAllServices = useMemo(() => allServices.map((service) => {
+    const cms = cmsBySlug.get(service.id);
+    if (!cms) return service;
+
+    return {
+      ...service,
+      title: cms.title || service.title,
+      category: cms.category === 'Solutions' ? service.category : cms.category,
+      subtitle: cms.navSubtitle || service.subtitle,
+      subtitleId: cms.navSubtitleId || service.subtitleId,
+      summary: cms.heroSubtitle || service.summary,
+      summaryId: cms.heroSubtitleId || service.summaryId,
+      tools: Array.isArray(cms.tools) && cms.tools.length > 0 ? cms.tools : service.tools,
+      deliverables: Array.isArray(cms.processStages?.[0]?.deliverables) && cms.processStages[0].deliverables.length > 0
+        ? cms.processStages[0].deliverables
+        : service.deliverables,
+      deliverablesId: Array.isArray(cms.processStages?.[0]?.deliverablesId) && cms.processStages[0].deliverablesId.length > 0
+        ? cms.processStages[0].deliverablesId
+        : service.deliverablesId,
+    };
+  }), [cmsBySlug]);
+
   const filteredServices = useMemo(() => {
-    if (activeCategory === 'All') return allServices;
-    return allServices.filter(s => s.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'All') return resolvedAllServices;
+    return resolvedAllServices.filter(s => s.category === activeCategory);
+  }, [activeCategory, resolvedAllServices]);
 
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
@@ -657,10 +715,10 @@ export const Services = () => {
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
-                <span className="text-white">3 {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
+                <span className="text-white">{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
               </span>
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] text-white">
-                15 {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
+                {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
               </span>
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] text-brand-red font-semibold">
                 Branding • Design • Development
@@ -691,7 +749,7 @@ export const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {strategicSolutions.map((sol) => (
+            {resolvedStrategicSolutions.map((sol) => (
               <Link
                 key={sol.id}
                 to={`/solutions/${sol.id}`}
@@ -740,10 +798,22 @@ export const Services = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2 bg-[#16181D] p-1.5 rounded-xl border border-[#262930] w-full sm:w-auto">
             {[
-              { key: 'All', labelEn: 'All Services (15)', labelId: 'Semua Layanan (15)' },
-              { key: 'Branding', labelEn: '1. Branding (5)', labelId: '1. Branding (5)' },
-              { key: 'Design', labelEn: '2. Design (5)', labelId: '2. Design (5)' },
-              { key: 'Development', labelEn: '3. Development (5)', labelId: '3. Development (5)' }
+              { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
+              {
+                key: 'Branding',
+                labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`,
+                labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`
+              },
+              {
+                key: 'Design',
+                labelEn: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`,
+                labelId: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`
+              },
+              {
+                key: 'Development',
+                labelEn: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`,
+                labelId: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`
+              }
             ].map(tab => (
               <button
                 key={tab.key}
@@ -772,7 +842,7 @@ export const Services = () => {
           {/* Show Group Headers when 'All' is selected, or direct grid when filtered */}
           {['Branding', 'Design', 'Development'].map(cat => {
             if (activeCategory !== 'All' && activeCategory !== cat) return null;
-            const catServices = allServices.filter(s => s.category === cat);
+            const catServices = resolvedAllServices.filter(s => s.category === cat);
 
             return (
               <div key={cat} className="space-y-6">
@@ -787,7 +857,7 @@ export const Services = () => {
                     </h2>
                   </div>
                   <span className="text-xs font-mono text-[#8A909D]">
-                    5 {language === 'id' ? 'Layanan Terintegrasi' : 'Capabilities'}
+                    {catServices.length} {language === 'id' ? 'Layanan Terintegrasi' : 'Capabilities'}
                   </span>
                 </div>
 

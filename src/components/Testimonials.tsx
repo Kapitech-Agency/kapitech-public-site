@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
-import { getCmsTestimonials, TestimonialItem } from '../lib/cmsStore';
+import { fetchServerCmsTestimonials, getCmsTestimonials, TestimonialItem } from '../lib/cmsStore';
 
 export const Testimonials = () => {
   const { language } = useLanguage();
@@ -14,7 +14,12 @@ export const Testimonials = () => {
     const handleUpdate = () => {
       setCmsTestimonials(getCmsTestimonials());
     };
+
     window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void fetchServerCmsTestimonials().then(() => {
+      setCmsTestimonials(getCmsTestimonials());
+    });
+
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
@@ -42,7 +47,7 @@ export const Testimonials = () => {
     location: t.location,
     rating: t.rating || 5
   }));
-  const totalSlides = Math.ceil(testimonials.length / itemsPerSlide);
+  const totalSlides = Math.max(1, Math.ceil(testimonials.length / itemsPerSlide));
 
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
