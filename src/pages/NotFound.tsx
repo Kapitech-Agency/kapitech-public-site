@@ -8,7 +8,7 @@ export const NotFound = () => {
   const { language } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] flex flex-col items-center justify-center px-6 overflow-hidden relative selection:bg-brand-red selection:text-white">
+    <div className="kapi-utility-page min-h-screen bg-[#0B0C0E] flex flex-col items-center justify-center px-6 overflow-hidden relative selection:bg-brand-red selection:text-white">
       {/* Background Glitch Effect */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none overflow-hidden">
         <span className="text-[50vw] font-display font-black uppercase tracking-tighter leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">404</span>
