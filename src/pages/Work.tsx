@@ -171,7 +171,7 @@ export const Work = () => {
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground 
           imageUrl="/hero_background_3d.png"
           opacity={0.06}
@@ -192,14 +192,14 @@ export const Work = () => {
               }
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93]">
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A] flex items-center gap-2">
+              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
                 <span>50 {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies Verified'}</span>
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
+              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
                 12 {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
+              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
                 {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
               </span>
             </div>
@@ -209,7 +209,7 @@ export const Work = () => {
 
       {/* Featured Spotlight Carousel */}
       {currentFeatured && (
-        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A]">
+        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A]">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2.5">
@@ -221,7 +221,7 @@ export const Work = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#2A2A2A] bg-[#161616] hover:bg-[#1E1E1E] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
                   aria-label="Previous featured project"
                 >
                   <ChevronLeft size={16} />
@@ -231,7 +231,7 @@ export const Work = () => {
                 </span>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev + 1) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#2A2A2A] bg-[#161616] hover:bg-[#1E1E1E] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
                   aria-label="Next featured project"
                 >
                   <ChevronRight size={16} />
@@ -241,7 +241,7 @@ export const Work = () => {
 
             <div 
               onClick={() => setSelectedProject(currentFeatured)}
-              className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/50 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
+              className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
             >
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0A0A0A]">
                 <img 
@@ -259,7 +259,7 @@ export const Work = () => {
                     <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[11px] font-mono font-medium">
                       {currentFeatured.pillar}
                     </span>
-                    <span className="px-2.5 py-1 rounded-full bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93] text-[11px] font-mono">
+                    <span className="px-2.5 py-1 rounded-full bg-[#0A0A0A] border border-[#262930] text-[#8E8E93] text-[11px] font-mono">
                       {currentFeatured.service}
                     </span>
                     <span className="text-[#8E8E93]/70 text-xs font-mono ml-auto">
@@ -279,7 +279,7 @@ export const Work = () => {
                 </div>
 
                 <div>
-                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#2A2A2A] mb-6">
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#262930] mb-6">
                     {currentFeatured.impact.map((metric, i) => (
                       <div key={i}>
                         <span className="text-lg sm:text-xl font-display font-bold text-white block">
@@ -453,7 +453,7 @@ export const Work = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => setSelectedProject(project)}
-                    className="cursor-pointer group rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:bg-[#1E2128] hover:border-brand-red/40 transition-all duration-300 flex flex-col h-full"
+                    className="cursor-pointer group rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] hover:border-brand-red/40 transition-all duration-300 flex flex-col h-full"
                   >
                     {/* Thumbnail Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
