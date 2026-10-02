@@ -707,8 +707,26 @@ export const Careers = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
-undefined
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <PatternWaves
+            preset="pond"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.17}
+            fade="edges"
+            fadeSize={0.8}
+            interactive
+            cursorSize={52}
+            cursorStrength={0.36}
+            speed={0.2}
+            scale={1.06}
+            depth={0.58}
+            shine={0.48}
+            contrast={1.04}
+            intro
+          />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/72 to-transparent" />
+        </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
