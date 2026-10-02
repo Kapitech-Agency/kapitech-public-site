@@ -1,1264 +1,1452 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
-/* ==========================================================================
-   KAPITECH AGENCY AMS & ENTERPRISE ECOSYSTEM - DESIGN TOKENS & COLOR ARCHITECTURE
-   ========================================================================== */
 :root {
-  --bg:#f4f4f7; --panel:#ffffff; --line:#e3e3ea; --text:#16161c; --muted:#6c6c7a;
-  --accent:#dc143c; --accent-text:#c40f34;
-  --series-2:#12a672; --series-3:#3b6fe0; --series-4:#8a8a98;
-  --success:#12a672; --warning:#b7791f; --danger:#d92d20; --info:#3b6fe0;
-  --accent-hover:#c40f34; --accent-pressed:#a10c2b;
-}
-:root[data-theme="dark"] {
-  --bg:#09090c; --panel:#0f0f14; --line:#20202a; --text:#f3f3f6; --muted:#8b8b99;
-  --accent:#dc143c; --accent-text:#ff4d6d;
-  --series-2:#34d399; --series-3:#5b8cff; --series-4:#b9b9c6;
-  --success:#34d399; --warning:#f5a524; --danger:#f97066; --info:#5b8cff;
-  --accent-hover:#c40f34; --accent-pressed:#a10c2b;
-}
-
-/* Public-site card tokens. Kept aligned with the existing dark/red visual system. */
-:root,
-:root[data-theme="dark"] {
-  --kapi-bg-charcoal-deep: #0B0C0E;
-  --kapi-bg-obsidian: #16181D;
-  --kapi-bg-card: #16181D;
-  --kapi-bg-card-hover: #1E2128;
-  --kapi-border-subtle: #262930;
-  --kapi-border-highlight: rgba(229, 9, 20, 0.38);
-  --kapi-red-primary: #E50914;
-  --kapi-red-electric: #FF1E27;
-  --kapi-red-border-hover: rgba(229, 9, 20, 0.55);
-  --kapi-red-glow-hover: rgba(229, 9, 20, 0.12);
-  --kapi-text-white: #FFFFFF;
-  --kapi-text-slate: #8A909D;
-  --kapi-radius-card: 1rem;
-  --kapi-radius-inner: 0.75rem;
-  --kapi-radius-pill: 999px;
-  --kapi-transition-smooth: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --k-bg: #08090b;
+  --k-bg-soft: #0c0e12;
+  --k-surface: rgba(16, 18, 23, 0.74);
+  --k-surface-strong: #11141a;
+  --k-surface-soft: rgba(255,255,255,0.028);
+  --k-line: rgba(255,255,255,0.085);
+  --k-line-strong: rgba(255,255,255,0.14);
+  --k-text: #f5f5f6;
+  --k-muted: #8f95a1;
+  --k-subtle: #626975;
+  --k-red: #e63946;
+  --k-red-soft: rgba(230,57,70,0.12);
+  --k-radius-sm: 10px;
+  --k-radius-md: 16px;
+  --k-radius-lg: 24px;
+  --k-shadow: 0 24px 80px rgba(0,0,0,0.28);
+  --k-ease: cubic-bezier(0.22,1,0.36,1);
 }
 
 @theme inline {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --color-bg: var(--bg);
-  --color-panel: var(--panel);
-  --color-line: var(--line);
-  --color-fg: var(--text);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-text: var(--accent-text);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-pressed: var(--accent-pressed);
-  --color-series-2: var(--series-2);
-  --color-series-3: var(--series-3);
-  --color-series-4: var(--series-4);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --color-info: var(--info);
-  --radius-badge: 5px;
-  --radius-chip: 6px;
-  --radius-control: 8px;
-  --radius-card: 12px;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  
-  /* Primary Accent: Refined Brand Red */
-  --color-brand-red: #E50914;
-  --color-brand-red-bright: #FF1E27;
-  --color-brand-red-hover: #FF1E27;
-  --color-brand-red-glow: rgba(229, 9, 20, 0.25);
-
-  /* Surfaces - Strict Solid Dark Palette */
-  --color-dark-base: #090A0F;
-  --color-dark-card: #111318;
-  --color-dark-card-hover: #181B22;
-  --color-dark-subtle: #21252F;
-  --color-dark-border: rgba(255, 255, 255, 0.07);
-  --color-dark-divider: rgba(255, 255, 255, 0.12);
-  --color-charcoal: #111318;
-
-  /* Typography */
-  --color-text-headline: #F8FAFC;
-  --color-text-body: #8A94A6;
-  --color-text-muted: #64748B;
+  --font-display: "Space Grotesk", "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-brand-red: var(--k-red);
+  --color-bg: var(--k-bg);
+  --color-panel: var(--k-surface-strong);
+  --color-line: var(--k-line);
+  --color-fg: var(--k-text);
+  --color-muted: var(--k-muted);
+  --radius-card: var(--k-radius-md);
+  --radius-control: 12px;
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    scrollbar-gutter: stable;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    overflow-x: hidden;
-    width: 100%;
-    selection-background-color: #E60023;
-    selection-color: #FFFFFF;
-  }
-
-  /* Public-site typography and focus only. AMS owns its own scoped UI states. */
-  .kapi-public-shell h1,
-  .kapi-public-shell h2,
-  .kapi-public-shell h3,
-  .kapi-public-shell h4,
-  .kapi-public-shell h5,
-  .kapi-public-shell h6 {
-    color: #FFFFFF;
-  }
-
-  .kapi-public-shell h1 {
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-  }
-
-  .kapi-public-shell h2 {
-    font-size: clamp(1.25rem, 3vw, 2.25rem);
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-  }
-
-  .kapi-public-shell h3 {
-    font-size: clamp(1.125rem, 2vw, 1.75rem);
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-  }
-
-  .kapi-public-shell p {
-    font-size: 14px;
-    line-height: 1.6;
-    letter-spacing: -0.01em;
-  }
+html {
+  scroll-behavior: smooth;
+  background: var(--k-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
 }
 
-/* Public-site focus styling stays out of AMS so modal/control focus states are not cascaded. */
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--k-bg);
+  color: var(--k-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(230,57,70,0.75);
+  color: #fff;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .kapi-public-shell {
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(230,57,70,0.06), transparent 28rem),
+    radial-gradient(circle at 85% 16%, rgba(255,255,255,0.028), transparent 26rem),
+    var(--k-bg);
+  color: var(--k-text);
 }
 
-/* ==========================================================================
-   1. GLOBAL FLUID AMBIENT BACKGROUND
-   ========================================================================== */
-.kapi-fluid-background {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 0%, 
-    var(--kapi-bg-charcoal-deep) 0%, 
-    var(--kapi-bg-obsidian) 75%
-  );
-  overflow: hidden;
+.kapi-public-shell main {
+  min-width: 0;
 }
 
-/* Ambient Fluid Orbs Mesh */
-.kapi-fluid-background::before,
-.kapi-fluid-background::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  will-change: transform, opacity;
+.kapi-container {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
 }
 
-/* Primary Crimson Ambient Light (Fluid Flow Top-Left to Center) */
-.kapi-fluid-background::before {
-  top: -15%;
-  left: -10%;
-  width: 55vw;
-  height: 55vw;
-  max-width: 800px;
-  max-height: 800px;
-  background: radial-gradient(circle, var(--kapi-red-primary) 0%, rgba(230, 0, 35, 0) 70%);
-  opacity: 0.10;
-  animation: kapiFloatOrbOne 22s ease-in-out infinite alternate;
+.kapi-page {
+  min-width: 0;
+  overflow: clip;
 }
 
-/* Secondary Charcoal & Deep Red Subtle Counter-Mesh (Bottom-Right) */
-.kapi-fluid-background::after {
-  bottom: -20%;
-  right: -10%;
-  width: 65vw;
-  height: 65vw;
-  max-width: 900px;
-  max-height: 900px;
-  background: radial-gradient(circle, var(--kapi-red-electric) 0%, rgba(18, 20, 24, 0.4) 50%, rgba(8, 9, 10, 0) 75%);
-  opacity: 0.08;
-  animation: kapiFloatOrbTwo 28s ease-in-out infinite alternate;
-}
-
-/* Subtle Film Grain Texture Overlay for Depth */
-.kapi-noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* Ambient Floating Animation Keyframes */
-@keyframes kapiFloatOrbOne {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.09;
-  }
-  50% {
-    transform: translate(15vw, 12vh) scale(1.15);
-    opacity: 0.13;
-  }
-  100% {
-    transform: translate(5vw, 25vh) scale(0.95);
-    opacity: 0.08;
-  }
-}
-
-@keyframes kapiFloatOrbTwo {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.07;
-  }
-  50% {
-    transform: translate(-12vw, -15vh) scale(1.2);
-    opacity: 0.11;
-  }
-  100% {
-    transform: translate(-20vw, -5vh) scale(0.9);
-    opacity: 0.06;
-  }
-}
-
-/* ==========================================================================
-   2. REUSABLE CARD COMPONENT SYSTEM (.kapi-card)
-   ========================================================================== */
-.kapi-card {
+.kapi-section {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--kapi-bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--kapi-border-subtle);
-  border-radius: var(--kapi-radius-card);
-  padding: 1.75rem 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: var(--kapi-transition-smooth);
-  cursor: pointer;
-  overflow: hidden;
+  padding: clamp(5rem, 9vw, 8.5rem) 0;
+  border-bottom: 1px solid var(--k-line);
 }
 
-@media (min-width: 640px) {
-  .kapi-card {
-    padding: 2.25rem 2rem;
-  }
+.kapi-section-header {
+  max-width: 860px;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
-/* Inner Soft Red Radial Glow (Hidden by default, reveals on Hover) */
-.kapi-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: radial-gradient(
-    800px circle at var(--mouse-x, 50%) var(--mouse-y, 0%), 
-    var(--kapi-red-glow-hover), 
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  z-index: 0;
+.kapi-section-header.is-center {
+  margin-inline: auto;
+  text-align: center;
 }
 
-/* Top Subtle Shimmer Edge */
-.kapi-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--kapi-border-highlight), transparent);
-  transition: var(--kapi-transition-smooth);
-}
-
-/* Card Hover States */
-.kapi-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--kapi-red-border-hover);
-  background-color: var(--kapi-bg-card-hover);
-  box-shadow: 
-    0 12px 36px -8px rgba(0, 0, 0, 0.7),
-    0 0 24px 0 rgba(230, 0, 35, 0.15);
-}
-
-.kapi-card:hover::before {
-  opacity: 1;
-}
-
-.kapi-card:hover::after {
-  left: 0;
-  right: 0;
-  background: linear-gradient(90deg, transparent, var(--kapi-red-electric), transparent);
-}
-
-/* Internal Elements (Z-Index Protection over glow) */
-.kapi-card-header,
-.kapi-card-body,
-.kapi-card-footer {
-  position: relative;
-  z-index: 1;
-}
-
-/* Card Header & Icon */
-.kapi-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.kapi-card-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--kapi-radius-inner);
-  background-color: var(--kapi-bg-obsidian);
-  border: 1px solid var(--kapi-border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--kapi-text-white);
-  transition: var(--kapi-transition-smooth);
-}
-
-.kapi-card-icon-box svg {
-  width: 22px;
-  height: 22px;
-  transition: var(--kapi-transition-smooth);
-}
-
-.kapi-card:hover .kapi-card-icon-box {
-  background-color: rgba(230, 0, 35, 0.12);
-  border-color: var(--kapi-red-border-hover);
-  color: var(--kapi-red-electric);
-  transform: scale(1.05);
-}
-
-.kapi-card-pill {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--kapi-radius-pill);
-  background: rgba(18, 20, 24, 0.8);
-  border: 1px solid var(--kapi-border-subtle);
-  color: var(--kapi-text-slate);
-  transition: var(--kapi-transition-smooth);
-}
-
-.kapi-card:hover .kapi-card-pill {
-  color: var(--kapi-text-white);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Card Body Content */
-.kapi-card-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
-  color: var(--kapi-text-white);
-  transition: color 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .kapi-card-title {
-    font-size: 1.5rem;
-  }
-}
-
-.kapi-card:hover .kapi-card-title {
-  color: var(--kapi-red-electric);
-}
-
-.kapi-card-desc {
-  font-size: 0.875rem;
-  color: var(--kapi-text-slate);
-  line-height: 1.65;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-}
-
-/* Card Feature Badges List */
-.kapi-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.75rem;
-}
-
-.kapi-card-tag {
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--kapi-text-slate);
-  background-color: var(--kapi-bg-obsidian);
-  border: 1px solid var(--kapi-border-subtle);
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-}
-
-/* Card Footer CTA */
-.kapi-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--kapi-border-subtle);
-  font-size: 0.875rem;
+.kapi-section-header h2 {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
   font-weight: 600;
-  color: var(--kapi-text-white);
-  transition: var(--kapi-transition-smooth);
+  text-wrap: balance;
 }
 
-.kapi-card-arrow {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--kapi-bg-obsidian);
-  border: 1px solid var(--kapi-border-subtle);
-  display: flex;
+.kapi-section-header p {
+  max-width: 60ch;
+  margin: 18px 0 0;
+  color: var(--k-muted);
+  font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.kapi-section-header.is-center p {
+  margin-inline: auto;
+}
+
+.kapi-eyebrow {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  transition: var(--kapi-transition-smooth);
+  gap: 9px;
+  color: var(--k-red);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.kapi-card:hover .kapi-card-footer {
-  color: var(--kapi-red-electric);
-  border-color: rgba(230, 0, 35, 0.2);
-}
-
-.kapi-card:hover .kapi-card-arrow {
-  background-color: var(--kapi-red-primary);
-  border-color: var(--kapi-red-primary);
-  color: var(--kapi-text-white);
-  transform: translate(3px, -3px);
-}
-
-/* Public card palette normalization. Keep all primary cards on the same surface system. */
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#16181D]"],
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#16181D]"],
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#161616]"],
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#161616]"],
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#111318]"],
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#111318]"] {
-  background-color: var(--kapi-bg-card);
-  border-color: var(--kapi-border-subtle);
-}
-
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#16181D]"]:hover,
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#16181D]"]:hover,
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#161616]"]:hover,
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#161616]"]:hover,
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#111318]"]:hover,
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#111318]"]:hover {
-  background-color: var(--kapi-bg-card-hover);
-}
-
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#20232B]"]:hover,
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#20232B]"]:hover,
-.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#1E1E1E]"]:hover,
-.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#1E1E1E]"]:hover {
-  background-color: var(--kapi-bg-card-hover);
-}
-
-/* Careers page polish: keep the existing concept while enforcing one coherent surface system. */
-.kapi-careers {
-  --careers-surface: var(--kapi-bg-card);
-  --careers-surface-hover: var(--kapi-bg-card-hover);
-  --careers-border: var(--kapi-border-subtle);
-  --careers-text-muted: var(--kapi-text-slate);
-}
-
-/* Normalize legacy section surfaces on Careers without changing the layout concept. */
-.kapi-careers [class*="bg-[#0A0A0A]"] {
-  background-color: var(--kapi-bg-charcoal-deep);
-}
-
-.kapi-careers [class*="bg-[#161616]"],
-.kapi-careers [class*="bg-[#111318]"],
-.kapi-careers [class*="bg-[#16181D]"] {
-  background-color: var(--careers-surface);
-}
-
-.kapi-careers [class*="bg-[#161616]"]:hover,
-.kapi-careers [class*="bg-[#111318]"]:hover,
-.kapi-careers [class*="bg-[#16181D]"]:hover,
-.kapi-careers [class*="bg-[#1E1E1E]"]:hover,
-.kapi-careers [class*="bg-[#20232B]"]:hover {
-  background-color: var(--careers-surface-hover);
-}
-
-.kapi-careers [class*="border-[#2A2A2A]"],
-.kapi-careers [class*="border-white/[0.07]"] {
-  border-color: var(--careers-border);
-}
-
-.kapi-careers [class*="text-[#8E8E93]"],
-.kapi-careers [class*="text-[#8A909D]"] {
-  color: var(--careers-text-muted);
-}
-
-.kapi-careers section {
-  scroll-margin-top: 88px;
-}
-
-.kapi-careers-talent-card {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-}
-
-.kapi-careers-talent-card::after {
+.kapi-eyebrow::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.24) 100%);
-  opacity: 0.9;
-}
-
-.kapi-careers-talent-card:hover::after {
-  background: linear-gradient(180deg, transparent 44%, rgba(229,9,20,0.08) 100%);
-}
-
-.kapi-careers .kapi-careers-modal {
-  box-shadow:
-    0 32px 90px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(255,255,255,0.02);
-}
-
-.kapi-careers .kapi-careers-modal-body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--kapi-border-subtle) transparent;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-thumb {
-  background: var(--kapi-border-subtle);
-  border-radius: 999px;
-}
-
-.kapi-careers .kapi-modal-close:focus-visible {
-  outline: 2px solid var(--kapi-red-primary);
-  outline-offset: 2px;
-}
-
-.kapi-careers #open-positions .group {
-  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-}
-
-.kapi-careers #open-positions .group:hover {
-  box-shadow: 0 18px 42px rgba(0,0,0,0.32);
-}
-
-.kapi-careers #freelance-vendor > div > .grid:last-child > div {
-  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
-}
-
-.kapi-careers #freelance-vendor > div > .grid:last-child > div:hover {
-  transform: translateY(-2px);
-}
-
-.kapi-careers input,
-.kapi-careers textarea,
-.kapi-careers select {
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.kapi-careers input:focus,
-.kapi-careers textarea:focus,
-.kapi-careers select:focus {
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.08);
-}
-
-.kapi-careers [class*="border-dashed"] {
-  background:
-    linear-gradient(var(--bg), var(--bg)) padding-box,
-    linear-gradient(135deg, rgba(229,9,20,0.38), rgba(255,255,255,0.06)) border-box;
-  border-color: transparent;
-}
-
-.kapi-careers [class*="border-dashed"]:hover {
-  background:
-    linear-gradient(var(--kapi-bg-card), var(--kapi-bg-card)) padding-box,
-    linear-gradient(135deg, rgba(229,9,20,0.58), rgba(255,255,255,0.10)) border-box;
-}
-
-.kapi-careers [class*="bg-brand-red"] {
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Careers concept-preserving polish: enhance the existing structure, not replace it. */
-.kapi-careers {
-  --careers-surface: var(--kapi-bg-card);
-  --careers-surface-hover: var(--kapi-bg-card-hover);
-  --careers-border: var(--kapi-border-subtle);
-  --careers-muted: var(--kapi-text-slate);
-}
-
-.kapi-careers [class*="bg-[#161616]"],
-.kapi-careers [class*="bg-[#111318]"],
-.kapi-careers [class*="bg-[#16181D]"] {
-  background-color: var(--careers-surface);
-}
-
-.kapi-careers [class*="border-[#2A2A2A]"],
-.kapi-careers [class*="border-white/[0.07]"] {
-  border-color: var(--careers-border);
-}
-
-.kapi-careers [class*="text-[#8E8E93]"],
-.kapi-careers [class*="text-[#8A909D]"] {
-  color: var(--careers-muted);
-}
-
-.kapi-careers section {
-  scroll-margin-top: 88px;
-}
-
-/* Keep the original hero composition, but give it a stronger agency signature. */
-.kapi-careers > section:first-child::after {
-  content: "";
-  position: absolute;
-  left: 1rem;
-  bottom: 0;
-  width: min(30vw, 22rem);
+  width: 22px;
   height: 1px;
-  background: linear-gradient(90deg, var(--kapi-red-primary), transparent);
-  pointer-events: none;
+  background: currentColor;
   opacity: 0.75;
 }
 
-/* Talent gallery: preserve the photo-wall concept, add editorial framing. */
-.kapi-careers-talent-card {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-}
-
-.kapi-careers-talent-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 42%, rgba(0,0,0,0.12) 58%, rgba(0,0,0,0.82) 100%);
-}
-
-.kapi-careers-talent-card:hover {
-  box-shadow: 0 20px 44px rgba(0,0,0,0.34);
-}
-
-.kapi-careers-talent-card:hover::after {
-  background:
-    linear-gradient(180deg, transparent 40%, rgba(229,9,20,0.04) 58%, rgba(0,0,0,0.88) 100%);
-}
-
-/* Existing role cards: stronger hierarchy without changing the card layout. */
-.kapi-careers #open-positions .group {
+.kapi-page-hero {
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
-}
-
-.kapi-careers #open-positions .group::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 18px;
-  bottom: 18px;
-  width: 2px;
-  background: var(--kapi-red-primary);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform 220ms cubic-bezier(0.22,1,0.36,1);
-}
-
-.kapi-careers #open-positions .group:hover {
-  background-color: var(--careers-surface-hover);
-  box-shadow: 0 18px 42px rgba(0,0,0,0.30);
-}
-
-.kapi-careers #open-positions .group:hover::before {
-  transform: scaleY(1);
-}
-
-/* Vendor information cards: make the existing 4-column structure feel intentional. */
-.kapi-careers #freelance-vendor .grid:last-child > div {
-  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
-  transition:
-    transform 220ms cubic-bezier(0.22,1,0.36,1),
-    border-color 220ms ease,
-    background-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.kapi-careers #freelance-vendor .grid:last-child > div:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.26);
-}
-
-/* Existing benefit cards: quieter lift, clearer icon emphasis. */
-.kapi-careers section:last-of-type .grid > div {
-  transition:
-    transform 220ms cubic-bezier(0.22,1,0.36,1),
-    border-color 220ms ease,
-    background-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.kapi-careers section:last-of-type .grid > div:hover {
-  transform: translateY(-3px);
-  background-color: var(--careers-surface-hover);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.24);
-}
-
-.kapi-careers section:last-of-type .grid > div:hover [class*="bg-brand-red"] {
-  transform: scale(1.04);
-}
-
-/* Modal system: retain the current forms but make the shell feel more finished. */
-.kapi-careers .kapi-careers-modal {
-  box-shadow:
-    0 30px 90px rgba(0,0,0,0.64),
-    0 0 0 1px rgba(255,255,255,0.02);
-}
-
-.kapi-careers .kapi-careers-modal-body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--kapi-border-subtle) transparent;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-thumb {
-  background: var(--kapi-border-subtle);
-  border-radius: 999px;
-}
-
-.kapi-careers .kapi-modal-close {
-  transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.kapi-careers .kapi-modal-close:hover {
-  transform: rotate(2deg);
-}
-
-.kapi-careers input,
-.kapi-careers textarea,
-.kapi-careers select {
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.kapi-careers input:focus,
-.kapi-careers textarea:focus,
-.kapi-careers select:focus {
-  box-shadow: 0 0 0 3px rgba(229,9,20,0.08);
-}
-
-/* Keep the existing upload area, but give it a more deliberate treatment. */
-.kapi-careers [class*="border-dashed"] {
+  padding: clamp(8.5rem, 15vw, 11.5rem) 0 clamp(4rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--k-line);
   background:
-    linear-gradient(var(--bg), var(--bg)) padding-box,
-    linear-gradient(135deg, rgba(229,9,20,0.38), rgba(255,255,255,0.06)) border-box;
-  border-color: transparent;
+    radial-gradient(circle at 62% 28%, rgba(230,57,70,0.14), transparent 31rem),
+    linear-gradient(180deg, #0a0b0f 0%, #090b0e 68%, #08090b 100%);
 }
 
-.kapi-careers [class*="border-dashed"]:hover {
-  background:
-    linear-gradient(var(--kapi-bg-card), var(--kapi-bg-card)) padding-box,
-    linear-gradient(135deg, rgba(229,9,20,0.60), rgba(255,255,255,0.10)) border-box;
-}
-
-.kapi-careers-role-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(520px circle at 100% 0%, rgba(229,9,20,0.10), transparent 55%);
-  opacity: 0;
-  transition: opacity 280ms ease;
-}
-
-.kapi-careers-role-card:hover {
-  background-color: var(--kapi-bg-card-hover);
-  border-color: rgba(229,9,20,0.45);
-  box-shadow: 0 18px 44px rgba(0,0,0,0.32);
-}
-
-.kapi-careers-role-card:hover::before {
-  opacity: 1;
-}
-
-.kapi-careers-role-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--kapi-bg-obsidian);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--kapi-border-subtle);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--kapi-red-primary);
-}
-
-/* ==========================================================================
-   KAPITECH AMS CANONICAL UI
-   Source of truth: AMS-DESIGN-SYSTEM.md
-   ========================================================================== */
-.ams-shell{
-  --bg:#09090c;--panel:#0f0f14;--panel-hover:color-mix(in srgb,var(--text) 4%,var(--panel));
-  --line:#20202a;--text:#f3f3f6;--muted:#8b8b99;--accent:#dc143c;--accent-text:#ff4d6d;
-  --series-2:#34d399;--series-3:#5b8cff;--series-4:#b9b9c6;
-  --success:#34d399;--warning:#f5a524;--danger:#f97066;--info:#5b8cff;
-  min-width:0;min-height:100dvh;background:var(--bg);color:var(--text);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden;
-}
-:root[data-theme="light"] .ams-shell{
-  --bg:#f4f4f7;--panel:#fff;--panel-hover:color-mix(in srgb,var(--text) 4%,var(--panel));
-  --line:#e3e3ea;--text:#16161c;--muted:#6c6c7a;--accent:#dc143c;--accent-text:#c40f34;
-  --series-2:#12a672;--series-3:#3b6fe0;--series-4:#8a8a98;
-  --success:#12a672;--warning:#b7791f;--danger:#d92d20;--info:#3b6fe0;
-}
-.ams-shell *,.ams-shell *::before,.ams-shell *::after{box-sizing:border-box}
-.ams-shell>aside{min-width:0;background:var(--panel);border-right:1px solid var(--line)}
-.ams-shell>main{min-width:0;min-height:0;background:var(--bg);overscroll-behavior:none}
-.ams-shell>main>header{height:52px;min-height:52px;background:var(--panel);border-bottom:1px solid var(--line)}
-.ams-shell>main>div.flex-1{min-width:0;padding:24px}
-.ams-shell .ams-mobile-topbar{height:52px;min-height:52px;background:var(--panel);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
-.ams-shell .ams-mobile-drawer{padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);overscroll-behavior:contain}
-.ams-shell .ams-mobile-drawer>.relative{width:min(300px,86vw);max-width:86vw;height:100dvh;background:var(--panel);border-right:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);overscroll-behavior:contain}
-.ams-shell .grid,.ams-shell .flex{min-width:0}.ams-shell .grid>*,.ams-shell .flex>*{min-width:0}
-.ams-shell .rounded-card{border-radius:12px}.ams-shell .rounded-control{border-radius:8px}.ams-shell .rounded-chip{border-radius:6px}.ams-shell .rounded-badge{border-radius:5px}
-.ams-shell .bg-bg{background-color:var(--bg)}.ams-shell .bg-panel{background-color:var(--panel)}.ams-shell .bg-panel-hover{background-color:var(--panel-hover)}
-.ams-shell .text-fg{color:var(--text)}.ams-shell .text-muted{color:var(--muted)}.ams-shell .border-line{border-color:var(--line)}
-.ams-shell .text-red-300,.ams-shell .text-red-400,.ams-shell .text-red-500,.ams-shell .text-red-600{color:var(--danger)}
-.ams-shell .text-emerald-400,.ams-shell .text-green-400{color:var(--success)}
-.ams-shell .text-amber-400,.ams-shell .text-yellow-400{color:var(--warning)}
-.ams-shell .text-blue-400,.ams-shell .text-cyan-400{color:var(--info)}
-.ams-shell [data-status=success]{color:var(--success)}.ams-shell [data-status=warning]{color:var(--warning)}.ams-shell [data-status=danger]{color:var(--danger)}.ams-shell [data-status=info]{color:var(--info)}
-.ams-shell table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
-.ams-shell thead th{height:40px;padding:0 12px;color:var(--muted);background:var(--panel);border-bottom:1px solid var(--line);font-size:12px;line-height:16px;font-weight:500;text-align:left;vertical-align:middle}
-.ams-shell tbody td{height:40px;padding:0 12px;color:var(--text);border-bottom:1px solid var(--line);font-size:13px;line-height:18px;vertical-align:middle}
-.ams-shell tbody tr:hover td{background:color-mix(in srgb,var(--text) 4%,transparent)}
-.ams-shell table th:first-child,.ams-shell table td:first-child{padding-left:16px}.ams-shell table th:last-child,.ams-shell table td:last-child{padding-right:16px}
-.ams-shell .overflow-x-auto{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent;-webkit-overflow-scrolling:touch}
-.ams-shell .overflow-x-auto::-webkit-scrollbar{width:4px;height:6px}.ams-shell .overflow-x-auto::-webkit-scrollbar-track{background:transparent}.ams-shell .overflow-x-auto::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-.ams-shell input:disabled,.ams-shell select:disabled,.ams-shell textarea:disabled{opacity:.55;cursor:not-allowed}
-.ams-shell .ams-page-header,.ams-shell .ams-dashboard-header{min-width:0;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.ams-shell .ams-page-header>*,.ams-shell .ams-dashboard-header>*{min-width:0}
-.ams-shell .ams-page-title{display:flex;align-items:center;gap:10px;min-width:0;font-size:20px;line-height:28px;font-weight:600}
-.ams-shell .ams-page-title>svg{width:20px;height:20px;flex:0 0 20px;stroke-width:1.8}.ams-shell .ams-page-title>span{min-width:0;overflow-wrap:anywhere}
-.ams-shell .ams-page-header p{max-width:72ch}
-.ams-shell .ams-kpi{min-width:0;background:transparent;border:0;padding:16px}
-.ams-shell .ams-kpi-value{color:var(--text);font-size:24px;line-height:32px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.ams-shell .ams-meta{color:var(--muted);font-size:12px;line-height:16px}
-.ams-shell .ams-action{min-height:40px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:500}
-.ams-shell .ams-action:hover{color:var(--text);background:var(--panel-hover)}
-.ams-shell .ams-dashboard-card,.ams-shell .ams-panel{min-width:0;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
-.ams-shell .ams-dashboard-card:hover{box-shadow:none}.ams-shell .ams-dashboard-card .text-2xl{font-size:24px;line-height:32px;font-weight:500;font-variant-numeric:tabular-nums}.ams-shell .ams-dashboard-card .text-base{font-size:14px;line-height:20px;font-weight:600}
-.ams-shell .ams-sidebar-toggle{position:relative;z-index:2;min-width:40px;min-height:40px}
-.ams-shell .ams-sidebar-expanded a[aria-current=page],.ams-shell .ams-sidebar-collapsed a[aria-current=page]{box-shadow:inset 2px 0 0 var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--text)}
-.ams-shell .ams-sidebar-expanded,.ams-shell .ams-sidebar-collapsed{min-width:0}
-.ams-shell .ams-kanban-scroll{min-height:0;width:max-content;overscroll-behavior-x:contain}.ams-shell .kanban-card{min-height:126px}
-.ams-shell [role=dialog]{overscroll-behavior:contain}
-.ams-shell .ams-popover-surface{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;box-shadow:none}.ams-shell .ams-notification-surface{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;box-shadow:none}
-.ams-shell .ams-popover-surface .ams-dropdown-item{min-height:36px;padding:8px 10px;background:transparent;color:var(--muted);border-radius:6px}
-.ams-shell .ams-popover-surface .ams-dropdown-item:hover,.ams-shell .ams-popover-surface .ams-dropdown-item[data-active=true]{background:var(--panel-hover);color:var(--text)}
-.ams-shell .ams-popover-surface .ams-dropdown-item[data-selected=true]{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--text);font-weight:600}
-.ams-shell .ams-crm-kpi,.ams-shell .ams-inbox-kpi{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.ams-shell .ams-crm-kpi>div,.ams-shell .ams-inbox-kpi>div{border:0;border-radius:0;background:transparent;box-shadow:none}.ams-shell .ams-crm-kpi>div+div,.ams-shell .ams-inbox-kpi>div+div{border-left:1px solid var(--line)}
-.ams-shell .ams-crm-kpi>.ams-crm-funnel-card{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px}
-.ams-shell .ams-leads-page,.ams-shell .ams-inbox-page{min-width:0;width:100%;color:var(--text)}.ams-shell .ams-leads-page>*,.ams-shell .ams-inbox-page>*{min-width:0}
-.ams-shell .ams-leads-page .ams-table-scroll,.ams-shell .ams-inbox-page .ams-table-scroll{max-width:100%;overflow-x:auto}.ams-shell .ams-table-scroll table{min-width:max-content}
-.ams-shell .ams-leads-page .ams-kanban-scroll> *{flex:0 0 300px;min-width:280px;max-width:340px}
-.ams-shell .ams-inbox-list-pane,.ams-shell .ams-inbox-reader-pane{min-width:0;min-height:0}.ams-shell .ams-inbox-reader-pane{overflow:hidden}
-.ams-shell .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px}.ams-shell .custom-scrollbar::-webkit-scrollbar-track{background:transparent}.ams-shell .custom-scrollbar::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}.ams-shell .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--muted)}
-.ams-portal-root{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text)}
-.ams-portal-root .ams-popover-surface,.ams-portal-root .ams-notification-surface{box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
-@media(max-width:1099px) and (min-width:900px){.ams-shell>main>div.flex-1{padding:20px}}
-@media(max-width:899px){
- .ams-shell>aside{width:min(280px,86vw);min-width:min(280px,86vw)}.ams-shell>main>div.flex-1{padding:16px}
- .ams-shell .ams-mobile-topbar{padding-left:14px;padding-right:14px}.ams-shell .ams-page-header,.ams-shell .ams-dashboard-header{gap:12px}
- .ams-shell .ams-page-header>div:last-child,.ams-shell .ams-dashboard-header>div:last-child{flex-wrap:wrap}
- .ams-shell .ams-crm-kpi>div+div,.ams-shell .ams-inbox-kpi>div+div{border-left:0;border-top:1px solid var(--line)}
-}
-@media(max-width:599px){
- .ams-shell>main>div.flex-1{padding:14px;padding-bottom:max(24px,env(safe-area-inset-bottom))}
- .ams-shell .ams-page-title{font-size:18px;line-height:24px}.ams-shell .ams-kpi-value{font-size:22px;line-height:28px}
- .ams-shell .ams-dashboard-card .text-2xl{font-size:22px;line-height:28px}.ams-shell .ams-panel{padding:16px}
- .ams-shell .ams-table-scroll table{min-width:680px}.ams-shell .ams-leads-page .ams-kanban-scroll> *{flex-basis:min(84vw,320px);min-width:min(84vw,280px);max-width:min(84vw,320px)}
-.ams-shell .ams-mobile-drawer>.relative{width:min(300px,86vw);max-width:86vw}
- .ams-shell table th,.ams-shell table td{white-space:nowrap}
-}
-@media(prefers-reduced-motion:reduce){.ams-shell *,.ams-shell *::before,.ams-shell *::after{animation-duration:.01ms;animation-iteration-count:1;transition-duration:.01ms}}
-
-
-/* Careers final visual polish: hero, talent wall, and modal system. */
-.kapi-careers-hero {
-  min-height: 620px;
-  display: flex;
-  align-items: center;
-  isolation: isolate;
-}
-.kapi-careers-hero-grid {
-  opacity: .28;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(90deg, black, transparent 78%);
-}
-.kapi-careers-hero h1 {
+.kapi-page-hero h1 {
+  margin: 14px 0 0;
+  max-width: 980px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7.3rem);
+  line-height: 0.94;
+  font-weight: 600;
+  letter-spacing: -0.06em;
   text-wrap: balance;
 }
-.kapi-careers-hero-aside {
-  min-height: 190px;
-  position: relative;
+
+.kapi-page-hero h1 em,
+.kapi-page-hero h1 strong,
+.kapi-accent {
+  color: var(--k-red);
+  font-style: normal;
 }
-.kapi-careers-hero-aside::before {
-  content: "";
-  position: absolute;
-  left: -1px;
-  top: 0;
-  width: 2px;
-  height: 48px;
-  background: var(--kapi-red-primary);
+
+.kapi-page-hero p {
+  max-width: 690px;
+  margin: 24px 0 0;
+  color: var(--k-muted);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.72;
 }
-.kapi-careers-talent-section {
-  isolation: isolate;
-}
-.kapi-careers-talent-card {
-  box-shadow: 0 14px 34px rgba(0,0,0,.24);
-}
-.kapi-careers-talent-card::after {
+
+.kapi-panel {
   background:
-    linear-gradient(180deg, transparent 42%, rgba(0,0,0,.10) 56%, rgba(0,0,0,.90) 100%);
-}
-.kapi-careers-talent-card:hover {
-  box-shadow: 0 22px 48px rgba(0,0,0,.38);
-}
-.kapi-careers-talent-card .kapi-talent-arrow {
-  opacity: 0;
-}
-.kapi-careers-talent-card:hover .kapi-talent-arrow,
-.kapi-careers-talent-card:focus-visible .kapi-talent-arrow {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.kapi-careers-talent-card:focus-visible {
-  border-color: rgba(229,9,20,.65);
-}
-.kapi-careers-modal-overlay {
-  overscroll-behavior: contain;
-}
-.kapi-careers-modal {
-  box-shadow:
-    0 32px 100px rgba(0,0,0,.72),
-    0 0 0 1px rgba(255,255,255,.025);
-}
-.kapi-careers-modal::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--kapi-red-primary), rgba(229,9,20,.15), transparent);
-  z-index: 30;
-  pointer-events: none;
-}
-.kapi-talent-modal::before {
-  background: linear-gradient(90deg, var(--kapi-red-primary), rgba(229,9,20,.35), transparent 72%);
-}
-.kapi-talent-modal .kapi-modal-close,
-.kapi-job-modal .kapi-modal-close,
-.kapi-vendor-modal .kapi-modal-close {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  border-radius: 999px;
-  border-color: rgba(255,255,255,.10);
-}
-.kapi-talent-modal .kapi-modal-close:hover,
-.kapi-job-modal .kapi-modal-close:hover,
-.kapi-vendor-modal .kapi-modal-close:hover {
-  transform: none;
-}
-.kapi-talent-modal .kapi-modal-close:focus-visible,
-.kapi-job-modal .kapi-modal-close:focus-visible,
-.kapi-vendor-modal .kapi-modal-close:focus-visible {
-  outline: 2px solid var(--kapi-red-primary);
-  outline-offset: 3px;
-}
-.kapi-careers-modal-header {
-  box-shadow: 0 8px 24px rgba(0,0,0,.18);
-}
-.kapi-job-modal-body {
-  scrollbar-gutter: stable;
-}
-.kapi-job-modal-body > div:first-child,
-.kapi-job-modal-body > div:nth-child(2) {
-  border-radius: 14px;
-  padding: 18px 18px 2px;
-  background: rgba(255,255,255,.015);
-  border: 1px solid rgba(255,255,255,.045);
-}
-.kapi-careers-application-panel {
-  border-color: rgba(255,255,255,.08);
-  padding-top: 28px;
-}
-.kapi-careers-application-panel > form,
-.kapi-careers-application-panel > div {
-  border-radius: 14px;
-}
-.kapi-vendor-modal-body {
-  padding-bottom: 28px;
-}
-.kapi-vendor-modal-body form {
-  max-width: 860px;
-  margin: 0 auto;
-}
-.kapi-vendor-modal-body input,
-.kapi-vendor-modal-body select,
-.kapi-vendor-modal-body textarea,
-.kapi-job-modal-body input,
-.kapi-job-modal-body select,
-.kapi-job-modal-body textarea {
-  border-color: rgba(255,255,255,.085) !important;
-  background: #0D0E11 !important;
-}
-.kapi-vendor-modal-body input:focus,
-.kapi-vendor-modal-body select:focus,
-.kapi-vendor-modal-body textarea:focus,
-.kapi-job-modal-body input:focus,
-.kapi-job-modal-body select:focus,
-.kapi-job-modal-body textarea:focus {
-  border-color: rgba(229,9,20,.72) !important;
-  box-shadow: 0 0 0 3px rgba(229,9,20,.08) !important;
-}
-.kapi-careers-modal-body::-webkit-scrollbar {
-  width: 7px;
-}
-.kapi-careers-modal-body::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,.12);
-  border-radius: 999px;
-}
-.kapi-careers-modal-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(229,9,20,.65);
-}
-.kapi-careers-modal-body label {
-  letter-spacing: .04em;
-}
-@media (max-width: 900px) {
-  .kapi-careers-hero {
-    min-height: auto;
-  }
-  .kapi-careers-hero-grid {
-    background-size: 56px 56px;
-    mask-image: linear-gradient(90deg, black, transparent 92%);
-  }
-  .kapi-talent-modal {
-    max-height: calc(100dvh - 32px);
-  }
-}
-@media (max-width: 640px) {
-  .kapi-careers-hero {
-    padding-top: 112px;
-  }
-  .kapi-careers-hero h1 {
-    font-size: clamp(2.7rem, 14vw, 4.2rem);
-  }
-  .kapi-careers-talent-card {
-    border-radius: 16px;
-  }
-  .kapi-careers-modal {
-    width: min(100%, calc(100vw - 20px));
-    border-radius: 22px;
-  }
-  .kapi-talent-modal {
-    max-height: calc(100dvh - 20px);
-    overflow-y: auto;
-  }
-  .kapi-talent-modal .grid {
-    display: block;
-  }
-  .kapi-talent-modal .relative.min-h-\[280px\] {
-    min-height: 320px;
-  }
-  .kapi-careers-modal-body {
-    padding: 16px !important;
-  }
-  .kapi-careers-modal-header {
-    padding: 16px !important;
-  }
-  .kapi-careers-application-panel {
-    padding-top: 22px;
-  }
+    linear-gradient(180deg, rgba(255,255,255,0.044), rgba(255,255,255,0.012)),
+    var(--k-surface);
+  border: 1px solid var(--k-line);
+  border-radius: var(--k-radius-md);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
 }
 
+.kapi-panel--strong {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018)),
+    rgba(14,16,21,0.9);
+}
 
-/* Careers art-directed talent composition */
-.kapi-careers-hero::after {
-  content: "";
-  position: absolute;
-  right: 7%;
-  top: 26%;
-  width: clamp(90px, 10vw, 150px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(229,9,20,.6));
-  pointer-events: none;
+.kapi-panel--interactive {
+  transition:
+    transform 420ms var(--k-ease),
+    border-color 260ms ease,
+    background-color 260ms ease,
+    box-shadow 420ms var(--k-ease);
 }
-.kapi-careers-talent-feature,
-.kapi-careers-talent-mini {
-  box-shadow: 0 14px 36px rgba(0,0,0,.24);
+
+.kapi-panel--interactive:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230,57,70,0.34);
+  box-shadow: var(--k-shadow);
 }
-.kapi-careers-talent-feature {
-  isolation: isolate;
+
+.kapi-button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition:
+    transform 260ms var(--k-ease),
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 260ms var(--k-ease),
+    color 200ms ease;
 }
-.kapi-careers-talent-feature::after,
-.kapi-careers-talent-mini::after {
-  content: "";
+
+.kapi-button--primary {
+  color: #fff;
+  background: var(--k-red);
+  box-shadow: 0 16px 38px rgba(230,57,70,0.18);
+}
+
+.kapi-button--primary:hover {
+  background: #ed4855;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 46px rgba(230,57,70,0.25);
+}
+
+.kapi-button--secondary {
+  color: #fff;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--k-line-strong);
+}
+
+.kapi-button--secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(230,57,70,0.32);
+}
+
+.kapi-button svg {
+  transition: transform 260ms var(--k-ease);
+}
+
+.kapi-button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.kapi-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--k-radius-md);
+  background: #0b0d11;
+  border: 1px solid var(--k-line);
+}
+
+.kapi-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.kapi-media-wipe {
   position: absolute;
   inset: 0;
+  background: var(--k-red);
+  transform-origin: right center;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 44%, rgba(0,0,0,.08) 60%, rgba(0,0,0,.84) 100%);
 }
-.kapi-careers-talent-feature:hover,
-.kapi-careers-talent-mini:hover {
-  border-color: rgba(229,9,20,.42);
-  box-shadow: 0 22px 52px rgba(0,0,0,.34);
+
+.kapi-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  color: var(--k-muted);
+  background: rgba(255,255,255,0.025);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
-.kapi-careers-talent-feature > *,
-.kapi-careers-talent-mini > * {
+
+.kapi-chip--accent {
+  border-color: rgba(230,57,70,0.25);
+  background: var(--k-red-soft);
+  color: var(--k-red);
+}
+
+.kapi-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 18px;
+}
+
+.kapi-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 16px;
+}
+
+.kapi-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.kapi-surface-number {
+  font-family: var(--font-mono);
+  color: rgba(255,255,255,0.28);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+
+.kapi-stat {
+  padding: 22px;
+}
+
+.kapi-stat-value {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  font-weight: 600;
+}
+
+.kapi-stat-label {
+  display: block;
+  margin-top: 8px;
+  color: var(--k-red);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kapi-stat-copy {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--k-line);
+  color: var(--k-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.kapi-scroll-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+
+.kapi-scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.kapi-project-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  gap: 18px;
+}
+
+.kapi-project-card {
+  grid-column: span 6;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.kapi-project-card:nth-child(3n) {
+  grid-column: span 12;
+}
+
+.kapi-project-media {
+  aspect-ratio: 16 / 10;
+}
+
+.kapi-project-card:nth-child(3n) .kapi-project-media {
+  aspect-ratio: 21 / 9;
+}
+
+.kapi-project-body {
+  display: grid;
+  gap: 10px;
+  padding: 18px 2px 0;
+}
+
+.kapi-project-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.kapi-project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  color: var(--k-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kapi-project-copy {
+  color: var(--k-muted);
+  font-size: 13px;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+.kapi-project-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--k-red);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 260ms var(--k-ease), color 180ms ease;
+}
+
+.kapi-project-card:hover .kapi-project-arrow {
+  transform: translateX(4px);
+  color: #fff;
+}
+
+.kapi-project-card:hover .kapi-media img {
+  transform: scale(1.035);
+  transition: transform 760ms var(--k-ease);
+}
+
+.kapi-project-card .kapi-media img {
+  transition: transform 760ms var(--k-ease);
+}
+
+.kapi-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 18px;
+}
+
+.kapi-service-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-height: 300px;
+}
+
+.kapi-service-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.kapi-service-card p {
+  margin: 10px 0 0;
+  color: var(--k-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.kapi-service-links {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kapi-process {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 14px;
+}
+
+.kapi-process-item {
+  padding: 22px;
+  min-height: 220px;
+}
+
+.kapi-process-index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--k-red);
+  letter-spacing: 0.12em;
+}
+
+.kapi-process-item h3 {
+  margin: 28px 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+}
+
+.kapi-process-item p {
+  color: var(--k-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.kapi-cta-band {
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid rgba(230,57,70,0.24);
+  border-radius: var(--k-radius-lg);
+  background:
+    radial-gradient(circle at 80% 15%, rgba(230,57,70,0.13), transparent 24rem),
+    linear-gradient(135deg, rgba(255,255,255,0.042), rgba(255,255,255,0.012));
+  display: grid;
+  grid-template-columns: minmax(0,1.5fr) minmax(260px,0.6fr);
+  gap: 28px;
+  align-items: end;
+}
+
+.kapi-cta-band h2 {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.7vw, 4.6rem);
+  line-height: 0.97;
+  letter-spacing: -0.055em;
+  font-weight: 600;
+}
+
+.kapi-cta-band p {
+  margin: 16px 0 0;
+  max-width: 60ch;
+  color: var(--k-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.kapi-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(3,4,6,0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.kapi-modal {
+  width: min(1080px, 100%);
+  max-height: min(88dvh, 980px);
+  overflow: auto;
+  background: #0e1116;
+  border: 1px solid var(--k-line-strong);
+  border-radius: 24px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.55);
+}
+
+.kapi-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--k-line);
+  background: rgba(14,17,22,0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.kapi-close {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--k-line);
+  background: rgba(255,255,255,0.03);
+  color: var(--k-muted);
+}
+
+.kapi-close:hover {
+  color: #fff;
+  border-color: rgba(230,57,70,0.34);
+}
+
+.kapi-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 0;
+  background: rgba(8,9,11,0.72);
+  border-bottom: 1px solid var(--k-line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.kapi-filter-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.kapi-filter-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.kapi-filter-button {
+  min-height: 40px;
+  padding: 0 13px;
+  flex: 0 0 auto;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.025);
+  color: var(--k-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kapi-filter-button.is-active {
+  color: #fff;
+  background: var(--k-red);
+  border-color: var(--k-red);
+}
+
+.kapi-search {
+  width: min(360px, 100%);
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.025);
+  color: #fff;
+}
+
+.kapi-search::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.kapi-search:focus {
+  border-color: rgba(230,57,70,0.55);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(230,57,70,0.08);
+}
+
+.kapi-footer {
   position: relative;
-  z-index: 1;
+  padding: 5.5rem 0 1.5rem;
+  border-top: 1px solid var(--k-line);
+  background:
+    radial-gradient(circle at 80% 10%, rgba(230,57,70,0.09), transparent 24rem),
+    #07080a;
 }
-.kapi-careers-talent-mini .kapi-talent-arrow {
+
+.kapi-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.35fr) repeat(4,minmax(0,0.75fr));
+  gap: 28px;
+}
+
+.kapi-footer h3,
+.kapi-footer h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.kapi-footer h3 {
+  font-size: 1.4rem;
+}
+
+.kapi-footer h4 {
+  font-size: 11px;
+  color: var(--k-red);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.kapi-footer p,
+.kapi-footer a {
+  color: var(--k-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.kapi-footer a {
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.kapi-footer a:hover {
+  color: #fff;
+}
+
+.kapi-footer-bottom {
+  margin-top: 38px;
+  padding-top: 18px;
+  border-top: 1px solid var(--k-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--k-subtle);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kapi-floating-contact {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 95;
+}
+
+.kapi-floating-button {
+  width: 52px;
+  height: 52px;
+  border-radius: 17px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--k-red);
+  color: #fff;
+  box-shadow: 0 18px 42px rgba(230,57,70,0.24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kapi-floating-menu {
+  position: absolute;
+  right: 0;
+  bottom: 62px;
+  width: min(270px, calc(100vw - 36px));
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid var(--k-line);
+  border-radius: 18px;
+  background: rgba(11,13,17,0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.kapi-floating-link {
+  min-height: 44px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  color: #fff;
+  background: rgba(255,255,255,0.025);
+}
+
+.kapi-floating-link:hover {
+  border-color: rgba(230,57,70,0.28);
+  background: rgba(230,57,70,0.06);
+}
+
+.kapi-navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 80;
+  padding: 14px 14px 0;
+  pointer-events: none;
+}
+
+.kapi-navbar-inner {
+  width: min(1180px, 100%);
+  min-height: 62px;
+  margin: 0 auto;
+  padding: 0 10px 0 16px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  gap: 18px;
+  align-items: center;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(9,11,15,0.56);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.22);
+  pointer-events: auto;
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 260ms var(--k-ease);
+}
+
+.kapi-navbar.is-scrolled .kapi-navbar-inner {
+  background: rgba(9,11,15,0.82);
+  border-color: var(--k-line-strong);
+  box-shadow: 0 24px 74px rgba(0,0,0,0.33);
+}
+
+.kapi-navbar-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--k-red);
+  transform-origin: left;
+}
+
+.kapi-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.kapi-brand img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.kapi-brand span {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.kapi-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.kapi-nav-link {
+  position: relative;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: rgba(255,255,255,0.56);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.kapi-nav-link:hover,
+.kapi-nav-link.is-active {
+  color: #fff;
+  background: rgba(255,255,255,0.035);
+}
+
+.kapi-nav-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 1px;
+  background: var(--k-red);
+}
+
+.kapi-nav-services {
+  position: relative;
+}
+
+.kapi-services-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(850px, 90vw);
+  padding: 16px;
+  border: 1px solid var(--k-line-strong);
+  border-radius: 20px;
+  background: rgba(10,12,16,0.92);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  box-shadow: 0 36px 100px rgba(0,0,0,0.44);
+}
+
+.kapi-services-menu-head {
+  padding: 4px 5px 14px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid var(--k-line);
+}
+
+.kapi-services-menu-head span {
+  color: var(--k-red);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kapi-services-menu-head p {
+  margin: 7px 0 0;
+  color: rgba(255,255,255,0.42);
+  font-size: 12px;
+}
+
+.kapi-services-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 14px;
+  padding-top: 14px;
+}
+
+.kapi-services-menu-group h4 {
+  margin: 0 0 9px;
+  color: rgba(255,255,255,0.36);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.kapi-services-menu-group a {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 9px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.kapi-services-menu-group a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.04);
+}
+
+.kapi-services-menu-group a svg {
   opacity: 0;
+  transform: translate(-2px, 2px);
+  transition: opacity 180ms ease, transform 200ms var(--k-ease);
 }
-@media (max-width: 1023px) {
-  .kapi-careers-hero::after {
+
+.kapi-services-menu-group a:hover svg {
+  opacity: 1;
+  transform: translate(0,0);
+}
+
+.kapi-nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kapi-language {
+  display: inline-flex;
+  padding: 2px;
+  gap: 2px;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.02);
+}
+
+.kapi-language button {
+  min-width: 30px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255,255,255,0.38);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.kapi-language button.is-active {
+  color: #fff;
+  background: var(--k-red-soft);
+}
+
+.kapi-nav-cta {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--k-red);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 240ms var(--k-ease), box-shadow 240ms var(--k-ease);
+}
+
+.kapi-nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(230,57,70,0.22);
+}
+
+.kapi-menu {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
+
+.kapi-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0,0,0,0.56);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.kapi-mobile-panel {
+  width: min(100%, 520px);
+  height: 100dvh;
+  margin-left: auto;
+  padding: 16px 18px 24px;
+  background:
+    radial-gradient(circle at 80% 8%, rgba(230,57,70,0.11), transparent 20rem),
+    #080a0e;
+  border-left: 1px solid var(--k-line);
+  overflow-y: auto;
+}
+
+.kapi-mobile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kapi-mobile-close {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
+
+.kapi-mobile-nav {
+  display: grid;
+  gap: 4px;
+  margin-top: 32px;
+}
+
+.kapi-mobile-nav > a,
+.kapi-mobile-service-trigger {
+  min-height: 68px;
+  display: grid;
+  grid-template-columns: 32px 1fr 18px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0 3px;
+  border: 0;
+  border-bottom: 1px solid var(--k-line);
+  background: transparent;
+  color: rgba(255,255,255,0.52);
+  text-decoration: none;
+  text-align: left;
+}
+
+.kapi-mobile-nav > a span,
+.kapi-mobile-service-trigger span {
+  color: var(--k-red);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.kapi-mobile-nav > a strong,
+.kapi-mobile-service-trigger strong {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: clamp(1.65rem, 7vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.kapi-mobile-services-list {
+  display: grid;
+  gap: 2px;
+  padding: 8px 0 12px 44px;
+}
+
+.kapi-mobile-services-list a {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  color: var(--k-muted);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.kapi-mobile-services-list a:hover {
+  color: #fff;
+}
+
+.kapi-mobile-bottom {
+  margin-top: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.kapi-mobile-cta {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: var(--k-red);
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kapi-hero-visual {
+  position: relative;
+  min-height: 470px;
+  display: grid;
+  place-items: center;
+}
+
+.kapi-hero-ring {
+  position: absolute;
+  width: min(56vw, 610px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 1px rgba(230,57,70,0.06) inset, 0 0 120px rgba(230,57,70,0.09);
+  animation: kapiRingPulse 8s ease-in-out infinite;
+}
+
+.kapi-hero-ring::before,
+.kapi-hero-ring::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.kapi-hero-ring::after {
+  inset: 28%;
+  border-color: rgba(230,57,70,0.18);
+}
+
+.kapi-hero-orbit {
+  position: absolute;
+  width: min(39vw, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed rgba(230,57,70,0.2);
+  animation: kapiOrbit 18s linear infinite;
+}
+
+.kapi-hero-orbit::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--k-red);
+  box-shadow: 0 0 20px rgba(230,57,70,0.7);
+}
+
+@keyframes kapiRingPulse {
+  0%,100% { transform: scale(0.985); opacity: 0.76; }
+  50% { transform: scale(1.01); opacity: 1; }
+}
+
+@keyframes kapiOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.kapi-hero-center {
+  position: relative;
+  z-index: 2;
+  width: min(68%, 360px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: radial-gradient(circle at 30% 20%, rgba(230,57,70,0.18), transparent 54%), linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 35px 100px rgba(0,0,0,0.4);
+}
+
+.kapi-hero-grid {
+  width: 78%;
+  height: 78%;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.7;
+}
+
+.kapi-hero-mark {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  border-radius: 24px;
+  background: var(--k-red);
+  box-shadow: 0 20px 50px rgba(230,57,70,0.28);
+}
+
+@media (max-width: 1100px) {
+  .kapi-navbar-inner {
+    grid-template-columns: minmax(0,1fr) auto;
+  }
+
+  .kapi-nav-links {
     display: none;
   }
-}
-@media (max-width: 640px) {
-  .kapi-careers-talent-feature {
-    border-radius: 18px;
+
+  .kapi-menu {
+    display: inline-flex;
   }
-  .kapi-careers-talent-mini {
-    border-radius: 14px;
+
+  .kapi-services-menu-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .kapi-footer-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .kapi-footer-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .kapi-grid-4,
+  .kapi-process {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .kapi-service-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .kapi-cta-band {
+    grid-template-columns: 1fr;
   }
 }
 
-.kapi-careers-hero > .max-w-7xl {
-  width: 100%;
-}
-.kapi-careers-hero .max-w-5xl {
-  width: 100%;
+@media (max-width: 760px) {
+  .kapi-container {
+    width: min(100%, calc(100% - 28px));
+  }
+
+  .kapi-navbar {
+    padding-inline: 10px;
+  }
+
+  .kapi-navbar-inner {
+    min-height: 56px;
+    padding-left: 13px;
+    padding-right: 7px;
+  }
+
+  .kapi-brand span,
+  .kapi-language,
+  .kapi-nav-cta {
+    display: none;
+  }
+
+  .kapi-page-hero {
+    padding-top: 7.5rem;
+  }
+
+  .kapi-page-hero h1 {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+  }
+
+  .kapi-hero-visual {
+    min-height: 330px;
+    margin-top: 30px;
+  }
+
+  .kapi-hero-ring {
+    width: min(80vw, 420px);
+  }
+
+  .kapi-hero-orbit {
+    width: min(58vw, 310px);
+  }
+
+  .kapi-hero-center {
+    width: min(76%, 290px);
+    border-radius: 26px;
+  }
+
+  .kapi-hero-mark {
+    width: 66px;
+    height: 66px;
+    border-radius: 19px;
+  }
+
+  .kapi-grid-3,
+  .kapi-grid-4,
+  .kapi-process,
+  .kapi-service-grid,
+  .kapi-footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kapi-project-grid {
+    display: block;
+  }
+
+  .kapi-project-card,
+  .kapi-project-card:nth-child(3n) {
+    display: block;
+    margin-bottom: 36px;
+  }
+
+  .kapi-project-card:nth-child(3n) .kapi-project-media,
+  .kapi-project-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .kapi-search {
+    width: 100%;
+  }
+
+  .kapi-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
-
-/* Careers cleanup: keep structure and motion, remove decorative UI layers. */
-.kapi-careers > section:first-child::after,
-.kapi-careers-hero::after {
-  display: none;
+@media (pointer: coarse) {
+  .kapi-panel--interactive:hover,
+  .kapi-button:hover {
+    transform: none;
+  }
 }
 
-.kapi-careers #open-positions .group {
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .kapi-hero-ring,
+  .kapi-hero-orbit {
+    animation: none;
+  }
+}
+
+/* Preserve the pre-existing public page primitives while keeping them inside the new system. */
+.kapi-public-shell .kapi-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)), rgba(15,17,22,0.68);
+  border-color: var(--k-line);
+  border-radius: var(--k-radius-md);
   box-shadow: none;
 }
 
-.kapi-careers #open-positions .group::before,
-.kapi-careers .kapi-careers-role-card::before {
-  display: none;
+.kapi-public-shell .kapi-card:hover {
+  border-color: rgba(230,57,70,0.30);
+  box-shadow: var(--k-shadow);
 }
 
-.kapi-careers .kapi-careers-role-card:hover,
-.kapi-careers #open-positions .group:hover {
-  box-shadow: none;
+.kapi-public-shell .kapi-careers-role-card,
+.kapi-public-shell .kapi-careers-talent-card,
+.kapi-public-shell .kapi-careers-talent-feature,
+.kapi-public-shell .kapi-careers-talent-mini {
+  background: linear-gradient(180deg, rgba(255,255,255,0.038), rgba(255,255,255,0.012)), rgba(15,17,22,0.68);
+  border-color: var(--k-line);
 }
 
-.kapi-careers [class*="border-dashed"],
-.kapi-careers [class*="border-dashed"]:hover {
-  background: transparent;
-  border-color: var(--careers-border);
-}
-
-.kapi-careers-talent-feature,
-.kapi-careers-talent-mini {
-  box-shadow: none;
-}
-
-.kapi-careers-talent-feature:hover,
-.kapi-careers-talent-mini:hover {
-  border-color: var(--careers-border);
-  box-shadow: none;
+.kapi-public-shell .kapi-careers-role-card:hover,
+.kapi-public-shell .kapi-careers-talent-card:hover,
+.kapi-public-shell .kapi-careers-talent-feature:hover,
+.kapi-public-shell .kapi-careers-talent-mini:hover {
+  border-color: rgba(230,57,70,0.30);
 }
