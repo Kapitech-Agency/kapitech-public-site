@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] overflow-hidden rounded-[inherit] opacity-70 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-70 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -273,7 +273,7 @@ export const Navbar = () => {
               data-cursor-label="Start"
             >
               <CtaFlowLine />
-              <span className="absolute inset-[1px] rounded-full bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
+              <span className="absolute inset-[1px] z-0 rounded-full bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
@@ -720,7 +720,7 @@ export const Navbar = () => {
                   data-cursor-label="Start"
                 >
                   <CtaFlowLine mobile />
-                  <span className="absolute inset-[1px] rounded-[11px] bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
+                  <span className="absolute inset-[1px] z-0 rounded-[11px] bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Link>
