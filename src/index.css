@@ -959,3 +959,207 @@
  .ams-shell table th,.ams-shell table td{white-space:nowrap}
 }
 @media(prefers-reduced-motion:reduce){.ams-shell *,.ams-shell *::before,.ams-shell *::after{animation-duration:.01ms;animation-iteration-count:1;transition-duration:.01ms}}
+
+
+/* Careers final visual polish: hero, talent wall, and modal system. */
+.kapi-careers-hero {
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}
+.kapi-careers-hero-grid {
+  opacity: .28;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(90deg, black, transparent 78%);
+}
+.kapi-careers-hero h1 {
+  text-wrap: balance;
+}
+.kapi-careers-hero-aside {
+  min-height: 190px;
+  position: relative;
+}
+.kapi-careers-hero-aside::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 2px;
+  height: 48px;
+  background: var(--kapi-red-primary);
+}
+.kapi-careers-talent-section {
+  isolation: isolate;
+}
+.kapi-careers-talent-card {
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+}
+.kapi-careers-talent-card::after {
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(0,0,0,.10) 56%, rgba(0,0,0,.90) 100%);
+}
+.kapi-careers-talent-card:hover {
+  box-shadow: 0 22px 48px rgba(0,0,0,.38);
+}
+.kapi-careers-talent-card .kapi-talent-arrow {
+  opacity: 0;
+}
+.kapi-careers-talent-card:hover .kapi-talent-arrow,
+.kapi-careers-talent-card:focus-visible .kapi-talent-arrow {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.kapi-careers-talent-card:focus-visible {
+  border-color: rgba(229,9,20,.65);
+}
+.kapi-careers-modal-overlay {
+  overscroll-behavior: contain;
+}
+.kapi-careers-modal {
+  box-shadow:
+    0 32px 100px rgba(0,0,0,.72),
+    0 0 0 1px rgba(255,255,255,.025);
+}
+.kapi-careers-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--kapi-red-primary), rgba(229,9,20,.15), transparent);
+  z-index: 30;
+  pointer-events: none;
+}
+.kapi-talent-modal::before {
+  background: linear-gradient(90deg, var(--kapi-red-primary), rgba(229,9,20,.35), transparent 72%);
+}
+.kapi-talent-modal .kapi-modal-close,
+.kapi-job-modal .kapi-modal-close,
+.kapi-vendor-modal .kapi-modal-close {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 999px;
+  border-color: rgba(255,255,255,.10);
+}
+.kapi-talent-modal .kapi-modal-close:hover,
+.kapi-job-modal .kapi-modal-close:hover,
+.kapi-vendor-modal .kapi-modal-close:hover {
+  transform: none;
+}
+.kapi-talent-modal .kapi-modal-close:focus-visible,
+.kapi-job-modal .kapi-modal-close:focus-visible,
+.kapi-vendor-modal .kapi-modal-close:focus-visible {
+  outline: 2px solid var(--kapi-red-primary);
+  outline-offset: 3px;
+}
+.kapi-careers-modal-header {
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+.kapi-job-modal-body {
+  scrollbar-gutter: stable;
+}
+.kapi-job-modal-body > div:first-child,
+.kapi-job-modal-body > div:nth-child(2) {
+  border-radius: 14px;
+  padding: 18px 18px 2px;
+  background: rgba(255,255,255,.015);
+  border: 1px solid rgba(255,255,255,.045);
+}
+.kapi-careers-application-panel {
+  border-color: rgba(255,255,255,.08);
+  padding-top: 28px;
+}
+.kapi-careers-application-panel > form,
+.kapi-careers-application-panel > div {
+  border-radius: 14px;
+}
+.kapi-vendor-modal-body {
+  padding-bottom: 28px;
+}
+.kapi-vendor-modal-body form {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.kapi-vendor-modal-body input,
+.kapi-vendor-modal-body select,
+.kapi-vendor-modal-body textarea,
+.kapi-job-modal-body input,
+.kapi-job-modal-body select,
+.kapi-job-modal-body textarea {
+  border-color: rgba(255,255,255,.085) !important;
+  background: #0D0E11 !important;
+}
+.kapi-vendor-modal-body input:focus,
+.kapi-vendor-modal-body select:focus,
+.kapi-vendor-modal-body textarea:focus,
+.kapi-job-modal-body input:focus,
+.kapi-job-modal-body select:focus,
+.kapi-job-modal-body textarea:focus {
+  border-color: rgba(229,9,20,.72) !important;
+  box-shadow: 0 0 0 3px rgba(229,9,20,.08) !important;
+}
+.kapi-careers-modal-body::-webkit-scrollbar {
+  width: 7px;
+}
+.kapi-careers-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+}
+.kapi-careers-modal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(229,9,20,.65);
+}
+.kapi-careers-modal-body label {
+  letter-spacing: .04em;
+}
+@media (max-width: 900px) {
+  .kapi-careers-hero {
+    min-height: auto;
+  }
+  .kapi-careers-hero-grid {
+    background-size: 56px 56px;
+    mask-image: linear-gradient(90deg, black, transparent 92%);
+  }
+  .kapi-talent-modal {
+    max-height: calc(100dvh - 32px);
+  }
+}
+@media (max-width: 640px) {
+  .kapi-careers-hero {
+    padding-top: 112px;
+  }
+  .kapi-careers-hero h1 {
+    font-size: clamp(2.7rem, 14vw, 4.2rem);
+  }
+  .kapi-careers-talent-card {
+    border-radius: 16px;
+  }
+  .kapi-careers-modal {
+    width: min(100%, calc(100vw - 20px));
+    border-radius: 22px;
+  }
+  .kapi-talent-modal {
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+  }
+  .kapi-talent-modal .grid {
+    display: block;
+  }
+  .kapi-talent-modal .relative.min-h-\[280px\] {
+    min-height: 320px;
+  }
+  .kapi-careers-modal-body {
+    padding: 16px !important;
+  }
+  .kapi-careers-modal-header {
+    padding: 16px !important;
+  }
+  .kapi-careers-application-panel {
+    padding-top: 22px;
+  }
+}
