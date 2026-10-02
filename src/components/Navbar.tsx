@@ -470,10 +470,14 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] overflow-hidden bg-[#0B0C0E]/86 backdrop-blur-2xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] overflow-hidden bg-[#0B0C0E]/56"
+            style={{
+              backdropFilter: 'blur(42px) saturate(1.25) brightness(0.72)',
+              WebkitBackdropFilter: 'blur(42px) saturate(1.25) brightness(0.72)',
+            }}
           >
             <div
-              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
+              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-[#0B0C0E]/54"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
