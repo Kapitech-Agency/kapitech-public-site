@@ -92,8 +92,8 @@ export const Home = () => {
       src: "https://drive.google.com/uc?export=download&id=1IRRMIgjlZ0cSgh0Z5MOjr0c-iuSuthOx"
     },
     {
-      name: "Pertamina Group",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pertamina_Logo.svg"
+      name: "Sinar Mas",
+      src: "https://images.seeklogo.com/logo-png/64/1/sinarmas-logo-png_seeklogo-641927.png"
     }
   ];
 
