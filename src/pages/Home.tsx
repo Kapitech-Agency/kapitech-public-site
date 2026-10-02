@@ -259,32 +259,43 @@ export const Home = () => {
       </section>
 
       {/* AGENCY PROOF / METRICS */}
-      <section className="py-14 sm:py-18 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]" aria-label="Agency metrics">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-8 sm:mb-10">
-            <div>
-              <span className="text-brand-red font-mono font-semibold tracking-[0.18em] uppercase text-[10px] sm:text-xs">
-                {language === 'id' ? 'Studio dalam angka' : 'Studio at a glance'}
-              </span>
-              <h2 className="mt-2 text-xl sm:text-2xl md:text-3xl font-display font-semibold tracking-[-0.03em] text-white">
-                {language === 'id' ? 'Ringkas. Terukur. Siap dieksekusi.' : 'Focused, measurable, ready to execute.'}
-              </h2>
-            </div>
-            <p className="max-w-md text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
+      <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]" aria-label="Agency metrics">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-brand-red/[0.035] blur-3xl" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="max-w-4xl mx-auto text-center mb-14 sm:mb-16 lg:mb-20">
+            <span className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.22em] uppercase text-[10px] sm:text-xs">
+              <span className="h-px w-8 bg-brand-red/60" />
+              {language === 'id' ? 'THE KAPITECH DIFFERENCE' : 'THE KAPITECH DIFFERENCE'}
+              <span className="h-px w-8 bg-brand-red/60" />
+            </span>
+            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.055em] leading-[1.02] text-white">
+              {language === 'id' ? 'Dibangun dengan niat. Dikirim dengan presisi.' : 'Built with intent. Delivered with precision.'}
+            </h2>
+            <p className="mt-5 max-w-2xl mx-auto text-sm sm:text-base leading-[1.75] text-[#8A909D] font-light">
               {language === 'id'
-                ? 'Kapitech menggabungkan strategi, desain, dan engineering dalam satu alur kerja yang rapat.'
-                : 'Kapitech brings strategy, design, and engineering into one tightly connected workflow.'}
+                ? 'Strategi, desain, dan engineering kami tetap terhubung dari keputusan pertama hingga produk benar-benar siap digunakan.'
+                : 'Strategy, design, and engineering stay connected from the first decision to the moment your product is ready to ship.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-[#262930]">
             {stats.map((stat, i) => (
-              <div
+              <motion.div
                 key={stat.index}
-                className={`relative py-6 sm:py-7 lg:py-8 pr-5 sm:pr-7 lg:pr-8 ${i > 0 ? 'lg:pl-7 border-t sm:border-t-0 lg:border-l border-[#262930]' : ''} group`}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -3 }}
+                className={`group relative min-h-[250px] sm:min-h-[285px] lg:min-h-[310px] py-7 sm:py-8 lg:py-9 pr-5 sm:pr-7 lg:pr-9 ${i > 0 ? 'lg:pl-8 border-t sm:border-t-0 lg:border-l border-[#262930]' : ''}`}
               >
-                <div className="flex items-center justify-between gap-4 mb-7">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
+                <div className="absolute left-0 right-0 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]">
                     {stat.label}
                   </span>
                   <span className="text-[10px] font-mono tabular-nums text-brand-red/70">
@@ -292,26 +303,26 @@ export const Home = () => {
                   </span>
                 </div>
 
-                <div className="min-h-[82px] flex flex-col justify-end">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-[2.6rem] sm:text-[3.1rem] lg:text-[3.3rem] font-display font-semibold leading-none tracking-[-0.06em] text-white group-hover:text-brand-red transition-colors duration-300">
+                <div className="mt-12">
+                  <div className="flex items-end gap-2">
+                    <span className="text-[3.6rem] sm:text-[4.1rem] lg:text-[4.45rem] font-display font-semibold leading-[0.88] tracking-[-0.07em] text-white transition-colors duration-300 group-hover:text-brand-red">
                       {stat.value}
                     </span>
                     {stat.suffix && (
-                      <span className="text-xs sm:text-sm font-mono text-[#8A909D]">
+                      <span className="pb-1 text-xs sm:text-sm font-mono text-[#8A909D]">
                         {stat.suffix}
                       </span>
                     )}
                   </div>
-                  <span className="mt-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-brand-red/80">
+                  <span className="mt-4 block text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-brand-red/85">
                     {stat.meta}
                   </span>
                 </div>
 
-                <p className="mt-5 max-w-xs text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
+                <p className="absolute left-0 bottom-7 sm:bottom-8 lg:bottom-9 max-w-[245px] text-xs sm:text-sm leading-[1.65] text-[#8A909D] font-light">
                   {stat.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -319,15 +330,20 @@ export const Home = () => {
 
       {/* CLIENTS & PARTNERS SECTION - LOOPING CAROUSEL WITH SIDE SHADOWS */}
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10 text-left">
-          <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 block">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 mb-10 sm:mb-12 text-center">
+          <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs mb-3 block">
             {language === 'id' ? 'DIPERCAYA DI INDONESIA' : 'TRUSTED BY INDONESIAN TEAMS'}
           </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-[-0.03em] text-white max-w-3xl">
-            {language === 'id' 
-              ? 'Brand Indonesia yang pernah bekerja bersama Kapitech' 
-              : 'Indonesian brands that have worked with Kapitech'}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.045em] leading-[1.08] text-white">
+            {language === 'id'
+              ? 'Brand Indonesia yang mempercayakan produk digitalnya kepada Kapitech'
+              : 'Indonesian brands that have trusted Kapitech with their digital products'}
           </h2>
+          <p className="mt-3 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
+            {language === 'id'
+              ? 'Dipilih untuk pekerjaan yang menuntut ketelitian visual, kualitas teknis, dan delivery yang konsisten.'
+              : 'Chosen for work that demands visual precision, technical quality, and consistent delivery.'}
+          </p>
         </div>
 
         {/* Looping Marquee Track with Left & Right Gradient Shadows */}
@@ -629,36 +645,66 @@ export const Home = () => {
       </section>
 
       {/* WORKING PROCESS STEPPING */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-12 sm:mb-16">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-              {language === 'id' ? 'Alur Kerja Studio' : 'Our Working Framework'}
-            </span>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-white">
-              {language === 'id' ? 'Eksekusi Tangkas & Terukur' : 'Disciplined Agile Execution'}
-            </h2>
+      <section className="relative overflow-hidden py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute right-[-8rem] top-12 h-72 w-72 rounded-full border border-brand-red/[0.08]" />
+          <div className="absolute right-[-5rem] top-24 h-52 w-52 rounded-full border border-white/[0.05]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 sm:mb-16 lg:mb-20">
+            <div className="max-w-3xl">
+              <span className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+                <span className="h-px w-8 bg-brand-red/60" />
+                {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
+              </span>
+              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.055em] leading-[1.03] text-white">
+                {language === 'id' ? 'Dari brief pertama hingga produk diluncurkan.' : 'From first brief to final launch.'}
+              </h2>
+            </div>
+            <p className="max-w-md text-xs sm:text-sm lg:text-base leading-[1.7] text-[#8A909D] font-light">
+              {language === 'id'
+                ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
+                : 'Four connected phases keep quality, momentum, and project decisions moving in the same direction.'}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8">
-            {processSteps.map((step) => (
-              <div 
-                key={step.step}
-                className="relative pt-6 border-t border-[#262930] hover:border-brand-red/50 transition-colors flex flex-col justify-between"
-              >
-                <div className="text-2xl font-display font-bold text-brand-red font-mono mb-4">
-                  {step.step}
-                </div>
-                <div>
-                  <h3 className="text-lg font-display font-bold text-white mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[38px] h-px bg-[#262930]" aria-hidden="true" />
+            <div className="hidden lg:block absolute left-[12.5%] right-[62.5%] top-[38px] h-px bg-brand-red/55" aria-hidden="true" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10">
+              {processSteps.map((step, index) => (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -4 }}
+                  className="group relative"
+                >
+                  <div className="relative z-10 flex items-center gap-3 mb-7">
+                    <span className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-[#262930] bg-[#0B0C0E] text-brand-red transition-all duration-500 group-hover:border-brand-red/60 group-hover:bg-brand-red group-hover:text-white">
+                      <span className="text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
+                    </span>
+                    <span className="h-px flex-1 bg-[#262930] sm:hidden" />
+                  </div>
+
+                  <div className="pl-1">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]">
+                      {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
+                    </span>
+                    <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold tracking-[-0.03em] text-white group-hover:text-brand-red transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light">
+                      {step.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
