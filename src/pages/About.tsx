@@ -283,7 +283,7 @@ export const About = () => {
   const team = language === 'id' ? teamId : teamEn;
 
   return (
-    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
@@ -299,7 +299,7 @@ export const About = () => {
                 <>A digital agency engineered for <span className="text-brand-red">clarity and growth</span>.</>
               )}
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-[#8A909D] font-light leading-relaxed">
               {t('about.subtitle')}
             </p>
           </div>
@@ -307,7 +307,7 @@ export const About = () => {
       </section>
 
       {/* Company Story / Mission */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-6 space-y-5 sm:space-y-6">
             <span className="text-xs font-mono uppercase tracking-wider text-brand-red block font-semibold">
@@ -318,12 +318,12 @@ export const About = () => {
                 ? 'Menjembatani desain strategis dengan rekayasa software yang andal.'
                 : 'Bridging strategic design with dependable software engineering.'}
             </h2>
-            <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed">
               {language === 'id'
                 ? 'Kapitech Agency beroperasi di bawah badan hukum resmi PT Kapitech Digital Indonesia, berkantor pusat di Tangerang Selatan dengan tim kolaboratif yang terdistribusi.'
                 : 'Kapitech Agency operates under the formal legal entity of PT Kapitech Digital Indonesia, headquartered in South Tangerang with a collaborative, remote-friendly team.'}
             </p>
-            <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed">
               {language === 'id'
                 ? 'Kami menolak template yang lambat dan jargon berlebihan. Kami berfokus pada hasil nyata: kode yang bersih, kecepatan muat tinggi, alur pengguna intuitif, dan arsitektur kokoh yang mendukung perkembangan bisnis Anda.'
                 : 'We reject bloated, slow templates and overcomplicated jargon. Instead, we focus on what really moves the needle: clean code, fast loading speeds, intuitive user journeys, and robust architectures that support your business as it grows.'}
@@ -333,7 +333,7 @@ export const About = () => {
             <div className="p-4 sm:p-5 rounded-2xl bg-[#16181D] border border-[#262930] flex items-start gap-3">
               <MapPin size={18} className="text-brand-red shrink-0 mt-0.5" />
               <div className="text-xs">
-                <span className="font-mono text-[#8E8E93] uppercase block mb-1">
+                <span className="font-mono text-[#8A909D] uppercase block mb-1">
                   {language === 'id' ? 'Kantor Pusat Perusahaan' : 'Corporate Headquarters'}
                 </span>
                 <p className="text-white leading-relaxed font-light">
@@ -346,15 +346,15 @@ export const About = () => {
             <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 sm:pt-6 border-t border-[#262930]">
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white block">50+</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.projects')}</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.projects')}</span>
               </div>
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#FF6B00] block">3+</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.experience')}</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.experience')}</span>
               </div>
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-red block">100%</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.craft')}</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.craft')}</span>
               </div>
             </div>
           </div>
@@ -366,7 +366,7 @@ export const About = () => {
                 alt="Kapitech Agency Team Collaboration"
                 className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent flex items-end p-5 sm:p-8">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/20 to-transparent flex items-end p-5 sm:p-8">
                 <div>
                   <span className="text-[10px] sm:text-xs font-mono text-brand-red uppercase tracking-wider block mb-1 font-semibold">
                     {language === 'id' ? 'Komitmen Kami' : 'Our Commitment'}
@@ -391,7 +391,7 @@ export const About = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
               {t('about.leadership.title')}
             </h2>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
               {t('about.leadership.subtitle')}
             </p>
           </div>
@@ -419,7 +419,7 @@ export const About = () => {
                     <p className="text-[10px] sm:text-[11px] font-mono text-brand-red uppercase tracking-wider mb-2.5 sm:mb-3 font-medium">
                       {member.role}
                     </p>
-                    <p className="text-xs text-[#8E8E93] font-light leading-relaxed">
+                    <p className="text-xs text-[#8A909D] font-light leading-relaxed">
                       {member.bio}
                     </p>
                   </div>
@@ -431,7 +431,7 @@ export const About = () => {
       </section>
 
       {/* Core Principles / Values */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -440,7 +440,7 @@ export const About = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
               {language === 'id' ? 'Bagaimana kami menangani setiap proyek.' : 'How we approach every project.'}
             </h2>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
               {language === 'id'
                 ? 'Kami memegang standar ketat untuk kegunaan, kecepatan, dan dampak bisnis nyata.'
                 : 'We hold our work to strict standards of usability, speed, and business impact.'}
@@ -458,7 +458,7 @@ export const About = () => {
                     {v.icon}
                   </div>
                   <h3 className="text-lg sm:text-xl font-display font-bold mb-2.5 sm:mb-3 text-white">{v.title}</h3>
-                  <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{v.desc}</p>
+                  <p className="text-xs text-[#8A909D] font-light leading-relaxed">{v.desc}</p>
                 </div>
               </div>
             ))}
@@ -489,7 +489,7 @@ export const About = () => {
                     {item.year}
                   </span>
                   <h3 className="text-base sm:text-lg font-display font-bold mb-2 text-white">{item.title}</h3>
-                  <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{item.desc}</p>
+                  <p className="text-xs text-[#8A909D] font-light leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -498,7 +498,7 @@ export const About = () => {
       </section>
 
       {/* Redesigned Technology Stack Grid */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#262930] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930] relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -507,7 +507,7 @@ export const About = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
               {t('about.tools.title')}
             </h2>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
               {t('about.tools.subtitle')}
             </p>
           </div>
@@ -523,7 +523,7 @@ export const About = () => {
                     <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
                       {stack.icon}
                     </div>
-                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0A0A0A] text-[#FF6B00] border border-[#262930]">
+                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0B0C0E] text-[#FF6B00] border border-[#262930]">
                       {stack.badge}
                     </span>
                   </div>
@@ -531,7 +531,7 @@ export const About = () => {
                   <h3 className="text-base sm:text-lg font-display font-bold text-white mb-1 group-hover:text-brand-red transition-colors">
                     {stack.category}
                   </h3>
-                  <p className="text-xs text-[#8E8E93] font-light mb-5 sm:mb-6">
+                  <p className="text-xs text-[#8A909D] font-light mb-5 sm:mb-6">
                     {stack.subtitle}
                   </p>
 
@@ -539,10 +539,10 @@ export const About = () => {
                     {stack.tools.map((tool) => (
                       <div 
                         key={tool.name} 
-                        className="flex items-center justify-between p-2 rounded-xl bg-[#0A0A0A] border border-[#262930] hover:border-brand-red/30 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/30 transition-colors"
                       >
                         <span className="text-xs font-medium text-white">{tool.name}</span>
-                        <span className="text-[9px] sm:text-[10px] font-mono text-[#8E8E93] uppercase">{tool.level}</span>
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[#8A909D] uppercase">{tool.level}</span>
                       </div>
                     ))}
                   </div>
@@ -554,19 +554,19 @@ export const About = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center relative z-10 bg-[#0A0A0A]">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center relative z-10 bg-[#0B0C0E]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-4 sm:mb-6 text-white">
             {language === 'id' ? 'Siap berkolaborasi membangun produk digital Anda berikutnya?' : 'Ready to collaborate on your next digital product?'}
           </h2>
-          <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto">
             {language === 'id'
               ? 'Hubungi tim Kapitech Agency di Tangerang Selatan untuk mendiskusikan kebutuhan proyek, estimasi waktu, dan rincian biaya.'
               : 'Get in touch with Kapitech Agency in South Tangerang to discuss your project requirements, timeline, and estimation.'}
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#E01414] text-white font-semibold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-brand-red/20 active:scale-95"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-brand-red/20 active:scale-95"
           >
             <span>{language === 'id' ? 'Mulai Diskusi' : 'Start a Conversation'}</span>
             <ArrowUpRight size={16} />
