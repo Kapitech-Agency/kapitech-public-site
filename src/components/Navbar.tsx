@@ -22,6 +22,52 @@ import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
 
+const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
+  <span
+    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"
+    aria-hidden="true"
+  >
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox={mobile ? '0 0 100 48' : '0 0 100 40'}
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <rect
+        x="0.75"
+        y="0.75"
+        width={mobile ? '98.5' : '98.5'}
+        height={mobile ? '46.5' : '38.5'}
+        rx={mobile ? '12' : '19'}
+        pathLength="1"
+        stroke="rgba(255,255,255,0.16)"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+      <motion.rect
+        x="0.75"
+        y="0.75"
+        width={mobile ? '98.5' : '98.5'}
+        height={mobile ? '46.5' : '38.5'}
+        rx={mobile ? '12' : '19'}
+        pathLength="1"
+        stroke="rgba(255,255,255,0.95)"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        strokeDasharray="0.12 0.88"
+        vectorEffect="non-scaling-stroke"
+        animate={{ strokeDashoffset: [0, -1] }}
+        transition={{
+          duration: mobile ? 4.8 : 4.4,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      />
+    </svg>
+  </span>
+);
+
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -98,10 +144,10 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.16em] leading-none transition-all duration-250",
+      "group relative inline-flex items-center h-8 px-3.5 rounded-[10px] text-[10px] font-semibold uppercase tracking-[0.16em] leading-none transition-all duration-300",
       active
-        ? "text-white bg-white/[0.045] border border-brand-red/25 shadow-[0_8px_24px_-18px_rgba(229,9,20,0.9)]"
-        : "text-[#8A909D] border border-transparent hover:text-white hover:bg-white/[0.035]"
+        ? "text-white bg-white/[0.045]"
+        : "text-[#8A909D] hover:text-white hover:bg-white/[0.035]"
     );
 
   return (
@@ -133,8 +179,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <div className="flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-3 lg:gap-4">
+            <div className="flex items-center gap-0.5 rounded-[15px] border border-white/[0.07] bg-[#111318]/72 p-1 shadow-[0_14px_34px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl">
               
               {/* Work Link */}
               <Link
@@ -145,8 +191,8 @@ export const Navbar = () => {
                 {isWorkActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
                 )}
@@ -194,8 +240,8 @@ export const Navbar = () => {
                 {isAboutActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
                 )}
@@ -211,8 +257,8 @@ export const Navbar = () => {
                 {isCareersActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
                 )}
@@ -226,50 +272,17 @@ export const Navbar = () => {
               className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full text-white text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 shadow-[0_12px_32px_-18px_rgba(229,9,20,0.9)]"
               data-cursor-label="Start"
             >
-              <span
-                className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
-                aria-hidden="true"
-              >
-                <svg
-                  className="absolute inset-0 h-full w-full"
-                  viewBox="0 0 240 40"
-                  preserveAspectRatio="none"
-                  fill="none"
-                >
-                  <rect
-                    x="1"
-                    y="1"
-                    width="238"
-                    height="38"
-                    rx="19"
-                    pathLength="100"
-                    stroke="rgba(255,255,255,0.92)"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeDasharray="10 90"
-                    vectorEffect="non-scaling-stroke"
-                  >
-                    <animate
-                      attributeName="stroke-dashoffset"
-                      from="0"
-                      to="-100"
-                      dur="3.6s"
-                      calcMode="linear"
-                      repeatCount="indefinite"
-                    />
-                  </rect>
-                </svg>
-              </span>
+              <CtaFlowLine />
               <span className="absolute inset-[1px] rounded-full bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
 
             {/* Language Switcher EN | ID */}
-            <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
+            <div className="flex items-center gap-0.5 rounded-full border border-white/[0.07] bg-[#111318]/72 p-1 text-[10px] font-mono font-semibold tracking-[0.16em] backdrop-blur-xl">
               <button
                 onClick={() => setLanguage('en')}
-                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.045] hover:text-white cursor-pointer"
                 aria-label="Switch to English"
               >
                 <span className={cn(
@@ -278,10 +291,10 @@ export const Navbar = () => {
                 )} />
                 <span className={cn(language === 'en' ? "text-white" : "text-[#8A909D]")}>EN</span>
               </button>
-              <span className="h-3 w-px bg-[#262930]" aria-hidden="true" />
+              <span className="mx-0.5 h-3 w-px bg-white/[0.08]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.045] hover:text-white cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
                 <span className={cn(
@@ -497,7 +510,7 @@ export const Navbar = () => {
               </Link>
               
               <div className="flex items-center gap-2">
-                <div className="flex items-center p-0.5 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold">
+                <div className="flex items-center p-0.5 rounded-full bg-[#111318] border border-white/[0.08] text-[11px] font-mono font-semibold shadow-[0_10px_24px_-20px_rgba(0,0,0,0.9)]">
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
@@ -706,40 +719,7 @@ export const Navbar = () => {
                   className="group relative isolate w-full h-12 rounded-xl text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
                   data-cursor-label="Start"
                 >
-                  <span
-                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl"
-                    aria-hidden="true"
-                  >
-                    <svg
-                      className="absolute inset-0 h-full w-full"
-                      viewBox="0 0 240 48"
-                      preserveAspectRatio="none"
-                      fill="none"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="238"
-                        height="46"
-                        rx="23"
-                        pathLength="100"
-                        stroke="rgba(255,255,255,0.92)"
-                        strokeWidth="1.25"
-                        strokeLinecap="round"
-                        strokeDasharray="9 91"
-                        vectorEffect="non-scaling-stroke"
-                      >
-                        <animate
-                          attributeName="stroke-dashoffset"
-                          from="0"
-                          to="-100"
-                          dur="3.9s"
-                          calcMode="linear"
-                          repeatCount="indefinite"
-                        />
-                      </rect>
-                    </svg>
-                  </span>
+                  <CtaFlowLine mobile />
                   <span className="absolute inset-[1px] rounded-[11px] bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
