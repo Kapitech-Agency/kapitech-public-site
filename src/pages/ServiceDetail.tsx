@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -73,6 +74,7 @@ export const ServiceDetail = () => {
 
   return (
     <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
+      undefined
       <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
       <div className="pointer-events-none absolute left-[18%] top-[34rem] h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
