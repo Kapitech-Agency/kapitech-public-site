@@ -28,6 +28,12 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
   const width = 240;
   const viewHeight = mobile ? 54 : 46;
 
+  const layers = [
+    { dash: 170, gap: 830, width: 4.1, opacity: 0.96, delay: 0 },
+    { dash: 122, gap: 878, width: 2.8, opacity: 0.52, delay: 0.055 },
+    { dash: 78, gap: 922, width: 1.7, opacity: 0.24, delay: 0.11 },
+  ];
+
   return (
     <span
       className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-85 transition-opacity duration-300 group-hover:opacity-100"
@@ -39,48 +45,32 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
         preserveAspectRatio="none"
         fill="none"
       >
-        <motion.rect
-          x="3"
-          y="3"
-          width="234"
-          height={height}
-          rx={radius}
-          pathLength="1000"
-          fill="none"
-          stroke="rgba(255,255,255,0.92)"
-          strokeWidth="3.4"
-          strokeLinecap="round"
-          strokeDasharray="185 815"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1000] }}
-          transition={{
-            duration: mobile ? 5.6 : 5.2,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-        <motion.rect
-          x="3"
-          y="3"
-          width="234"
-          height={height}
-          rx={radius}
-          pathLength="1000"
-          fill="none"
-          stroke="rgba(255,255,255,0.34)"
-          strokeWidth="1.45"
-          strokeLinecap="round"
-          strokeDasharray="95 905"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1000] }}
-          transition={{
-            duration: mobile ? 5.6 : 5.2,
-            repeat: Infinity,
-            ease: 'linear',
-            delay: 0.055,
-          }}
-          className="transition-[stroke] duration-300 group-hover:stroke-brand-red/75"
-        />
+        {layers.map((layer) => (
+          <motion.rect
+            key={`${layer.width}-${layer.delay}`}
+            x="3"
+            y="3"
+            width="234"
+            height={height}
+            rx={radius}
+            pathLength="1000"
+            fill="none"
+            stroke="white"
+            strokeWidth={layer.width}
+            strokeLinecap="round"
+            strokeDasharray={`${layer.dash} ${layer.gap}`}
+            vectorEffect="non-scaling-stroke"
+            opacity={layer.opacity}
+            animate={{ strokeDashoffset: [0, -1000] }}
+            transition={{
+              duration: mobile ? 4.2 : 3.9,
+              repeat: Infinity,
+              ease: 'linear',
+              delay: layer.delay,
+            }}
+            className="transition-[stroke] duration-300 group-hover:stroke-brand-red"
+          />
+        ))}
       </svg>
     </span>
   );
