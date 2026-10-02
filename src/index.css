@@ -82,7 +82,27 @@
     selection-color: #FFFFFF;
   }
 
-  /* Public-site typography and focus only. AMS owns its own scoped UI states. */
+  /* PUBLIC SITE CARD TOKENS */
+.kapi-public-shell {
+  --kapi-bg-charcoal-deep: #0B0C0E;
+  --kapi-bg-obsidian: #0E1014;
+  --kapi-bg-card: #16181D;
+  --kapi-bg-card-hover: #1B1F26;
+  --kapi-border-subtle: #262930;
+  --kapi-border-highlight: rgba(255,255,255,0.16);
+  --kapi-red-primary: #E50914;
+  --kapi-red-electric: #FF1E27;
+  --kapi-red-glow-hover: rgba(229,9,20,0.12);
+  --kapi-red-border-hover: rgba(229,9,20,0.42);
+  --kapi-text-white: #F8FAFC;
+  --kapi-text-slate: #8A909D;
+  --kapi-radius-card: 16px;
+  --kapi-radius-inner: 12px;
+  --kapi-radius-pill: 999px;
+  --kapi-transition-smooth: all 420ms cubic-bezier(0.22,1,0.36,1);
+}
+
+/* Public-site typography and focus only. AMS owns its own scoped UI states. */
   .kapi-public-shell h1,
   .kapi-public-shell h2,
   .kapi-public-shell h3,
