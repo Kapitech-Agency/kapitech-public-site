@@ -21,43 +21,28 @@ import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
-  const height = mobile ? 48 : 40;
   const radius = mobile ? 12 : 20;
-  const pathHeight = mobile ? 46 : 38;
-  const duration = mobile ? 4.8 : 4.6;
+  const duration = mobile ? 5.4 : 5.1;
 
   return (
     <span
-      className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
+      className="pointer-events-none absolute -inset-[2px] z-20 rounded-[inherit]"
       aria-hidden="true"
     >
-      <svg
-        className="absolute inset-0 h-full w-full overflow-visible"
-        viewBox={`0 0 100 ${height}`}
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        <motion.rect
-          x="0.5"
-          y="0.5"
-          width="99"
-          height={pathHeight}
-          rx={radius}
-          pathLength="1"
-          stroke="#E63946"
-          strokeWidth="1.15"
-          strokeLinecap="round"
-          strokeDasharray="0.16 0.84"
-          strokeOpacity="0.92"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1] }}
-          transition={{
-            duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </svg>
+      <motion.span
+        className="absolute left-1/2 top-0 h-[2.2px] w-12 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,rgba(230,57,70,0)_0%,rgba(230,57,70,0.16)_28%,rgba(230,57,70,0.46)_62%,#E63946_100%)] shadow-[0_0_4px_rgba(230,57,70,0.28),0_0_9px_rgba(230,57,70,0.1)]"
+        style={{
+          offsetPath: `inset(0 round ${radius}px)`,
+          offsetRotate: 'auto',
+        } as React.CSSProperties}
+        initial={{ offsetDistance: '0%' }}
+        animate={{ offsetDistance: '100%' }}
+        transition={{
+          duration,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      />
     </span>
   );
 };
