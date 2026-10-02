@@ -405,7 +405,7 @@ export const Footer = () => {
                 rel="noopener noreferrer"
                 aria-label={social.name}
                 title={social.name}
-                className="w-11 h-11 min-h-[44px] min-w-[44px] rounded-xl flex items-center justify-center text-[#8A909D] hover:text-white bg-[#16181D] hover:bg-[#20232B] hover:border-brand-red/30 border border-[#262930] transition-all duration-200"
+                className="w-11 h-11 min-h-[44px] min-w-[44px] rounded-xl flex items-center justify-center text-[#8A909D] hover:text-white bg-[#16181D] hover:bg-[#1B1F26] hover:border-brand-red/30 border border-[#262930] transition-all duration-200"
               >
                 {social.icon}
               </a>
@@ -427,7 +427,7 @@ export const Footer = () => {
             <button 
               onClick={scrollToTop} 
               id="footer-back-to-top"
-              className="flex items-center gap-1.5 hover:text-white transition-colors py-2 px-3 min-h-[36px] rounded-lg bg-[#16181D] hover:bg-[#20232B] border border-[#262930]"
+              className="flex items-center gap-1.5 hover:text-white transition-colors py-2 px-3 min-h-[36px] rounded-lg bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930]"
             >
               <span>{t('footer.backToTop')}</span>
               <ArrowUp size={14} />
