@@ -446,7 +446,7 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] bg-[#0B0C0E]/98 flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#0B0C0E]/78 backdrop-blur-[40px] backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/70 flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
           >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
@@ -463,7 +463,7 @@ export const Navbar = () => {
               </Link>
               
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_22px_rgba(0,0,0,0.12)]">
+                <div className={cn("flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.08)]", navbarGlassMaterial)}>
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
@@ -486,7 +486,7 @@ export const Navbar = () => {
 
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.12)]"
+                  className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]", navbarGlassMaterial)}
                   aria-label="Close menu"
                 >
                   <X size={22} />
