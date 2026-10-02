@@ -216,6 +216,38 @@
         .logo-k path {
             fill: #FF0033;
         }
+    
+        /* Shared public-site interaction baseline */
+        html { scroll-padding-top: 88px; }
+        body { min-width: 320px; }
+        ::selection { background: var(--magma); color: #fff; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--magma); }
+        * { scrollbar-width: thin; scrollbar-color: #333 var(--bg-main); }
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--magma);
+            outline-offset: 4px;
+        }
+        button:disabled { cursor: not-allowed; opacity: 0.55; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .liquid-glass { border-radius: 20px; }
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-magma selection:text-white">
@@ -255,14 +287,14 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="#" class="hidden md:flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-subtle hover:text-white transition-colors">
+                <a href="https://ams.kapitech.id" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-subtle hover:text-white transition-colors">
                     <i data-lucide="log-in" class="w-4 h-4 mr-2"></i> Login
                 </a>
                 <a href="./contact.html" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-8 py-3 rounded-full relative overflow-hidden group text-contrast hover:border-magma/50 transition-colors">
                     <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
                     <span class="relative z-10 group-hover:text-white transition-colors">Start Project</span>
                 </a>
-                <button class="lg:hidden text-contrast" onclick="toggleMenu()">
+                <button type="button" class="lg:hidden text-white" data-mobile-menu-toggle aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation menu">
                     <i data-lucide="menu" class="w-8 h-8"></i>
                 </button>
             </div>
@@ -271,7 +303,7 @@
 
     <!-- MOBILE MENU -->
     <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl transition-colors duration-500">
-        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-contrast p-4">
+        <button type="button" onclick="event.stopPropagation()" class="absolute top-8 right-8 text-white p-4" data-mobile-menu-close aria-label="Close navigation menu">
             <i data-lucide="x" class="w-10 h-10"></i>
         </button>
         <a href="./index.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Home</a>
@@ -286,7 +318,7 @@
     <!-- HERO SECTION -->
     <section class="min-h-screen flex flex-col justify-end pb-24 px-6 relative max-w-[1920px] mx-auto overflow-hidden">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
                 <source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4">
             </video>
             <div class="video-overlay"></div>
@@ -313,8 +345,7 @@
                     </p>
                 </div>
                 <div class="mt-12 md:mt-0 flex items-center gap-6">
-                    <button onclick="alert('Playing Reel...')" class="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-contrast hover:text-magma transition-colors group">
-                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-magma transition-colors">
+                    <a href="./portfolio.html" class="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-contrast hover:text-magma transition-colors group"><div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-magma transition-colors">
                             <i data-lucide="play" class="w-4 h-4 fill-current"></i>
                         </div>
                         Watch Reel
@@ -419,19 +450,19 @@
         <div class="relative w-full">
             <div class="flex whitespace-nowrap animate-ticker w-max items-center gap-24">
                  <!-- Loop Set 1 -->
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM" loading="lazy" decoding="async">
                  <!-- Loop Set 2 -->
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon" loading="lazy" decoding="async">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
@@ -509,7 +540,7 @@
                     </p>
                 </div>
                 <div class="relative z-10 w-full md:w-1/3 aspect-video bg-black/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-700">
-                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000" class="w-full h-full object-cover" alt="" loading="lazy" decoding="async">
                 </div>
             </a>
         </div>
@@ -630,7 +661,7 @@
             <!-- Item 1 -->
             <div class="group cursor-pointer">
                 <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
-                     <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="" loading="lazy" decoding="async">
                      <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                         <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
                      </div>
@@ -647,7 +678,7 @@
             <!-- Item 2 -->
             <div class="group cursor-pointer md:mt-12">
                 <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
-                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="" loading="lazy" decoding="async">
                      <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                         <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
                      </div>
@@ -664,7 +695,7 @@
             <!-- Item 3 -->
             <div class="group cursor-pointer">
                 <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
-                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="" loading="lazy" decoding="async">
                      <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                         <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
                      </div>
@@ -681,7 +712,7 @@
             <!-- Item 4 -->
             <div class="group cursor-pointer md:mt-12">
                 <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
-                     <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="" loading="lazy" decoding="async">
                      <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                         <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
                      </div>
@@ -883,7 +914,7 @@
                     <p class="text-gray-300 text-lg max-w-md leading-relaxed mb-8">
                         Rukan Crown H-29, Green Lake City.<br>Cipondoh, Indonesia.
                     </p>
-                    <a href="mailto:hello@kapitech.co.id" class="text-2xl font-bold text-contrast hover:text-magma transition-all border-b-2 border-transparent hover:border-magma">hello@kapitech.co.id</a>
+                    <a href="mailto:hello@kapitech.id" class="text-2xl font-bold text-contrast hover:text-magma transition-all border-b-2 border-transparent hover:border-magma">hello@kapitech.id</a>
                 </div>
 
                 <!-- Links 1 -->
@@ -902,10 +933,10 @@
                 <div class="lg:col-span-2 relative z-10">
                      <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-magma mb-8 shadow-magma drop-shadow-md">Socials</h4>
                      <ul class="space-y-4 text-sm font-medium text-gray-300">
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Instagram</a></li>
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">LinkedIn</a></li>
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Twitter / X</a></li>
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Behance</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Instagram</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">LinkedIn</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Twitter / X</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Behance</a></li>
                      </ul>
                 </div>
 
@@ -913,9 +944,9 @@
                 <div class="lg:col-span-2 relative z-10">
                      <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-magma mb-8 shadow-magma drop-shadow-md">Legal</h4>
                      <ul class="space-y-4 text-sm font-medium text-gray-300">
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Privacy Policy</a></li>
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Terms of Service</a></li>
-                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Cookies</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Privacy Policy</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Terms of Service</a></li>
+                         <li><a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Cookies</a></li>
                      </ul>
                 </div>
             </div>
@@ -958,12 +989,4 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        lucide.createIcons();
-        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); document.getElementById('mobileMenu').classList.toggle('flex'); }
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-</body>
 </html>
