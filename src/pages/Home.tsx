@@ -642,7 +642,7 @@ export const Home = () => {
       </section>
 
       {/* WORKING PROCESS STEPPING */}
-      <section className="relative overflow-hidden py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <motion.div
             className="absolute -right-32 top-16 h-72 w-72 rounded-full border border-brand-red/[0.045]"
@@ -657,7 +657,8 @@ export const Home = () => {
         </div>
 
         <div className="max-w-7xl mx-auto relative">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-14 mb-14 sm:mb-16 lg:mb-20">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-9 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-14 mb-12 sm:mb-14">
             <div className="max-w-4xl">
               <motion.span
                 initial={{ opacity: 0, x: -8 }}
@@ -694,7 +695,7 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-0 gap-y-10 lg:gap-y-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {processSteps.map((step, index) => {
                 const isActive = activeProcessStep === index;
                 return (
@@ -710,9 +711,7 @@ export const Home = () => {
                       isActive
                         ? "opacity-100"
                         : "opacity-[0.46] group-hover:opacity-100",
-                      "lg:px-5",
-                      index === 0 && "lg:pl-0",
-                      index === processSteps.length - 1 && "lg:pr-0"
+                      "min-w-0"
                     )}
                   >
                     <button
@@ -732,10 +731,9 @@ export const Home = () => {
                         )}
                       />
 
-                      <div className="relative ml-0 pl-7 lg:ml-0 lg:pl-0 pt-0 lg:pt-[3.25rem]">
+                      <div className="relative min-h-[270px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022]">
                         <div
-                          className="flex items-center justify-between gap-4 border-b pb-3 transition-colors duration-500 lg:pr-1"
-                          style={{ borderColor: isActive ? 'rgba(229,9,20,0.32)' : 'rgba(255,255,255,0.07)' }}
+                          className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-3 transition-colors duration-500 lg:pr-1"
                         >
                           <span className={cn(
                             "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
@@ -768,10 +766,10 @@ export const Home = () => {
                           {step.desc}
                         </motion.p>
 
-                        <div className="relative mt-6 h-px w-full overflow-hidden bg-white/[0.05]">
+                        <div className="relative mt-6 h-1 w-10 overflow-hidden rounded-full bg-white/[0.06]">
                           <motion.div
-                            className="absolute left-0 top-0 h-px bg-brand-red"
-                            animate={{ width: isActive ? '36%' : '12%', opacity: isActive ? 1 : 0.45 }}
+                            className="absolute inset-y-0 left-0 rounded-full bg-brand-red"
+                            animate={{ width: isActive ? '100%' : '45%', opacity: isActive ? 1 : 0.45 }}
                             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                           />
                         </div>
@@ -787,13 +785,14 @@ export const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.28 }}
-              className="mt-10 lg:mt-12 flex items-center justify-between border-t border-white/[0.06] pt-4 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
+              className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
             >
               <span>{language === 'id' ? 'Hover atau pilih fase untuk menjelajah' : 'Hover or select a phase to explore'}</span>
               <span className="text-brand-red/85 tabular-nums">
                 {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
               </span>
             </motion.div>
+          </div>
           </div>
         </div>
       </section>
