@@ -30,7 +30,6 @@ import {
 } from 'lucide-react';
 import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
@@ -162,31 +161,24 @@ export const Home = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white" role="main">
       {/* Hero Section */}
       <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
-        <AtmosphericBackground
-          imageUrl="/hero_background_3d.png"
-          opacity={0.06}
-          disableGrayscale={true}
-        />
-
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
           <PatternWaves
             preset="silk"
-            color="#E50914"
-            backgroundColor="transparent"
-            opacity={0.55}
+            color="#dc143c"
+            backgroundColor="#170f0f"
+            opacity={0.58}
             fade="edges"
             fadeSize={0.7}
             interactive
-            cursorSize={72}
-            cursorStrength={0.45}
+            cursorSize={50}
+            cursorStrength={0.6}
             speed={0.28}
-            scale={1.15}
-            depth={0.78}
-            shine={0.65}
-            contrast={1.1}
+            scale={1.05}
+            depth={0.72}
+            shine={0.7}
+            contrast={1.08}
             intro
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(11,12,14,0.12),rgba(11,12,14,0.76)_78%)]" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0C0E] to-transparent" />
         </div>
 
