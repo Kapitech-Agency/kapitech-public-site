@@ -1196,32 +1196,41 @@ html.kapi-custom-cursor-enabled select {
   pointer-events: none;
   z-index: 9998;
   width: max-content;
-  min-width: 0;
-  max-width: 120px;
-  height: 22px;
+  max-width: 132px;
+  height: 23px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(28,29,34,0.94), rgba(15,16,20,0.92));
+  padding: 0 9px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 7px;
+  background: rgba(13,14,18,0.96);
   color: rgba(255,255,255,0.94);
   box-shadow:
-    0 8px 22px -14px rgba(0,0,0,0.9),
-    0 0 0 1px rgba(255,255,255,0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+    0 10px 24px -14px rgba(0,0,0,0.95),
+    0 0 0 1px rgba(255,255,255,0.025);
   font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
   font-size: 8px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   white-space: nowrap;
-  transform-origin: left center;
+  transform-origin: bottom right;
   will-change: transform, opacity;
+}
+
+.kapi-cursor-follow::after {
+  content: "";
+  position: absolute;
+  right: 7px;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  background: rgba(13,14,18,0.96);
+  border-right: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  transform: rotate(45deg);
 }
 
 @media (max-width: 767px) {
