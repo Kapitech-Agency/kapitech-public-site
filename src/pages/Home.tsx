@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
+import PatternWaves from '../components/ui/PatternWaves/PatternWaves.jsx';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
@@ -138,7 +139,21 @@ export const Home = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white" role="main">
       {/* Hero Section */}
       <section className="kapi-home-hero relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
-        <div className="kapi-home-hero-video absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+          <PatternWaves
+            preset="silk"
+            color="#dc143c"
+            backgroundColor="transparent"
+            fade="edges"
+            opacity={0.58}
+            interactive
+            cursorSize={50}
+            cursorStrength={0.6}
+            speed={0.28}
+            depth={0.72}
+          />
+        </div>
+        <div className="kapi-home-hero-video absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
           <mux-player
             playback-id="T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g"
             stream-type="on-demand"
@@ -151,10 +166,9 @@ export const Home = () => {
             metadata-video-title="Kapitech Agency Hero"
             className="absolute inset-0 h-full w-full"
           />
-          <div className="kapi-home-hero-redwash absolute inset-0" />
-          <div className="absolute inset-0 bg-[#120507]/58" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#120507]/92 via-[#24060A]/72 to-[#42080F]/46" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#180307]/42" />
+          <div className="absolute inset-0 bg-[#120507]/48" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#120507]/88 via-[#24060A]/66 to-[#42080F]/42" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#180307]/36" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
