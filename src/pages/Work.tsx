@@ -169,7 +169,7 @@ export const Work = () => {
   const currentFeatured = featuredProjects[featuredIndex] || projectsList[0];
 
   return (
-    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground 
@@ -185,13 +185,13 @@ export const Work = () => {
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white mb-6">
               {language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
             </h1>
-            <p className="text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed mb-6">
+            <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
               {language === 'id' 
                 ? 'Jelajahi 50 studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.'
                 : 'Explore our portfolio of 50 comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.'
               }
             </p>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93]">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D]">
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
                 <span>50 {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies Verified'}</span>
@@ -209,29 +209,29 @@ export const Work = () => {
 
       {/* Featured Spotlight Carousel */}
       {currentFeatured && (
-        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A]">
+        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2.5">
                 <Sparkles className="w-4 h-4 text-brand-red" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#8E8E93] font-semibold">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#8A909D] font-semibold">
                   {language === 'id' ? 'Sorotan Proyek Terpilih' : 'Featured Case Study Spotlight'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
                   aria-label="Previous featured project"
                 >
                   <ChevronLeft size={16} />
                 </button>
-                <span className="text-xs font-mono text-[#8E8E93]/70">
+                <span className="text-xs font-mono text-[#8A909D]/70">
                   {featuredIndex + 1} / {featuredProjects.length}
                 </span>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev + 1) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
                   aria-label="Next featured project"
                 >
                   <ChevronRight size={16} />
@@ -243,14 +243,14 @@ export const Work = () => {
               onClick={() => setSelectedProject(currentFeatured)}
               className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
             >
-              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0A0A0A]">
+              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0B0C0E]">
                 <img 
                   src={currentFeatured.image} 
                   alt={currentFeatured.title}
                   className="w-full h-full object-cover sm:object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/30 to-transparent lg:hidden" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/30 to-transparent lg:hidden" />
               </div>
 
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
@@ -259,10 +259,10 @@ export const Work = () => {
                     <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[11px] font-mono font-medium">
                       {currentFeatured.pillar}
                     </span>
-                    <span className="px-2.5 py-1 rounded-full bg-[#0A0A0A] border border-[#262930] text-[#8E8E93] text-[11px] font-mono">
+                    <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[#8A909D] text-[11px] font-mono">
                       {currentFeatured.service}
                     </span>
-                    <span className="text-[#8E8E93]/70 text-xs font-mono ml-auto">
+                    <span className="text-[#8A909D]/70 text-xs font-mono ml-auto">
                       {currentFeatured.year}
                     </span>
                   </div>
@@ -270,10 +270,10 @@ export const Work = () => {
                   <h3 className="text-2xl sm:text-3xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-2">
                     {currentFeatured.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#8E8E93] mb-4">
+                  <p className="text-xs font-mono text-[#8A909D] mb-4">
                     {currentFeatured.client} • {currentFeatured.industry}
                   </p>
-                  <p className="text-sm text-[#8E8E93] leading-relaxed line-clamp-3 mb-6 font-light">
+                  <p className="text-sm text-[#8A909D] leading-relaxed line-clamp-3 mb-6 font-light">
                     {language === 'id' ? currentFeatured.descId : currentFeatured.desc}
                   </p>
                 </div>
@@ -285,7 +285,7 @@ export const Work = () => {
                         <span className="text-lg sm:text-xl font-display font-bold text-white block">
                           {metric.value}
                         </span>
-                        <span className="text-[10px] font-mono text-[#8E8E93] leading-tight block">
+                        <span className="text-[10px] font-mono text-[#8A909D] leading-tight block">
                           {metric.label}
                         </span>
                       </div>
