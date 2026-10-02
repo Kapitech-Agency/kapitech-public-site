@@ -104,6 +104,9 @@ export const Navbar = () => {
   const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/')|| location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
 
+  // Single glass material shared by the navbar's glass state, dropdown, and mobile hamburger.
+  const navbarGlassMaterial = "bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54";
+
   const desktopNavItemClass = (active: boolean) =>
     cn(
       "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300",
@@ -119,10 +122,10 @@ export const Navbar = () => {
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
           isScrolled
             ? isServicesDropdownOpen
-              ? "bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 py-3 sm:py-3.5 border-transparent shadow-none"
+              ? `${navbarGlassMaterial} py-3 sm:py-3.5 border-transparent shadow-none`
               : "bg-[#0B0C0E]/92 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/84 py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
             : isServicesDropdownOpen
-              ? "bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 py-4 sm:py-5 border-transparent shadow-none"
+              ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
               : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
@@ -280,7 +283,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.08] bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54 hover:border-white/[0.08] hover:bg-[#0B0C0E]/62 hover:backdrop-blur-2xl flex items-center justify-center text-white shadow-none active:bg-[#0B0C0E]/62 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer"
+              className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.08] flex items-center justify-center text-white shadow-none active:bg-white/[0.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer", navbarGlassMaterial)}
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -301,7 +304,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
+              className={cn("hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12", navbarGlassMaterial)}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
