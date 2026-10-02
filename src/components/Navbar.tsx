@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute -inset-px z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute -inset-[2px] z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -34,24 +34,24 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
       fill="none"
     >
       <motion.rect
-        x="1"
-        y="1"
-        width="238"
-        height={mobile ? '46' : '38'}
-        rx={mobile ? '23' : '19'}
-        pathLength="100"
+        x="2"
+        y="2"
+        width="236"
+        height={mobile ? '44' : '36'}
+        rx={mobile ? '21' : '19'}
+        pathLength="1000"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2.2"
+        strokeWidth="2.6"
         strokeLinecap="round"
-        strokeDasharray="34 66"
+        strokeDasharray="150 850"
         vectorEffect="non-scaling-stroke"
-        className="text-white/45 transition-colors duration-500 group-hover:text-brand-red"
-        animate={{ strokeDashoffset: [0, -100] }}
+        className="text-white/40 transition-colors duration-500 group-hover:text-brand-red"
+        animate={{ strokeDashoffset: [0, -1000] }}
         transition={{
-          duration: mobile ? 8.8 : 8.2,
+          duration: mobile ? 10 : 9.2,
           repeat: Infinity,
-          ease: 'linear'
+          ease: 'linear',
         }}
       />
     </svg>
