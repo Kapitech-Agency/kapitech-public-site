@@ -36,7 +36,7 @@ export const FloatingContact = () => {
       icon: <Mail size={18} />,
       label: language === 'id' ? 'Email Bisnis' : 'Business Email',
       href: 'mailto:business@kapitech.id',
-      color: 'bg-[#FF6B00]'
+      color: 'bg-[#16181D] border border-[#262930]'
     },
     {
       icon: <MessageSquare size={18} />,
