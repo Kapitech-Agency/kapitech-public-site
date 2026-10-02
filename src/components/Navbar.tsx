@@ -470,15 +470,8 @@ export const Navbar = () => {
             className="fixed inset-0 z-[100] overflow-hidden"
           >
             <div
-              className="absolute inset-0"
-              aria-hidden="true"
-              style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.72)',
-                backdropFilter: 'blur(28px) saturate(1.15)',
-                WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
-              }}
-            />
-            <div className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7">
+              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-[#0B0C0E]/96"
+            >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
               <Link 
