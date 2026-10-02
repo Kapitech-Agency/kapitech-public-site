@@ -14,6 +14,7 @@ export interface ContactSubmission {
   type?: 'inquiry' | 'career' | 'vendor' | 'newsletter';
   positionTitle?: string;
   portfolioUrl?: string;
+  resumeUrl?: string;
   specialty?: string;
   rateCard?: string;
   experienceYears?: string;
