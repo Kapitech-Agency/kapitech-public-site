@@ -15,7 +15,6 @@ type CursorContextType = {
   active: boolean;
   global: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
-  cursorRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const CursorContext = React.createContext<CursorContextType | null>(null);
@@ -37,7 +36,6 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
   const [enabled, setEnabled] = React.useState(false);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const cursorRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -88,7 +86,7 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
   }, [global]);
 
   return (
-    <CursorContext.Provider value={{ cursorPos, active: enabled && active, global, containerRef, cursorRef }}>
+    <CursorContext.Provider value={{ cursorPos, active: enabled && active, global, containerRef }}>
       {children}
     </CursorContext.Provider>
   );
@@ -112,7 +110,7 @@ export type CursorProps = HTMLMotionProps<'div'> & {
 };
 
 export function Cursor({ children, style, ...props }: CursorProps) {
-  const { cursorPos, active, containerRef, cursorRef, global } = useCursor();
+  const { cursorPos, active, containerRef, global } = useCursor();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -121,18 +119,10 @@ export function Cursor({ children, style, ...props }: CursorProps) {
     y.set(cursorPos.y);
   }, [cursorPos, x, y]);
 
-  React.useEffect(() => {
-    const target = global ? document.documentElement : containerRef.current?.parentElement;
-    if (!target || !active) return;
-
-    return () => undefined;
-  }, [active, global, containerRef]);
-
   return (
     <AnimatePresence>
       {active && (
         <motion.div
-          ref={cursorRef}
           data-slot="cursor"
           className="kapi-cursor-pointer"
           style={{
