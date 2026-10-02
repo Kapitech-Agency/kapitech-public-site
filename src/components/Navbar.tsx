@@ -51,13 +51,6 @@ export const Navbar = () => {
     };
   }, []);
 
-  // Blur the page content itself while the hamburger drawer is open.
-  useEffect(() => {
-    document.body.classList.toggle('kapitech-hamburger-open', isMenuOpen);
-    return () => {
-      document.body.classList.remove('kapitech-hamburger-open');
-    };
-  }, [isMenuOpen]);
 
   // Lock background scroll while the mobile navigation drawer is open.
   useEffect(() => {
@@ -151,11 +144,13 @@ export const Navbar = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
-          isScrolled
-            ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
-            : isServicesDropdownOpen
-              ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
-              : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
+          isMenuOpen
+            ? `${navbarGlassMaterial} min-h-screen h-screen overflow-hidden py-4 sm:py-5 border-transparent shadow-[0_18px_50px_rgba(0,0,0,0.28)]`
+            : isScrolled
+              ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
+              : isServicesDropdownOpen
+                ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
+                : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
         {/* Scroll Progress Bar */}
@@ -478,9 +473,9 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] overflow-hidden bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150">
+            className="fixed inset-0 z-[100] overflow-hidden bg-transparent">
             <div
-              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-[#0B0C0E]/54"
+              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
