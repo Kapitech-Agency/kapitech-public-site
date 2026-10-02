@@ -265,7 +265,7 @@ export const Contact = () => {
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 sm:mb-4 block">
               {language === 'id' ? 'Kontak & Konsultasi Proyek' : 'Contact & Inquiries'}
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-bold leading-[1.1] sm:leading-[1.05] tracking-tight mb-4 sm:mb-6 text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white">
               {language === 'id' ? (
                 <>Mari bangun produk digital <span className="text-brand-red">luar biasa</span> bersama kami.</>
               ) : (

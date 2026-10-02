@@ -182,7 +182,7 @@ export const Work = () => {
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
               {language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
             </span>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6">
               {language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
             </h1>
             <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
