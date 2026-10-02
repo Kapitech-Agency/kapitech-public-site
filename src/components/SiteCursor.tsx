@@ -41,12 +41,7 @@ export const SiteCursor = () => {
       <CursorProvider global>
         <Cursor />
         {label && (
-          <CursorFollow
-            side="top"
-            sideOffset={12}
-            align="end"
-            alignOffset={8}
-          >
+          <CursorFollow>
             {label}
           </CursorFollow>
         )}
