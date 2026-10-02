@@ -1,46 +1,42 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, ChevronLeft, ChevronRight, Code2, Layers, Palette, Sparkles, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import type { ProjectItem } from '../data/projectsData';
-import PatternWaves from '../components/ui/PatternWaves';
-import { EASE, GlassButton, GlassPanel, ImageReveal, Reveal, SectionHeader, TextReveal } from '../components/ui/PublicUI';
+import { GlassButton, GlassPanel, ImageReveal, Reveal, SectionHeader } from '../components/ui/PublicUI';
 import { Testimonials } from '../components/Testimonials';
 
-const pillars = [
-  {
-    number: '01',
-    label: 'Identity',
-    title: 'Brand identity & systems',
-    icon: Sparkles,
-    description: 'Build clear positioning, cohesive visual systems, and a brand language that scales across every touchpoint.',
-    tags: ['Pitch Deck', 'Brand Identity', 'Logo Design', 'Rebranding'],
-  },
-  {
-    number: '02',
-    label: 'Experience',
-    title: 'UI/UX & product design',
-    icon: Layers,
-    description: 'Design intuitive digital experiences, prototypes, and reusable systems that keep product teams moving.',
-    tags: ['UI/UX Design', 'Web & Mobile', 'Redesign', 'UX Audit'],
-  },
-  {
-    number: '03',
-    label: 'Engineering',
-    title: 'Full-stack development',
-    icon: Code2,
-    description: 'Develop high-performance websites and web applications with dependable architecture and clean delivery.',
-    tags: ['Web Development', 'MVP Build', 'Landing Pages', 'Enterprise'],
-  },
-];
+const capabilities = {
+  creative: [
+    'Video Production & Creative Content',
+    'Graphic Design',
+    'Key Visual',
+    'Motion Design',
+    '2D Animation',
+    'UI/UX',
+    'Branding & Identity',
+    'Digital Ads',
+    'Product Photography',
+    'Social Media Specialist',
+  ],
+  technology: [
+    'Custom Website Development',
+    'Company Profile Website',
+    'E-Commerce Website',
+    'Brochure Site',
+    'Custom Web Application',
+    'Data Analysis',
+    'IT Support & Maintenance',
+  ],
+};
 
 const process = [
-  ['01', 'Discovery & scope', 'We align business goals, audience needs, requirements, and the practical scope of delivery.'],
-  ['02', 'UI/UX & prototyping', 'We map user flows and create interactive design directions for review before implementation.'],
-  ['03', 'Agile development', 'We build in clear milestones with structured feedback, QA, and production-ready handoff.'],
-  ['04', 'Testing & launch', 'We test across devices, deploy the product, and stay available for post-launch maintenance.'],
+  ['01', 'Understand', 'Align the business goal, audience, scope, and success criteria.'],
+  ['02', 'Shape', 'Turn the brief into a clear visual and product direction.'],
+  ['03', 'Build', 'Design, develop, produce, test, and refine with direct communication.'],
+  ['04', 'Launch', 'Ship the work, document it, and stay available after release.'],
 ];
 
 export const Home = () => {
@@ -55,228 +51,184 @@ export const Home = () => {
     return () => window.removeEventListener('kapitech_cms_updated', update);
   }, []);
 
-  const featured = useMemo(() => projects.filter(item => item.featured).slice(0, 4), [projects]);
+  const featured = useMemo(() => projects.filter(item => item.featured).slice(0, 5), [projects]);
+  const lead = featured[0];
 
   return (
     <div className="kapi-page kapi-home">
-      <section className="relative overflow-hidden min-h-[760px] sm:min-h-[860px] flex items-center border-b border-white/[0.08]">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <PatternWaves
-            preset="silk"
-            color="#e63946"
-            backgroundColor="transparent"
-            fade="edges"
-            opacity={0.24}
-            interactive
-            cursorSize={48}
-            cursorStrength={0.35}
-            speed={0.2}
-            depth={0.55}
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_35%,rgba(230,57,70,.16),transparent_32rem),linear-gradient(180deg,#08090b_0%,rgba(8,9,11,.45)_52%,#08090b_100%)]" />
-        </div>
-
-        <div className="kapi-container relative z-10 grid grid-cols-1 lg:grid-cols-[1.05fr_.95fr] gap-14 lg:gap-8 items-center pt-28 pb-16">
-          <div>
-            <Reveal>
-              <span className="kapi-eyebrow">
-                {language === 'id' ? 'Creative & IT Development Agency' : 'Creative & IT Development Agency'}
-              </span>
+      <section className="kapi-editorial-hero">
+        <div className="kapi-container kapi-editorial-hero-grid">
+          <div className="kapi-editorial-hero-copy">
+            <Reveal y={12}>
+              <span className="kapi-eyebrow">Creative & IT Development Agency</span>
             </Reveal>
 
-            <TextReveal delay={0.05}>
-              <h1 className="mt-5 font-display text-[clamp(3.2rem,7.5vw,7rem)] leading-[.9] tracking-[-.065em] font-semibold max-w-[900px]">
+            <Reveal delay={0.06} y={18}>
+              <h1>
                 {language === 'id'
-                  ? <>Studio digital untuk <span className="text-brand-red">membangun dan memperluas</span> bisnis Anda.</>
-                  : <>A digital studio built to <span className="text-brand-red">build and scale</span> your business.</>}
+                  ? <>Kami membuat <span>brand, digital products,</span> dan pengalaman yang membantu bisnis bergerak.</>
+                  : <>We create <span>brands, digital products,</span> and experiences that move businesses forward.</>}
               </h1>
-            </TextReveal>
+            </Reveal>
 
-            <Reveal delay={0.18}>
-              <p className="mt-6 max-w-[660px] text-base sm:text-lg leading-8 text-white/58">
+            <Reveal delay={0.12} y={14}>
+              <p>
                 {language === 'id'
-                  ? 'Kami merancang dan mengembangkan website, web application, visual systems, dan digital experiences untuk bisnis yang ingin bergerak lebih cepat.'
-                  : 'We design and develop websites, web applications, visual systems, and digital experiences for businesses ready to move forward with clarity.'}
+                  ? 'Kapitech menggabungkan creative direction, design, engineering, dan production dalam satu tim yang bekerja langsung bersama Anda.'
+                  : 'Kapitech brings creative direction, design, engineering, and production into one team working directly with you.'}
               </p>
             </Reveal>
 
-            <Reveal delay={0.28}>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <GlassButton to="/contact">
+            <Reveal delay={0.18} y={10}>
+              <div className="kapi-editorial-hero-actions">
+                <GlassButton to="/work">
+                  {language === 'id' ? 'Lihat karya' : 'See the work'}
+                </GlassButton>
+                <Link to="/contact" className="kapi-editorial-text-link">
                   {language === 'id' ? 'Mulai proyek' : 'Start a project'}
-                </GlassButton>
-                <GlassButton to="/work" variant="secondary">
-                  {language === 'id' ? 'Lihat portfolio' : 'Explore work'}
-                </GlassButton>
+                  <ArrowUpRight size={15} />
+                </Link>
               </div>
             </Reveal>
 
-            <Reveal delay={0.36}>
-              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-mono uppercase tracking-[.16em] text-white/34">
+            <Reveal delay={0.24} y={8}>
+              <div className="kapi-editorial-hero-meta">
                 <span>South Tangerang</span>
-                <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
                 <span>Est. 2021</span>
-                <span className="hidden sm:inline h-1 w-1 rounded-full bg-brand-red" />
-                <span>Digital products & creative systems</span>
+                <span>Creative + Technology</span>
               </div>
             </Reveal>
           </div>
 
-          <Reveal delay={0.15} className="hidden lg:block">
-            <div className="kapi-hero-visual">
-              <div className="kapi-hero-ring" />
-              <div className="kapi-hero-orbit" />
-              <div className="kapi-hero-center">
-                <div className="kapi-hero-grid" />
-                <div className="kapi-hero-mark">
-                  <img
-                    src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png"
-                    alt=""
-                    className="w-12 h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </Reveal>
+          {lead && (
+            <Reveal delay={0.1} y={20} className="kapi-editorial-hero-media-wrap">
+              <button
+                type="button"
+                className="kapi-editorial-hero-media"
+                onClick={() => setSelectedProject(lead)}
+                aria-label="Open featured project"
+              >
+                <img src={lead.image} alt={lead.title} />
+                <span className="kapi-editorial-hero-media-label">
+                  <span>{lead.service}</span>
+                  <span>{lead.year}</span>
+                </span>
+              </button>
+            </Reveal>
+          )}
         </div>
       </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <Reveal>
-            <div className="grid grid-cols-2 lg:grid-cols-4 border-y border-white/[0.08]">
-              {[
-                ['03+', language === 'id' ? 'Years in industry' : 'Years in industry'],
-                ['50+', language === 'id' ? 'Completed projects' : 'Completed projects'],
-                ['SME', language === 'id' ? '& enterprise' : '& enterprise'],
-                ['E2E', language === 'id' ? 'Strategy • Design • Code' : 'Strategy • Design • Code'],
-              ].map(([value, label], index) => (
-                <div key={label} className="kapi-stat border-r border-white/[0.08] last:border-r-0 p-5 sm:p-7">
-                  <span className="kapi-surface-number">0{index + 1}</span>
-                  <span className="kapi-stat-value">{value}</span>
-                  <span className="kapi-stat-label">{label}</span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="kapi-section pt-16 sm:pt-20">
-        <div className="kapi-container">
-          <SectionHeader
-            eyebrow={language === 'id' ? 'Solutions & core capabilities' : 'Solutions & core capabilities'}
-            title={language === 'id' ? 'Kejelasan visual. Produk yang bekerja.' : 'Clear visual direction. Products that work.'}
-            description={language === 'id'
-              ? 'Kami menggabungkan creative direction, product design, dan engineering dalam satu alur kerja yang terukur.'
-              : 'We combine creative direction, product design, and engineering in one focused delivery workflow.'}
-          />
-
-          <div className="kapi-grid-3">
-            {pillars.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <Reveal key={item.number} delay={index * 0.06}>
-                  <GlassPanel className="kapi-service-card kapi-panel--interactive h-full">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="w-11 h-11 rounded-[14px] border border-brand-red/20 bg-brand-red/10 flex items-center justify-center text-brand-red">
-                        <Icon size={20} />
-                      </div>
-                      <span className="kapi-surface-number">{item.number}</span>
-                    </div>
-                    <div>
-                      <span className="kapi-eyebrow mb-3">{item.label}</span>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <div className="kapi-service-links">
-                      {item.tags.map(tag => <span className="kapi-chip" key={tag}>{tag}</span>)}
-                    </div>
-                  </GlassPanel>
-                </Reveal>
-              );
-            })}
-          </div>
-
-          <Reveal delay={0.18} className="mt-7">
-            <GlassPanel className="p-5 sm:p-7">
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-7">
-                <div>
-                  <span className="kapi-eyebrow">{language === 'id' ? 'Strategic solutions' : 'Strategic solutions'}</span>
-                  <h3 className="mt-3 font-display text-2xl sm:text-3xl tracking-[-.04em]">
-                    {language === 'id' ? 'MVP, redesign, dan team extension.' : 'MVP, redesign, and team extension.'}
-                  </h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/48">
-                    {language === 'id'
-                      ? 'Pilih model engagement yang paling sesuai dengan tahap bisnis dan kebutuhan delivery Anda.'
-                      : 'Choose an engagement model that fits your stage, delivery needs, and internal team.'}
-                  </p>
-                </div>
-                <GlassButton to="/services" variant="secondary">
-                  {language === 'id' ? 'Lihat semua solusi' : 'Explore all solutions'}
-                </GlassButton>
-              </div>
-            </GlassPanel>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="kapi-section">
+      <section className="kapi-section kapi-home-work">
         <div className="kapi-container">
           <SectionHeader
             eyebrow={language === 'id' ? 'Selected work' : 'Selected work'}
-            title={language === 'id' ? 'Karya nyata. Dampak nyata.' : 'Real work. Real impact.'}
+            title={language === 'id' ? 'Lihat apa yang Kapitech buat.' : 'See what Kapitech makes.'}
             description={language === 'id'
-              ? 'Beberapa proyek pilihan dari portfolio Kapitech.'
-              : 'A selection of projects from the Kapitech portfolio.'}
+              ? 'Portfolio menjadi bukti utama kemampuan kami. Setiap project menampilkan jenis pekerjaan, craft, dan detail yang kami kerjakan.'
+              : 'The portfolio is the clearest proof of our capability. Each project shows the type of work, craft, and detail behind the delivery.'}
           />
 
-          <div className="kapi-project-grid">
-            {featured.map((project, index) => (
-              <Reveal key={project.id} delay={index * 0.05} className={`kapi-project-card ${index === 2 ? 'kapi-project-card--wide' : ''}`}>
-                <button type="button" onClick={() => setSelectedProject(project)} className="text-left w-full">
+          <div className="kapi-home-featured-grid">
+            {featured.slice(0, 4).map((project, index) => (
+              <Reveal
+                key={project.id}
+                delay={Math.min(index, 3) * 0.05}
+                className={'kapi-home-featured-item kapi-home-featured-item--' + (index + 1)}
+              >
+                <button type="button" className="kapi-home-featured-project" onClick={() => setSelectedProject(project)}>
                   <ImageReveal
                     src={project.image}
                     alt={project.title}
-                    className="kapi-project-media"
+                    className="kapi-home-featured-media"
                     imgClassName="w-full h-full"
                   />
-                  <div className="kapi-project-body">
+                  <div className="kapi-home-featured-info">
                     <div className="kapi-project-meta">
                       <span className="text-brand-red">{project.service}</span>
                       <span>•</span>
                       <span>{project.year}</span>
-                      <span>•</span>
-                      <span>{project.client}</span>
                     </div>
                     <div className="kapi-project-title">{project.title}</div>
-                    <p className="kapi-project-copy">
-                      {language === 'id' ? project.descId : project.desc}
-                    </p>
-                    <span className="kapi-project-arrow">Inspect case study <ArrowUpRight size={13} /></span>
+                    <p>{language === 'id' ? project.descId : project.desc}</p>
+                    <span className="kapi-project-arrow">
+                      {language === 'id' ? 'Lihat project' : 'View project'}
+                      <ArrowUpRight size={13} />
+                    </span>
                   </div>
                 </button>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="mt-9 flex justify-end">
-            <GlassButton to="/work" variant="secondary">
-              {language === 'id' ? 'Lihat semua portfolio' : 'View all case studies'}
-            </GlassButton>
+          <Reveal className="kapi-editorial-section-link">
+            <Link to="/work" className="kapi-editorial-text-link">
+              {language === 'id' ? 'Lihat semua project' : 'Browse all projects'}
+              <ArrowUpRight size={15} />
+            </Link>
           </Reveal>
         </div>
       </section>
 
-      <section className="kapi-section">
+      <section className="kapi-section kapi-home-capabilities">
+        <div className="kapi-container">
+          <div className="kapi-editorial-split-heading">
+            <div>
+              <span className="kapi-eyebrow">{language === 'id' ? 'Capabilities' : 'Capabilities'}</span>
+              <h2>{language === 'id' ? 'Tunjukkan pekerjaan, bukan daftar panjang.' : 'Show the work, not a long service list.'}</h2>
+            </div>
+            <p>
+              {language === 'id'
+                ? 'Kami menghubungkan creative dan technology agar brand, content, website, dan product terasa datang dari tim yang sama.'
+                : 'We connect creative and technology so brand, content, websites, and products feel like parts of one system.'}
+            </p>
+          </div>
+
+          <div className="kapi-capability-board">
+            <div className="kapi-capability-column">
+              <div className="kapi-capability-heading">
+                <span>01</span>
+                <h3>Creative</h3>
+              </div>
+              <div className="kapi-capability-list">
+                {capabilities.creative.map((item, index) => (
+                  <div key={item} className="kapi-capability-row">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{item}</strong>
+                    <ArrowUpRight size={14} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="kapi-capability-column">
+              <div className="kapi-capability-heading">
+                <span>02</span>
+                <h3>Technology</h3>
+              </div>
+              <div className="kapi-capability-list">
+                {capabilities.technology.map((item, index) => (
+                  <div key={item} className="kapi-capability-row">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{item}</strong>
+                    <ArrowUpRight size={14} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="kapi-section kapi-home-process">
         <div className="kapi-container">
           <SectionHeader
-            eyebrow={language === 'id' ? 'Our working framework' : 'Our working framework'}
-            title={language === 'id' ? 'Terstruktur tanpa terasa kaku.' : 'Structured without feeling rigid.'}
+            eyebrow={language === 'id' ? 'How we work' : 'How we work'}
+            title={language === 'id' ? 'Langsung, terarah, dan mudah diikuti.' : 'Direct, focused, and easy to follow.'}
           />
           <div className="kapi-process">
             {process.map(([number, title, copy], index) => (
-              <Reveal key={number} delay={index * 0.05}>
+              <Reveal key={number} delay={index * 0.045}>
                 <GlassPanel className="kapi-process-item kapi-panel--interactive h-full">
                   <span className="kapi-process-index">{number}</span>
                   <h3>{title}</h3>
@@ -290,24 +242,16 @@ export const Home = () => {
 
       <Testimonials />
 
-      <section className="kapi-section">
+      <section className="kapi-section kapi-home-final">
         <div className="kapi-container">
-          <Reveal>
-            <div className="kapi-cta-band">
-              <div>
-                <span className="kapi-eyebrow">{language === 'id' ? 'Mulai proyek baru' : 'Start a new project'}</span>
-                <h2>{language === 'id' ? 'Mari buat sesuatu yang benar-benar berguna.' : 'Let’s build something that matters.'}</h2>
-                <p>{language === 'id'
-                  ? 'Ceritakan kebutuhan Anda. Kami akan bantu menerjemahkannya menjadi scope, desain, dan delivery plan yang jelas.'
-                  : 'Tell us what you need. We will help turn it into a clear scope, design direction, and delivery plan.'}</p>
-              </div>
-              <div className="flex justify-start lg:justify-end">
-                <GlassButton to="/contact">
-                  {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
-                </GlassButton>
-              </div>
-            </div>
-          </Reveal>
+          <div className="kapi-editorial-final">
+            <span className="kapi-eyebrow">{language === 'id' ? 'Start a project' : 'Start a project'}</span>
+            <h2>{language === 'id' ? 'Punya brief. Mari ubah jadi sesuatu yang siap dilihat, dipakai, dan dirasakan.' : 'Have a brief. Let’s turn it into something people can see, use, and remember.'}</h2>
+            <Link to="/contact" className="kapi-button kapi-button--primary">
+              {language === 'id' ? 'Hubungi Kapitech' : 'Talk to Kapitech'}
+              <ArrowUpRight size={15} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -317,10 +261,10 @@ export const Home = () => {
             <motion.div
               className="kapi-modal"
               onMouseDown={event => event.stopPropagation()}
-              initial={{ opacity: 0, y: 22, scale: 0.985 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.99 }}
-              transition={{ duration: 0.34, ease: EASE }}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="kapi-modal-header">
                 <div className="min-w-0">
@@ -356,7 +300,7 @@ export const Home = () => {
                     <p className="mt-3 text-sm leading-7 text-white/56">{language === 'id' ? selectedProject.solutionId : selectedProject.solution}</p>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-4">
                   {selectedProject.technologies.map(tool => <span key={tool} className="kapi-chip">{tool}</span>)}
                 </div>
                 <div className="flex justify-end">
