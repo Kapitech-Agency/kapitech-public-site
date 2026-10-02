@@ -555,3 +555,74 @@
  .ams-shell table th,.ams-shell table td{white-space:nowrap}
 }
 @media(prefers-reduced-motion:reduce){.ams-shell *,.ams-shell *::before,.ams-shell *::after{animation-duration:.01ms;animation-iteration-count:1;transition-duration:.01ms}}
+
+
+/* ==========================================================================
+   PUBLIC SITE MOTION POLISH
+   Restrained interaction depth, route transitions and ambient movement.
+   AMS stays fully isolated in .ams-shell.
+   ========================================================================== */
+.kapi-public-shell {
+  --kapi-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --kapi-motion-duration: 420ms;
+}
+
+.kapi-public-shell main section {
+  scroll-margin-top: 88px;
+}
+
+.kapi-public-shell main section .group.rounded-2xl,
+.kapi-public-shell main section .kapi-card {
+  transition-property: transform, border-color, background-color, box-shadow;
+  transition-duration: var(--kapi-motion-duration);
+  transition-timing-function: var(--kapi-motion-ease);
+  will-change: transform;
+}
+
+.kapi-public-shell main section .group.rounded-2xl:hover {
+  transform: translateY(-3px);
+}
+
+.kapi-public-shell main section .group.rounded-2xl:focus-within,
+.kapi-public-shell main section .kapi-card:focus-within {
+  border-color: rgba(229, 9, 20, 0.45);
+}
+
+.kapi-public-shell .kapi-card {
+  transform: translateZ(0);
+}
+
+.kapi-public-shell .kapi-card:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow:
+    0 14px 34px -18px rgba(0, 0, 0, 0.75),
+    0 0 22px rgba(229, 9, 20, 0.10);
+}
+
+.kapi-public-shell a[class*="bg-brand-red"],
+.kapi-public-shell button[class*="bg-brand-red"] {
+  transition:
+    transform 260ms var(--kapi-motion-ease),
+    background-color 260ms var(--kapi-motion-ease),
+    box-shadow 260ms var(--kapi-motion-ease);
+}
+
+.kapi-public-shell a[class*="bg-brand-red"]:hover,
+.kapi-public-shell button[class*="bg-brand-red"]:hover {
+  transform: translateY(-1px);
+}
+
+.kapi-public-shell main section img {
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-public-shell main section .group.rounded-2xl,
+  .kapi-public-shell main section .kapi-card,
+  .kapi-public-shell a[class*="bg-brand-red"],
+  .kapi-public-shell button[class*="bg-brand-red"] {
+    transition: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}

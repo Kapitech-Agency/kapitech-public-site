@@ -16,14 +16,16 @@ export const AtmosphericBackground: React.FC<AtmosphericBackgroundProps> = ({
   disableGrayscale = true,
 }) => {
   const { scrollYProgress } = useScroll();
-  const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
 
   return (
     <div className={cn("absolute inset-0 pointer-events-none overflow-hidden -z-10", className)}>
       {/* Background Image with subtle Parallax */}
       <motion.div 
         style={{ y: yParallax }}
-        className="absolute inset-0 -z-10 scale-105"
+        animate={{ scale: [1.02, 1.04, 1.02] }}
+        transition={{ duration: 24, ease: 'easeInOut', repeat: Infinity }}
+        className="absolute inset-0 -z-10"
       >
         <img 
           src={imageUrl} 
