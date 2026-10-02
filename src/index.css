@@ -1946,3 +1946,86 @@ select {
     opacity: 1 !important;
   }
 }
+
+
+.kapi-testimonials-shell {
+  position: relative;
+}
+
+.kapi-testimonials-viewport {
+  overflow: hidden;
+  cursor: grab;
+  margin-inline: -2px;
+  padding: 2px;
+}
+
+.kapi-testimonials-viewport:active {
+  cursor: grabbing;
+}
+
+.kapi-testimonials-track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+}
+
+.kapi-testimonial-card {
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.kapi-testimonial-card__surface {
+  min-height: 360px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  touch-action: pan-y;
+}
+
+.kapi-testimonial-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  transition: width .36s cubic-bezier(.22,1,.36,1), background-color .24s ease, transform .36s cubic-bezier(.22,1,.36,1);
+}
+
+.kapi-testimonial-dot:hover {
+  transform: scale(1.25);
+  background: rgba(255,255,255,.42);
+}
+
+.kapi-testimonial-dot.is-active {
+  width: 28px;
+  background: var(--k-red);
+}
+
+.kapi-testimonial-dot:focus-visible,
+.kapi-close:focus-visible,
+.kapi-button:focus-visible,
+.kapi-nav-link:focus-visible {
+  outline: 2px solid rgba(230,57,70,.72);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .kapi-testimonial-card__surface {
+    min-height: 330px;
+    padding: 22px;
+  }
+
+  .kapi-testimonials-viewport {
+    margin-inline: -14px;
+    padding-inline: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-testimonial-card,
+  .kapi-testimonial-dot {
+    transition: none !important;
+  }
+}
