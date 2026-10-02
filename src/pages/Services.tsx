@@ -786,7 +786,7 @@ export const Services = () => {
 
       {/* Pillar Filter Tabs */}
       <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
+        <div className="w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
               <span className="kapi-section-label mb-0 shrink-0">
