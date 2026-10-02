@@ -59,7 +59,7 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Hubungi Kami</h2>
               <p>
-                Jika Anda memiliki pertanyaan mengenai penggunaan cookie atau perlindungan data privasi di Kapitech Agency, silakan hubungi tim kami di <a href="mailto:privacy@kapitech.id" className="text-brand-red hover:underline">privacy@kapitech.id</a>.
+                Jika Anda memiliki pertanyaan mengenai penggunaan cookie atau perlindungan data privasi di Kapitech Agency, silakan hubungi tim kami di <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
@@ -91,7 +91,7 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Inquiries</h2>
               <p>
-                For questions regarding cookie management or digital privacy compliance at Kapitech Agency, reach out to our privacy office at <a href="mailto:privacy@kapitech.id" className="text-brand-red hover:underline">privacy@kapitech.id</a>.
+                For questions regarding cookie management or digital privacy compliance at Kapitech Agency, reach out to our privacy office at <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
