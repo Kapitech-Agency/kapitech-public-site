@@ -436,7 +436,7 @@ export const Contact = () => {
                           setSelectedServices([]);
                           setBudgetRange('');
                         }}
-                        className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#CC001F] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
+                        className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#FF1E27] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
                       >
                         {language === 'id' ? 'Kirim Pesan Lainnya' : 'Send Another Message'}
                       </button>
@@ -630,7 +630,7 @@ export const Contact = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#CC001F] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95 min-h-[44px]"
+                      className="w-full py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95 min-h-[44px]"
                     >
                       {isSubmitting ? (
                         <span>{language === 'id' ? 'Mengirimkan Detail...' : 'Submitting Details...'}</span>
