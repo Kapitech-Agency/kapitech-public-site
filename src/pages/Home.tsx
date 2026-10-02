@@ -708,8 +708,6 @@ export const Home = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10">
               {processSteps.map((step, index) => {
                 const isActive = activeProcessStep === index;
-                const isPassed = activeProcessStep > index;
-
                 return (
                   <motion.div
                     key={step.step}
@@ -723,11 +721,32 @@ export const Home = () => {
                     className="group relative"
                     tabIndex={0}
                   >
+                    <div
+                      className="hidden lg:block absolute left-0 top-[37px] h-px w-[38px] bg-white/[0.07]"
+                      aria-hidden="true"
+                    >
+                      <motion.div
+                        className="absolute inset-0 origin-right bg-brand-red/65"
+                        animate={{ scaleX: activeProcessStep >= 0 ? 1 : 0 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    </div>
+
                     {index < processSteps.length - 1 && (
                       <div className="hidden lg:block absolute left-[38px] top-[37px] h-px w-[calc(100%+28px)] bg-white/[0.07]" aria-hidden="true">
                         <motion.div
                           className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
-                          animate={{ scaleX: isPassed || isActive ? 1 : 0 }}
+                          animate={{ scaleX: activeProcessStep > index ? 1 : 0 }}
+                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </div>
+                    )}
+
+                    {index === processSteps.length - 1 && (
+                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px right-0 bg-white/[0.07]" aria-hidden="true">
+                        <motion.div
+                          className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
+                          animate={{ scaleX: activeProcessStep === processSteps.length - 1 ? 1 : 0 }}
                           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                         />
                       </div>
