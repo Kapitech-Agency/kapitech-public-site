@@ -758,10 +758,9 @@ export const Careers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/25 bg-brand-red/[0.045] text-brand-red text-xs font-mono mb-3">
-                <Users className="w-3.5 h-3.5 text-brand-red" />
-                <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
-              </div>
+              <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
+                {language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}
+              </span>
               <h2 className="text-3xl sm:text-4xl md:text-[3.5rem] font-display font-semibold text-white tracking-[-0.055em] leading-[1.02]">
                 {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
               </h2>
@@ -990,10 +989,9 @@ export const Careers = () => {
             <div className="pt-1 sm:pt-2">
             <div className="mb-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-16">
               <div className="max-w-4xl">
-                <div className="mb-5 flex items-center gap-3 text-[10px] font-mono font-semibold uppercase tracking-[0.22em] text-brand-red">
-                  <span className="h-px w-8 bg-brand-red/55" />
-                  <span>{language === 'id' ? 'Freelance Partner Network' : 'Freelance Partner Network'}</span>
-                </div>
+                <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
+                  {language === 'id' ? 'Freelance Partner Network' : 'Freelance Partner Network'}
+                </span>
                 <h2 className="max-w-4xl font-display text-4xl font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl">
                   {language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}
                 </h2>
