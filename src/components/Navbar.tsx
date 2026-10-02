@@ -145,25 +145,19 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
-            ? "flex flex-col h-fit min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-transparent"
+            ? "flex flex-col h-fit max-h-[100dvh] min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-transparent"
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
                 ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
+        style={isMenuOpen ? {
+          backgroundColor: 'rgba(11, 12, 14, 0.46)',
+          backdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
+          WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
+        } : undefined}
       >
-        {isMenuOpen && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/46 backdrop-blur-2xl backdrop-saturate-150"
-            style={{
-              backdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
-              WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
-            }}
-          />
-        )}
-
         {/* Scroll Progress Bar */}
         <motion.div 
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
