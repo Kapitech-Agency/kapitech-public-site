@@ -232,7 +232,7 @@ export const Work = () => {
               <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
                 {serviceOptions.filter((item) => item !== 'All').length} {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
+              <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
                 {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
               </span>
             </div>
@@ -254,7 +254,7 @@ export const Work = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
+                  className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.06] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
                   aria-label="Previous featured project"
                 >
                   <ChevronLeft size={16} />
@@ -264,7 +264,7 @@ export const Work = () => {
                 </span>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev + 1) % featuredProjects.length)}
-                  className="w-8 h-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
+                  className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.06] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
                   aria-label="Next featured project"
                 >
                   <ChevronRight size={16} />
