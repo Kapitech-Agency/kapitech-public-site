@@ -432,7 +432,14 @@ export const Work = () => {
             </div>
 
             <div className="relative group/filter">
-              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/80 to-transparent z-10" />
+              <div
+                className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-12 z-10 bg-gradient-to-r from-[rgba(13,13,16,0.98)] via-[rgba(13,13,16,0.72)] to-transparent"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 z-10 bg-gradient-to-l from-[rgba(13,13,16,0.98)] via-[rgba(13,13,16,0.72)] to-transparent"
+                aria-hidden="true"
+              />
               <div
                 ref={serviceScrollRef}
                 onMouseDown={handleMouseDownService}
