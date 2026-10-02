@@ -33,6 +33,7 @@ import { Testimonials } from '../components/Testimonials';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
+import { cn } from '../lib/utils';
 
 export const Home = () => {
   const { t, language } = useLanguage();
