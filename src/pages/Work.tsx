@@ -385,7 +385,7 @@ export const Work = () => {
             </div>
 
             <div className="flex flex-col gap-2 sm:gap-2.5 md:flex-row md:items-center md:gap-3">
-              <div className="min-w-0 flex-1 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex w-max items-center gap-1">
                   {[
                     { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
@@ -407,7 +407,7 @@ export const Work = () => {
                 </div>
               </div>
 
-              <div className="relative w-full md:w-72 lg:w-80 md:shrink-0">
+              <div className="relative w-full md:flex-1 md:min-w-0">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#8A909D]" />
                 <input
                   type="text"
