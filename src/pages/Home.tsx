@@ -185,7 +185,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
@@ -212,14 +212,14 @@ export const Home = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <Link 
                 to="/contact" 
-                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-brand-red/45 bg-brand-red/72 backdrop-blur-xl backdrop-saturate-150 text-white text-xs font-semibold uppercase tracking-wider transition-[background-color,border-color,box-shadow] duration-300 ease-out flex items-center justify-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_28px_rgba(230,57,70,0.16)] hover:bg-brand-red/86 hover:border-brand-red/65 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_34px_rgba(230,57,70,0.22)]"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
                 <ArrowUpRight size={16} />
               </Link>
               <Link 
                 to="/work" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-white/[0.1] bg-[#0B0C0E]/42 backdrop-blur-xl backdrop-saturate-150 text-white transition-[background-color,border-color,box-shadow] duration-300 ease-out text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_28px_rgba(0,0,0,0.14)] hover:bg-[#0B0C0E]/54 hover:border-white/[0.16] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_14px_34px_rgba(0,0,0,0.18)]"
               >
                 <span>{language === 'id' ? 'Jelajahi 50 Portofolio' : 'Explore 50 Case Studies'}</span>
               </Link>
