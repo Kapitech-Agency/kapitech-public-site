@@ -119,24 +119,6 @@ export const Navbar = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {isServicesDropdownOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 hidden md:block"
-            aria-hidden="true"
-            style={{
-              backgroundColor: 'rgba(11, 12, 14, 0.58)',
-              backdropFilter: 'blur(28px) saturate(1.15)',
-              WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
-            }}
-          />
-        )}
-      </AnimatePresence>
-
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
@@ -470,7 +452,7 @@ export const Navbar = () => {
             className="fixed inset-0 z-[100] overflow-hidden"
           >
             <div
-              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-[#0B0C0E]/96"
+              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-[#0B0C0E]"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
