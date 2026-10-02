@@ -52,7 +52,7 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    const scriptSrc = 'https://cdn.jsdelivr.net/npm/@mux/mux-player';
+    const scriptSrc = 'https://cdn.jsdelivr.net/npm/@mux/mux-player@3.10.1';
     if (customElements.get('mux-player')) return;
 
     const existingScript = document.querySelector(
