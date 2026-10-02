@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -706,18 +707,7 @@ export const Careers = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <motion.div
-            className="absolute -right-40 top-16 h-80 w-80 rounded-full border border-brand-red/[0.035]"
-            animate={{ rotate: [0, 360], scale: [1, 1.04, 1] }}
-            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute left-[18%] -bottom-52 h-72 w-72 rounded-full border border-white/[0.025]"
-            animate={{ y: [0, -16, 0], opacity: [0.2, 0.45, 0.2] }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
+undefined
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
