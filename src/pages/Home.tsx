@@ -701,19 +701,38 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            {/* Desktop rail: one continuous line, with nodes sharing the exact same coordinate system */}
+            {/* Desktop rail: one continuous editorial line */}
             <div className="hidden lg:block absolute inset-x-0 top-0 h-10 pointer-events-none" aria-hidden="true">
               <div className="absolute left-[12.5%] right-[12.5%] top-5 h-px bg-white/[0.09]" />
+
               <motion.div
-                className="absolute left-[12.5%] top-5 h-px bg-brand-red/75 origin-left"
-                animate={{ width: `${(activeProcessStep / (processSteps.length - 1)) * 75}%` }}
-                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-[12.5%] top-5 h-px origin-left bg-gradient-to-r from-brand-red/45 via-brand-red/90 to-brand-red/60"
+                animate={{
+                  width: `${(activeProcessStep / (processSteps.length - 1)) * 75}%`,
+                  opacity: activeProcessStep === 0 ? 0.55 : 1,
+                }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               />
-              <motion.div
-                className="absolute top-[18px] h-[3px] w-20 rounded-full bg-gradient-to-r from-transparent via-brand-red/75 to-transparent blur-[0.2px]"
-                animate={{ x: ['calc(12.5% - 40px)', 'calc(87.5% + 40px)'] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: 'linear', repeatDelay: 1.1 }}
+
+              <motion.span
+                className="absolute top-[15px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-brand-red shadow-[0_0_16px_rgba(229,9,20,0.55)]"
+                animate={{ left: `${12.5 + activeProcessStep * 25}%` }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               />
+              <motion.span
+                className="absolute top-[13px] h-4.5 w-4.5 -translate-x-1/2 rounded-full border border-brand-red/45"
+                animate={{
+                  left: `${12.5 + activeProcessStep * 25}%`,
+                  scale: [0.8, 1.45, 0.8],
+                  opacity: [0.55, 0, 0.55],
+                }}
+                transition={{
+                  left: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                  scale: { duration: 1.8, repeat: Infinity, ease: 'easeOut' },
+                  opacity: { duration: 1.8, repeat: Infinity, ease: 'easeOut' },
+                }}
+              />
+
               {processSteps.map((step, index) => {
                 const left = `${12.5 + index * 25}%`;
                 const isActive = activeProcessStep === index;
@@ -723,7 +742,7 @@ export const Home = () => {
                     className={cn(
                       "absolute left-0 top-[15px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border bg-[#0B0C0E] transition-all duration-500",
                       isActive
-                        ? "border-brand-red bg-brand-red shadow-[0_0_0_6px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
+                        ? "border-transparent"
                         : "border-white/[0.18]"
                     )}
                     style={{ left }}
