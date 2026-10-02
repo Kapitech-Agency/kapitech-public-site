@@ -1384,6 +1384,52 @@ html.kapi-custom-cursor-enabled select {
   border-radius: 999px;
 }
 
+/* Shared editorial hierarchy for policy, utility and service-detail pages */
+.kapi-public-shell .kapi-policy-page h1,
+.kapi-public-shell .kapi-utility-page h1,
+.kapi-public-shell .kapi-service-page h1 {
+  font-family: var(--font-display, "Outfit", "Inter", system-ui, sans-serif);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+  color: var(--kapi-v2-text);
+}
+
+.kapi-public-shell .kapi-policy-page h2,
+.kapi-public-shell .kapi-utility-page h2,
+.kapi-public-shell .kapi-service-page h2,
+.kapi-public-shell .kapi-policy-page h3,
+.kapi-public-shell .kapi-service-page h3 {
+  font-family: var(--font-display, "Outfit", "Inter", system-ui, sans-serif);
+  letter-spacing: -0.035em;
+  color: var(--kapi-v2-text);
+}
+
+.kapi-public-shell .kapi-policy-page p,
+.kapi-public-shell .kapi-policy-page li {
+  color: var(--kapi-v2-muted);
+}
+
+.kapi-public-shell .kapi-policy-page :where(code, pre, blockquote),
+.kapi-public-shell .kapi-utility-page :where(code, pre, blockquote) {
+  border: 1px solid var(--kapi-v2-line);
+  background: rgba(15,17,22,0.68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+.kapi-public-shell .kapi-service-page .rounded-2xl,
+.kapi-public-shell .kapi-service-page .rounded-3xl {
+  border-color: var(--kapi-v2-line);
+}
+
+.kapi-public-shell .kapi-utility-page {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(229,9,20,0.06), transparent 32%),
+    var(--kapi-v2-bg);
+}
+
 /* Policy / utility pages */
 .kapi-public-shell [class*="bg-[#0A0A0A]"] {
   background: var(--kapi-v2-bg) !important;
