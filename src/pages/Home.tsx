@@ -57,28 +57,48 @@ export const Home = () => {
   const trustedBrands = [
     {
       name: "Pertamina",
-      src: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Pertamina_Logo.svg",
-      className: "w-[150px] sm:w-[180px] lg:w-[190px]"
+      src: "https://logotyp.us/file/pertamina.svg",
+      className: "w-[140px] sm:w-[165px] lg:w-[175px]"
     },
     {
       name: "BTN",
-      src: "https://upload.wikimedia.org/wikipedia/commons/c/ca/BTN_2024.svg",
-      className: "w-[82px] sm:w-[96px] lg:w-[108px]"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg",
+      className: "w-[82px] sm:w-[96px] lg:w-[104px]"
     },
     {
       name: "IHC",
       src: "https://vectorseek.com/wp-content/uploads/2023/10/ihc-Logo-Vector.svg-.png",
-      className: "w-[118px] sm:w-[146px] lg:w-[156px]"
+      className: "w-[112px] sm:w-[136px] lg:w-[148px]"
     },
     {
       name: "MarkPlus",
-      src: "https://www.markplusinc.com/assets/logo/logo.png",
-      className: "w-[124px] sm:w-[152px] lg:w-[164px]"
+      src: "https://www.markplusinc.com/_next/image?q=50&url=%2Fassets%2Flogo%2Flogo.png&w=3840",
+      className: "w-[118px] sm:w-[142px] lg:w-[154px]"
     },
     {
       name: "Sababay Winery",
       src: "https://sababaywinery.com/cdn/shop/files/Logo-Sababay-Black_300x300.gif?v=1723305632",
-      className: "w-[108px] sm:w-[132px] lg:w-[144px]"
+      className: "w-[104px] sm:w-[126px] lg:w-[138px]"
+    },
+    {
+      name: "Astra International",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ASTRA_international.svg",
+      className: "w-[132px] sm:w-[160px] lg:w-[175px]"
+    },
+    {
+      name: "MRT Jakarta",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/MRT_Jakarta_logo.svg",
+      className: "w-[112px] sm:w-[136px] lg:w-[148px]"
+    },
+    {
+      name: "Telkom Indonesia",
+      src: "https://companieslogo.com/img/orig/TLK_BIG-29afef6e.svg?download=true&t=1720244494",
+      className: "w-[128px] sm:w-[156px] lg:w-[168px]"
+    },
+    {
+      name: "Sinar Mas Land",
+      src: "https://companieslogo.com/img/orig/A26.SI_BIG-a4ea8d62.svg?download=true&t=1720174751",
+      className: "w-[145px] sm:w-[175px] lg:w-[188px]"
     },
   ];
 
@@ -355,7 +375,7 @@ export const Home = () => {
           {/* Marquee Motion Container */}
           <div className="flex w-max">
             <motion.div
-              className="flex items-center gap-12 sm:gap-20 shrink-0 pr-12 sm:pr-20"
+              className="flex items-center gap-8 sm:gap-12 lg:gap-16 shrink-0 pr-8 sm:pr-12 lg:pr-16"
               animate={{ x: ['0%', '-50%'] }}
               transition={{
                 duration: 28,
@@ -366,7 +386,7 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex min-w-[170px] sm:min-w-[220px] lg:min-w-[250px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
+                  className="flex min-w-[150px] sm:min-w-[185px] lg:min-w-[210px] h-20 sm:h-24 items-center justify-center shrink-0 px-4 sm:px-6"
                   aria-label={logo.name}
                 >
                   <img
@@ -374,7 +394,7 @@ export const Home = () => {
                     alt=""
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className={`${logo.className} max-h-12 sm:max-h-14 object-contain opacity-55 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300`}
+                    className={`${logo.className} max-h-11 sm:max-h-13 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300`}
                   />
                 </div>
               ))}
