@@ -246,7 +246,7 @@ export const ServiceDetail = () => {
               >
                 <div>
                   {/* Problem Block */}
-                  <div className="mb-6 pb-6 border-b border-[#262930]">
+                  <div className="mb-6 pb-6 border-b border-white/[0.07]">
                     <div className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
                       <span>{language === 'id' ? 'Tantangan' : 'The Problem'}</span>
@@ -299,7 +299,7 @@ export const ServiceDetail = () => {
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 group"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-white/[0.012] border border-white/[0.07] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
                   <Layers className="w-5 h-5 text-brand-red" />
                 </div>
                 <h3 className="text-base font-medium text-white mb-2">
@@ -338,7 +338,7 @@ export const ServiceDetail = () => {
               <motion.div
                 key={project.id}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="group rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
+                className="group rounded-3xl border border-white/[0.08] bg-white/[0.018] overflow-hidden hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300"
               >
                 <Link
                   to="/work"
@@ -354,7 +354,7 @@ export const ServiceDetail = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-black/80 backdrop-blur-md border border-[#262930] text-white">
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-black/80 backdrop-blur-md border border-white/[0.07] text-white">
                       {project.service}
                     </span>
                   </div>
@@ -373,7 +373,7 @@ export const ServiceDetail = () => {
                     {project.technologies.slice(0, 2).map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#0B0C0E] border border-[#262930] text-[#8A909D]"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.012] border border-white/[0.07] text-[#8A909D]"
                       >
                         {tech}
                       </span>
@@ -405,7 +405,7 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
+                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300"
               >
                 <div>
                   <div className="text-3xl font-display text-[#8A909D] font-light mb-4">
@@ -419,7 +419,7 @@ export const ServiceDetail = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#262930] space-y-1.5">
+                <div className="pt-4 border-t border-white/[0.07] space-y-1.5">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-[#8A909D] mb-2">
                     {language === 'id' ? 'Hasil Kerja:' : 'Deliverables:'}
                   </div>
