@@ -50,13 +50,13 @@
   --color-brand-red-glow: rgba(229, 9, 20, 0.25);
 
   /* Surfaces - Strict Solid Dark Palette */
-  --color-dark-base: #090A0F;
-  --color-dark-card: #111318;
-  --color-dark-card-hover: #181B22;
-  --color-dark-subtle: #21252F;
+  --color-dark-base: #0B0C0E;
+  --color-dark-card: #16181D;
+  --color-dark-card-hover: #1B1F26;
+  --color-dark-subtle: #262930;
   --color-dark-border: rgba(255, 255, 255, 0.07);
   --color-dark-divider: rgba(255, 255, 255, 0.12);
-  --color-charcoal: #111318;
+  --color-charcoal: #16181D;
 
   /* Typography */
   --color-text-headline: #F8FAFC;
@@ -78,7 +78,7 @@
     font-family: var(--font-sans);
     overflow-x: hidden;
     width: 100%;
-    selection-background-color: #E60023;
+    selection-background-color: #E50914;
     selection-color: #FFFFFF;
   }
 
@@ -185,7 +185,7 @@
   height: 55vw;
   max-width: 800px;
   max-height: 800px;
-  background: radial-gradient(circle, var(--kapi-red-primary) 0%, rgba(230, 0, 35, 0) 70%);
+  background: radial-gradient(circle, var(--kapi-red-primary) 0%, rgba(229, 9, 20, 0) 70%);
   opacity: 0.10;
   animation: kapiFloatOrbOne 22s ease-in-out infinite alternate;
 }
@@ -309,7 +309,7 @@
   background-color: var(--kapi-bg-card-hover);
   box-shadow: 
     0 12px 36px -8px rgba(0, 0, 0, 0.7),
-    0 0 24px 0 rgba(230, 0, 35, 0.15);
+    0 0 24px 0 rgba(229, 9, 20, 0.15);
 }
 
 .kapi-card:hover::before {
@@ -358,7 +358,7 @@
 }
 
 .kapi-card:hover .kapi-card-icon-box {
-  background-color: rgba(230, 0, 35, 0.12);
+  background-color: rgba(229, 9, 20, 0.12);
   border-color: var(--kapi-red-border-hover);
   color: var(--kapi-red-electric);
   transform: scale(1.05);
@@ -456,7 +456,7 @@
 
 .kapi-card:hover .kapi-card-footer {
   color: var(--kapi-red-electric);
-  border-color: rgba(230, 0, 35, 0.2);
+  border-color: rgba(229, 9, 20, 0.2);
 }
 
 .kapi-card:hover .kapi-card-arrow {
