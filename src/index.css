@@ -1224,3 +1224,41 @@
 .kapi-careers-hero .max-w-5xl {
   width: 100%;
 }
+
+
+/* Careers cleanup: keep structure and motion, remove decorative UI layers. */
+.kapi-careers > section:first-child::after,
+.kapi-careers-hero::after {
+  display: none;
+}
+
+.kapi-careers #open-positions .group {
+  box-shadow: none;
+}
+
+.kapi-careers #open-positions .group::before,
+.kapi-careers .kapi-careers-role-card::before {
+  display: none;
+}
+
+.kapi-careers .kapi-careers-role-card:hover,
+.kapi-careers #open-positions .group:hover {
+  box-shadow: none;
+}
+
+.kapi-careers [class*="border-dashed"],
+.kapi-careers [class*="border-dashed"]:hover {
+  background: transparent;
+  border-color: var(--careers-border);
+}
+
+.kapi-careers-talent-feature,
+.kapi-careers-talent-mini {
+  box-shadow: none;
+}
+
+.kapi-careers-talent-feature:hover,
+.kapi-careers-talent-mini:hover {
+  border-color: var(--careers-border);
+  box-shadow: none;
+}
