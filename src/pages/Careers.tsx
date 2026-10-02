@@ -735,39 +735,6 @@ export const Careers = () => {
               </div>
             </div>
 
-            <div className="lg:pb-1">
-              <div className="rounded-2xl border border-line bg-panel/75 backdrop-blur-sm overflow-hidden">
-                <div className="grid grid-cols-2 border-b border-line">
-                  <div className="p-5 sm:p-6 border-r border-line">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">01 / Studio</span>
-                    <strong className="mt-3 block text-xl font-display font-semibold text-white">On-site</strong>
-                    <p className="mt-1.5 text-xs text-muted leading-relaxed">South Tangerang</p>
-                  </div>
-                  <div className="p-5 sm:p-6">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">02 / Network</span>
-                    <strong className="mt-3 block text-xl font-display font-semibold text-white">100% WFA</strong>
-                    <p className="mt-1.5 text-xs text-muted leading-relaxed">Project-based specialists</p>
-                  </div>
-                </div>
-
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">{language === 'id' ? 'Sedang dibuka' : 'Now hiring'}</span>
-                      <strong className="mt-2 block text-4xl sm:text-5xl font-display font-semibold text-white leading-none">02</strong>
-                      <span className="mt-1.5 block text-xs text-muted">{language === 'id' ? 'posisi studio aktif' : 'active studio roles'}</span>
-                    </div>
-                    <div className="w-14 h-14 rounded-full border border-brand-red/30 bg-brand-red/10 flex items-center justify-center text-brand-red">
-                      <Sparkles size={21} />
-                    </div>
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-line flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Open for applications
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1035,86 +1002,26 @@ export const Careers = () => {
             </div>
           </div>
 
-          {/* Key Work Policy Banner (Crucial Terms Callout) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 p-5 sm:p-6 rounded-2xl bg-[#161616] border border-brand-red/30">
-            <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
-                <Globe size={18} />
-              </div>
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
-                  {language === 'id' ? '100% WFA (Remote)' : '100% WFA (Remote)'}
-                </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
-                  {language === 'id' ? 'Bekerja fleksibel dari mana saja tanpa batasan geografi.' : 'Work from anywhere globally with complete location flexibility.'}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
-                <Briefcase size={18} />
-              </div>
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
-                  {language === 'id' ? 'Project-Based' : 'Project-Based'}
-                </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
-                  {language === 'id' ? 'Kontrak penugasan per milestone proyek dengan scope terdefinisi jelas.' : 'Engagement scoped per milestone with clear deliverables and fees.'}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
-                <Laptop size={18} />
-              </div>
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold mb-1">
-                  {language === 'id' ? 'BYOD (No Device)' : 'BYOD (No Device)'}
-                </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
-                  {language === 'id' ? 'Kami TIDAK menyediakan device/laptop. Gunakan perangkat & lisensi pribadi.' : 'We do NOT provide devices/hardware. BYOD with your own workstations.'}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-                <ShieldCheck size={18} />
-              </div>
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
-                  {language === 'id' ? 'NDA & Ketepatan Waktu' : 'NDA & Strict Deadlines'}
-                </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
-                  {language === 'id' ? 'Kerahasiaan data klien terjamin & disiplin deadline yang tinggi.' : 'Signed client NDA protection & rigorous milestone adherence.'}
-                </p>
-              </div>
-            </div>
+          <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-line py-4 text-[10px] font-mono uppercase tracking-[0.16em] text-muted">
+            <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand-red" />100% WFA</span>
+            <span>Project-Based</span>
+            <span>NDA Protected</span>
+            <span>Specialist Network</span>
           </div>
 
-          {/* Focused vendor fit panel */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-5">
             <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">01 / What we need</span>
-                  <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold text-white">
-                    {language === 'id' ? 'Spesialis yang siap masuk ke workflow kami.' : 'Specialists who can plug into our workflow.'}
-                  </h3>
-                </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">01 / Skills</span>
+              <div className="mt-3 flex items-start justify-between gap-6">
+                <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">
+                  {language === 'id' ? 'Spesialis yang kami cari.' : 'Specialists we work with.'}
+                </h3>
                 <Code2 className="w-5 h-5 text-brand-red shrink-0" />
               </div>
-              <div className="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-white/80">
-                {[
-                  'UI/UX & Product Design',
-                  'Frontend Development',
-                  'Backend / Full-Stack',
-                  'Brand, Motion & 3D'
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
+              <div className="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-white/80">
+                {['UI/UX & Product Design','Frontend Development','Backend / Full-Stack','Brand, Motion & 3D'].map((item) => (
+                  <div key={item} className="flex items-center gap-2.5 rounded-xl border border-line bg-bg px-3.5 py-3">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-red shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -1122,16 +1029,15 @@ export const Careers = () => {
             </div>
 
             <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">02 / Working standard</span>
-              <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold text-white">
-                {language === 'id' ? 'Standar yang kami jaga.' : 'The standard we work by.'}
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">02 / Fit</span>
+              <h3 className="mt-3 text-xl sm:text-2xl font-display font-semibold text-white">
+                {language === 'id' ? 'Yang penting bagi kami.' : 'What matters to us.'}
               </h3>
-              <div className="mt-6 space-y-3">
+              <div className="mt-5 space-y-3">
                 {[
-                  language === 'id' ? 'Brief dan scope yang jelas' : 'Clear briefs and scope',
                   language === 'id' ? 'Komunikasi responsif' : 'Responsive communication',
-                  language === 'id' ? 'Disiplin milestone dan deadline' : 'Milestone and deadline discipline',
-                  language === 'id' ? 'Standar design & code Kapitech' : 'Kapitech design & code standards'
+                  language === 'id' ? 'Disiplin milestone' : 'Milestone discipline',
+                  language === 'id' ? 'Standar design & code' : 'Design & code standards'
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3 text-sm text-white/80">
                     <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
@@ -1139,40 +1045,42 @@ export const Careers = () => {
                   </div>
                 ))}
               </div>
+              <p className="mt-5 text-xs text-muted leading-relaxed">
+                {language === 'id'
+                  ? 'Detail NDA, perangkat kerja, dan ketentuan proyek dibahas di form pendaftaran.'
+                  : 'NDA, equipment, and project terms are covered in the application form.'}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A]">
+      <section className="py-14 sm:py-18 px-4 sm:px-6 md:px-12 border-b border-line">
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mb-12">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-              {language === 'id' ? 'Nilai & Keuntungan Studio' : 'Studio Culture & Core Values'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-              {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+            <div>
+              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-[10px] mb-2 block">
+                {language === 'id' ? 'Studio Culture' : 'Studio Culture'}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
+                {language === 'id' ? 'Yang kami jaga dalam bekerja.' : 'What we value in the work.'}
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-muted max-w-md leading-relaxed">
+              {language === 'id'
+                ? 'Bukan daftar fasilitas panjang. Hanya hal-hal yang benar-benar terasa dalam keseharian.'
+                : 'Not a long list of perks. Just the things that genuinely shape the day-to-day.'}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, i) => (
-              <div 
-                key={i}
-                className="p-6 sm:p-8 rounded-2xl border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-line rounded-2xl overflow-hidden">
+            {benefits.map((benefit) => (
+              <div key={benefit.title} className="p-5 sm:p-6 bg-panel border-b sm:border-b-0 lg:border-r border-line last:border-0 hover:bg-[var(--kapi-bg-card-hover)] transition-colors">
+                <div className="w-9 h-9 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-4">
                   {benefit.icon}
                 </div>
-                <div>
-                  <h3 className="text-lg font-display font-bold text-white mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
-                    {benefit.desc}
-                  </p>
-                </div>
+                <h3 className="text-sm sm:text-base font-display font-semibold text-white">{benefit.title}</h3>
               </div>
             ))}
           </div>
