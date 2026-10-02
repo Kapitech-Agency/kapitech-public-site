@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-55 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit]"
     aria-hidden="true"
   >
     <svg
@@ -39,15 +39,16 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
         width="98.9"
         height={mobile ? '46.9' : '38.9'}
         rx={mobile ? '11' : '19'}
-        pathLength="1"
-        className="stroke-white/45 transition-colors duration-500 group-hover:stroke-brand-red"
-        strokeWidth="2.15"
+        pathLength="100"
+        stroke="currentColor"
+        className="text-white/40 transition-colors duration-500 group-hover:text-brand-red"
+        strokeWidth="2"
         strokeLinecap="round"
-        strokeDasharray="0.78 0.22"
+        strokeDasharray="97 3"
         vectorEffect="non-scaling-stroke"
-        animate={{ strokeDashoffset: [0, -1] }}
+        animate={{ strokeDashoffset: [0, -100] }}
         transition={{
-          duration: mobile ? 7.8 : 7.2,
+          duration: mobile ? 7.6 : 7.1,
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -132,8 +133,8 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-9 px-1.5 text-[10px] font-semibold uppercase tracking-[0.17em] leading-none transition-[color,transform] duration-300 ease-out",
-      active ? "text-white" : "text-[#8A909D] hover:text-white hover:-translate-y-px"
+      "relative inline-flex items-center h-9 px-2 text-[10px] font-semibold uppercase tracking-[0.17em] leading-none transition-colors duration-300",
+      active ? "text-white" : "text-[#8A909D] hover:text-white"
     );
 
   return (
@@ -177,15 +178,12 @@ export const Navbar = () => {
                 {isWorkActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
-                    initial={{ scaleX: 0.55, opacity: 0 }}
-                    animate={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px rounded-full bg-brand-red"
                     aria-hidden="true"
                   />
                 )}
                 <span className="relative z-10">{t('nav.work')}</span>
-                <span className="pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
+
               </Link>
 
               {/* SERVICES DROPDOWN TRIGGER */}
@@ -208,7 +206,7 @@ export const Navbar = () => {
                   {isServicesActive && (
                     <motion.span
                       layoutId="desktop-nav-active"
-                      className="pointer-events-none absolute left-0 right-7 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
+                      className="pointer-events-none absolute left-2 right-8 bottom-0 h-px rounded-full bg-brand-red"
                       initial={{ scaleX: 0.55, opacity: 0 }}
                       animate={{ scaleX: 1, opacity: 1 }}
                       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
@@ -216,7 +214,7 @@ export const Navbar = () => {
                     />
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
-                  <span className="pointer-events-none absolute left-0 right-6 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
+
                   <ChevronDown className={cn(
                     "relative z-10 w-3.5 h-3.5 transition-transform duration-250",
                     isServicesDropdownOpen ? "rotate-180 text-white" : "text-[#8A909D]"
@@ -280,7 +278,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
               <button
                 onClick={() => setLanguage('en')}
-                className="group relative inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-[color,transform] duration-200 hover:text-white hover:-translate-y-px cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to English"
               >
                 <span className={cn(
@@ -330,7 +328,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="group w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#16181D]/75 hover:border-brand-red/35 hover:bg-[#1B1F26] flex items-center justify-center text-white active:scale-[0.97] transition-[border-color,background-color,transform] duration-300 shrink-0 cursor-pointer"
+              className="group w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#16181D]/75 hover:border-white/20 hover:bg-[#1B1F26] flex items-center justify-center text-white transition-[border-color,background-color] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -714,7 +712,7 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.12] bg-[#16181D]/80 text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_28px_-20px_rgba(229,9,20,0.4)] active:scale-[0.985] transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out cursor-pointer"
+                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.12] bg-[#16181D]/80 text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_28px_-20px_rgba(229,9,20,0.4)] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out cursor-pointer"
                   data-cursor-label="Start"
                 >
                   <CtaFlowLine mobile />
