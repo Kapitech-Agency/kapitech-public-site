@@ -25,7 +25,9 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [navbarHeaderHeight, setNavbarHeaderHeight] = useState(0);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navbarHeaderRef = useRef<HTMLDivElement | null>(null);
 
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
@@ -50,6 +52,22 @@ export const Navbar = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const header = navbarHeaderRef.current;
+    if (!header) return;
+
+    const updateHeight = () => {
+      setNavbarHeaderHeight(header.getBoundingClientRect().height);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(header);
+
+    return () => observer.disconnect();
+  }, [isMenuOpen]);
 
 
   // Lock background scroll while the mobile navigation drawer is open.
@@ -153,22 +171,32 @@ export const Navbar = () => {
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
         data-menu-open={isMenuOpen ? 'true' : undefined}
-        style={isMenuOpen ? {
-          backgroundColor: 'rgba(11, 12, 14, 0.34)',
-          backdropFilter: 'blur(48px) saturate(1.2) brightness(0.82)',
-          WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.82)',
-          isolation: 'isolate',
-        } : undefined}
+        style={isMenuOpen ? { isolation: 'isolate' } : undefined}
       >
+        {isMenuOpen && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-0 bg-[#0B0C0E]/[0.06] backdrop-blur-2xl backdrop-saturate-150"
+            style={{
+              top: navbarHeaderHeight,
+              backdropFilter: 'blur(48px) saturate(1.2) brightness(0.82)',
+              WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.82)',
+            }}
+          />
+        )}
+
         {/* Scroll Progress Bar */}
         <motion.div 
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
           style={{ scaleX }}
         />
-        <div className={cn(
-          "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
-          isMenuOpen && "py-4 sm:py-5"
-        )}>
+        <div
+          ref={navbarHeaderRef}
+          className={cn(
+            "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
+            isMenuOpen && "py-4 sm:py-5"
+          )}
+        >
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
             <img 
               src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
