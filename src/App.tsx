@@ -138,10 +138,10 @@ function AppShell() {
 
   return (
     <>
+      <SiteCursor />
       <Navbar />
       <div className={cn('relative z-10 text-white selection:bg-brand-red selection:text-white min-h-screen flex flex-col kapi-public-shell')}>
         <PublicMotion />
-        <SiteCursor />
         <main className="flex-grow flex flex-col">
           <AnimatedRoutes />
         </main>
