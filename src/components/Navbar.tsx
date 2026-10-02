@@ -144,10 +144,8 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-8 px-3.5 rounded-[10px] text-[10px] font-semibold uppercase tracking-[0.16em] leading-none transition-all duration-300",
-      active
-        ? "text-white bg-white/[0.045]"
-        : "text-[#8A909D] hover:text-white hover:bg-white/[0.035]"
+      "group relative inline-flex items-center h-9 px-2.5 text-[10px] font-semibold uppercase tracking-[0.17em] leading-none transition-all duration-300 after:absolute after:left-2 after:right-2 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:rounded-full after:bg-white/30 after:transition-transform after:duration-300 hover:after:scale-x-100",
+      active ? "text-white" : "text-[#8A909D] hover:text-white"
     );
 
   return (
@@ -179,8 +177,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-3 lg:gap-4">
-            <div className="flex items-center gap-0.5 rounded-[15px] border border-white/[0.07] bg-[#111318]/72 p-1 shadow-[0_14px_34px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            <div className="flex items-center gap-1.5 lg:gap-2">
               
               {/* Work Link */}
               <Link
@@ -191,7 +189,7 @@ export const Navbar = () => {
                 {isWorkActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -210,6 +208,7 @@ export const Navbar = () => {
                   onClick={() => setIsServicesDropdownOpen(prev => !prev)}
                   className={cn(
                     desktopNavItemClass(isServicesActive || isServicesDropdownOpen),
+                    isServicesDropdownOpen && "text-white"
                   )}
                   aria-expanded={isServicesDropdownOpen}
                   aria-haspopup="true"
@@ -218,8 +217,8 @@ export const Navbar = () => {
                   {isServicesActive && (
                     <motion.span
                       layoutId="desktop-nav-active"
-                      className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
-                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                      className="pointer-events-none absolute left-2 right-9 bottom-0 h-px origin-left rounded-full bg-brand-red"
+                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
                       aria-hidden="true"
                     />
                   )}
@@ -240,7 +239,7 @@ export const Navbar = () => {
                 {isAboutActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -257,7 +256,7 @@ export const Navbar = () => {
                 {isCareersActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute inset-x-2 bottom-0 h-px rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.55)]"
+                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 460, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -279,10 +278,10 @@ export const Navbar = () => {
             </Link>
 
             {/* Language Switcher EN | ID */}
-            <div className="flex items-center gap-0.5 rounded-full border border-white/[0.07] bg-[#111318]/72 p-1 text-[10px] font-mono font-semibold tracking-[0.16em] backdrop-blur-xl">
+            <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
               <button
                 onClick={() => setLanguage('en')}
-                className="group inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.045] hover:text-white cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to English"
               >
                 <span className={cn(
@@ -291,10 +290,10 @@ export const Navbar = () => {
                 )} />
                 <span className={cn(language === 'en' ? "text-white" : "text-[#8A909D]")}>EN</span>
               </button>
-              <span className="mx-0.5 h-3 w-px bg-white/[0.08]" aria-hidden="true" />
+              <span className="h-3 w-px bg-white/[0.08]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className="group inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.045] hover:text-white cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
                 <span className={cn(
