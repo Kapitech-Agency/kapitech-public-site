@@ -149,7 +149,7 @@ export const Navbar = () => {
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
-                ? `flex flex-col ${dropdownGlassMaterial} py-0 border-transparent shadow-none`
+                ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
         style={isMenuOpen ? {
@@ -165,7 +165,7 @@ export const Navbar = () => {
         />
         <div className={cn(
           "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
-          (isMenuOpen || isServicesDropdownOpen) && "py-4 sm:py-5"
+          isMenuOpen && "py-4 sm:py-5"
         )}>
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
             <img 
@@ -336,12 +336,11 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block relative z-10 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12"
-              style={{
-                backgroundColor: 'transparent',
-                backdropFilter: 'none',
-                WebkitBackdropFilter: 'none',
-              }}
+              className={cn(
+                "hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12",
+                dropdownGlassMaterial
+              )}
+
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
