@@ -664,7 +664,7 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full h-12 rounded-xl bg-brand-red hover:bg-[#CC001F] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
+                  className="w-full h-12 rounded-xl bg-brand-red hover:bg-[#FF1E27] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <span>{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} />
