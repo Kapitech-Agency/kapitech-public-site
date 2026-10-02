@@ -701,65 +701,6 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            {/* Desktop rail: one continuous editorial line */}
-            <div className="hidden lg:block absolute inset-x-0 top-0 h-10 pointer-events-none" aria-hidden="true">
-              <div className="absolute left-[12.5%] right-[12.5%] top-5 h-px bg-white/[0.09]" />
-
-              <motion.div
-                className="absolute left-[12.5%] top-5 h-px origin-left bg-gradient-to-r from-brand-red/45 via-brand-red/90 to-brand-red/60"
-                animate={{
-                  width: `${(activeProcessStep / (processSteps.length - 1)) * 75}%`,
-                  opacity: activeProcessStep === 0 ? 0.55 : 1,
-                }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              />
-
-              <motion.span
-                className="absolute top-[15px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-brand-red shadow-[0_0_16px_rgba(229,9,20,0.55)]"
-                animate={{ left: `${12.5 + activeProcessStep * 25}%` }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <motion.span
-                className="absolute top-[13px] h-[18px] w-[18px] -translate-x-1/2 rounded-full border border-brand-red/45"
-                animate={{
-                  left: `${12.5 + activeProcessStep * 25}%`,
-                  scale: [0.8, 1.45, 0.8],
-                  opacity: [0.55, 0, 0.55],
-                }}
-                transition={{
-                  left: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-                  scale: { duration: 1.8, repeat: Infinity, ease: 'easeOut' },
-                  opacity: { duration: 1.8, repeat: Infinity, ease: 'easeOut' },
-                }}
-              />
-
-              {processSteps.map((step, index) => {
-                const left = `${12.5 + index * 25}%`;
-                const isActive = activeProcessStep === index;
-                return (
-                  <motion.span
-                    key={step.step}
-                    className={cn(
-                      "absolute left-0 top-[15px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border bg-[#0B0C0E] transition-all duration-500",
-                      isActive
-                        ? "border-transparent"
-                        : "border-white/[0.18]"
-                    )}
-                    style={{ left }}
-                  />
-                );
-              })}
-            </div>
-
-            {/* Mobile rail */}
-            <div className="lg:hidden absolute left-2 top-0 bottom-0 w-px bg-white/[0.08]" aria-hidden="true">
-              <motion.div
-                className="absolute left-0 top-0 w-px origin-top bg-brand-red/75"
-                animate={{ height: `${((activeProcessStep + 1) / processSteps.length) * 100}%` }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              />
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-0 gap-y-10 lg:gap-y-0">
               {processSteps.map((step, index) => {
                 const isActive = activeProcessStep === index;
