@@ -55,6 +55,7 @@ export const Careers = () => {
   const { language } = useLanguage();
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [applicantSubmitError, setApplicantSubmitError] = useState('');
   const [applicantErrors, setApplicantErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -68,6 +69,7 @@ export const Careers = () => {
   // Freelance Vendor Modal & Form State
   const [isFreelanceModalOpen, setIsFreelanceModalOpen] = useState(false);
   const [isVendorSubmitted, setIsVendorSubmitted] = useState(false);
+  const [vendorSubmitError, setVendorSubmitError] = useState('');
   const [vendorErrors, setVendorErrors] = useState<{ [key: string]: string }>({});
   const [vendorHoneypot, setVendorHoneypot] = useState('');
   const [vendorFormData, setVendorFormData] = useState({
@@ -546,6 +548,7 @@ export const Careers = () => {
     }
 
     setApplicantErrors({});
+    setApplicantSubmitError('');
     try {
       await submitToInbox({
         fullName: sanitizedName,
@@ -559,6 +562,12 @@ export const Careers = () => {
       });
     } catch (err) {
       console.warn('Applicant submission error:', err);
+      setApplicantSubmitError(
+        language === 'id'
+          ? 'Lamaran belum tersimpan. Periksa koneksi lalu coba lagi.'
+          : 'Your application was not saved. Please check your connection and try again.'
+      );
+      return;
     }
     setIsSubmitted(true);
   };
@@ -622,6 +631,7 @@ export const Careers = () => {
     }
 
     setVendorErrors({});
+    setVendorSubmitError('');
     try {
       await submitToInbox({
         fullName: sanitizedName,
@@ -638,6 +648,12 @@ export const Careers = () => {
       });
     } catch (err) {
       console.warn('Vendor submission error:', err);
+      setVendorSubmitError(
+        language === 'id'
+          ? 'Pendaftaran vendor belum tersimpan. Periksa koneksi lalu coba lagi.'
+          : 'Your vendor application was not saved. Please check your connection and try again.'
+      );
+      return;
     }
     setIsVendorSubmitted(true);
   };
@@ -691,6 +707,7 @@ export const Careers = () => {
                 onClick={() => {
                   setIsFreelanceModalOpen(true);
                   setIsVendorSubmitted(false);
+                  setVendorSubmitError('');
                 }}
                 className="px-5 py-2.5 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-red/20"
               >
@@ -1225,6 +1242,7 @@ export const Careers = () => {
                     onClick={() => {
                       setSelectedPosition(null);
                       setIsSubmitted(false);
+                      setApplicantSubmitError('');
                     }}
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
@@ -1432,6 +1450,13 @@ export const Careers = () => {
                         )}
                       </div>
 
+                      {applicantSubmitError && (
+                        <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                          <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                          <span>{applicantSubmitError}</span>
+                        </div>
+                      )}
+
                       <button
                         type="submit"
                         className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2"
@@ -1479,6 +1504,7 @@ export const Careers = () => {
                     onClick={() => {
                       setIsFreelanceModalOpen(false);
                       setIsVendorSubmitted(false);
+                      setVendorSubmitError('');
                     }}
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
@@ -1771,6 +1797,13 @@ export const Careers = () => {
                         <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.resume}</span>
                       )}
                     </div>
+
+                    {vendorSubmitError && (
+                      <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                        <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                        <span>{vendorSubmitError}</span>
+                      </div>
+                    )}
 
                     <button
                       type="submit"
