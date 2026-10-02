@@ -682,59 +682,84 @@ export const Careers = () => {
   return (
     <div className="kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
-        <AtmosphericBackground 
+      <section className="relative min-h-[720px] pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-line overflow-hidden flex items-end">
+        <AtmosphericBackground
           imageUrl="/hero_background_3d.png"
-          opacity={0.06}
+          opacity={0.05}
           disableGrayscale={true}
         />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-              {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
-            </span>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white mb-6">
-              {language === 'id' ? 'Berkarya Bersama Kapitech.' : 'Build the Future With Us.'}
-            </h1>
-            <p className="text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed mb-6">
-              {language === 'id'
-                ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek (100% WFA) untuk berkolaborasi menggarap produk digital kelas dunia.'
-                : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
-              }
-            </p>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93] mb-6">
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red font-semibold flex items-center gap-2">
-                <Sparkles size={12} />
-                <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
-                {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
-              </span>
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_78%_28%,rgba(229,9,20,0.08),transparent_32%)]" />
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-12 lg:gap-20 items-end">
+            <div>
+              <div className="flex items-center gap-3 mb-7">
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-brand-red">KAPITECH / CAREERS</span>
+                <span className="h-px w-16 bg-line" />
+                <span className="font-mono text-[10px] text-muted uppercase tracking-wider">2026</span>
+              </div>
+              <h1 className="max-w-5xl text-[clamp(3.5rem,8.5vw,8.5rem)] font-display font-bold leading-[0.84] tracking-[-0.065em] text-white">
+                {language === 'id'
+                  ? <>Berkarya.<br /><span className="text-brand-red">Tumbuh.</span><br />Bergerak.</>
+                  : <>Build.<br /><span className="text-brand-red">Grow.</span><br />Move.</>}
+              </h1>
+              <p className="mt-8 max-w-2xl text-base sm:text-lg md:text-xl text-white/58 font-light leading-relaxed">
+                {language === 'id'
+                  ? 'Kami mencari orang yang suka mengerjakan hal sulit dengan standar tinggi, baik di studio maupun sebagai bagian dari network specialist kami.'
+                  : 'We look for people who enjoy difficult work at a high standard, whether inside the studio or across our specialist network.'}
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#open-positions"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"
+                >
+                  <span>{language === 'id' ? 'Lihat posisi aktif' : 'View open roles'}</span>
+                  <ArrowUpRight size={14} />
+                </a>
+                <button
+                  onClick={() => {
+                    setIsFreelanceModalOpen(true);
+                    setIsVendorSubmitted(false);
+                    setVendorSubmitError('');
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-red hover:bg-[#FF2B38] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20"
+                >
+                  <FolderGit2 size={14} />
+                  <span>{language === 'id' ? 'Gabung network' : 'Join the network'}</span>
+                </button>
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a 
-                href="#open-positions"
-                className="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2"
-              >
-                <span>{language === 'id' ? 'Posisi Studio On-site' : 'Studio Open Roles'}</span>
-                <ArrowUpRight size={14} />
-              </a>
-              <button 
-                onClick={() => {
-                  setIsFreelanceModalOpen(true);
-                  setIsVendorSubmitted(false);
-                  setVendorSubmitError('');
-                }}
-                className="px-5 py-2.5 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-red/20"
-              >
-                <FolderGit2 size={14} />
-                <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
-              </button>
+            <div className="lg:pb-1">
+              <div className="border-t border-line">
+                <div className="grid grid-cols-2 border-b border-line">
+                  <div className="py-5 pr-4 border-r border-line">
+                    <span className="block font-mono text-[10px] uppercase tracking-widest text-muted">01</span>
+                    <strong className="mt-2 block text-lg font-display font-semibold text-white">{language === 'id' ? 'Studio' : 'Studio'}</strong>
+                    <span className="mt-1 block text-xs text-muted leading-relaxed">{language === 'id' ? 'Role on-site di Tangerang Selatan' : 'On-site roles in South Tangerang'}</span>
+                  </div>
+                  <div className="py-5 pl-4">
+                    <span className="block font-mono text-[10px] uppercase tracking-widest text-muted">02</span>
+                    <strong className="mt-2 block text-lg font-display font-semibold text-white">{language === 'id' ? 'Network' : 'Network'}</strong>
+                    <span className="mt-1 block text-xs text-muted leading-relaxed">{language === 'id' ? 'Specialist 100% WFA, project-based' : '100% WFA specialist network'}</span>
+                  </div>
+                </div>
+                <div className="py-6">
+                  <span className="block font-mono text-[10px] uppercase tracking-widest text-brand-red mb-2">{language === 'id' ? 'Saat ini' : 'Now hiring'}</span>
+                  <div className="flex items-end justify-between gap-5">
+                    <div>
+                      <strong className="block text-4xl sm:text-5xl font-display font-semibold text-white leading-none">02</strong>
+                      <span className="mt-2 block text-xs text-muted">{language === 'id' ? 'posisi studio aktif' : 'active studio roles'}</span>
+                    </div>
+                    <div className="w-16 h-16 rounded-full border border-brand-red/30 bg-brand-red/10 flex items-center justify-center text-brand-red">
+                      <Sparkles size={22} />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 pt-5 border-t border-line text-[10px] font-mono uppercase tracking-widest text-muted">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  {language === 'id' ? 'Open for applications' : 'Open for applications'}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -825,7 +850,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: How We Work */}
-      <section className="py-18 sm:py-24 md:py-28 px-4 sm:px-6 md:px-12 border-b border-line bg-panel/30">
+      <section className="py-20 sm:py-24 md:py-28 px-4 sm:px-6 md:px-12 border-b border-line bg-panel/30">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-20">
             <div>
@@ -964,7 +989,7 @@ export const Careers = () => {
                   { icon:<ShieldCheck size={17} />, label: language === 'id' ? 'NDA & Deadline' : 'NDA & Deadlines', copy: language === 'id' ? 'Kerahasiaan dan disiplin eksekusi.' : 'Confidentiality and execution discipline.' }
                 ].map((item) => (
                   <div key={item.label} className="p-5 sm:p-6 rounded-2xl border border-line bg-panel/65 hover:bg-panel transition-colors">
-                    <div className="w-9 h-9 rounded-xl border border-brand-red/25 bg-brand-red/8 flex items-center justify-center text-brand-red mb-4">{item.icon}</div>
+                    <div className="w-9 h-9 rounded-xl border border-brand-red/25 bg-brand-red/10 flex items-center justify-center text-brand-red mb-4">{item.icon}</div>
                     <h3 className="text-sm font-display font-semibold text-white">{item.label}</h3>
                     <p className="mt-1.5 text-xs text-muted leading-relaxed">{item.copy}</p>
                   </div>
