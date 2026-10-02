@@ -72,7 +72,9 @@ export const PublicMotion = () => {
           ? Array.from(parent.children).filter((node) => node instanceof HTMLElement && node.matches(MOTION_SELECTOR))
           : [];
         const index = Math.max(0, siblings.indexOf(element));
+        const variant = (index + element.tagName.length) % 4;
         element.style.setProperty('--kapi-motion-delay', `${Math.min(index, 5) * 45}ms`);
+        element.dataset.kapiMotionVariant = String(variant);
 
         if (reducedMotion.matches) {
           setMotionState(element, 'visible');
