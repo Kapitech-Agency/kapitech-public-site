@@ -705,32 +705,59 @@ export const Careers = () => {
       {/* SECTION: Join With Our 12 Great Talents */}
       <section className="kapi-careers-talent-section py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: { staggerChildren: 0.08, delayChildren: 0.04 }
+              }
+            }}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12"
+          >
             <div className="max-w-3xl">
-              <div className="mb-3">
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-3"
+              >
                 <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">People & Craft</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]">{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
+              </motion.div>
+              <motion.h2
+                variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]"
+              >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1">{language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}</p>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1">{language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}</motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.12 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: { staggerChildren: 0.055, delayChildren: 0.06 }
+              }
+            }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
             {twelveTalents.map((talent, index) => (
               <motion.div
                 key={talent.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.12 }}
-                transition={{
-                  duration: 0.55,
-                  delay: Math.min(index * 0.045, 0.4),
-                  ease: [0.22, 1, 0.36, 1]
+                variants={{
+                  hidden: { opacity: 0, y: 14, scale: 0.99 },
+                  visible: { opacity: 1, y: 0, scale: 1 }
                 }}
+                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
               >
                 <motion.button
                   onClick={() => setSelectedTalent(talent)}
-                  whileHover={{ y: -3 }}
+                  whileHover={{ y: -2 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="group relative block w-full aspect-[4/5] overflow-hidden rounded-xl border border-line bg-panel text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                   title={talent.name + ' - ' + talent.role}
@@ -741,7 +768,7 @@ export const Careers = () => {
                     alt={talent.name}
                     className="absolute inset-0 w-full h-full object-cover object-top"
                     loading="lazy"
-                    whileHover={{ scale: 1.04 }}
+                    whileHover={{ scale: 1.025 }}
                     transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
@@ -903,9 +930,12 @@ export const Careers = () => {
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                 {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
-              </h2>
+              </motion.h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
               {language === 'id' ? 'Hal-hal yang kami jaga dalam keseharian, tanpa daftar fasilitas yang panjang.' : 'The principles we keep close in the day-to-day, without a long list of perks.'}
             </p>
           </div>
