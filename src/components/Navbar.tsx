@@ -115,8 +115,8 @@ export const Navbar = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
-          isScrolled
-            ? "bg-[#0B0C0E]/92 backdrop-blur-xl py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.32)]"
+          isScrolled || isServicesDropdownOpen
+            ? "bg-[#0B0C0E]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/68 py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
             : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
@@ -244,7 +244,7 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.12] bg-[#141519] text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/60 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.48)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.12] bg-white/[0.045] backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/42 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/60 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.48)]"
               data-cursor-label="Start"
             >
 
