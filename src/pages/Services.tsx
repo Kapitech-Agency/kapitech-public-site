@@ -918,7 +918,7 @@ export const Services = () => {
       <AnimatePresence>
         {selectedService && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-preview-title"
@@ -931,10 +931,10 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#16181D] border border-[#262930] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Modal Header */}
-              <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-[#16181D]/95 backdrop-blur border-b border-[#262930]">
+              <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930]">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
                     {selectedService.icon}
