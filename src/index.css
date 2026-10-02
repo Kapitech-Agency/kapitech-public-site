@@ -102,6 +102,27 @@
   --kapi-transition-smooth: all 420ms cubic-bezier(0.22,1,0.36,1);
 }
 
+/* Reusable public-site section label */
+.kapi-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 9999px;
+  background: rgba(11,12,14,0.46);
+  color: #E50914;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 30px rgba(0,0,0,0.12);
+}
+
 /* Public-site typography and focus only. AMS owns its own scoped UI states. */
   .kapi-public-shell h1,
   .kapi-public-shell h2,

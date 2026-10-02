@@ -19,6 +19,7 @@ export const PrivacyPolicy = () => {
         disableGrayscale={true}
       />
       <div className="max-w-4xl mx-auto relative z-10">
+        <span className="kapi-section-label mb-5">{language === 'id' ? 'Privasi & Perlindungan Data' : 'Privacy & Data Protection'}</span>
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 tracking-tighter">
           {language === 'id' ? 'Kebijakan Privasi.' : 'Privacy Policy.'}
         </h1>

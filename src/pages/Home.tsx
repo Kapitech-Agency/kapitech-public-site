@@ -187,7 +187,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-6 sm:mb-8">
+            <div className="kapi-section-label mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
@@ -260,8 +260,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.45fr] gap-10 lg:gap-20 items-end mb-16 sm:mb-20">
             <div>
-              <span className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.22em] uppercase text-[10px] sm:text-xs">
-                <span className="h-px w-8 bg-brand-red/60" />
+              <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW NUMBERS'}
               </span>
               <h2 className="mt-4 max-w-xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[0.98] text-white">

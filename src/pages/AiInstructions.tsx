@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
-import { Cpu, ShieldCheck, Lock, Eye, Sparkles } from 'lucide-react';
+import { Cpu, ShieldCheck, Lock, Eye,} from 'lucide-react';
 
 export const AiInstructions = () => {
   const { language } = useLanguage();
@@ -20,10 +20,9 @@ export const AiInstructions = () => {
         disableGrayscale={true}
       />
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-sans mb-4">
-          <Sparkles className="w-3 h-3 text-brand-red" />
-          <span>{language === 'id' ? 'Standar & Etika AI' : 'AI Standards & Ethics'}</span>
-        </div>
+        <span className="kapi-section-label mb-5">
+          {language === 'id' ? 'Standar & Etika AI' : 'AI Standards & Ethics'}
+        </span>
         <h1 className="text-[clamp(42px,7vw,72px)] leading-[0.98] font-sans font-bold text-white mb-4 tracking-[-0.055em]">
           {language === 'id' ? 'Panduan & Kebijakan AI.' : 'AI Instructions & Ethics.'}
         </h1>

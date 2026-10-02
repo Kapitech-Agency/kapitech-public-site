@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
-import { BookOpen, CheckCircle2, Feather, FileText } from 'lucide-react';
+import { CheckCircle2, Feather, FileText } from 'lucide-react';
 
 export const EditorialPolicy = () => {
   const { language } = useLanguage();
@@ -20,10 +20,9 @@ export const EditorialPolicy = () => {
         disableGrayscale={true}
       />
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#262930] bg-[#16181D] text-white text-xs font-mono mb-4">
-          <BookOpen className="w-3 h-3 text-brand-red" />
-          <span>{language === 'id' ? 'Standar Konten & Publikasi' : 'Content & Publication Standards'}</span>
-        </div>
+        <span className="kapi-section-label mb-5">
+          {language === 'id' ? 'Standar Konten & Publikasi' : 'Content & Publication Standards'}
+        </span>
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 tracking-tighter">
           {language === 'id' ? 'Kebijakan Editorial.' : 'Editorial Policy.'}
         </h1>

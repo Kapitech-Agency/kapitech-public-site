@@ -107,10 +107,9 @@ export const ServiceDetail = () => {
           <div className="lg:col-span-8">
             
             {/* Category / Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono tracking-wider uppercase mb-6">
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-              <span>{language === 'id' ? service.badgeId : service.badge}</span>
-            </div>
+            <span className="kapi-section-label mb-6">
+              {language === 'id' ? service.badgeId : service.badge}
+            </span>
 
             {/* Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display tracking-tight text-white leading-[1.1] mb-6">
