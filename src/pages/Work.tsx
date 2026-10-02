@@ -203,9 +203,9 @@ export const Work = () => {
             preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.34}
+            opacity={0.48}
             fade="edges"
-            fadeSize={0.78}
+            fadeSize={0.72}
             interactive
             cursorSize={48}
             cursorStrength={0.42}
@@ -216,7 +216,7 @@ export const Work = () => {
             contrast={1.04}
             intro
           />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/55 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/42 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
