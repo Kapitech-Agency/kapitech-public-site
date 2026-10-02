@@ -168,8 +168,7 @@ export const Home = () => {
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0C0E] to-transparent" />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="max-w-4xl">
+        <div className="max-w-7xl mx-auto w-full relative z-10">\n          <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
@@ -181,7 +180,7 @@ export const Home = () => {
               </span>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] sm:leading-[1.05] tracking-tight mb-5 sm:mb-8 text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] font-display font-bold leading-[1.03] tracking-[-0.045em] max-w-4xl mb-5 sm:mb-8 text-white">
               {language === 'id' ? (
                 <>Studio produk digital yang dirancang untuk <span className="text-brand-red">membangun & memperluas</span> bisnis Anda.</>
               ) : (
@@ -189,7 +188,7 @@ export const Home = () => {
               )}
             </h1>
             
-            <p className="text-sm sm:text-base md:text-xl text-[#8A909D] font-light leading-relaxed max-w-2xl mb-8 sm:mb-12">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
               {language === 'id'
                 ? 'Kami merancang dan mengembangkan website berkinerja tinggi, aplikasi web kustom, sistem visual, dan infrastruktur cloud terpercaya untuk bisnis visioner.'
                 : 'We design and develop high-performance websites, custom web applications, visual systems, and resilient cloud infrastructures for visionary enterprises.'}
@@ -217,23 +216,23 @@ export const Home = () => {
       {/* REDESIGNED STATS SECTION - Minimal, Simple, High-Contrast & Sleek */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]" aria-label="Key Agency Statistics">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, i) => (
               <div 
                 key={i} 
-                className="relative p-6 rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 transition-all duration-300 group flex flex-col justify-between"
+                className={`relative px-4 py-5 sm:px-6 sm:py-6 group flex flex-col justify-between ${i > 0 ? "lg:border-l lg:border-[#262930]" : ""}`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-brand-red font-semibold">
                     {stat.label}
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#0B0C0E] border border-[#262930] text-[#8A909D]">
+                  <span className="text-[10px] font-mono text-[#8A909D]/70">
                     0{i + 1}
                   </span>
                 </div>
 
-                <div className="my-2">
-                  <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-white tracking-tight group-hover:text-brand-red transition-colors">
+                <div className="my-1">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-white tracking-[-0.035em] group-hover:text-brand-red transition-colors">
                     {stat.value}
                   </div>
                   <div className="text-xs font-mono text-brand-red font-medium mt-1">
@@ -252,11 +251,11 @@ export const Home = () => {
 
       {/* CLIENTS & PARTNERS SECTION - LOOPING CAROUSEL WITH SIDE SHADOWS */}
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10 text-left">
           <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 block">
             {language === 'id' ? 'KLIEN & MITRA TERPERCAYA' : 'TRUSTED BY INNOVATION LEADERS'}
           </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold tracking-tight text-white">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-[-0.03em] text-white max-w-3xl">
             {language === 'id' 
               ? 'Dipercaya oleh 50+ perusahaan global & startup bervaluasi tinggi' 
               : 'Empowering 50+ global scaleups, enterprise leaders & venture-backed products'}
@@ -350,7 +349,7 @@ export const Home = () => {
           </div>
 
           {/* Solutions 3 Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-12">
             {[
               {
                 slug: 'mvp-design',
@@ -374,7 +373,7 @@ export const Home = () => {
               <Link 
                 key={idx} 
                 to={`/solutions/${sol.slug}`}
-                className="group p-6 sm:p-7 rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 hover:bg-[#1B1F26] transition-all flex flex-col justify-between"
+                className="group p-7 sm:p-8 min-h-[250px] rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 hover:bg-[#1B1F26] transition-all flex flex-col justify-between"
               >
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-brand-red font-semibold block mb-1">
@@ -598,11 +597,11 @@ export const Home = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8">
             {processSteps.map((step) => (
               <div 
                 key={step.step}
-                className="p-6 rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/30 transition-colors flex flex-col justify-between"
+                className="relative pt-6 border-t border-[#262930] hover:border-brand-red/50 transition-colors flex flex-col justify-between"
               >
                 <div className="text-2xl font-display font-bold text-brand-red font-mono mb-4">
                   {step.step}

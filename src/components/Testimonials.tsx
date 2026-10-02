@@ -77,7 +77,7 @@ export const Testimonials = () => {
   return (
     <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]" id="testimonials">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-12">
           <div>
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2.5 block">
               {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
@@ -115,7 +115,7 @@ export const Testimonials = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3, delay: index * 0.06 }}
-                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[260px] sm:min-h-[300px] transition-colors hover:border-brand-red/40"
+                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[260px] sm:min-h-[300px] transition-all duration-300 hover:border-brand-red/40 hover:-translate-y-0.5"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4 sm:mb-5">
