@@ -726,7 +726,7 @@ export const Careers = () => {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a 
                 href="#open-positions"
-                className="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2"
+                className="px-5 py-2.5 rounded-full border border-white/[0.1] bg-white/[0.035] text-white hover:bg-white/[0.07] hover:border-white/[0.16] text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2"
               >
                 <span>{language === 'id' ? 'Posisi Studio On-site' : 'Studio Open Roles'}</span>
                 <ArrowUpRight size={14} />
@@ -737,7 +737,7 @@ export const Careers = () => {
                   setIsVendorSubmitted(false);
                   setVendorSubmitError('');
                 }}
-                className="px-5 py-2.5 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-red/20"
+                className="px-5 py-2.5 rounded-full border border-brand-red/40 bg-brand-red/72 text-white hover:bg-brand-red/86 hover:border-brand-red/60 text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
               >
                 <FolderGit2 size={14} />
                 <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
@@ -1001,7 +1001,7 @@ export const Careers = () => {
                   setIsFreelanceModalOpen(true);
                   setIsVendorSubmitted(false);
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2.5"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2.5"
               >
                 <FolderGit2 size={16} />
                 <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
@@ -1011,9 +1011,9 @@ export const Careers = () => {
           </div>
 
           {/* Key Work Policy Banner (Crucial Terms Callout) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 p-5 sm:p-6 rounded-2xl bg-[#16181D] border border-brand-red/30">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 mb-12 rounded-2xl bg-white/[0.018] border border-white/[0.08] overflow-hidden">
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red shrink-0">
                 <Globe size={18} />
               </div>
               <div>
@@ -1027,7 +1027,7 @@ export const Careers = () => {
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red shrink-0">
                 <Briefcase size={18} />
               </div>
               <div>
@@ -1041,11 +1041,11 @@ export const Careers = () => {
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.025] border border-white/[0.08] flex items-center justify-center text-[#A9AFBA] shrink-0">
                 <Laptop size={18} />
               </div>
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold mb-1">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#A9AFBA] font-bold mb-1">
                   {language === 'id' ? 'BYOD (No Device)' : 'BYOD (No Device)'}
                 </h4>
                 <p className="text-xs text-[#8A909D] font-light">
@@ -1055,11 +1055,11 @@ export const Careers = () => {
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.025] border border-white/[0.08] flex items-center justify-center text-[#A9AFBA] shrink-0">
                 <ShieldCheck size={18} />
               </div>
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#A9AFBA] font-bold mb-1">
                   {language === 'id' ? 'NDA & Ketepatan Waktu' : 'NDA & Strict Deadlines'}
                 </h4>
                 <p className="text-xs text-[#8A909D] font-light">
@@ -1507,7 +1507,7 @@ export const Careers = () => {
 
                       <button
                         type="submit"
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2"
+                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                       >
                         <span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span>
                         <ArrowUpRight size={16} />
@@ -1603,7 +1603,7 @@ export const Careers = () => {
                           setIsFreelanceModalOpen(false);
                           setIsVendorSubmitted(false);
                         }}
-                        className="px-6 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+                        className="px-6 py-2.5 rounded-full border border-white/[0.1] bg-white/[0.035] text-white hover:bg-white/[0.07] hover:border-white/[0.16] text-xs font-mono font-semibold uppercase tracking-wider transition-colors"
                       >
                         {language === 'id' ? 'Tutup Formulir' : 'Close Form'}
                       </button>
@@ -1867,7 +1867,7 @@ export const Careers = () => {
 
                     <button
                       type="submit"
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2"
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                     >
                       <span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span>
                       <ArrowUpRight size={16} />
