@@ -291,9 +291,9 @@ export const About = () => {
             preset="ocean"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.18}
+            opacity={0.3}
             fade="edges"
-            fadeSize={0.82}
+            fadeSize={0.74}
             interactive
             cursorSize={50}
             cursorStrength={0.32}
@@ -304,7 +304,7 @@ export const About = () => {
             contrast={1.04}
             intro
           />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/72 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/50 to-transparent" />
         </div><div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="max-w-3xl"
