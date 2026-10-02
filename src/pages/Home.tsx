@@ -30,7 +30,6 @@ import {
 } from 'lucide-react';
 import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
@@ -50,6 +49,21 @@ export const Home = () => {
     });
 
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+  }, []);
+
+  useEffect(() => {
+    const scriptSrc = 'https://cdn.jsdelivr.net/npm/@mux/mux-player';
+    if (customElements.get('mux-player')) return;
+
+    const existingScript = document.querySelector(
+      'script[src="' + scriptSrc + '"]'
+    );
+    if (existingScript) return;
+
+    const script = document.createElement('script');
+    script.src = scriptSrc;
+    script.async = true;
+    document.head.appendChild(script);
   }, []);
 
   const clientPartners = [
@@ -138,12 +152,24 @@ export const Home = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white" role="main">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
-        <AtmosphericBackground 
-          imageUrl="/hero_background_3d.png"
-          opacity={0.12}
-          disableGrayscale={true}
-        />
+      <section className="kapi-home-hero relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
+        <div className="kapi-home-hero-video absolute inset-0 pointer-events-none" aria-hidden="true">
+          {React.createElement('mux-player', {
+            'playback-id': 'T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g',
+            'stream-type': 'on-demand',
+            autoplay: 'muted',
+            loop: true,
+            muted: true,
+            playsinline: true,
+            preload: 'auto',
+            poster: '/hero_background_3d.png',
+            'metadata-video-title': 'Kapitech Agency Hero',
+            className: 'absolute inset-0 h-full w-full'
+          })}
+          <div className="absolute inset-0 bg-[#0B0C0E]/68" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0C0E]/96 via-[#0B0C0E]/70 to-[#0B0C0E]/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#0B0C0E]/35" />
+        </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl">
