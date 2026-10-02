@@ -154,26 +154,26 @@ export function Cursor({ children, style, ...props }: CursorProps) {
             <path
               d="M17.03 7.65 10.95 24.96"
               fill="none"
-              stroke="#E50914"
-              strokeWidth="2.05"
+              stroke="#111318"
+              strokeWidth="1.15"
               strokeLinecap="round"
-              opacity="0.96"
+              opacity="0.42"
             />
             <path
               d="M17.03 7.65 20.16 17.56"
               fill="none"
-              stroke="#111318"
-              strokeWidth="1.15"
+              stroke="#FFFFFF"
+              strokeWidth="0.85"
               strokeLinecap="round"
-              opacity="0.58"
+              opacity="0.6"
             />
             <path
               d="M21.2 25.16 24.6 27.6"
               fill="none"
-              stroke="#E50914"
-              strokeWidth="1.35"
+              stroke="#111318"
+              strokeWidth="1"
               strokeLinecap="round"
-              opacity="0.9"
+              opacity="0.3"
             />
           </svg>
         </motion.div>
