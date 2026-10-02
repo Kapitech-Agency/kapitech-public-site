@@ -31,7 +31,7 @@ import {
 import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
-import PatternWaves from '../components/ui/PatternWaves/PatternWaves';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
