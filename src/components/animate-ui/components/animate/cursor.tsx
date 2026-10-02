@@ -148,26 +148,42 @@ export function Cursor({ children, style, ...props }: CursorProps) {
         >
           <svg
             className="kapi-cursor-svg"
-            viewBox="0 0 30 34"
-            width="30"
-            height="34"
+            viewBox="0 0 34 38"
+            width="34"
+            height="38"
             aria-hidden="true"
           >
             <path
-              d="M5.2 2.9C3.5 2.1 1.8 3.5 2.2 5.3l5.1 24.2c.4 1.9 2.9 2.3 4.1.7l4.1-6.2 6.6 4.7c1.5 1.1 3.5-.1 3-1.9l-5.9-18.6a2.1 2.1 0 0 0-1.2-1.3L5.2 2.9Z"
-              fill="#FFFFFF"
-              stroke="rgba(0,0,0,0.62)"
-              strokeWidth="1.15"
+              d="M6.1 2.9c-1.55-.58-3.08.78-2.72 2.39l6.36 28.03c.32 1.43 2.21 1.86 3.13.72l4.16-5.2 7.05 5.07c1.25.9 2.94-.34 2.51-1.82L19.4 9.08a2.1 2.1 0 0 0-1.27-1.37L6.1 2.9Z"
+              fill="#F8FAFC"
+              stroke="#111318"
+              strokeWidth="1.25"
               strokeLinejoin="round"
               strokeLinecap="round"
             />
             <path
-              d="M17.7 7.8 8.8 25.1"
+              d="M17.03 7.65 10.95 24.96"
               fill="none"
-              stroke="rgba(255,255,255,0.92)"
-              strokeWidth="1"
+              stroke="#E50914"
+              strokeWidth="2.05"
               strokeLinecap="round"
-              opacity="0.55"
+              opacity="0.96"
+            />
+            <path
+              d="M17.03 7.65 20.16 17.56"
+              fill="none"
+              stroke="#111318"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+              opacity="0.58"
+            />
+            <path
+              d="M21.2 25.16 24.6 27.6"
+              fill="none"
+              stroke="#E50914"
+              strokeWidth="1.35"
+              strokeLinecap="round"
+              opacity="0.9"
             />
           </svg>
         </motion.div>
