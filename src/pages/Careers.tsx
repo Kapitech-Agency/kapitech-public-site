@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowUpRight, 
@@ -35,6 +36,11 @@ import {
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
+
+const CareerModalPortal = ({ children }: { children: React.ReactNode }) => {
+  if (typeof document === 'undefined') return null;
+  return createPortal(children, document.body);
+};
 
 export interface Position {
   id: string;
@@ -815,7 +821,8 @@ export const Careers = () => {
         </div>
 
         {/* Interactive Talent Detail Modal */}
-        <AnimatePresence>
+        <CareerModalPortal>
+<AnimatePresence>
           {selectedTalent && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -894,6 +901,7 @@ export const Careers = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        </CareerModalPortal>
       </section>
 
       {/* SECTION: Current Opportunities */}
@@ -1247,7 +1255,8 @@ export const Careers = () => {
       </section>
 
       {/* Detail & Application Modal */}
-      <AnimatePresence>
+      <CareerModalPortal>
+<AnimatePresence>
         {selectedPosition && (
           <div
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
@@ -1522,8 +1531,10 @@ export const Careers = () => {
           </div>
         )}
       </AnimatePresence>
+        </CareerModalPortal>
       {/* Freelance Vendor Application Modal */}
-      <AnimatePresence>
+      <CareerModalPortal>
+<AnimatePresence>
         {isFreelanceModalOpen && (
           <div
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150"
@@ -1881,6 +1892,7 @@ export const Careers = () => {
           </div>
         )}
       </AnimatePresence>
+        </CareerModalPortal>
     </div>
   );
 };
