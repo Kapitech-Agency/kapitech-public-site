@@ -32,7 +32,6 @@ import {
   AlertCircle,
   FolderGit2
 } from 'lucide-react';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -685,26 +684,18 @@ export const Careers = () => {
     <div className="kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="kapi-careers-hero relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
-        <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.045} disableGrayscale={true} />
-        <div className="absolute bottom-0 left-0 w-64 sm:w-96 h-px bg-gradient-to-r from-brand-red/85 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-5xl">
-            <div className="flex items-center gap-3 mb-5">
+            <div className="mb-5">
               <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">{language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}</span>
-              <span className="h-px w-12 bg-[#2A2A2A]" />
             </div>
             <h1 className="max-w-6xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white">
               {language === 'id' ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></> : <>Build the Future <span className="text-brand-red">With Us.</span></>}
             </h1>
-            <div className="mt-7 grid md:grid-cols-[minmax(0,1fr)_auto] gap-7 md:gap-12 items-end">
+            <div className="mt-7">
               <p className="max-w-2xl text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
                 {language === 'id' ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.' : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
               </p>
-              <div className="flex items-center gap-6 md:pb-1 text-[11px] font-mono uppercase tracking-[0.14em] text-[#626875]">
-                <span><strong className="text-white font-semibold">02</strong> {language === 'id' ? 'Posisi' : 'Open roles'}</span>
-                <span className="w-px h-8 bg-[#2A2A2A]" />
-                <span><strong className="text-brand-red font-semibold">WFA</strong> Vendor</span>
-              </div>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"><span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span><ArrowUpRight size={14} /></a>
@@ -719,10 +710,8 @@ export const Careers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
           <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-3 mb-3">
+              <div className="mb-3">
                 <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">People & Craft</span>
-                <span className="h-px w-10 bg-[#2A2A2A]" />
-                <span className="text-[10px] font-mono text-[#626875] uppercase tracking-[0.16em]">12 profiles</span>
               </div>
               <h2 className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]">{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
             </div>
@@ -736,7 +725,7 @@ export const Careers = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="lg:sticky lg:top-24"
+                className=""
               >
                 <button
                   onClick={() => setSelectedTalent(featuredTalent)}
