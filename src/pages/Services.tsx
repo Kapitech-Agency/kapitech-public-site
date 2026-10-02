@@ -21,7 +21,8 @@ import {
   Compass,
   Monitor,
   Flame,
-  Briefcase
+  Briefcase,
+  ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
