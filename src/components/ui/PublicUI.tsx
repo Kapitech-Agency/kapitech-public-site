@@ -19,10 +19,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.62, delay, ease: EASE }}
+      initial={{ opacity: 0, y: Math.min(y, 16), clipPath: 'inset(0 0 10% 0)' }}
+      whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
     >
       {children}
     </motion.div>
