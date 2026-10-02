@@ -239,9 +239,18 @@ export const Work = () => {
               </div>
             </div>
 
-            <div 
+            <div
               onClick={() => setSelectedProject(currentFeatured)}
-              className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setSelectedProject(currentFeatured);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={language === 'id' ? `Buka studi kasus ${currentFeatured.title}` : `Open case study ${currentFeatured.title}`}
+              className="cursor-pointer group relative rounded-2xl overflow-hidden border border-[#262930] bg-[#16181D] hover:border-brand-red/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0"
             >
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0B0C0E]">
                 <img 
