@@ -22,32 +22,35 @@ export const SiteCursor = () => {
     const handlePointerOver = (event: PointerEvent) => {
       const target = event.target as Element | null;
       const interactive = target?.closest('a, button, [role="button"], input, textarea, select');
+
       if (!interactive) {
         setLabel(null);
         return;
       }
-      setLabel(getCursorLabel(target));
+
+      setLabel(getCursorLabel(interactive));
+    };
+
+    const handlePointerLeave = (event: PointerEvent) => {
+      const next = event.relatedTarget as Element | null;
+      const nextInteractive = next?.closest('a, button, [role="button"], input, textarea, select');
+      if (!nextInteractive) setLabel(null);
     };
 
     window.addEventListener('pointerover', handlePointerOver, { passive: true });
-    return () => window.removeEventListener('pointerover', handlePointerOver);
+    window.addEventListener('pointerout', handlePointerLeave, { passive: true });
+
+    return () => {
+      window.removeEventListener('pointerover', handlePointerOver);
+      window.removeEventListener('pointerout', handlePointerLeave);
+    };
   }, []);
 
   return (
-    <div
-      aria-hidden="true"
-      className="kapi-site-cursor-layer"
-    >
+    <div aria-hidden="true" className="kapi-site-cursor-layer">
       <CursorProvider global>
         <Cursor />
-        {label && (
-          <CursorFollow>
-            <span className="kapi-cursor-label-content">
-              <span className="kapi-cursor-label-accent" aria-hidden="true" />
-              <span>{label}</span>
-            </span>
-          </CursorFollow>
-        )}
+        {label && <CursorFollow>{label}</CursorFollow>}
       </CursorProvider>
     </div>
   );
