@@ -74,9 +74,26 @@ export const ServiceDetail = () => {
 
   return (
     <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
-      undefined
-      <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
-      <div className="pointer-events-none absolute left-[18%] top-[34rem] h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <PatternWaves
+          preset="terminal"
+          color="#E50914"
+          backgroundColor="#0B0C0E"
+          opacity={0.1}
+          fade="edges"
+          fadeSize={0.86}
+          interactive
+          cursorSize={46}
+          cursorStrength={0.28}
+          speed={0.17}
+          scale={1.05}
+          depth={0.62}
+          shine={0.42}
+          contrast={1.02}
+          intro
+        />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/78 to-transparent" />
+      </div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* BREADCRUMB & BACK NAVIGATION */}
