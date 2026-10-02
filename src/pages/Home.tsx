@@ -377,7 +377,7 @@ export const Home = () => {
                     alt={logo.name}
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className="block h-7 w-full max-w-[142px] sm:max-w-[154px] object-contain object-center bg-transparent opacity-65 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
+                    className="block h-7 w-full max-w-[142px] sm:max-w-[154px] object-contain object-center bg-transparent opacity-65 grayscale brightness-150 contrast-90 hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
