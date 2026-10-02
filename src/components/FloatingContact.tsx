@@ -47,7 +47,7 @@ export const FloatingContact = () => {
       icon: <Mail size={18} />,
       label: language === 'id' ? 'Email Kapitech' : 'Kapitech Email',
       href: 'mailto:hello@kapitech.co.id',
-      color: 'bg-[#16181D] border border-[#262930]'
+      color: 'bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08]'
     },
     {
       icon: <MessageSquare size={18} />,
@@ -68,7 +68,7 @@ export const FloatingContact = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/50 backdrop-blur-xs z-[90]"
+            className="fixed inset-0 bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 z-[90]"
           />
         )}
       </AnimatePresence>
@@ -95,7 +95,7 @@ export const FloatingContact = () => {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
-                      <span className="px-3.5 py-2 rounded-xl bg-[#16181D] border border-[#262930] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
+                      <span className="px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
                         {option.label}
                       </span>
                       <div className={cn(
@@ -113,7 +113,7 @@ export const FloatingContact = () => {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
-                      <span className="px-3.5 py-2 rounded-xl bg-[#16181D] border border-[#262930] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
+                      <span className="px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
                         {option.label}
                       </span>
                       <div className={cn(
@@ -140,15 +140,15 @@ export const FloatingContact = () => {
             >
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? "Tutup Kontak Cepat" : "Buka Kontak Cepat"}
                 data-cursor-label={isOpen ? "Close" : "Contact"}
                 className={cn(
-                  "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-2xl sm:rounded-[1.75rem] flex items-center justify-center text-white shadow-xl transition-all duration-300",
+                  "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-full sm:rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300",
                   isOpen 
-                    ? "bg-[#16181D] border border-[#262930]" 
-                    : "bg-brand-red shadow-brand-red/30 shadow-lg"
+                    ? "bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08]" 
+                    : "bg-brand-red/78 backdrop-blur-xl border border-brand-red/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_-18px_rgba(229,9,20,0.72)]"
                 )}
               >
                 {isOpen ? <X size={22} /> : <MessageSquare size={22} />}
@@ -156,7 +156,7 @@ export const FloatingContact = () => {
               
               {!isOpen && (
                 <div className="hidden sm:block absolute right-full mr-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <div className="px-3 py-1.5 rounded-xl bg-[#16181D] border border-[#262930] whitespace-nowrap opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="px-3 py-1.5 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] whitespace-nowrap opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-white">
                       {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
                     </span>
