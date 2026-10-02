@@ -821,7 +821,7 @@ export const Careers = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150 overflow-y-auto"
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150 overflow-y-auto"
               role="dialog"
               aria-modal="true"
               aria-labelledby="talent-profile-title"
@@ -832,17 +832,17 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 sm:p-8 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] overflow-hidden my-6"
+                className="relative w-full max-w-xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors z-10"
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 z-10"
                   aria-label="Close talent profile"
                 >
                   <X size={18} />
                 </button>
 
-                <div className="flex items-center gap-4 mb-5 sm:mb-6 pr-8">
+                <div className="flex items-center gap-4 px-5 sm:px-7 pt-5 sm:pt-7 pb-5 sm:pb-6 pr-16 border-b border-white/[0.08]">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0B0C0E] shrink-0 relative shadow-lg shadow-brand-red/10">
                     <img 
                       src={selectedTalent.image} 
@@ -863,7 +863,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-white/[0.09] pt-4">
+                <div className="space-y-6 px-5 sm:px-7 py-6 text-xs font-light text-white/80">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
                       {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
@@ -882,10 +882,10 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 sm:mt-6 pt-4 border-t border-white/[0.09] flex justify-end">
+                <div className="px-5 sm:px-7 pb-5 sm:pb-7 flex justify-end border-t border-white/[0.08] pt-4">
                   <button
                     onClick={() => setSelectedTalent(null)}
-                    className="w-full sm:w-auto px-6 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-medium rounded-full transition-colors"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] text-white hover:bg-white/[0.06] hover:border-white/[0.16] text-xs font-mono font-semibold uppercase tracking-wider transition-[background-color,border-color] duration-300"
                   >
                     {language === 'id' ? 'Tutup Profil' : 'Close Profile'}
                   </button>
@@ -1250,7 +1250,7 @@ export const Careers = () => {
       <AnimatePresence>
         {selectedPosition && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="career-position-title"
@@ -1267,10 +1267,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
+              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1281,7 +1281,7 @@ export const Careers = () => {
                         {selectedPosition.department}
                       </span>
                     </div>
-                    <h2 id="career-position-title" className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white tracking-tight leading-tight">
+                    <h2 id="career-position-title" className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-white tracking-[-0.045em] leading-[1.05]">
                       {selectedPosition.title}
                     </h2>
                   </div>
@@ -1299,7 +1299,7 @@ export const Careers = () => {
                   </button>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono text-[#8A909D]">
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-[#8A909D]">
                   <span className="flex items-center gap-1.5">
                     <MapPin size={13} className="text-brand-red shrink-0" />
                     <span>{selectedPosition.location}</span>
@@ -1318,9 +1318,10 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto p-6 sm:p-8 space-y-8">
-                {/* Responsibilities */}
-                <div>
+              <div className="overflow-y-auto px-5 sm:px-7 py-6 sm:py-7 space-y-8 sm:space-y-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 career-detail-grid">
+                  {/* Responsibilities */}
+                  <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
                     {language === 'id' ? 'Tanggung Jawab Utama' : 'Key Responsibilities'}
                   </h4>
@@ -1333,24 +1334,12 @@ export const Careers = () => {
                     ))}
                   </ul>
                 </div>
+                </div>
 
-                {/* Requirements */}
-                <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
-                    {language === 'id' ? 'Kualifikasi & Persyaratan' : 'Requirements & Skills'}
-                  </h4>
-                  <ul className="space-y-2.5">
-                    {selectedPosition.requirements.map((req, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-light">
-                        <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
-                        <span>{req}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
                 {/* Application Form */}
-                <div className="pt-6 border-t border-white/[0.09]">
+                <div className="rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
@@ -1541,10 +1530,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
+              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1582,7 +1571,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto p-6 sm:p-8">
+              <div className="overflow-y-auto px-5 sm:px-7 py-6 sm:py-7">
                 {isVendorSubmitted ? (
                   <div className="p-8 rounded-2xl bg-white/[0.025] border border-white/[0.08] text-center space-y-4 my-6">
                     <div className="w-16 h-16 rounded-full bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mx-auto">
@@ -1769,7 +1758,7 @@ export const Careers = () => {
                     </div>
 
                     {/* MANDATORY CHECKBOXES (Crucial Requirements) */}
-                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-3">
+                    <div className="p-4 sm:p-5 rounded-xl bg-white/[0.018] border border-white/[0.08] space-y-3">
                       <span className="text-[11px] font-mono uppercase text-brand-red font-bold block mb-1">
                         {language === 'id' ? 'Konfirmasi Aturan & Ketentuan Kerja Sama *' : 'Mandatory Terms & Policy Acknowledgment *'}
                       </span>
