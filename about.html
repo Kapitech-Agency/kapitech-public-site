@@ -53,8 +53,9 @@
         .hero-video-wrapper .video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, var(--bg-main) 100%); }
         
         .text-magma-glow { color: #FF0033; text-shadow: 0 0 30px rgba(255, 0, 51, 0.6); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal { opacity: 1; transform: none; }
+        .js-reveal .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .js-reveal .reveal.active { opacity: 1; transform: translateY(0); }
         
         .footer-grid-3d {
             position: absolute; bottom: -50%; left: -50%; width: 200%; height: 100%;
@@ -118,6 +119,9 @@
                 <a href="./career.html" class="hover:text-magma transition-colors">Career</a>
             </div>
             <div class="flex items-center gap-4">
+                <a href="https://ams.kapitech.id" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-subtle hover:text-white transition-colors">
+                    <i data-lucide="log-in" class="w-4 h-4 mr-2"></i> Login
+                </a>
                 <a href="./contact.html" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-8 py-3 rounded-full hover:border-magma/50 transition-colors group relative overflow-hidden">
                     <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                     <span class="relative z-10 group-hover:text-white">Start Project</span>
@@ -128,7 +132,7 @@
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl" aria-hidden="true">
+    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl"  role="dialog" aria-modal="true" aria-label="Main navigation" aria-hidden="true">
         <button type="button" class="absolute top-8 right-8 text-white" data-mobile-menu-close aria-label="Close navigation menu" ><i data-lucide="x" class="w-10 h-10"></i></button>
         <a href="./index.html" class="text-5xl font-display font-bold text-white hover:text-magma">Home</a>
         <a href="./about.html" class="text-5xl font-display font-bold text-magma">About</a>
@@ -136,6 +140,7 @@
         <a href="./portfolio.html" class="text-5xl font-display font-bold text-white hover:text-magma">Work</a>
         <a href="./academy.html" class="text-5xl font-display font-bold text-white hover:text-magma">Academy</a>
         <a href="./career.html" class="text-5xl font-display font-bold text-white hover:text-magma">Career</a>
+        <a href="https://ams.kapitech.id" target="_blank" rel="noopener noreferrer" data-mobile-login class="text-5xl font-display font-bold text-white hover:text-magma">Login</a>
         <a href="./contact.html" class="text-5xl font-display font-bold text-white hover:text-magma">Contact</a>
     </div>
 
@@ -222,16 +227,29 @@
                     <span class="font-bold text-white tracking-widest">KAPITECH</span>
                 </div>
                 <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
-                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">Instagram</a>
+                    <span class="text-gray-500">Instagram</span>
                     <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">Twitter</a>
-                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">LinkedIn</a>
+                    <span class="text-gray-500">LinkedIn</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        lucide.createIcons();
+        document.documentElement.classList.add('js-reveal');
+        window.lucide?.createIcons?.();
+
+        const currentPage = window.location.pathname.split('/').filter(Boolean).pop() || 'index.html';
+        document.querySelectorAll('.nav-link, #mobileMenu a[href]').forEach(link => {
+            const href = link.getAttribute('href') || '';
+            if (!href.startsWith('./')) return;
+            const page = href.slice(2);
+            const active = page === currentPage;
+            link.classList.toggle('active', active);
+            link.classList.toggle('text-magma', active);
+            if (active) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
 
         const mobileMenu = document.getElementById('mobileMenu');
         const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
