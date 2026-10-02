@@ -45,6 +45,38 @@
             background-size: 60px 60px; transform: perspective(800px) rotateX(70deg);
             mask-image: linear-gradient(to top, black, transparent); pointer-events: none; z-index: 0; animation: grid-scroll 20s linear infinite;
         }
+    
+        /* Shared public-site interaction baseline */
+        html { scroll-padding-top: 88px; }
+        body { min-width: 320px; }
+        ::selection { background: var(--magma); color: #fff; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--magma); }
+        * { scrollbar-width: thin; scrollbar-color: #333 var(--bg-main); }
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--magma);
+            outline-offset: 4px;
+        }
+        button:disabled { cursor: not-allowed; opacity: 0.55; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .liquid-glass { border-radius: 20px; }
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-magma selection:text-white">
@@ -70,13 +102,13 @@
                     <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                     <span class="relative z-10 group-hover:text-white">Start Project</span>
                 </a>
-                <button class="lg:hidden text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"><i data-lucide="menu" class="w-8 h-8"></i></button>
+                <button type="button" class="lg:hidden text-white" data-mobile-menu-toggle aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation menu"><i data-lucide="menu" class="w-8 h-8"></i></button>
             </div>
         </div>
     </nav>
 
     <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl">
-        <button onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="absolute top-8 right-8 text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <button type="button" onclick="event.stopPropagation()" class="absolute top-8 right-8 text-white" data-mobile-menu-close aria-label="Close navigation menu"><i data-lucide="x" class="w-10 h-10"></i></button>
         <a href="./index.html" class="text-5xl font-display font-bold text-white hover:text-magma">Home</a>
         <a href="./about.html" class="text-5xl font-display font-bold text-white hover:text-magma">About</a>
         <a href="./services.html" class="text-5xl font-display font-bold text-white hover:text-magma">Services</a>
@@ -88,7 +120,7 @@
 
     <section class="min-h-screen flex flex-col justify-end pb-24 px-6 relative max-w-[1920px] mx-auto overflow-hidden">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline><source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4"></video>
             <div class="video-overlay"></div>
         </div>
         <div class="relative z-10 w-full reveal">
@@ -115,26 +147,27 @@
             <div>
                 <h3 class="text-4xl font-display font-bold text-white mb-8">Headquarters</h3>
                 <div class="liquid-glass p-0 overflow-hidden mb-8 h-64 grayscale invert contrast-125 border border-white/10">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.388716260782!2d106.69749231476906!3d-6.177977995526839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f9a2e6e3e39d%3A0x6a0a0a0a0a0a0a0a!2sGreen%20Lake%20City!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe title="Kapitech Agency headquarters map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.388716260782!2d106.69749231476906!3d-6.177977995526839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f9a2e6e3e39d%3A0x6a0a0a0a0a0a0a0a!2sGreen%20Lake%20City!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <p class="text-white/70">Rukan Crown H-29, Green Lake City<br>Cipondoh, 15147<br>Indonesia</p>
-                <a href="mailto:hello@kapitech.co.id" class="text-magma font-bold mt-4 inline-block">hello@kapitech.co.id</a>
+                <p class="text-white/70">Linea Residence, Block G No. 5, Melati Loka Street<br>Paku Jaya, North Serpong<br>South Tangerang City, Banten 15220, Indonesia</p>
+                <a href="mailto:hello@kapitech.id" class="text-magma font-bold mt-4 inline-block">hello@kapitech.id</a>
             </div>
             <div>
-                <form class="liquid-glass p-8 md:p-12 space-y-6">
+                <form id="contactForm" class="liquid-glass p-8 md:p-12 space-y-6" novalidate>
                     <div>
-                        <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Identity</label>
-                        <input type="text" class="input-field p-4 rounded-xl" placeholder="Name or Alias">
+                        <label for="contactName" class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Identity</label>
+                        <input id="contactName" name="name" type="text" class="input-field p-4 rounded-xl w-full" placeholder="Name or Alias" autocomplete="name" required>
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Signal</label>
-                        <input type="email" class="input-field p-4 rounded-xl" placeholder="Email Address">
+                        <label for="contactEmail" class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Signal</label>
+                        <input id="contactEmail" name="email" type="email" class="input-field p-4 rounded-xl w-full" placeholder="Email Address" autocomplete="email" required>
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Transmission</label>
-                        <textarea rows="4" class="input-field p-4 rounded-xl resize-none" placeholder="Project Details..."></textarea>
+                        <label for="contactMessage" class="text-xs text-white/50 uppercase tracking-widest mb-2 block">Transmission</label>
+                        <textarea id="contactMessage" name="message" rows="4" class="input-field p-4 rounded-xl resize-none w-full" placeholder="Project Details..." required></textarea>
                     </div>
-                    <button class="w-full py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-magma hover:text-white transition-colors rounded-xl">Send Transmission</button>
+                    <button type="submit" class="w-full py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-magma hover:text-white transition-colors rounded-xl">Send Transmission</button>
+                    <p id="contactFormStatus" class="text-xs text-white/50" aria-live="polite"></p>
                 </form>
             </div>
         </div>
@@ -158,16 +191,10 @@
                     <span class="font-bold text-white tracking-widest">KAPITECH</span>
                 </div>
                 <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
-                    <a href="#" class="hover:text-magma">Instagram</a>
-                    <a href="#" class="hover:text-magma">LinkedIn</a>
+                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">Instagram</a>
+                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">LinkedIn</a>
                 </div>
             </div>
         </div>
     </footer>
-    <script>
-        lucide.createIcons();
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-</body>
 </html>
