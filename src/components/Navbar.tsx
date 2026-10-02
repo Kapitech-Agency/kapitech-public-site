@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute -inset-[2px] z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute -inset-[2px] z-20 overflow-visible rounded-[inherit] opacity-80"
     aria-hidden="true"
   >
     <svg
@@ -42,14 +42,14 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
         pathLength="1000"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2.6"
+        strokeWidth="2.45"
         strokeLinecap="round"
-        strokeDasharray="150 850"
+        strokeDasharray="105 895"
         vectorEffect="non-scaling-stroke"
-        className="text-white/40 transition-colors duration-500 group-hover:text-brand-red"
+        className="text-white/42 group-hover:text-brand-red"
         animate={{ strokeDashoffset: [0, -1000] }}
         transition={{
-          duration: mobile ? 10 : 9.2,
+          duration: mobile ? 9.6 : 9,
           repeat: Infinity,
           ease: 'linear',
         }}
