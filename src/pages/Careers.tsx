@@ -691,7 +691,7 @@ export const Careers = () => {
         />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+            <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
               {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6">
@@ -895,7 +895,7 @@ export const Careers = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+              <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
                 {language === 'id' ? 'Peluang Terbuka' : 'Current Opportunities'}
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
@@ -1204,7 +1204,7 @@ export const Careers = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+            <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
               {language === 'id' ? 'Nilai & Keuntungan Studio' : 'Studio Culture & Core Values'}
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
