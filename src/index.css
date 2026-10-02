@@ -1217,3 +1217,10 @@
     border-radius: 14px;
   }
 }
+
+.kapi-careers-hero > .max-w-7xl {
+  width: 100%;
+}
+.kapi-careers-hero .max-w-5xl {
+  width: 100%;
+}
