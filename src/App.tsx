@@ -137,16 +137,18 @@ function AppShell() {
   }
 
   return (
-    <div className={cn('relative z-10 text-white selection:bg-brand-red selection:text-white min-h-screen flex flex-col kapi-public-shell')}>
-      <PublicMotion />
-      <SiteCursor />
+    <>
       <Navbar />
-      <main className="flex-grow flex flex-col">
-        <AnimatedRoutes />
-      </main>
-      <Footer />
-      <FloatingContact />
-    </div>
+      <div className={cn('relative z-10 text-white selection:bg-brand-red selection:text-white min-h-screen flex flex-col kapi-public-shell')}>
+        <PublicMotion />
+        <SiteCursor />
+        <main className="flex-grow flex flex-col">
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+        <FloatingContact />
+      </div>
+    </>
   );
 };
 
