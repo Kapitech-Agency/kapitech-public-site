@@ -36,6 +36,7 @@ import {
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
+import { uploadPublicResume } from '../lib/apiClient';
 
 const CareerModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
@@ -577,13 +578,19 @@ export const Careers = () => {
     setApplicantErrors({});
     setApplicantSubmitError('');
     try {
+      const resumeUpload = await uploadPublicResume(formData.resume!);
+      if (!resumeUpload.success || !resumeUpload.data?.resumeUrl) {
+        throw new Error(resumeUpload.error || 'Resume upload failed.');
+      }
+
       await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
         phone: sanitizedPhone,
         positionTitle: selectedPosition ? selectedPosition.title : 'General Studio Application',
         portfolioUrl: sanitizedPortfolio,
-        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${formData.resume?.name || 'Uploaded'}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
+        resumeUrl: resumeUpload.data.resumeUrl,
+        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${formData.resume?.name || 'Uploaded'}\nResume URL: ${resumeUpload.data.resumeUrl}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
         source: `Careers: ${selectedPosition?.title || 'Studio Role'}`,
         type: 'career'
       });
@@ -660,6 +667,15 @@ export const Careers = () => {
     setVendorErrors({});
     setVendorSubmitError('');
     try {
+      let resumeUrl = '';
+      if (vendorFormData.resume) {
+        const resumeUpload = await uploadPublicResume(vendorFormData.resume);
+        if (!resumeUpload.success || !resumeUpload.data?.resumeUrl) {
+          throw new Error(resumeUpload.error || 'Resume upload failed.');
+        }
+        resumeUrl = resumeUpload.data.resumeUrl;
+      }
+
       await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
@@ -669,7 +685,8 @@ export const Careers = () => {
         experienceYears: vendorFormData.experienceYears,
         tools: sanitizedTools,
         portfolioUrl: sanitizedPortfolio,
-        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${vendorFormData.resume?.name || 'Not attached'}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
+        resumeUrl: resumeUrl || undefined,
+        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${vendorFormData.resume?.name || 'Not attached'}${resumeUrl ? `\nResume URL: ${resumeUrl}` : ''}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
         source: 'Careers: Freelance Vendor Network',
         type: 'vendor'
       });
