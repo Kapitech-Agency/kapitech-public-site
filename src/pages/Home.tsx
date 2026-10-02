@@ -724,7 +724,7 @@ export const Home = () => {
                     tabIndex={0}
                   >
                     {index < processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px w-[calc(100%-10px)] bg-white/[0.07]" aria-hidden="true">
+                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px w-[calc(100%+28px)] bg-white/[0.07]" aria-hidden="true">
                         <motion.div
                           className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
                           animate={{ scaleX: isPassed || isActive ? 1 : 0 }}
