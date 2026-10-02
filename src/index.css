@@ -1264,8 +1264,8 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-public-shell main :where(
   [class*="text-[#8E8E93]"],
-  [class*="text-[#8A94A6"]
-]) {
+  [class*="text-[#8A94A6]"]
+) {
   color: var(--kapi-v2-muted);
 }
 
