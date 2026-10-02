@@ -227,7 +227,7 @@ export const Navbar = () => {
               data-cursor-label="Start"
             >
               <span
-                className="pointer-events-none absolute -inset-px rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.92)_32deg,transparent_78deg,transparent_360deg)] animate-[spin_3.8s_linear_infinite]"
+                className="pointer-events-none absolute -inset-px rounded-full border border-transparent border-t-white/95 border-r-white/25 opacity-90 animate-[spin_3.4s_linear_infinite]"
                 aria-hidden="true"
               />
               <span className="absolute inset-[1px] rounded-full bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
@@ -677,7 +677,7 @@ export const Navbar = () => {
                   data-cursor-label="Start"
                 >
                   <span
-                    className="pointer-events-none absolute -inset-px rounded-xl bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.9)_35deg,transparent_82deg,transparent_360deg)] animate-[spin_4.2s_linear_infinite]"
+                    className="pointer-events-none absolute -inset-px rounded-xl border border-transparent border-t-white/95 border-r-white/25 opacity-90 animate-[spin_3.8s_linear_infinite]"
                     aria-hidden="true"
                   />
                   <span className="absolute inset-[1px] rounded-[11px] bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
