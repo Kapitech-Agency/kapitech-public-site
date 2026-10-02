@@ -285,7 +285,7 @@ export const About = () => {
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
@@ -307,7 +307,7 @@ export const About = () => {
       </section>
 
       {/* Company Story / Mission */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="lg:col-span-6 space-y-5 sm:space-y-6">
             <span className="text-xs font-mono uppercase tracking-wider text-brand-red block font-semibold">
@@ -330,7 +330,7 @@ export const About = () => {
             </p>
 
             {/* Address callout */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex items-start gap-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#16181D] border border-[#262930] flex items-start gap-3">
               <MapPin size={18} className="text-brand-red shrink-0 mt-0.5" />
               <div className="text-xs">
                 <span className="font-mono text-[#8E8E93] uppercase block mb-1">
@@ -343,7 +343,7 @@ export const About = () => {
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 sm:pt-6 border-t border-[#2A2A2A]">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 sm:pt-6 border-t border-[#262930]">
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white block">50+</span>
                 <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.projects')}</span>
@@ -360,7 +360,7 @@ export const About = () => {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-[#2A2A2A] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#161616]">
+            <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#16181D]">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
                 alt="Kapitech Agency Team Collaboration"
@@ -382,7 +382,7 @@ export const About = () => {
       </section>
 
       {/* Leadership & Core Team */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] relative z-10" id="team">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] relative z-10" id="team">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -401,7 +401,7 @@ export const About = () => {
             {team.map((member) => (
               <div
                 key={member.name}
-                className="rounded-2xl bg-[#111318] border border-white/[0.07] overflow-hidden flex flex-col justify-between group hover:border-brand-red/40 transition-colors"
+                className="rounded-2xl bg-[#16181D] border border-white/[0.07] overflow-hidden flex flex-col justify-between group hover:border-brand-red/40 transition-colors"
               >
                 <div>
                   <div className="w-full aspect-[864/810] overflow-hidden bg-[#181B22] relative flex items-center justify-center">
@@ -431,7 +431,7 @@ export const About = () => {
       </section>
 
       {/* Core Principles / Values */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -451,7 +451,7 @@ export const About = () => {
             {values.map((v, i) => (
               <div
                 key={i}
-                className="p-6 sm:p-8 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex flex-col justify-between min-h-[200px] sm:min-h-[240px] hover:border-brand-red/40 transition-colors"
+                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[200px] sm:min-h-[240px] hover:border-brand-red/40 transition-colors"
               >
                 <div>
                   <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-5 sm:mb-6">
@@ -467,7 +467,7 @@ export const About = () => {
       </section>
 
       {/* Timeline Journey */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -482,7 +482,7 @@ export const About = () => {
             {journey.map((item) => (
               <div
                 key={item.year}
-                className="p-6 sm:p-8 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors"
+                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors"
               >
                 <div>
                   <span className="text-xl sm:text-2xl font-display font-bold text-brand-red font-mono block mb-3 sm:mb-4">
@@ -498,7 +498,7 @@ export const About = () => {
       </section>
 
       {/* Redesigned Technology Stack Grid */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#2A2A2A] relative z-10">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#262930] relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10 sm:mb-16">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
@@ -516,14 +516,14 @@ export const About = () => {
             {techStack.map((stack) => (
               <div 
                 key={stack.category} 
-                className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#161616] border border-[#2A2A2A] hover:border-brand-red/50 hover:bg-[#1E1E1E] transition-all duration-300 flex flex-col justify-between group"
+                className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#16181D] border border-[#262930] hover:border-brand-red/50 hover:bg-[#1B1F26] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
                       {stack.icon}
                     </div>
-                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0A0A0A] text-[#FF6B00] border border-[#2A2A2A]">
+                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0A0A0A] text-[#FF6B00] border border-[#262930]">
                       {stack.badge}
                     </span>
                   </div>
@@ -535,11 +535,11 @@ export const About = () => {
                     {stack.subtitle}
                   </p>
 
-                  <div className="space-y-2 sm:space-y-2.5 pt-4 border-t border-[#2A2A2A]">
+                  <div className="space-y-2 sm:space-y-2.5 pt-4 border-t border-[#262930]">
                     {stack.tools.map((tool) => (
                       <div 
                         key={tool.name} 
-                        className="flex items-center justify-between p-2 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] hover:border-brand-red/30 transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl bg-[#0A0A0A] border border-[#262930] hover:border-brand-red/30 transition-colors"
                       >
                         <span className="text-xs font-medium text-white">{tool.name}</span>
                         <span className="text-[9px] sm:text-[10px] font-mono text-[#8E8E93] uppercase">{tool.level}</span>
