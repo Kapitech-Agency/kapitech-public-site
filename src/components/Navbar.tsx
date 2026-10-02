@@ -97,10 +97,10 @@ export const Navbar = () => {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b",
-          isScrolled 
-            ? "bg-[#0B0C0E]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#262930] shadow-lg shadow-[#0B0C0E]/80" 
-            : "bg-[#0B0C0E]/80 backdrop-blur-sm py-4 sm:py-5 border-[#262930]/60"
+          "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
+          isScrolled
+            ? "bg-[#0B0C0E]/92 backdrop-blur-xl py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.32)]"
+            : "bg-[#0B0C0E]/55 backdrop-blur-md py-4 sm:py-5 border-transparent"
         )}
       >
         {/* Scroll Progress Bar */}
@@ -108,7 +108,7 @@ export const Navbar = () => {
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
           style={{ scaleX }}
         />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
             <img 
               src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
@@ -123,7 +123,7 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <div className="flex items-center gap-5 lg:gap-6 px-6 py-2 rounded-full bg-[#16181D] backdrop-blur-md border border-[#262930]">
+            <div className="flex items-center gap-6 lg:gap-8">
               
               {/* Work Link */}
               <Link 
@@ -199,37 +199,40 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group inline-flex items-center gap-2 h-10 px-5 lg:px-5 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 border border-brand-red/60 shadow-[0_8px_30px_-14px_rgba(229,9,20,0.65)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 overflow-hidden rounded-full border border-brand-red/70 bg-brand-red text-white text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 shadow-[0_10px_28px_-16px_rgba(229,9,20,0.7)] hover:bg-[#FF1E27] hover:border-[#FF1E27]"
+              data-cursor-label="Start"
             >
-              <span>{t('nav.startProject')}</span>
-              <ChevronRight size={14} className="opacity-80 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <span className="relative z-10">{t('nav.startProject')}</span>
+              <ChevronRight size={14} className="relative z-10 opacity-80 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <span className="pointer-events-none absolute inset-x-3 bottom-[4px] h-px overflow-hidden rounded-full bg-white/25" aria-hidden="true">
+                <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/95 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[430%]" />
+              </span>
             </Link>
 
             {/* Language Switcher EN | ID */}
-            <div className="flex items-center h-10 p-1 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold backdrop-blur-md">
+            <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
               <button
                 onClick={() => setLanguage('en')}
-                className={cn(
-                  "h-full px-3 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'en'
-                    ? "bg-brand-red text-white shadow-sm font-bold"
-                    : "text-[#8A909D] hover:text-white hover:bg-white/5"
-                )}
+                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to English"
               >
-                EN
+                <span className={cn(
+                  "h-1.5 w-1.5 rounded-full transition-all duration-200",
+                  language === 'en' ? "bg-brand-red shadow-[0_0_9px_rgba(229,9,20,0.7)]" : "bg-transparent"
+                )} />
+                <span className={cn(language === 'en' ? "text-white" : "text-[#8A909D]")}>EN</span>
               </button>
+              <span className="h-3 w-px bg-[#262930]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className={cn(
-                  "h-full px-3 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'id'
-                    ? "bg-brand-red text-white shadow-sm font-bold"
-                    : "text-[#8A909D] hover:text-white hover:bg-white/5"
-                )}
+                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
-                ID
+                <span className={cn(
+                  "h-1.5 w-1.5 rounded-full transition-all duration-200",
+                  language === 'id' ? "bg-brand-red shadow-[0_0_9px_rgba(229,9,20,0.7)]" : "bg-transparent"
+                )} />
+                <span className={cn(language === 'id' ? "text-white" : "text-[#8A909D]")}>ID</span>
               </button>
             </div>
           </div>
@@ -260,7 +263,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D] border border-[#262930] flex items-center justify-center text-white active:bg-white/20 transition-colors shrink-0 cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D]/80 border border-[#262930] hover:border-white/15 hover:bg-[#1B1F26] flex items-center justify-center text-white active:bg-white/20 transition-all duration-200 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -644,10 +647,14 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full h-12 rounded-xl bg-brand-red hover:bg-[#FF1E27] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
+                  className="group relative isolate w-full h-12 overflow-hidden rounded-xl border border-brand-red/70 bg-brand-red hover:bg-[#FF1E27] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
+                  data-cursor-label="Start"
                 >
-                  <span>{t('nav.startProject')}</span>
-                  <ArrowUpRight size={16} />
+                  <span className="relative z-10">{t('nav.startProject')}</span>
+                  <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  <span className="pointer-events-none absolute inset-x-6 bottom-2 h-px overflow-hidden rounded-full bg-white/25" aria-hidden="true">
+                    <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/95 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[430%]" />
+                  </span>
                 </Link>
               </div>
             </div>
