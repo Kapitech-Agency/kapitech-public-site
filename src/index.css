@@ -1197,7 +1197,6 @@ select {
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 0 0 1px rgba(230,57,70,0.06) inset, 0 0 120px rgba(230,57,70,0.09);
-  animation: kapiRingPulse 8s ease-in-out infinite;
 }
 
 .kapi-hero-ring::before,
@@ -1220,7 +1219,6 @@ select {
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px dashed rgba(230,57,70,0.2);
-  animation: kapiOrbit 18s linear infinite;
 }
 
 .kapi-hero-orbit::after {
@@ -1233,16 +1231,6 @@ select {
   border-radius: 50%;
   background: var(--k-red);
   box-shadow: 0 0 20px rgba(230,57,70,0.7);
-}
-
-@keyframes kapiRingPulse {
-  0%,100% { transform: scale(0.985); opacity: 0.76; }
-  50% { transform: scale(1.01); opacity: 1; }
-}
-
-@keyframes kapiOrbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 .kapi-hero-center {
@@ -1580,5 +1568,380 @@ select {
 
   .kapi-policy-page {
     padding-top: 7.5rem;
+  }
+}
+
+
+/* Advanced motion layer */
+.kapi-motion-root {
+  position: relative;
+  min-height: 100%;
+}
+
+.kapi-motion-root [data-motion-reveal] {
+  will-change: transform, opacity, clip-path, filter;
+}
+
+.kapi-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin-right: 0.18em;
+  padding-bottom: 0.08em;
+}
+
+.kapi-word:last-child {
+  margin-right: 0;
+}
+
+.kapi-word-inner {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+.kapi-word--accent .kapi-word-inner {
+  color: var(--k-red);
+}
+
+.kapi-hero-title-mask {
+  overflow: visible;
+}
+
+.kapi-hero-scene {
+  isolation: isolate;
+  perspective: 1400px;
+}
+
+.kapi-hero-scene::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 30%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(8,9,11,0.72));
+  z-index: 1;
+}
+
+.kapi-hero-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--hero-glow-x, 64%) var(--hero-glow-y, 36%), rgba(230,57,70,0.14), transparent 30rem),
+    linear-gradient(180deg, #08090b 0%, rgba(8,9,11,.42) 54%, #08090b 100%);
+  mix-blend-mode: screen;
+  opacity: .92;
+  transform: scale(1.03);
+  will-change: transform, opacity;
+}
+
+.kapi-hero-copy,
+.kapi-hero-visual-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.kapi-hero-visual-wrap {
+  transform-style: preserve-3d;
+}
+
+.kapi-hero-visual {
+  transform-style: preserve-3d;
+  will-change: transform, clip-path, opacity;
+}
+
+.kapi-hero-center,
+.kapi-hero-grid,
+.kapi-hero-ring,
+.kapi-hero-orbit {
+  will-change: transform;
+}
+
+.kapi-hero-grid {
+  transition: background-position 1.1s cubic-bezier(.22,1,.36,1);
+}
+
+.kapi-interactive-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--k-radius-md);
+  background: #0b0d11;
+  border: 1px solid var(--k-line);
+  isolation: isolate;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  cursor: pointer;
+  will-change: clip-path, transform;
+}
+
+.kapi-interactive-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.kapi-interactive-media__sheen {
+  position: absolute;
+  z-index: 2;
+  inset: -28%;
+  width: 50%;
+  height: 65%;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: .22;
+  transform: translate3d(0,0,0) rotate(18deg);
+  background: radial-gradient(circle, rgba(255,255,255,.42) 0%, rgba(230,57,70,.12) 28%, transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(12px);
+  will-change: transform;
+}
+
+.kapi-interactive-media__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255,255,255,.12), transparent 28%),
+    linear-gradient(180deg, transparent 60%, rgba(0,0,0,.24));
+  opacity: .8;
+  transition: opacity .45s cubic-bezier(.22,1,.36,1);
+}
+
+.kapi-interactive-media:hover .kapi-interactive-media__frame {
+  opacity: 1;
+}
+
+.kapi-motion-root [data-motion-surface] {
+  position: relative;
+  --surface-x: 50;
+  --surface-y: 50;
+  --surface-lift: 0;
+  transform: translate3d(0, calc(var(--surface-lift) * -2px), 0);
+  background:
+    radial-gradient(circle at calc(var(--surface-x) * 1%) calc(var(--surface-y) * 1%), rgba(255,255,255,.07), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,0.044), rgba(255,255,255,0.012)),
+    var(--k-surface);
+  transition: border-color .28s ease, box-shadow .48s cubic-bezier(.22,1,.36,1);
+  will-change: transform, background;
+}
+
+.kapi-motion-root [data-motion-surface]:hover {
+  border-color: rgba(230,57,70,.34);
+  box-shadow: 0 30px 80px rgba(0,0,0,.34);
+}
+
+.kapi-project-card {
+  perspective: 1100px;
+}
+
+.kapi-project-card button {
+  position: relative;
+}
+
+.kapi-project-card .kapi-project-body {
+  transition: transform .52s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+
+.kapi-project-card:hover .kapi-project-body {
+  transform: translate3d(5px,-2px,0);
+}
+
+.kapi-project-card:hover .kapi-project-title {
+  color: #fff;
+}
+
+.kapi-project-card .kapi-project-meta span,
+.kapi-project-card .kapi-project-arrow {
+  transition: transform .42s cubic-bezier(.22,1,.36,1), opacity .3s ease, color .25s ease;
+}
+
+.kapi-project-card:hover .kapi-project-meta {
+  transform: translate3d(3px,0,0);
+}
+
+.kapi-project-card:hover .kapi-project-arrow {
+  transform: translate3d(8px,-2px,0);
+}
+
+.kapi-page-hero {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.kapi-page-hero__aura {
+  position: absolute;
+  inset: -18% -8%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 74% 28%, rgba(230,57,70,.18), transparent 28rem),
+    radial-gradient(circle at 28% 72%, rgba(255,255,255,.035), transparent 26rem);
+  filter: blur(10px);
+  transform: translate3d(0,0,0);
+  will-change: transform, opacity;
+}
+
+.kapi-context-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+.kapi-context-cursor__ring {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 999px;
+  background: rgba(8,9,11,.14);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transform-origin: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.kapi-context-cursor__ring::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  border: 1px solid rgba(230,57,70,.34);
+}
+
+.kapi-context-cursor__ring.has-label {
+  width: 66px;
+  height: 66px;
+  top: -33px;
+  left: -33px;
+  background: rgba(8,9,11,.78);
+  border-color: rgba(230,57,70,.6);
+}
+
+.kapi-context-cursor__ring span {
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  max-width: 52px;
+  text-align: center;
+  font: 600 8px/1.1 var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.kapi-context-cursor__ring.has-label span {
+  opacity: 1;
+}
+
+.kapi-page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 65% 35%, rgba(255,255,255,.08), transparent 24rem),
+    var(--k-red);
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+
+[data-cursor="button"],
+[data-cursor="project"],
+[data-cursor="view"],
+[data-cursor="drag"] {
+  cursor: none;
+}
+
+.kapi-footer .kapi-cta-band,
+.kapi-cta-band {
+  overflow: hidden;
+  position: relative;
+}
+
+.kapi-cta-band::after {
+  content: "";
+  position: absolute;
+  width: 26rem;
+  height: 26rem;
+  right: -10rem;
+  top: -12rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(230,57,70,.16), transparent 68%);
+  pointer-events: none;
+  transform: translate3d(0,0,0);
+  transition: transform 1s cubic-bezier(.22,1,.36,1);
+}
+
+.kapi-cta-band:hover::after {
+  transform: translate3d(-30px,20px,0) scale(1.08);
+}
+
+@media (max-width: 1024px) {
+  .kapi-context-cursor,
+  [data-cursor="button"],
+  [data-cursor="project"],
+  [data-cursor="view"],
+  [data-cursor="drag"] {
+    cursor: auto;
+  }
+
+  .kapi-hero-backdrop {
+    opacity: .75;
+  }
+}
+
+@media (max-width: 760px) {
+  .kapi-hero-scene {
+    min-height: 730px;
+  }
+
+  .kapi-word {
+    margin-right: .12em;
+  }
+
+  .kapi-interactive-media__sheen,
+  .kapi-interactive-media__frame {
+    display: none;
+  }
+
+  .kapi-motion-root [data-motion-surface] {
+    transform: none !important;
+  }
+
+  .kapi-page-curtain {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-motion-root [data-motion-reveal],
+  .kapi-interactive-media,
+  .kapi-interactive-media img,
+  .kapi-word-inner,
+  .kapi-context-cursor,
+  .kapi-page-curtain {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .kapi-word-inner {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
