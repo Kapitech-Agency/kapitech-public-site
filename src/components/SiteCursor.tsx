@@ -6,12 +6,8 @@ import {
 } from './animate-ui/components/animate/cursor';
 
 const getCursorLabel = (element: Element | null) => {
-  if (!element) return 'Explore';
-  const custom = element.closest<HTMLElement>('[data-cursor-label]')?.dataset.cursorLabel;
-  if (custom) return custom;
-  if (element.closest('a')) return 'Open';
-  if (element.closest('button')) return 'Select';
-  return 'Explore';
+  const custom = element?.closest<HTMLElement>('[data-cursor-label]')?.dataset.cursorLabel;
+  return custom?.trim() || null;
 };
 
 export const SiteCursor = () => {
@@ -46,10 +42,10 @@ export const SiteCursor = () => {
         <Cursor />
         {label && (
           <CursorFollow
-            side="bottom"
-            sideOffset={18}
-            align="end"
-            alignOffset={6}
+            side="right"
+            sideOffset={14}
+            align="center"
+            alignOffset={0}
           >
             {label}
           </CursorFollow>
