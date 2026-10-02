@@ -117,10 +117,10 @@ export const Navbar = () => {
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
           isScrolled
             ? isServicesDropdownOpen
-              ? "bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 py-3 sm:py-3.5 border-[#262930]/80 shadow-none"
+              ? "bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 py-3 sm:py-3.5 border-transparent shadow-none"
               : "bg-[#0B0C0E]/92 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/84 py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
             : isServicesDropdownOpen
-              ? "bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 py-4 sm:py-5 border-transparent shadow-none"
+              ? "bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 py-4 sm:py-5 border-transparent shadow-none"
               : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
@@ -310,7 +310,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 hover:border-white/[0.16] hover:bg-white/[0.07] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.12)] active:bg-white/[0.1] transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54 hover:border-white/[0.16] hover:bg-[#0B0C0E]/72 flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] active:bg-[#0B0C0E]/76 transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -331,7 +331,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.72)] py-8 px-6 lg:px-12"
+              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/62 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/54 border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
