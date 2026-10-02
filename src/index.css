@@ -271,25 +271,6 @@
   }
 }
 
-/* Inner Soft Red Radial Glow (Hidden by default, reveals on Hover) */
-.kapi-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: radial-gradient(
-    800px circle at var(--mouse-x, 50%) var(--mouse-y, 0%), 
-    var(--kapi-red-glow-hover), 
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* Top Subtle Shimmer Edge */
 .kapi-card::after {
   content: '';
@@ -1053,8 +1034,8 @@
 
 
 /* ==========================================================================
-   REACT BITS-INSPIRED INTERACTION LAYER
-   Spotlight + depth cues on existing cards only.
+   SOFT CARD HALO
+   One restrained red pointer halo on selected interactive cards.
    ========================================================================== */
 .kapi-public-shell [data-kapi-spotlight="true"] {
   position: relative;
