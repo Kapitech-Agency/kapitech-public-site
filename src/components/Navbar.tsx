@@ -265,7 +265,7 @@ export const Navbar = () => {
               <span className="h-3 w-px bg-white/[0.08]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className="group relative inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-[color,transform] duration-200 hover:text-white hover:-translate-y-px cursor-pointer"
+                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
                 <span className={cn(
@@ -293,7 +293,7 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('id')}
                 className={cn(
-                  "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
+                  "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-colors duration-200",
                   language === 'id' ? "text-white font-bold before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-brand-red" : "text-[#8A909D]"
                 )}
                 aria-label="Ganti ke Bahasa Indonesia"
@@ -344,7 +344,7 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-brand-red" />
                         </div>
                         <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -652,7 +652,7 @@ export const Navbar = () => {
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,transform,border-color] duration-300 min-h-[56px] hover:border-white/20 hover:-translate-y-px",
+                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,border-color] duration-300 min-h-[56px] hover:border-white/20",
                   location.pathname === '/about' 
                     ? "text-white font-bold border-brand-red/70" 
                     : "text-[#8A909D] hover:text-white"
