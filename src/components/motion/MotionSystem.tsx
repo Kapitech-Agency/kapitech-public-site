@@ -190,6 +190,30 @@ function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
       );
     });
 
+    gsap.utils.toArray<HTMLElement>('[data-motion-surface]').forEach((surface) => {
+      const glowX = gsap.quickTo(surface, '--surface-x', { duration: 0.55, ease: 'power3.out' });
+      const glowY = gsap.quickTo(surface, '--surface-y', { duration: 0.55, ease: 'power3.out' });
+      const lift = gsap.quickTo(surface, '--surface-lift', { duration: 0.45, ease: MOTION_EASE.spring });
+
+      const onMove = (event: PointerEvent) => {
+        const rect = surface.getBoundingClientRect();
+        const px = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+        const py = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+        glowX(px * 100);
+        glowY(py * 100);
+        lift(1);
+      };
+
+      const onLeave = () => {
+        glowX(50);
+        glowY(50);
+        lift(0);
+      };
+
+      surface.addEventListener('pointermove', onMove, { passive: true });
+      surface.addEventListener('pointerleave', onLeave);
+    });
+
     ScrollTrigger.refresh();
   }, root);
 
