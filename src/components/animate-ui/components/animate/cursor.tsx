@@ -192,14 +192,7 @@ export function Cursor({ children, style, ...props }: CursorProps) {
   );
 }
 
-export type CursorFollowSide = 'top' | 'right' | 'bottom' | 'left';
-export type CursorFollowAlign = 'start' | 'center' | 'end';
-
 export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
-  side?: CursorFollowSide;
-  sideOffset?: number;
-  align?: CursorFollowAlign;
-  alignOffset?: number;
   transition?: SpringOptions;
   children: React.ReactNode;
 };
