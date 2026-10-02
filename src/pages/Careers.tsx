@@ -682,130 +682,79 @@ export const Careers = () => {
   return (
     <div className="kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
-        <AtmosphericBackground
-          imageUrl="/hero_background_3d.png"
-          opacity={0.055}
-          disableGrayscale={true}
-        />
+      <section className="kapi-careers-hero relative pt-28 sm:pt-32 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+        <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.055} disableGrayscale={true} />
+        <div className="kapi-careers-hero-grid absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 right-[8%] w-[32rem] h-[32rem] rounded-full bg-brand-red/5 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[26rem] h-px bg-gradient-to-r from-brand-red/80 to-transparent" />
+          <div className="absolute -top-44 right-[4%] w-[34rem] h-[34rem] rounded-full bg-brand-red/6 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-[30rem] h-px bg-gradient-to-r from-brand-red/90 via-brand-red/35 to-transparent" />
         </div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-5xl">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
-                {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
-              </span>
-              <span className="h-px w-10 bg-[#2A2A2A]" />
+          <div className="max-w-6xl">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">{language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}</span>
+              <span className="h-px w-14 bg-[#2A2A2A]" />
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#626875]">Kapitech Agency</span>
             </div>
-            <h1 className="max-w-4xl text-4xl sm:text-6xl md:text-7xl font-display font-bold leading-[0.95] tracking-[-0.05em] text-white">
-              {language === 'id'
-                ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></>
-                : <>Build the Future <span className="text-brand-red">With Us.</span></>}
-            </h1>
-            <p className="max-w-2xl mt-6 text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
-              {language === 'id'
-                ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.'
-                : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
-            </p>
-            <div className="mt-7 flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#8E8E93]">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
-              </span>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red">
-                <Sparkles size={12} />
-                <span>{language === 'id' ? 'Freelance Vendor Network • WFA' : 'Freelance Vendor Network • WFA'}</span>
-              </span>
-            </div>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300">
-                <span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span>
-                <ArrowUpRight size={14} />
-              </a>
-              <button
-                onClick={() => {
-                  setIsFreelanceModalOpen(true);
-                  setIsVendorSubmitted(false);
-                  setVendorSubmitError('');
-                }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-[#FF2B38] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20"
-              >
-                <FolderGit2 size={14} />
-                <span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span>
-              </button>
+            <div className="grid lg:grid-cols-[minmax(0,1fr)_220px] gap-10 lg:gap-16 items-end">
+              <div className="min-w-0">
+                <h1 className="max-w-5xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-bold leading-[0.92] tracking-[-0.055em] text-white">
+                  {language === 'id' ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></> : <>Build the Future <span className="text-brand-red">With Us.</span></>}
+                </h1>
+                <p className="max-w-2xl mt-6 text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
+                  {language === 'id' ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.' : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
+                </p>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300">
+                    <span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span><ArrowUpRight size={14} />
+                  </a>
+                  <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); setVendorSubmitError(''); }} className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-[#FF2B38] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20">
+                    <FolderGit2 size={14} /><span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span>
+                  </button>
+                </div>
+              </div>
+              <div className="kapi-careers-hero-aside hidden lg:block border-l border-[#2A2A2A] pl-7 pb-1">
+                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#626875] mb-4">{language === 'id' ? 'Peluang saat ini' : 'Current opportunities'}</div>
+                <div className="space-y-4">
+                  <div><div className="text-2xl font-display font-semibold text-white leading-none">02</div><div className="mt-1 text-[11px] text-[#8E8E93] font-mono">{language === 'id' ? 'posisi studio' : 'studio roles'}</div></div>
+                  <div className="h-px bg-[#2A2A2A]" />
+                  <div><div className="text-2xl font-display font-semibold text-brand-red leading-none">100%</div><div className="mt-1 text-[11px] text-[#8E8E93] font-mono">{language === 'id' ? 'vendor network WFA' : 'WFA vendor network'}</div></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono mb-3">
-                <Users className="w-3.5 h-3.5 text-brand-red" />
-                <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
+      <section className="kapi-careers-talent-section py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
+        <div className="absolute -top-28 left-[12%] w-72 h-72 rounded-full bg-brand-red/5 blur-3xl pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-11 relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">People & Craft</span>
+                <span className="h-px w-10 bg-[#2A2A2A]" />
+                <span className="text-[10px] font-mono text-[#626875] uppercase tracking-[0.16em]">12</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-                {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
-              </h2>
+              <h2 className="text-3xl sm:text-5xl md:text-[3.4rem] font-display font-bold text-white tracking-[-0.035em] leading-[0.98]">{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
-              {language === 'id'
-                ? 'Bekerja bahu-membahu bersama para insinyur software, desainer visual, animator 3D, dan spesialis kreatif kami.'
-                : 'Collaborate shoulder-to-shoulder with our multidisciplinary squad of software engineers, visual designers, 3D animators, and creative strategists.'
-              }
-            </p>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed lg:pb-1">{language === 'id' ? 'Bertemu tim multidisipliner yang menggabungkan engineering, design, motion, dan visual craft.' : 'Meet a multidisciplinary team spanning engineering, design, motion, and visual craft.'}</p>
           </div>
         </div>
-
-        {/* Dynamic & Aesthetic Staggered Photo Wall (Plain Darkened Photos) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 pb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 pb-5">
             {twelveTalents.map((talent, index) => {
-              // Staggered offset for dynamic editorial rhythm
-              const offsetClasses = [
-                'lg:translate-y-0',
-                'lg:translate-y-5 sm:translate-y-3',
-                'lg:-translate-y-2',
-                'lg:translate-y-7 sm:translate-y-4',
-                'lg:translate-y-1',
-                'lg:translate-y-6 sm:translate-y-2',
-                'lg:-translate-y-1',
-                'lg:translate-y-6 sm:translate-y-4',
-                'lg:translate-y-0',
-                'lg:translate-y-5 sm:translate-y-2',
-                'lg:-translate-y-2',
-                'lg:translate-y-7 sm:translate-y-3',
-              ][index % 12];
-
+              const offsetClasses = ['lg:translate-y-0','lg:translate-y-5 sm:translate-y-3','lg:-translate-y-2','lg:translate-y-7 sm:translate-y-4','lg:translate-y-1','lg:translate-y-6 sm:translate-y-2','lg:-translate-y-1','lg:translate-y-6 sm:translate-y-4','lg:translate-y-0','lg:translate-y-5 sm:translate-y-2','lg:-translate-y-2','lg:translate-y-7 sm:translate-y-3'][index % 12];
               return (
-                <div
-                  key={`talent-wrap-${talent.id}`}
-                  className={`transition-transform duration-500 ${offsetClasses}`}
-                >
-                  <button
-                    onClick={() => setSelectedTalent(talent)}
-                    className="kapi-careers-talent-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-line bg-panel transition-all duration-500 hover:scale-[1.025] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_18px_44px_rgba(0,0,0,0.45)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
-                    title={`${talent.name} - ${talent.role}`}
-                    aria-label={`View photo and profile of ${talent.name}`}
-                  >
-                    {/* Pure Plain Photo with Tasteful Dark Moody Grading */}
-                    <img 
-                      src={talent.image} 
-                      alt={talent.name}
-                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.72] contrast-[1.08] saturate-[0.88] group-hover:brightness-[0.96] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                      <span className="block text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red mb-1">{talent.department}</span>
-                      <span className="block text-sm font-display font-semibold text-white leading-tight">{talent.name}</span>
-                      <span className="block text-[11px] text-white/65 mt-0.5 truncate">{talent.role}</span>
+                <div key={`talent-wrap-${talent.id}`} className={`transition-transform duration-500 ${offsetClasses}`}>
+                  <button onClick={() => setSelectedTalent(talent)} className="kapi-careers-talent-card group relative rounded-2xl sm:rounded-[1.35rem] overflow-hidden border border-line bg-panel transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1.5 hover:border-brand-red/60 cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50" title={`${talent.name} - ${talent.role}`} aria-label={`View photo and profile of ${talent.name}`}>
+                    <img src={talent.image} alt={talent.name} className="w-full h-full object-cover object-top sm:object-center brightness-[0.68] contrast-[1.08] saturate-[0.88] group-hover:brightness-[0.94] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4.5 bg-gradient-to-t from-black/95 via-black/45 to-transparent text-left">
+                      <span className="block text-sm sm:text-[15px] font-display font-semibold text-white leading-tight">{talent.name}</span>
+                      <span className="block text-[11px] text-white/65 mt-1 truncate">{talent.role}</span>
                     </div>
+                    <span className="kapi-talent-arrow absolute top-3 right-3 w-8 h-8 rounded-full border border-white/15 bg-black/30 backdrop-blur-sm text-white/70 flex items-center justify-center opacity-0 translate-y-1 scale-95 transition-all duration-300"><ArrowUpRight size={14} /></span>
                   </button>
                 </div>
               );
@@ -813,78 +762,36 @@ export const Careers = () => {
           </div>
         </div>
 
-        {/* Interactive Talent Detail Modal */}
         <AnimatePresence>
           {selectedTalent && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto"
-              onClick={() => setSelectedTalent(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                className="kapi-careers-modal relative w-full max-w-lg bg-panel border border-line rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
-              >
-                <button
-                  onClick={() => setSelectedTalent(null)}
-                  className="kapi-modal-close absolute top-4 right-4 w-10 h-10 rounded-xl bg-bg/80 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all z-10 backdrop-blur-sm"
-                  aria-label="Close talent profile"
-                >
-                  <X size={18} />
-                </button>
-
-                <div className="flex items-center gap-4 mb-5 sm:mb-6 pr-8">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0A0A0A] shrink-0 relative shadow-lg shadow-brand-red/10">
-                    <img 
-                      src={selectedTalent.image} 
-                      alt={selectedTalent.name}
-                      className="w-full h-full object-cover object-center brightness-95 contrast-105"
-                    />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="kapi-careers-modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/88 backdrop-blur-md overflow-y-auto" onClick={() => setSelectedTalent(null)} role="dialog" aria-modal="true" aria-label={`Talent profile: ${selectedTalent.name}`}>
+              <motion.div initial={{ scale: 0.97, opacity: 0, y: 18 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.97, opacity: 0, y: 18 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} onClick={(e) => e.stopPropagation()} className="kapi-careers-modal kapi-talent-modal relative w-full max-w-3xl bg-panel border border-line rounded-[1.75rem] overflow-hidden shadow-2xl my-4">
+                <div className="grid md:grid-cols-[0.84fr_1.16fr] min-h-[420px]">
+                  <div className="relative min-h-[280px] md:min-h-[500px] bg-[#0A0A0A] overflow-hidden">
+                    <img src={selectedTalent.image} alt={selectedTalent.name} className="absolute inset-0 w-full h-full object-cover object-center" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                    <div className="absolute left-5 right-5 bottom-5">
+                      <span className="block text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red mb-1.5">{selectedTalent.department}</span>
+                      <h3 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-white">{selectedTalent.name}</h3>
+                      <p className="mt-1 text-xs sm:text-sm text-white/65">{selectedTalent.role}</p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <span className="text-[11px] sm:text-xs font-mono text-brand-red font-semibold block mb-0.5 truncate">
-                      {selectedTalent.department} • {selectedTalent.experience}
-                    </span>
-                    <h3 className="text-lg sm:text-xl font-display font-bold text-white truncate">
-                      {selectedTalent.name}
-                    </h3>
-                    <p className="text-xs text-[#8E8E93] truncate">
-                      {selectedTalent.role}
-                    </p>
+                  <div className="relative p-5 sm:p-7 md:p-9">
+                    <button onClick={() => setSelectedTalent(null)} className="kapi-modal-close absolute top-4 right-4 w-10 h-10 rounded-full bg-[#0A0A0A]/80 hover:bg-brand-red text-white/70 hover:text-white border border-line hover:border-brand-red flex items-center justify-center transition-all z-10 backdrop-blur-sm" aria-label="Close talent profile"><X size={18} /></button>
+                    <div className="pr-12">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875]">{language === 'id' ? 'Profil talenta' : 'Talent profile'}</span>
+                      <div className="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-brand-red/25 bg-brand-red/8 text-brand-red text-[10px] font-mono">{selectedTalent.experience}</div>
+                    </div>
+                    <div className="mt-8 space-y-7">
+                      <div><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875] block mb-2">{language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}</span><p className="text-sm sm:text-[15px] font-mono text-white leading-relaxed">{selectedTalent.specialty}</p></div>
+                      <div className="h-px bg-line" />
+                      <div><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875] block mb-2">{language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}</span><p className="text-sm leading-relaxed text-[#8E8E93]">{selectedTalent.bio}</p></div>
+                    </div>
+                    <div className="mt-8 pt-5 border-t border-line flex items-center justify-between gap-4">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875]">Kapitech Agency</span>
+                      <button onClick={() => setSelectedTalent(null)} className="px-5 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-semibold rounded-full transition-colors">{language === 'id' ? 'Tutup Profil' : 'Close Profile'}</button>
+                    </div>
                   </div>
-                </div>
-
-                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#2A2A2A] pt-4">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
-                      {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
-                    </span>
-                    <p className="font-mono text-brand-red font-medium text-xs sm:text-sm">
-                      {selectedTalent.specialty}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
-                      {language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}
-                    </span>
-                    <p className="leading-relaxed text-[#8E8E93]">
-                      {selectedTalent.bio}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-5 sm:mt-6 pt-4 border-t border-[#2A2A2A] flex justify-end">
-                  <button
-                    onClick={() => setSelectedTalent(null)}
-                    className="w-full sm:w-auto px-6 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-medium rounded-full transition-colors"
-                  >
-                    {language === 'id' ? 'Tutup Profil' : 'Close Profile'}
-                  </button>
                 </div>
               </motion.div>
             </motion.div>
@@ -1024,16 +931,16 @@ export const Careers = () => {
       {/* Detail & Application Modal */}
       <AnimatePresence>
         {selectedPosition && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div className="kapi-careers-modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="kapi-careers-modal relative w-full max-w-4xl bg-panel border border-line rounded-3xl overflow-hidden shadow-2xl my-8 max-h-[92vh] flex flex-col"
+              className="kapi-careers-modal kapi-job-modal relative w-full max-w-4xl bg-panel border border-line rounded-[1.75rem] overflow-hidden shadow-2xl my-4 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
+              <div className="kapi-careers-modal-header sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1081,7 +988,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="kapi-careers-modal-body overflow-y-auto p-5 sm:p-8 space-y-8">
+              <div className="kapi-careers-modal-body kapi-job-modal-body overflow-y-auto p-5 sm:p-8 space-y-8">
                 {/* Responsibilities */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
@@ -1113,7 +1020,7 @@ export const Careers = () => {
                 </div>
 
                 {/* Application Form */}
-                <div className="pt-6 border-t border-[#2A2A2A]">
+                <div className="kapi-careers-application-panel pt-6 border-t border-[#2A2A2A]">
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
@@ -1297,7 +1204,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="kapi-careers-modal relative w-full max-w-4xl bg-panel border border-brand-red/35 rounded-3xl overflow-hidden shadow-2xl my-8 max-h-[92vh] flex flex-col"
+              className="kapi-careers-modal kapi-vendor-modal relative w-full max-w-4xl bg-panel border border-brand-red/35 rounded-[1.75rem] overflow-hidden shadow-2xl my-4 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
               <div className="sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
@@ -1338,7 +1245,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="kapi-careers-modal-body overflow-y-auto p-5 sm:p-8">
+              <div className="kapi-careers-modal-body kapi-vendor-modal-body overflow-y-auto p-5 sm:p-8">
                 {isVendorSubmitted ? (
                   <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4 my-6">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
