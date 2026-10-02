@@ -184,7 +184,7 @@ export const Footer = () => {
               <Link 
                 to="/contact" 
                 id="footer-cta-button"
-                className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#E01414] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
+                className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
               >
                 <span>{t('footer.cta.button')}</span>
                 <ArrowUpRight size={18} />
@@ -231,7 +231,7 @@ export const Footer = () => {
                 />
                 <button 
                   type="submit"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-lg bg-brand-red text-white text-xs font-semibold hover:bg-[#E01414] transition-colors min-h-[34px]"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-lg bg-brand-red text-white text-xs font-semibold hover:bg-[#FF1E27] transition-colors min-h-[34px]"
                 >
                   {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
