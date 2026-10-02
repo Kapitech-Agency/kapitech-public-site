@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, AlertCircle, LoaderCircle } from 'lucide-react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
@@ -22,6 +23,7 @@ export const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [submissionId, setSubmissionId] = useState('');
 
   const serviceOptionsEn = [
     // Branding
@@ -74,6 +76,13 @@ export const Contact = () => {
   ];
 
   const serviceOptions = language === 'id' ? serviceOptionsId : serviceOptionsEn;
+
+  const serviceGroups = [
+    { label: 'Branding', items: serviceOptions.slice(0, 5) },
+    { label: 'Design', items: serviceOptions.slice(5, 10) },
+    { label: 'Development', items: serviceOptions.slice(10, 15) },
+    { label: 'Strategic Solutions', items: serviceOptions.slice(15) }
+  ];
 
   const budgetOptionsEn = [
     '< $3,000 (IDR 40M - 50M)',
@@ -158,7 +167,7 @@ export const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      await submitToInbox({
+      const result = await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
         company: sanitizedCompany || undefined,
@@ -169,6 +178,8 @@ export const Contact = () => {
         source: 'Contact Page Form',
         type: 'inquiry'
       });
+      setSubmissionId(result.id);
+      setIsSubmitted(true);
     } catch (err) {
       console.warn('Submission error:', err);
       setSubmitError(
@@ -414,238 +425,251 @@ export const Contact = () => {
             <div className="lg:col-span-7">
               <div className="p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl bg-[#16181D] border border-[#262930]">
                 {isSubmitted ? (
-                  <div className="text-center py-12 sm:py-16 space-y-4">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
-                      <CheckCircle2 size={28} />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-display font-bold">
-                      {language === 'id' ? 'Pesan Berhasil Terkirim!' : 'Inquiry Sent Successfully!'}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#8A909D] max-w-md mx-auto font-light leading-relaxed">
-                      {language === 'id'
-                        ? 'Terima kasih telah menghubungi Kapitech Agency. Tim kami akan meninjau detail proyek Anda dan merespons dalam waktu 24 jam kerja.'
-                        : 'Thank you for reaching out to Kapitech Agency. Our team will review your project details and get back to you within 24 business hours.'}
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                      <button
-                        onClick={() => {
-                          setIsSubmitted(false);
-                          setSubmitError('');
-                          setFormState({ name: '', email: '', company: '', phone: '', message: '' });
-                          setFormErrors({});
-                          setSelectedServices([]);
-                          setBudgetRange('');
-                        }}
-                        className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#FF1E27] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className="py-10 sm:py-14"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <div className="max-w-lg mx-auto text-center">
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.08, type: 'spring', stiffness: 220, damping: 18 }}
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brand-red/10 border border-brand-red/25 flex items-center justify-center text-brand-red mx-auto mb-5"
                       >
-                        {language === 'id' ? 'Kirim Pesan Lainnya' : 'Send Another Message'}
-                      </button>
-
-                      <a
-                        href="https://ams.kapitech.id/admin/inbox"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white text-xs font-mono font-semibold uppercase tracking-wider transition-colors min-h-[44px] flex items-center justify-center gap-2"
-                      >
-                        <span>{language === 'id' ? 'Buka AMS Inbox' : 'Open AMS Inbox'}</span>
-                        <ArrowUpRight size={14} />
-                      </a>
+                        <CheckCircle2 size={30} />
+                      </motion.div>
+                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                        {language === 'id' ? 'Inquiry diterima' : 'Inquiry received'}
+                      </span>
+                      <h3 className="mt-2 text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">
+                        {language === 'id' ? 'Terima kasih. Kami akan menghubungi Anda.' : 'Thank you. We’ll be in touch.'}
+                      </h3>
+                      <p className="mt-3 text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
+                        {language === 'id'
+                          ? 'Tim Kapitech akan meninjau kebutuhan proyek Anda dan menghubungi Anda dalam 24 jam kerja untuk langkah berikutnya.'
+                          : 'The Kapitech team will review your project details and contact you within 24 business hours with the next steps.'}
+                      </p>
+                      {submissionId && (
+                        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#262930] bg-[#0B0C0E] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                          <span>Reference</span>
+                          <span className="text-white">{submissionId.slice(-8).toUpperCase()}</span>
+                        </div>
+                      )}
+                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsSubmitted(false);
+                            setSubmitError('');
+                            setSubmissionId('');
+                            setFormState({ name: '', email: '', company: '', phone: '', message: '' });
+                            setFormErrors({});
+                            setSelectedServices([]);
+                            setBudgetRange('');
+                          }}
+                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#FF1E27] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
+                        >
+                          {language === 'id' ? 'Kirim Inquiry Baru' : 'Send Another Inquiry'}
+                        </button>
+                        <Link
+                          to="/"
+                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white text-xs font-semibold uppercase tracking-wider transition-colors min-h-[44px] flex items-center justify-center gap-2"
+                        >
+                          <span>{language === 'id' ? 'Kembali ke Beranda' : 'Back to Home'}</span>
+                          <ArrowUpRight size={14} />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-                    {/* Honeypot Anti-Spam Field */}
+                  <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8" noValidate>
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website_hp">Do not fill this</label>
-                      <input 
-                        type="text" 
-                        id="company_website_hp" 
-                        name="company_website_hp" 
-                        value={honeypot} 
-                        onChange={(e) => setHoneypot(e.target.value)} 
-                        tabIndex={-1} 
-                        autoComplete="off" 
-                      />
+                      <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-display font-bold mb-1.5 sm:mb-2">
-                        {language === 'id' ? 'Formulir Konsultasi Proyek' : 'Project Inquiry Form'}
-                      </h3>
-                      <p className="text-xs text-[#8A909D] font-light mb-4 sm:mb-6">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                        <div>
+                          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">01 / Project Inquiry</span>
+                          <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-bold tracking-[-0.025em] text-white">
+                            {language === 'id' ? 'Ceritakan proyek Anda.' : 'Tell us about the project.'}
+                          </h3>
+                        </div>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+                          {language === 'id' ? '3 field wajib' : '3 required fields'}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed max-w-xl">
                         {language === 'id'
-                          ? 'Isi formulir di bawah ini dan kami akan segera menjadwalkan sesi discovery untuk mendiskusikan ruang lingkup dan timeline.'
-                          : 'Fill out the details below and we’ll schedule a discovery call to discuss scope and timelines.'}
+                          ? 'Mulai dari kebutuhan utama. Tidak perlu brief yang sempurna, kami akan bantu menguraikannya saat discovery.'
+                          : 'Start with the essentials. Your brief does not need to be perfect; we’ll help shape it during discovery.'}
                       </p>
-                    </div>
-
-                    {/* Services Selection */}
-                    <div>
-                      <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-2">
-                        {language === 'id' ? 'Layanan apa yang Anda butuhkan?' : 'What services do you need?'}
-                      </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {serviceOptions.map((srv) => (
-                          <button
-                            type="button"
-                            key={srv}
-                            onClick={() => toggleService(srv)}
-                            className={`p-3 rounded-xl text-xs text-left border transition-colors flex items-center justify-between min-h-[44px] ${
-                              selectedServices.includes(srv)
-                                ? 'bg-brand-red/20 border-brand-red text-white'
-                                : 'bg-[#0B0C0E] border-[#262930] text-[#8A909D] hover:border-brand-red/40 hover:text-white'
-                            }`}
-                          >
-                            <span>{srv}</span>
-                            {selectedServices.includes(srv) && <CheckCircle2 size={14} className="text-brand-red shrink-0 ml-2" />}
-                          </button>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                        {[
+                          language === 'id' ? '01. Kebutuhan' : '01. Needs',
+                          language === 'id' ? '02. Scope' : '02. Scope',
+                          language === 'id' ? '03. Next step' : '03. Next step'
+                        ].map((item, index) => (
+                          <div key={item} className={`rounded-xl border px-3 py-2.5 text-[10px] font-mono uppercase tracking-[0.1em] ${index === 0 ? 'border-brand-red/35 bg-brand-red/10 text-brand-red' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D]'}`}>
+                            {item}
+                          </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Basic Info Inputs */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                      <div>
-                        <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1">
-                          {language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          required
-                          value={formState.name}
-                          onChange={handleInputChange}
-                          placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'}
-                          className={`w-full bg-[#0B0C0E] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-xs text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red font-mono min-h-[44px]`}
-                        />
-                        {formErrors.name && (
-                          <p className="text-[11px] font-mono text-brand-red mt-1 flex items-center gap-1">
-                            <AlertCircle size={12} />
-                            <span>{formErrors.name}</span>
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1">
-                          {language === 'id' ? 'Email Kantor *' : 'Work Email *'}
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          required
-                          value={formState.email}
-                          onChange={handleInputChange}
-                          placeholder="john@company.com"
-                          className={`w-full bg-[#0B0C0E] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-xs text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red font-mono min-h-[44px]`}
-                        />
-                        {formErrors.email && (
-                          <p className="text-[11px] font-mono text-brand-red mt-1 flex items-center gap-1">
-                            <AlertCircle size={12} />
-                            <span>{formErrors.email}</span>
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                      <div>
-                        <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1">
-                          {language === 'id' ? 'Nama Perusahaan / Brand' : 'Company / Brand Name'}
-                        </label>
-                        <input
-                          type="text"
-                          name="company"
-                          value={formState.company}
-                          onChange={handleInputChange}
-                          placeholder="e.g. Acme Corp"
-                          className="w-full bg-[#0B0C0E] border border-[#262930] rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-xs text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red font-mono min-h-[44px]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1">
-                          {language === 'id' ? 'Nomor WhatsApp / Telepon' : 'Phone / WhatsApp'}
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formState.phone}
-                          onChange={handleInputChange}
-                          placeholder="+62 812-xxxx-xxxx"
-                          className={`w-full bg-[#0B0C0E] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-xs text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red font-mono min-h-[44px]`}
-                        />
-                        {formErrors.phone && (
-                          <p className="text-[11px] font-mono text-brand-red mt-1 flex items-center gap-1">
-                            <AlertCircle size={12} />
-                            <span>{formErrors.phone}</span>
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Estimated Budget */}
                     <div>
-                      <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-2">
-                        {language === 'id' ? 'Estimasi Anggaran Proyek' : 'Estimated Budget Range'}
-                      </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {budgetOptions.map((opt) => (
-                          <button
-                            type="button"
-                            key={opt}
-                            onClick={() => setBudgetRange(opt)}
-                            className={`p-3 rounded-xl text-xs text-left border transition-colors min-h-[44px] flex items-center ${
-                              budgetRange === opt
-                                ? 'bg-brand-red text-white font-semibold border-brand-red shadow-md shadow-brand-red/20'
-                                : 'bg-[#0B0C0E] border-[#262930] text-[#8A909D] hover:border-brand-red/40 hover:text-white'
-                            }`}
-                          >
-                            {opt}
-                          </button>
+                      <div className="flex items-end justify-between gap-3 mb-2.5">
+                        <div>
+                          <label className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">
+                            {language === 'id' ? 'Layanan yang dibutuhkan' : 'Services you need'}
+                          </label>
+                          <p className="mt-1 text-[11px] text-[#8A909D]">{language === 'id' ? 'Pilih satu atau beberapa.' : 'Choose one or more.'}</p>
+                        </div>
+                        <AnimatePresence mode="popLayout" initial={false}>
+                          {selectedServices.length > 0 && (
+                            <motion.span initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="shrink-0 rounded-full bg-brand-red/10 border border-brand-red/25 px-2.5 py-1 text-[10px] font-mono text-brand-red">
+                              {selectedServices.length} {language === 'id' ? 'dipilih' : 'selected'}
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                      <div className="space-y-3">
+                        {serviceGroups.map((group) => (
+                          <div key={group.label} className="rounded-2xl border border-[#262930] bg-[#0B0C0E] p-3.5 sm:p-4">
+                            <span className="block px-0.5 mb-2.5 text-[9px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">{group.label}</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {group.items.map((srv) => {
+                                const selected = selectedServices.includes(srv);
+                                return (
+                                  <motion.button
+                                    type="button"
+                                    key={srv}
+                                    onClick={() => toggleService(srv)}
+                                    whileTap={{ scale: 0.985 }}
+                                    transition={{ duration: 0.16 }}
+                                    aria-pressed={selected}
+                                    className={`group flex min-h-[46px] items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${
+                                      selected
+                                        ? 'border-brand-red/60 bg-brand-red/10 text-white shadow-[0_8px_24px_-18px_rgba(229,9,20,0.9)]'
+                                        : 'border-[#262930] bg-[#16181D] text-[#8A909D] hover:border-brand-red/35 hover:bg-[#1B1F26] hover:text-white'
+                                    }`}
+                                  >
+                                    <span className="leading-snug">{srv}</span>
+                                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? 'border-brand-red bg-brand-red text-white' : 'border-[#3A3E47] text-transparent'}`}>
+                                      <CheckCircle2 size={12} />
+                                    </span>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Project Message */}
                     <div>
-                      <label className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1">
-                        {language === 'id' ? 'Detail Proyek & Tujuan *' : 'Project Details & Goals *'}
-                      </label>
-                      <textarea
-                        name="message"
-                        required
-                        rows={4}
-                        value={formState.message}
-                        onChange={handleInputChange}
-                        placeholder={language === 'id' ? 'Ceritakan tentang kebutuhan produk yang ingin dibangun, tantangan saat ini, target rilis, dll...' : 'Tell us about what you want to build, existing challenges, desired launch dates, etc...'}
-                        className={`w-full bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-base sm:text-xs text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red resize-none font-mono`}
-                      />
-                      {formErrors.message && (
-                        <p className="text-[11px] font-mono text-brand-red mt-1 flex items-center gap-1">
-                          <AlertCircle size={12} />
-                          <span>{formErrors.message}</span>
-                        </p>
+                      <div className="mb-2.5">
+                        <span className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Detail kontak' : 'Contact details'}</span>
+                        <span className="text-[11px] text-[#8A909D]">{language === 'id' ? 'Kami menggunakan data ini untuk menghubungi Anda.' : 'We use these details only to contact you.'}</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                        <div>
+                          <label htmlFor="inquiry-name" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
+                          <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
+                          {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
+                        </div>
+                        <div>
+                          <label htmlFor="inquiry-email" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
+                          <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
+                          {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 mt-3.5 sm:mt-4">
+                        <div>
+                          <label htmlFor="inquiry-company" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Perusahaan / Brand' : 'Company / Brand'}</label>
+                          <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[48px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200" />
+                        </div>
+                        <div>
+                          <label htmlFor="inquiry-phone" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
+                          <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
+                          {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-end justify-between gap-3 mb-2.5">
+                        <div>
+                          <span className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Kisaran anggaran' : 'Budget range'}</span>
+                          <span className="text-[11px] text-[#8A909D]">{language === 'id' ? 'Opsional, untuk membantu kami menyesuaikan scope.' : 'Optional, helps us align the scope.'}</span>
+                        </div>
+                        {budgetRange && <button type="button" onClick={() => setBudgetRange('')} className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] hover:text-white">Reset</button>}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {budgetOptions.map((opt) => {
+                          const selected = budgetRange === opt;
+                          return (
+                            <motion.button type="button" key={opt} onClick={() => setBudgetRange(opt)} whileTap={{ scale: 0.985 }} aria-pressed={selected} className={`min-h-[48px] rounded-xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${selected ? 'border-brand-red bg-brand-red text-white font-semibold shadow-lg shadow-brand-red/15' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D] hover:border-brand-red/35 hover:bg-[#16181D] hover:text-white'}`}>
+                              {opt}
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-end justify-between gap-3 mb-1.5">
+                        <label htmlFor="inquiry-message" className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Detail proyek & tujuan *' : 'Project details & goals *'}</label>
+                        <span className="text-[10px] font-mono tabular-nums text-[#8A909D]">{formState.message.length}/3000</span>
+                      </div>
+                      <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Apa yang ingin dibangun? Apa tantangannya? Target rilis atau milestone terdekat?' : 'What are you building? What is the challenge? Any target launch date or near-term milestone?'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-3.5 sm:px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y font-mono transition-all duration-200`} />
+                      {formErrors.message ? (
+                        <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
+                      ) : (
+                        <p className="mt-1.5 text-[11px] text-[#8A909D]/75">{language === 'id' ? 'Minimal 10 karakter. Brief singkat sudah cukup.' : 'Minimum 10 characters. A concise brief is enough.'}</p>
                       )}
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95 min-h-[44px]"
-                    >
+                    <div className="rounded-2xl border border-[#262930] bg-[#0B0C0E] p-4 sm:p-5">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">{language === 'id' ? 'Setelah Anda mengirim' : 'After you submit'}</span>
+                      <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {[
+                          { number: '01', title: 'Review', text: language === 'id' ? 'Tim meninjau brief.' : 'We review your brief.' },
+                          { number: '02', title: 'Discovery', text: language === 'id' ? 'Kita selaraskan scope.' : 'We align the scope.' },
+                          { number: '03', title: 'Next step', text: language === 'id' ? 'Timeline & proposal.' : 'Timeline & proposal.' }
+                        ].map((item) => (
+                          <div key={item.number} className="flex gap-2.5">
+                            <span className="text-[10px] font-mono text-brand-red pt-0.5">{item.number}</span>
+                            <div><div className="text-[11px] font-semibold text-white">{item.title}</div><p className="mt-0.5 text-[10px] text-[#8A909D] leading-relaxed">{item.text}</p></div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button type="submit" disabled={isSubmitting} className="group w-full min-h-[50px] py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait text-white font-semibold text-xs uppercase tracking-[0.12em] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.99]">
                       {isSubmitting ? (
-                        <span>{language === 'id' ? 'Mengirimkan Detail...' : 'Submitting Details...'}</span>
+                        <>
+                          <LoaderCircle size={15} className="animate-spin" />
+                          <span>{language === 'id' ? 'Mengirim...' : 'Sending...'}</span>
+                        </>
                       ) : (
                         <>
-                          <span>{language === 'id' ? 'Kirimkan Konsultasi Proyek' : 'Submit Project Inquiry'}</span>
-                          <Send size={14} />
+                          <span>{language === 'id' ? 'Kirim Project Inquiry' : 'Submit Project Inquiry'}</span>
+                          <Send size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                         </>
                       )}
                     </button>
+
                     {submitError && (
-                      <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
                         <AlertCircle size={15} className="mt-0.5 shrink-0" />
                         <span>{submitError}</span>
-                      </div>
+                      </motion.div>
                     )}
                   </form>
                 )}
