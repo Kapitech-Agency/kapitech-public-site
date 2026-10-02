@@ -446,7 +446,12 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84 flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
+            className="fixed inset-0 z-[100] flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
+            style={{
+              backgroundColor: 'rgba(11, 12, 14, 0.78)',
+              backdropFilter: 'blur(44px) saturate(1.25)',
+              WebkitBackdropFilter: 'blur(44px) saturate(1.25)',
+            }}
           >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
