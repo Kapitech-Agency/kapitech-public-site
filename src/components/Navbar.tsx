@@ -22,59 +22,26 @@ import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
 
-const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
-  const height = mobile ? 48 : 40;
-  const radius = mobile ? 14 : 20;
-  const width = 240;
-  const viewHeight = mobile ? 54 : 46;
-
-  const layers = [
-    { dash: 170, gap: 830, width: 4.1, opacity: 0.96, delay: 0 },
-    { dash: 122, gap: 878, width: 2.8, opacity: 0.52, delay: 0.055 },
-    { dash: 78, gap: 922, width: 1.7, opacity: 0.24, delay: 0.11 },
-  ];
-
-  return (
-    <span
-      className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-85 transition-opacity duration-300 group-hover:opacity-100"
-      aria-hidden="true"
-    >
-      <svg
-        className="absolute inset-0 h-full w-full overflow-visible"
-        viewBox={`0 0 ${width} ${viewHeight}`}
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        {layers.map((layer) => (
-          <motion.rect
-            key={`${layer.width}-${layer.delay}`}
-            x="3"
-            y="3"
-            width="234"
-            height={height}
-            rx={radius}
-            pathLength="1000"
-            fill="none"
-            stroke="white"
-            strokeWidth={layer.width}
-            strokeLinecap="round"
-            strokeDasharray={`${layer.dash} ${layer.gap}`}
-            vectorEffect="non-scaling-stroke"
-            opacity={layer.opacity}
-            animate={{ strokeDashoffset: [0, -1000] }}
-            transition={{
-              duration: mobile ? 4.2 : 3.9,
-              repeat: Infinity,
-              ease: 'linear',
-              delay: layer.delay,
-            }}
-            className="transition-[stroke] duration-300 group-hover:stroke-brand-red"
-          />
-        ))}
-      </svg>
-    </span>
-  );
-};
+const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
+  <motion.span
+    className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
+    aria-hidden="true"
+    style={{
+      padding: '1.25px',
+      background:
+        'conic-gradient(from 0deg, rgba(229,9,20,0) 0deg, rgba(229,9,20,0.04) 250deg, rgba(229,9,20,0.22) 300deg, rgba(229,9,20,0.56) 332deg, rgba(229,9,20,0.95) 352deg, rgba(229,9,20,0) 360deg)',
+      WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+      WebkitMaskComposite: 'xor',
+      maskComposite: 'exclude',
+    }}
+    animate={{ rotate: [0, 360] }}
+    transition={{
+      duration: mobile ? 4.8 : 4.4,
+      repeat: Infinity,
+      ease: 'linear',
+    }}
+  />
+);
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
