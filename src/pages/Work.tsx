@@ -234,7 +234,7 @@ export const Work = () => {
                 <div className="flex justify-end"><GlassButton to="/contact">{language === 'id' ? 'Mulai proyek serupa' : 'Start a similar project'}</GlassButton></div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
