@@ -192,11 +192,10 @@ export const Work = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
         <div className="pointer-events-none absolute -right-32 top-12 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
         <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-5 sm:p-7 lg:p-9 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
           <motion.div
             className="max-w-3xl"
             initial={{ opacity: 0, y: 18 }}
@@ -220,7 +219,7 @@ export const Work = () => {
               transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
               className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6"
             >
-              {language === 'id' 
+              {language === 'id'
                 ? `Jelajahi ${projectsList.length} studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.`
                 : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
               }
@@ -238,7 +237,6 @@ export const Work = () => {
               </span>
             </div>
           </motion.div>
-          </div>
         </div>
       </section>
 
