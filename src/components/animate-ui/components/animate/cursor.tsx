@@ -167,6 +167,11 @@ export function Cursor({ children, style, ...props }: CursorProps) {
   );
 }
 
+export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
+  transition?: SpringOptions;
+  children: React.ReactNode;
+};
+
 export function CursorFollow({
   children,
   style,
