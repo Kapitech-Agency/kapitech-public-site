@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
 import { GlassPanel, Reveal, SectionHeader } from '../components/ui/PublicUI';
 import { useLanguage } from '../lib/LanguageContext';
 
