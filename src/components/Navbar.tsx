@@ -21,27 +21,44 @@ import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
+  const height = mobile ? 48 : 40;
+  const radius = mobile ? 12 : 20;
+  const pathHeight = mobile ? 46 : 38;
   const duration = mobile ? 4.8 : 4.6;
 
   return (
-    <motion.span
+    <span
       className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
-      style={{
-        padding: '1.2px',
-        background: 'conic-gradient(from 0deg, transparent 0deg, transparent 286deg, rgba(229,9,20,0.08) 306deg, rgba(229,9,20,0.96) 338deg, rgba(229,9,20,0.2) 354deg, transparent 360deg)',
-        WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-        WebkitMaskComposite: 'xor',
-        mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-        maskComposite: 'exclude',
-      }}
-      animate={{ rotate: 360 }}
-      transition={{
-        duration,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
       aria-hidden="true"
-    />
+    >
+      <svg
+        className="absolute inset-0 h-full w-full overflow-visible"
+        viewBox={`0 0 100 ${height}`}
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <motion.rect
+          x="0.5"
+          y="0.5"
+          width="99"
+          height={pathHeight}
+          rx={radius}
+          pathLength="1"
+          stroke="#E63946"
+          strokeWidth="1.15"
+          strokeLinecap="round"
+          strokeDasharray="0.16 0.84"
+          strokeOpacity="0.92"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1] }}
+          transition={{
+            duration,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </svg>
+    </span>
   );
 };
 
@@ -352,7 +369,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full bg-[#16181D]/98 backdrop-blur-2xl border-b border-[#262930] shadow-[0_25px_60px_rgba(0,0,0,0.95)] py-8 px-6 lg:px-12"
+              className="hidden md:block absolute top-full left-0 w-full bg-[#0B0C0E]/98 backdrop-blur-2xl border-b border-[#262930] shadow-[0_25px_60px_rgba(0,0,0,0.95)] py-8 px-6 lg:px-12"
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
@@ -368,7 +385,7 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/solutions/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.06] hover:bg-transparent transition-all duration-200"
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
