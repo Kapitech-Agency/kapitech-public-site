@@ -145,7 +145,7 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,height,padding] duration-500 border-b",
           isMenuOpen
-            ? "flex flex-col h-auto min-h-0 max-h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none bg-transparent"
+            ? "flex flex-col h-fit min-h-0 overflow-hidden py-4 sm:py-5 border-transparent shadow-none bg-transparent"
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
@@ -476,9 +476,9 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="relative z-10 flex-none min-h-0 w-full overflow-hidden pointer-events-auto max-h-[calc(100dvh-5.5rem)]">
+            className="relative z-10 flex-none min-h-0 w-full overflow-hidden pointer-events-auto">
             <div
-              className="flex min-h-0 flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
+              className="flex min-h-0 max-h-[calc(100dvh-5rem)] flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
