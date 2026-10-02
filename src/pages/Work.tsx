@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { 
   ArrowUpRight, 
   X, 
@@ -196,9 +197,27 @@ export const Work = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
-        <div className="pointer-events-none absolute -right-32 top-12 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <PatternWaves
+            preset="lines"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.34}
+            fade="edges"
+            fadeSize={0.78}
+            interactive
+            cursorSize={48}
+            cursorStrength={0.42}
+            speed={0.2}
+            scale={1.08}
+            depth={0.68}
+            shine={0.48}
+            contrast={1.04}
+            intro
+          />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/55 to-transparent" />
+        </div>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="max-w-3xl"
