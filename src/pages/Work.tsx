@@ -24,7 +24,7 @@ import Fuse from 'fuse.js';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { ProjectItem } from '../data/projectsData';
-import { getCmsProjects } from '../lib/cmsStore';
+import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
 export const Work = () => {
   const { t, language } = useLanguage();
@@ -41,7 +41,12 @@ export const Work = () => {
     const handleUpdate = () => {
       setProjectsList(getCmsProjects());
     };
+
     window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void fetchServerCmsProjects().then(() => {
+      setProjectsList(getCmsProjects());
+    });
+
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
