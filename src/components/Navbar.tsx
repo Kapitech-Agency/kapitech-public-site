@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-55 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -34,20 +34,20 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
       fill="none"
     >
       <motion.rect
-        x="0.5"
-        y="0.5"
-        width="99"
-        height={mobile ? '47' : '39'}
-        rx={mobile ? '11' : '18.5'}
+        x="0.55"
+        y="0.55"
+        width="98.9"
+        height={mobile ? '46.9' : '38.9'}
+        rx={mobile ? '11' : '19'}
         pathLength="1"
-        className="stroke-white/[0.30] transition-colors duration-500 group-hover:stroke-brand-red"
-        strokeWidth="1.7"
+        className="stroke-white/45 transition-colors duration-500 group-hover:stroke-brand-red"
+        strokeWidth="2.15"
         strokeLinecap="round"
-        strokeDasharray="0.92 0.08"
+        strokeDasharray="0.78 0.22"
         vectorEffect="non-scaling-stroke"
         animate={{ strokeDashoffset: [0, -1] }}
         transition={{
-          duration: mobile ? 8 : 7.2,
+          duration: mobile ? 7.8 : 7.2,
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -132,8 +132,8 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-9 px-2.5 text-[10px] font-semibold uppercase tracking-[0.17em] leading-none transition-all duration-300 after:absolute after:left-2 after:right-2 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:rounded-full after:bg-white/30 after:transition-transform after:duration-300 hover:after:scale-x-100",
-      active ? "text-white" : "text-[#8A909D] hover:text-white"
+      "group relative inline-flex items-center h-9 px-1.5 text-[10px] font-semibold uppercase tracking-[0.17em] leading-none transition-[color,transform] duration-300 ease-out",
+      active ? "text-white" : "text-[#8A909D] hover:text-white hover:-translate-y-px"
     );
 
   return (
@@ -165,8 +165,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <div className="flex items-center gap-1.5 lg:gap-2">
+          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+            <div className="flex items-center gap-5 lg:gap-7">
               
               {/* Work Link */}
               <Link
@@ -177,12 +177,15 @@ export const Navbar = () => {
                 {isWorkActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
-                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
+                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
+                    initial={{ scaleX: 0.55, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     aria-hidden="true"
                   />
                 )}
                 <span className="relative z-10">{t('nav.work')}</span>
+                <span className="pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
               </Link>
 
               {/* SERVICES DROPDOWN TRIGGER */}
@@ -205,12 +208,15 @@ export const Navbar = () => {
                   {isServicesActive && (
                     <motion.span
                       layoutId="desktop-nav-active"
-                      className="pointer-events-none absolute left-2 right-9 bottom-0 h-px origin-left rounded-full bg-brand-red"
-                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                      className="pointer-events-none absolute left-0 right-7 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
+                      initial={{ scaleX: 0.55, opacity: 0 }}
+                      animate={{ scaleX: 1, opacity: 1 }}
+                      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                       aria-hidden="true"
                     />
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
+                  <span className="pointer-events-none absolute left-0 right-6 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
                   <ChevronDown className={cn(
                     "relative z-10 w-3.5 h-3.5 transition-transform duration-250",
                     isServicesDropdownOpen ? "rotate-180 text-white" : "text-[#8A909D]"
@@ -227,12 +233,15 @@ export const Navbar = () => {
                 {isAboutActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
-                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
+                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
+                    initial={{ scaleX: 0.55, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     aria-hidden="true"
                   />
                 )}
                 <span className="relative z-10">{t('nav.about')}</span>
+                <span className="pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
               </Link>
 
               {/* Careers Link */}
@@ -244,32 +253,34 @@ export const Navbar = () => {
                 {isCareersActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px origin-left rounded-full bg-brand-red"
-                    transition={{ type: 'spring', stiffness: 460, damping: 34 }}
+                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
+                    initial={{ scaleX: 0.55, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     aria-hidden="true"
                   />
                 )}
                 <span className="relative z-10">{t('nav.careers')}</span>
+                <span className="pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
               </Link>
             </div>
 
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full border border-white/[0.1] bg-[#16181D]/80 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-500 shrink-0 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.9)] hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_32px_-20px_rgba(229,9,20,0.55)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full border border-white/[0.12] bg-[#16181D]/75 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.14em] transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out shrink-0 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_28px_-20px_rgba(229,9,20,0.45)] hover:-translate-y-px active:translate-y-0"
               data-cursor-label="Start"
             >
               <CtaFlowLine />
-              <span className="absolute inset-[1px] z-0 rounded-full bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
-              <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <ChevronRight size={14} className="relative z-10 opacity-70 transition-[transform,opacity] duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
 
             {/* Language Switcher EN | ID */}
             <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
               <button
                 onClick={() => setLanguage('en')}
-                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group relative inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-[color,transform] duration-200 hover:text-white hover:-translate-y-px cursor-pointer"
                 aria-label="Switch to English"
               >
                 <span className={cn(
@@ -281,7 +292,7 @@ export const Navbar = () => {
               <span className="h-3 w-px bg-white/[0.08]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className="group inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group relative inline-flex h-7 items-center gap-1.5 px-1 text-[#8A909D] transition-[color,transform] duration-200 hover:text-white hover:-translate-y-px cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
                 <span className={cn(
@@ -299,8 +310,8 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('en')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
+                  "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
+                  language === 'en' ? "text-white font-bold before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-brand-red" : "text-[#8A909D]"
                 )}
                 aria-label="Switch to English"
               >
@@ -309,8 +320,8 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('id')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
+                  "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
+                  language === 'id' ? "text-white font-bold before:absolute before:bottom-0 before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-brand-red" : "text-[#8A909D]"
                 )}
                 aria-label="Ganti ke Bahasa Indonesia"
               >
@@ -319,7 +330,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D]/80 border border-[#262930] hover:border-white/15 hover:bg-[#1B1F26] flex items-center justify-center text-white active:bg-white/20 transition-all duration-200 shrink-0 cursor-pointer"
+              className="group w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#16181D]/75 hover:border-brand-red/35 hover:bg-[#1B1F26] flex items-center justify-center text-white active:scale-[0.97] transition-[border-color,background-color,transform] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -497,11 +508,11 @@ export const Navbar = () => {
               </Link>
               
               <div className="flex items-center gap-2">
-                <div className="flex items-center p-0.5 rounded-full bg-[#111318] border border-white/[0.08] text-[11px] font-mono font-semibold shadow-[0_10px_24px_-20px_rgba(0,0,0,0.9)]">
+                <div className="flex items-center gap-1 text-[11px] font-mono font-semibold">
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
+                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
                       language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
@@ -510,7 +521,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => setLanguage('id')}
                     className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
+                      "relative min-w-[32px] min-h-[36px] py-1 px-2 flex items-center justify-center cursor-pointer transition-[color,transform] duration-200 hover:-translate-y-px",
                       language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
@@ -536,10 +547,10 @@ export const Navbar = () => {
                 to="/work"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,transform,border-color] duration-300 min-h-[56px] hover:border-white/20 hover:-translate-y-px",
                   location.pathname === '/work' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
+                    ? "text-white font-bold border-brand-red/70" 
+                    : "text-[#8A909D] hover:text-white"
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -550,11 +561,11 @@ export const Navbar = () => {
               </Link>
 
               {/* Services & Solutions (Accordion in Mobile Menu) */}
-              <div className="rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden">
+              <div className="group border-b border-white/[0.08] overflow-hidden">
                 <button
                   type="button"
                   onClick={() => setIsMobileServicesOpen(prev => !prev)}
-                  className="w-full flex items-center justify-between py-3.5 px-4 text-left text-white font-display text-xl min-h-[48px] cursor-pointer"
+                  className="w-full flex items-center justify-between py-3.5 px-1 text-left text-white font-display text-xl min-h-[56px] cursor-pointer transition-colors duration-300 hover:text-brand-red"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-brand-red">02</span>
@@ -668,10 +679,10 @@ export const Navbar = () => {
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,transform,border-color] duration-300 min-h-[56px] hover:border-white/20 hover:-translate-y-px",
                   location.pathname === '/about' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
+                    ? "text-white font-bold border-brand-red/70" 
+                    : "text-[#8A909D] hover:text-white"
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -686,10 +697,10 @@ export const Navbar = () => {
                 to="/careers"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "group flex items-center justify-between py-3.5 px-1 rounded-none border-b border-white/[0.08] transition-[color,transform,border-color] duration-300 min-h-[56px] hover:border-white/20 hover:-translate-y-px",
                   location.pathname === '/careers' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
+                    ? "text-white font-bold border-brand-red/70" 
+                    : "text-[#8A909D] hover:text-white"
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -703,13 +714,12 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D]/85 text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.9)] hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_32px_-20px_rgba(229,9,20,0.45)] active:scale-[0.98] transition-all duration-500 cursor-pointer"
+                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.12] bg-[#16181D]/80 text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_28px_-20px_rgba(229,9,20,0.4)] active:scale-[0.985] transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out cursor-pointer"
                   data-cursor-label="Start"
                 >
                   <CtaFlowLine mobile />
-                  <span className="absolute inset-[1px] z-0 rounded-[11px] bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
-                  <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  <ArrowUpRight size={16} className="relative z-10 opacity-70 transition-[transform,opacity] duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
                 </Link>
               </div>
             </div>
