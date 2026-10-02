@@ -1,0 +1,137 @@
+import { useEffect, useRef } from 'react';
+
+const MOTION_SELECTOR = [
+  '.kapi-public-shell main section',
+  '.kapi-public-shell main article',
+  '.kapi-public-shell main form',
+  '.kapi-public-shell main [role="dialog"]',
+  '.kapi-public-shell main .kapi-card',
+  '.kapi-public-shell main [class*="rounded-2xl"][class*="bg-[#16181D]"][class*="border"]',
+  '.kapi-public-shell main [class*="rounded-3xl"][class*="bg-[#16181D]"][class*="border"]',
+  '.kapi-public-shell main button',
+  '.kapi-public-shell main a[class*="rounded-full"]',
+  '.kapi-public-shell main input',
+  '.kapi-public-shell main textarea',
+  '.kapi-public-shell main select',
+  '.kapi-public-shell > nav',
+  '.kapi-public-shell > footer',
+  '.kapi-public-shell .fixed.inset-0',
+].join(',');
+
+const getKind = (element: Element) => {
+  if (element.matches('.fixed.inset-0, [role="dialog"]')) return 'modal';
+  if (element.matches('nav, footer')) return 'chrome';
+  if (element.matches('form')) return 'form';
+  if (element.matches('input, textarea, select')) return 'field';
+  if (element.matches('button, a')) return 'control';
+  if (element.matches('.kapi-card, [class*="rounded-2xl"][class*="bg-[#16181D]"][class*="border"], [class*="rounded-3xl"][class*="bg-[#16181D]"][class*="border"]')) {
+    return 'card';
+  }
+  return 'section';
+};
+
+const setMotionState = (element: Element, state: 'hidden' | 'entering' | 'visible') => {
+  (element as HTMLElement).dataset.kapiMotionState = state;
+};
+
+export const PublicMotion = () => {
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = document.querySelector<HTMLElement>('.kapi-public-shell');
+    if (!root) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const progress = progressRef.current;
+    let rafId = 0;
+
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const value = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      if (progress) progress.style.transform = `scaleX(${value})`;
+      rafId = 0;
+    };
+
+    const requestProgressUpdate = () => {
+      if (rafId === 0) rafId = window.requestAnimationFrame(updateProgress);
+    };
+
+    const decorate = () => {
+      const elements = root.querySelectorAll<HTMLElement>(MOTION_SELECTOR);
+
+      elements.forEach((element) => {
+        if (element.dataset.kapiMotionBound === 'true') return;
+        element.dataset.kapiMotionBound = 'true';
+        element.dataset.kapiMotionKind = getKind(element);
+
+        const parent = element.parentElement;
+        const siblings = parent
+          ? Array.from(parent.children).filter((node) => node instanceof HTMLElement && node.matches(MOTION_SELECTOR))
+          : [];
+        const index = Math.max(0, siblings.indexOf(element));
+        element.style.setProperty('--kapi-motion-delay', `${Math.min(index, 5) * 45}ms`);
+
+        if (reducedMotion.matches) {
+          setMotionState(element, 'visible');
+        } else {
+          setMotionState(element, 'hidden');
+        }
+      });
+    };
+
+    decorate();
+
+    const observer = reducedMotion.matches
+      ? null
+      : new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const element = entry.target as HTMLElement;
+            if (!entry.isIntersecting) return;
+
+            setMotionState(element, 'entering');
+
+            const finish = () => {
+              setMotionState(element, 'visible');
+              element.removeEventListener('animationend', finish);
+            };
+
+            element.addEventListener('animationend', finish, { once: true });
+            window.setTimeout(() => {
+              if (element.dataset.kapiMotionState === 'entering') setMotionState(element, 'visible');
+            }, 900);
+
+            observer?.unobserve(element);
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: '0px 0px -8% 0px',
+        });
+
+    if (observer) {
+      root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]').forEach((element) => observer.observe(element));
+    }
+
+    const mutationObserver = new MutationObserver(() => {
+      decorate();
+      if (observer) {
+        root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]').forEach((element) => observer.observe(element));
+      }
+    });
+
+    mutationObserver.observe(root, { childList: true, subtree: true });
+
+    window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+    window.addEventListener('resize', requestProgressUpdate);
+    requestProgressUpdate();
+
+    return () => {
+      mutationObserver.disconnect();
+      observer?.disconnect();
+      window.removeEventListener('scroll', requestProgressUpdate);
+      window.removeEventListener('resize', requestProgressUpdate);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return <div ref={progressRef} className="kapi-scroll-progress" aria-hidden="true" />;
+};

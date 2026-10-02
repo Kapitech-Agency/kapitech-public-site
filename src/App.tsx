@@ -8,6 +8,7 @@ import { FloatingContact } from './components/FloatingContact';
 import { api } from './lib/apiClient';
 import { fetchServerCmsProjects, fetchServerCmsServices, fetchServerCmsTestimonials } from './lib/cmsStore';
 import { cn } from './lib/utils';
+import { PublicMotion } from './components/ui/PublicMotion';
 
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })));
@@ -136,6 +137,7 @@ function AppShell() {
 
   return (
     <div className={cn('relative z-10 text-white selection:bg-brand-red selection:text-white min-h-screen flex flex-col kapi-public-shell')}>
+      <PublicMotion />
       <Navbar />
       <main className="flex-grow flex flex-col">
         <AnimatedRoutes />
