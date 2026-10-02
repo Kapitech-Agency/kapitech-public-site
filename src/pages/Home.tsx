@@ -772,7 +772,10 @@ export const Home = () => {
                     transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                     onMouseEnter={() => setActiveProcessStep(index)}
                     className={cn(
-                      "group relative min-w-0",
+                      "group relative min-w-0 transition-opacity duration-500 ease-out",
+                      isActive
+                        ? "opacity-100"
+                        : "opacity-[0.46] group-hover:opacity-100",
                       "lg:px-5",
                       index === 0 && "lg:pl-0",
                       index === processSteps.length - 1 && "lg:pr-0"
