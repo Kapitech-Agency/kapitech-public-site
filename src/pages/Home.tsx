@@ -56,14 +56,6 @@ export const Home = () => {
 
   const trustedBrands = [
     {
-      name: "Pertamina",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pertamina_Logo.svg"
-    },
-    {
-      name: "BTN",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg"
-    },
-    {
       name: "Astra International",
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ASTRA_international.svg"
     },
@@ -82,6 +74,10 @@ export const Home = () => {
     {
       name: "Siloam Hospitals",
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Siloam_Hospitals.svg"
+    },
+    {
+      name: "BTN",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg"
     }
   ];
 
@@ -372,13 +368,13 @@ export const Home = () => {
                   className="flex w-[196px] sm:w-[224px] lg:w-[248px] h-20 sm:h-24 lg:h-28 items-center justify-center shrink-0"
                   aria-label={logo.name}
                 >
-                  <div className="flex h-12 sm:h-14 lg:h-16 w-[166px] sm:w-[188px] lg:w-[210px] items-center justify-center">
+                  <div className="flex h-10 sm:h-12 lg:h-14 w-[154px] sm:w-[176px] lg:w-[198px] items-center justify-center">
                     <img
                       src={logo.src}
                       alt={logo.name}
                       loading="lazy"
                       referrerPolicy="no-referrer"
-                      className="block h-full w-full object-contain object-center bg-transparent opacity-70 grayscale brightness-150 contrast-90 hover:opacity-100 transition-opacity duration-300"
+                      className="block max-h-full max-w-full w-auto h-auto object-contain object-center bg-transparent opacity-80 brightness-0 invert hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 </div>
