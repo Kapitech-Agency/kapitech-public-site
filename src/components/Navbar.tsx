@@ -1,716 +1,239 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
-import { 
-  Menu, 
-  X, 
-  Instagram, 
-  Linkedin, 
-  Twitter, 
-  ChevronRight, 
-  ChevronDown, 
-  Phone, 
-  Mail, 
-  ArrowUpRight,
-  Layers,
-  Sparkles,
-  Palette,
-  Code2,
-  Cpu
-} from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import { ArrowUpRight, ChevronDown, Instagram, Linkedin, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/src/lib/utils';
-import { useLanguage } from '@/src/lib/LanguageContext';
-import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
+import { useLanguage } from '../lib/LanguageContext';
+import { allSolutionsAndServices } from '../data/servicesData';
+
+const groups = (category: 'Solutions' | 'Branding' | 'Design' | 'Development') =>
+  allSolutionsAndServices.filter(item => item.category === category);
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
-
-  // Close menu & dropdown on route change
-  useEffect(() => {
-    setIsMenuOpen(false);
-    setIsServicesDropdownOpen(false);
-    setIsMobileServicesOpen(false);
-  }, [location.pathname]);
-
-  const handleMouseEnterServices = () => {
-    if (dropdownTimeoutRef.current) {
-      clearTimeout(dropdownTimeoutRef.current);
-    }
-    setIsServicesDropdownOpen(true);
-  };
-
-  const handleMouseLeaveServices = () => {
-    dropdownTimeoutRef.current = setTimeout(() => {
-      setIsServicesDropdownOpen(false);
-    }, 150);
-  };
-
-  // Organize services by categories
-  const solutions = allSolutionsAndServices.filter(s => s.category === 'Solutions');
-  const branding = allSolutionsAndServices.filter(s => s.category === 'Branding');
-  const design = allSolutionsAndServices.filter(s => s.category === 'Design');
-  const development = allSolutionsAndServices.filter(s => s.category === 'Development');
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
+  const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const closeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    setServicesOpen(false);
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  useEffect(() => () => {
+    if (closeRef.current) window.clearTimeout(closeRef.current);
+  }, []);
+
+  const openServices = () => {
+    if (closeRef.current) window.clearTimeout(closeRef.current);
+    setServicesOpen(true);
+  };
+
+  const queueClose = () => {
+    closeRef.current = window.setTimeout(() => setServicesOpen(false), 120);
+  };
+
+  const serviceGroups = [
+    ['Solutions', groups('Solutions')],
+    ['Branding', groups('Branding')],
+    ['Design', groups('Design')],
+    ['Development', groups('Development')],
+  ] as const;
+
   return (
     <>
-      <nav
-        className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b",
-          isScrolled 
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#2A2A2A] shadow-lg shadow-[#0A0A0A]/80" 
-            : "bg-[#0A0A0A]/80 backdrop-blur-sm py-4 sm:py-5 border-[#2A2A2A]/60"
-        )}
-      >
-        {/* Scroll Progress Bar */}
-        <motion.div 
-          className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
-          style={{ scaleX }}
-        />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
-            <img 
-              src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
-              alt="Kapitech Agency" 
-              className="h-6 sm:h-[22px] md:h-6 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
+      <nav className={`kapi-navbar ${scrolled ? 'is-scrolled' : ''}`} aria-label="Primary navigation">
+        <motion.div className="kapi-navbar-progress" style={{ scaleX: progress }} />
+        <div className="kapi-navbar-inner">
+          <Link to="/" className="kapi-brand" aria-label="Kapitech Agency home">
+            <img
+              src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png"
+              alt="Kapitech Agency"
             />
-            {/* Hidden strictly on mobile view to maximize space and preserve top-tier minimal aesthetics */}
-            <span className="hidden md:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
-              Kapitech Agency
-            </span>
+            <span>Kapitech Agency</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <div className="flex items-center gap-5 lg:gap-6 px-6 py-2 rounded-full bg-[#16181D] backdrop-blur-md border border-[#262930]">
-              
-              {/* Work Link */}
-              <Link 
-                to="/work" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/work' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
-              >
-                <span>{t('nav.work')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/work' ? "w-full" : "hover:w-full"
-                )} />
-              </Link>
+          <div className="kapi-nav-links">
+            <Link to="/work" className={`kapi-nav-link ${location.pathname === '/work' ? 'is-active' : ''}`}>
+              {t('nav.work')}
+            </Link>
 
-              {/* SERVICES DROPDOWN TRIGGER */}
-              <div 
-                className="relative flex items-center h-7"
-                onMouseEnter={handleMouseEnterServices}
-                onMouseLeave={handleMouseLeaveServices}
-              >
-                <button
-                  type="button"
-                  onClick={() => setIsServicesDropdownOpen(prev => !prev)}
-                  className={cn(
-                    "relative inline-flex items-center gap-1.5 h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors cursor-pointer outline-none",
-                    isServicesActive || isServicesDropdownOpen ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                  )}
-                  aria-expanded={isServicesDropdownOpen}
-                  aria-haspopup="true"
-                >
-                  <span>{t('nav.services')}</span>
-                  <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", isServicesDropdownOpen ? "rotate-180 text-brand-red" : "opacity-70")} />
-                  <span className={cn(
-                    "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                    isServicesActive ? "w-full" : ""
-                  )} />
-                </button>
-              </div>
-
-              {/* About Link */}
-              <Link 
-                to="/about" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/about' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
-              >
-                <span>{t('nav.about')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/about' ? "w-full" : "hover:w-full"
-                )} />
-              </Link>
-
-              {/* Careers Link */}
-              <Link 
-                to="/careers" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/careers' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
-              >
-                <span>{t('nav.careers')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/careers' ? "w-full" : "hover:w-full"
-                )} />
-              </Link>
-            </div>
-
-            {/* Start Project CTA with Rotating Clockwise Red Glow */}
-            <div className="relative p-[1.5px] rounded-full overflow-hidden group/cta flex items-center justify-center shrink-0">
-              <motion.div
-                className="absolute -inset-[200%] w-[500%] h-[500%] will-change-transform"
-                style={{
-                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.1) 240deg, rgba(230,0,35,0.5) 300deg, rgba(255,31,61,0.95) 340deg, #E60023 360deg)',
-                }}
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-
-              <motion.div 
-                className="absolute -inset-[200%] w-[500%] h-[500%] blur-[8px] opacity-70 group-hover/cta:opacity-100 transition-opacity duration-500 will-change-transform"
-                style={{
-                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.15) 250deg, rgba(230,0,35,0.6) 310deg, #E60023 360deg)',
-                }}
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-
-              <Link 
-                to="/contact" 
-                className="relative z-10 h-10 px-5 lg:px-6 bg-[#16181D] hover:bg-brand-red text-white hover:text-white rounded-full text-[11px] font-bold uppercase tracking-[0.16em] transition-all duration-300 flex items-center gap-2 shrink-0 active:scale-95 border border-[#262930]"
-              >
-                <span className="relative z-10">{t('nav.startProject')}</span>
-                <ChevronRight size={14} className="relative z-10 opacity-80 group-hover/cta:translate-x-0.5 transition-transform duration-300" />
-              </Link>
-            </div>
-
-            {/* Language Switcher EN | ID */}
-            <div className="flex items-center h-10 p-1 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold backdrop-blur-md">
+            <div className="kapi-nav-services" onMouseEnter={openServices} onMouseLeave={queueClose}>
               <button
-                onClick={() => setLanguage('en')}
-                className={cn(
-                  "h-full px-3 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'en'
-                    ? "bg-brand-red text-white shadow-sm font-bold"
-                    : "text-[#8A909D] hover:text-white hover:bg-white/5"
-                )}
-                aria-label="Switch to English"
+                type="button"
+                className={`kapi-nav-link ${isServicesActive ? 'is-active' : ''}`}
+                onClick={() => setServicesOpen(value => !value)}
+                aria-expanded={servicesOpen}
+                aria-haspopup="true"
               >
-                EN
+                <span>{t('nav.services')}</span>
+                <ChevronDown size={14} style={{ transform: servicesOpen ? 'rotate(180deg)' : undefined }} />
               </button>
-              <button
-                onClick={() => setLanguage('id')}
-                className={cn(
-                  "h-full px-3 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'id'
-                    ? "bg-brand-red text-white shadow-sm font-bold"
-                    : "text-[#8A909D] hover:text-white hover:bg-white/5"
+
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div
+                    className="kapi-services-menu"
+                    initial={{ opacity: 0, y: 12, scale: 0.985 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.99 }}
+                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    onMouseEnter={openServices}
+                    onMouseLeave={queueClose}
+                  >
+                    <div className="kapi-services-menu-head">
+                      <div>
+                        <span>{language === 'id' ? 'Kapabilitas' : 'Capabilities'}</span>
+                        <p>{language === 'id' ? 'Solusi kreatif, digital product, dan engineering Kapitech.' : 'Kapitech creative, digital product, and engineering capabilities.'}</p>
+                      </div>
+                      <Link to="/services" className="kapi-nav-cta">
+                        {language === 'id' ? 'Semua layanan' : 'All services'}
+                        <ArrowUpRight size={14} />
+                      </Link>
+                    </div>
+                    <div className="kapi-services-menu-grid">
+                      {serviceGroups.map(([label, items]) => (
+                        <div key={label} className="kapi-services-menu-group">
+                          <h4>{label}</h4>
+                          {items.map(item => (
+                            <Link key={item.slug} to={`/services/${item.slug}`}>
+                              <span>{item.title}</span>
+                              <ArrowUpRight size={13} />
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
                 )}
-                aria-label="Switch to Indonesian"
-              >
-                ID
-              </button>
+              </AnimatePresence>
             </div>
+
+            <Link to="/about" className={`kapi-nav-link ${location.pathname === '/about' ? 'is-active' : ''}`}>
+              {t('nav.about')}
+            </Link>
+            <Link to="/careers" className={`kapi-nav-link ${location.pathname === '/careers' ? 'is-active' : ''}`}>
+              {t('nav.careers')}
+            </Link>
           </div>
 
-          {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3 md:hidden">
-            <div className="flex items-center p-0.5 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold">
-              <button
-                onClick={() => setLanguage('en')}
-                className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                )}
-                aria-label="Switch to English"
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setLanguage('id')}
-                className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                )}
-                aria-label="Ganti ke Bahasa Indonesia"
-              >
-                ID
-              </button>
+          <div className="kapi-nav-actions">
+            <div className="kapi-language" role="group" aria-label="Language">
+              <button type="button" className={language === 'en' ? 'is-active' : ''} onClick={() => setLanguage('en')}>EN</button>
+              <button type="button" className={language === 'id' ? 'is-active' : ''} onClick={() => setLanguage('id')}>ID</button>
             </div>
 
-            <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D] border border-[#262930] flex items-center justify-center text-white active:bg-white/20 transition-colors shrink-0 cursor-pointer"
-              onClick={() => setIsMenuOpen(true)}
-              aria-label="Open Navigation Menu"
-            >
-              <Menu size={22} />
+            <Link to="/contact" className="kapi-nav-cta">
+              {t('nav.startProject')}
+              <ArrowUpRight size={14} />
+            </Link>
+
+            <button type="button" className="kapi-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation">
+              <Menu size={19} />
             </button>
           </div>
         </div>
-
-        {/* ======================================================== */}
-        {/* MEGA DROPDOWN MENU FOR DESKTOP */}
-        {/* ======================================================== */}
-        <AnimatePresence>
-          {isServicesDropdownOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              onMouseEnter={handleMouseEnterServices}
-              onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full bg-[#16181D]/98 backdrop-blur-2xl border-b border-[#262930] shadow-[0_25px_60px_rgba(0,0,0,0.95)] py-8 px-6 lg:px-12"
-            >
-              <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
-                
-                {/* COLUMN 1: SOLUTIONS */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Sparkles className="w-3.5 h-3.5 text-brand-red" />
-                    <span>SOLUTIONS</span>
-                  </div>
-                  <div className="space-y-3">
-                    {solutions.map((item) => (
-                      <Link
-                        key={item.slug}
-                        to={`/solutions/${item.slug}`}
-                        onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
-                          <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
-                        </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
-                          {language === 'id' ? item.navSubtitleId : item.navSubtitle}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* COLUMN 2: BRANDING */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Palette className="w-3.5 h-3.5 text-brand-red" />
-                    <span>BRANDING</span>
-                  </div>
-                  <div className="space-y-3">
-                    {branding.map((item) => (
-                      <Link
-                        key={item.slug}
-                        to={`/services/${item.slug}`}
-                        onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
-                          <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
-                        </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
-                          {language === 'id' ? item.navSubtitleId : item.navSubtitle}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* COLUMN 3: DESIGN */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Layers className="w-3.5 h-3.5 text-brand-red" />
-                    <span>DESIGN</span>
-                  </div>
-                  <div className="space-y-3">
-                    {design.map((item) => (
-                      <Link
-                        key={item.slug}
-                        to={`/services/${item.slug}`}
-                        onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
-                          <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
-                        </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
-                          {language === 'id' ? item.navSubtitleId : item.navSubtitle}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* COLUMN 4: DEVELOPMENT */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Code2 className="w-3.5 h-3.5 text-brand-red" />
-                    <span>DEVELOPMENT</span>
-                  </div>
-                  <div className="space-y-3">
-                    {development.map((item) => (
-                      <Link
-                        key={item.slug}
-                        to={`/services/${item.slug}`}
-                        onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
-                          <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
-                        </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
-                          {language === 'id' ? item.navSubtitleId : item.navSubtitle}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Bottom Quick Hub Bar */}
-              <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-[#262930] flex items-center justify-between text-xs text-[#8A909D]">
-                <Link 
-                  to="/services" 
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                  className="hover:text-white inline-flex items-center gap-1.5 transition-colors font-medium"
-                >
-                  <span>{language === 'id' ? 'Lihat Semua Gambaran Layanan' : 'Browse All Services Overview'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red" />
-                </Link>
-                <div className="font-mono text-[11px] text-[#8A909D]">
-                  3 Strategic Solutions &bull; 15 Dedicated Services
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
 
-      {/* Fullscreen Mobile Menu Drawer */}
       <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
+        {mobileOpen && (
+          <motion.div
+            className="kapi-mobile-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] bg-[#0B0C0E]/98 flex flex-col p-4 sm:p-6 overflow-y-auto"
           >
-            {/* Header in Mobile Menu */}
-            <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
-              <Link 
-                to="/" 
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2.5 group"
-              >
-                <img 
-                  src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
-                  alt="Kapitech" 
-                  className="h-6 sm:h-[22px] w-auto max-h-7 object-contain shrink-0 transition-opacity group-hover:opacity-90 select-none"
-                />
-              </Link>
-              
-              <div className="flex items-center gap-2">
-                <div className="flex items-center p-0.5 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold">
-                  <button
-                    onClick={() => setLanguage('en')}
-                    className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                      language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                    )}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => setLanguage('id')}
-                    className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                      language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                    )}
-                  >
-                    ID
-                  </button>
-                </div>
-
-                <button 
-                  onClick={() => setIsMenuOpen(false)} 
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D] border border-[#262930] hover:bg-brand-red hover:text-white active:scale-95 transition-all text-white flex items-center justify-center shrink-0 cursor-pointer"
-                  aria-label="Close menu"
-                >
-                  <X size={22} />
+            <motion.div
+              className="kapi-mobile-panel"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.38, ease: [0.22,1,0.36,1] }}
+            >
+              <div className="kapi-mobile-head">
+                <Link to="/" className="kapi-brand" onClick={() => setMobileOpen(false)}>
+                  <img src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" alt="Kapitech Agency" />
+                  <span>Kapitech Agency</span>
+                </Link>
+                <button type="button" className="kapi-mobile-close" onClick={() => setMobileOpen(false)} aria-label="Close navigation">
+                  <X size={19} />
                 </button>
               </div>
-            </div>
 
-            {/* Nav Links in Mobile */}
-            <div className="flex flex-col gap-2 my-auto py-6">
-              
-              {/* Work */}
-              <Link
-                to="/work"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
-                  location.pathname === '/work' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">01</span>
-                  <span className="text-xl font-display">{t('nav.work')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
+              <div className="kapi-mobile-nav">
+                <Link to="/work" onClick={() => setMobileOpen(false)}>
+                  <span>01</span><strong>{t('nav.work')}</strong><ArrowUpRight size={16} />
+                </Link>
 
-              {/* Services & Solutions (Accordion in Mobile Menu) */}
-              <div className="rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden">
                 <button
                   type="button"
-                  onClick={() => setIsMobileServicesOpen(prev => !prev)}
-                  className="w-full flex items-center justify-between py-3.5 px-4 text-left text-white font-display text-xl min-h-[48px] cursor-pointer"
+                  className="kapi-mobile-service-trigger"
+                  onClick={() => setMobileServicesOpen(value => !value)}
+                  aria-expanded={mobileServicesOpen}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono text-brand-red">02</span>
-                    <span>{t('nav.services')}</span>
-                  </div>
-                  <ChevronDown className={cn("w-5 h-5 text-[#8A909D] transition-transform duration-200", isMobileServicesOpen ? "rotate-180 text-brand-red" : "")} />
+                  <span>02</span><strong>{t('nav.services')}</strong><ChevronDown size={17} style={{ transform: mobileServicesOpen ? 'rotate(180deg)' : undefined }} />
                 </button>
 
                 <AnimatePresence>
-                  {isMobileServicesOpen && (
+                  {mobileServicesOpen && (
                     <motion.div
+                      className="kapi-mobile-services-list"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-4 pb-4 space-y-4 border-t border-[#262930] pt-3"
                     >
-                      {/* Solutions */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          SOLUTIONS
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {solutions.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/solutions/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white font-medium"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Branding */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          BRANDING
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {branding.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Design */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          DESIGN
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {design.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Development */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          DEVELOPMENT
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {development.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-2">
-                        <Link
-                          to="/services"
-                          onClick={() => setIsMenuOpen(false)}
-                          className="inline-flex items-center gap-1.5 text-xs text-brand-red font-mono uppercase tracking-wider py-1.5"
-                        >
-                          <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
+                      {allSolutionsAndServices.map(item => (
+                        <Link key={item.slug} to={`/services/${item.slug}`} onClick={() => setMobileOpen(false)}>
+                          {item.title}
                         </Link>
-                      </div>
+                      ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
 
-              {/* About */}
-              <Link
-                to="/about"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
-                  location.pathname === '/about' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">03</span>
-                  <span className="text-xl font-display">{t('nav.about')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              {/* Careers */}
-              <Link
-                to="/careers"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
-                  location.pathname === '/careers' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">04</span>
-                  <span className="text-xl font-display">{t('nav.careers')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              <div className="pt-4 mt-1">
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="w-full h-12 rounded-xl bg-brand-red hover:bg-[#CC001F] text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  <span>{t('nav.startProject')}</span>
-                  <ArrowUpRight size={16} />
+                <Link to="/about" onClick={() => setMobileOpen(false)}>
+                  <span>03</span><strong>{t('nav.about')}</strong><ArrowUpRight size={16} />
+                </Link>
+                <Link to="/careers" onClick={() => setMobileOpen(false)}>
+                  <span>04</span><strong>{t('nav.careers')}</strong><ArrowUpRight size={16} />
                 </Link>
               </div>
-            </div>
 
-            {/* Quick Contact & Footer in Drawer */}
-            <div className="pt-4 border-t border-[#262930] space-y-3 shrink-0">
-              <div className="grid grid-cols-1 gap-2 text-xs">
-                <a
-                  href="https://wa.me/6287769957062?text=Halo%20Kapitech%20Agency,%20saya%20ingin%20konsultasi%20proyek."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
-                >
-                  <Phone size={15} className="text-brand-red shrink-0" />
-                  <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
-                </a>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <a
-                    href="mailto:business@kapitech.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-brand-red/30 flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
-                  >
-                    <Mail size={15} className="text-brand-red shrink-0" />
-                    <span className="truncate">business@kapitech.id</span>
-                  </a>
-                  <a
-                    href="mailto:hello@kapitech.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
-                  >
-                    <Mail size={15} className="text-[#8A909D] shrink-0" />
-                    <span className="truncate">hello@kapitech.id</span>
-                  </a>
+              <div className="kapi-mobile-bottom">
+                <div className="kapi-language">
+                  <button type="button" className={language === 'en' ? 'is-active' : ''} onClick={() => setLanguage('en')}>EN</button>
+                  <button type="button" className={language === 'id' ? 'is-active' : ''} onClick={() => setLanguage('id')}>ID</button>
+                </div>
+                <Link to="/contact" className="kapi-mobile-cta" onClick={() => setMobileOpen(false)}>
+                  {t('nav.startProject')}
+                  <ArrowUpRight size={15} />
+                </Link>
+                <div style={{ display: 'flex', gap: 10, color: 'rgba(255,255,255,.36)' }}>
+                  <a href="https://www.instagram.com/kapitechagency/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
+                  <a href="https://www.linkedin.com/company/kapitechagency/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
+                  <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 9, textTransform: 'uppercase', letterSpacing: '.12em' }}>Indonesia</span>
                 </div>
               </div>
-
-              <div className="flex items-center justify-between text-xs text-[#8A909D] pt-1">
-                <div className="flex gap-4">
-                  <Instagram className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                  <Linkedin className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                  <Twitter className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                </div>
-                <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
