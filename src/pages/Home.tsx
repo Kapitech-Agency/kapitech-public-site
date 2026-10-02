@@ -71,7 +71,7 @@ export const Home = () => {
     },
     {
       name: "MarkPlus",
-      src: "https://www.markplusinc.com/assets/logo/logo.png",
+      src: "https://www.markplusinc.com/_next/image?q=50&url=%2Fassets%2Flogo%2Flogo.png&w=3840",
       className: "w-[132px] sm:w-[162px] lg:w-[174px]"
     },
     {
@@ -361,7 +361,7 @@ export const Home = () => {
                     alt=""
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className={`${logo.className} max-h-12 sm:max-h-14 object-contain opacity-55 grayscale brightness-0 invert group-hover:opacity-100 transition-opacity duration-300`}
+                    className={`${logo.className} max-h-12 sm:max-h-14 object-contain opacity-55 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300`}
                   />
                 </div>
               ))}
