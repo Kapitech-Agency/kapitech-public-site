@@ -646,7 +646,7 @@ export const Services = () => {
     [cmsServices]
   );
 
-  const resolvedStrategicSolutions = strategicSolutions.map((solution) => {
+  const resolvedStrategicSolutions = useMemo(() => strategicSolutions.map((solution) => {
     const cms = cmsBySlug.get(solution.id);
     if (!cms) return solution;
 
@@ -660,9 +660,9 @@ export const Services = () => {
       badge: cms.badge || solution.badge,
       badgeId: cms.badgeId || solution.badgeId,
     };
-  });
+  }), [cmsBySlug]);
 
-  const resolvedAllServices = allServices.map((service) => {
+  const resolvedAllServices = useMemo(() => allServices.map((service) => {
     const cms = cmsBySlug.get(service.id);
     if (!cms) return service;
 
@@ -682,7 +682,7 @@ export const Services = () => {
         ? cms.processStages[0].deliverablesId
         : service.deliverablesId,
     };
-  });
+  }), [cmsBySlug]);
 
   const filteredServices = useMemo(() => {
     if (activeCategory === 'All') return resolvedAllServices;
@@ -715,7 +715,7 @@ export const Services = () => {
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
-                <span className="text-white">3 {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
+                <span className="text-white">{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
               </span>
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] text-white">
                 {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
@@ -799,9 +799,21 @@ export const Services = () => {
           <div className="flex flex-wrap items-center gap-2 bg-[#16181D] p-1.5 rounded-xl border border-[#262930] w-full sm:w-auto">
             {[
               { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
-              { key: 'Branding', labelEn: '1. Branding (5)', labelId: '1. Branding (5)' },
-              { key: 'Design', labelEn: '2. Design (5)', labelId: '2. Design (5)' },
-              { key: 'Development', labelEn: '3. Development (5)', labelId: '3. Development (5)' }
+              {
+                key: 'Branding',
+                labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`,
+                labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`
+              },
+              {
+                key: 'Design',
+                labelEn: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`,
+                labelId: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`
+              },
+              {
+                key: 'Development',
+                labelEn: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`,
+                labelId: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`
+              }
             ].map(tab => (
               <button
                 key={tab.key}
