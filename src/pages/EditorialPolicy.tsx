@@ -12,7 +12,7 @@ export const EditorialPolicy = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] text-[#8E8E93] font-light relative selection:bg-brand-red selection:text-white"
+      className="min-h-screen pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] text-[#8A909D] font-light relative selection:bg-brand-red selection:text-white"
     >
       <AtmosphericBackground 
         imageUrl="/hero_background_3d.png"
@@ -20,7 +20,7 @@ export const EditorialPolicy = () => {
         disableGrayscale={true}
       />
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2A2A2A] bg-[#161616] text-white text-xs font-mono mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#262930] bg-[#16181D] text-white text-xs font-mono mb-4">
           <BookOpen className="w-3 h-3 text-brand-red" />
           <span>{language === 'id' ? 'Standar Konten & Publikasi' : 'Content & Publication Standards'}</span>
         </div>
@@ -32,7 +32,7 @@ export const EditorialPolicy = () => {
         </p>
         
         {language === 'id' ? (
-          <div className="space-y-12 text-base md:text-lg leading-relaxed text-[#8E8E93]">
+          <div className="space-y-12 text-base md:text-lg leading-relaxed text-[#8A909D]">
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. Komitmen Integritas Konten</h2>
               <p>
@@ -72,7 +72,7 @@ export const EditorialPolicy = () => {
             </section>
           </div>
         ) : (
-          <div className="space-y-12 text-base md:text-lg leading-relaxed text-[#8E8E93]">
+          <div className="space-y-12 text-base md:text-lg leading-relaxed text-[#8A909D]">
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. Content Integrity Commitment</h2>
               <p>
