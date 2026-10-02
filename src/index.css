@@ -1246,11 +1246,15 @@ html.kapi-custom-cursor-enabled select {
 }
 
 .kapi-public-shell main :where(
+  [class*="bg-[#16181D]"],
   [class*="bg-[#161616]"],
   [class*="bg-[#111318]"],
-  [class*="bg-[#3A3E47]"]
+  [class*="bg-[#3A3E47]"],
+  [class*="bg-[#181B22]"]
 ) {
-  background-color: var(--kapi-v2-panel);
+  background-color: var(--kapi-v2-panel-soft);
+  backdrop-filter: blur(12px) saturate(112%);
+  -webkit-backdrop-filter: blur(12px) saturate(112%);
 }
 
 .kapi-public-shell main :where(
