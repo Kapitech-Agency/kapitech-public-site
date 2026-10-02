@@ -1127,6 +1127,7 @@ export const Careers = () => {
               ))}
             </div>
           </div>
+          </div>
         </div>
       </section>
 
