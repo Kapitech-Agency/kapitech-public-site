@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^api(?:/|$) - [L]
+  RewriteRule ^dist(?:/|$) - [L]
+
+  RewriteRule ^$ dist/index.html [L]
+  RewriteRule ^(.*)$ dist/$1 [L]
+</IfModule>
