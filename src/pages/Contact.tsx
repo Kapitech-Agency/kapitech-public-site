@@ -21,6 +21,7 @@ export const Contact = () => {
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const serviceOptionsEn = [
     // Branding
@@ -153,6 +154,7 @@ export const Contact = () => {
     }
 
     setFormErrors({});
+    setSubmitError('');
     setIsSubmitting(true);
     
     try {
@@ -169,9 +171,14 @@ export const Contact = () => {
       });
     } catch (err) {
       console.warn('Submission error:', err);
+      setSubmitError(
+        language === 'id'
+          ? 'Pesan belum tersimpan. Periksa koneksi lalu coba lagi.'
+          : 'Your inquiry was not saved. Please check your connection and try again.'
+      );
+      return;
     } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
     }
   };
 
@@ -423,6 +430,7 @@ export const Contact = () => {
                       <button
                         onClick={() => {
                           setIsSubmitted(false);
+                          setSubmitError('');
                           setFormState({ name: '', email: '', company: '', phone: '', message: '' });
                           setFormErrors({});
                           setSelectedServices([]);
@@ -631,6 +639,12 @@ export const Contact = () => {
                         </>
                       )}
                     </button>
+                    {submitError && (
+                      <div className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                        <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                        <span>{submitError}</span>
+                      </div>
+                    )}
                   </form>
                 )}
               </div>
