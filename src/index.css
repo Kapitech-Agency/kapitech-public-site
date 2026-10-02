@@ -630,6 +630,200 @@
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Careers concept-preserving polish: enhance the existing structure, not replace it. */
+.kapi-careers {
+  --careers-surface: var(--kapi-bg-card);
+  --careers-surface-hover: var(--kapi-bg-card-hover);
+  --careers-border: var(--kapi-border-subtle);
+  --careers-muted: var(--kapi-text-slate);
+}
+
+.kapi-careers [class*="bg-[#161616]"],
+.kapi-careers [class*="bg-[#111318]"],
+.kapi-careers [class*="bg-[#16181D]"] {
+  background-color: var(--careers-surface);
+}
+
+.kapi-careers [class*="border-[#2A2A2A]"],
+.kapi-careers [class*="border-white/[0.07]"] {
+  border-color: var(--careers-border);
+}
+
+.kapi-careers [class*="text-[#8E8E93]"],
+.kapi-careers [class*="text-[#8A909D]"] {
+  color: var(--careers-muted);
+}
+
+.kapi-careers section {
+  scroll-margin-top: 88px;
+}
+
+/* Keep the original hero composition, but give it a stronger agency signature. */
+.kapi-careers > section:first-child::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+  width: min(30vw, 22rem);
+  height: 1px;
+  background: linear-gradient(90deg, var(--kapi-red-primary), transparent);
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* Talent gallery: preserve the photo-wall concept, add editorial framing. */
+.kapi-careers-talent-card {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.kapi-careers-talent-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(0,0,0,0.12) 58%, rgba(0,0,0,0.82) 100%);
+}
+
+.kapi-careers-talent-card:hover {
+  box-shadow: 0 20px 44px rgba(0,0,0,0.34);
+}
+
+.kapi-careers-talent-card:hover::after {
+  background:
+    linear-gradient(180deg, transparent 40%, rgba(229,9,20,0.04) 58%, rgba(0,0,0,0.88) 100%);
+}
+
+/* Existing role cards: stronger hierarchy without changing the card layout. */
+.kapi-careers #open-positions .group {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+}
+
+.kapi-careers #open-positions .group::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  background: var(--kapi-red-primary);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 220ms cubic-bezier(0.22,1,0.36,1);
+}
+
+.kapi-careers #open-positions .group:hover {
+  background-color: var(--careers-surface-hover);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.30);
+}
+
+.kapi-careers #open-positions .group:hover::before {
+  transform: scaleY(1);
+}
+
+/* Vendor information cards: make the existing 4-column structure feel intentional. */
+.kapi-careers #freelance-vendor .grid:last-child > div {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+  transition:
+    transform 220ms cubic-bezier(0.22,1,0.36,1),
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.kapi-careers #freelance-vendor .grid:last-child > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.26);
+}
+
+/* Existing benefit cards: quieter lift, clearer icon emphasis. */
+.kapi-careers section:last-of-type .grid > div {
+  transition:
+    transform 220ms cubic-bezier(0.22,1,0.36,1),
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.kapi-careers section:last-of-type .grid > div:hover {
+  transform: translateY(-3px);
+  background-color: var(--careers-surface-hover);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+}
+
+.kapi-careers section:last-of-type .grid > div:hover [class*="bg-brand-red"] {
+  transform: scale(1.04);
+}
+
+/* Modal system: retain the current forms but make the shell feel more finished. */
+.kapi-careers .kapi-careers-modal {
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.64),
+    0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.kapi-careers .kapi-careers-modal-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kapi-border-subtle) transparent;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-thumb {
+  background: var(--kapi-border-subtle);
+  border-radius: 999px;
+}
+
+.kapi-careers .kapi-modal-close {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.kapi-careers .kapi-modal-close:hover {
+  transform: rotate(2deg);
+}
+
+.kapi-careers input,
+.kapi-careers textarea,
+.kapi-careers select {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.kapi-careers input:focus,
+.kapi-careers textarea:focus,
+.kapi-careers select:focus {
+  box-shadow: 0 0 0 3px rgba(229,9,20,0.08);
+}
+
+/* Keep the existing upload area, but give it a more deliberate treatment. */
+.kapi-careers [class*="border-dashed"] {
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(135deg, rgba(229,9,20,0.38), rgba(255,255,255,0.06)) border-box;
+  border-color: transparent;
+}
+
+.kapi-careers [class*="border-dashed"]:hover {
+  background:
+    linear-gradient(var(--kapi-bg-card), var(--kapi-bg-card)) padding-box,
+    linear-gradient(135deg, rgba(229,9,20,0.60), rgba(255,255,255,0.10)) border-box;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
