@@ -24,6 +24,17 @@ export const FloatingContact = () => {
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   const contactOptions = [
     {
       icon: <Phone size={18} />,
@@ -34,8 +45,8 @@ export const FloatingContact = () => {
     },
     {
       icon: <Mail size={18} />,
-      label: language === 'id' ? 'Email Bisnis' : 'Business Email',
-      href: 'mailto:business@kapitech.id',
+      label: language === 'id' ? 'Email Kapitech' : 'Kapitech Email',
+      href: 'mailto:hello@kapitech.co.id',
       color: 'bg-[#16181D] border border-[#262930]'
     },
     {
@@ -132,6 +143,7 @@ export const FloatingContact = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? "Tutup Kontak Cepat" : "Buka Kontak Cepat"}
+                data-cursor-label={isOpen ? "Close" : "Contact"}
                 className={cn(
                   "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-2xl sm:rounded-[1.75rem] flex items-center justify-center text-white shadow-xl transition-all duration-300",
                   isOpen 
