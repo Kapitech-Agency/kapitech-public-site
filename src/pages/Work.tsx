@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Search, X } from 'lucide-react';
 import Fuse from 'fuse.js';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import type { ProjectItem } from '../data/projectsData';
-import PatternWaves from '../components/ui/PatternWaves';
-import { EASE, GlassButton, GlassPanel, ImageReveal, PageHero, Reveal, SectionHeader } from '../components/ui/PublicUI';
+import { GlassButton, GlassPanel, ImageReveal, PageHero, Reveal, SectionHeader } from '../components/ui/PublicUI';
 
 const pillars = ['All', 'Visual Experience', 'Innovation Development'];
 
@@ -19,7 +18,6 @@ export const Work = () => {
   const [visibleCount, setVisibleCount] = useState(12);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [selected, setSelected] = useState<ProjectItem | null>(null);
-  const serviceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const update = () => setProjects(getCmsProjects());
@@ -32,7 +30,7 @@ export const Work = () => {
 
   useEffect(() => {
     if (featured.length <= 1) return;
-    const timer = window.setInterval(() => setFeaturedIndex(prev => (prev + 1) % featured.length), 6800);
+    const timer = window.setInterval(() => setFeaturedIndex(prev => (prev + 1) % featured.length), 7200);
     return () => window.clearInterval(timer);
   }, [featured.length]);
 
@@ -61,139 +59,172 @@ export const Work = () => {
     <div className="kapi-page kapi-work">
       <PageHero
         eyebrow={language === 'id' ? 'Portfolio & case studies' : 'Portfolio & case studies'}
-        title={language === 'id' ? <>Karya yang dibuat untuk <span className="text-brand-red">hasil nyata.</span></> : <>Crafted for <span className="text-brand-red">real impact.</span></>}
+        title={language === 'id'
+          ? <>Kerja yang dibuat untuk <span className="text-brand-red">dilihat dan dirasakan.</span></>
+          : <>Work made to be <span className="text-brand-red">seen and felt.</span></>}
         description={language === 'id'
-          ? 'Jelajahi project pilihan Kapitech across UI/UX, creative production, branding, dan web engineering.'
-          : 'Explore selected Kapitech projects across UI/UX, creative production, branding, and web engineering.'}
-      >
-        <div className="mt-8 flex flex-wrap gap-2">
-          <span className="kapi-chip kapi-chip--accent">{projects.length} Case Studies</span>
-          <span className="kapi-chip">12 Core Disciplines</span>
-          <span className="kapi-chip">Indonesia & Global</span>
-        </div>
-      </PageHero>
+          ? 'Jelajahi project Kapitech dalam branding, content, motion, UI/UX, dan web development.'
+          : 'Explore Kapitech projects across branding, content, motion, UI/UX, and web development.'}
+      />
 
       {currentFeatured && (
-        <section className="kapi-section pt-12 sm:pt-16">
+        <section className="kapi-section kapi-work-featured-section">
           <div className="kapi-container">
-            <Reveal>
-              <div className="flex items-center justify-between gap-4 mb-6">
-                <div>
-                  <span className="kapi-eyebrow">Featured case study</span>
-                  <div className="mt-2 text-xs font-mono text-white/32">{featuredIndex + 1} / {featured.length}</div>
-                </div>
-                <div className="flex gap-2">
-                  <button type="button" className="kapi-close" onClick={() => setFeaturedIndex(prev => (prev - 1 + featured.length) % featured.length)} aria-label="Previous featured project"><ChevronLeft size={17} /></button>
-                  <button type="button" className="kapi-close" onClick={() => setFeaturedIndex(prev => (prev + 1) % featured.length)} aria-label="Next featured project"><ChevronRight size={17} /></button>
-                </div>
+            <div className="kapi-work-featured-head">
+              <div>
+                <span className="kapi-eyebrow">Featured work</span>
+                <span className="kapi-work-counter">{featuredIndex + 1} / {featured.length}</span>
               </div>
+              <div className="flex gap-2">
+                <button type="button" className="kapi-close" onClick={() => setFeaturedIndex(prev => (prev - 1 + featured.length) % featured.length)} aria-label="Previous featured project"><ChevronLeft size={17} /></button>
+                <button type="button" className="kapi-close" onClick={() => setFeaturedIndex(prev => (prev + 1) % featured.length)} aria-label="Next featured project"><ChevronRight size={17} /></button>
+              </div>
+            </div>
 
-              <button type="button" className="w-full text-left" onClick={() => setSelected(currentFeatured)}>
-                <GlassPanel className="overflow-hidden p-0">
-                  <div className="grid lg:grid-cols-[1.35fr_.65fr]">
-                    <ImageReveal src={currentFeatured.image} alt={currentFeatured.title} className="min-h-[320px] lg:min-h-[520px] rounded-none border-0" imgClassName="w-full h-full" />
-                    <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-                      <div>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="kapi-chip kapi-chip--accent">{currentFeatured.service}</span>
-                          <span className="kapi-chip">{currentFeatured.year}</span>
-                        </div>
-                        <h2 className="mt-5 font-display text-3xl sm:text-4xl lg:text-5xl leading-[.96] tracking-[-.05em]">{currentFeatured.title}</h2>
-                        <p className="mt-4 text-sm leading-7 text-white/46">{language === 'id' ? currentFeatured.descId : currentFeatured.desc}</p>
-                      </div>
-                      <div className="pt-7 mt-7 border-t border-white/[0.08]">
-                        <div className="grid grid-cols-3 gap-3">
-                          {currentFeatured.impact.map(item => (
-                            <div key={item.label}>
-                              <span className="font-display text-2xl tracking-[-.04em] block">{item.value}</span>
-                              <span className="mt-1 block text-[9px] font-mono uppercase tracking-[.1em] text-white/30">{item.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="mt-7 kapi-project-arrow">Inspect case study <ArrowUpRight size={13} /></div>
-                      </div>
-                    </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFeatured.id}
+                className="kapi-work-featured-editorial"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <button type="button" className="kapi-work-featured-media" onClick={() => setSelected(currentFeatured)}>
+                  <ImageReveal src={currentFeatured.image} alt={currentFeatured.title} className="w-full h-full" imgClassName="w-full h-full" />
+                </button>
+
+                <div className="kapi-work-featured-copy">
+                  <div className="kapi-project-meta">
+                    <span className="text-brand-red">{currentFeatured.service}</span>
+                    <span>•</span>
+                    <span>{currentFeatured.year}</span>
+                    <span>•</span>
+                    <span>{currentFeatured.client}</span>
                   </div>
-                </GlassPanel>
-              </button>
-            </Reveal>
+                  <h2>{currentFeatured.title}</h2>
+                  <p>{language === 'id' ? currentFeatured.descId : currentFeatured.desc}</p>
+                  <div className="kapi-work-featured-detail">
+                    {currentFeatured.impact.slice(0, 3).map(item => (
+                      <div key={item.label}>
+                        <strong>{item.value}</strong>
+                        <span>{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button type="button" className="kapi-editorial-text-link" onClick={() => setSelected(currentFeatured)}>
+                    {language === 'id' ? 'Lihat case study' : 'View case study'}
+                    <ArrowUpRight size={15} />
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
       )}
 
-      <div className="kapi-filter-bar">
+      <section className="kapi-work-controls">
         <div className="kapi-container">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-            <div className="kapi-filter-inner flex-1" ref={serviceRef}>
+          <div className="kapi-work-controls-row">
+            <div className="kapi-filter-inner">
               {pillars.map(item => (
-                <button key={item} type="button" className={`kapi-filter-button ${pillar === item ? 'is-active' : ''}`} onClick={() => { setPillar(item); setService('All'); setVisibleCount(12); }}>
-                  {item}
+                <button
+                  key={item}
+                  type="button"
+                  className={'kapi-filter-button ' + (pillar === item ? 'is-active' : '')}
+                  onClick={() => { setPillar(item); setService('All'); setVisibleCount(12); }}
+                >
+                  {item === 'All' ? (language === 'id' ? 'Semua' : 'All') : item}
                 </button>
               ))}
             </div>
-            <div className="w-full lg:w-auto">
-              <input className="kapi-search" value={query} onChange={event => { setQuery(event.target.value); setVisibleCount(12); }} placeholder={language === 'id' ? 'Cari project, client, service...' : 'Search project, client, service...'} />
-            </div>
+
+            <label className="kapi-work-search">
+              <Search size={15} />
+              <input
+                value={query}
+                onChange={event => { setQuery(event.target.value); setVisibleCount(12); }}
+                placeholder={language === 'id' ? 'Cari project atau layanan' : 'Search project or service'}
+              />
+            </label>
           </div>
-          <div className="kapi-filter-inner mt-2" ref={serviceRef}>
+
+          <div className="kapi-filter-inner kapi-work-services">
             {services.map(item => (
-              <button key={item} type="button" className={`kapi-filter-button ${service === item ? 'is-active' : ''}`} onClick={() => { setService(item); setVisibleCount(12); }}>
+              <button
+                key={item}
+                type="button"
+                className={'kapi-filter-button ' + (service === item ? 'is-active' : '')}
+                onClick={() => { setService(item); setVisibleCount(12); }}
+              >
                 {item === 'All' ? (language === 'id' ? 'Semua layanan' : 'All services') : item}
               </button>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <section className="kapi-section pt-12 sm:pt-16">
+      <section className="kapi-section kapi-work-library">
         <div className="kapi-container">
-          <div className="flex items-end justify-between gap-4 mb-8">
-            <SectionHeader eyebrow={language === 'id' ? 'All case studies' : 'All case studies'} title={language === 'id' ? 'Pilih project untuk melihat detail.' : 'Choose a project to inspect the detail.'} />
-            <span className="hidden sm:block text-[10px] font-mono uppercase tracking-[.14em] text-white/25">{Math.min(visibleCount, filtered.length)} / {filtered.length}</span>
+          <div className="kapi-work-library-head">
+            <SectionHeader
+              eyebrow={language === 'id' ? 'All work' : 'All work'}
+              title={language === 'id' ? 'Pilih pekerjaan yang ingin Anda lihat lebih dekat.' : 'Choose the work you want to inspect more closely.'}
+            />
+            <span>{Math.min(visibleCount, filtered.length)} / {filtered.length}</span>
           </div>
 
           {filtered.length ? (
-            <>
-              <div className="kapi-project-grid">
-                {filtered.slice(0, visibleCount).map((project, index) => (
-                  <Reveal key={project.id} delay={Math.min(index, 7) * 0.035} className="kapi-project-card">
-                    <button type="button" className="w-full text-left" onClick={() => setSelected(project)}>
-                      <ImageReveal src={project.image} alt={project.title} className="kapi-project-media" imgClassName="w-full h-full" />
-                      <div className="kapi-project-body">
-                        <div className="kapi-project-meta">
-                          <span className="text-brand-red">{project.service}</span>
-                          <span>•</span>
-                          <span>{project.year}</span>
-                          <span>•</span>
-                          <span>{project.client}</span>
-                        </div>
-                        <div className="kapi-project-title">{project.title}</div>
-                        <p className="kapi-project-copy">{language === 'id' ? project.descId : project.desc}</p>
-                        <span className="kapi-project-arrow">Inspect <ArrowUpRight size={13} /></span>
+            <div className="kapi-work-grid">
+              {filtered.slice(0, visibleCount).map((project, index) => (
+                <Reveal
+                  key={project.id}
+                  delay={Math.min(index, 8) * 0.035}
+                  className={'kapi-work-item kapi-work-item--' + ((index % 4) + 1)}
+                >
+                  <button type="button" className="kapi-work-card" onClick={() => setSelected(project)}>
+                    <ImageReveal src={project.image} alt={project.title} className="kapi-work-card-media" imgClassName="w-full h-full" />
+                    <div className="kapi-work-card-copy">
+                      <div className="kapi-project-meta">
+                        <span className="text-brand-red">{project.service}</span>
+                        <span>•</span>
+                        <span>{project.year}</span>
                       </div>
-                    </button>
-                  </Reveal>
-                ))}
-              </div>
-
-              {visibleCount < filtered.length && (
-                <div className="flex justify-center mt-10">
-                  <button
-                    type="button"
-                    onClick={() => setVisibleCount(prev => prev + 12)}
-                    className="kapi-button kapi-button--secondary"
-                  >
-                    {language === 'id' ? 'Muat lebih banyak' : 'Load more'}
+                      <h3>{project.title}</h3>
+                      <p>{language === 'id' ? project.descId : project.desc}</p>
+                      <span className="kapi-project-arrow">
+                        Inspect
+                        <ArrowUpRight size={13} />
+                      </span>
+                    </div>
                   </button>
-                </div>
-              )}
-            </>
+                </Reveal>
+              ))}
+            </div>
           ) : (
-            <GlassPanel className="py-20 text-center">
-              <div className="font-display text-2xl">{language === 'id' ? 'Project tidak ditemukan.' : 'No case studies found.'}</div>
-              <p className="mt-3 text-sm text-white/45">{language === 'id' ? 'Coba ubah kata pencarian atau reset filter.' : 'Try a different search or reset the filters.'}</p>
-              <button type="button" className="kapi-button kapi-button--secondary mt-7" onClick={() => { setPillar('All'); setService('All'); setQuery(''); setVisibleCount(12); }}>Reset</button>
+            <GlassPanel className="kapi-work-empty">
+              <div>
+                <span className="kapi-eyebrow">No match</span>
+                <h3>{language === 'id' ? 'Project tidak ditemukan.' : 'No case studies found.'}</h3>
+                <p>{language === 'id' ? 'Coba ubah filter atau kata pencarian.' : 'Try a different filter or search term.'}</p>
+              </div>
+              <button
+                type="button"
+                className="kapi-editorial-text-link"
+                onClick={() => { setPillar('All'); setService('All'); setQuery(''); setVisibleCount(12); }}
+              >
+                {language === 'id' ? 'Reset filter' : 'Reset filters'}
+                <ArrowUpRight size={15} />
+              </button>
             </GlassPanel>
+          )}
+
+          {visibleCount < filtered.length && (
+            <div className="kapi-work-load-more">
+              <button type="button" className="kapi-button kapi-button--secondary" onClick={() => setVisibleCount(prev => prev + 12)}>
+                {language === 'id' ? 'Muat lebih banyak' : 'Load more'}
+              </button>
+            </div>
           )}
         </div>
       </section>
@@ -204,10 +235,10 @@ export const Work = () => {
             <motion.div
               className="kapi-modal"
               onMouseDown={event => event.stopPropagation()}
-              initial={{ opacity: 0, y: 22, scale: 0.985 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16 }}
-              transition={{ duration: 0.32, ease: EASE }}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="kapi-modal-header">
                 <div className="min-w-0">
@@ -224,14 +255,29 @@ export const Work = () => {
               <div className="p-5 sm:p-7 grid gap-7">
                 <ImageReveal src={selected.image} alt={selected.title} className="aspect-[16/8.5]" imgClassName="w-full h-full" />
                 <div className="grid md:grid-cols-3 gap-3">
-                  {selected.impact.map(item => <GlassPanel key={item.label} className="p-4"><span className="font-display text-2xl">{item.value}</span><span className="block mt-1 text-[9px] font-mono uppercase tracking-[.1em] text-white/30">{item.label}</span></GlassPanel>)}
+                  {selected.impact.map(item => (
+                    <GlassPanel key={item.label} className="p-4">
+                      <span className="font-display text-2xl">{item.value}</span>
+                      <span className="block mt-1 text-[9px] font-mono uppercase tracking-[.1em] text-white/30">{item.label}</span>
+                    </GlassPanel>
+                  ))}
                 </div>
                 <div className="grid md:grid-cols-2 gap-7">
-                  <div><span className="kapi-eyebrow">Challenge</span><p className="mt-3 text-sm leading-7 text-white/48">{language === 'id' ? selected.challengeId : selected.challenge}</p></div>
-                  <div><span className="kapi-eyebrow">Solution</span><p className="mt-3 text-sm leading-7 text-white/48">{language === 'id' ? selected.solutionId : selected.solution}</p></div>
+                  <div>
+                    <span className="kapi-eyebrow">Challenge</span>
+                    <p className="mt-3 text-sm leading-7 text-white/48">{language === 'id' ? selected.challengeId : selected.challenge}</p>
+                  </div>
+                  <div>
+                    <span className="kapi-eyebrow">Solution</span>
+                    <p className="mt-3 text-sm leading-7 text-white/48">{language === 'id' ? selected.solutionId : selected.solution}</p>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">{selected.technologies.map(item => <span className="kapi-chip" key={item}>{item}</span>)}</div>
-                <div className="flex justify-end"><GlassButton to="/contact">{language === 'id' ? 'Mulai proyek serupa' : 'Start a similar project'}</GlassButton></div>
+                <div className="flex flex-wrap gap-4">
+                  {selected.technologies.map(item => <span className="kapi-chip" key={item}>{item}</span>)}
+                </div>
+                <div className="flex justify-end">
+                  <GlassButton to="/contact">{language === 'id' ? 'Mulai proyek serupa' : 'Start a similar project'}</GlassButton>
+                </div>
               </div>
             </motion.div>
           </div>
