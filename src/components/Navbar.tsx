@@ -145,7 +145,7 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
-            ? "flex flex-col h-fit min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-transparent"
+            ? "flex flex-col h-fit min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
@@ -156,7 +156,7 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/28 backdrop-blur-3xl backdrop-saturate-150 border-b border-white/[0.08]"
+            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/18 backdrop-blur-3xl backdrop-saturate-150 border-b border-white/[0.08]"
             style={{
               backdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
               WebkitBackdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
