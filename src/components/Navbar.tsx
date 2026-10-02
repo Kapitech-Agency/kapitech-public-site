@@ -90,8 +90,8 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b",
           isScrolled 
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#2A2A2A] shadow-lg shadow-[#0A0A0A]/80" 
-            : "bg-[#0A0A0A]/80 backdrop-blur-sm py-4 sm:py-5 border-[#2A2A2A]/60"
+            ? "bg-[#0A0A0A]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#262930] shadow-lg shadow-[#0A0A0A]/80" 
+            : "bg-[#0A0A0A]/80 backdrop-blur-sm py-4 sm:py-5 border-[#262930]/60"
         )}
       >
         {/* Scroll Progress Bar */}
@@ -320,7 +320,7 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/solutions/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
@@ -346,7 +346,7 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
@@ -372,7 +372,7 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
@@ -398,7 +398,7 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1E2128] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
@@ -679,7 +679,7 @@ export const Navbar = () => {
                   href="https://wa.me/6287769957062?text=Halo%20Kapitech%20Agency,%20saya%20ingin%20konsultasi%20proyek."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
+                  className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
                 >
                   <Phone size={15} className="text-brand-red shrink-0" />
                   <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
@@ -687,14 +687,14 @@ export const Navbar = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <a
                     href="mailto:business@kapitech.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-brand-red/30 flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
+                    className="p-3 rounded-xl bg-[#16181D] border border-brand-red/30 flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
                   >
                     <Mail size={15} className="text-brand-red shrink-0" />
                     <span className="truncate">business@kapitech.id</span>
                   </a>
                   <a
                     href="mailto:hello@kapitech.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1E2128] transition-colors min-h-[44px]"
+                    className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
                   >
                     <Mail size={15} className="text-[#8A909D] shrink-0" />
                     <span className="truncate">hello@kapitech.id</span>
