@@ -677,24 +677,91 @@
 }
 
 .kapi-public-shell [data-kapi-motion-kind="section"][data-kapi-motion-state="hidden"] {
-  transform: translate3d(0, 26px, 0);
-  filter: blur(7px);
+  --kapi-motion-from-transform: translate3d(0, 28px, 0);
+  --kapi-motion-from-filter: blur(6px);
+  --kapi-motion-duration: 760ms;
+  transform: var(--kapi-motion-from-transform);
+  filter: var(--kapi-motion-from-filter);
 }
 
 .kapi-public-shell [data-kapi-motion-kind="card"][data-kapi-motion-state="hidden"] {
-  transform: perspective(900px) translate3d(0, 22px, 0) rotateX(1.5deg) scale(0.985);
-  filter: blur(5px);
+  --kapi-motion-from-transform: perspective(900px) translate3d(0, 22px, 0) rotateX(1.5deg) scale(0.985);
+  --kapi-motion-from-filter: blur(4px);
+  --kapi-motion-duration: 820ms;
+  transform: var(--kapi-motion-from-transform);
+  filter: var(--kapi-motion-from-filter);
 }
 
 .kapi-public-shell [data-kapi-motion-kind="form"][data-kapi-motion-state="hidden"] {
-  transform: translate3d(0, 20px, 0) scale(0.99);
-  filter: blur(5px);
+  --kapi-motion-from-transform: translate3d(0, 20px, 0) scale(0.99);
+  --kapi-motion-from-filter: blur(4px);
+  --kapi-motion-duration: 720ms;
+  transform: var(--kapi-motion-from-transform);
+  filter: var(--kapi-motion-from-filter);
 }
 
-.kapi-public-shell [data-kapi-motion-kind="control"][data-kapi-motion-state="hidden"],
+.kapi-public-shell [data-kapi-motion-kind="control"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(0, 12px, 0) scale(0.985);
+  --kapi-motion-from-filter: blur(2px);
+  --kapi-motion-duration: 560ms;
+  transform: var(--kapi-motion-from-transform);
+  filter: var(--kapi-motion-from-filter);
+}
+
 .kapi-public-shell [data-kapi-motion-kind="field"][data-kapi-motion-state="hidden"] {
-  transform: translate3d(0, 12px, 0);
-  filter: blur(3px);
+  --kapi-motion-from-transform: translate3d(0, 10px, 0) scale(0.985);
+  --kapi-motion-from-filter: blur(2px);
+  --kapi-motion-duration: 520ms;
+  transform: var(--kapi-motion-from-transform);
+  filter: var(--kapi-motion-from-filter);
+}
+
+.kapi-public-shell [data-kapi-motion-variant="1"][data-kapi-motion-kind="section"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(-28px, 16px, 0) rotate(-0.35deg);
+  --kapi-motion-from-filter: blur(5px);
+  --kapi-motion-duration: 680ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="2"][data-kapi-motion-kind="section"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(28px, 16px, 0) rotate(0.35deg);
+  --kapi-motion-from-filter: blur(5px);
+  --kapi-motion-duration: 840ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="3"][data-kapi-motion-kind="section"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: perspective(1100px) translate3d(0, 20px, 0) scale(0.965) rotateX(1deg);
+  --kapi-motion-from-filter: blur(6px);
+  --kapi-motion-duration: 900ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="1"][data-kapi-motion-kind="card"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(-18px, 16px, 0) rotate(-0.55deg) scale(0.99);
+  --kapi-motion-from-filter: blur(3px);
+  --kapi-motion-duration: 700ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="2"][data-kapi-motion-kind="card"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(18px, 16px, 0) rotate(0.55deg) scale(0.99);
+  --kapi-motion-from-filter: blur(3px);
+  --kapi-motion-duration: 760ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="3"][data-kapi-motion-kind="card"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: perspective(900px) translate3d(0, 24px, 0) rotateX(4deg) scale(0.975);
+  --kapi-motion-from-filter: blur(4px);
+  --kapi-motion-duration: 900ms;
+}
+
+.kapi-public-shell [data-kapi-motion-variant="1"][data-kapi-motion-kind="control"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(-10px, 8px, 0) scale(0.98);
+}
+
+.kapi-public-shell [data-kapi-motion-variant="2"][data-kapi-motion-kind="control"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: translate3d(10px, 8px, 0) scale(0.98);
+}
+
+.kapi-public-shell [data-kapi-motion-variant="3"][data-kapi-motion-kind="control"][data-kapi-motion-state="hidden"] {
+  --kapi-motion-from-transform: scale(0.94) translateY(6px);
 }
 
 .kapi-public-shell [data-kapi-motion-kind="modal"][data-kapi-motion-state="hidden"] {
@@ -733,31 +800,55 @@
 }
 
 @keyframes kapiRevealSection {
-  from { opacity: 0; transform: translate3d(0, 26px, 0); filter: blur(7px); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+  from {
+    opacity: 0;
+    transform: var(--kapi-motion-from-transform, translate3d(0, 26px, 0));
+    filter: var(--kapi-motion-from-filter, blur(6px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
 }
 
 @keyframes kapiRevealCard {
   from {
     opacity: 0;
-    transform: perspective(900px) translate3d(0, 22px, 0) rotateX(1.5deg) scale(0.985);
-    filter: blur(5px);
+    transform: var(--kapi-motion-from-transform, perspective(900px) translate3d(0, 22px, 0) rotateX(1.5deg) scale(0.985));
+    filter: var(--kapi-motion-from-filter, blur(4px));
   }
   to {
     opacity: 1;
-    transform: perspective(900px) translate3d(0, 0, 0) rotateX(0) scale(1);
+    transform: none;
     filter: blur(0);
   }
 }
 
 @keyframes kapiRevealForm {
-  from { opacity: 0; transform: translate3d(0, 20px, 0) scale(0.99); filter: blur(5px); }
-  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+  from {
+    opacity: 0;
+    transform: var(--kapi-motion-from-transform, translate3d(0, 20px, 0) scale(0.99));
+    filter: var(--kapi-motion-from-filter, blur(4px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
 }
 
 @keyframes kapiRevealControl {
-  from { opacity: 0; transform: translate3d(0, 12px, 0); filter: blur(3px); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+  from {
+    opacity: 0;
+    transform: var(--kapi-motion-from-transform, translate3d(0, 12px, 0));
+    filter: var(--kapi-motion-from-filter, blur(2px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
 }
 
 @keyframes kapiRevealModal {
