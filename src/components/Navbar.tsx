@@ -156,10 +156,10 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/42 backdrop-blur-2xl backdrop-saturate-150"
+            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/28 backdrop-blur-3xl backdrop-saturate-150 border-b border-white/[0.08]"
             style={{
-              backdropFilter: 'blur(48px) saturate(1.18) brightness(0.82)',
-              WebkitBackdropFilter: 'blur(48px) saturate(1.18) brightness(0.82)',
+              backdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
+              WebkitBackdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
             }}
           />
         )}
