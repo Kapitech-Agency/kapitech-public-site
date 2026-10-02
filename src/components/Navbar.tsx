@@ -20,33 +20,6 @@ import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices } from '@/src/data/servicesData';
 
-const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
-  const radius = mobile ? 12 : 20;
-  const duration = mobile ? 5.4 : 5.1;
-
-  return (
-    <span
-      className="pointer-events-none absolute -inset-[2px] z-20 rounded-[inherit]"
-      aria-hidden="true"
-    >
-      <motion.span
-        className="absolute left-1/2 top-0 h-[2.2px] w-12 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,rgba(230,57,70,0)_0%,rgba(230,57,70,0.16)_28%,rgba(230,57,70,0.46)_62%,#E63946_100%)] shadow-[0_0_4px_rgba(230,57,70,0.28),0_0_9px_rgba(230,57,70,0.1)]"
-        style={{
-          offsetPath: `inset(0 round ${radius}px)`,
-          offsetRotate: 'auto',
-        } as React.CSSProperties}
-        initial={{ offsetDistance: '0%' }}
-        animate={{ offsetDistance: '100%' }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-      />
-    </span>
-  );
-};
-
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -274,7 +247,7 @@ export const Navbar = () => {
               className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.12] bg-[#141519] text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/60 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.48)]"
               data-cursor-label="Start"
             >
-              <CtaPerimeter />
+
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
@@ -720,7 +693,7 @@ export const Navbar = () => {
                   className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 transition-[background-color,border-color,color,box-shadow] duration-500 ease-out hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)] cursor-pointer"
                   data-cursor-label="Start"
                 >
-                  <CtaPerimeter mobile />
+
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Link>
