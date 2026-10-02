@@ -54,12 +54,31 @@ export const Home = () => {
   }, []);
 
   const trustedBrands = [
-    { name: "PERTAMINA", markClass: "text-[1.15rem] sm:text-[1.45rem] font-black tracking-[-0.04em] italic" },
-    { name: "BTN", markClass: "text-xl sm:text-2xl font-black tracking-[-0.06em]" },
-    { name: "IHC", markClass: "text-xl sm:text-2xl font-extrabold tracking-[0.02em]" },
-    { name: "MARKPLUS", markClass: "text-[1rem] sm:text-[1.2rem] font-black tracking-[-0.03em]" },
-    { name: "SABABAY", markClass: "text-[1rem] sm:text-[1.2rem] font-bold tracking-[0.12em]" },
-    { name: "INA SOLUSI", markClass: "text-[0.95rem] sm:text-[1.1rem] font-extrabold tracking-[0.05em]" },
+    {
+      name: "Pertamina",
+      src: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Pertamina_Logo.svg",
+      className: "w-[150px] sm:w-[180px] lg:w-[190px]"
+    },
+    {
+      name: "BTN",
+      src: "https://upload.wikimedia.org/wikipedia/commons/c/ca/BTN_2024.svg",
+      className: "w-[82px] sm:w-[96px] lg:w-[108px]"
+    },
+    {
+      name: "IHC",
+      src: "https://kftd.co.id/assets/img/customer/1.%20IHC.jpg",
+      className: "w-[130px] sm:w-[160px] lg:w-[170px]"
+    },
+    {
+      name: "MarkPlus",
+      src: "https://www.markplusinc.com/assets/logo/logo.png",
+      className: "w-[132px] sm:w-[162px] lg:w-[174px]"
+    },
+    {
+      name: "Sababay Winery",
+      src: "https://cdn.sejutacita.id/657558cf2470a30014750e5d/JobPortalCompanyLogo/c1ac6eb5-23f1-4de6-909f-36d9b584456e.jpg",
+      className: "w-[120px] sm:w-[146px] lg:w-[156px]"
+    },
   ];
 
   const techStack = [
@@ -77,29 +96,34 @@ export const Home = () => {
 
   // Redesigned Simple, High-Contrast Stats
   const stats = [
-    { 
-      label: language === 'id' ? "Pengalaman Industri" : "Years in Industry", 
-      value: "3+ Years", 
-      subValue: language === 'id' ? "Sejak 2021" : "Est. 2021",
-      desc: language === 'id' ? "Dedikasi penuh dalam rekayasa produk digital" : "Dedicated digital product engineering" 
+    {
+      index: "01",
+      label: language === 'id' ? "Pengalaman" : "Years in Industry",
+      value: "3+",
+      meta: language === 'id' ? "Sejak 2021" : "Est. 2021",
+      desc: language === 'id' ? "Membangun produk digital untuk bisnis visioner." : "Building digital products for ambitious businesses."
     },
-    { 
-      label: language === 'id' ? "Proyek Terselesaikan" : "Completed Projects", 
-      value: "50+ Projects", 
-      subValue: "100% On-Time",
-      desc: language === 'id' ? "50 studi kasus terverifikasi di berbagai sektor" : "50 verified case studies across sectors" 
+    {
+      index: "02",
+      label: language === 'id' ? "Portofolio" : "Completed Projects",
+      value: "50+",
+      meta: language === 'id' ? "Case studies" : "Case studies",
+      desc: language === 'id' ? "Ratusan milestone desain, development, dan delivery." : "Design, development, and delivery across sectors."
     },
-    { 
-      label: language === 'id' ? "Fokus Klien" : "Client Focus", 
-      value: "SME & Enterprise", 
-      subValue: language === 'id' ? "Kemitraan Jangka Panjang" : "Long-term Partnerships",
-      desc: language === 'id' ? "Pertumbuhan startup dan korporat skala global" : "High-growth startups and global brands" 
+    {
+      index: "03",
+      label: language === 'id' ? "Fokus Klien" : "Client Focus",
+      value: "SME",
+      suffix: " + Enterprise",
+      meta: language === 'id' ? "Kemitraan jangka panjang" : "Long-term partnerships",
+      desc: language === 'id' ? "Menangani kebutuhan dari tim lean hingga organisasi besar." : "From lean teams to complex enterprise needs."
     },
-    { 
-      label: language === 'id' ? "Pendekatan Layanan" : "Service Approach", 
-      value: "End-to-End", 
-      subValue: "Strategy • Design • Code",
-      desc: language === 'id' ? "Solusi satu atap dari strategi hingga SLA" : "Full lifecycle from discovery to SLA" 
+    {
+      index: "04",
+      label: language === 'id' ? "Cara Kerja" : "Service Approach",
+      value: "End-to-End",
+      meta: language === 'id' ? "Strategy • Design • Code" : "Strategy • Design • Code",
+      desc: language === 'id' ? "Satu tim dari arah awal hingga produk berjalan." : "One team from direction to delivery."
     }
   ];
 
@@ -211,7 +235,7 @@ export const Home = () => {
 
             <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-[#8A909D]">
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]/75">
-                {language === 'id' ? 'Partner Infrastruktur Resmi' : 'Official Infrastructure Partner'}
+                {language === 'id' ? 'Partner' : 'Partner'}
               </span>
               <span className="h-px w-5 sm:w-7 bg-[#262930]" aria-hidden="true" />
               <a
@@ -234,34 +258,57 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* REDESIGNED STATS SECTION - Minimal, Simple, High-Contrast & Sleek */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]" aria-label="Key Agency Statistics">
+      {/* AGENCY PROOF / METRICS */}
+      <section className="py-14 sm:py-18 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]" aria-label="Agency metrics">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-8 sm:mb-10">
+            <div>
+              <span className="text-brand-red font-mono font-semibold tracking-[0.18em] uppercase text-[10px] sm:text-xs">
+                {language === 'id' ? 'Studio dalam angka' : 'Studio at a glance'}
+              </span>
+              <h2 className="mt-2 text-xl sm:text-2xl md:text-3xl font-display font-semibold tracking-[-0.03em] text-white">
+                {language === 'id' ? 'Ringkas. Terukur. Siap dieksekusi.' : 'Focused, measurable, ready to execute.'}
+              </h2>
+            </div>
+            <p className="max-w-md text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
+              {language === 'id'
+                ? 'Kapitech menggabungkan strategi, desain, dan engineering dalam satu alur kerja yang rapat.'
+                : 'Kapitech brings strategy, design, and engineering into one tightly connected workflow.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-[#262930]">
             {stats.map((stat, i) => (
-              <div 
-                key={i} 
-                className={`relative px-4 py-5 sm:px-6 sm:py-6 group flex flex-col justify-between ${i > 0 ? "lg:border-l lg:border-[#262930]" : ""}`}
+              <div
+                key={stat.index}
+                className={`relative py-6 sm:py-7 lg:py-8 pr-5 sm:pr-7 lg:pr-8 ${i > 0 ? 'lg:pl-7 border-t sm:border-t-0 lg:border-l border-[#262930]' : ''} group`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-brand-red font-semibold">
+                <div className="flex items-center justify-between gap-4 mb-7">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
                     {stat.label}
                   </span>
-                  <span className="text-[10px] font-mono text-[#8A909D]/70">
-                    0{i + 1}
+                  <span className="text-[10px] font-mono tabular-nums text-brand-red/70">
+                    {stat.index}
                   </span>
                 </div>
 
-                <div className="my-1">
-                  <div className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-white tracking-[-0.035em] group-hover:text-brand-red transition-colors">
-                    {stat.value}
+                <div className="min-h-[82px] flex flex-col justify-end">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[2.6rem] sm:text-[3.1rem] lg:text-[3.3rem] font-display font-semibold leading-none tracking-[-0.06em] text-white group-hover:text-brand-red transition-colors duration-300">
+                      {stat.value}
+                    </span>
+                    {stat.suffix && (
+                      <span className="text-xs sm:text-sm font-mono text-[#8A909D]">
+                        {stat.suffix}
+                      </span>
+                    )}
                   </div>
-                  <div className="text-xs font-mono text-brand-red font-medium mt-1">
-                    {stat.subValue}
-                  </div>
+                  <span className="mt-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-brand-red/80">
+                    {stat.meta}
+                  </span>
                 </div>
 
-                <p className="text-xs text-[#8A909D] font-light leading-relaxed pt-3 border-t border-[#262930] mt-2">
+                <p className="mt-5 max-w-xs text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
                   {stat.desc}
                 </p>
               </div>
@@ -274,12 +321,12 @@ export const Home = () => {
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10 text-left">
           <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 block">
-            {language === 'id' ? 'KLIEN & MITRA TERPERCAYA' : 'TRUSTED BY INNOVATION LEADERS'}
+            {language === 'id' ? 'DIPERCAYA DI INDONESIA' : 'TRUSTED BY INDONESIAN TEAMS'}
           </span>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-[-0.03em] text-white max-w-3xl">
             {language === 'id' 
-              ? 'Dipercaya oleh tim, perusahaan, dan bisnis yang membangun produk digital di Indonesia' 
-              : 'Trusted by teams, enterprises, and growing businesses building digital products in Indonesia'}
+              ? 'Brand Indonesia yang pernah bekerja bersama Kapitech' 
+              : 'Indonesian brands that have worked with Kapitech'}
           </h2>
         </div>
 
@@ -306,14 +353,16 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex min-w-[150px] sm:min-w-[190px] items-center justify-center shrink-0 px-6 sm:px-8"
+                  className="flex min-w-[170px] sm:min-w-[220px] lg:min-w-[250px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
                   aria-label={logo.name}
                 >
-                  <span
-                    className={`${logo.markClass} text-[#8A909D] hover:text-white opacity-60 hover:opacity-100 whitespace-nowrap transition-all duration-300`}
-                  >
-                    {logo.name}
-                  </span>
+                  <img
+                    src={logo.src}
+                    alt=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    className={`${logo.className} max-h-12 sm:max-h-14 object-contain opacity-55 grayscale brightness-0 invert group-hover:opacity-100 transition-opacity duration-300`}
+                  />
                 </div>
               ))}
             </motion.div>
