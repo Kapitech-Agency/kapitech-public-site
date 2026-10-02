@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-70 transition-opacity duration-500 group-hover:opacity-100"
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -33,17 +33,6 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
       preserveAspectRatio="none"
       fill="none"
     >
-      <rect
-        x="0.5"
-        y="0.5"
-        width="99"
-        height={mobile ? '47' : '39'}
-        rx={mobile ? '11' : '18.5'}
-        pathLength="1"
-        className="stroke-white/[0.11] transition-colors duration-500 group-hover:stroke-white/[0.18]"
-        strokeWidth="1"
-        vectorEffect="non-scaling-stroke"
-      />
       <motion.rect
         x="0.5"
         y="0.5"
@@ -51,14 +40,14 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
         height={mobile ? '47' : '39'}
         rx={mobile ? '11' : '18.5'}
         pathLength="1"
-        className="stroke-white/[0.34] transition-colors duration-500 group-hover:stroke-brand-red"
-        strokeWidth="1.1"
+        className="stroke-white/[0.28] transition-colors duration-500 group-hover:stroke-white"
+        strokeWidth="1"
         strokeLinecap="round"
-        strokeDasharray="0.22 0.78"
+        strokeDasharray="0.08 0.92"
         vectorEffect="non-scaling-stroke"
         animate={{ strokeDashoffset: [0, -1] }}
         transition={{
-          duration: mobile ? 7.2 : 6.8,
+          duration: mobile ? 9.4 : 8.8,
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -66,7 +55,6 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
     </svg>
   </span>
 );
-
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
