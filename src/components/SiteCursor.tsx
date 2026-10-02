@@ -36,7 +36,7 @@ export const SiteCursor = () => {
   return (
     <div
       aria-hidden="true"
-      className={`kapi-site-cursor-layer${label ? ' is-interactive' : ''}`}
+      className="kapi-site-cursor-layer"
     >
       <CursorProvider global>
         <Cursor />
