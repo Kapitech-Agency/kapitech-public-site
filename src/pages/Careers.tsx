@@ -719,30 +719,7 @@ export const Careers = () => {
             </p>
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.12 }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.055, delayChildren: 0.06 }
-              }
-            }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
-          >
-            {twelveTalents.map((talent) => (
-              <motion.div
-                key={talent.id}
-                variants={{
-                  hidden: { opacity: 0, y: 14, scale: 0.99 },
-                  visible: { opacity: 1, y: 0, scale: 1 }
-                }}
-                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <motion.button
-                  onClick={() => setSelectedTalent(talent)}
-                  whileHover={{ y:           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {twelveTalents.map((talent) => (
               <div key={talent.id} data-motion-reveal>
                 <button
