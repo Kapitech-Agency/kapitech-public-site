@@ -106,8 +106,10 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-9 px-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] leading-none transition-colors duration-300",
-      active ? "text-white" : "text-[#8A909D] hover:text-white"
+      "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300",
+      active
+        ? "text-white border-white/[0.1] bg-white/[0.05] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]"
+        : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
   return (
@@ -286,7 +288,7 @@ export const Navbar = () => {
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
           <div className="flex items-center gap-2 sm:gap-3 md:hidden">
-            <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_22px_rgba(0,0,0,0.12)]">
+            <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-white/[0.035] backdrop-blur-2xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.08)]">
               <button
                 onClick={() => setLanguage('en')}
                 className={cn(
@@ -310,7 +312,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54 hover:border-white/[0.16] hover:bg-[#0B0C0E]/72 flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] active:bg-[#0B0C0E]/76 transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-white/[0.035] backdrop-blur-2xl backdrop-saturate-150 hover:border-white/[0.16] hover:bg-white/[0.07] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)] active:bg-white/[0.1] transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
