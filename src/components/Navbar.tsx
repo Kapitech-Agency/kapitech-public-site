@@ -22,26 +22,91 @@ import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
 
-const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
-  <motion.span
-    className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
-    aria-hidden="true"
-    style={{
-      padding: '1.25px',
-      background:
-        'conic-gradient(from 0deg, rgba(229,9,20,0) 0deg, rgba(229,9,20,0.04) 250deg, rgba(229,9,20,0.22) 300deg, rgba(229,9,20,0.56) 332deg, rgba(229,9,20,0.95) 352deg, rgba(229,9,20,0) 360deg)',
-      WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-      WebkitMaskComposite: 'xor',
-      maskComposite: 'exclude',
-    }}
-    animate={{ rotate: [0, 360] }}
-    transition={{
-      duration: mobile ? 4.8 : 4.4,
-      repeat: Infinity,
-      ease: 'linear',
-    }}
-  />
-);
+const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
+  const height = mobile ? 48 : 40;
+  const radius = mobile ? 11.5 : 19;
+  const pathHeight = mobile ? 46.5 : 38.5;
+  const duration = mobile ? 3.8 : 3.5;
+
+  return (
+    <span
+      className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
+      aria-hidden="true"
+    >
+      <svg
+        className="absolute inset-0 h-full w-full overflow-visible"
+        viewBox={`0 0 100 ${height}`}
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <motion.rect
+          x="0.5"
+          y="0.5"
+          width="99"
+          height={pathHeight}
+          rx={radius}
+          pathLength="1"
+          stroke="#E50914"
+          strokeWidth="0.55"
+          strokeLinecap="round"
+          strokeDasharray="0.22 0.78"
+          strokeOpacity="0.16"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1] }}
+          transition={{ duration, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.rect
+          x="0.5"
+          y="0.5"
+          width="99"
+          height={pathHeight}
+          rx={radius}
+          pathLength="1"
+          stroke="#E50914"
+          strokeWidth="0.7"
+          strokeLinecap="round"
+          strokeDasharray="0.14 0.86"
+          strokeOpacity="0.28"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1] }}
+          transition={{ duration, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.rect
+          x="0.5"
+          y="0.5"
+          width="99"
+          height={pathHeight}
+          rx={radius}
+          pathLength="1"
+          stroke="#E50914"
+          strokeWidth="0.92"
+          strokeLinecap="round"
+          strokeDasharray="0.075 0.925"
+          strokeOpacity="0.48"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1] }}
+          transition={{ duration, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.rect
+          x="0.5"
+          y="0.5"
+          width="99"
+          height={pathHeight}
+          rx={radius}
+          pathLength="1"
+          stroke="#E50914"
+          strokeWidth="1.15"
+          strokeLinecap="round"
+          strokeDasharray="0.024 0.976"
+          strokeOpacity="0.86"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1] }}
+          transition={{ duration, repeat: Infinity, ease: "linear" }}
+        />
+      </svg>
+    </span>
+  );
+};
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -699,7 +764,7 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)] active:translate-y-px cursor-pointer"
+                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 transition-[background-color,border-color,color,box-shadow] duration-500 ease-out hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)] cursor-pointer"
                   data-cursor-label="Start"
                 >
                   <CtaPerimeter mobile />
