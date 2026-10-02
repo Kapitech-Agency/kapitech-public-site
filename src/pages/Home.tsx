@@ -649,44 +649,39 @@ export const Home = () => {
 
       {/* WORKING PROCESS STEPPING */}
       <section className="relative overflow-hidden py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <motion.div
-            className="absolute right-[-10rem] top-8 h-80 w-80 rounded-full border border-brand-red/[0.08]"
-            animate={{ rotate: [0, 360], scale: [1, 1.035, 1] }}
-            transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
+            className="absolute -right-32 top-16 h-72 w-72 rounded-full border border-brand-red/[0.045]"
+            animate={{ rotate: [0, 360], scale: [1, 1.04, 1] }}
+            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
           />
           <motion.div
-            className="absolute right-[-6rem] top-24 h-56 w-56 rounded-full border border-white/[0.045]"
-            animate={{ rotate: [360, 0], scale: [1, 1.06, 1] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute left-[18%] bottom-[-10rem] h-64 w-64 rounded-full border border-white/[0.035]"
-            animate={{ y: [0, -18, 0], opacity: [0.35, 0.7, 0.35] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute left-[28%] -bottom-48 h-80 w-80 rounded-full border border-white/[0.025]"
+            animate={{ y: [0, -18, 0], opacity: [0.25, 0.5, 0.25] }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
           />
         </div>
 
         <div className="max-w-7xl mx-auto relative">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 sm:mb-16 lg:mb-20">
-            <div className="max-w-3xl">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-14 mb-14 sm:mb-16 lg:mb-20">
+            <div className="max-w-4xl">
               <motion.span
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -8 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs"
               >
-                <span className="h-px w-8 bg-brand-red/60" />
+                <span className="h-px w-8 bg-brand-red/55" />
                 {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
               </motion.span>
 
               <motion.h2
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
-                transition={{ duration: 0.7, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.055em] leading-[1.03] text-white"
+                transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[1.01] text-white"
               >
                 {language === 'id' ? 'Dari brief pertama hingga produk diluncurkan.' : 'From first brief to final launch.'}
               </motion.h2>
@@ -697,7 +692,7 @@ export const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-md text-xs sm:text-sm lg:text-base leading-[1.7] text-[#8A909D] font-light"
+              className="max-w-md lg:pb-1 text-xs sm:text-sm lg:text-base leading-[1.75] text-[#8A909D] font-light"
             >
               {language === 'id'
                 ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
@@ -706,128 +701,127 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10">
+            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[20px] h-px bg-white/[0.09]" aria-hidden="true">
+              <motion.div
+                className="absolute inset-y-0 left-0 origin-left bg-brand-red/75"
+                animate={{ width: `${(activeProcessStep / (processSteps.length - 1)) * 100}%` }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              />
+              <motion.div
+                className="absolute top-1/2 h-px w-24 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand-red/80 to-transparent"
+                animate={{ x: ['-40%', 'calc(100% + 40px)'] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', repeatDelay: 1.2 }}
+              />
+            </div>
+
+            <div className="lg:hidden absolute left-2 top-3 bottom-3 w-px bg-white/[0.08]" aria-hidden="true">
+              <motion.div
+                className="absolute left-0 top-0 w-px origin-top bg-brand-red/75"
+                animate={{ height: `${((activeProcessStep + 1) / processSteps.length) * 100}%` }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10 lg:gap-y-0">
               {processSteps.map((step, index) => {
                 const isActive = activeProcessStep === index;
                 return (
-                  <motion.div
+                  <motion.article
                     key={step.step}
-                    initial={{ opacity: 0, y: 22 }}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-10% 0px' }}
-                    transition={{ duration: 0.65, delay: index * 0.11, ease: [0.22, 1, 0.36, 1] }}
-                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                     onMouseEnter={() => setActiveProcessStep(index)}
-                    onFocus={() => setActiveProcessStep(index)}
-                    className="group relative"
-                    tabIndex={0}
+                    className="group relative min-w-0"
                   >
-                    <div
-                      className="hidden lg:block absolute left-0 top-[37px] h-px w-[38px] bg-white/[0.07]"
-                      aria-hidden="true"
+                    <button
+                      type="button"
+                      onClick={() => setActiveProcessStep(index)}
+                      onFocus={() => setActiveProcessStep(index)}
+                      aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
+                      aria-pressed={isActive}
+                      className="relative z-10 block w-full cursor-pointer text-left outline-none"
                     >
-                      <motion.div
-                        className="absolute inset-0 origin-right bg-brand-red/65"
-                        animate={{ scaleX: activeProcessStep >= 0 ? 1 : 0 }}
-                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                    </div>
-
-                    {index < processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px w-[calc(100%+28px)] bg-white/[0.07]" aria-hidden="true">
-                        <motion.div
-                          className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
-                          animate={{ scaleX: activeProcessStep > index ? 1 : 0 }}
-                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-                    )}
-
-                    {index === processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px right-0 bg-white/[0.07]" aria-hidden="true">
-                        <motion.div
-                          className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
-                          animate={{ scaleX: activeProcessStep === processSteps.length - 1 ? 1 : 0 }}
-                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-                    )}
-
-                    <div className="relative z-10 mb-7 flex items-center gap-3">
-                      <motion.button
-                        type="button"
-                        aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
-                        aria-pressed={isActive}
-                        onClick={() => setActiveProcessStep(index)}
-                        whileTap={{ scale: 0.96 }}
+                      <span
                         className={cn(
-                          "relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border backdrop-blur-xl text-brand-red transition-[background-color,border-color,color,box-shadow,transform] duration-500",
+                          "absolute z-20 left-0 top-[11px] h-2.5 w-2.5 rounded-full border transition-all duration-500 lg:hidden",
                           isActive
-                            ? "border-brand-red/65 bg-brand-red/14 text-white shadow-[0_0_34px_-16px_rgba(229,9,20,0.95),inset_0_1px_0_rgba(255,255,255,0.08)]"
-                            : "border-white/[0.08] bg-[#0B0C0E]/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_36px_-24px_rgba(0,0,0,0.95)] group-hover:border-brand-red/55 group-hover:bg-brand-red/10"
+                            ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
+                            : "border-white/[0.18] bg-[#0B0C0E] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(229,9,20,0.05)]"
                         )}
-                      >
-                        <span className={cn(
-                          "absolute inset-2 rounded-full border transition-all duration-500",
-                          isActive ? "border-brand-red/35 opacity-100 scale-100" : "border-brand-red/10 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
-                        )} />
-                        <span className="relative text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
-                        {isActive && (
-                          <motion.span
-                            layoutId="active-process-dot"
-                            className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-brand-red shadow-[0_0_14px_rgba(229,9,20,0.8)]"
-                            transition={{ type: 'spring', stiffness: 380, damping: 26 }}
-                          />
-                        )}
-                      </motion.button>
-
-                      <span className="h-px flex-1 bg-white/[0.07] sm:hidden" />
-                    </div>
-
-                    <div className="relative pl-1">
-                      <span className={cn(
-                        "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
-                        isActive ? "text-brand-red" : "text-[#8A909D]"
-                      )}>
-                        {language === 'id' ? 'Fase ' + step.step : 'Phase ' + step.step}
-                      </span>
-
-                      <motion.h3
-                        animate={{ color: isActive ? '#FF1E27' : '#FFFFFF', x: isActive ? 3 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-2 text-xl sm:text-2xl font-display font-semibold tracking-[-0.03em]"
-                      >
-                        {step.title}
-                      </motion.h3>
-
-                      <motion.p
-                        animate={{ opacity: isActive ? 1 : 0.78, y: isActive ? 0 : 2 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light"
-                      >
-                        {step.desc}
-                      </motion.p>
-
-                      <motion.div
-                        animate={{ width: isActive ? 64 : 32, opacity: isActive ? 1 : 0.38 }}
-                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-5 h-px bg-brand-red/55 origin-left"
                       />
-                    </div>
-                  </motion.div>
+
+                      <span
+                        className={cn(
+                          "absolute z-20 hidden lg:block left-[calc(12.5%-5px)] top-[15px] h-2.5 w-2.5 rounded-full border bg-[#0B0C0E] transition-all duration-500",
+                          isActive
+                            ? "border-brand-red bg-brand-red shadow-[0_0_0_6px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
+                            : "border-white/[0.18] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_5px_rgba(229,9,20,0.05)]"
+                        )}
+                      />
+
+                      <div className="relative ml-0 pl-7 lg:ml-0 lg:pl-0 pt-0 lg:pt-[3.25rem]">
+                        <div
+                          className="flex items-center justify-between gap-4 border-b pb-3 transition-colors duration-500 lg:pr-1"
+                          style={{ borderColor: isActive ? 'rgba(229,9,20,0.32)' : 'rgba(255,255,255,0.07)' }}
+                        >
+                          <span className={cn(
+                            "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
+                            isActive ? "text-brand-red" : "text-[#8A909D]"
+                          )}>
+                            {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
+                          </span>
+                          <motion.span
+                            animate={{ opacity: isActive ? 1 : 0.45, x: isActive ? 0 : 4 }}
+                            transition={{ duration: 0.35 }}
+                            className="text-[10px] font-mono tabular-nums text-[#8A909D]"
+                          >
+                            {step.step}
+                          </motion.span>
+                        </div>
+
+                        <motion.h3
+                          animate={{ x: isActive ? 4 : 0, color: isActive ? '#FF1E27' : '#FFFFFF' }}
+                          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                          className="mt-5 max-w-[18rem] text-xl sm:text-2xl lg:text-[1.65rem] font-display font-semibold tracking-[-0.045em] leading-[1.06]"
+                        >
+                          {step.title}
+                        </motion.h3>
+
+                        <motion.p
+                          animate={{ opacity: isActive ? 1 : 0.68, y: isActive ? 0 : 2 }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
+                        >
+                          {step.desc}
+                        </motion.p>
+
+                        <div className="relative mt-6 h-px w-full overflow-hidden bg-white/[0.05]">
+                          <motion.div
+                            className="absolute left-0 top-0 h-px bg-brand-red"
+                            animate={{ width: isActive ? '36%' : '12%', opacity: isActive ? 1 : 0.45 }}
+                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                          />
+                        </div>
+                      </div>
+                    </button>
+                  </motion.article>
                 );
               })}
             </div>
 
             <motion.div
-              className="mt-10 hidden lg:flex items-center justify-between border-t border-white/[0.06] pt-4 text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.28 }}
+              className="mt-10 lg:mt-12 flex items-center justify-between border-t border-white/[0.06] pt-4 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
             >
-              <span>{language === 'id' ? 'Gerakkan kursor atau pilih fase untuk menjelajah' : 'Move across the timeline or select a phase'}</span>
-              <span className="text-brand-red/80">{String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}</span>
+              <span>{language === 'id' ? 'Hover atau pilih fase untuk menjelajah' : 'Hover or select a phase to explore'}</span>
+              <span className="text-brand-red/85 tabular-nums">
+                {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
+              </span>
             </motion.div>
           </div>
         </div>
