@@ -120,6 +120,26 @@ export const Navbar = () => {
 
   return (
     <>
+      <AnimatePresence>
+        {isServicesDropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 z-40 hidden md:block pointer-events-none"
+            aria-hidden="true"
+            style={{
+              top: isScrolled ? '76px' : '88px',
+              height: '430px',
+              backgroundColor: 'rgba(11, 12, 14, 0.26)',
+              backdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
+              WebkitBackdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
@@ -307,9 +327,9 @@ export const Navbar = () => {
               onMouseLeave={handleMouseLeaveServices}
               className="hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
               style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.92)',
-                backdropFilter: 'blur(28px) saturate(1.15)',
-                WebkitBackdropFilter: 'blur(28px) saturate(1.15)',
+                backgroundColor: 'rgba(11, 12, 14, 0.68)',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
               }}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
