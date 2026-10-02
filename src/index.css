@@ -1048,7 +1048,7 @@
 
 /* ==========================================================================
    HIGH-END CUSTOM CURSOR
-   White precision pointer with restrained Kapitech motion.
+   Bespoke white rounded precision pointer. No ring, no dot.
    ========================================================================== */
 .kapi-site-cursor-layer {
   position: fixed;
@@ -1073,67 +1073,63 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-cursor-pointer {
   position: fixed;
-  width: 24px;
-  height: 28px;
+  width: 30px;
+  height: 34px;
   transform: translate(-2px, -2px);
   pointer-events: none;
   z-index: 9999;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
-.kapi-cursor-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 34px;
+.kapi-cursor-svg {
+  display: block;
+  width: 30px;
   height: 34px;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.015);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 12px 28px -20px rgba(0, 0, 0, 0.85);
+  overflow: visible;
+  transform-origin: 8px 7px;
+  filter:
+    drop-shadow(0 2px 2px rgba(0,0,0,0.72))
+    drop-shadow(0 0 7px rgba(255,255,255,0.14));
+  transition: transform 260ms cubic-bezier(0.22,1,0.36,1), filter 260ms ease;
 }
 
-.kapi-cursor-dot {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 21px;
-  height: 28px;
-  transform: rotate(-8deg);
-  transform-origin: 12px 14px;
-  background: #ffffff;
-  clip-path: polygon(0 0, 100% 72%, 57% 70%, 72% 100%, 58% 100%, 43% 69%, 9% 88%);
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.65))
-          drop-shadow(0 0 8px rgba(255, 255, 255, 0.14));
+.kapi-site-cursor-layer.is-interactive .kapi-cursor-svg {
+  transform: scale(0.9) rotate(-5deg);
+  filter:
+    drop-shadow(0 2px 2px rgba(0,0,0,0.76))
+    drop-shadow(0 0 12px rgba(255,255,255,0.22));
 }
 
 .kapi-cursor-follow {
   position: fixed;
   pointer-events: none;
   z-index: 9998;
-  min-width: 64px;
-  height: 26px;
+  min-width: 56px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 999px;
-  background: rgba(15,15,20,0.82);
-  color: rgba(248,250,252,0.94);
-  box-shadow: 0 12px 35px -20px rgba(0,0,0,0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0 9px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 9px;
+  background: rgba(15,15,20,0.86);
+  color: rgba(248,250,252,0.96);
+  box-shadow: 0 12px 30px -20px rgba(0,0,0,0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .kapi-cursor-follow {
+    display: none;
+  }
 }
 
 @media (hover: none), (pointer: coarse) {
