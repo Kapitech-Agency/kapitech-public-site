@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -683,8 +684,7 @@ export const Services = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
-        <div className="pointer-events-none absolute -right-32 top-10 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
+undefined
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
