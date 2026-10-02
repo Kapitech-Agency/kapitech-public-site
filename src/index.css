@@ -1262,16 +1262,3 @@
   border-color: var(--careers-border);
   box-shadow: none;
 }
-
-/* Homepage hero background video */
-.kapi-home-hero-video mux-player {
-  width: 100%;
-  height: 100%;
-  display: block;
-  --controls: none;
-  --media-object-fit: cover;
-  --media-object-position: center;
-}
-.kapi-home-hero-video mux-player::part(media-layer) {
-  pointer-events: none;
-}
