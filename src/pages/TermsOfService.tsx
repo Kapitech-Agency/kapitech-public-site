@@ -38,7 +38,7 @@ export const TermsOfService = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">2. Deskripsi Layanan & Lingkup Kerja</h2>
               <p>
-                Kapitech Agency menyediakan berbagai layanan produk digital profesional, termasuk Rekayasa Perangkat Lunak & Web (Next.js, React, Node.js), Desain UI/UX & Prototipe Interaktif, Pengembangan Aplikasi Mobile (iOS & Android), Sistem Identitas Visual Brand, dan Arsitektur Cloud. Setiap proyek terikat pada Pernyataan Kerja (Statement of Work / SOW) atau Perjanjian Kontrak tersendiri yang merinci deliverables, milestone, dan biaya resmi.
+                Kapitech Agency menyediakan berbagai layanan produk digital profesional, termasuk Rekayasa Perangkat Lunak & Web (Next.js, React, Node.js), Desain UI/UX & Prototipe Interaktif, Sistem Identitas Visual Brand, dan Arsitektur Cloud. Setiap proyek terikat pada Pernyataan Kerja (Statement of Work / SOW) atau Perjanjian Kontrak tersendiri yang merinci deliverables, milestone, dan biaya resmi.
               </p>
             </section>
 
@@ -84,8 +84,7 @@ export const TermsOfService = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Blok G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia<br />
-                Email Bisnis: <a href="mailto:business@kapitech.id" className="text-brand-red hover:underline">business@kapitech.id</a><br />
-                Email Resmi: <a href="mailto:hello@kapitech.id" className="text-white/90 hover:underline">hello@kapitech.id</a><br />
+                Email Resmi: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
                 Telepon: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
@@ -102,7 +101,7 @@ export const TermsOfService = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">2. Description of Services & Scope</h2>
               <p>
-                Kapitech Agency delivers enterprise-grade digital services including Software & Web Development (Next.js, React, Node.js), UI/UX Design Systems, Mobile Application Development, and Brand Architecture. Specific engagements are formalized under a distinct Statement of Work (SOW) or Master Services Agreement outlining deliverables, sprint milestones, and pricing.
+                Kapitech Agency delivers professional digital services including Software & Web Development (Next.js, React, Node.js), UI/UX Design Systems, Brand Architecture, and digital infrastructure capabilities. Specific engagements are formalized under a distinct Statement of Work (SOW) or Master Services Agreement outlining deliverables, sprint milestones, and pricing.
               </p>
             </section>
 
@@ -148,8 +147,7 @@ export const TermsOfService = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia<br />
-                Business Email: <a href="mailto:business@kapitech.id" className="text-brand-red hover:underline">business@kapitech.id</a><br />
-                Official Email: <a href="mailto:hello@kapitech.id" className="text-white/90 hover:underline">hello@kapitech.id</a><br />
+                Official Email: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
                 Phone: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
