@@ -146,8 +146,30 @@ export function Cursor({ children, style, ...props }: CursorProps) {
           transition={{ type: 'spring', stiffness: 420, damping: 30 }}
           {...props}
         >
-          <span className="kapi-cursor-dot" />
-          <span className="kapi-cursor-ring" />
+          <svg
+            className="kapi-cursor-svg"
+            viewBox="0 0 30 34"
+            width="30"
+            height="34"
+            aria-hidden="true"
+          >
+            <path
+              d="M5.2 2.9C3.5 2.1 1.8 3.5 2.2 5.3l5.1 24.2c.4 1.9 2.9 2.3 4.1.7l4.1-6.2 6.6 4.7c1.5 1.1 3.5-.1 3-1.9l-5.9-18.6a2.1 2.1 0 0 0-1.2-1.3L5.2 2.9Z"
+              fill="#FFFFFF"
+              stroke="rgba(0,0,0,0.62)"
+              strokeWidth="1.15"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+            <path
+              d="M17.7 7.8 8.8 25.1"
+              fill="none"
+              stroke="rgba(255,255,255,0.92)"
+              strokeWidth="1"
+              strokeLinecap="round"
+              opacity="0.55"
+            />
+          </svg>
         </motion.div>
       )}
     </AnimatePresence>
