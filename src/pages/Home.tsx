@@ -333,7 +333,7 @@ export const Home = () => {
       {/* CLIENTS & PARTNERS SECTION - LOOPING CAROUSEL WITH SIDE SHADOWS */}
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 mb-10 sm:mb-12 text-center">
-          <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs mb-3 block">
+          <span className="kapi-section-label mb-5">
             {language === 'id' ? 'DIPERCAYA DI INDONESIA' : 'TRUSTED BY INDONESIAN TEAMS'}
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.045em] leading-[1.08] text-white">
@@ -393,7 +393,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-16">
             <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Core Capabilities'}
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold tracking-tight text-white">
@@ -576,7 +576,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
             <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
@@ -669,9 +669,8 @@ export const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs"
+                className="kapi-section-label mb-5"
               >
-                <span className="h-px w-8 bg-brand-red/55" />
                 {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
               </motion.span>
 
