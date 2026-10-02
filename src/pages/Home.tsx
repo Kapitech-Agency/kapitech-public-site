@@ -701,20 +701,39 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[20px] h-px bg-white/[0.09]" aria-hidden="true">
+            {/* Desktop rail: one continuous line, with nodes sharing the exact same coordinate system */}
+            <div className="hidden lg:block absolute inset-x-0 top-0 h-10 pointer-events-none" aria-hidden="true">
+              <div className="absolute left-[12.5%] right-[12.5%] top-5 h-px bg-white/[0.09]" />
               <motion.div
-                className="absolute inset-y-0 left-0 origin-left bg-brand-red/75"
-                animate={{ width: `${(activeProcessStep / (processSteps.length - 1)) * 100}%` }}
+                className="absolute left-[12.5%] top-5 h-px bg-brand-red/75 origin-left"
+                animate={{ width: `${(activeProcessStep / (processSteps.length - 1)) * 75}%` }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               />
               <motion.div
-                className="absolute top-1/2 h-px w-24 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand-red/80 to-transparent"
-                animate={{ x: ['-40%', 'calc(100% + 40px)'] }}
-                transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', repeatDelay: 1.2 }}
+                className="absolute top-[18px] h-[3px] w-20 rounded-full bg-gradient-to-r from-transparent via-brand-red/75 to-transparent blur-[0.2px]"
+                animate={{ x: ['calc(12.5% - 40px)', 'calc(87.5% + 40px)'] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: 'linear', repeatDelay: 1.1 }}
               />
+              {processSteps.map((step, index) => {
+                const left = `${12.5 + index * 25}%`;
+                const isActive = activeProcessStep === index;
+                return (
+                  <motion.span
+                    key={step.step}
+                    className={cn(
+                      "absolute left-0 top-[15px] h-2.5 w-2.5 -translate-x-1/2 rounded-full border bg-[#0B0C0E] transition-all duration-500",
+                      isActive
+                        ? "border-brand-red bg-brand-red shadow-[0_0_0_6px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
+                        : "border-white/[0.18]"
+                    )}
+                    style={{ left }}
+                  />
+                );
+              })}
             </div>
 
-            <div className="lg:hidden absolute left-2 top-3 bottom-3 w-px bg-white/[0.08]" aria-hidden="true">
+            {/* Mobile rail */}
+            <div className="lg:hidden absolute left-2 top-0 bottom-0 w-px bg-white/[0.08]" aria-hidden="true">
               <motion.div
                 className="absolute left-0 top-0 w-px origin-top bg-brand-red/75"
                 animate={{ height: `${((activeProcessStep + 1) / processSteps.length) * 100}%` }}
@@ -722,7 +741,7 @@ export const Home = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10 lg:gap-y-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-0 gap-y-10 lg:gap-y-0">
               {processSteps.map((step, index) => {
                 const isActive = activeProcessStep === index;
                 return (
@@ -733,7 +752,12 @@ export const Home = () => {
                     viewport={{ once: true, margin: '-10% 0px' }}
                     transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                     onMouseEnter={() => setActiveProcessStep(index)}
-                    className="group relative min-w-0"
+                    className={cn(
+                      "group relative min-w-0",
+                      "lg:px-5",
+                      index === 0 && "lg:pl-0",
+                      index === processSteps.length - 1 && "lg:pr-0"
+                    )}
                   >
                     <button
                       type="button"
@@ -749,15 +773,6 @@ export const Home = () => {
                           isActive
                             ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
                             : "border-white/[0.18] bg-[#0B0C0E] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(229,9,20,0.05)]"
-                        )}
-                      />
-
-                      <span
-                        className={cn(
-                          "absolute z-20 hidden lg:block left-[calc(12.5%-5px)] top-[15px] h-2.5 w-2.5 rounded-full border bg-[#0B0C0E] transition-all duration-500",
-                          isActive
-                            ? "border-brand-red bg-brand-red shadow-[0_0_0_6px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
-                            : "border-white/[0.18] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_5px_rgba(229,9,20,0.05)]"
                         )}
                       />
 
