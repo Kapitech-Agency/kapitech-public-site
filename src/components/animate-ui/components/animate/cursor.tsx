@@ -189,68 +189,26 @@ export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
 };
 
 export function CursorFollow({
-  side = 'bottom',
-  sideOffset = 15,
-  align = 'end',
-  alignOffset = 5,
-  transition = { stiffness: 500, damping: 50, bounce: 0 },
+  transition = { stiffness: 420, damping: 42, bounce: 0 },
   children,
   style,
   ...props
 }: CursorFollowProps) {
-  const { cursorPos, active, cursorRef, global } = useCursor();
-  const followRef = React.useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const { cursorPos, active } = useCursor();
+  const x = useMotionValue(cursorPos.x + 14);
+  const y = useMotionValue(cursorPos.y + 14);
   const springX = useSpring(x, transition);
   const springY = useSpring(y, transition);
 
-  const calculateOffset = React.useCallback(() => {
-    const rect = followRef.current?.getBoundingClientRect();
-    const width = rect?.width ?? 0;
-    const height = rect?.height ?? 0;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    switch (side) {
-      case 'top':
-        offsetY = height + sideOffset;
-        break;
-      case 'bottom':
-        offsetY = -sideOffset;
-        break;
-      case 'left':
-        offsetX = width + sideOffset;
-        break;
-      case 'right':
-        offsetX = -sideOffset;
-        break;
-    }
-
-    if (side === 'top' || side === 'bottom') {
-      offsetX = align === 'center' ? width / 2 : align === 'start' ? width + alignOffset : -alignOffset;
-    } else {
-      offsetY = align === 'center' ? height / 2 : align === 'start' ? height + alignOffset : -alignOffset;
-    }
-
-    return { x: offsetX, y: offsetY };
-  }, [align, alignOffset, side, sideOffset]);
-
   React.useEffect(() => {
-    const offset = calculateOffset();
-    const cursorRect = cursorRef.current?.getBoundingClientRect();
-    const cursorWidth = cursorRect?.width ?? 22;
-    const cursorHeight = cursorRect?.height ?? 22;
-
-    x.set(cursorPos.x - offset.x + cursorWidth / 2);
-    y.set(cursorPos.y - offset.y + cursorHeight / 2);
-  }, [calculateOffset, cursorPos, cursorRef, x, y]);
+    x.set(cursorPos.x + 14);
+    y.set(cursorPos.y + 14);
+  }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
     <AnimatePresence>
       {active && (
         <motion.div
-          ref={followRef}
           data-slot="cursor-follow"
           className="kapi-cursor-follow"
           style={{
@@ -258,10 +216,10 @@ export function CursorFollow({
             top: springY,
             left: springX,
           }}
-          initial={{ opacity: 0, scale: 0.85, y: 4 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.85, y: 4 }}
-          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, scale: 0.72 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.72 }}
+          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
           {...props}
         >
           {children}
