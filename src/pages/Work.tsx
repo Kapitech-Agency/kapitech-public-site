@@ -655,8 +655,8 @@ export const Work = () => {
                 {/* Challenge & Solution */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="p-5 rounded-xl bg-[#0B0C0E] border border-[#262930]">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF6B00] mb-2 font-semibold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#FF6B00]" />
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#E50914] mb-2 font-semibold flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#E50914]" />
                       <span>{language === 'id' ? 'Tantangan Bisnis' : 'The Challenge'}</span>
                     </h4>
                     <p className="text-sm text-[#8A909D] leading-relaxed font-light">
