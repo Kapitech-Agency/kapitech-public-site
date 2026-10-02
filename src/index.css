@@ -1072,12 +1072,12 @@
   z-index: 0;
   opacity: 0;
   background: radial-gradient(
-    520px circle at var(--kapi-spotlight-x) var(--kapi-spotlight-y),
-    rgba(229, 9, 20, 0.10),
-    rgba(229, 9, 20, 0.035) 28%,
-    transparent 64%
+    360px circle at var(--kapi-spotlight-x) var(--kapi-spotlight-y),
+    rgba(229, 9, 20, 0.045),
+    rgba(229, 9, 20, 0.012) 32%,
+    transparent 68%
   );
-  transition: opacity 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .kapi-public-shell [data-kapi-spotlight="true"]::after {
@@ -1091,14 +1091,14 @@
   background: linear-gradient(
     135deg,
     transparent 0%,
-    transparent 45%,
-    rgba(255,255,255,0.045) 50%,
-    transparent 55%,
+    transparent 47%,
+    rgba(255,255,255,0.018) 50%,
+    transparent 53%,
     transparent 100%
   );
-  background-size: 220% 220%;
+  background-size: 180% 180%;
   background-position: calc(100% - var(--kapi-spotlight-x)) calc(100% - var(--kapi-spotlight-y));
-  transition: opacity 420ms ease;
+  transition: opacity 520ms ease;
 }
 
 .kapi-public-shell [data-kapi-spotlight="true"]:hover::before,
