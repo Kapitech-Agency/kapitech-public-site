@@ -682,63 +682,42 @@ export const Careers = () => {
       {/* Hero Section */}
       <section className="kapi-careers-hero relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-5xl">
-            <div className="mb-5">
+          <div className="max-w-5xl" data-motion-reveal>
+            <div className="mb-5" data-motion-line>
               <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">{language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}</span>
             </div>
-            <h1 className="max-w-6xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white">
+            <h1 className="max-w-6xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white kapi-careers-heading">
               {language === 'id' ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></> : <>Build the Future <span className="text-brand-red">With Us.</span></>}
             </h1>
-            <div className="mt-7">
+            <div className="mt-7" data-motion-reveal>
               <p className="max-w-2xl text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
                 {language === 'id' ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.' : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"><span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span><ArrowUpRight size={14} /></a>
-              <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); setVendorSubmitError(''); }} className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"><FolderGit2 size={14} /><span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span></button>
+            <div className="mt-8 flex flex-wrap items-center gap-3" data-motion-reveal>
+              <a href="#open-positions" className="kapi-button kapi-button--secondary" data-cursor="button"><span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span><ArrowUpRight size={14} /></a>
+              <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); setVendorSubmitError(''); }} className="kapi-button kapi-button--primary" data-cursor="button"><FolderGit2 size={14} /><span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span></button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
       <section className="kapi-careers-talent-section py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.08, delayChildren: 0.04 }
-              }
-            }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12"
-          >
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12" data-motion-reveal>
             <div className="max-w-3xl">
-              <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-3"
-              >
+              <div className="mb-3">
                 <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">People & Craft</span>
-              </motion.div>
-              <motion.h2
-                variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]"
-              >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</motion.h2>
+              </div>
+              <h2 className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]">
+                {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}
+              </h2>
             </div>
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1"
-            >
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1">
               {language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           <motion.div
             initial="hidden"
@@ -763,36 +742,33 @@ export const Careers = () => {
               >
                 <motion.button
                   onClick={() => setSelectedTalent(talent)}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative block w-full aspect-[4/5] overflow-hidden rounded-xl border border-line bg-panel text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                  whileHover={{ y:           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {twelveTalents.map((talent) => (
+              <div key={talent.id} data-motion-reveal>
+                <button
+                  onClick={() => setSelectedTalent(talent)}
+                  className="kapi-careers-talent-tile group relative block w-full aspect-[4/5] overflow-hidden rounded-xl border border-line bg-panel text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                   title={talent.name + ' - ' + talent.role}
                   aria-label={'View photo and profile of ' + talent.name}
+                  data-cursor="project"
+                  data-cursor-text="View"
                 >
-                  <motion.img
+                  <img
                     src={talent.image}
                     alt={talent.name}
-                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    className="absolute inset-0 w-full h-full object-cover object-top kapi-careers-talent-image"
                     loading="lazy"
-                    whileHover={{ scale: 1.025 }}
-                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
-                  <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4">
-                    <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/50 mb-1.5">
-                      {talent.department}
-                    </p>
-                    <h3 className="text-sm sm:text-[15px] font-display font-semibold text-white leading-tight">
-                      {talent.name}
-                    </h3>
-                    <p className="mt-1 text-[10px] sm:text-[11px] text-white/60 leading-snug">
-                      {talent.role}
-                    </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/50 mb-1.5">{talent.department}</p>
+                    <h3 className="text-sm sm:text-[15px] font-display font-semibold text-white leading-tight">{talent.name}</h3>
+                    <p className="mt-1 text-[10px] sm:text-[11px] text-white/60 leading-snug">{talent.role}</p>
                   </div>
-                </motion.button>
-              </motion.div>
+                </button>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
         <AnimatePresence>
           {selectedTalent && (
@@ -839,9 +815,9 @@ export const Careers = () => {
           </div>
           <div className="space-y-4">
             {positions.map((pos) => (
-              <motion.div
+              <div
                 key={pos.id}
-                whileHover={{ y: -2 }}
+                data-motion-reveal
                 onClick={() => setSelectedPosition(pos)}
                 className="kapi-careers-role-card cursor-pointer group relative overflow-hidden p-5 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] transition-all duration-300"
               >
@@ -865,7 +841,7 @@ export const Careers = () => {
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
