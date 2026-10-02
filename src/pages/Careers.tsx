@@ -1322,20 +1322,33 @@ export const Careers = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 career-detail-grid">
                   {/* Responsibilities */}
                   <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
-                    {language === 'id' ? 'Tanggung Jawab Utama' : 'Key Responsibilities'}
-                  </h4>
-                  <ul className="space-y-2.5">
-                    {selectedPosition.responsibilities.map((resp, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-light">
-                        <CheckCircle2 size={15} className="text-emerald-400 shrink-0 mt-0.5" />
-                        <span>{resp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                </div>
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
+                      {language === 'id' ? 'Tanggung Jawab Utama' : 'Key Responsibilities'}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {selectedPosition.responsibilities.map((resp, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-light">
+                          <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
+                  {/* Requirements */}
+                  <div>
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
+                      {language === 'id' ? 'Kualifikasi & Persyaratan' : 'Requirements & Skills'}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {selectedPosition.requirements.map((req, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 font-light">
+                          <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
+                          <span>{req}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Application Form */}
