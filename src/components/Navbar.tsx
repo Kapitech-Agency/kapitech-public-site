@@ -143,9 +143,9 @@ export const Navbar = () => {
 
       <nav
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
+          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
-            ? `${navbarGlassMaterial} min-h-screen h-screen overflow-hidden py-4 sm:py-5 border-transparent shadow-[0_18px_50px_rgba(0,0,0,0.28)]`
+            ? `${navbarGlassMaterial} min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-[0_18px_50px_rgba(0,0,0,0.28)]`
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
@@ -473,9 +473,9 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] overflow-hidden bg-transparent">
+            className="fixed inset-0 z-[40] overflow-hidden bg-transparent pointer-events-none">
             <div
-              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
+              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent pointer-events-auto"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
