@@ -479,6 +479,14 @@ export const Navbar = () => {
               WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
             }}>
             <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 -bottom-16 h-16 bg-[#0B0C0E]/[0.06] backdrop-blur-2xl backdrop-saturate-150"
+              style={{
+                backdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
+                WebkitBackdropFilter: 'blur(48px) saturate(1.2) brightness(0.8)',
+              }}
+            />
+            <div
               className="relative z-10 flex min-h-0 max-h-[calc(100dvh-5rem)] flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
             >
             {/* Header in Mobile Menu */}
