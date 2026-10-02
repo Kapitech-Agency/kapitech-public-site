@@ -38,6 +38,7 @@ export const Home = () => {
   const { t, language } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -704,72 +705,110 @@ export const Home = () => {
           </div>
 
           <div className="relative">
-            <div className="hidden lg:block absolute left-[12.5%] right-[12.5%] top-[38px] h-px bg-white/[0.07]" aria-hidden="true" />
-            <motion.div
-              className="hidden lg:block absolute left-[12.5%] top-[37px] h-[2px] origin-left bg-gradient-to-r from-brand-red/0 via-brand-red/65 to-brand-red/0"
-              initial={{ width: '0%' }}
-              whileInView={{ width: '75%' }}
-              viewport={{ once: true, margin: '-8% 0px' }}
-              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-              aria-hidden="true"
-            />
-
-            <motion.div
-              className="hidden lg:block absolute top-[31px] h-3 w-3 -translate-x-1/2 rounded-full bg-brand-red/80 blur-[1px] shadow-[0_0_20px_rgba(229,9,20,0.55)]"
-              initial={{ opacity: 0, left: '12.5%' }}
-              whileInView={{ opacity: [0, 1, 1, 0], left: ['12.5%', '87.5%'] }}
-              viewport={{ once: true, margin: '-8% 0px' }}
-              transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              aria-hidden="true"
-            />
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-10% 0px' }}
-                  transition={{ duration: 0.65, delay: index * 0.11, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -5 }}
-                  className="group relative"
-                >
-                  <div className="relative z-10 flex items-center gap-3 mb-7">
-                    <motion.span
-                      initial={{ scale: 0.86, opacity: 0.7 }}
-                      whileInView={{ scale: [0.86, 1.05, 1], opacity: [0.7, 1, 1] }}
-                      viewport={{ once: true, margin: '-10% 0px' }}
-                      transition={{ duration: 0.7, delay: 0.12 + index * 0.11, ease: [0.22, 1, 0.36, 1] }}
-                      className="relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-[#0B0C0E]/72 backdrop-blur-xl text-brand-red shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_36px_-24px_rgba(0,0,0,0.95)] transition-[background-color,border-color,color,box-shadow] duration-500 group-hover:border-brand-red/55 group-hover:bg-brand-red/90 group-hover:text-white group-hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.7)]"
-                    >
-                      <span className="absolute inset-2 rounded-full border border-brand-red/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                      <span className="relative text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
-                    </motion.span>
+              {processSteps.map((step, index) => {
+                const isActive = activeProcessStep === index;
+                const isPassed = activeProcessStep > index;
 
-                    <span className="h-px flex-1 bg-white/[0.07] sm:hidden" />
-                  </div>
+                return (
+                  <motion.div
+                    key={step.step}
+                    initial={{ opacity: 0, y: 22 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-10% 0px' }}
+                    transition={{ duration: 0.65, delay: index * 0.11, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ y: -5 }}
+                    onMouseEnter={() => setActiveProcessStep(index)}
+                    onFocus={() => setActiveProcessStep(index)}
+                    className="group relative"
+                    tabIndex={0}
+                  >
+                    {index < processSteps.length - 1 && (
+                      <div className="hidden lg:block absolute left-[38px] top-[37px] h-px w-[calc(100%-10px)] bg-white/[0.07]" aria-hidden="true">
+                        <motion.div
+                          className="absolute inset-y-0 left-0 bg-brand-red/65 origin-left"
+                          animate={{ scaleX: isPassed || isActive ? 1 : 0 }}
+                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </div>
+                    )}
 
-                  <div className="relative pl-1">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-brand-red/85">
-                      {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
-                    </span>
-                    <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold tracking-[-0.03em] text-white group-hover:text-brand-red transition-colors duration-300">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light">
-                      {step.desc}
-                    </p>
-                    <motion.div
-                      className="mt-5 h-px w-12 bg-brand-red/45 origin-left"
-                      initial={{ scaleX: 0.5, opacity: 0.45 }}
-                      whileInView={{ scaleX: 1, opacity: 0.85 }}
-                      viewport={{ once: true, margin: '-10% 0px' }}
-                      transition={{ duration: 0.7, delay: 0.2 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
+                    <div className="relative z-10 mb-7 flex items-center gap-3">
+                      <motion.button
+                        type="button"
+                        aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
+                        aria-pressed={isActive}
+                        onClick={() => setActiveProcessStep(index)}
+                        whileTap={{ scale: 0.96 }}
+                        className={cn(
+                          "relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border backdrop-blur-xl text-brand-red transition-[background-color,border-color,color,box-shadow,transform] duration-500",
+                          isActive
+                            ? "border-brand-red/65 bg-brand-red/14 text-white shadow-[0_0_34px_-16px_rgba(229,9,20,0.95),inset_0_1px_0_rgba(255,255,255,0.08)]"
+                            : "border-white/[0.08] bg-[#0B0C0E]/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_36px_-24px_rgba(0,0,0,0.95)] group-hover:border-brand-red/55 group-hover:bg-brand-red/10"
+                        )}
+                      >
+                        <span className={cn(
+                          "absolute inset-2 rounded-full border transition-all duration-500",
+                          isActive ? "border-brand-red/35 opacity-100 scale-100" : "border-brand-red/10 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
+                        )} />
+                        <span className="relative text-lg font-display font-semibold tracking-[-0.04em]">{step.step}</span>
+                        {isActive && (
+                          <motion.span
+                            layoutId="active-process-dot"
+                            className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-brand-red shadow-[0_0_14px_rgba(229,9,20,0.8)]"
+                            transition={{ type: 'spring', stiffness: 380, damping: 26 }}
+                          />
+                        )}
+                      </motion.button>
+
+                      <span className="h-px flex-1 bg-white/[0.07] sm:hidden" />
+                    </div>
+
+                    <div className="relative pl-1">
+                      <span className={cn(
+                        "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
+                        isActive ? "text-brand-red" : "text-[#8A909D]"
+                      )}>
+                        {language === 'id' ? 'Fase ' + step.step : 'Phase ' + step.step}
+                      </span>
+
+                      <motion.h3
+                        animate={{ color: isActive ? '#FF1E27' : '#FFFFFF', x: isActive ? 3 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-2 text-xl sm:text-2xl font-display font-semibold tracking-[-0.03em]"
+                      >
+                        {step.title}
+                      </motion.h3>
+
+                      <motion.p
+                        animate={{ opacity: isActive ? 1 : 0.78, y: isActive ? 0 : 2 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light"
+                      >
+                        {step.desc}
+                      </motion.p>
+
+                      <motion.div
+                        animate={{ width: isActive ? 64 : 32, opacity: isActive ? 1 : 0.38 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-5 h-px bg-brand-red/55 origin-left"
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
+
+            <motion.div
+              className="mt-10 hidden lg:flex items-center justify-between border-t border-white/[0.06] pt-4 text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
+              <span>{language === 'id' ? 'Gerakkan kursor atau pilih fase untuk menjelajah' : 'Move across the timeline or select a phase'}</span>
+              <span className="text-brand-red/80">{String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}</span>
+            </motion.div>
           </div>
         </div>
       </section>
