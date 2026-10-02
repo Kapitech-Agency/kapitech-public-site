@@ -149,7 +149,7 @@ export const Home = () => {
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
           <PatternWaves
             preset="silk"
-            color="#dc143c"
+            color="#E50914"
             backgroundColor="transparent"
             opacity={0.55}
             fade="edges"
