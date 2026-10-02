@@ -53,15 +53,13 @@ export const Home = () => {
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
-  const clientPartners = [
-    { name: "Lumina Property", industry: language === 'id' ? "Teknologi Properti" : "Real Estate Tech", logoText: "LUMINA", desc: language === 'id' ? "Pencarian Properti & Web Interaktif 3D" : "Property Search & 3D Interactive Web" },
-    { name: "Nexus Fintech", industry: language === 'id' ? "Layanan Finansial" : "Financial Services", logoText: "NEXUS", desc: language === 'id' ? "UI Mobile Banking & Dashboard Finansial" : "Mobile Banking & Dashboard UI" },
-    { name: "Aura Creative", industry: language === 'id' ? "Media Digital" : "Digital Media", logoText: "AURA", desc: language === 'id' ? "Identitas Brand & Sistem Web" : "Brand Identity & Web Systems" },
-    { name: "Solaris CleanTech", industry: language === 'id' ? "Energi Terbarukan" : "Renewable Energy", logoText: "SOLARIS", desc: language === 'id' ? "Portal Monitoring Real-Time" : "Real-time Monitoring Portal" },
-    { name: "Vivid Commerce", industry: language === 'id' ? "Ritel & E-Commerce" : "Retail & E-commerce", logoText: "VIVID", desc: language === 'id' ? "Platform E-Commerce Headless" : "Headless E-commerce Platform" },
-    { name: "Kross Cloud", industry: language === 'id' ? "Keamanan Siber" : "Cybersecurity", logoText: "KROSS", desc: language === 'id' ? "Arsitektur Keamanan Enterprise" : "Enterprise Security Architecture" },
-    { name: "Zenora Health", industry: language === 'id' ? "Teknologi Kesehatan" : "HealthTech", logoText: "ZENORA", desc: language === 'id' ? "Aplikasi Manajemen Pasien" : "Patient Management Application" },
-    { name: "Orbit Dynamics", industry: "B2B SaaS", logoText: "ORBIT", desc: language === 'id' ? "Sistem UI/UX Platform Cloud" : "Cloud Platform UI/UX System" },
+  const trustedBrands = [
+    { name: "PERTAMINA", markClass: "text-[1.15rem] sm:text-[1.45rem] font-black tracking-[-0.04em] italic" },
+    { name: "BTN", markClass: "text-xl sm:text-2xl font-black tracking-[-0.06em]" },
+    { name: "IHC", markClass: "text-xl sm:text-2xl font-extrabold tracking-[0.02em]" },
+    { name: "MARKPLUS", markClass: "text-[1rem] sm:text-[1.2rem] font-black tracking-[-0.03em]" },
+    { name: "SABABAY", markClass: "text-[1rem] sm:text-[1.2rem] font-bold tracking-[0.12em]" },
+    { name: "INA SOLUSI", markClass: "text-[0.95rem] sm:text-[1.1rem] font-extrabold tracking-[0.05em]" },
   ];
 
   const techStack = [
@@ -210,6 +208,28 @@ export const Home = () => {
                 <span>{language === 'id' ? 'Jelajahi 50 Portofolio' : 'Explore 50 Case Studies'}</span>
               </Link>
             </div>
+
+            <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-[#8A909D]">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]/75">
+                {language === 'id' ? 'Partner Infrastruktur Resmi' : 'Official Infrastructure Partner'}
+              </span>
+              <span className="h-px w-5 sm:w-7 bg-[#262930]" aria-hidden="true" />
+              <a
+                href="https://www.hostinger.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-lg opacity-90 hover:opacity-100 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                aria-label="Hostinger Partner"
+              >
+                <img
+                  src="/hostinger-partner-badge.svg"
+                  alt="Hostinger Partner"
+                  width="112"
+                  height="42"
+                  className="w-28 h-auto"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -258,8 +278,8 @@ export const Home = () => {
           </span>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-[-0.03em] text-white max-w-3xl">
             {language === 'id' 
-              ? 'Dipercaya oleh 50+ perusahaan global & startup bervaluasi tinggi' 
-              : 'Empowering 50+ global scaleups, enterprise leaders & venture-backed products'}
+              ? 'Dipercaya oleh tim, perusahaan, dan bisnis yang membangun produk digital di Indonesia' 
+              : 'Trusted by teams, enterprises, and growing businesses building digital products in Indonesia'}
           </h2>
         </div>
 
@@ -283,42 +303,15 @@ export const Home = () => {
                 ease: 'linear',
               }}
             >
-              {[
-                { name: 'interprefy', style: 'font-sans font-bold tracking-tight text-2xl sm:text-3xl lowercase' },
-                { name: 'PLAYERS HEALTH', style: 'font-serif font-black tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'AUTOMATTIC', style: 'font-mono font-bold tracking-wider text-xl sm:text-2xl uppercase' },
-                { name: 'WordPress.com', style: 'font-serif font-bold tracking-normal text-2xl sm:text-3xl' },
-                { name: 'CHALHOUB GROUP', style: 'font-sans font-extrabold tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'GREIF', style: 'font-mono font-black tracking-widest text-2xl sm:text-3xl uppercase' },
-                { name: 'Sinta Health', style: 'font-sans font-bold tracking-tight text-xl sm:text-2xl' },
-                { name: 'BlockDB Networks', style: 'font-mono font-semibold tracking-wider text-lg sm:text-xl uppercase' },
-                { name: 'Orbit Cloud', style: 'font-sans font-black tracking-tighter text-2xl sm:text-3xl uppercase' },
-                { name: 'Zenora Systems', style: 'font-serif font-semibold tracking-wide text-xl sm:text-2xl' },
-                { name: 'Lumina Realty', style: 'font-sans font-extrabold tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'Solaris CleanTech', style: 'font-mono font-bold tracking-tight text-xl sm:text-2xl' },
-                { name: 'Nexus Fintech', style: 'font-sans font-black tracking-wide text-xl sm:text-2xl uppercase' },
-                { name: 'Kross Security', style: 'font-mono font-extrabold tracking-widest text-lg sm:text-xl uppercase' },
-                // Duplicate set for seamless continuous loop
-                { name: 'interprefy', style: 'font-sans font-bold tracking-tight text-2xl sm:text-3xl lowercase' },
-                { name: 'PLAYERS HEALTH', style: 'font-serif font-black tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'AUTOMATTIC', style: 'font-mono font-bold tracking-wider text-xl sm:text-2xl uppercase' },
-                { name: 'WordPress.com', style: 'font-serif font-bold tracking-normal text-2xl sm:text-3xl' },
-                { name: 'CHALHOUB GROUP', style: 'font-sans font-extrabold tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'GREIF', style: 'font-mono font-black tracking-widest text-2xl sm:text-3xl uppercase' },
-                { name: 'Sinta Health', style: 'font-sans font-bold tracking-tight text-xl sm:text-2xl' },
-                { name: 'BlockDB Networks', style: 'font-mono font-semibold tracking-wider text-lg sm:text-xl uppercase' },
-                { name: 'Orbit Cloud', style: 'font-sans font-black tracking-tighter text-2xl sm:text-3xl uppercase' },
-                { name: 'Zenora Systems', style: 'font-serif font-semibold tracking-wide text-xl sm:text-2xl' },
-                { name: 'Lumina Realty', style: 'font-sans font-extrabold tracking-widest text-lg sm:text-xl uppercase' },
-                { name: 'Solaris CleanTech', style: 'font-mono font-bold tracking-tight text-xl sm:text-2xl' },
-                { name: 'Nexus Fintech', style: 'font-sans font-black tracking-wide text-xl sm:text-2xl uppercase' },
-                { name: 'Kross Security', style: 'font-mono font-extrabold tracking-widest text-lg sm:text-xl uppercase' }
-              ].map((logo, idx) => (
-                <div 
-                  key={idx}
-                  className="flex items-center justify-center shrink-0 opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default px-4"
+              {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
+                <div
+                  key={`${logo.name}-${idx}`}
+                  className="flex min-w-[150px] sm:min-w-[190px] items-center justify-center shrink-0 px-6 sm:px-8"
+                  aria-label={logo.name}
                 >
-                  <span className={`${logo.style} text-[#8A909D] hover:text-white whitespace-nowrap`}>
+                  <span
+                    className={`${logo.markClass} text-[#8A909D] hover:text-white opacity-60 hover:opacity-100 whitespace-nowrap transition-all duration-300`}
+                  >
                     {logo.name}
                   </span>
                 </div>
