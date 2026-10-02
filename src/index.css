@@ -1066,16 +1066,15 @@
 .kapi-public-shell [data-kapi-spotlight="true"]::before {
   content: "";
   position: absolute;
-  inset: -72px;
-  border-radius: 50%;
+  inset: 0;
+  border-radius: inherit;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
   background: radial-gradient(
-    circle,
+    170px circle at var(--kapi-spotlight-x) var(--kapi-spotlight-y),
     rgba(229, 9, 20, 0.055) 0%,
-    rgba(229, 9, 20, 0.028) 28%,
-    rgba(229, 9, 20, 0.008) 52%,
+    rgba(229, 9, 20, 0.022) 34%,
     transparent 72%
   );
   filter: blur(18px);
