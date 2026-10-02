@@ -1197,13 +1197,13 @@ html.kapi-custom-cursor-enabled select {
   z-index: 9998;
   width: max-content;
   max-width: 132px;
-  height: 23px;
+  min-height: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0 9px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
   background: rgba(13,14,18,0.96);
   color: rgba(255,255,255,0.94);
   box-shadow:
@@ -1216,23 +1216,9 @@ html.kapi-custom-cursor-enabled select {
   letter-spacing: 0.11em;
   text-transform: uppercase;
   white-space: nowrap;
-  transform-origin: bottom right;
+  transform-origin: center;
   will-change: transform, opacity;
 }
-
-.kapi-cursor-follow::after {
-  content: "";
-  position: absolute;
-  right: 7px;
-  bottom: -4px;
-  width: 7px;
-  height: 7px;
-  background: rgba(13,14,18,0.96);
-  border-right: 1px solid rgba(255,255,255,0.15);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  transform: rotate(45deg);
-}
-
 @media (max-width: 767px) {
   .kapi-cursor-follow {
     display: none;
