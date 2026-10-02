@@ -701,7 +701,6 @@ export const Careers = () => {
                   {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
                 </span>
                 <span className="h-px w-10 bg-line" />
-                <span className="font-mono text-[10px] text-muted uppercase tracking-wider">KAPITECH</span>
               </div>
 
               <h1 className="max-w-5xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.93] tracking-[-0.055em] text-white">
@@ -840,9 +839,6 @@ export const Careers = () => {
                       <span className="block text-sm font-display font-semibold text-white leading-tight">{talent.name}</span>
                       <span className="block text-[11px] text-white/65 mt-0.5 truncate">{talent.role}</span>
                     </div>
-                    <div className="absolute top-3 left-3 rounded-full border border-white/15 bg-black/35 px-2 py-1 text-[9px] font-mono uppercase tracking-widest text-white/70 backdrop-blur-sm">
-                      0{(index % 12) + 1}
-                    </div>
                   </button>
                 </div>
               );
@@ -968,9 +964,6 @@ export const Careers = () => {
                     </span>
                     <span className="px-2.5 py-1 rounded-full bg-bg border border-line text-muted text-[10px] font-mono">
                       {pos.department}
-                    </span>
-                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono">
-                      {pos.badge}
                     </span>
                   </div>
 
@@ -1103,141 +1096,53 @@ export const Careers = () => {
             </div>
           </div>
 
-          {/* 4 In-Depth Information Columns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* 1. Keterangan & Deskripsi */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
-              <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
-                  <Layers size={20} className="text-brand-red" />
+          {/* Focused vendor fit panel */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-5">
+            <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">01 / What we need</span>
+                  <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold text-white">
+                    {language === 'id' ? 'Spesialis yang siap masuk ke workflow kami.' : 'Specialists who can plug into our workflow.'}
+                  </h3>
                 </div>
-                <h3 className="text-lg font-display font-bold text-white mb-3">
-                  {language === 'id' ? 'Deskripsi Kemitraan' : 'Partnership Model'}
-                </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
-                  {language === 'id'
-                    ? 'Kami menjembatani talenta spesialis dengan proyek riil dari klien korporat, startup VC, dan scaleup internasional tanpa birokrasi berbelit.'
-                    : 'We connect specialized independent contractors with real projects from venture-backed startups and enterprises with zero unnecessary friction.'
-                  }
-                </p>
-                <ul className="space-y-2 text-xs font-light text-white/80">
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Brief proyek terstruktur & jelas' : 'Structured briefs & clear design tokens'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Kolaborasi langsung via Slack / WhatsApp' : 'Direct collaboration on Slack / WhatsApp'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Continuous pipeline proyek berkala' : 'Continuous pipeline of future projects'}</span>
-                  </li>
-                </ul>
+                <Code2 className="w-5 h-5 text-brand-red shrink-0" />
+              </div>
+              <div className="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-white/80">
+                {[
+                  'UI/UX & Product Design',
+                  'Frontend Development',
+                  'Backend / Full-Stack',
+                  'Brand, Motion & 3D'
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* 2. Aturan & Ketentuan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
-              <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
-                  <ShieldCheck size={20} className="text-brand-red" />
-                </div>
-                <h3 className="text-lg font-display font-bold text-white mb-3">
-                  {language === 'id' ? 'Aturan & Ketentuan' : 'Rules & Standards'}
-                </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
-                  {language === 'id'
-                    ? 'Integritas, kepatuhan pada milestone yang telah disetujui, dan standar kualitas adalah nilai utama kami.'
-                    : 'Integrity, adherence to committed milestone deadlines, and pristine craft quality are non-negotiables.'
-                  }
-                </p>
-                <ul className="space-y-2 text-xs font-light text-white/80">
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Wajib menandatangani NDA proyek' : 'Mandatory Non-Disclosure Agreement (NDA)'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Komitmen 100% pada deadline (Zero Ghosting)' : '100% Deadline commitment (Zero ghosting)'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Mematuhi Standar Koding / Figma Kapitech' : 'Adhere to Kapitech Design / Code standard'}</span>
-                  </li>
-                </ul>
+            <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">02 / Working standard</span>
+              <h3 className="mt-2 text-xl sm:text-2xl font-display font-semibold text-white">
+                {language === 'id' ? 'Standar yang kami jaga.' : 'The standard we work by.'}
+              </h3>
+              <div className="mt-6 space-y-3">
+                {[
+                  language === 'id' ? 'Brief dan scope yang jelas' : 'Clear briefs and scope',
+                  language === 'id' ? 'Komunikasi responsif' : 'Responsive communication',
+                  language === 'id' ? 'Disiplin milestone dan deadline' : 'Milestone and deadline discipline',
+                  language === 'id' ? 'Standar design & code Kapitech' : 'Kapitech design & code standards'
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3 text-sm text-white/80">
+                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* 3. Benefit & Keuntungan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
-              <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
-                  <DollarSign size={20} className="text-brand-red" />
-                </div>
-                <h3 className="text-lg font-display font-bold text-white mb-3">
-                  {language === 'id' ? 'Benefit & Keuntungan' : 'Vendor Benefits'}
-                </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
-                  {language === 'id'
-                    ? 'Dapatkan apresiasi finansial yang pantas atas keahlian Anda dengan kepastian pembayaran yang transparan.'
-                    : 'Receive fair, premium milestone compensation with prompt payouts upon approved deliverables.'
-                  }
-                </p>
-                <ul className="space-y-2 text-xs font-light text-white/80">
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Project fee transparan & dibayar tepat waktu' : 'Transparent project fee & timely payouts'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Portofolio kelas dunia (Global Scaleups)' : 'World-class portfolio for global clients'}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{language === 'id' ? 'Otonomi jam kerja & kebebasan lokasi' : 'Schedule autonomy & remote freedom'}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* 4. Apa yang Kami Butuhkan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
-              <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
-                  <Code2 size={20} className="text-brand-red" />
-                </div>
-                <h3 className="text-lg font-display font-bold text-white mb-3">
-                  {language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need'}
-                </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
-                  {language === 'id'
-                    ? 'Kami secara berkelanjutan menyaring mitra vendor pada domain berikut:'
-                    : 'We continuously recruit high-caliber vendor partners across these domains:'
-                  }
-                </p>
-                <ul className="space-y-2 text-xs font-light text-white/80">
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span><strong>UI/UX & Product Design</strong> (Figma, System)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span><strong>Frontend Dev</strong> (React, Next.js, Tailwind)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span><strong>Backend / Full-Stack</strong> (Node, Supabase)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
-                    <span><strong>Brand, Motion & 3D</strong> (After Effects, Spline)</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+          </div>        </div>
       </section>
 
       {/* SECTION: Benefits & Perks */}
