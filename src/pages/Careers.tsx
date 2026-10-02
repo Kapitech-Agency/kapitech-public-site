@@ -57,6 +57,7 @@ export const Careers = () => {
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [applicantSubmitError, setApplicantSubmitError] = useState('');
+  const [isApplicantSubmitting, setIsApplicantSubmitting] = useState(false);
   const [applicantErrors, setApplicantErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -71,6 +72,7 @@ export const Careers = () => {
   const [isFreelanceModalOpen, setIsFreelanceModalOpen] = useState(false);
   const [isVendorSubmitted, setIsVendorSubmitted] = useState(false);
   const [vendorSubmitError, setVendorSubmitError] = useState('');
+  const [isVendorSubmitting, setIsVendorSubmitting] = useState(false);
   const [vendorErrors, setVendorErrors] = useState<{ [key: string]: string }>({});
   const [vendorHoneypot, setVendorHoneypot] = useState('');
   const [vendorFormData, setVendorFormData] = useState({
@@ -550,6 +552,7 @@ export const Careers = () => {
 
     setApplicantErrors({});
     setApplicantSubmitError('');
+    setIsApplicantSubmitting(true);
     try {
       const resumeUpload = formData.resume ? await uploadPublicResume(formData.resume) : null;
       if (!resumeUpload?.success || !resumeUpload.data?.resumeUrl) {
@@ -575,6 +578,8 @@ export const Careers = () => {
           : 'Your application was not saved. Please check your connection and try again.'
       );
       return;
+    } finally {
+      setIsApplicantSubmitting(false);
     }
     setIsSubmitted(true);
   };
@@ -639,6 +644,7 @@ export const Careers = () => {
 
     setVendorErrors({});
     setVendorSubmitError('');
+    setIsVendorSubmitting(true);
     try {
       const resumeUpload = vendorFormData.resume ? await uploadPublicResume(vendorFormData.resume) : null;
       if (!resumeUpload?.success || !resumeUpload.data?.resumeUrl) {
@@ -667,6 +673,8 @@ export const Careers = () => {
           : 'Your vendor application was not saved. Please check your connection and try again.'
       );
       return;
+    } finally {
+      setIsVendorSubmitting(false);
     }
     setIsVendorSubmitted(true);
   };
