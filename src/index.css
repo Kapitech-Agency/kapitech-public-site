@@ -1132,9 +1132,9 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-cursor-pointer {
   position: fixed;
-  width: 30px;
-  height: 34px;
-  transform: translate(-2px, -2px);
+  width: 34px;
+  height: 38px;
+  transform: translate(-3px, -2px);
   pointer-events: none;
   z-index: 9999;
   will-change: transform, opacity;
@@ -1142,21 +1142,23 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-cursor-svg {
   display: block;
-  width: 30px;
-  height: 34px;
+  width: 34px;
+  height: 38px;
   overflow: visible;
-  transform-origin: 8px 7px;
+  transform-origin: 7px 7px;
   filter:
-    drop-shadow(0 2px 2px rgba(0,0,0,0.72))
-    drop-shadow(0 0 7px rgba(255,255,255,0.14));
-  transition: transform 260ms cubic-bezier(0.22,1,0.36,1), filter 260ms ease;
+    drop-shadow(0 2px 2px rgba(0,0,0,0.64))
+    drop-shadow(0 0 8px rgba(229,9,20,0.08));
+  transition:
+    transform 280ms cubic-bezier(0.22,1,0.36,1),
+    filter 280ms ease;
 }
 
 .kapi-site-cursor-layer.is-interactive .kapi-cursor-svg {
-  transform: scale(0.9) rotate(-5deg);
+  transform: scale(0.94) rotate(-4deg);
   filter:
-    drop-shadow(0 2px 2px rgba(0,0,0,0.76))
-    drop-shadow(0 0 12px rgba(255,255,255,0.22));
+    drop-shadow(0 2px 3px rgba(0,0,0,0.7))
+    drop-shadow(0 0 10px rgba(229,9,20,0.16));
 }
 
 .kapi-cursor-follow {
@@ -1164,29 +1166,46 @@ html.kapi-custom-cursor-enabled select {
   pointer-events: none;
   z-index: 9998;
   width: max-content;
-  max-width: 132px;
-  min-height: 22px;
+  max-width: 138px;
+  min-height: 25px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 9px;
+  padding: 0 10px 0 8px;
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 999px;
-  background: rgba(13,14,18,0.96);
-  color: rgba(255,255,255,0.94);
+  background: linear-gradient(180deg, rgba(24,25,30,0.97), rgba(12,13,17,0.97));
+  color: #F8FAFC;
   box-shadow:
-    0 10px 24px -14px rgba(0,0,0,0.95),
-    0 0 0 1px rgba(255,255,255,0.025);
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+    0 12px 28px -16px rgba(0,0,0,0.96),
+    0 0 0 1px rgba(229,9,20,0.035);
+  font-family: "Space Grotesk", Inter, system-ui, sans-serif;
   font-size: 8px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   white-space: nowrap;
   transform-origin: center;
   will-change: transform, opacity;
 }
+
+.kapi-cursor-label-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.kapi-cursor-label-accent {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #E50914;
+  box-shadow: 0 0 8px rgba(229,9,20,0.36);
+}
+
 @media (max-width: 767px) {
   .kapi-cursor-follow {
     display: none;
