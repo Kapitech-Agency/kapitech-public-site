@@ -502,6 +502,11 @@
   --careers-text-muted: var(--kapi-text-slate);
 }
 
+/* Normalize legacy section surfaces on Careers without changing the layout concept. */
+.kapi-careers [class*="bg-[#0A0A0A]"] {
+  background-color: var(--kapi-bg-charcoal-deep);
+}
+
 .kapi-careers [class*="bg-[#161616]"],
 .kapi-careers [class*="bg-[#111318]"],
 .kapi-careers [class*="bg-[#16181D]"] {
