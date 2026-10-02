@@ -356,20 +356,35 @@ export const Work = () => {
       )}
 
       {/* Filter & Search Bar Section */}
-      <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-3 sm:py-4 bg-[#0B0C0E]/72 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-3 sm:p-4 lg:p-5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.85)] space-y-3 sm:space-y-4">
-          <div className="flex items-center justify-between gap-4 px-1 sm:px-2">
+      <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-2 sm:py-2.5 bg-[#0B0C0E]/72 backdrop-blur-2xl">
+        <div className="max-w-7xl mx-auto rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-2.5 sm:p-3 lg:p-3.5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.85)] space-y-2 sm:space-y-2.5">
+          <div className="flex items-center justify-between gap-3 px-1 sm:px-1.5">
             <span className="kapi-section-label mb-0">
               {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
             </span>
-            <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]/75">
-              {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
-            </span>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]/75">
+                {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
+              </span>
+              {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
+                <button
+                  onClick={() => {
+                    setActivePillar('All');
+                    setActiveService('All');
+                    setSearchQuery('');
+                    setVisibleCount(12);
+                  }}
+                  className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[30px]"
+                >
+                  <X size={11} />
+                  <span>Reset</span>
+                </button>
+              )}
+            </div>
           </div>
-          {/* Top Controls: Main Pillars + Instant Search */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
-            {/* Primary Pillar Tabs */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 sm:p-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-3">
+            <div className="flex items-center gap-1 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               {[
                 { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
                 { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
@@ -378,7 +393,7 @@ export const Work = () => {
                 <button
                   key={tab.key}
                   onClick={() => handlePillarChange(tab.key)}
-                  className={`px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg text-xs font-mono font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center ${
+                  className={`px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-mono font-medium transition-all duration-200 min-h-[40px] sm:min-h-[36px] flex items-center justify-center ${
                     activePillar === tab.key
                       ? 'bg-brand-red text-white shadow-[0_10px_24px_-18px_rgba(229,9,20,0.75)]'
                       : 'text-[#8A909D] hover:text-white hover:bg-white/5'
@@ -389,8 +404,7 @@ export const Work = () => {
               ))}
             </div>
 
-            {/* Search Input Box */}
-            <div className="relative w-full md:w-80">
+            <div className="relative w-full md:w-72">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A909D]" />
               <input
                 type="text"
@@ -400,12 +414,12 @@ export const Work = () => {
                   setVisibleCount(12);
                 }}
                 placeholder={language === 'id' ? 'Cari studi kasus, klien, stack...' : 'Search case study, client, tech...'}
-                className="w-full bg-white/[0.018] border border-white/[0.08] rounded-xl pl-10 pr-9 py-2.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-colors font-mono min-h-[44px] backdrop-blur-md"
+                className="w-full bg-white/[0.018] border border-white/[0.08] rounded-xl pl-10 pr-9 py-2 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-colors font-mono min-h-[40px] backdrop-blur-md"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[32px] min-h-[32px] flex items-center justify-center"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[30px] min-h-[30px] flex items-center justify-center"
                   aria-label="Clear search"
                 >
                   <X size={14} />
@@ -414,19 +428,16 @@ export const Work = () => {
             </div>
           </div>
 
-          {/* Granular Service Pill Filter Scroll with Drag-to-Scroll & Right Black Fade */}
           <div className="relative group/filter">
-            {/* Right Fade Black Gradient */}
             <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/80 to-transparent z-10" />
-
-            <div 
+            <div
               ref={serviceScrollRef}
               onMouseDown={handleMouseDownService}
               onMouseMove={handleMouseMoveService}
               onMouseUp={handleMouseUpOrLeaveService}
               onMouseLeave={handleMouseUpOrLeaveService}
               onWheel={handleWheelService}
-              className={`flex items-center gap-2 overflow-x-auto overflow-y-hidden py-1.5 pr-16 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
+              className={`flex items-center gap-2 overflow-x-auto overflow-y-hidden py-1 pr-16 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                 isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
               }`}
             >
@@ -438,7 +449,7 @@ export const Work = () => {
                     setActiveService(srv);
                     setVisibleCount(12);
                   }}
-                  className={`px-3.5 py-2 rounded-full text-xs font-mono whitespace-nowrap transition-all duration-200 shrink-0 border min-h-[38px] flex items-center ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-mono whitespace-nowrap transition-all duration-200 shrink-0 border min-h-[34px] flex items-center ${
                     activeService === srv
                       ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_10px_24px_-18px_rgba(229,9,20,0.75)]'
                       : 'bg-white/[0.018] text-[#8A909D] border-white/[0.08] hover:border-brand-red/30 hover:text-white'
@@ -448,30 +459,6 @@ export const Work = () => {
                 </button>
               ))}
             </div>
-          </div>
-
-          {/* Results Count Bar */}
-          <div className="flex items-center justify-between text-xs font-mono text-[#8A909D] pt-1 px-1 sm:px-2">
-            <span>
-              {language === 'id' 
-                ? `Menampilkan ${Math.min(visibleCount, filteredProjects.length)} dari ${filteredProjects.length} Studi Kasus` 
-                : `Showing ${Math.min(visibleCount, filteredProjects.length)} of ${filteredProjects.length} Case Studies`
-              }
-            </span>
-            {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
-              <button
-                onClick={() => {
-                  setActivePillar('All');
-                  setActiveService('All');
-                  setSearchQuery('');
-                  setVisibleCount(12);
-                }}
-                className="text-brand-red hover:underline flex items-center gap-1 min-h-[36px]"
-              >
-                <X size={12} />
-                <span>{language === 'id' ? 'Reset Filter' : 'Reset Filters'}</span>
-              </button>
-            )}
           </div>
         </div>
       </section>
