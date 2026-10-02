@@ -328,7 +328,7 @@ export const Home = () => {
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 mb-10 sm:mb-12 text-center">
           <span className="kapi-section-label mb-5">
-            {language === 'id' ? 'DIPERCAYA DI INDONESIA' : 'TRUSTED BY INDONESIAN TEAMS'}
+            {language === 'id' ? 'DIPERCAYA BISNIS DI INDONESIA' : 'Trusted by Businesses in Indonesia'}
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.045em] leading-[1.08] text-white">
             {language === 'id'
