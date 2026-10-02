@@ -467,6 +467,33 @@
   transform: translate(3px, -3px);
 }
 
+/* Public card palette normalization. Keep all primary cards on the same surface system. */
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#16181D]"],
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#16181D]"],
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#161616]"],
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#161616]"],
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#111318]"],
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#111318]"] {
+  background-color: var(--kapi-bg-card);
+  border-color: var(--kapi-border-subtle);
+}
+
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#16181D]"]:hover,
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#16181D]"]:hover,
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#161616]"]:hover,
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#161616]"]:hover,
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#111318]"]:hover,
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#111318]"]:hover {
+  background-color: var(--kapi-bg-card-hover);
+}
+
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#20232B]"]:hover,
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#20232B]"]:hover,
+.kapi-public-shell [class*="rounded-2xl"][class*="bg-[#1E1E1E]"]:hover,
+.kapi-public-shell [class*="rounded-3xl"][class*="bg-[#1E1E1E]"]:hover {
+  background-color: var(--kapi-bg-card-hover);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
