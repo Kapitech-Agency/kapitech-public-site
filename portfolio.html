@@ -48,6 +48,38 @@
             background-size: 60px 60px; transform: perspective(800px) rotateX(70deg);
             mask-image: linear-gradient(to top, black, transparent); pointer-events: none; z-index: 0; animation: grid-scroll 20s linear infinite;
         }
+    
+        /* Shared public-site interaction baseline */
+        html { scroll-padding-top: 88px; }
+        body { min-width: 320px; }
+        ::selection { background: var(--magma); color: #fff; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--magma); }
+        * { scrollbar-width: thin; scrollbar-color: #333 var(--bg-main); }
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--magma);
+            outline-offset: 4px;
+        }
+        button:disabled { cursor: not-allowed; opacity: 0.55; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .liquid-glass { border-radius: 20px; }
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-magma selection:text-white">
@@ -73,13 +105,13 @@
                     <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
                     <span class="relative z-10 group-hover:text-white">Start Project</span>
                 </a>
-                <button class="lg:hidden text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"><i data-lucide="menu" class="w-8 h-8"></i></button>
+                <button type="button" class="lg:hidden text-white" data-mobile-menu-toggle aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation menu"><i data-lucide="menu" class="w-8 h-8"></i></button>
             </div>
         </div>
     </nav>
 
     <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl">
-        <button onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="absolute top-8 right-8 text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <button type="button" onclick="event.stopPropagation()" class="absolute top-8 right-8 text-white" data-mobile-menu-close aria-label="Close navigation menu"><i data-lucide="x" class="w-10 h-10"></i></button>
         <a href="./index.html" class="text-5xl font-display font-bold text-white hover:text-magma">Home</a>
         <a href="./about.html" class="text-5xl font-display font-bold text-white hover:text-magma">About</a>
         <a href="./services.html" class="text-5xl font-display font-bold text-white hover:text-magma">Services</a>
@@ -91,7 +123,7 @@
 
     <section class="min-h-screen flex flex-col justify-end pb-24 px-6 relative max-w-[1920px] mx-auto overflow-hidden">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline><source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4"></video>
+            <video autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4"></video>
             <div class="video-overlay"></div>
         </div>
         <div class="relative z-10 w-full reveal">
@@ -117,7 +149,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-32">
             <div class="group cursor-pointer reveal">
                 <div class="liquid-glass w-full aspect-[4/3] overflow-hidden relative mb-8 rounded-3xl">
-                    <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1200" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1200" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="" loading="lazy" decoding="async">
                     <div class="absolute inset-0 bg-black/90 flex flex-col justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div class="mb-4"><span class="text-magma text-xs font-bold uppercase">Challenge</span><p class="text-white text-sm">Legacy interface caused 40% drop-off.</p></div>
                         <div class="mb-4"><span class="text-magma text-xs font-bold uppercase">Engineering</span><p class="text-white text-sm">Custom WebGL pipeline.</p></div>
@@ -129,7 +161,7 @@
             </div>
             <div class="group cursor-pointer reveal md:mt-32">
                 <div class="liquid-glass w-full aspect-[4/3] overflow-hidden relative mb-8 rounded-3xl">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="" loading="lazy" decoding="async">
                     <div class="absolute inset-0 bg-black/90 flex flex-col justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div class="mb-4"><span class="text-magma text-xs font-bold uppercase">Challenge</span><p class="text-white text-sm">Generic brand identity.</p></div>
                         <div class="mb-4"><span class="text-magma text-xs font-bold uppercase">Engineering</span><p class="text-white text-sm">Generative Python art scripts.</p></div>
@@ -160,16 +192,10 @@
                     <span class="font-bold text-white tracking-widest">KAPITECH</span>
                 </div>
                 <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
-                    <a href="#" class="hover:text-magma">Instagram</a>
-                    <a href="#" class="hover:text-magma">LinkedIn</a>
+                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">Instagram</a>
+                    <a href="javascript:void(0)" aria-disabled="true" class="hover:text-magma">LinkedIn</a>
                 </div>
             </div>
         </div>
     </footer>
-    <script>
-        lucide.createIcons();
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-</body>
 </html>
