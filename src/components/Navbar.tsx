@@ -108,7 +108,7 @@ export const Navbar = () => {
     cn(
       "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300",
       active
-        ? "text-white border-white/[0.1] bg-white/[0.05] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]"
+        ? "text-white border-brand-red/25 bg-white/[0.05] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(230,57,70,0.16),0_6px_18px_rgba(0,0,0,0.08)]"
         : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
@@ -154,14 +154,6 @@ export const Navbar = () => {
                 className={desktopNavItemClass(isWorkActive)}
                 aria-current={isWorkActive ? 'page' : undefined}
               >
-                {isWorkActive && (
-                  <motion.span
-                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
-                    layoutId="desktop-nav-active"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                    aria-hidden="true"
-                  />
-                )}
                 <span className="relative z-10">{t('nav.work')}</span>
               </Link>
 
@@ -188,14 +180,6 @@ export const Navbar = () => {
                   aria-haspopup="true"
                   aria-current={isServicesActive ? 'page' : undefined}
                 >
-                  {(isServicesActive || isServicesDropdownOpen) && (
-                    <motion.span
-                      className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
-                      layoutId="desktop-nav-active"
-                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
-                      aria-hidden="true"
-                    />
-                  )}
                   <span className="relative z-10">{t('nav.services')}</span>
                   <motion.span
                     className="relative z-10 ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center origin-center"
@@ -218,14 +202,6 @@ export const Navbar = () => {
                 className={desktopNavItemClass(isAboutActive)}
                 aria-current={isAboutActive ? 'page' : undefined}
               >
-                {isAboutActive && (
-                  <motion.span
-                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
-                    layoutId="desktop-nav-active"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                    aria-hidden="true"
-                  />
-                )}
                 <span className="relative z-10">{t('nav.about')}</span>
               </Link>
 
@@ -235,14 +211,6 @@ export const Navbar = () => {
                 className={desktopNavItemClass(isCareersActive)}
                 aria-current={isCareersActive ? 'page' : undefined}
               >
-                {isCareersActive && (
-                  <motion.span
-                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
-                    layoutId="desktop-nav-active"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                    aria-hidden="true"
-                  />
-                )}
                 <span className="relative z-10">{t('nav.careers')}</span>
               </Link>
             </div>
