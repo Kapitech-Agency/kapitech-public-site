@@ -32,10 +32,10 @@ import {
   AlertCircle,
   FolderGit2
 } from 'lucide-react';
+import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
-import { uploadPublicResume } from '../lib/apiClient';
 
 export interface Position {
   id: string;
@@ -56,7 +56,6 @@ export const Careers = () => {
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [applicantSubmitError, setApplicantSubmitError] = useState('');
-  const [isApplicantSubmitting, setIsApplicantSubmitting] = useState(false);
   const [applicantErrors, setApplicantErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -71,7 +70,6 @@ export const Careers = () => {
   const [isFreelanceModalOpen, setIsFreelanceModalOpen] = useState(false);
   const [isVendorSubmitted, setIsVendorSubmitted] = useState(false);
   const [vendorSubmitError, setVendorSubmitError] = useState('');
-  const [isVendorSubmitting, setIsVendorSubmitting] = useState(false);
   const [vendorErrors, setVendorErrors] = useState<{ [key: string]: string }>({});
   const [vendorHoneypot, setVendorHoneypot] = useState('');
   const [vendorFormData, setVendorFormData] = useState({
@@ -339,6 +337,7 @@ export const Careers = () => {
   ];
 
   const twelveTalents = language === 'id' ? twelveTalentsId : twelveTalentsEn;
+
   const positionsEn: Position[] = [
     {
       id: 'bdr-partnership',
@@ -550,21 +549,14 @@ export const Careers = () => {
 
     setApplicantErrors({});
     setApplicantSubmitError('');
-    setIsApplicantSubmitting(true);
     try {
-      const resumeUpload = formData.resume ? await uploadPublicResume(formData.resume) : null;
-      if (!resumeUpload?.success || !resumeUpload.data?.resumeUrl) {
-        throw new Error(resumeUpload?.error || 'Resume upload failed.');
-      }
-
       await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
         phone: sanitizedPhone,
         positionTitle: selectedPosition ? selectedPosition.title : 'General Studio Application',
         portfolioUrl: sanitizedPortfolio,
-        resumeUrl: resumeUpload.data.resumeUrl,
-        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${resumeUpload?.data?.filename || 'Not attached'}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
+        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${formData.resume?.name || 'Uploaded'}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
         source: `Careers: ${selectedPosition?.title || 'Studio Role'}`,
         type: 'career'
       });
@@ -576,8 +568,6 @@ export const Careers = () => {
           : 'Your application was not saved. Please check your connection and try again.'
       );
       return;
-    } finally {
-      setIsApplicantSubmitting(false);
     }
     setIsSubmitted(true);
   };
@@ -642,13 +632,7 @@ export const Careers = () => {
 
     setVendorErrors({});
     setVendorSubmitError('');
-    setIsVendorSubmitting(true);
     try {
-      const resumeUpload = vendorFormData.resume ? await uploadPublicResume(vendorFormData.resume) : null;
-      if (vendorFormData.resume && (!resumeUpload?.success || !resumeUpload.data?.resumeUrl)) {
-        throw new Error(resumeUpload?.error || 'Resume upload failed.');
-      }
-
       await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
@@ -658,8 +642,7 @@ export const Careers = () => {
         experienceYears: vendorFormData.experienceYears,
         tools: sanitizedTools,
         portfolioUrl: sanitizedPortfolio,
-        resumeUrl: resumeUpload?.data?.resumeUrl,
-        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${resumeUpload.data.filename}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
+        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${vendorFormData.resume?.name || 'Not attached'}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
         source: 'Careers: Freelance Vendor Network',
         type: 'vendor'
       });
@@ -671,196 +654,282 @@ export const Careers = () => {
           : 'Your vendor application was not saved. Please check your connection and try again.'
       );
       return;
-    } finally {
-      setIsVendorSubmitting(false);
     }
     setIsVendorSubmitted(true);
   };
 
   return (
-    <div className="kapi-page kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="kapi-careers-hero relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+        <AtmosphericBackground 
+          imageUrl="/hero_background_3d.png"
+          opacity={0.06}
+          disableGrayscale={true}
+        />
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-5xl">
-            <div className="mb-5">
-              <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">{language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}</span>
-            </div>
-            <h1 className="max-w-6xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white">
-              {language === 'id' ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></> : <>Build the Future <span className="text-brand-red">With Us.</span></>}
+          <div className="max-w-3xl">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+              {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
+            </span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white mb-6">
+              {language === 'id' ? 'Berkarya Bersama Kapitech.' : 'Build the Future With Us.'}
             </h1>
-            <div className="mt-7">
-              <p className="max-w-2xl text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
-                {language === 'id' ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.' : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
-              </p>
+            <p className="text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed mb-6">
+              {language === 'id'
+                ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek (100% WFA) untuk berkolaborasi menggarap produk digital kelas dunia.'
+                : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
+              }
+            </p>
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93] mb-6">
+              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A] flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
+              </span>
+              <span className="px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red font-semibold flex items-center gap-2">
+                <Sparkles size={12} />
+                <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
+              </span>
+              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
+                {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
+              </span>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"><span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span><ArrowUpRight size={14} /></a>
-              <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); setVendorSubmitError(''); }} className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"><FolderGit2 size={14} /><span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span></button>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a 
+                href="#open-positions"
+                className="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2"
+              >
+                <span>{language === 'id' ? 'Posisi Studio On-site' : 'Studio Open Roles'}</span>
+                <ArrowUpRight size={14} />
+              </a>
+              <button 
+                onClick={() => {
+                  setIsFreelanceModalOpen(true);
+                  setIsVendorSubmitted(false);
+                  setVendorSubmitError('');
+                }}
+                className="px-5 py-2.5 rounded-full bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-red/20"
+              >
+                <FolderGit2 size={14} />
+                <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="kapi-careers-talent-section py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.08, delayChildren: 0.04 }
-              }
-            }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-12"
-          >
-            <div className="max-w-3xl">
-              <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-3"
-              >
-                <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">People & Craft</span>
-              </motion.div>
-              <motion.h2
-                variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]"
-              >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</motion.h2>
+      <section className="py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono mb-3">
+                <Users className="w-3.5 h-3.5 text-brand-red" />
+                <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+                {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
+              </h2>
             </div>
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1"
-            >
-              {language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.12 }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.055, delayChildren: 0.06 }
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
+              {language === 'id'
+                ? 'Bekerja bahu-membahu bersama para insinyur software, desainer visual, animator 3D, dan spesialis kreatif kami.'
+                : 'Collaborate shoulder-to-shoulder with our multidisciplinary squad of software engineers, visual designers, 3D animators, and creative strategists.'
               }
-            }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
-          >
-            {twelveTalents.map((talent) => (
-              <motion.div
-                key={talent.id}
-                variants={{
-                  hidden: { opacity: 0, y: 14, scale: 0.99 },
-                  visible: { opacity: 1, y: 0, scale: 1 }
-                }}
-                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <motion.button
-                  onClick={() => setSelectedTalent(talent)}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative block w-full aspect-[4/5] overflow-hidden rounded-xl border border-line bg-panel text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-red/50"
-                  title={talent.name + ' - ' + talent.role}
-                  aria-label={'View photo and profile of ' + talent.name}
-                >
-                  <motion.img
-                    src={talent.image}
-                    alt={talent.name}
-                    className="absolute inset-0 w-full h-full object-cover object-top"
-                    loading="lazy"
-                    whileHover={{ scale: 1.025 }}
-                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
-                  <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4">
-                    <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/50 mb-1.5">
-                      {talent.department}
-                    </p>
-                    <h3 className="text-sm sm:text-[15px] font-display font-semibold text-white leading-tight">
-                      {talent.name}
-                    </h3>
-                    <p className="mt-1 text-[10px] sm:text-[11px] text-white/60 leading-snug">
-                      {talent.role}
-                    </p>
-                  </div>
-                </motion.button>
-              </motion.div>
-            ))}
-          </motion.div>
+            </p>
+          </div>
+        </div>
 
+        {/* Dynamic & Aesthetic Staggered Photo Wall (Plain Darkened Photos) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 pb-6">
+            {twelveTalents.map((talent, index) => {
+              // Staggered offset for dynamic editorial rhythm
+              const offsetClasses = [
+                'lg:translate-y-0',
+                'lg:translate-y-5 sm:translate-y-3',
+                'lg:-translate-y-2',
+                'lg:translate-y-7 sm:translate-y-4',
+                'lg:translate-y-1',
+                'lg:translate-y-6 sm:translate-y-2',
+                'lg:-translate-y-1',
+                'lg:translate-y-6 sm:translate-y-4',
+                'lg:translate-y-0',
+                'lg:translate-y-5 sm:translate-y-2',
+                'lg:-translate-y-2',
+                'lg:translate-y-7 sm:translate-y-3',
+              ][index % 12];
+
+              return (
+                <div
+                  key={`talent-wrap-${talent.id}`}
+                  className={`transition-transform duration-500 ${offsetClasses}`}
+                >
+                  <button
+                    onClick={() => setSelectedTalent(talent)}
+                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#2A2A2A] bg-[#161616] transition-all duration-500 hover:scale-[1.04] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    title={`${talent.name} - ${talent.role}`}
+                    aria-label={`View photo and profile of ${talent.name}`}
+                  >
+                    {/* Pure Plain Photo with Tasteful Dark Moody Grading */}
+                    <img 
+                      src={talent.image} 
+                      alt={talent.name}
+                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.70] contrast-[1.15] saturate-[0.85] group-hover:brightness-[0.92] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out"
+                      loading="lazy"
+                    />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Interactive Talent Detail Modal */}
         <AnimatePresence>
           {selectedTalent && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="kapi-careers-modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/88 backdrop-blur-md overflow-y-auto" onClick={() => setSelectedTalent(null)} role="dialog" aria-modal="true" aria-label={'Talent profile: ' + selectedTalent.name}>
-              <motion.div initial={{ opacity: 0, scale: 0.98, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 24 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }} onClick={(e) => e.stopPropagation()} className="kapi-careers-modal kapi-talent-modal relative w-full max-w-3xl bg-panel border border-line rounded-[1.75rem] overflow-hidden shadow-2xl my-4">
-                <div className="grid md:grid-cols-[0.9fr_1.1fr]">
-                  <div className="relative min-h-[300px] md:min-h-[520px] bg-[#0A0A0A] overflow-hidden">
-                    <motion.img src={selectedTalent.image} alt={selectedTalent.name} className="absolute inset-0 w-full h-full object-cover object-center" initial={{ scale: 1.04 }} animate={{ scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
-                    <div className="absolute left-5 right-5 bottom-5 sm:left-7 sm:right-7 sm:bottom-7">
-                      <span className="block text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red mb-1.5">{selectedTalent.department}</span>
-                      <h3 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-white">{selectedTalent.name}</h3>
-                      <p className="mt-1 text-xs sm:text-sm text-white/65">{selectedTalent.role}</p>
-                    </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto"
+              onClick={() => setSelectedTalent(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-lg bg-[#161616] border border-[#2A2A2A] rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+              >
+                <button
+                  onClick={() => setSelectedTalent(null)}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors z-10"
+                  aria-label="Close talent profile"
+                >
+                  <X size={18} />
+                </button>
+
+                <div className="flex items-center gap-4 mb-5 sm:mb-6 pr-8">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0A0A0A] shrink-0 relative shadow-lg shadow-brand-red/10">
+                    <img 
+                      src={selectedTalent.image} 
+                      alt={selectedTalent.name}
+                      className="w-full h-full object-cover object-center brightness-95 contrast-105"
+                    />
                   </div>
-                  <div className="relative p-5 sm:p-7 md:p-9">
-                    <button onClick={() => setSelectedTalent(null)} className="kapi-modal-close absolute top-4 right-4 w-10 h-10 rounded-full bg-[#0A0A0A]/80 hover:bg-brand-red text-white/70 hover:text-white border border-line hover:border-brand-red flex items-center justify-center transition-all z-10 backdrop-blur-sm" aria-label="Close talent profile"><X size={18} /></button>
-                    <div className="pr-12"><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875]">{language === 'id' ? 'Profil talenta' : 'Talent profile'}</span><div className="mt-2 text-[11px] font-mono text-brand-red">{selectedTalent.experience}</div></div>
-                    <div className="mt-9 space-y-7">
-                      <div><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875] block mb-2">{language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}</span><p className="text-sm sm:text-[15px] font-mono text-white leading-relaxed">{selectedTalent.specialty}</p></div>
-                      <div className="h-px bg-line" />
-                      <div><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875] block mb-2">{language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}</span><p className="text-sm leading-relaxed text-[#8E8E93]">{selectedTalent.bio}</p></div>
-                    </div>
-                    <div className="mt-9 pt-5 border-t border-line flex items-center justify-between gap-4"><span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#626875]">Kapitech Agency</span><button onClick={() => setSelectedTalent(null)} className="px-5 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-semibold rounded-full transition-colors">{language === 'id' ? 'Tutup Profil' : 'Close Profile'}</button></div>
+                  <div className="min-w-0">
+                    <span className="text-[11px] sm:text-xs font-mono text-brand-red font-semibold block mb-0.5 truncate">
+                      {selectedTalent.department} • {selectedTalent.experience}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-white truncate">
+                      {selectedTalent.name}
+                    </h3>
+                    <p className="text-xs text-[#8E8E93] truncate">
+                      {selectedTalent.role}
+                    </p>
                   </div>
+                </div>
+
+                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#2A2A2A] pt-4">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
+                      {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
+                    </span>
+                    <p className="font-mono text-brand-red font-medium text-xs sm:text-sm">
+                      {selectedTalent.specialty}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
+                      {language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}
+                    </span>
+                    <p className="leading-relaxed text-[#8E8E93]">
+                      {selectedTalent.bio}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 sm:mt-6 pt-4 border-t border-[#2A2A2A] flex justify-end">
+                  <button
+                    onClick={() => setSelectedTalent(null)}
+                    className="w-full sm:w-auto px-6 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-medium rounded-full transition-colors"
+                  >
+                    {language === 'id' ? 'Tutup Profil' : 'Close Profile'}
+                  </button>
                 </div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-        </div>
       </section>
 
       {/* SECTION: Current Opportunities */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A]" id="open-positions">
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mb-10 sm:mb-12">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-              {language === 'id' ? 'Peluang Terbuka' : 'Current Opportunities'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-              {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+                {language === 'id' ? 'Peluang Terbuka' : 'Current Opportunities'}
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+                {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
+              {language === 'id'
+                ? 'Klik salah satu posisi di bawah ini untuk melihat detail kualifikasi, tanggung jawab, dan mengirimkan lamaran langsung.'
+                : 'Click any role below to review full responsibilities, qualification benchmarks, and submit your application.'
+              }
+            </p>
           </div>
-          <div className="space-y-4">
+
+          <div className="space-y-6">
             {positions.map((pos) => (
               <motion.div
                 key={pos.id}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="kapi-careers-role-card cursor-pointer group relative overflow-hidden p-5 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] transition-all duration-300"
+                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/50 transition-all duration-300"
               >
-                <div className="grid lg:grid-cols-[minmax(0,1fr)_auto] gap-6 lg:gap-10 items-center">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[11px] font-mono font-medium">{pos.workplace}</span>
-                      <span className="px-2.5 py-1 rounded-full bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93] text-[11px] font-mono">{pos.department}</span>
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                  <div className="space-y-3 max-w-3xl">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
+                        {pos.workplace}
+                      </span>
+                      <span className="px-3 py-1 rounded-full bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93] text-xs font-mono">
+                        {pos.department}
+                      </span>
+                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                        {pos.badge}
+                      </span>
                     </div>
-                    <h3 className="text-xl sm:text-2xl lg:text-[1.7rem] font-display font-bold text-white group-hover:text-brand-red transition-colors leading-tight">{pos.title}</h3>
-                    <p className="mt-3 max-w-3xl text-sm text-[#8E8E93] font-light leading-relaxed">{pos.summary}</p>
-                    <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-mono text-[#8E8E93]">
-                      <div className="flex items-center gap-1.5"><MapPin size={13} className="text-brand-red" /><span>{pos.location}</span></div>
-                      <div className="flex items-center gap-1.5"><Clock size={13} className="text-brand-red" /><span>{pos.type}</span></div>
+
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-white group-hover:text-brand-red transition-colors">
+                      {pos.title}
+                    </h3>
+
+                    <p className="text-sm text-[#8E8E93] font-light leading-relaxed">
+                      {pos.summary}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#8E8E93] pt-1">
+                      <div className="flex items-center gap-1.5">
+                        <MapPin size={13} className="text-brand-red" />
+                        <span>{pos.location}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Clock size={13} className="text-brand-red" />
+                        <span>{pos.type}</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex lg:flex-col items-stretch lg:items-end gap-2.5 shrink-0">
-                    <span className="inline-flex items-center justify-center gap-2 min-h-[42px] px-5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 border border-[#2A2A2A] group-hover:border-brand-red">
-                      <span>{language === 'id' ? 'Lihat Detail' : 'View Role'}</span>
+
+                  <div className="flex items-center gap-3 shrink-0 pt-2 lg:pt-0">
+                    <span className="px-5 py-2.5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#2A2A2A] group-hover:border-brand-red">
+                      <span>{language === 'id' ? 'Lihat Detail & Lamar' : 'View Role & Apply'}</span>
                       <ArrowUpRight size={14} />
                     </span>
                   </div>
@@ -873,55 +942,234 @@ export const Careers = () => {
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden" id="freelance-vendor">
+        {/* Subtle Background Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
+
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-9 sm:mb-10 gap-6">
+          {/* Header & Introduction */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/40 bg-brand-red/10 text-brand-red text-xs font-mono mb-3 font-semibold">
-                <Globe className="w-3.5 h-3.5" />
-                <span>{language === 'id' ? 'Kemitraan Terbuka • 100% Remote' : 'Open Network • 100% Remote'}</span>
+                <Globe className="w-3.5 h-3.5 text-brand-red" />
+                <span>{language === 'id' ? 'Kemitraan Terbuka • 100% Remote (WFA)' : 'Open Network • 100% Remote (WFA)'}</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">{language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}</h2>
-              <p className="mt-4 text-sm sm:text-base text-[#8E8E93] font-light leading-relaxed max-w-2xl">
-                {language === 'id' ? 'Berkolaborasi bersama Kapitech melalui proyek berbasis scope dan milestone yang jelas.' : 'Collaborate with Kapitech through focused, project-based engagements with clear scope and milestones.'}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+                {language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}
+              </h2>
+              <p className="mt-4 text-sm sm:text-base text-[#8E8E93] font-light leading-relaxed">
+                {language === 'id'
+                  ? 'Kapitech secara aktif berkolaborasi dengan para freelancer bertalenta, independent designer, dan developer profesional untuk menggarap proyek-proyek inovatif skala global & nasional. Pekerjaan bersifat 100% WFA (Work From Anywhere) dengan sistem kontrak berbasis proyek (Project-Based).'
+                  : 'Kapitech actively collaborates with top-tier freelancers, independent designers, and specialized developers to execute high-stakes digital products for global scaleups. All engagements are 100% remote (WFA) under a project-based contract model.'
+                }
               </p>
             </div>
-            <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); }} className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2.5">
-              <FolderGit2 size={16} /><span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span><ArrowUpRight size={16} />
-            </button>
+
+            <div className="shrink-0">
+              <button
+                onClick={() => {
+                  setIsFreelanceModalOpen(true);
+                  setIsVendorSubmitted(false);
+                }}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2.5"
+              >
+                <FolderGit2 size={16} />
+                <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 rounded-2xl border border-brand-red/25 bg-[#161616] overflow-hidden mb-8">
-            {[
-              { icon: Globe, title: '100% WFA', text: language === 'id' ? 'Bekerja dari mana saja.' : 'Work from anywhere.' },
-              { icon: Briefcase, title: 'Project-Based', text: language === 'id' ? 'Scope dan milestone jelas.' : 'Clear scope and milestones.' },
-              { icon: Laptop, title: 'BYOD', text: language === 'id' ? 'Gunakan perangkat sendiri.' : 'Use your own setup.' },
-              { icon: ShieldCheck, title: language === 'id' ? 'NDA & Deadline' : 'NDA & Deadlines', text: language === 'id' ? 'Kerahasiaan dan komitmen kerja.' : 'Confidentiality and delivery discipline.' },
-            ].map((item) => (
-              <div key={item.title} className="p-4 sm:p-5 border-b lg:border-b-0 border-[#2A2A2A] lg:border-r last:border-0 flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red shrink-0"><item.icon size={16} /></div>
-                <div className="min-w-0"><h4 className="text-[11px] font-mono uppercase tracking-wider text-white font-semibold">{item.title}</h4><p className="mt-1 text-[11px] text-[#8E8E93] font-light leading-relaxed">{item.text}</p></div>
+
+          {/* Key Work Policy Banner (Crucial Terms Callout) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 p-5 sm:p-6 rounded-2xl bg-[#161616] border border-brand-red/30">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+                <Globe size={18} />
               </div>
-            ))}
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
+                  {language === 'id' ? '100% WFA (Remote)' : '100% WFA (Remote)'}
+                </h4>
+                <p className="text-xs text-[#8E8E93] font-light">
+                  {language === 'id' ? 'Bekerja fleksibel dari mana saja tanpa batasan geografi.' : 'Work from anywhere globally with complete location flexibility.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
+                <Briefcase size={18} />
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
+                  {language === 'id' ? 'Project-Based' : 'Project-Based'}
+                </h4>
+                <p className="text-xs text-[#8E8E93] font-light">
+                  {language === 'id' ? 'Kontrak penugasan per milestone proyek dengan scope terdefinisi jelas.' : 'Engagement scoped per milestone with clear deliverables and fees.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                <Laptop size={18} />
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold mb-1">
+                  {language === 'id' ? 'BYOD (No Device)' : 'BYOD (No Device)'}
+                </h4>
+                <p className="text-xs text-[#8E8E93] font-light">
+                  {language === 'id' ? 'Kami TIDAK menyediakan device/laptop. Gunakan perangkat & lisensi pribadi.' : 'We do NOT provide devices/hardware. BYOD with your own workstations.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                <ShieldCheck size={18} />
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
+                  {language === 'id' ? 'NDA & Ketepatan Waktu' : 'NDA & Strict Deadlines'}
+                </h4>
+                <p className="text-xs text-[#8E8E93] font-light">
+                  {language === 'id' ? 'Kerahasiaan data klien terjamin & disiplin deadline yang tinggi.' : 'Signed client NDA protection & rigorous milestone adherence.'}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><Layers size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">01</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Model Kemitraan' : 'Partnership Model'}</h3></div></div>
-              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Brief terstruktur, kolaborasi langsung, dan scope yang jelas untuk setiap proyek.' : 'Structured briefs, direct collaboration, and focused scope for every project.'}</p>
-              <ul className="grid sm:grid-cols-2 gap-2 text-xs text-white/80">{[(language === 'id' ? 'Brief proyek terstruktur' : 'Structured briefs'),(language === 'id' ? 'Kolaborasi langsung' : 'Direct collaboration'),(language === 'id' ? 'Pipeline proyek' : 'Ongoing project pipeline'),(language === 'id' ? 'Scope per milestone' : 'Milestone-based scope')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-brand-red mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
+
+          {/* 4 In-Depth Information Columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* 1. Keterangan & Deskripsi */}
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                  <Layers size={20} className="text-brand-red" />
+                </div>
+                <h3 className="text-lg font-display font-bold text-white mb-3">
+                  {language === 'id' ? 'Deskripsi Kemitraan' : 'Partnership Model'}
+                </h3>
+                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                  {language === 'id'
+                    ? 'Kami menjembatani talenta spesialis dengan proyek riil dari klien korporat, startup VC, dan scaleup internasional tanpa birokrasi berbelit.'
+                    : 'We connect specialized independent contractors with real projects from venture-backed startups and enterprises with zero unnecessary friction.'
+                  }
+                </p>
+                <ul className="space-y-2 text-xs font-light text-white/80">
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Brief proyek terstruktur & jelas' : 'Structured briefs & clear design tokens'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Kolaborasi langsung via Slack / WhatsApp' : 'Direct collaboration on Slack / WhatsApp'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Continuous pipeline proyek berkala' : 'Continuous pipeline of future projects'}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><ShieldCheck size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">02</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Standar Kerja' : 'Working Standards'}</h3></div></div>
-              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Kualitas, komunikasi, dan deadline tetap menjadi standar di setiap project.' : 'Quality, communication, and delivery discipline stay consistent across every project.'}</p>
-              <ul className="grid sm:grid-cols-2 gap-2 text-xs text-white/80">{[(language === 'id' ? 'NDA proyek' : 'Project NDA'),(language === 'id' ? 'Komitmen deadline' : 'Deadline commitment'),(language === 'id' ? 'Standar Figma & code' : 'Figma & code standards'),(language === 'id' ? 'Komunikasi responsif' : 'Responsive communication')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-brand-red mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
+
+            {/* 2. Aturan & Ketentuan */}
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                  <ShieldCheck size={20} className="text-brand-red" />
+                </div>
+                <h3 className="text-lg font-display font-bold text-white mb-3">
+                  {language === 'id' ? 'Aturan & Ketentuan' : 'Rules & Standards'}
+                </h3>
+                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                  {language === 'id'
+                    ? 'Integritas, kepatuhan pada milestone yang telah disetujui, dan standar kualitas adalah nilai utama kami.'
+                    : 'Integrity, adherence to committed milestone deadlines, and pristine craft quality are non-negotiables.'
+                  }
+                </p>
+                <ul className="space-y-2 text-xs font-light text-white/80">
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Wajib menandatangani NDA proyek' : 'Mandatory Non-Disclosure Agreement (NDA)'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Komitmen 100% pada deadline (Zero Ghosting)' : '100% Deadline commitment (Zero ghosting)'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Mematuhi Standar Koding / Figma Kapitech' : 'Adhere to Kapitech Design / Code standard'}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><DollarSign size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">03</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Yang Anda Dapatkan' : 'What You Get'}</h3></div></div>
-              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Model kerja yang ringkas, transparan, dan fokus pada kualitas hasil.' : 'A focused working model built around clarity, transparency, and quality delivery.'}</p>
-              <ul className="space-y-2 text-xs text-white/80">{[(language === 'id' ? 'Project fee transparan' : 'Transparent project fees'),(language === 'id' ? 'Portofolio lintas industri' : 'Cross-industry portfolio exposure'),(language === 'id' ? 'Kolaborasi remote fleksibel' : 'Flexible remote collaboration')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-emerald-400 mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
+
+            {/* 3. Benefit & Keuntungan */}
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                  <DollarSign size={20} className="text-brand-red" />
+                </div>
+                <h3 className="text-lg font-display font-bold text-white mb-3">
+                  {language === 'id' ? 'Benefit & Keuntungan' : 'Vendor Benefits'}
+                </h3>
+                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                  {language === 'id'
+                    ? 'Dapatkan apresiasi finansial yang pantas atas keahlian Anda dengan kepastian pembayaran yang transparan.'
+                    : 'Receive fair, premium milestone compensation with prompt payouts upon approved deliverables.'
+                  }
+                </p>
+                <ul className="space-y-2 text-xs font-light text-white/80">
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Project fee transparan & dibayar tepat waktu' : 'Transparent project fee & timely payouts'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Portofolio kelas dunia (Global Scaleups)' : 'World-class portfolio for global clients'}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{language === 'id' ? 'Otonomi jam kerja & kebebasan lokasi' : 'Schedule autonomy & remote freedom'}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><Code2 size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">04</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need'}</h3></div></div>
-              <div className="grid grid-cols-2 gap-2.5">{['UI/UX & Product Design','Frontend Development','Backend / Full-Stack','Brand, Motion & 3D'].map(item => <div key={item} className="rounded-xl border border-[#2A2A2A] bg-[#0A0A0A] px-3 py-3 text-xs text-white/80">{item}</div>)}</div>
+
+            {/* 4. Apa yang Kami Butuhkan */}
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                  <Code2 size={20} className="text-brand-red" />
+                </div>
+                <h3 className="text-lg font-display font-bold text-white mb-3">
+                  {language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need'}
+                </h3>
+                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                  {language === 'id'
+                    ? 'Kami secara berkelanjutan menyaring mitra vendor pada domain berikut:'
+                    : 'We continuously recruit high-caliber vendor partners across these domains:'
+                  }
+                </p>
+                <ul className="space-y-2 text-xs font-light text-white/80">
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span><strong>UI/UX & Product Design</strong> (Figma, System)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span><strong>Frontend Dev</strong> (React, Next.js, Tailwind)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span><strong>Backend / Full-Stack</strong> (Node, Supabase)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={14} className="text-brand-red shrink-0 mt-0.5" />
+                    <span><strong>Brand, Motion & 3D</strong> (After Effects, Spline)</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -930,28 +1178,32 @@ export const Careers = () => {
       {/* SECTION: Benefits & Perks */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-9 sm:mb-10">
-            <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-                {language === 'id' ? 'Nilai & Keuntungan Studio' : 'Studio Culture & Core Values'}
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-                {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
-              </h2>
-            </div>
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
-              {language === 'id' ? 'Hal-hal yang kami jaga dalam keseharian, tanpa daftar fasilitas yang panjang.' : 'The principles we keep close in the day-to-day, without a long list of perks.'}
-            </motion.p>
+          <div className="max-w-3xl mb-12">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+              {language === 'id' ? 'Nilai & Keuntungan Studio' : 'Studio Culture & Core Values'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+              {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
+            </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-2xl border border-[#2A2A2A] overflow-hidden">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, i) => (
-              <div key={i} className="p-5 sm:p-6 bg-[#161616] border-b sm:border-b-0 lg:border-r border-[#2A2A2A] last:border-0 hover:bg-[#1E2128] transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-4">{benefit.icon}</div>
-                <h3 className="text-sm sm:text-base font-display font-semibold text-white mb-2">{benefit.title}</h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{benefit.desc}</p>
+              <div 
+                key={i}
+                className="p-6 sm:p-8 rounded-2xl border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mb-6">
+                  {benefit.icon}
+                </div>
+                <div>
+                  <h3 className="text-lg font-display font-bold text-white mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+                    {benefit.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -961,16 +1213,16 @@ export const Careers = () => {
       {/* Detail & Application Modal */}
       <AnimatePresence>
         {selectedPosition && (
-          <div className="kapi-careers-modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="kapi-careers-modal kapi-job-modal relative w-full max-w-4xl bg-panel border border-line rounded-[1.75rem] overflow-hidden shadow-2xl my-4 max-h-[92vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#161616] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="kapi-careers-modal-header sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -992,7 +1244,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="kapi-modal-close w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-bg/70 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1018,7 +1270,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="kapi-careers-modal-body kapi-job-modal-body overflow-y-auto p-5 sm:p-8 space-y-8">
+              <div className="overflow-y-auto p-6 sm:p-8 space-y-8">
                 {/* Responsibilities */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
@@ -1050,7 +1302,7 @@ export const Careers = () => {
                 </div>
 
                 {/* Application Form */}
-                <div className="kapi-careers-application-panel pt-6 border-t border-[#2A2A2A]">
+                <div className="pt-6 border-t border-[#2A2A2A]">
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
@@ -1207,14 +1459,9 @@ export const Careers = () => {
 
                       <button
                         type="submit"
-                        disabled={isApplicantSubmitting}
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2"
                       >
-                        <span>
-                          {isApplicantSubmitting
-                            ? (language === 'id' ? 'Mengunggah & Mengirim...' : 'Uploading & Submitting...')
-                            : (language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now')}
-                        </span>
+                        <span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span>
                         <ArrowUpRight size={16} />
                       </button>
                     </form>
@@ -1234,10 +1481,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="kapi-careers-modal kapi-vendor-modal relative w-full max-w-4xl bg-panel border border-brand-red/35 rounded-[1.75rem] overflow-hidden shadow-2xl my-4 max-h-[92vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#161616] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1259,7 +1506,7 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="kapi-modal-close w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-bg/70 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1275,7 +1522,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="kapi-careers-modal-body kapi-vendor-modal-body overflow-y-auto p-5 sm:p-8">
+              <div className="overflow-y-auto p-6 sm:p-8">
                 {isVendorSubmitted ? (
                   <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4 my-6">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
@@ -1560,14 +1807,9 @@ export const Careers = () => {
 
                     <button
                       type="submit"
-                      disabled={isVendorSubmitting}
-                      className="w-full min-h-[48px] py-3.5 rounded-xl bg-brand-red hover:bg-[#FF2B38] text-white font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2"
                     >
-                      <span>
-                        {isVendorSubmitting
-                          ? (language === 'id' ? 'Mengunggah & Mengirim...' : 'Uploading & Submitting...')
-                          : (language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application')}
-                      </span>
+                      <span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span>
                       <ArrowUpRight size={16} />
                     </button>
                   </form>

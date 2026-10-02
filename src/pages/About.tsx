@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { GlassPanel, Reveal, SectionHeader } from '../components/ui/PublicUI';
+import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 
 export const About = () => {
@@ -283,161 +283,294 @@ export const About = () => {
   const team = language === 'id' ? teamId : teamEn;
 
   return (
-    <div className="kapi-page kapi-about">
-      <section className="kapi-page-hero">
-        <div className="kapi-container">
-          <Reveal>
-            <span className="kapi-eyebrow">{t('about.tag')}</span>
-            <h1>
-              {language === 'id'
-                ? <>Agensi digital untuk <span className="text-brand-red">kejelasan dan pertumbuhan.</span></>
-                : <>A digital agency engineered for <span className="text-brand-red">clarity and growth.</span></>}
+    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+      {/* Hero Section */}
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+        <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="max-w-3xl">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 sm:mb-4 block">
+              {t('about.tag')}
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-bold leading-[1.1] sm:leading-[1.05] tracking-tight mb-4 sm:mb-6 text-white">
+              {language === 'id' ? (
+                <>Agensi digital yang dirancang untuk <span className="text-brand-red">kejelasan dan pertumbuhan</span>.</>
+              ) : (
+                <>A digital agency engineered for <span className="text-brand-red">clarity and growth</span>.</>
+              )}
             </h1>
-            <p>{t('about.subtitle')}</p>
-          </Reveal>
+            <p className="text-sm sm:text-base md:text-lg text-[#8E8E93] font-light leading-relaxed">
+              {t('about.subtitle')}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-16 items-center">
-          <Reveal>
-            <span className="kapi-eyebrow">{language === 'id' ? 'Identity & foundations' : 'Identity & foundations'}</span>
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl leading-[.98] tracking-[-.05em]">
-              {language === 'id' ? 'Menjembatani desain strategis dengan engineering yang dapat diandalkan.' : 'Bridging strategic design with dependable engineering.'}
+      {/* Company Story / Mission */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
+            <span className="text-xs font-mono uppercase tracking-wider text-brand-red block font-semibold">
+              {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
+              {language === 'id'
+                ? 'Menjembatani desain strategis dengan rekayasa software yang andal.'
+                : 'Bridging strategic design with dependable software engineering.'}
             </h2>
-            <div className="mt-6 grid gap-4 text-sm leading-7 text-white/50">
-              <p>{language === 'id'
-                ? 'Kapitech Agency beroperasi di bawah PT Kapitech Digital Indonesia, berbasis di Tangerang Selatan dan bekerja sebagai tim kolaboratif yang terdistribusi.'
-                : 'Kapitech Agency operates under PT Kapitech Digital Indonesia, based in South Tangerang with a collaborative distributed team.'}</p>
-              <p>{language === 'id'
-                ? 'Kami fokus pada kode yang bersih, pengalaman pengguna yang mudah dipahami, dan delivery yang dapat dipertanggungjawabkan.'
-                : 'We focus on clean code, understandable user experiences, and accountable delivery.'}</p>
-            </div>
+            <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed">
+              {language === 'id'
+                ? 'Kapitech Agency beroperasi di bawah badan hukum resmi PT Kapitech Digital Indonesia, berkantor pusat di Tangerang Selatan dengan tim kolaboratif yang terdistribusi.'
+                : 'Kapitech Agency operates under the formal legal entity of PT Kapitech Digital Indonesia, headquartered in South Tangerang with a collaborative, remote-friendly team.'}
+            </p>
+            <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed">
+              {language === 'id'
+                ? 'Kami menolak template yang lambat dan jargon berlebihan. Kami berfokus pada hasil nyata: kode yang bersih, kecepatan muat tinggi, alur pengguna intuitif, dan arsitektur kokoh yang mendukung perkembangan bisnis Anda.'
+                : 'We reject bloated, slow templates and overcomplicated jargon. Instead, we focus on what really moves the needle: clean code, fast loading speeds, intuitive user journeys, and robust architectures that support your business as it grows.'}
+            </p>
 
-            <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-white/[0.08]">
-              <div><span className="kapi-stat-value">50+</span><span className="kapi-stat-label">{t('about.stats.projects')}</span></div>
-              <div><span className="kapi-stat-value">3+</span><span className="kapi-stat-label">{t('about.stats.experience')}</span></div>
-              <div><span className="kapi-stat-value">100%</span><span className="kapi-stat-label">{t('about.stats.craft')}</span></div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div className="kapi-media aspect-[4/3]">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
-                alt="Kapitech Agency team collaboration"
-                className="w-full h-full"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08090b] via-transparent to-transparent" />
-              <div className="absolute left-5 right-5 bottom-5">
-                <span className="kapi-eyebrow">Kapitech Agency</span>
-                <div className="mt-2 font-display text-xl sm:text-2xl tracking-[-.04em]">{language === 'id' ? 'Kualitas, transparansi, dan delivery yang dapat diandalkan.' : 'Quality, transparency, and dependable delivery.'}</div>
+            {/* Address callout */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex items-start gap-3">
+              <MapPin size={18} className="text-brand-red shrink-0 mt-0.5" />
+              <div className="text-xs">
+                <span className="font-mono text-[#8E8E93] uppercase block mb-1">
+                  {language === 'id' ? 'Kantor Pusat Perusahaan' : 'Corporate Headquarters'}
+                </span>
+                <p className="text-white leading-relaxed font-light">
+                  Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
+                </p>
               </div>
             </div>
-          </Reveal>
+
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 sm:pt-6 border-t border-[#2A2A2A]">
+              <div>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white block">50+</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.projects')}</span>
+              </div>
+              <div>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[#FF6B00] block">3+</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.experience')}</span>
+              </div>
+              <div>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-red block">100%</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8E8E93] uppercase">{t('about.stats.craft')}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-[#2A2A2A] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#161616]">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+                alt="Kapitech Agency Team Collaboration"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent flex items-end p-5 sm:p-8">
+                <div>
+                  <span className="text-[10px] sm:text-xs font-mono text-brand-red uppercase tracking-wider block mb-1 font-semibold">
+                    {language === 'id' ? 'Komitmen Kami' : 'Our Commitment'}
+                  </span>
+                  <p className="text-sm sm:text-base font-display font-semibold text-white">
+                    {language === 'id' ? 'Kualitas, transparansi, dan eksekusi yang dapat diandalkan.' : 'Quality, transparency, and dependable delivery.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <SectionHeader eyebrow={t('about.leadership.tag')} title={t('about.leadership.title')} description={t('about.leadership.subtitle')} />
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-            {team.map((member, index) => (
-              <Reveal key={member.name} delay={Math.min(index,4) * 0.04}>
-                <GlassPanel className="overflow-hidden kapi-panel--interactive h-full p-0">
-                  <div className="aspect-[4/4.5] bg-[#0d0f13] overflow-hidden">
-                    <img src={member.image} alt={member.name} referrerPolicy="no-referrer" className="w-full h-full object-contain object-top" />
+      {/* Leadership & Core Team */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] relative z-10" id="team">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mb-10 sm:mb-16">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              {t('about.leadership.tag')}
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+              {t('about.leadership.title')}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+              {t('about.leadership.subtitle')}
+            </p>
+          </div>
+
+          {/* Standardized Team Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 max-w-md sm:max-w-none mx-auto">
+            {team.map((member) => (
+              <div
+                key={member.name}
+                className="rounded-2xl bg-[#111318] border border-white/[0.07] overflow-hidden flex flex-col justify-between group hover:border-brand-red/40 transition-colors"
+              >
+                <div>
+                  <div className="w-full aspect-[864/810] overflow-hidden bg-[#181B22] relative flex items-center justify-center">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="p-4">
-                    <div className="font-display font-semibold text-sm">{member.name}</div>
-                    <div className="mt-1 text-[9px] font-mono uppercase tracking-[.1em] text-brand-red">{member.role}</div>
-                    <p className="mt-3 text-[11px] leading-5 text-white/42">{member.bio}</p>
+                  <div className="p-4 sm:p-5">
+                    <h3 className="text-sm sm:text-base font-display font-bold text-white mb-0.5 sm:mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-mono text-brand-red uppercase tracking-wider mb-2.5 sm:mb-3 font-medium">
+                      {member.role}
+                    </p>
+                    <p className="text-xs text-[#8E8E93] font-light leading-relaxed">
+                      {member.bio}
+                    </p>
                   </div>
-                </GlassPanel>
-              </Reveal>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <SectionHeader
-            eyebrow={language === 'id' ? 'Working principles' : 'Working principles'}
-            title={language === 'id' ? 'Standar yang kami bawa ke setiap project.' : 'The standards we bring to every project.'}
-          />
-          <div className="kapi-grid-3">
-            {values.map((value, index) => (
-              <Reveal key={value.title} delay={index * 0.05}>
-                <GlassPanel className="p-6 sm:p-7 min-h-[250px] kapi-panel--interactive">
-                  <div className="w-11 h-11 rounded-[14px] bg-brand-red/10 border border-brand-red/20 text-brand-red grid place-items-center">{value.icon}</div>
-                  <h3 className="mt-6 font-display text-xl tracking-[-.03em]">{value.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/45">{value.desc}</p>
-                </GlassPanel>
-              </Reveal>
-            ))}
+      {/* Core Principles / Values */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mb-10 sm:mb-16">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              {language === 'id' ? 'Prinsip Kerja Kami' : 'Our Principles'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+              {language === 'id' ? 'Bagaimana kami menangani setiap proyek.' : 'How we approach every project.'}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+              {language === 'id'
+                ? 'Kami memegang standar ketat untuk kegunaan, kecepatan, dan dampak bisnis nyata.'
+                : 'We hold our work to strict standards of usability, speed, and business impact.'}
+            </p>
           </div>
-        </div>
-      </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <SectionHeader eyebrow={language === 'id' ? 'Agency history' : 'Agency history'} title={language === 'id' ? 'Dibangun dan berkembang sejak 2021.' : 'Built and growing since 2021.'} />
-          <div className="kapi-grid-4">
-            {journey.map((item, index) => (
-              <Reveal key={item.year} delay={index * 0.04}>
-                <GlassPanel className="p-6 min-h-[210px] kapi-panel--interactive">
-                  <span className="font-display text-3xl text-brand-red">{item.year}</span>
-                  <h3 className="mt-8 font-display text-xl tracking-[-.03em]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/43">{item.desc}</p>
-                </GlassPanel>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <SectionHeader eyebrow={t('about.tools.tag')} title={t('about.tools.title')} description={t('about.tools.subtitle')} />
-          <div className="kapi-grid-4">
-            {techStack.map((stack, index) => (
-              <Reveal key={stack.category} delay={index * 0.035}>
-                <GlassPanel className="p-5 kapi-panel--interactive h-full">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="w-11 h-11 rounded-[14px] border border-brand-red/20 bg-brand-red/10 text-brand-red grid place-items-center">{stack.icon}</div>
-                    <span className="kapi-chip">{stack.badge}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {values.map((v, i) => (
+              <div
+                key={i}
+                className="p-6 sm:p-8 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex flex-col justify-between min-h-[200px] sm:min-h-[240px] hover:border-brand-red/40 transition-colors"
+              >
+                <div>
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-5 sm:mb-6">
+                    {v.icon}
                   </div>
-                  <h3 className="mt-6 font-display text-xl tracking-[-.03em]">{stack.category}</h3>
-                  <p className="mt-2 text-xs leading-6 text-white/42">{stack.subtitle}</p>
-                  <div className="mt-5 pt-4 border-t border-white/[0.08] grid gap-2">
-                    {stack.tools.map(tool => (
-                      <div key={tool.name} className="flex items-center justify-between gap-3 py-1.5 text-xs">
-                        <span>{tool.name}</span><span className="font-mono text-[9px] text-white/28 uppercase">{tool.level}</span>
+                  <h3 className="text-lg sm:text-xl font-display font-bold mb-2.5 sm:mb-3 text-white">{v.title}</h3>
+                  <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{v.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline Journey */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mb-10 sm:mb-16">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              {language === 'id' ? 'Sejarah Agensi' : 'Agency History'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+              {language === 'id' ? 'Perjalanan pertumbuhan kami yang berkelanjutan.' : 'Our journey of continuous growth.'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {journey.map((item) => (
+              <div
+                key={item.year}
+                className="p-6 sm:p-8 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors"
+              >
+                <div>
+                  <span className="text-xl sm:text-2xl font-display font-bold text-brand-red font-mono block mb-3 sm:mb-4">
+                    {item.year}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-display font-bold mb-2 text-white">{item.title}</h3>
+                  <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Redesigned Technology Stack Grid */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#2A2A2A] relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mb-10 sm:mb-16">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+              {t('about.tools.tag')}
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+              {t('about.tools.title')}
+            </h2>
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+              {t('about.tools.subtitle')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {techStack.map((stack) => (
+              <div 
+                key={stack.category} 
+                className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#161616] border border-[#2A2A2A] hover:border-brand-red/50 hover:bg-[#1E1E1E] transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5 sm:mb-6">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                      {stack.icon}
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#0A0A0A] text-[#FF6B00] border border-[#2A2A2A]">
+                      {stack.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-display font-bold text-white mb-1 group-hover:text-brand-red transition-colors">
+                    {stack.category}
+                  </h3>
+                  <p className="text-xs text-[#8E8E93] font-light mb-5 sm:mb-6">
+                    {stack.subtitle}
+                  </p>
+
+                  <div className="space-y-2 sm:space-y-2.5 pt-4 border-t border-[#2A2A2A]">
+                    {stack.tools.map((tool) => (
+                      <div 
+                        key={tool.name} 
+                        className="flex items-center justify-between p-2 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] hover:border-brand-red/30 transition-colors"
+                      >
+                        <span className="text-xs font-medium text-white">{tool.name}</span>
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[#8E8E93] uppercase">{tool.level}</span>
                       </div>
                     ))}
                   </div>
-                </GlassPanel>
-              </Reveal>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="kapi-section">
-        <div className="kapi-container">
-          <Reveal>
-            <div className="kapi-cta-band">
-              <div>
-                <span className="kapi-eyebrow">{language === 'id' ? 'Collaborate' : 'Collaborate'}</span>
-                <h2>{language === 'id' ? 'Siap membangun produk digital berikutnya?' : 'Ready to build the next digital product?'}</h2>
-                <p>{language === 'id' ? 'Hubungi tim Kapitech untuk membahas kebutuhan, timeline, dan scope.' : 'Talk to Kapitech about your scope, timeline, and delivery needs.'}</p>
-              </div>
-              <div className="flex justify-start lg:justify-end">
-                <Link to="/contact" className="kapi-button kapi-button--primary">Start a conversation <ArrowUpRight size={15} /></Link>
-              </div>
-            </div>
-          </Reveal>
+      {/* Bottom CTA */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center relative z-10 bg-[#0A0A0A]">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-4 sm:mb-6 text-white">
+            {language === 'id' ? 'Siap berkolaborasi membangun produk digital Anda berikutnya?' : 'Ready to collaborate on your next digital product?'}
+          </h2>
+          <p className="text-xs sm:text-sm md:text-base text-[#8E8E93] font-light leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto">
+            {language === 'id'
+              ? 'Hubungi tim Kapitech Agency di Tangerang Selatan untuk mendiskusikan kebutuhan proyek, estimasi waktu, dan rincian biaya.'
+              : 'Get in touch with Kapitech Agency in South Tangerang to discuss your project requirements, timeline, and estimation.'}
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#E01414] text-white font-semibold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-brand-red/20 active:scale-95"
+          >
+            <span>{language === 'id' ? 'Mulai Diskusi' : 'Start a Conversation'}</span>
+            <ArrowUpRight size={16} />
+          </Link>
         </div>
       </section>
     </div>

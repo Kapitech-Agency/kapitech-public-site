@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { cn } from '../../lib/utils';
 
 interface AtmosphericBackgroundProps {
   imageUrl?: string;
@@ -8,20 +10,38 @@ interface AtmosphericBackgroundProps {
 }
 
 export const AtmosphericBackground: React.FC<AtmosphericBackgroundProps> = ({
-  imageUrl = '/hero_background_3d.png',
-  className = '',
-  opacity = 0.08,
+  imageUrl = "https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/hero_background_3d.png",
+  className,
+  opacity = 0.12,
   disableGrayscale = true,
-}) => (
-  <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`} aria-hidden="true">
-    <img
-      src={imageUrl}
-      alt=""
-      loading="eager"
-      decoding="async"
-      className={`w-full h-full object-cover object-center ${disableGrayscale ? '' : 'grayscale'}`}
-      style={{ opacity }}
-    />
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_30%,rgba(230,57,70,.12),transparent_30rem),linear-gradient(180deg,#08090b_8%,rgba(8,9,11,.65)_58%,#08090b_100%)]" />
-  </div>
-);
+}) => {
+  const { scrollYProgress } = useScroll();
+  const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+
+  return (
+    <div className={cn("absolute inset-0 pointer-events-none overflow-hidden -z-10", className)}>
+      {/* Background Image with subtle Parallax */}
+      <motion.div 
+        style={{ y: yParallax }}
+        className="absolute inset-0 -z-10 scale-105"
+      >
+        <img 
+          src={imageUrl} 
+          alt="" 
+          aria-hidden="true"
+          className={cn("w-full h-full object-cover object-center", !disableGrayscale && "grayscale")}
+          style={{ opacity: opacity }}
+          referrerPolicy="no-referrer"
+        />
+        {/* Soft elegant gradient overlays that blend seamlessly into dark theme */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08090A]/85 via-[#08090A]/50 to-[#08090A]" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/5 via-transparent to-brand-red/5" />
+      </motion.div>
+
+      {/* Subtle bottom fade to blend with next section */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#08090A] to-transparent" />
+    </div>
+  );
+};
+
+
