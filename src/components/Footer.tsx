@@ -63,9 +63,9 @@ export const Footer = () => {
   ];
 
   const designServices = [
-    { name: 'UI/UX Design', desc: 'Web & mobile app design', href: '/services/ui-ux-design' },
+    { name: 'UI/UX Design', desc: 'Web & digital product design', href: '/services/ui-ux-design' },
     { name: 'Website Design', desc: 'Custom websites & landings', href: '/services/website-design' },
-    { name: 'Mobile App Design', desc: 'Apps your users love', href: '/services/mobile-app-design' },
+    { name: 'Product Redesign', desc: 'Refine digital products and experiences', href: '/services/product-redesign' },
     { name: 'Website Redesign', desc: 'Modern look, higher impact', href: '/services/website-redesign' },
     { name: 'Product UX/UI Audit', desc: 'Insights that drive results', href: '/services/product-ux-ui-audit' },
   ];
@@ -336,13 +336,13 @@ export const Footer = () => {
               {t('footer.contactsTitle')}
             </h4>
             <div className="space-y-3.5 text-xs text-[#8A909D]">
-              <a href="mailto:hello@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:hello@kapitech.co.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Mail size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.clientInquiry')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">hello@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">hello@kapitech.co.id</span>
                 </div>
               </a>
 
