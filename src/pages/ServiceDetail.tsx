@@ -20,7 +20,6 @@ import {
   Briefcase,
   Star
 } from 'lucide-react';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
 import { getServiceBySlug } from '../data/servicesData';
@@ -73,9 +72,9 @@ export const ServiceDetail = () => {
   };
 
   return (
-    <div className="kapi-service-page relative min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white pt-28 pb-24 overflow-hidden">
-      <AtmosphericBackground />
-
+    <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
+      <div className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute left-[18%] top-[34rem] h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* BREADCRUMB & BACK NAVIGATION */}
@@ -88,7 +87,7 @@ export const ServiceDetail = () => {
             <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="text-[#8A909D] uppercase tracking-wider font-mono text-[11px]">
+          <span className="kapi-section-label mb-0">
             {service.category}
           </span>
           <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
@@ -125,14 +124,14 @@ export const ServiceDetail = () => {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 to={`/contact?service=${encodeURIComponent(service.title)}`}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_25px_rgba(255,26,26,0.3)] group"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
               >
                 <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <a
                 href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-[#262930] bg-[#16181D] text-white font-medium text-sm hover:border-brand-red/50 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200"
               >
                 <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
                 <ChevronDown className="w-4 h-4" />
@@ -146,13 +145,13 @@ export const ServiceDetail = () => {
               initial={{ opacity: 0, x: 18 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl border border-[#262930] bg-[#16181D] backdrop-blur-md p-6 sm:p-8 space-y-6"
+              className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-6 sm:p-8 space-y-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.025),0_22px_60px_-42px_rgba(229,9,20,0.22)]"
             >
               <div className="text-xs font-mono uppercase tracking-widest text-[#8A909D] flex items-center justify-between">
                 <span>{language === 'id' ? 'METRIK KINERJA' : 'PERFORMANCE METRICS'}</span>
                 <Sparkles className="w-4 h-4 text-brand-red" />
               </div>
-              <div className="space-y-6 divide-y divide-[#262930]">
+              <div className="space-y-6 divide-y divide-white/[0.07]">
                 {service.metrics.map((metric, idx) => (
                   <div key={idx} className={idx > 0 ? 'pt-6' : ''}>
                     <div className="text-3xl sm:text-4xl font-display text-white tracking-tight">
@@ -166,7 +165,7 @@ export const ServiceDetail = () => {
               </div>
 
               {/* Tools Stack */}
-              <div className="pt-6 border-t border-[#262930]">
+              <div className="pt-6 border-t border-white/[0.07]">
                 <div className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3">
                   {language === 'id' ? 'TOOLCHAIN & STANDAR' : 'TOOLCHAIN & STACK'}
                 </div>
@@ -174,7 +173,7 @@ export const ServiceDetail = () => {
                   {service.tools.map((tool, idx) => (
                     <span 
                       key={idx}
-                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#0B0C0E] border border-[#262930] text-[#8A909D]"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-white/[0.018] border border-white/[0.08] text-[#8A909D]"
                     >
                       {tool}
                     </span>
@@ -193,7 +192,7 @@ export const ServiceDetail = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 backdrop-blur-lg overflow-hidden"
+              className="relative rounded-3xl border border-white/[0.08] bg-white/[0.018] p-8 sm:p-12 backdrop-blur-xl overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
               <div className="flex items-center gap-1.5 text-brand-red mb-6">
@@ -227,9 +226,9 @@ export const ServiceDetail = () => {
         {/* PROBLEM VS. SOLUTION MATRIX */}
         <div className="mb-20 sm:mb-28">
           <div className="max-w-3xl mb-12">
-            <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
-              {language === 'id' ? 'TANTANGAN & SOLUSI' : 'CHALLENGE & SOLUTION'}
-            </div>
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'Tantangan & Solusi' : 'Challenge & Solution'}
+            </span>
             <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Menghadapi hambatan umum produk digital?' : 'Facing common digital bottlenecks?'}
             </h2>
@@ -243,14 +242,13 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -3 }}
-                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
+                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300"
               >
                 <div>
                   {/* Problem Block */}
                   <div className="mb-6 pb-6 border-b border-[#262930]">
-                    <div className="text-xs font-mono uppercase tracking-wider text-red-400 mb-2 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                    <div className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
                       <span>{language === 'id' ? 'Tantangan' : 'The Problem'}</span>
                     </div>
                     <h3 className="text-lg font-medium text-white mb-2">
@@ -263,8 +261,8 @@ export const ServiceDetail = () => {
 
                   {/* Solution Block */}
                   <div>
-                    <div className="text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <div className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-red" />
                       <span>{language === 'id' ? 'Solusi Kapitech' : 'Kapitech Solution'}</span>
                     </div>
                     <h4 className="text-base font-semibold text-white mb-2">
@@ -283,9 +281,9 @@ export const ServiceDetail = () => {
         {/* CORE CAPABILITIES & SPECIALIZATIONS */}
         <div className="mb-20 sm:mb-28">
           <div className="max-w-3xl mb-12">
-            <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
-              {language === 'id' ? 'KAPABILITAS UTAMA' : 'CORE CAPABILITIES'}
-            </div>
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'Kapabilitas Utama' : 'Core Capabilities'}
+            </span>
             <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Apa yang kami kerjakan untuk Anda' : 'What we deliver for your business'}
             </h2>
@@ -299,8 +297,7 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -3 }}
-                className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 hover:border-brand-red/40 transition-all duration-300 group"
+                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 group"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
                   <Layers className="w-5 h-5 text-brand-red" />
@@ -320,9 +317,9 @@ export const ServiceDetail = () => {
         <div id="case-studies" className="mb-20 sm:mb-28 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
-                {language === 'id' ? 'BUKTI NYATA' : 'PROVEN CASE STUDIES'}
-              </div>
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Bukti Nyata' : 'Proven Case Studies'}
+              </span>
               <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                 {language === 'id' ? 'Proyek terkait yang telah kami rilis' : 'Related work we have shipped'}
               </h2>
@@ -340,7 +337,6 @@ export const ServiceDetail = () => {
             {relatedProjects.map((project) => (
               <motion.div
                 key={project.id}
-                whileHover={{ y: -4 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="group rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
               >
@@ -393,9 +389,9 @@ export const ServiceDetail = () => {
         {/* PROCESS & METHODOLOGY (01, 02, 03, 04) */}
         <div className="mb-20 sm:mb-28">
           <div className="max-w-3xl mb-12">
-            <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
-              {language === 'id' ? 'METODOLOGI KERJA' : 'PROCESS & METHODOLOGY'}
-            </div>
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'Metodologi Kerja' : 'Process & Methodology'}
+            </span>
             <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Tahapan pelaksanaan terstruktur' : 'How we execute from day one'}
             </h2>
@@ -409,7 +405,6 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -3 }}
                 className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
               >
                 <div>
@@ -445,16 +440,16 @@ export const ServiceDetail = () => {
           <div className="rounded-3xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 lg:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
-                <div className="text-xs font-mono uppercase tracking-widest text-brand-red">
-                  {language === 'id' ? 'NILAI TAMBAH BISNIS' : 'TANGIBLE ROI'}
-                </div>
+                <span className="kapi-section-label mb-5">
+                  {language === 'id' ? 'Nilai Tambah Bisnis' : 'Tangible ROI'}
+                </span>
                 <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                   {language === 'id' ? service.businessOutcomes.headingId : service.businessOutcomes.heading}
                 </h2>
                 <div className="space-y-3.5 pt-2">
                   {(language === 'id' ? service.businessOutcomes.benefitsId : service.businessOutcomes.benefits).map((benefit, idx) => (
                     <div key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
                       <span className="text-sm sm:text-base text-[#8A909D] leading-relaxed">
                         {benefit}
                       </span>
@@ -496,9 +491,9 @@ export const ServiceDetail = () => {
         {service.faqs && service.faqs.length > 0 && (
           <div className="mb-20 sm:mb-28 max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
-                {language === 'id' ? 'PERTANYAAN UMUM' : 'FREQUENTLY ASKED QUESTIONS'}
-              </div>
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Pertanyaan Umum' : 'Frequently Asked Questions'}
+              </span>
               <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                 {language === 'id' ? 'Hal yang sering ditanyakan' : 'Everything you need to know'}
               </h2>
@@ -510,7 +505,7 @@ export const ServiceDetail = () => {
                 return (
                   <div
                     key={idx}
-                    className="rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden transition-colors"
+                    className="rounded-3xl border border-white/[0.08] bg-white/[0.018] overflow-hidden backdrop-blur-xl transition-[border-color,background-color] duration-300"
                   >
                     <button
                       type="button"
@@ -535,7 +530,7 @@ export const ServiceDetail = () => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <div className="px-6 pb-6 text-sm text-[#8A909D] leading-relaxed border-t border-[#262930] pt-4">
+                          <div className="px-6 pb-6 text-sm text-[#8A909D] leading-relaxed border-t border-white/[0.07] pt-4">
                             {language === 'id' ? faq.aId : faq.a}
                           </div>
                         </motion.div>
@@ -549,7 +544,7 @@ export const ServiceDetail = () => {
         )}
 
         {/* BOTTOM GLOBAL NAVIGATION STRIP (Browse other services) */}
-        <div className="pt-12 border-t border-[#262930] flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="pt-12 mt-8 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
             to="/services"
             className="inline-flex items-center gap-2 text-sm text-[#8A909D] hover:text-white transition-colors"
