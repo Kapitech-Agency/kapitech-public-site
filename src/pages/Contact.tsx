@@ -347,8 +347,26 @@ export const Contact = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 overflow-hidden">
-        undefined
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <PatternWaves
+            preset="silk"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.16}
+            fade="edges"
+            fadeSize={0.84}
+            interactive
+            cursorSize={48}
+            cursorStrength={0.38}
+            speed={0.16}
+            scale={1.08}
+            depth={0.64}
+            shine={0.56}
+            contrast={1.04}
+            intro
+          />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/75 to-transparent" />
+        </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Kontak & Konsultasi Proyek' : 'Contact & Inquiries'}
