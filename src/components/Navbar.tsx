@@ -44,15 +44,24 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock background scroll while the mobile navigation drawer is open.
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+        setIsServicesDropdownOpen(false);
+      }
+    };
+
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+      document.addEventListener('keydown', handleKeyDown);
     }
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isMenuOpen]);
 
@@ -404,11 +413,14 @@ export const Navbar = () => {
       {/* Fullscreen Mobile Menu Drawer */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
             className="fixed inset-0 z-[100] bg-[#0B0C0E]/98 flex flex-col p-4 sm:p-6 overflow-y-auto"
           >
             {/* Header in Mobile Menu */}
