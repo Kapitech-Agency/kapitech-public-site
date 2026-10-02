@@ -500,7 +500,7 @@ export const Contact = () => {
 
             {/* Right Column: Interactive Consultation Form */}
             <div className="lg:col-span-7">
-              <div className="p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl bg-[#16181D] border border-[#262930]">
+              <div className="p-0">
                 {isSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -519,7 +519,7 @@ export const Contact = () => {
                       >
                         <CheckCircle2 size={30} />
                       </motion.div>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red/90">
                         {language === 'id' ? 'Permintaan diterima' : 'Inquiry received'}
                       </span>
                       <h3 className="mt-2 text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">
@@ -572,14 +572,14 @@ export const Contact = () => {
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div className="rounded-[28px] border border-[#262930] bg-[#16181D] overflow-hidden">
-                      <div className="p-5 sm:p-6 border-b border-[#262930]">
+                    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                      <div className="px-5 sm:px-7 pt-5 sm:pt-7 pb-5 sm:pb-6 border-b border-white/[0.08]">
                         <div className="flex items-center justify-between gap-4">
                           <div>
                             <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
                               {language === 'id' ? `0${formStep + 1} / 03` : `0${formStep + 1} / 03`}
                             </span>
-                            <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-bold tracking-[-0.025em] text-white">
+                            <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.04em] text-white">
                               {formStep === 0
                                 ? (language === 'id' ? 'Apa yang ingin Anda bangun?' : 'What are you looking to build?')
                                 : formStep === 1
@@ -611,7 +611,7 @@ export const Contact = () => {
                         </p>
                       </div>
 
-                      <div className="p-5 sm:p-6">
+                      <div className="px-5 sm:px-7 py-5 sm:py-7">
                         <AnimatePresence mode="wait" initial={false}>
                           {formStep === 0 && (
                             <motion.div
@@ -631,7 +631,7 @@ export const Contact = () => {
                                       type="button"
                                       onClick={() => toggleServiceBundle(choice.values)}
                                       whileTap={{ scale: 0.985 }}
-                                      className={`group relative overflow-hidden rounded-2xl border p-4 sm:p-5 text-left transition-all duration-250 min-h-[122px] ${selected ? 'border-brand-red/60 bg-brand-red/10' : 'border-[#262930] bg-[#0B0C0E] hover:border-white/15 hover:bg-[#111318]'}`}
+                                      className={`group relative overflow-hidden rounded-xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-300 min-h-[108px] ${selected ? 'border-brand-red/45 bg-brand-red/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]' : 'border-white/[0.08] bg-white/[0.015] hover:border-white/[0.15] hover:bg-white/[0.025]'}`}
                                       aria-pressed={selected}
                                       data-cursor-label="Select"
                                     >
@@ -651,7 +651,7 @@ export const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowSpecificServices(prev => !prev)}
-                                className="w-full flex items-center justify-between rounded-2xl border border-dashed border-[#30343D] bg-[#0B0C0E] px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
+                                className="w-full flex items-center justify-between rounded-xl border border-dashed border-white/[0.1] bg-transparent px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
                                 aria-expanded={showSpecificServices}
                               >
                                 <span>{language === 'id' ? 'Butuh memilih layanan yang lebih spesifik?' : 'Need a more specific service?'}</span>
@@ -664,7 +664,7 @@ export const Contact = () => {
                                     initial={{ opacity: 0, height: 0 }}
                                     animate={{ opacity: 1, height: 'auto' }}
                                     exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden rounded-2xl border border-[#262930] bg-[#0B0C0E] p-3.5 sm:p-4"
+                                    className="overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.012] p-3.5 sm:p-4"
                                   >
                                     <div className="space-y-3">
                                       {serviceGroups.map(group => (
@@ -678,7 +678,7 @@ export const Contact = () => {
                                                   key={srv}
                                                   type="button"
                                                   onClick={() => toggleService(srv)}
-                                                  className={`rounded-full border px-3 py-2 text-[11px] transition-all ${selected ? 'border-brand-red/50 bg-brand-red/10 text-white' : 'border-[#262930] bg-[#16181D] text-[#8A909D] hover:border-white/15 hover:text-white'}`}
+                                                  className={`rounded-lg border px-3 py-2 text-[11px] transition-[border-color,background-color,color] duration-200 ${selected ? 'border-brand-red/45 bg-brand-red/[0.07] text-white' : 'border-white/[0.08] bg-white/[0.02] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
                                                   aria-pressed={selected}
                                                 >
                                                   {srv}
@@ -697,7 +697,7 @@ export const Contact = () => {
                                 <button
                                   type="button"
                                   onClick={handleNextStep}
-                                  className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.9)]"
+                                  className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
                                   data-cursor-label="Next"
                                 >
                                   <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
@@ -719,12 +719,12 @@ export const Contact = () => {
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 <div>
                                   <label htmlFor="inquiry-name" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
-                                  <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                  <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                   {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
                                 </div>
                                 <div>
                                   <label htmlFor="inquiry-email" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
-                                  <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                  <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                   {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
                                 </div>
                               </div>
@@ -732,7 +732,7 @@ export const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowOptionalContact(prev => !prev)}
-                                className="w-full flex items-center justify-between rounded-2xl border border-dashed border-[#30343D] bg-[#0B0C0E] px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
+                                className="w-full flex items-center justify-between rounded-xl border border-dashed border-white/[0.1] bg-transparent px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
                                 aria-expanded={showOptionalContact}
                               >
                                 <span>{language === 'id' ? 'Tambahkan perusahaan & WhatsApp (opsional)' : 'Add company & WhatsApp (optional)'}</span>
@@ -749,11 +749,11 @@ export const Contact = () => {
                                   >
                                     <div>
                                       <label htmlFor="inquiry-company" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Perusahaan / Brand' : 'Company / Brand'}</label>
-                                      <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[50px] bg-[#0B0C0E] border border-[#262930] rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200" />
+                                      <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[46px] bg-white/[0.015] border border-[#262930] rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300" />
                                     </div>
                                     <div>
                                       <label htmlFor="inquiry-phone" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
-                                      <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                      <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                       {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
                                     </div>
                                   </motion.div>
@@ -787,7 +787,7 @@ export const Contact = () => {
                                   <label htmlFor="inquiry-message" className="block text-[10px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Apa yang perlu kami tahu? *' : 'What should we know? *'}</label>
                                   <span className="text-[10px] font-mono tabular-nums text-[#8A909D]">{formState.message.length}/3000</span>
                                 </div>
-                                <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
+                                <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
                                 {formErrors.message ? (
                                   <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
                                 ) : (
@@ -814,7 +814,7 @@ export const Contact = () => {
                                         onClick={() => setBudgetRange(opt)}
                                         whileTap={{ scale: 0.985 }}
                                         aria-pressed={selected}
-                                        className={`min-h-[52px] rounded-2xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${selected ? 'border-brand-red bg-brand-red text-white font-semibold shadow-lg shadow-brand-red/15' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D] hover:border-white/15 hover:text-white'}`}
+                                        className={`min-h-[50px] rounded-xl border px-3.5 py-2.5 text-left text-xs transition-[border-color,background-color,color,box-shadow] duration-250 ${selected ? 'border-brand-red/50 bg-brand-red/[0.10] text-white font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]' : 'border-white/[0.08] bg-white/[0.015] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
                                       >
                                         <span className="block text-[9px] font-mono uppercase tracking-[0.1em] opacity-70">0{index + 1}</span>
                                         <span className="block mt-0.5">{opt}</span>
@@ -832,7 +832,7 @@ export const Contact = () => {
                                 <button
                                   type="submit"
                                   disabled={isSubmitting}
-                                  className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait transition-all active:scale-[0.99] shadow-[0_14px_30px_-18px_rgba(229,9,20,0.95)]"
+                                  className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait transition-all active:scale-[0.99] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
                                   data-cursor-label="Send"
                                 >
                                   {isSubmitting ? <LoaderCircle size={15} className="animate-spin" /> : <span>{language === 'id' ? 'Kirim inquiry' : 'Send inquiry'}</span>}
@@ -841,7 +841,7 @@ export const Contact = () => {
                               </div>
 
                               {submitError && (
-                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-2xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-xl border border-brand-red/25 bg-brand-red/[0.06] px-4 py-3 text-xs font-mono text-brand-red" role="alert">
                                   <AlertCircle size={15} className="mt-0.5 shrink-0" />
                                   <span>{submitError}</span>
                                 </motion.div>
