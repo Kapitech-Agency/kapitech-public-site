@@ -73,19 +73,11 @@ export const Home = () => {
     },
     {
       name: "Telkom Indonesia",
-      src: "https://companieslogo.com/img/orig/TLK_BIG-29afef6e.svg?download=true&t=1720244494"
-    },
-    {
-      name: "Sinar Mas Land",
-      src: "https://companieslogo.com/img/orig/A26.SI_BIG-a4ea8d62.svg?download=true&t=1720174751"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Telkom_Indonesia_(2002).svg"
     },
     {
       name: "Kopi Kenangan",
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kopi_Kenangan.svg"
-    },
-    {
-      name: "Kemenparekraf",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Seal_of_the_Ministry_of_Tourism_and_Creative_Economy_of_the_Republic_of_Indonesia_(2020_Indonesian_version).svg"
     },
     {
       name: "Siloam Hospitals",
@@ -366,7 +358,7 @@ export const Home = () => {
           {/* Marquee Motion Container */}
           <div className="flex w-max">
             <motion.div
-              className="flex items-center gap-6 sm:gap-8 lg:gap-10 shrink-0 pr-6 sm:pr-8 lg:pr-10"
+              className="flex items-center gap-5 sm:gap-6 lg:gap-8 shrink-0 pr-5 sm:pr-6 lg:pr-8"
               animate={{ x: ['0%', '-50%'] }}
               transition={{
                 duration: 28,
@@ -377,7 +369,7 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex w-[180px] sm:w-[200px] lg:w-[220px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
+                  className="flex w-[178px] sm:w-[194px] lg:w-[210px] h-16 sm:h-20 items-center justify-center shrink-0 px-5 sm:px-6"
                   aria-label={logo.name}
                 >
                   <img
@@ -385,7 +377,7 @@ export const Home = () => {
                     alt={logo.name}
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className="block h-8 w-36 sm:h-9 sm:w-40 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
+                    className="block h-7 w-full max-w-[142px] sm:max-w-[154px] object-contain object-center bg-transparent opacity-65 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
