@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Mail, MessageSquare, Phone, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
+import { Magnetic } from './motion/MotionSystem';
 
 export const FloatingContact = () => {
   const { language } = useLanguage();
@@ -74,15 +75,18 @@ export const FloatingContact = () => {
             )}
           </AnimatePresence>
 
-          <button
-            type="button"
-            className="kapi-floating-button"
-            onClick={() => setOpen(value => !value)}
-            aria-label={open ? 'Close contact menu' : 'Open contact menu'}
-            aria-expanded={open}
-          >
-            {open ? <X size={20} /> : <MessageSquare size={20} />}
-          </button>
+          <Magnetic as="span" strength={0.12} className="inline-flex">
+            <button
+              type="button"
+              className="kapi-floating-button"
+              onClick={() => setOpen(value => !value)}
+              aria-label={open ? 'Close contact menu' : 'Open contact menu'}
+              aria-expanded={open}
+              data-cursor="button"
+            >
+              {open ? <X size={20} /> : <MessageSquare size={20} />}
+            </button>
+          </Magnetic>
         </motion.div>
       )}
     </AnimatePresence>
