@@ -178,15 +178,13 @@ export const Work = () => {
 
               {visibleCount < filtered.length && (
                 <div className="flex justify-center mt-10">
-                  <GlassButton to="#load-more" variant="secondary">
-                    <button
-                      type="button"
-                      onClick={event => { event.preventDefault(); setVisibleCount(prev => prev + 12); }}
-                      className="contents"
-                    >
-                      {language === 'id' ? 'Muat lebih banyak' : 'Load more'}
-                    </button>
-                  </GlassButton>
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount(prev => prev + 12)}
+                    className="kapi-button kapi-button--secondary"
+                  >
+                    {language === 'id' ? 'Muat lebih banyak' : 'Load more'}
+                  </button>
                 </div>
               )}
             </>
