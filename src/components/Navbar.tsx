@@ -22,6 +22,41 @@ import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
 
+const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
+  <span
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit]"
+    aria-hidden="true"
+  >
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox={mobile ? '0 0 240 48' : '0 0 240 40'}
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <motion.rect
+        x="1"
+        y="1"
+        width="238"
+        height={mobile ? '46' : '38'}
+        rx={mobile ? '23' : '19'}
+        pathLength="1"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeDasharray="0.16 0.84"
+        vectorEffect="non-scaling-stroke"
+        className="text-white/55 transition-colors duration-500 group-hover:text-brand-red"
+        animate={{ strokeDashoffset: [0, -1] }}
+        transition={{
+          duration: mobile ? 6.2 : 5.8,
+          repeat: Infinity,
+          ease: 'linear'
+        }}
+      />
+    </svg>
+  </span>
+);
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -164,6 +199,7 @@ export const Navbar = () => {
                   onClick={() => setIsServicesDropdownOpen(prev => !prev)}
                   className={cn(
                     desktopNavItemClass(isServicesActive || isServicesDropdownOpen),
+                    "gap-1.5",
                   )}
                   aria-expanded={isServicesDropdownOpen}
                   aria-haspopup="true"
@@ -178,10 +214,16 @@ export const Navbar = () => {
                     />
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
-                  <ChevronDown className={cn(
-                    "relative z-10 w-3.5 h-3.5 transition-transform duration-250",
-                    isServicesDropdownOpen ? "rotate-180 text-white" : "text-[#8A909D]"
-                  )} />
+                  <motion.span
+                    className="relative z-10 flex h-4 w-4 shrink-0 items-center justify-center overflow-visible"
+                    animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <ChevronDown className={cn(
+                      "h-3.5 w-3.5",
+                      isServicesDropdownOpen ? "text-white" : "text-[#8A909D]"
+                    )} />
+                  </motion.span>
                 </button>
               </div>
 
@@ -226,26 +268,7 @@ export const Navbar = () => {
               className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.14em] transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out shrink-0 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.45)] active:translate-y-px"
               data-cursor-label="Start"
             >
-              <span className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-full" aria-hidden="true">
-                <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 40" preserveAspectRatio="none" fill="none">
-                  <motion.rect
-                    x="0.65"
-                    y="0.65"
-                    width="98.7"
-                    height="38.7"
-                    rx="19"
-                    pathLength="1"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeDasharray="0.96 0.04"
-                    vectorEffect="non-scaling-stroke"
-                    className="text-white/25 transition-colors duration-500 group-hover:text-white"
-                    animate={{ strokeDashoffset: [0, -1] }}
-                    transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-                  />
-                </svg>
-              </span>
+              <CtaPerimeter />
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
