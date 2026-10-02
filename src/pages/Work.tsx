@@ -18,7 +18,6 @@ import {
   Building2, 
   ExternalLink,
   Sparkles,
-  SlidersHorizontal,
   Briefcase
 } from 'lucide-react';
 import Fuse from 'fuse.js';
@@ -447,7 +446,7 @@ export const Work = () => {
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
                 }`}
               >
-                <SlidersHorizontal className="w-3 h-3 text-[#8A909D] shrink-0 ml-1 mr-1" />
+
                 {serviceOptions.map((srv) => (
                   <button
                     key={srv}
