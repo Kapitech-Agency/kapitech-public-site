@@ -437,7 +437,7 @@ export const Work = () => {
                   setActiveService('All');
                   setSearchQuery('');
                 }}
-                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#CC001F] transition-colors min-h-[44px]"
+                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px]"
               >
                 {language === 'id' ? 'Lihat Semua 50 Portofolio' : 'View All 50 Projects'}
               </button>
@@ -662,7 +662,7 @@ export const Work = () => {
                   <Link
                     to="/contact"
                     onClick={() => setSelectedProject(null)}
-                    className="px-6 py-3 rounded-full bg-brand-red hover:bg-[#CC001F] text-white text-xs font-semibold uppercase tracking-wider transition-colors shrink-0 flex items-center gap-2 shadow-lg shadow-brand-red/20 min-h-[44px]"
+                    className="px-6 py-3 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white text-xs font-semibold uppercase tracking-wider transition-colors shrink-0 flex items-center gap-2 shadow-lg shadow-brand-red/20 min-h-[44px]"
                   >
                     <span>{language === 'id' ? 'Mulai Konsultasi' : 'Start Project'}</span>
                     <ArrowUpRight size={14} />
