@@ -835,7 +835,7 @@ export const Services = () => {
             return (
               <div key={cat} className="space-y-6">
                 {/* Category Pillar Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-[#262930]">
+                <div className="flex items-center justify-between pb-4 border-b border-white/[0.07]">
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono tracking-widest text-brand-red font-semibold uppercase">
                       {cat === 'Branding' ? '01. ' : cat === 'Design' ? '02. ' : '03. '}
@@ -856,7 +856,6 @@ export const Services = () => {
                       key={srv.id}
                       type="button"
                       onClick={() => setSelectedService(srv)}
-                      whileHover={{ y: -4 }}
                       whileTap={{ scale: 0.995 }}
                       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                       className="group rounded-3xl p-6 sm:p-7 min-h-[320px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left"
@@ -884,7 +883,7 @@ export const Services = () => {
                           {language === 'id' ? srv.summaryId : srv.summary}
                         </p>
 
-                        <div className="pt-3.5 border-t border-[#262930] space-y-1.5 mb-5">
+                        <div className="pt-3.5 border-t border-white/[0.07] space-y-1.5 mb-5">
                           {(language === 'id' ? srv.deliverablesId : srv.deliverables).slice(0, 2).map((item, idx) => (
                             <div key={idx} className="flex items-center gap-2 text-xs text-[#8A909D] font-light truncate">
                               <CheckCircle2 size={13} className="text-brand-red shrink-0" />
@@ -894,7 +893,7 @@ export const Services = () => {
                         </div>
                       </div>
 
-                      <div className="pt-3.5 border-t border-[#262930] flex items-center justify-between">
+                      <div className="pt-3.5 border-t border-white/[0.07] flex items-center justify-between">
                         <span className="text-xs font-mono text-[#8A909D]/70">
                           {language === 'id' ? srv.timelineId : srv.timeline}
                         </span>
