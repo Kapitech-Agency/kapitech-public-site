@@ -407,7 +407,7 @@ export const Work = () => {
                 </div>
               </div>
 
-              <div className="relative w-full md:w-56 lg:w-64 md:shrink-0">
+              <div className="relative w-full md:w-72 lg:w-80 md:shrink-0">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#8A909D]" />
                 <input
                   type="text"
