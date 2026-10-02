@@ -731,7 +731,13 @@ export const Careers = () => {
                 className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]"
               >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1">{language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}</motion.p>
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-sm leading-relaxed lg:pb-1"
+            >
+              {language === 'id' ? 'Kenali orang-orang yang mengerjakan bagian penting dari setiap karya Kapitech.' : 'Meet the people behind the work at Kapitech.'}
+            </motion.p>
           </motion.div>
 
           <motion.div
