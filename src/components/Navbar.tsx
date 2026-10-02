@@ -17,7 +17,7 @@ export const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const closeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
 
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
 
