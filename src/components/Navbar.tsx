@@ -143,7 +143,7 @@ export const Navbar = () => {
 
       <nav
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,height,padding] duration-500 border-b",
+          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
             ? "flex flex-col h-fit min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-transparent"
             : isScrolled
