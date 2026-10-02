@@ -117,7 +117,7 @@ export const Navbar = () => {
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
           isScrolled
             ? "bg-[#0B0C0E]/92 backdrop-blur-xl py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.32)]"
-            : "bg-[#0B0C0E]/55 backdrop-blur-md py-4 sm:py-5 border-transparent"
+            : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
         {/* Scroll Progress Bar */}
