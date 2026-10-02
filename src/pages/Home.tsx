@@ -720,7 +720,7 @@ export const Home = () => {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               />
               <motion.span
-                className="absolute top-[13px] h-4.5 w-4.5 -translate-x-1/2 rounded-full border border-brand-red/45"
+                className="absolute top-[13px] h-[18px] w-[18px] -translate-x-1/2 rounded-full border border-brand-red/45"
                 animate={{
                   left: `${12.5 + activeProcessStep * 25}%`,
                   scale: [0.8, 1.45, 0.8],
