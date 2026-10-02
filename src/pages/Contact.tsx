@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, AlertCircle, LoaderCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
@@ -24,6 +24,9 @@ export const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submissionId, setSubmissionId] = useState('');
+  const [formStep, setFormStep] = useState(0);
+  const [showSpecificServices, setShowSpecificServices] = useState(false);
+  const [showOptionalContact, setShowOptionalContact] = useState(false);
 
   const serviceOptionsEn = [
     // Branding
@@ -104,6 +107,82 @@ export const Contact = () => {
     setSelectedServices(prev =>
       prev.includes(srv) ? prev.filter(s => s !== srv) : [...prev, srv]
     );
+  };
+
+  const serviceChoices = [
+    {
+      title: language === 'id' ? 'Brand & Identity' : 'Brand & Identity',
+      description: language === 'id' ? 'Bangun atau perbarui identitas brand.' : 'Build or refresh your brand identity.',
+      values: [serviceOptions[1], serviceOptions[2], serviceOptions[4]]
+    },
+    {
+      title: language === 'id' ? 'Website & Landing Page' : 'Website & Landing Page',
+      description: language === 'id' ? 'Website baru, redesign, atau landing page.' : 'New websites, redesigns, or landing pages.',
+      values: [serviceOptions[6], serviceOptions[7], serviceOptions[9]]
+    },
+    {
+      title: language === 'id' ? 'Product & UX/UI' : 'Product & UX/UI',
+      description: language === 'id' ? 'Design produk digital dan audit pengalaman.' : 'Digital product design and UX audits.',
+      values: [serviceOptions[5], serviceOptions[9]]
+    },
+    {
+      title: language === 'id' ? 'Web App & MVP' : 'Web App & MVP',
+      description: language === 'id' ? 'Bangun aplikasi web atau MVP yang siap diuji.' : 'Build a web application or testable MVP.',
+      values: [serviceOptions[10], serviceOptions[11], serviceOptions[12]]
+    },
+    {
+      title: language === 'id' ? 'Interactive Digital' : 'Interactive Digital',
+      description: language === 'id' ? 'Website atau experience digital yang lebih immersive.' : 'More immersive digital experiences.',
+      values: [serviceOptions[14]]
+    },
+    {
+      title: language === 'id' ? 'Strategy / Lainnya' : 'Strategy / Other',
+      description: language === 'id' ? 'Masih eksplorasi atau butuh arahan.' : 'Still exploring or need direction.',
+      values: [serviceOptions[15], serviceOptions[16], serviceOptions[17]]
+    }
+  ];
+
+  const toggleServiceBundle = (values: string[]) => {
+    setSelectedServices(prev => {
+      const allSelected = values.every(value => prev.includes(value));
+      if (allSelected) return prev.filter(value => !values.includes(value));
+      return Array.from(new Set([...prev, ...values]));
+    });
+  };
+
+  const validateContactStep = () => {
+    const nextErrors: { [key: string]: string } = {};
+    const sanitizedName = sanitizeInput(clampLength(formState.name, 100));
+    const sanitizedEmail = sanitizeInput(clampLength(formState.email, 120));
+
+    if (!sanitizedName) {
+      nextErrors.name = language === 'id' ? 'Nama wajib diisi' : 'Name is required';
+    }
+    if (!sanitizedEmail) {
+      nextErrors.email = language === 'id' ? 'Email wajib diisi' : 'Email is required';
+    } else if (!isValidEmail(sanitizedEmail)) {
+      nextErrors.email = language === 'id' ? 'Format email tidak valid' : 'Invalid email address';
+    }
+
+    setFormErrors(prev => ({ ...prev, ...nextErrors }));
+    if (Object.keys(nextErrors).length > 0) return false;
+
+    setFormErrors(prev => {
+      const next = { ...prev };
+      delete next.name;
+      delete next.email;
+      return next;
+    });
+    return true;
+  };
+
+  const handleNextStep = () => {
+    if (formStep === 1 && !validateContactStep()) return;
+    setFormStep(prev => Math.min(prev + 1, 2));
+  };
+
+  const handlePreviousStep = () => {
+    setFormStep(prev => Math.max(prev - 1, 0));
   };
 
   const [honeypot, setHoneypot] = useState('');
@@ -470,6 +549,9 @@ export const Contact = () => {
                             setFormErrors({});
                             setSelectedServices([]);
                             setBudgetRange('');
+                            setFormStep(0);
+                            setShowSpecificServices(false);
+                            setShowOptionalContact(false);
                           }}
                           className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#FF1E27] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
                         >
@@ -486,191 +568,291 @@ export const Contact = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8" noValidate>
+                  <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" noValidate>
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website_hp">Do not fill this</label>
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-                        <div>
-                          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">{language === 'id' ? '01 / Konsultasi Proyek' : '01 / Project Inquiry'}</span>
-                          <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-bold tracking-[-0.025em] text-white">
-                            {language === 'id' ? 'Ceritakan proyek Anda.' : 'Tell us about the project.'}
-                          </h3>
-                        </div>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
-                          {language === 'id' ? '3 field wajib' : '3 required fields'}
-                        </span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed max-w-xl">
-                        {language === 'id'
-                          ? 'Mulai dari kebutuhan utama. Tidak perlu brief yang sempurna, kami akan bantu menguraikannya saat discovery.'
-                          : 'Start with the essentials. Your brief does not need to be perfect; we’ll help shape it during discovery.'}
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                        {[
-                          language === 'id' ? '01. Kebutuhan' : '01. Needs',
-                          language === 'id' ? '02. Ruang lingkup' : '02. Scope',
-                          language === 'id' ? '03. Langkah berikutnya' : '03. Next step'
-                        ].map((item, index) => (
-                          <div key={item} className={`rounded-xl border px-3 py-2.5 text-[10px] font-mono uppercase tracking-[0.1em] ${index === 0 ? 'border-brand-red/35 bg-brand-red/10 text-brand-red' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D]'}`}>
-                            {item}
+                    <div className="rounded-[28px] border border-[#262930] bg-[#16181D] overflow-hidden">
+                      <div className="p-5 sm:p-6 border-b border-[#262930]">
+                        <div className="flex items-center justify-between gap-4">
+                          <div>
+                            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                              {language === 'id' ? `0${formStep + 1} / 03` : `0${formStep + 1} / 03`}
+                            </span>
+                            <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-bold tracking-[-0.025em] text-white">
+                              {formStep === 0
+                                ? (language === 'id' ? 'Apa yang ingin Anda bangun?' : 'What are you looking to build?')
+                                : formStep === 1
+                                  ? (language === 'id' ? 'Bagaimana kami menghubungi Anda?' : 'How can we reach you?')
+                                  : (language === 'id' ? 'Sedikit konteks, lalu selesai.' : 'A little context, then we’re done.')}
+                            </h3>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-end justify-between gap-3 mb-2.5">
-                        <div>
-                          <label className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">
-                            {language === 'id' ? 'Layanan yang dibutuhkan' : 'Services you need'}
-                          </label>
-                          <p className="mt-1 text-[11px] text-[#8A909D]">{language === 'id' ? 'Pilih satu atau beberapa.' : 'Choose one or more.'}</p>
+                          <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+                            {[0, 1, 2].map(step => (
+                              <span
+                                key={step}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${step === formStep ? 'w-8 bg-brand-red' : step < formStep ? 'w-4 bg-brand-red/60' : 'w-4 bg-[#3A3E47]'}`}
+                              />
+                            ))}
+                          </div>
                         </div>
-                        <AnimatePresence mode="popLayout" initial={false}>
-                          {selectedServices.length > 0 && (
-                            <motion.span initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="shrink-0 rounded-full bg-brand-red/10 border border-brand-red/25 px-2.5 py-1 text-[10px] font-mono text-brand-red">
-                              {selectedServices.length} {language === 'id' ? 'dipilih' : 'selected'}
-                            </motion.span>
+                        <p className="mt-2.5 text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed max-w-2xl">
+                          {formStep === 0
+                            ? (language === 'id'
+                              ? 'Pilih yang paling mendekati. Kami bisa bantu merapikan scope setelahnya.'
+                              : 'Pick what feels closest. We can shape the exact scope together afterwards.')
+                            : formStep === 1
+                              ? (language === 'id'
+                                ? 'Nama dan email sudah cukup untuk memulai. Detail lain sepenuhnya opsional.'
+                                : 'Your name and email are enough to start. Everything else is optional.')
+                              : (language === 'id'
+                                ? 'Brief singkat sudah cukup. Tidak perlu menulis proposal panjang.'
+                                : 'A concise brief is enough. No need to write a full proposal.')}
+                        </p>
+                      </div>
+
+                      <div className="p-5 sm:p-6">
+                        <AnimatePresence mode="wait" initial={false}>
+                          {formStep === 0 && (
+                            <motion.div
+                              key="step-services"
+                              initial={{ opacity: 0, x: 14 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -14 }}
+                              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                              className="space-y-4"
+                            >
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {serviceChoices.map((choice, index) => {
+                                  const selected = choice.values.every(value => selectedServices.includes(value));
+                                  return (
+                                    <motion.button
+                                      key={choice.title}
+                                      type="button"
+                                      onClick={() => toggleServiceBundle(choice.values)}
+                                      whileTap={{ scale: 0.985 }}
+                                      className={`group relative overflow-hidden rounded-2xl border p-4 sm:p-5 text-left transition-all duration-250 min-h-[122px] ${selected ? 'border-brand-red/60 bg-brand-red/10' : 'border-[#262930] bg-[#0B0C0E] hover:border-white/15 hover:bg-[#111318]'}`}
+                                      aria-pressed={selected}
+                                      data-cursor-label="Select"
+                                    >
+                                      <div className="flex items-start justify-between gap-4">
+                                        <span className={`text-[10px] font-mono tracking-[0.16em] ${selected ? 'text-brand-red' : 'text-[#8A909D]'}`}>0{index + 1}</span>
+                                        <span className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${selected ? 'bg-brand-red border-brand-red text-white' : 'border-[#3A3E47] text-transparent'}`}>
+                                          <CheckCircle2 size={12} />
+                                        </span>
+                                      </div>
+                                      <h4 className="mt-5 text-sm font-semibold text-white group-hover:text-brand-red transition-colors">{choice.title}</h4>
+                                      <p className="mt-1 text-[11px] text-[#8A909D] leading-relaxed">{choice.description}</p>
+                                    </motion.button>
+                                  );
+                                })}
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowSpecificServices(prev => !prev)}
+                                className="w-full flex items-center justify-between rounded-2xl border border-dashed border-[#30343D] bg-[#0B0C0E] px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
+                                aria-expanded={showSpecificServices}
+                              >
+                                <span>{language === 'id' ? 'Butuh memilih layanan yang lebih spesifik?' : 'Need a more specific service?'}</span>
+                                {showSpecificServices ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                              </button>
+
+                              <AnimatePresence initial={false}>
+                                {showSpecificServices && (
+                                  <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="overflow-hidden rounded-2xl border border-[#262930] bg-[#0B0C0E] p-3.5 sm:p-4"
+                                  >
+                                    <div className="space-y-3">
+                                      {serviceGroups.map(group => (
+                                        <div key={group.label}>
+                                          <span className="block mb-2 px-0.5 text-[9px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">{group.label}</span>
+                                          <div className="flex flex-wrap gap-2">
+                                            {group.items.map(srv => {
+                                              const selected = selectedServices.includes(srv);
+                                              return (
+                                                <button
+                                                  key={srv}
+                                                  type="button"
+                                                  onClick={() => toggleService(srv)}
+                                                  className={`rounded-full border px-3 py-2 text-[11px] transition-all ${selected ? 'border-brand-red/50 bg-brand-red/10 text-white' : 'border-[#262930] bg-[#16181D] text-[#8A909D] hover:border-white/15 hover:text-white'}`}
+                                                  aria-pressed={selected}
+                                                >
+                                                  {srv}
+                                                </button>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+
+                              <div className="flex justify-end pt-1">
+                                <button
+                                  type="button"
+                                  onClick={handleNextStep}
+                                  className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.9)]"
+                                  data-cursor-label="Next"
+                                >
+                                  <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
+                                  <ChevronRight size={15} />
+                                </button>
+                              </div>
+                            </motion.div>
+                          )}
+
+                          {formStep === 1 && (
+                            <motion.div
+                              key="step-contact"
+                              initial={{ opacity: 0, x: 14 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -14 }}
+                              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                              className="space-y-4"
+                            >
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div>
+                                  <label htmlFor="inquiry-name" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
+                                  <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                  {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
+                                </div>
+                                <div>
+                                  <label htmlFor="inquiry-email" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
+                                  <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                  {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
+                                </div>
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => setShowOptionalContact(prev => !prev)}
+                                className="w-full flex items-center justify-between rounded-2xl border border-dashed border-[#30343D] bg-[#0B0C0E] px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
+                                aria-expanded={showOptionalContact}
+                              >
+                                <span>{language === 'id' ? 'Tambahkan perusahaan & WhatsApp (opsional)' : 'Add company & WhatsApp (optional)'}</span>
+                                {showOptionalContact ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                              </button>
+
+                              <AnimatePresence initial={false}>
+                                {showOptionalContact && (
+                                  <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 overflow-hidden"
+                                  >
+                                    <div>
+                                      <label htmlFor="inquiry-company" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Perusahaan / Brand' : 'Company / Brand'}</label>
+                                      <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[50px] bg-[#0B0C0E] border border-[#262930] rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200" />
+                                    </div>
+                                    <div>
+                                      <label htmlFor="inquiry-phone" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
+                                      <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[50px] bg-[#0B0C0E] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 transition-all duration-200`} />
+                                      {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+
+                              <div className="flex items-center justify-between gap-3 pt-2">
+                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[44px] rounded-full border border-[#262930] bg-[#0B0C0E] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
+                                  <ChevronLeft size={15} />
+                                  <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
+                                </button>
+                                <button type="button" onClick={handleNextStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.9)]" data-cursor-label="Next">
+                                  <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
+                                  <ChevronRight size={15} />
+                                </button>
+                              </div>
+                            </motion.div>
+                          )}
+
+                          {formStep === 2 && (
+                            <motion.div
+                              key="step-context"
+                              initial={{ opacity: 0, x: 14 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -14 }}
+                              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                              className="space-y-5"
+                            >
+                              <div>
+                                <div className="flex items-center justify-between gap-3 mb-1.5">
+                                  <label htmlFor="inquiry-message" className="block text-[10px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Apa yang perlu kami tahu? *' : 'What should we know? *'}</label>
+                                  <span className="text-[10px] font-mono tabular-nums text-[#8A909D]">{formState.message.length}/3000</span>
+                                </div>
+                                <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
+                                {formErrors.message ? (
+                                  <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
+                                ) : (
+                                  <p className="mt-1.5 text-[11px] text-[#8A909D]/75">{language === 'id' ? 'Minimal 10 karakter. Singkat saja sudah cukup.' : 'Minimum 10 characters. Keep it concise.'}</p>
+                                )}
+                              </div>
+
+                              <div>
+                                <div className="flex items-end justify-between gap-3 mb-2">
+                                  <div>
+                                    <span className="block text-[10px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Budget (opsional)' : 'Budget (optional)'}</span>
+                                  </div>
+                                  {budgetRange && (
+                                    <button type="button" onClick={() => setBudgetRange('')} className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] hover:text-white">Reset</button>
+                                  )}
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                  {budgetOptions.map((opt, index) => {
+                                    const selected = budgetRange === opt;
+                                    return (
+                                      <motion.button
+                                        type="button"
+                                        key={opt}
+                                        onClick={() => setBudgetRange(opt)}
+                                        whileTap={{ scale: 0.985 }}
+                                        aria-pressed={selected}
+                                        className={`min-h-[52px] rounded-2xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${selected ? 'border-brand-red bg-brand-red text-white font-semibold shadow-lg shadow-brand-red/15' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D] hover:border-white/15 hover:text-white'}`}
+                                      >
+                                        <span className="block text-[9px] font-mono uppercase tracking-[0.1em] opacity-70">0{index + 1}</span>
+                                        <span className="block mt-0.5">{opt}</span>
+                                      </motion.button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between gap-3 pt-1">
+                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-[#262930] bg-[#0B0C0E] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
+                                  <ChevronLeft size={15} />
+                                  <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
+                                </button>
+                                <button
+                                  type="submit"
+                                  disabled={isSubmitting}
+                                  className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait transition-all active:scale-[0.99] shadow-[0_14px_30px_-18px_rgba(229,9,20,0.95)]"
+                                  data-cursor-label="Send"
+                                >
+                                  {isSubmitting ? <LoaderCircle size={15} className="animate-spin" /> : <span>{language === 'id' ? 'Kirim inquiry' : 'Send inquiry'}</span>}
+                                  {!isSubmitting && <Send size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />}
+                                </button>
+                              </div>
+
+                              {submitError && (
+                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-2xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                                  <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                                  <span>{submitError}</span>
+                                </motion.div>
+                              )}
+                            </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
-                      <div className="space-y-3">
-                        {serviceGroups.map((group) => (
-                          <div key={group.label} className="rounded-2xl border border-[#262930] bg-[#0B0C0E] p-3.5 sm:p-4">
-                            <span className="block px-0.5 mb-2.5 text-[9px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">{group.label}</span>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              {group.items.map((srv) => {
-                                const selected = selectedServices.includes(srv);
-                                return (
-                                  <motion.button
-                                    type="button"
-                                    key={srv}
-                                    onClick={() => toggleService(srv)}
-                                    whileTap={{ scale: 0.985 }}
-                                    transition={{ duration: 0.16 }}
-                                    aria-pressed={selected}
-                                    className={`group flex min-h-[46px] items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${
-                                      selected
-                                        ? 'border-brand-red/60 bg-brand-red/10 text-white shadow-[0_8px_24px_-18px_rgba(229,9,20,0.9)]'
-                                        : 'border-[#262930] bg-[#16181D] text-[#8A909D] hover:border-brand-red/35 hover:bg-[#1B1F26] hover:text-white'
-                                    }`}
-                                  >
-                                    <span className="leading-snug">{srv}</span>
-                                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? 'border-brand-red bg-brand-red text-white' : 'border-[#3A3E47] text-transparent'}`}>
-                                      <CheckCircle2 size={12} />
-                                    </span>
-                                  </motion.button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
                     </div>
-
-                    <div>
-                      <div className="mb-2.5">
-                        <span className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Detail kontak' : 'Contact details'}</span>
-                        <span className="text-[11px] text-[#8A909D]">{language === 'id' ? 'Kami menggunakan data ini untuk menghubungi Anda.' : 'We use these details only to contact you.'}</span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                        <div>
-                          <label htmlFor="inquiry-name" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
-                          <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
-                          {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
-                        </div>
-                        <div>
-                          <label htmlFor="inquiry-email" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
-                          <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
-                          {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 mt-3.5 sm:mt-4">
-                        <div>
-                          <label htmlFor="inquiry-company" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Perusahaan / Brand' : 'Company / Brand'}</label>
-                          <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[48px] bg-[#0B0C0E] border border-[#262930] rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200" />
-                        </div>
-                        <div>
-                          <label htmlFor="inquiry-phone" className="block text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
-                          <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[48px] bg-[#0B0C0E] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-3.5 sm:px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 font-mono transition-all duration-200`} />
-                          {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-end justify-between gap-3 mb-2.5">
-                        <div>
-                          <span className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Kisaran anggaran' : 'Budget range'}</span>
-                          <span className="text-[11px] text-[#8A909D]">{language === 'id' ? 'Opsional, untuk membantu kami menyesuaikan scope.' : 'Optional, helps us align the scope.'}</span>
-                        </div>
-                        {budgetRange && <button type="button" onClick={() => setBudgetRange('')} className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] hover:text-white">Reset</button>}
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {budgetOptions.map((opt) => {
-                          const selected = budgetRange === opt;
-                          return (
-                            <motion.button type="button" key={opt} onClick={() => setBudgetRange(opt)} whileTap={{ scale: 0.985 }} aria-pressed={selected} className={`min-h-[48px] rounded-xl border px-3.5 py-2.5 text-left text-xs transition-all duration-200 ${selected ? 'border-brand-red bg-brand-red text-white font-semibold shadow-lg shadow-brand-red/15' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D] hover:border-brand-red/35 hover:bg-[#16181D] hover:text-white'}`}>
-                              {opt}
-                            </motion.button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-end justify-between gap-3 mb-1.5">
-                        <label htmlFor="inquiry-message" className="block text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Detail proyek & tujuan *' : 'Project details & goals *'}</label>
-                        <span className="text-[10px] font-mono tabular-nums text-[#8A909D]">{formState.message.length}/3000</span>
-                      </div>
-                      <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Apa yang ingin dibangun? Apa tantangannya? Target rilis atau milestone terdekat?' : 'What are you building? What is the challenge? Any target launch date or near-term milestone?'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-2xl px-3.5 sm:px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y font-mono transition-all duration-200`} />
-                      {formErrors.message ? (
-                        <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
-                      ) : (
-                        <p className="mt-1.5 text-[11px] text-[#8A909D]/75">{language === 'id' ? 'Minimal 10 karakter. Brief singkat sudah cukup.' : 'Minimum 10 characters. A concise brief is enough.'}</p>
-                      )}
-                    </div>
-
-                    <div className="rounded-2xl border border-[#262930] bg-[#0B0C0E] p-4 sm:p-5">
-                      <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">{language === 'id' ? 'Setelah Anda mengirim' : 'After you submit'}</span>
-                      <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        {[
-                          { number: '01', title: 'Review', text: language === 'id' ? 'Tim meninjau brief.' : 'We review your brief.' },
-                          { number: '02', title: 'Discovery', text: language === 'id' ? 'Kita selaraskan ruang lingkup.' : 'We align the scope.' },
-                          { number: '03', title: language === 'id' ? 'Langkah berikutnya' : 'Next step', text: language === 'id' ? 'Timeline & proposal.' : 'Timeline & proposal.' }
-                        ].map((item) => (
-                          <div key={item.number} className="flex gap-2.5">
-                            <span className="text-[10px] font-mono text-brand-red pt-0.5">{item.number}</span>
-                            <div><div className="text-[11px] font-semibold text-white">{item.title}</div><p className="mt-0.5 text-[10px] text-[#8A909D] leading-relaxed">{item.text}</p></div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button type="submit" disabled={isSubmitting} className="group w-full min-h-[50px] py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait text-white font-semibold text-xs uppercase tracking-[0.12em] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.99]">
-                      {isSubmitting ? (
-                        <>
-                          <LoaderCircle size={15} className="animate-spin" />
-                          <span>{language === 'id' ? 'Mengirim...' : 'Sending...'}</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>{language === 'id' ? 'Kirim Project Inquiry' : 'Submit Project Inquiry'}</span>
-                          <Send size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                        </>
-                      )}
-                    </button>
-
-                    {submitError && (
-                      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-xl border border-brand-red/30 bg-brand-red/10 px-4 py-3 text-xs font-mono text-brand-red" role="alert">
-                        <AlertCircle size={15} className="mt-0.5 shrink-0" />
-                        <span>{submitError}</span>
-                      </motion.div>
-                    )}
                   </form>
                 )}
               </div>
