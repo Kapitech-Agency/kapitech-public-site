@@ -116,9 +116,11 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b",
           isScrolled
-            ? "bg-[#0B0C0E]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/68 py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
+            ? isServicesDropdownOpen
+              ? "bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 py-3 sm:py-3.5 border-[#262930]/80 shadow-none"
+              : "bg-[#0B0C0E]/92 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/84 py-3 sm:py-3.5 border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
             : isServicesDropdownOpen
-              ? "bg-[#0B0C0E]/78 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/68 py-4 sm:py-5 border-transparent shadow-[0_12px_36px_rgba(0,0,0,0.18)]"
+              ? "bg-[#0B0C0E]/72 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#0B0C0E]/62 py-4 sm:py-5 border-transparent shadow-none"
               : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
