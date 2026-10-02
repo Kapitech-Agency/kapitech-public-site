@@ -347,7 +347,6 @@ export const Contact = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
-        <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
