@@ -70,7 +70,7 @@ export const AiInstructions = () => {
             <section>
               <h2 className="text-[clamp(21px,2.2vw,26px)] leading-[1.18] font-sans font-bold text-white mb-4 tracking-[-0.025em]">5. Kontak & Transparansi</h2>
               <p>
-                Jika Anda memiliki pertanyaan mengenai tata kelola AI, kebijakan privasi model, atau kepatuhan teknis di Kapitech, silakan hubungi tim kepatuhan kami di <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a>.
+                Jika Anda memiliki pertanyaan mengenai tata kelola AI, kebijakan privasi model, atau kepatuhan teknis di Kapitech, silakan hubungi tim kepatuhan kami di <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
@@ -113,7 +113,7 @@ export const AiInstructions = () => {
             <section>
               <h2 className="text-[clamp(21px,2.2vw,26px)] leading-[1.18] font-sans font-bold text-white mb-4 tracking-[-0.025em]">5. Contact & Governance</h2>
               <p>
-                For questions regarding Kapitech’s AI governance policies, security compliance, or model integration protocols, contact our governance squad at <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a>.
+                For questions regarding Kapitech’s AI governance policies, security compliance, or model integration protocols, contact our governance squad at <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
