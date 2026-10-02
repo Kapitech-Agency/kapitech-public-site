@@ -90,8 +90,8 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b",
           isScrolled 
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#262930] shadow-lg shadow-[#0A0A0A]/80" 
-            : "bg-[#0A0A0A]/80 backdrop-blur-sm py-4 sm:py-5 border-[#262930]/60"
+            ? "bg-[#0B0C0E]/95 backdrop-blur-md py-3 sm:py-3.5 border-[#262930] shadow-lg shadow-[#0B0C0E]/80" 
+            : "bg-[#0B0C0E]/80 backdrop-blur-sm py-4 sm:py-5 border-[#262930]/60"
         )}
       >
         {/* Scroll Progress Bar */}
@@ -192,7 +192,7 @@ export const Navbar = () => {
               <motion.div
                 className="absolute -inset-[200%] w-[500%] h-[500%] will-change-transform"
                 style={{
-                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.1) 240deg, rgba(230,0,35,0.5) 300deg, rgba(255,31,61,0.95) 340deg, #E60023 360deg)',
+                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.1) 240deg, rgba(230,0,35,0.5) 300deg, rgba(255,31,61,0.95) 340deg, #E50914 360deg)',
                 }}
                 animate={{
                   rotate: [0, 360],
@@ -207,7 +207,7 @@ export const Navbar = () => {
               <motion.div 
                 className="absolute -inset-[200%] w-[500%] h-[500%] blur-[8px] opacity-70 group-hover/cta:opacity-100 transition-opacity duration-500 will-change-transform"
                 style={{
-                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.15) 250deg, rgba(230,0,35,0.6) 310deg, #E60023 360deg)',
+                  background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, rgba(230,0,35,0.15) 250deg, rgba(230,0,35,0.6) 310deg, #E50914 360deg)',
                 }}
                 animate={{
                   rotate: [0, 360],
