@@ -205,8 +205,8 @@ export const Navbar = () => {
                   <span className="relative z-10">{t('nav.services')}</span>
 
                   <ChevronDown className={cn(
-                    "relative z-10 w-3.5 h-3.5 transition-transform duration-250",
-                    isServicesDropdownOpen ? "rotate-180 text-white" : "text-[#8A909D]"
+                    "relative z-10 w-3.5 h-3.5 transition-[color,opacity] duration-300",
+                    isServicesDropdownOpen ? "text-white opacity-100" : "text-[#8A909D] opacity-75"
                   )} />
                 </button>
               </div>
@@ -246,7 +246,7 @@ export const Navbar = () => {
             >
               <CtaFlowLine />
               <span className="relative z-10">{t('nav.startProject')}</span>
-              <ChevronRight size={14} className="relative z-10 opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+              <ChevronRight size={14} className="relative z-10 opacity-60 text-current transition-opacity duration-300 group-hover:opacity-100" />
             </Link>
 
             {/* Language Switcher EN | ID */}
@@ -344,7 +344,7 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-50 text-brand-red transition-opacity duration-300 group-hover:opacity-100" />
                         </div>
                         <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -370,7 +370,7 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-50 text-brand-red transition-opacity duration-300 group-hover:opacity-100" />
                         </div>
                         <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -396,7 +396,7 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-50 text-brand-red transition-opacity duration-300 group-hover:opacity-100" />
                         </div>
                         <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -422,7 +422,7 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-50 text-brand-red transition-opacity duration-300 group-hover:opacity-100" />
                         </div>
                         <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -442,7 +442,7 @@ export const Navbar = () => {
                   className="hover:text-white inline-flex items-center gap-1.5 transition-colors font-medium"
                 >
                   <span>{language === 'id' ? 'Lihat Semua Gambaran Layanan' : 'Browse All Services Overview'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
                 <div className="font-mono text-[11px] text-[#8A909D]">
                   3 Strategic Solutions &bull; 15 Dedicated Services
@@ -544,7 +544,7 @@ export const Navbar = () => {
                     <span className="text-xs font-mono text-brand-red">02</span>
                     <span>{t('nav.services')}</span>
                   </div>
-                  <ChevronDown className={cn("w-5 h-5 text-[#8A909D] transition-transform duration-200", isMobileServicesOpen ? "rotate-180 text-brand-red" : "")} />
+                  <ChevronDown className={cn("w-5 h-5 transition-[color,opacity] duration-300", isMobileServicesOpen ? "text-brand-red opacity-100" : "text-[#8A909D] opacity-70")} />
                 </button>
 
                 <AnimatePresence>
@@ -692,7 +692,7 @@ export const Navbar = () => {
                 >
                   <CtaFlowLine mobile />
                   <span className="relative z-10">{t('nav.startProject')}</span>
-                  <ArrowUpRight size={16} className="relative z-10 opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+                  <ArrowUpRight size={16} className="relative z-10 opacity-60 text-current transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
               </div>
             </div>
