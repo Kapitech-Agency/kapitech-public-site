@@ -901,14 +901,15 @@ select {
   background: rgba(255,255,255,0.035);
 }
 
-.kapi-nav-link.is-active::after {
-  content: "";
+.kapi-nav-active-indicator {
   position: absolute;
   left: 12px;
   right: 12px;
   bottom: 2px;
   height: 1px;
   background: var(--k-red);
+  transform-origin: center;
+  box-shadow: 0 0 14px rgba(230,57,70,.45);
 }
 
 .kapi-nav-services {
@@ -1109,7 +1110,7 @@ select {
   margin-top: 32px;
 }
 
-.kapi-mobile-nav > a,
+.kapi-mobile-nav > div > a,
 .kapi-mobile-service-trigger {
   min-height: 68px;
   display: grid;
@@ -1126,14 +1127,14 @@ select {
   text-align: left;
 }
 
-.kapi-mobile-nav > a span,
+.kapi-mobile-nav > div > a span,
 .kapi-mobile-service-trigger span {
   color: var(--k-red);
   font-family: var(--font-mono);
   font-size: 9px;
 }
 
-.kapi-mobile-nav > a strong,
+.kapi-mobile-nav > div > a strong,
 .kapi-mobile-service-trigger strong {
   font-family: var(--font-display);
   color: #fff;
