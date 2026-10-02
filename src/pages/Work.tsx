@@ -73,8 +73,13 @@ export const Work = () => {
   // Drag-to-scroll refs & state for horizontal filter bars
   const serviceScrollRef = React.useRef<HTMLDivElement>(null);
   const [isDraggingService, setIsDraggingService] = useState(false);
+  const [isServiceScrolled, setIsServiceScrolled] = useState(false);
   const [startXService, setStartXService] = useState(0);
   const [scrollLeftService, setScrollLeftService] = useState(0);
+
+  const handleServiceScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    setIsServiceScrolled(e.currentTarget.scrollLeft > 2);
+  };
 
   const handleMouseDownService = (e: React.MouseEvent) => {
     if (!serviceScrollRef.current) return;
@@ -433,14 +438,19 @@ export const Work = () => {
             <div className="relative group/filter drop-shadow-[0_10px_24px_rgba(229,9,20,0.16)]">
               <div
                 ref={serviceScrollRef}
+                onScroll={handleServiceScroll}
                 onMouseDown={handleMouseDownService}
                 onMouseMove={handleMouseMoveService}
                 onMouseUp={handleMouseUpOrLeaveService}
                 onMouseLeave={handleMouseUpOrLeaveService}
                 onWheel={handleWheelService}
                 style={{
-                  maskImage: 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)',
+                  maskImage: isServiceScrolled
+                    ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
+                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                  WebkitMaskImage: isServiceScrolled
+                    ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
+                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
                 }}
                 className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
