@@ -760,7 +760,7 @@ export const Contact = () => {
                               </AnimatePresence>
 
                               <div className="flex items-center justify-between gap-3 pt-2">
-                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[44px] rounded-full border border-[#262930] bg-[#0B0C0E] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
+                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[44px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/[0.16] transition-colors">
                                   <ChevronLeft size={15} />
                                   <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
                                 </button>
