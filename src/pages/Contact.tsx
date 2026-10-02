@@ -530,7 +530,7 @@ export const Contact = () => {
                           : 'The Kapitech team will review your project details and contact you within 24 business hours with the next steps.'}
                       </p>
                       {submissionId && (
-                        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#262930] bg-[#0B0C0E] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
                           <span>{language === 'id' ? 'Referensi' : 'Reference'}</span>
                           <span className="text-white">{submissionId.slice(-8).toUpperCase()}</span>
                         </div>
@@ -550,13 +550,13 @@ export const Contact = () => {
                             setShowSpecificServices(false);
                             setShowOptionalContact(false);
                           }}
-                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-brand-red text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#FF1E27] transition-colors active:scale-95 shadow-lg shadow-brand-red/20 min-h-[44px]"
+                          className="w-full sm:w-auto px-6 py-3 rounded-full border border-brand-red/45 bg-brand-red/72 text-white text-xs font-semibold uppercase tracking-wider hover:bg-brand-red/86 hover:border-brand-red/60 transition-[background-color,border-color,box-shadow] duration-300 min-h-[44px] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_24px_-18px_rgba(229,9,20,0.72)]"
                         >
                           {language === 'id' ? 'Kirim Inquiry Baru' : 'Send Another Inquiry'}
                         </button>
                         <Link
                           to="/"
-                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white text-xs font-semibold uppercase tracking-wider transition-colors min-h-[44px] flex items-center justify-center gap-2"
+                          className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/[0.02] border border-white/[0.09] hover:border-white/[0.16] text-white text-xs font-semibold uppercase tracking-wider transition-colors min-h-[44px] flex items-center justify-center gap-2"
                         >
                           <span>{language === 'id' ? 'Kembali ke Beranda' : 'Back to Home'}</span>
                           <ArrowUpRight size={14} />
@@ -590,7 +590,7 @@ export const Contact = () => {
                             {[0, 1, 2].map(step => (
                               <span
                                 key={step}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${step === formStep ? 'w-8 bg-brand-red' : step < formStep ? 'w-4 bg-brand-red/60' : 'w-4 bg-[#3A3E47]'}`}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${step === formStep ? 'w-8 bg-brand-red/90' : step < formStep ? 'w-4 bg-brand-red/45' : 'w-4 bg-white/[0.08]'}`}
                               />
                             ))}
                           </div>
@@ -636,7 +636,7 @@ export const Contact = () => {
                                     >
                                       <div className="flex items-start justify-between gap-4">
                                         <span className={`text-[10px] font-mono tracking-[0.16em] ${selected ? 'text-brand-red' : 'text-[#8A909D]'}`}>0{index + 1}</span>
-                                        <span className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${selected ? 'bg-brand-red border-brand-red text-white' : 'border-[#3A3E47] text-transparent'}`}>
+                                        <span className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${selected ? 'bg-brand-red/[0.14] border-brand-red/55 text-brand-red' : 'border-white/[0.14] text-transparent'}`}>
                                           <CheckCircle2 size={12} />
                                         </span>
                                       </div>
@@ -718,12 +718,12 @@ export const Contact = () => {
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 <div>
                                   <label htmlFor="inquiry-name" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
-                                  <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.name ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
+                                  <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.name ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                   {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
                                 </div>
                                 <div>
                                   <label htmlFor="inquiry-email" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
-                                  <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.email ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
+                                  <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.email ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                   {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
                                 </div>
                               </div>
@@ -748,11 +748,11 @@ export const Contact = () => {
                                   >
                                     <div>
                                       <label htmlFor="inquiry-company" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'Perusahaan / Brand' : 'Company / Brand'}</label>
-                                      <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[46px] bg-white/[0.015] border border-[#262930] rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300" />
+                                      <input id="inquiry-company" type="text" name="company" autoComplete="organization" value={formState.company} onChange={handleInputChange} placeholder={language === 'id' ? 'Nama perusahaan' : 'Company name'} className="w-full min-h-[46px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300" />
                                     </div>
                                     <div>
                                       <label htmlFor="inquiry-phone" className="block text-[10px] font-mono text-[#8A909D] uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
-                                      <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.phone ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
+                                      <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.phone ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
                                       {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
                                     </div>
                                   </motion.div>
@@ -786,7 +786,7 @@ export const Contact = () => {
                                   <label htmlFor="inquiry-message" className="block text-[10px] font-mono text-white uppercase tracking-[0.14em]">{language === 'id' ? 'Apa yang perlu kami tahu? *' : 'What should we know? *'}</label>
                                   <span className="text-[10px] font-mono tabular-nums text-[#8A909D]">{formState.message.length}/3000</span>
                                 </div>
-                                <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-[#0B0C0E] border ${formErrors.message ? 'border-brand-red' : 'border-[#262930]'} rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
+                                <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-white/[0.015] border ${formErrors.message ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
                                 {formErrors.message ? (
                                   <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
                                 ) : (
@@ -824,7 +824,7 @@ export const Contact = () => {
                               </div>
 
                               <div className="flex items-center justify-between gap-3 pt-1">
-                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-[#262930] bg-[#0B0C0E] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
+                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
                                   <ChevronLeft size={15} />
                                   <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
                                 </button>
