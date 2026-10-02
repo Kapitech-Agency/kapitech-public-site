@@ -397,7 +397,7 @@ export const Work = () => {
                       onClick={() => handlePillarChange(tab.key)}
                       className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 min-h-[34px] flex items-center justify-center whitespace-nowrap ${
                         activePillar === tab.key
-                          ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
+                          ? 'bg-brand-red text-white shadow-[0_8px_24px_-12px_rgba(229,9,20,0.72)]'
                           : 'text-[#8A909D] hover:text-white hover:bg-white/5'
                       }`}
                     >
@@ -431,7 +431,7 @@ export const Work = () => {
               </div>
             </div>
 
-            <div className="relative group/filter">
+            <div className="relative group/filter rounded-full border border-white/[0.05] bg-white/[0.012] shadow-[inset_0_1px_0_rgba(255,255,255,0.02),0_10px_28px_-24px_rgba(229,9,20,0.42)]">
               <div
                 ref={serviceScrollRef}
                 onMouseDown={handleMouseDownService}
@@ -439,6 +439,10 @@ export const Work = () => {
                 onMouseUp={handleMouseUpOrLeaveService}
                 onMouseLeave={handleMouseUpOrLeaveService}
                 onWheel={handleWheelService}
+                style={{
+                  maskImage: 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)',
+                }}
                 className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
                 }`}
@@ -454,7 +458,7 @@ export const Work = () => {
                     className={`px-2.5 py-1 rounded-full text-[10px] font-mono whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 shrink-0 border min-h-[30px] flex items-center ${
                       activeService === srv
                         ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
-                        : 'bg-white/[0.018] text-[#8A909D] border-white/[0.08] hover:border-brand-red/30 hover:text-white'
+                        : 'bg-white/[0.018] text-[#8A909D] border-white/[0.08] hover:border-brand-red/30 hover:text-white hover:shadow-[0_6px_18px_-14px_rgba(229,9,20,0.28)]'
                     }`}
                   >
                     {srv === 'All' ? (language === 'id' ? 'Semua Layanan' : 'All Services') : srv}
