@@ -18,10 +18,14 @@ import {
   Briefcase, 
   MapPin, 
   Clock,
+  Sparkles,
   Building2,
   TrendingUp,
   Award,
+  ShieldCheck,
   Zap,
+  DollarSign,
+  Layers,
   Palette,
   Code2,
   Check,
@@ -678,79 +682,79 @@ export const Careers = () => {
   return (
     <div className="kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-18 px-4 sm:px-6 md:px-12 border-b border-line overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
         <AtmosphericBackground
           imageUrl="/hero_background_3d.png"
           opacity={0.055}
           disableGrayscale={true}
         />
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 right-[8%] w-[34rem] h-[34rem] rounded-full bg-brand-red/5 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[28rem] h-px bg-gradient-to-r from-brand-red/80 to-transparent" />
+          <div className="absolute -top-40 right-[8%] w-[32rem] h-[32rem] rounded-full bg-brand-red/5 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-[26rem] h-px bg-gradient-to-r from-brand-red/80 to-transparent" />
         </div>
-
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-20 items-end">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
-                  {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
-                </span>
-                <span className="h-px w-10 bg-line" />
-              </div>
-
-              <h1 className="max-w-5xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.93] tracking-[-0.055em] text-white">
-                {language === 'id'
-                  ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></>
-                  : <>Build Your Next <span className="text-brand-red">Chapter.</span></>}
-              </h1>
-
-              <p className="max-w-2xl mt-6 text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
-                {language === 'id'
-                  ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital, brand, dan pengalaman yang dipakai orang nyata.'
-                  : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products, brands, and experiences used by real people.'}
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <a
-                  href="#open-positions"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"
-                >
-                  <span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span>
-                  <ArrowUpRight size={14} />
-                </a>
-                <button
-                  onClick={() => {
-                    setIsFreelanceModalOpen(true);
-                    setIsVendorSubmitted(false);
-                    setVendorSubmitError('');
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-[#FF2B38] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20"
-                >
-                  <FolderGit2 size={14} />
-                  <span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span>
-                </button>
-              </div>
+          <div className="max-w-5xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+                {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
+              </span>
+              <span className="h-px w-10 bg-[#2A2A2A]" />
             </div>
-
+            <h1 className="max-w-4xl text-4xl sm:text-6xl md:text-7xl font-display font-bold leading-[0.95] tracking-[-0.05em] text-white">
+              {language === 'id'
+                ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></>
+                : <>Build the Future <span className="text-brand-red">With Us.</span></>}
+            </h1>
+            <p className="max-w-2xl mt-6 text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed">
+              {language === 'id'
+                ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek untuk menggarap produk digital dan pengalaman yang dipakai orang nyata.'
+                : 'We are opening studio roles in South Tangerang and project-based opportunities across our Freelance Vendor network to build digital products and experiences used by real people.'}
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#8E8E93]">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red">
+                <Sparkles size={12} />
+                <span>{language === 'id' ? 'Freelance Vendor Network • WFA' : 'Freelance Vendor Network • WFA'}</span>
+              </span>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a href="#open-positions" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-brand-red hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300">
+                <span>{language === 'id' ? 'Lihat posisi terbuka' : 'View open roles'}</span>
+                <ArrowUpRight size={14} />
+              </a>
+              <button
+                onClick={() => {
+                  setIsFreelanceModalOpen(true);
+                  setIsVendorSubmitted(false);
+                  setVendorSubmitError('');
+                }}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-red hover:bg-[#FF2B38] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20"
+              >
+                <FolderGit2 size={14} />
+                <span>{language === 'id' ? 'Gabung Vendor Network' : 'Join Vendor Network'}</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
       <section className="py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-brand-red font-mono text-[10px] uppercase tracking-[0.2em]">{language === 'id' ? 'Orang & Keahlian' : 'People & Craft'}</span>
-                <span className="h-px w-10 bg-line" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/10 text-brand-red text-xs font-mono mb-3">
+                <Users className="w-3.5 h-3.5 text-brand-red" />
+                <span>{language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}</span>
               </div>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                 {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
               {language === 'id'
                 ? 'Bekerja bahu-membahu bersama para insinyur software, desainer visual, animator 3D, dan spesialis kreatif kami.'
                 : 'Collaborate shoulder-to-shoulder with our multidisciplinary squad of software engineers, visual designers, 3D animators, and creative strategists.'
@@ -891,66 +895,38 @@ export const Careers = () => {
       {/* SECTION: Current Opportunities */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A]" id="open-positions">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-                {language === 'id' ? 'Peluang Terbuka' : 'Current Opportunities'}
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-                {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
-              {language === 'id'
-                ? 'Klik salah satu posisi di bawah ini untuk melihat detail kualifikasi, tanggung jawab, dan mengirimkan lamaran langsung.'
-                : 'Click any role below to review full responsibilities, qualification benchmarks, and submit your application.'
-              }
-            </p>
+          <div className="max-w-3xl mb-10 sm:mb-12">
+            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+              {language === 'id' ? 'Peluang Terbuka' : 'Current Opportunities'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+              {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
+            </h2>
           </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-5">
-            {positions.map((pos, index) => (
+          <div className="space-y-4">
+            {positions.map((pos) => (
               <motion.div
                 key={pos.id}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="kapi-careers-role-card cursor-pointer group relative overflow-hidden p-6 sm:p-8 rounded-2xl border border-line bg-panel transition-all duration-300"
+                className="kapi-careers-role-card cursor-pointer group relative overflow-hidden p-5 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] transition-all duration-300"
               >
-                <div className="absolute top-0 right-0 p-5 sm:p-6">
-                  <span className="text-[10px] font-mono tracking-[0.18em] text-muted">0{index + 1} / 02</span>
-                </div>
-
-                <div className="pr-16">
-                  <div className="flex flex-wrap items-center gap-2 mb-6">
-                    <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/25 text-brand-red text-[10px] font-mono uppercase tracking-wide">
-                      {pos.workplace}
-                    </span>
-                    <span className="px-2.5 py-1 rounded-full bg-bg border border-line text-muted text-[10px] font-mono">
-                      {pos.department}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-display font-bold text-white group-hover:text-brand-red transition-colors leading-tight">
-                    {pos.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm text-muted font-light leading-relaxed">
-                    {pos.summary}
-                  </p>
-
-                  <div className="mt-6 pt-5 border-t border-line flex flex-col sm:flex-row sm:items-end justify-between gap-5">
-                    <div className="space-y-2 text-xs font-mono text-muted">
-                      <div className="flex items-center gap-1.5">
-                        <MapPin size={13} className="text-brand-red" />
-                        <span>{pos.location}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={13} className="text-brand-red" />
-                        <span>{pos.type}</span>
-                      </div>
+                <div className="grid lg:grid-cols-[minmax(0,1fr)_auto] gap-6 lg:gap-10 items-center">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[11px] font-mono font-medium">{pos.workplace}</span>
+                      <span className="px-2.5 py-1 rounded-full bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93] text-[11px] font-mono">{pos.department}</span>
                     </div>
-                    <span className="inline-flex self-start sm:self-end items-center gap-2 px-4 py-2 rounded-full bg-bg border border-line text-white text-[10px] font-mono uppercase tracking-wider group-hover:bg-brand-red group-hover:border-brand-red transition-all">
-                      {language === 'id' ? 'Lihat Detail & Lamar' : 'View Role & Apply'}
+                    <h3 className="text-xl sm:text-2xl lg:text-[1.7rem] font-display font-bold text-white group-hover:text-brand-red transition-colors leading-tight">{pos.title}</h3>
+                    <p className="mt-3 max-w-3xl text-sm text-[#8E8E93] font-light leading-relaxed">{pos.summary}</p>
+                    <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-mono text-[#8E8E93]">
+                      <div className="flex items-center gap-1.5"><MapPin size={13} className="text-brand-red" /><span>{pos.location}</span></div>
+                      <div className="flex items-center gap-1.5"><Clock size={13} className="text-brand-red" /><span>{pos.type}</span></div>
+                    </div>
+                  </div>
+                  <div className="flex lg:flex-col items-stretch lg:items-end gap-2.5 shrink-0">
+                    <span className="inline-flex items-center justify-center gap-2 min-h-[42px] px-5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 border border-[#2A2A2A] group-hover:border-brand-red">
+                      <span>{language === 'id' ? 'Lihat Detail' : 'View Role'}</span>
                       <ArrowUpRight size={14} />
                     </span>
                   </div>
@@ -963,122 +939,82 @@ export const Careers = () => {
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden" id="freelance-vendor">
-        {/* Subtle Background Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
-
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Header & Introduction */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-9 sm:mb-10 gap-6">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-red/40 bg-brand-red/10 text-brand-red text-xs font-mono mb-3 font-semibold">
-                <Globe className="w-3.5 h-3.5 text-brand-red" />
-                <span>{language === 'id' ? 'Kemitraan Terbuka • 100% Remote (WFA)' : 'Open Network • 100% Remote (WFA)'}</span>
+                <Globe className="w-3.5 h-3.5" />
+                <span>{language === 'id' ? 'Kemitraan Terbuka • 100% Remote' : 'Open Network • 100% Remote'}</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
-                {language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}
-              </h2>
-              <p className="mt-4 text-sm sm:text-base text-[#8E8E93] font-light leading-relaxed">
-                {language === 'id'
-                  ? 'Kapitech secara aktif berkolaborasi dengan para freelancer bertalenta, independent designer, dan developer profesional untuk menggarap proyek-proyek inovatif skala global & nasional. Pekerjaan bersifat 100% WFA (Work From Anywhere) dengan sistem kontrak berbasis proyek (Project-Based).'
-                  : 'Kapitech actively collaborates with top-tier freelancers, independent designers, and specialized developers to execute high-stakes digital products for global scaleups. All engagements are 100% remote (WFA) under a project-based contract model.'
-                }
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">{language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}</h2>
+              <p className="mt-4 text-sm sm:text-base text-[#8E8E93] font-light leading-relaxed max-w-2xl">
+                {language === 'id' ? 'Berkolaborasi bersama Kapitech melalui proyek berbasis scope dan milestone yang jelas.' : 'Collaborate with Kapitech through focused, project-based engagements with clear scope and milestones.'}
               </p>
             </div>
-
-            <div className="shrink-0">
-              <button
-                onClick={() => {
-                  setIsFreelanceModalOpen(true);
-                  setIsVendorSubmitted(false);
-                }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2.5"
-              >
-                <FolderGit2 size={16} />
-                <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
-                <ArrowUpRight size={16} />
-              </button>
-            </div>
+            <button onClick={() => { setIsFreelanceModalOpen(true); setIsVendorSubmitted(false); }} className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2.5">
+              <FolderGit2 size={16} /><span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span><ArrowUpRight size={16} />
+            </button>
           </div>
-
-          <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-line py-4 text-[10px] font-mono uppercase tracking-[0.16em] text-muted">
-            <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-brand-red" />100% WFA</span>
-            <span>Project-Based</span>
-            <span>NDA Protected</span>
-            <span>Specialist Network</span>
+          <div className="grid grid-cols-2 lg:grid-cols-4 rounded-2xl border border-brand-red/25 bg-[#161616] overflow-hidden mb-8">
+            {[
+              { icon: Globe, title: '100% WFA', text: language === 'id' ? 'Bekerja dari mana saja.' : 'Work from anywhere.' },
+              { icon: Briefcase, title: 'Project-Based', text: language === 'id' ? 'Scope dan milestone jelas.' : 'Clear scope and milestones.' },
+              { icon: Laptop, title: 'BYOD', text: language === 'id' ? 'Gunakan perangkat sendiri.' : 'Use your own setup.' },
+              { icon: ShieldCheck, title: language === 'id' ? 'NDA & Deadline' : 'NDA & Deadlines', text: language === 'id' ? 'Kerahasiaan dan komitmen kerja.' : 'Confidentiality and delivery discipline.' },
+            ].map((item) => (
+              <div key={item.title} className="p-4 sm:p-5 border-b lg:border-b-0 border-[#2A2A2A] lg:border-r last:border-0 flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red shrink-0"><item.icon size={16} /></div>
+                <div className="min-w-0"><h4 className="text-[11px] font-mono uppercase tracking-wider text-white font-semibold">{item.title}</h4><p className="mt-1 text-[11px] text-[#8E8E93] font-light leading-relaxed">{item.text}</p></div>
+              </div>
+            ))}
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-5">
-            <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">01 / Skills</span>
-              <div className="mt-3 flex items-start justify-between gap-6">
-                <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">
-                  {language === 'id' ? 'Spesialis yang kami cari.' : 'Specialists we work with.'}
-                </h3>
-                <Code2 className="w-5 h-5 text-brand-red shrink-0" />
-              </div>
-              <div className="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-white/80">
-                {['UI/UX & Product Design','Frontend Development','Backend / Full-Stack','Brand, Motion & 3D'].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 rounded-xl border border-line bg-bg px-3.5 py-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand-red shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
+              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><Layers size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">01</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Model Kemitraan' : 'Partnership Model'}</h3></div></div>
+              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Brief terstruktur, kolaborasi langsung, dan scope yang jelas untuk setiap proyek.' : 'Structured briefs, direct collaboration, and focused scope for every project.'}</p>
+              <ul className="grid sm:grid-cols-2 gap-2 text-xs text-white/80">{[(language === 'id' ? 'Brief proyek terstruktur' : 'Structured briefs'),(language === 'id' ? 'Kolaborasi langsung' : 'Direct collaboration'),(language === 'id' ? 'Pipeline proyek' : 'Ongoing project pipeline'),(language === 'id' ? 'Scope per milestone' : 'Milestone-based scope')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-brand-red mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
             </div>
-
-            <div className="rounded-2xl border border-line bg-panel p-6 sm:p-8">
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-muted">02 / Fit</span>
-              <h3 className="mt-3 text-xl sm:text-2xl font-display font-semibold text-white">
-                {language === 'id' ? 'Yang penting bagi kami.' : 'What matters to us.'}
-              </h3>
-              <div className="mt-5 space-y-3">
-                {[
-                  language === 'id' ? 'Komunikasi responsif' : 'Responsive communication',
-                  language === 'id' ? 'Disiplin milestone' : 'Milestone discipline',
-                  language === 'id' ? 'Standar design & code' : 'Design & code standards'
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3 text-sm text-white/80">
-                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-5 text-xs text-muted leading-relaxed">
-                {language === 'id'
-                  ? 'Detail NDA, perangkat kerja, dan ketentuan proyek dibahas di form pendaftaran.'
-                  : 'NDA, equipment, and project terms are covered in the application form.'}
-              </p>
+            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
+              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><ShieldCheck size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">02</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Standar Kerja' : 'Working Standards'}</h3></div></div>
+              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Kualitas, komunikasi, dan deadline tetap menjadi standar di setiap project.' : 'Quality, communication, and delivery discipline stay consistent across every project.'}</p>
+              <ul className="grid sm:grid-cols-2 gap-2 text-xs text-white/80">{[(language === 'id' ? 'NDA proyek' : 'Project NDA'),(language === 'id' ? 'Komitmen deadline' : 'Deadline commitment'),(language === 'id' ? 'Standar Figma & code' : 'Figma & code standards'),(language === 'id' ? 'Komunikasi responsif' : 'Responsive communication')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-brand-red mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
+            </div>
+            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
+              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><DollarSign size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">03</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Yang Anda Dapatkan' : 'What You Get'}</h3></div></div>
+              <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed mb-4">{language === 'id' ? 'Model kerja yang ringkas, transparan, dan fokus pada kualitas hasil.' : 'A focused working model built around clarity, transparency, and quality delivery.'}</p>
+              <ul className="space-y-2 text-xs text-white/80">{[(language === 'id' ? 'Project fee transparan' : 'Transparent project fees'),(language === 'id' ? 'Portofolio lintas industri' : 'Cross-industry portfolio exposure'),(language === 'id' ? 'Kolaborasi remote fleksibel' : 'Flexible remote collaboration')].map(item => <li key={item} className="flex items-start gap-2"><Check size={13} className="text-emerald-400 mt-0.5 shrink-0" /><span>{item}</span></li>)}</ul>
+            </div>
+            <div className="rounded-2xl border border-[#2A2A2A] bg-[#161616] p-5 sm:p-6">
+              <div className="flex items-center gap-3 mb-4"><div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-brand-red"><Code2 size={18} /></div><div><span className="text-[10px] font-mono uppercase tracking-widest text-brand-red">04</span><h3 className="text-base sm:text-lg font-display font-bold text-white">{language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need'}</h3></div></div>
+              <div className="grid grid-cols-2 gap-2.5">{['UI/UX & Product Design','Frontend Development','Backend / Full-Stack','Brand, Motion & 3D'].map(item => <div key={item} className="rounded-xl border border-[#2A2A2A] bg-[#0A0A0A] px-3 py-3 text-xs text-white/80">{item}</div>)}</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-14 sm:py-18 px-4 sm:px-6 md:px-12 border-b border-line">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-9 sm:mb-10">
             <div>
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-[10px] mb-2 block">
-                {language === 'id' ? 'Studio Culture' : 'Studio Culture'}
+              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+                {language === 'id' ? 'Nilai & Keuntungan Studio' : 'Studio Culture & Core Values'}
               </span>
-              <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
-                {language === 'id' ? 'Yang kami jaga dalam bekerja.' : 'What we value in the work.'}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+                {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-muted max-w-md leading-relaxed">
-              {language === 'id'
-                ? 'Bukan daftar fasilitas panjang. Hanya hal-hal yang benar-benar terasa dalam keseharian.'
-                : 'Not a long list of perks. Just the things that genuinely shape the day-to-day.'}
+            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
+              {language === 'id' ? 'Hal-hal yang kami jaga dalam keseharian, tanpa daftar fasilitas yang panjang.' : 'The principles we keep close in the day-to-day, without a long list of perks.'}
             </p>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-line rounded-2xl overflow-hidden">
-            {benefits.map((benefit) => (
-              <div key={benefit.title} className="p-5 sm:p-6 bg-panel border-b sm:border-b-0 lg:border-r border-line last:border-0 hover:bg-[var(--kapi-bg-card-hover)] transition-colors">
-                <div className="w-9 h-9 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-4">
-                  {benefit.icon}
-                </div>
-                <h3 className="text-sm sm:text-base font-display font-semibold text-white">{benefit.title}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-2xl border border-[#2A2A2A] overflow-hidden">
+            {benefits.map((benefit, i) => (
+              <div key={i} className="p-5 sm:p-6 bg-[#161616] border-b sm:border-b-0 lg:border-r border-[#2A2A2A] last:border-0 hover:bg-[#1E2128] transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-4">{benefit.icon}</div>
+                <h3 className="text-sm sm:text-base font-display font-semibold text-white mb-2">{benefit.title}</h3>
+                <p className="text-xs text-[#8E8E93] font-light leading-relaxed">{benefit.desc}</p>
               </div>
             ))}
           </div>
