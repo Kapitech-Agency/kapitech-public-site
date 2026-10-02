@@ -25,50 +25,62 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
   const height = mobile ? 48 : 40;
   const radius = mobile ? 14 : 20;
-  const phases = [
-    { dash: 150, gap: 850, offset: 0, width: 3.8, opacity: 0.96 },
-    { dash: 118, gap: 882, offset: 18, width: 3.2, opacity: 0.82 },
-    { dash: 88, gap: 912, offset: 36, width: 2.7, opacity: 0.66 },
-    { dash: 62, gap: 938, offset: 54, width: 2.25, opacity: 0.50 },
-    { dash: 40, gap: 960, offset: 72, width: 1.85, opacity: 0.34 },
-  ];
+  const width = 240;
+  const viewHeight = mobile ? 54 : 46;
 
   return (
     <span
-      className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
+      className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-85 transition-opacity duration-300 group-hover:opacity-100"
       aria-hidden="true"
     >
       <svg
         className="absolute inset-0 h-full w-full overflow-visible"
-        viewBox={mobile ? '0 0 240 54' : '0 0 240 46'}
+        viewBox={`0 0 ${width} ${viewHeight}`}
         preserveAspectRatio="none"
         fill="none"
       >
-        {phases.map((phase, index) => (
-          <motion.rect
-            key={phase.width}
-            x="3"
-            y="3"
-            width="234"
-            height={height}
-            rx={radius}
-            pathLength="1000"
-            fill="none"
-            stroke={index === 0 ? 'white' : 'white'}
-            strokeWidth={phase.width}
-            strokeLinecap="round"
-            strokeDasharray={`${phase.dash} ${phase.gap}`}
-            vectorEffect="non-scaling-stroke"
-            opacity={phase.opacity}
-            animate={{ strokeDashoffset: [phase.offset, phase.offset - 1000] }}
-            transition={{
-              duration: mobile ? 9.4 : 8.8,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="transition-[stroke,opacity] duration-500 group-hover:stroke-brand-red"
-          />
-        ))}
+        <motion.rect
+          x="3"
+          y="3"
+          width="234"
+          height={height}
+          rx={radius}
+          pathLength="1000"
+          fill="none"
+          stroke="rgba(255,255,255,0.92)"
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeDasharray="185 815"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1000] }}
+          transition={{
+            duration: mobile ? 5.6 : 5.2,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+        <motion.rect
+          x="3"
+          y="3"
+          width="234"
+          height={height}
+          rx={radius}
+          pathLength="1000"
+          fill="none"
+          stroke="rgba(255,255,255,0.34)"
+          strokeWidth="1.45"
+          strokeLinecap="round"
+          strokeDasharray="95 905"
+          vectorEffect="non-scaling-stroke"
+          animate={{ strokeDashoffset: [0, -1000] }}
+          transition={{
+            duration: mobile ? 5.6 : 5.2,
+            repeat: Infinity,
+            ease: 'linear',
+            delay: 0.055,
+          }}
+          className="transition-[stroke] duration-300 group-hover:stroke-brand-red/75"
+        />
       </svg>
     </span>
   );
