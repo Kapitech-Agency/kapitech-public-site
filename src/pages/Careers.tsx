@@ -686,7 +686,6 @@ export const Careers = () => {
       {/* Hero Section */}
       <section className="kapi-careers-hero relative pt-28 sm:pt-32 md:pt-40 pb-20 sm:pb-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
         <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.045} disableGrayscale={true} />
-        <div className="absolute inset-y-0 left-[7%] w-px bg-gradient-to-b from-transparent via-[#2A2A2A] to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 sm:w-96 h-px bg-gradient-to-r from-brand-red/85 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="max-w-5xl">
@@ -694,7 +693,7 @@ export const Careers = () => {
               <span className="text-brand-red font-mono font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">{language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}</span>
               <span className="h-px w-12 bg-[#2A2A2A]" />
             </div>
-            <h1 className="max-w-5xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white">
+            <h1 className="max-w-6xl text-4xl sm:text-6xl md:text-7xl lg:text-[5.7rem] font-display font-bold leading-[0.9] tracking-[-0.06em] text-white">
               {language === 'id' ? <>Berkarya Bersama <span className="text-brand-red">Kapitech.</span></> : <>Build the Future <span className="text-brand-red">With Us.</span></>}
             </h1>
             <div className="mt-7 grid md:grid-cols-[minmax(0,1fr)_auto] gap-7 md:gap-12 items-end">
