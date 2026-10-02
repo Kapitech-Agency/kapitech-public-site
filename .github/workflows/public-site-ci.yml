@@ -2,7 +2,7 @@ name: Kapitech public site CI
 
 on:
   push:
-    branches: [main, redesign/v2]
+    branches: [main, redesign/v2, motion-system/v1]
   pull_request:
     branches: [main]
 

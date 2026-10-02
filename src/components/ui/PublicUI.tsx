@@ -1,7 +1,11 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  CinematicText,
+  InteractiveMedia,
+  Magnetic,
+} from '../motion/MotionSystem';
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -17,15 +21,14 @@ export function Reveal({
   y?: number;
 }) {
   return (
-    <motion.div
+    <div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.62, delay, ease: EASE }}
+      data-motion-reveal
+      data-motion-duration={String(Math.max(0.72, 0.92 - Math.min(delay, 0.24)))}
+      data-motion-y={String(y)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -39,15 +42,9 @@ export function TextReveal({
   delay?: number;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20, clipPath: 'inset(0 0 100% 0)' }}
-      whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.58, delay, ease: EASE }}
-    >
+    <CinematicText className={className} delay={delay}>
       {children}
-    </motion.div>
+    </CinematicText>
   );
 }
 
@@ -63,31 +60,13 @@ export function ImageReveal({
   imgClassName?: string;
 }) {
   return (
-    <motion.div
-      className={`kapi-media ${className}`}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.14 }}
-    >
-      <motion.img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        className={imgClassName}
-        variants={{
-          hidden: { opacity: 0, scale: 1.055, y: 16 },
-          show: { opacity: 1, scale: 1, y: 0 },
-        }}
-        transition={{ duration: 0.78, ease: EASE }}
-      />
-      <motion.span
-        aria-hidden="true"
-        className="kapi-media-wipe"
-        variants={{ hidden: { scaleX: 1 }, show: { scaleX: 0 } }}
-        transition={{ duration: 0.72, delay: 0.06, ease: EASE }}
-      />
-    </motion.div>
+    <InteractiveMedia
+      src={src}
+      alt={alt}
+      className={className}
+      imageClassName={imgClassName}
+      cursorLabel="View"
+    />
   );
 }
 
@@ -103,7 +82,10 @@ export function SectionHeader({
   align?: 'left' | 'center';
 }) {
   return (
-    <div className={`kapi-section-header ${align === 'center' ? 'is-center' : ''}`}>
+    <div
+      className={`kapi-section-header ${align === 'center' ? 'is-center' : ''}`}
+      data-motion-reveal
+    >
       <span className="kapi-eyebrow">{eyebrow}</span>
       <h2>{title}</h2>
       {description && <p>{description}</p>}
@@ -120,7 +102,14 @@ export function GlassPanel({
   className?: string;
   as?: React.ElementType;
 }) {
-  return <Tag className={`kapi-panel ${className}`}>{children}</Tag>;
+  return (
+    <Tag
+      className={`kapi-panel ${className}`}
+      data-motion-surface
+    >
+      {children}
+    </Tag>
+  );
 }
 
 export function GlassButton({
@@ -135,10 +124,16 @@ export function GlassButton({
   className?: string;
 }) {
   return (
-    <Link to={to} className={`kapi-button kapi-button--${variant} ${className}`}>
-      <span>{children}</span>
-      <ArrowUpRight size={15} />
-    </Link>
+    <Magnetic as="span" strength={0.18} className="inline-flex">
+      <Link
+        to={to}
+        className={`kapi-button kapi-button--${variant} ${className}`}
+        data-cursor="button"
+      >
+        <span>{children}</span>
+        <ArrowUpRight size={15} />
+      </Link>
+    </Magnetic>
   );
 }
 
@@ -166,14 +161,15 @@ export function PageHero({
   className?: string;
 }) {
   return (
-    <section className={`kapi-page-hero ${className}`}>
+    <section className={`kapi-page-hero ${className}`} data-motion-section>
+      <div className="kapi-page-hero__aura" data-motion-section-aura aria-hidden="true" />
       <div className="kapi-container">
-        <Reveal>
+        <div data-motion-reveal>
           <span className="kapi-eyebrow">{eyebrow}</span>
           <h1>{title}</h1>
           {description && <p>{description}</p>}
           {children}
-        </Reveal>
+        </div>
       </div>
     </section>
   );

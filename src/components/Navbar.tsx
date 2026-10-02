@@ -4,6 +4,7 @@ import { ArrowUpRight, ChevronDown, Instagram, Linkedin, Menu, X } from 'lucide-
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { allSolutionsAndServices } from '../data/servicesData';
+import { Magnetic } from './motion/MotionSystem';
 
 const groups = (category: 'Solutions' | 'Branding' | 'Design' | 'Development') =>
   allSolutionsAndServices.filter(item => item.category === category);
@@ -73,8 +74,9 @@ export const Navbar = () => {
           </Link>
 
           <div className="kapi-nav-links">
-            <Link to="/work" className={`kapi-nav-link ${location.pathname === '/work' ? 'is-active' : ''}`}>
+            <Link to="/work" className={`kapi-nav-link ${location.pathname === '/work' ? 'is-active' : ''}`} data-cursor="button">
               {t('nav.work')}
+              {location.pathname === '/work' && <motion.span layoutId="kapi-nav-active" className="kapi-nav-active-indicator" />}
             </Link>
 
             <div className="kapi-nav-services" onMouseEnter={openServices} onMouseLeave={queueClose}>
@@ -87,6 +89,7 @@ export const Navbar = () => {
               >
                 <span>{t('nav.services')}</span>
                 <ChevronDown size={14} style={{ transform: servicesOpen ? 'rotate(180deg)' : undefined }} />
+                {isServicesActive && <motion.span layoutId="kapi-nav-active" className="kapi-nav-active-indicator" />}
               </button>
 
               <AnimatePresence>
@@ -128,11 +131,13 @@ export const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            <Link to="/about" className={`kapi-nav-link ${location.pathname === '/about' ? 'is-active' : ''}`}>
+            <Link to="/about" className={`kapi-nav-link ${location.pathname === '/about' ? 'is-active' : ''}`} data-cursor="button">
               {t('nav.about')}
+              {location.pathname === '/about' && <motion.span layoutId="kapi-nav-active" className="kapi-nav-active-indicator" />}
             </Link>
-            <Link to="/careers" className={`kapi-nav-link ${location.pathname === '/careers' ? 'is-active' : ''}`}>
+            <Link to="/careers" className={`kapi-nav-link ${location.pathname === '/careers' ? 'is-active' : ''}`} data-cursor="button">
               {t('nav.careers')}
+              {location.pathname === '/careers' && <motion.span layoutId="kapi-nav-active" className="kapi-nav-active-indicator" />}
             </Link>
           </div>
 
@@ -142,10 +147,12 @@ export const Navbar = () => {
               <button type="button" className={language === 'id' ? 'is-active' : ''} onClick={() => setLanguage('id')}>ID</button>
             </div>
 
-            <Link to="/contact" className="kapi-nav-cta">
-              {t('nav.startProject')}
-              <ArrowUpRight size={14} />
-            </Link>
+            <Magnetic as="span" strength={0.18} className="inline-flex">
+              <Link to="/contact" className="kapi-nav-cta" data-cursor="button">
+                {t('nav.startProject')}
+                <ArrowUpRight size={14} />
+              </Link>
+            </Magnetic>
 
             <button type="button" className="kapi-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation">
               <Menu size={19} />
@@ -179,44 +186,68 @@ export const Navbar = () => {
                 </button>
               </div>
 
-              <div className="kapi-mobile-nav">
-                <Link to="/work" onClick={() => setMobileOpen(false)}>
-                  <span>01</span><strong>{t('nav.work')}</strong><ArrowUpRight size={16} />
-                </Link>
+              <motion.div
+                className="kapi-mobile-nav"
+                initial="closed"
+                animate="open"
+                variants={{
+                  closed: { transition: { staggerChildren: 0.035, staggerDirection: -1 } },
+                  open: { transition: { delayChildren: 0.12, staggerChildren: 0.065 } },
+                }}
+              >
+                <motion.div variants={{ closed: { opacity: 0, y: 22, clipPath: 'inset(0 0 100% 0)' }, open: { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' } }}>
+                  <Link to="/work" onClick={() => setMobileOpen(false)} data-cursor="button">
+                    <span>01</span><strong>{t('nav.work')}</strong><ArrowUpRight size={16} />
+                  </Link>
+                </motion.div>
 
-                <button
-                  type="button"
-                  className="kapi-mobile-service-trigger"
-                  onClick={() => setMobileServicesOpen(value => !value)}
-                  aria-expanded={mobileServicesOpen}
-                >
-                  <span>02</span><strong>{t('nav.services')}</strong><ChevronDown size={17} style={{ transform: mobileServicesOpen ? 'rotate(180deg)' : undefined }} />
-                </button>
+                <motion.div variants={{ closed: { opacity: 0, y: 22, clipPath: 'inset(0 0 100% 0)' }, open: { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' } }}>
+                  <button
+                    type="button"
+                    className="kapi-mobile-service-trigger"
+                    onClick={() => setMobileServicesOpen(value => !value)}
+                    aria-expanded={mobileServicesOpen}
+                  >
+                    <span>02</span><strong>{t('nav.services')}</strong><ChevronDown size={17} style={{ transform: mobileServicesOpen ? 'rotate(180deg)' : undefined }} />
+                  </button>
+                </motion.div>
 
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                   {mobileServicesOpen && (
                     <motion.div
                       className="kapi-mobile-services-list"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
+                      initial={{ height: 0, opacity: 0, y: -10 }}
+                      animate={{ height: 'auto', opacity: 1, y: 0 }}
+                      exit={{ height: 0, opacity: 0, y: -10 }}
                     >
-                      {allSolutionsAndServices.map(item => (
-                        <Link key={item.slug} to={`/services/${item.slug}`} onClick={() => setMobileOpen(false)}>
-                          {item.title}
-                        </Link>
+                      {allSolutionsAndServices.map((item, index) => (
+                        <motion.div
+                          key={item.slug}
+                          initial={{ opacity: 0, x: -12 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: Math.min(index, 10) * 0.018, ease: [0.22,1,0.36,1] }}
+                        >
+                          <Link key={item.slug} to={`/services/${item.slug}`} onClick={() => setMobileOpen(false)}>
+                            {item.title}
+                          </Link>
+                        </motion.div>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <Link to="/about" onClick={() => setMobileOpen(false)}>
-                  <span>03</span><strong>{t('nav.about')}</strong><ArrowUpRight size={16} />
-                </Link>
-                <Link to="/careers" onClick={() => setMobileOpen(false)}>
-                  <span>04</span><strong>{t('nav.careers')}</strong><ArrowUpRight size={16} />
-                </Link>
-              </div>
+                <motion.div variants={{ closed: { opacity: 0, y: 22, clipPath: 'inset(0 0 100% 0)' }, open: { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' } }}>
+                  <Link to="/about" onClick={() => setMobileOpen(false)} data-cursor="button">
+                    <span>03</span><strong>{t('nav.about')}</strong><ArrowUpRight size={16} />
+                  </Link>
+                </motion.div>
+
+                <motion.div variants={{ closed: { opacity: 0, y: 22, clipPath: 'inset(0 0 100% 0)' }, open: { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' } }}>
+                  <Link to="/careers" onClick={() => setMobileOpen(false)} data-cursor="button">
+                    <span>04</span><strong>{t('nav.careers')}</strong><ArrowUpRight size={16} />
+                  </Link>
+                </motion.div>
+              </motion.div>
 
               <div className="kapi-mobile-bottom">
                 <div className="kapi-language">
