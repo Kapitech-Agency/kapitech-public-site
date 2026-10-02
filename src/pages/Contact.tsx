@@ -81,7 +81,7 @@ export const Contact = () => {
     { label: 'Branding', items: serviceOptions.slice(0, 5) },
     { label: 'Design', items: serviceOptions.slice(5, 10) },
     { label: 'Development', items: serviceOptions.slice(10, 15) },
-    { label: 'Strategic Solutions', items: serviceOptions.slice(15) }
+    { label: language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions', items: serviceOptions.slice(15) }
   ];
 
   const budgetOptionsEn = [
@@ -443,7 +443,7 @@ export const Contact = () => {
                         <CheckCircle2 size={30} />
                       </motion.div>
                       <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                        {language === 'id' ? 'Inquiry diterima' : 'Inquiry received'}
+                        {language === 'id' ? 'Permintaan diterima' : 'Inquiry received'}
                       </span>
                       <h3 className="mt-2 text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">
                         {language === 'id' ? 'Terima kasih. Kami akan menghubungi Anda.' : 'Thank you. We’ll be in touch.'}
@@ -455,7 +455,7 @@ export const Contact = () => {
                       </p>
                       {submissionId && (
                         <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#262930] bg-[#0B0C0E] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
-                          <span>Reference</span>
+                          <span>{language === 'id' ? 'Referensi' : 'Reference'}</span>
                           <span className="text-white">{submissionId.slice(-8).toUpperCase()}</span>
                         </div>
                       )}
@@ -495,7 +495,7 @@ export const Contact = () => {
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                         <div>
-                          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">01 / Project Inquiry</span>
+                          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">{language === 'id' ? '01 / Konsultasi Proyek' : '01 / Project Inquiry'}</span>
                           <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-bold tracking-[-0.025em] text-white">
                             {language === 'id' ? 'Ceritakan proyek Anda.' : 'Tell us about the project.'}
                           </h3>
@@ -512,8 +512,8 @@ export const Contact = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                         {[
                           language === 'id' ? '01. Kebutuhan' : '01. Needs',
-                          language === 'id' ? '02. Scope' : '02. Scope',
-                          language === 'id' ? '03. Next step' : '03. Next step'
+                          language === 'id' ? '02. Ruang lingkup' : '02. Scope',
+                          language === 'id' ? '03. Langkah berikutnya' : '03. Next step'
                         ].map((item, index) => (
                           <div key={item} className={`rounded-xl border px-3 py-2.5 text-[10px] font-mono uppercase tracking-[0.1em] ${index === 0 ? 'border-brand-red/35 bg-brand-red/10 text-brand-red' : 'border-[#262930] bg-[#0B0C0E] text-[#8A909D]'}`}>
                             {item}
@@ -640,8 +640,8 @@ export const Contact = () => {
                       <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
                         {[
                           { number: '01', title: 'Review', text: language === 'id' ? 'Tim meninjau brief.' : 'We review your brief.' },
-                          { number: '02', title: 'Discovery', text: language === 'id' ? 'Kita selaraskan scope.' : 'We align the scope.' },
-                          { number: '03', title: 'Next step', text: language === 'id' ? 'Timeline & proposal.' : 'Timeline & proposal.' }
+                          { number: '02', title: 'Discovery', text: language === 'id' ? 'Kita selaraskan ruang lingkup.' : 'We align the scope.' },
+                          { number: '03', title: language === 'id' ? 'Langkah berikutnya' : 'Next step', text: language === 'id' ? 'Timeline & proposal.' : 'Timeline & proposal.' }
                         ].map((item) => (
                           <div key={item.number} className="flex gap-2.5">
                             <span className="text-[10px] font-mono text-brand-red pt-0.5">{item.number}</span>
