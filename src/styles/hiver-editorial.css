@@ -1,0 +1,844 @@
+/* Kapitech editorial presentation layer. Inspired by the calm, portfolio-led feel of HIVER. */
+/* This layer deliberately avoids glassmorphism, neon effects, oversized motion and decorative UI. */
+
+:root {
+  --k-editorial-bg: #08090b;
+  --k-editorial-surface: #0f1013;
+  --k-editorial-surface-2: #131417;
+  --k-editorial-line: rgba(255,255,255,.11);
+  --k-editorial-line-soft: rgba(255,255,255,.065);
+  --k-editorial-text: #f4f2ee;
+  --k-editorial-muted: #97979a;
+  --k-editorial-subtle: #67676b;
+  --k-editorial-red: #e63946;
+  --k-editorial-max: 1240px;
+}
+
+.kapi-public-shell {
+  background: var(--k-editorial-bg) !important;
+  color: var(--k-editorial-text);
+}
+
+.kapi-public-shell main,
+.kapi-page {
+  background: transparent !important;
+}
+
+.kapi-container {
+  width: min(var(--k-editorial-max), calc(100% - 48px));
+}
+
+.kapi-section {
+  padding: clamp(5.5rem, 10vw, 10rem) 0;
+  border-bottom: 1px solid var(--k-editorial-line-soft);
+}
+
+.kapi-section-header {
+  max-width: 900px;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.kapi-section-header h2,
+.kapi-page-hero h1,
+.kapi-cta-band h2 {
+  font-family: var(--font-display);
+  color: var(--k-editorial-text);
+  font-weight: 600;
+  letter-spacing: -.065em;
+}
+
+.kapi-section-header h2 {
+  font-size: clamp(2.4rem, 5.7vw, 5.4rem);
+  line-height: .95;
+  margin-top: 14px;
+}
+
+.kapi-section-header p,
+.kapi-page-hero p {
+  color: var(--k-editorial-muted);
+  max-width: 62ch;
+  line-height: 1.75;
+}
+
+.kapi-eyebrow {
+  color: var(--k-editorial-red);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.kapi-eyebrow::before {
+  width: 16px;
+  opacity: .55;
+}
+
+/* No glass surfaces */
+.kapi-panel,
+.kapi-panel--strong,
+.kapi-public-shell .kapi-card,
+.kapi-public-shell .kapi-careers-role-card,
+.kapi-public-shell .kapi-careers-talent-card,
+.kapi-public-shell .kapi-careers-talent-feature,
+.kapi-public-shell .kapi-careers-talent-mini {
+  background: var(--k-editorial-surface) !important;
+  border: 1px solid var(--k-editorial-line-soft) !important;
+  border-radius: 8px !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.kapi-panel--interactive {
+  transition: transform .42s var(--k-ease), border-color .28s ease, background-color .28s ease;
+}
+
+.kapi-panel--interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(230,57,70,.34) !important;
+  box-shadow: none !important;
+  background: var(--k-editorial-surface-2) !important;
+}
+
+/* Page hero */
+.kapi-page-hero {
+  padding: clamp(9.5rem, 17vw, 13rem) 0 clamp(4.5rem, 8vw, 7rem);
+  background: var(--k-editorial-bg) !important;
+  border-bottom: 1px solid var(--k-editorial-line-soft);
+}
+
+.kapi-page-hero h1 {
+  max-width: 1080px;
+  font-size: clamp(3.4rem, 9vw, 8.4rem);
+  line-height: .89;
+}
+
+.kapi-page-hero p {
+  margin-top: 28px;
+  font-size: clamp(1rem, 1.6vw, 1.16rem);
+}
+
+/* Buttons and tags */
+.kapi-button {
+  min-height: 48px;
+  border-radius: 3px !important;
+  padding: 0 18px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: .02em;
+  text-transform: none;
+}
+
+.kapi-button--primary {
+  background: var(--k-editorial-red) !important;
+  box-shadow: none !important;
+}
+
+.kapi-button--primary:hover {
+  background: #f04b57 !important;
+  transform: translateY(-1px);
+  box-shadow: none !important;
+}
+
+.kapi-button--secondary {
+  background: transparent !important;
+  border: 1px solid var(--k-editorial-line) !important;
+  color: var(--k-editorial-text) !important;
+}
+
+.kapi-button--secondary:hover {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.22) !important;
+  transform: translateY(-1px);
+}
+
+.kapi-chip {
+  min-height: auto;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--k-editorial-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.kapi-chip--accent {
+  color: var(--k-editorial-red) !important;
+}
+
+/* Navigation */
+.kapi-navbar {
+  padding: 0;
+  background: linear-gradient(180deg, rgba(8,9,11,.92), rgba(8,9,11,0)) !important;
+}
+
+.kapi-navbar-inner {
+  width: min(var(--k-editorial-max), calc(100% - 48px));
+  min-height: 76px;
+  padding: 0;
+  border: 0 !important;
+  border-bottom: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-navbar.is-scrolled .kapi-navbar-inner {
+  background: rgba(8,9,11,.96) !important;
+  border-bottom-color: var(--k-editorial-line-soft) !important;
+  box-shadow: none !important;
+}
+
+.kapi-brand span {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: -.03em;
+}
+
+.kapi-brand img {
+  height: 20px;
+}
+
+.kapi-nav-links {
+  gap: 10px;
+}
+
+.kapi-nav-link {
+  padding: 0 8px;
+  border-radius: 0 !important;
+  color: rgba(255,255,255,.56);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+  min-height: 42px;
+}
+
+.kapi-nav-link:hover,
+.kapi-nav-link.is-active {
+  color: #fff;
+  background: transparent !important;
+}
+
+.kapi-nav-link.is-active::after {
+  left: 8px;
+  right: 8px;
+  bottom: 7px;
+  background: var(--k-editorial-red);
+}
+
+.kapi-nav-cta {
+  min-height: 42px;
+  border-radius: 3px !important;
+  background: var(--k-editorial-red);
+  box-shadow: none !important;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+}
+
+.kapi-nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+.kapi-language {
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.kapi-language button {
+  border-radius: 2px !important;
+  background: transparent !important;
+}
+
+.kapi-language button.is-active {
+  background: rgba(255,255,255,.07) !important;
+}
+
+.kapi-services-menu {
+  background: #101114 !important;
+  border: 1px solid var(--k-editorial-line) !important;
+  border-radius: 8px !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.44) !important;
+}
+
+.kapi-services-menu-group a {
+  border-radius: 3px !important;
+}
+
+.kapi-menu,
+.kapi-mobile-close {
+  border-radius: 3px !important;
+  background: transparent !important;
+}
+
+/* Hero */
+.kapi-home > section:first-child {
+  min-height: min(900px, 94vh) !important;
+  border-bottom-color: var(--k-editorial-line-soft) !important;
+  background: #08090b !important;
+}
+
+.kapi-home > section:first-child .kapi-container {
+  padding-top: 11rem;
+  padding-bottom: 7rem;
+}
+
+.kapi-home > section:first-child .kapi-eyebrow {
+  margin-bottom: 14px;
+}
+
+.kapi-home > section:first-child h1 {
+  max-width: 920px;
+  font-size: clamp(3.4rem, 7.4vw, 7.7rem);
+  line-height: .88;
+}
+
+.kapi-home > section:first-child h1 .text-brand-red {
+  color: var(--k-editorial-red) !important;
+}
+
+.kapi-home > section:first-child p {
+  max-width: 620px;
+  color: var(--k-editorial-muted) !important;
+}
+
+.kapi-home > section:first-child .kapi-hero-visual {
+  min-height: 560px;
+}
+
+.kapi-hero-ring {
+  border-color: rgba(255,255,255,.07);
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+.kapi-hero-orbit {
+  border-color: rgba(230,57,70,.14);
+  animation: kapiEditorOrbit 24s linear infinite;
+}
+
+.kapi-hero-orbit::after {
+  box-shadow: none;
+}
+
+.kapi-hero-center {
+  border-radius: 10px;
+  border-color: var(--k-editorial-line);
+  background: #111216;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-hero-grid {
+  opacity: .35;
+}
+
+.kapi-hero-mark {
+  border-radius: 4px;
+  box-shadow: none !important;
+}
+
+@keyframes kapiEditorOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Portfolio */
+.kapi-project-grid {
+  gap: 32px 24px;
+}
+
+.kapi-project-card {
+  position: relative;
+}
+
+.kapi-project-card .kapi-media {
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #111216;
+}
+
+.kapi-project-media {
+  aspect-ratio: 16 / 10;
+}
+
+.kapi-project-card:nth-child(3n) .kapi-project-media {
+  aspect-ratio: 18 / 8.5;
+}
+
+.kapi-project-body {
+  gap: 8px;
+  padding: 16px 0 0;
+}
+
+.kapi-project-meta {
+  gap: 8px;
+  color: var(--k-editorial-subtle);
+  font-size: 9px;
+}
+
+.kapi-project-title {
+  font-size: clamp(1.55rem, 2.8vw, 2.6rem);
+  line-height: .98;
+}
+
+.kapi-project-copy {
+  max-width: 50ch;
+  color: var(--k-editorial-muted);
+}
+
+.kapi-project-arrow {
+  color: var(--k-editorial-red);
+}
+
+.kapi-project-card:hover .kapi-media img {
+  transform: scale(1.025) translate3d(0,-3px,0);
+}
+
+.kapi-project-card .kapi-media img {
+  transition: transform .9s var(--k-ease), filter .6s ease;
+}
+
+.kapi-project-card .kapi-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,.04);
+  pointer-events: none;
+}
+
+.kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+1) {
+  grid-column: span 7;
+}
+
+.kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+2) {
+  grid-column: span 5;
+}
+
+.kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+3) {
+  grid-column: span 5;
+}
+
+.kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n) {
+  grid-column: span 7;
+}
+
+/* Featured case study */
+.kapi-work .kapi-panel {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.kapi-work .kapi-work-featured,
+.kapi-work .kapi-panel.overflow-hidden {
+  border: 0 !important;
+}
+
+.kapi-work .kapi-panel.overflow-hidden > div {
+  background: #0f1013;
+}
+
+.kapi-work .kapi-panel.overflow-hidden .kapi-media {
+  border-radius: 6px 0 0 6px !important;
+}
+
+.kapi-work .kapi-panel.overflow-hidden h2 {
+  font-size: clamp(2.4rem, 5vw, 5.6rem);
+}
+
+/* Services */
+.kapi-service-grid {
+  gap: 0;
+  border-top: 1px solid var(--k-editorial-line);
+}
+
+.kapi-service-card {
+  min-height: 260px;
+  padding: 26px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--k-editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.kapi-service-card h3 {
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+}
+
+.kapi-service-card:hover {
+  background: rgba(255,255,255,.012) !important;
+  transform: none !important;
+}
+
+.kapi-service-links {
+  gap: 10px 18px;
+}
+
+.kapi-service-links .kapi-chip::before {
+  content: "•";
+  margin-right: 7px;
+  color: var(--k-editorial-red);
+}
+
+/* Process and content rows */
+.kapi-process {
+  gap: 0;
+  border-top: 1px solid var(--k-editorial-line);
+}
+
+.kapi-process-item {
+  min-height: 250px;
+  padding: 24px 22px 24px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--k-editorial-line) !important;
+  border-right: 1px solid var(--k-editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.kapi-process > :last-child .kapi-process-item {
+  border-right: 0 !important;
+}
+
+.kapi-process-item:hover {
+  background: rgba(255,255,255,.01) !important;
+}
+
+/* CTA */
+.kapi-cta-band {
+  padding: 0 0 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  grid-template-columns: minmax(0,1.3fr) minmax(220px,.7fr);
+}
+
+.kapi-cta-band h2 {
+  max-width: 850px;
+  font-size: clamp(2.7rem, 6vw, 6rem);
+}
+
+.kapi-cta-band p {
+  max-width: 55ch;
+}
+
+.kapi-cta-band::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -48px;
+  height: 1px;
+  background: var(--k-editorial-line);
+}
+
+/* Filters */
+.kapi-filter-bar {
+  position: sticky;
+  top: 76px;
+  padding: 10px 0;
+  background: rgba(8,9,11,.96) !important;
+  border-bottom: 1px solid var(--k-editorial-line);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-filter-button {
+  min-height: 36px;
+  padding: 0 3px;
+  margin-right: 18px;
+  border: 0 !important;
+  border-bottom: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--k-editorial-muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.kapi-filter-button:hover,
+.kapi-filter-button.is-active {
+  color: #fff;
+  border-bottom-color: var(--k-editorial-red) !important;
+}
+
+.kapi-search {
+  min-height: 40px;
+  border-radius: 3px;
+  border: 1px solid var(--k-editorial-line) !important;
+  background: transparent !important;
+}
+
+.kapi-search:focus {
+  border-color: rgba(230,57,70,.55) !important;
+  box-shadow: none !important;
+}
+
+/* Modal */
+.kapi-modal-backdrop {
+  background: rgba(3,4,6,.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-modal {
+  background: #0f1013 !important;
+  border: 1px solid var(--k-editorial-line) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 30px 100px rgba(0,0,0,.55) !important;
+}
+
+.kapi-modal-header {
+  background: #0f1013 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 3px !important;
+  border: 1px solid var(--k-editorial-line) !important;
+  background: transparent !important;
+}
+
+/* Floating contact stays small and contextual */
+.kapi-floating-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.kapi-floating-menu {
+  background: #101114 !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--k-editorial-line) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-floating-link {
+  border-radius: 3px !important;
+  background: transparent !important;
+}
+
+.kapi-floating-link:hover {
+  background: rgba(255,255,255,.04) !important;
+}
+
+/* Mobile navigation */
+.kapi-mobile-overlay {
+  background: rgba(3,4,6,.84) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-mobile-panel {
+  background: #090a0c !important;
+  border-left: 1px solid var(--k-editorial-line) !important;
+}
+
+.kapi-mobile-nav > a,
+.kapi-mobile-service-trigger {
+  min-height: 78px;
+}
+
+.kapi-mobile-nav > a strong,
+.kapi-mobile-service-trigger strong {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 9vw, 3rem);
+  letter-spacing: -.055em;
+}
+
+/* Footer */
+.kapi-footer {
+  padding: 7rem 0 1.5rem;
+  background: #07080a !important;
+  border-top: 1px solid var(--k-editorial-line);
+  background-image: none !important;
+}
+
+.kapi-footer-grid {
+  border-bottom: 0;
+}
+
+.kapi-footer h4 {
+  color: var(--k-editorial-text);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.kapi-footer a:hover {
+  color: #fff;
+}
+
+/* Legacy inline visual utilities used by detail pages */
+.kapi-public-shell [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-public-shell .kapi-service-detail {
+  background: #08090b !important;
+}
+
+.kapi-public-shell .kapi-service-detail > div.relative.z-10 .rounded-2xl.border,
+.kapi-public-shell .kapi-service-detail > div.relative.z-10 .rounded-xl.border {
+  background: #101114 !important;
+  border-color: var(--k-editorial-line-soft) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.kapi-public-shell .kapi-service-detail .bg-\[\#161616\] {
+  background: #101114 !important;
+}
+
+.kapi-public-shell .kapi-service-detail .bg-\[\#0A0A0A\] {
+  background: #08090b !important;
+}
+
+.kapi-public-shell .kapi-service-detail .shadow-\[0_0_25px_rgba\(255\,26px\,26px\,0\.3\)\] {
+  box-shadow: none !important;
+}
+
+/* Editorial route pages */
+.kapi-careers,
+.kapi-service-detail {
+  background: #08090b !important;
+}
+
+.kapi-policy-page {
+  background: #08090b !important;
+}
+
+/* Motion language */
+.kapi-public-shell .motion-reduce\:transform-none {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .kapi-hero-orbit {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .kapi-container,
+  .kapi-navbar-inner {
+    width: min(100%, calc(100% - 36px));
+  }
+
+  .kapi-navbar-inner {
+    min-height: 68px;
+  }
+
+  .kapi-work .kapi-project-grid .kapi-project-card,
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+1),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+2),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+3),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n) {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 760px) {
+  .kapi-container {
+    width: min(100%, calc(100% - 28px));
+  }
+
+  .kapi-navbar-inner {
+    width: min(100%, calc(100% - 28px));
+    min-height: 58px;
+  }
+
+  .kapi-home > section:first-child {
+    min-height: auto !important;
+  }
+
+  .kapi-home > section:first-child .kapi-container {
+    padding-top: 8.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .kapi-home > section:first-child h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .kapi-home > section:first-child p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .kapi-hero-visual {
+    min-height: 330px !important;
+  }
+
+  .kapi-section {
+    padding: 5rem 0;
+  }
+
+  .kapi-project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .kapi-project-card,
+  .kapi-project-card:nth-child(3n),
+  .kapi-work .kapi-project-grid .kapi-project-card,
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+1),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+2),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n+3),
+  .kapi-work .kapi-project-grid .kapi-project-card:nth-child(4n) {
+    grid-column: span 1 !important;
+  }
+
+  .kapi-work .kapi-panel.overflow-hidden > div {
+    display: block;
+  }
+
+  .kapi-work .kapi-panel.overflow-hidden .kapi-media {
+    border-radius: 6px 6px 0 0 !important;
+  }
+
+  .kapi-filter-bar {
+    top: 58px;
+  }
+
+  .kapi-filter-button {
+    margin-right: 14px;
+  }
+
+  .kapi-footer-grid {
+    gap: 34px;
+  }
+
+  .kapi-cta-band {
+    grid-template-columns: 1fr;
+  }
+}
