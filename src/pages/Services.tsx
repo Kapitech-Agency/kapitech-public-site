@@ -1029,7 +1029,7 @@ export const Services = () => {
                   <Link
                     to="/contact"
                     onClick={() => setSelectedService(null)}
-                    className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-[#E01414] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                     <ArrowUpRight size={14} />
