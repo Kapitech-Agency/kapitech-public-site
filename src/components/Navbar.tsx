@@ -108,6 +108,7 @@ export const Navbar = () => {
   const navbarGlassMaterial = "bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84";
   // Dropdown uses the same dark glass language, with stronger blur and a lighter surface.
   const dropdownGlassMaterial = "bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54";
+  const controlGlassMaterial = "bg-[#0B0C0E]/42 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/34";
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
@@ -283,7 +284,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.08] flex items-center justify-center text-white shadow-none active:bg-white/[0.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer", navbarGlassMaterial)}
+              className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_22px_rgba(0,0,0,0.14)] active:bg-white/[0.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer", controlGlassMaterial)}
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -492,7 +493,7 @@ export const Navbar = () => {
 
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]", navbarGlassMaterial)}
+                  className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]", controlGlassMaterial)}
                   aria-label="Close menu"
                 >
                   <X size={22} />
