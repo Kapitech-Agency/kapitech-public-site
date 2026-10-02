@@ -20,7 +20,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
-import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
+import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
@@ -711,18 +711,18 @@ export const Navbar = () => {
                 </a>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <a
-                    href="mailto:business@kapitech.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-brand-red/30 flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
+                    href="mailto:hello@kapitech.co.id"
+                    className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
                   >
                     <Mail size={15} className="text-brand-red shrink-0" />
-                    <span className="truncate">business@kapitech.id</span>
+                    <span className="truncate">hello@kapitech.co.id</span>
                   </a>
                   <a
-                    href="mailto:hello@kapitech.id"
+                    href="mailto:hello@kapitech.co.id"
                     className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
                   >
                     <Mail size={15} className="text-[#8A909D] shrink-0" />
-                    <span className="truncate">hello@kapitech.id</span>
+                    <span className="truncate">hello@kapitech.co.id</span>
                   </a>
                 </div>
               </div>
