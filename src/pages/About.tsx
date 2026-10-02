@@ -17,7 +17,7 @@ export const About = () => {
     {
       title: "Modern & Scalable Engineering",
       icon: <Code2 size={24} />,
-      desc: "Built on modern frameworks like React, Next.js, and TypeScript, our web and mobile architectures emphasize high speed, robust security, and maintainability."
+      desc: "Built on modern frameworks like React, Next.js, and TypeScript, our web products and digital systems emphasize high speed, robust security, and maintainability."
     },
     {
       title: "Direct & Transparent Partnership",
@@ -35,7 +35,7 @@ export const About = () => {
     {
       title: "Rekayasa Modern & Skalabel",
       icon: <Code2 size={24} />,
-      desc: "Dibangun di atas framework terdepan seperti React, Next.js, dan TypeScript, arsitektur web dan mobile kami menekankan kecepatan tinggi, keamanan teruji, dan kemudahan pemeliharaan."
+      desc: "Dibangun di atas framework terdepan seperti React, Next.js, dan TypeScript, produk web dan sistem digital kami menekankan kecepatan tinggi, keamanan teruji, dan kemudahan pemeliharaan."
     },
     {
       title: "Kemitraan Langsung & Transparan",
@@ -55,7 +55,7 @@ export const About = () => {
     { 
       year: "2022", 
       title: "Engineering Expansion", 
-      desc: "Expanded into full-stack web application development, SaaS platform engineering, and custom mobile application interfaces." 
+      desc: "Expanded into full-stack web application development and SaaS platform engineering, strengthening our product and infrastructure capabilities." 
     },
     { 
       year: "2023", 
@@ -78,7 +78,7 @@ export const About = () => {
     { 
       year: "2022", 
       title: "Ekspansi Rekayasa Software", 
-      desc: "Memperluas kapabilitas ke pengembangan aplikasi web full-stack, rekayasa platform SaaS, dan antarmuka aplikasi mobile kustom." 
+      desc: "Memperluas kapabilitas ke pengembangan aplikasi web full-stack dan rekayasa platform SaaS, sekaligus memperkuat kapabilitas produk dan infrastruktur kami." 
     },
     { 
       year: "2023", 
@@ -288,21 +288,36 @@ export const About = () => {
       <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.12} disableGrayscale={true} />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
+          <motion.div
+            className="max-w-3xl"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 sm:mb-4 block">
               {t('about.tag')}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white">
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white"
+            >
               {language === 'id' ? (
                 <>Agensi digital yang dirancang untuk <span className="text-brand-red">kejelasan dan pertumbuhan</span>.</>
               ) : (
                 <>A digital agency engineered for <span className="text-brand-red">clarity and growth</span>.</>
               )}
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg text-[#8A909D] font-light leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+              className="text-sm sm:text-base md:text-lg text-[#8A909D] font-light leading-relaxed"
+            >
               {t('about.subtitle')}
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -359,12 +374,18 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-6">
-            <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#16181D]">
+          <motion.div
+            className="lg:col-span-6"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-12% 0px' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="group rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#16181D]">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
                 alt="Kapitech Agency Team Collaboration"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/20 to-transparent flex items-end p-5 sm:p-8">
                 <div>
@@ -377,7 +398,7 @@ export const About = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -399,8 +420,13 @@ export const About = () => {
           {/* Standardized Team Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 max-w-md sm:max-w-none mx-auto">
             {team.map((member) => (
-              <div
+              <motion.div
                 key={member.name}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: team.indexOf(member) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
                 className="rounded-2xl bg-[#16181D] border border-white/[0.07] overflow-hidden flex flex-col justify-between group hover:border-brand-red/40 transition-colors"
               >
                 <div>
@@ -424,7 +450,7 @@ export const About = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -449,8 +475,13 @@ export const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {values.map((v, i) => (
-              <div
+              <motion.div
                 key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
                 className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[200px] sm:min-h-[240px] hover:border-brand-red/40 transition-colors"
               >
                 <div>
@@ -460,7 +491,7 @@ export const About = () => {
                   <h3 className="text-lg sm:text-xl font-display font-bold mb-2.5 sm:mb-3 text-white">{v.title}</h3>
                   <p className="text-xs text-[#8A909D] font-light leading-relaxed">{v.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -480,10 +511,16 @@ export const About = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {journey.map((item) => (
-              <div
+              <motion.div
                 key={item.year}
-                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: Number(item.year) * 0.0001, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
+                className="group relative p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors overflow-hidden"
               >
+                <span className="absolute inset-y-0 left-0 w-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60" aria-hidden="true" />
                 <div>
                   <span className="text-xl sm:text-2xl font-display font-bold text-brand-red font-mono block mb-3 sm:mb-4">
                     {item.year}
@@ -491,7 +528,7 @@ export const About = () => {
                   <h3 className="text-base sm:text-lg font-display font-bold mb-2 text-white">{item.title}</h3>
                   <p className="text-xs text-[#8A909D] font-light leading-relaxed">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -514,8 +551,13 @@ export const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {techStack.map((stack) => (
-              <div 
-                key={stack.category} 
+              <motion.div
+                key={stack.category}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: techStack.indexOf(stack) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
                 className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#16181D] border border-[#262930] hover:border-brand-red/50 hover:bg-[#1B1F26] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
@@ -547,7 +589,7 @@ export const About = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
