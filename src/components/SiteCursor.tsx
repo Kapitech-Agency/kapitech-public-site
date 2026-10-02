@@ -42,10 +42,10 @@ export const SiteCursor = () => {
         <Cursor />
         {label && (
           <CursorFollow
-            side="right"
-            sideOffset={14}
-            align="center"
-            alignOffset={0}
+            side="top"
+            sideOffset={12}
+            align="end"
+            alignOffset={8}
           >
             {label}
           </CursorFollow>
