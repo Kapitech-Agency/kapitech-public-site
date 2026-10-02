@@ -714,26 +714,7 @@ export const Navbar = () => {
                   className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-out hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)] active:translate-y-px cursor-pointer"
                   data-cursor-label="Start"
                 >
-                  <span className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-xl" aria-hidden="true">
-                    <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 48" preserveAspectRatio="none" fill="none">
-                      <motion.rect
-                        x="0.65"
-                        y="0.65"
-                        width="98.7"
-                        height="46.7"
-                        rx="11"
-                        pathLength="1"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeDasharray="0.96 0.04"
-                        vectorEffect="non-scaling-stroke"
-                        className="text-white/25 transition-colors duration-500 group-hover:text-white"
-                        animate={{ strokeDashoffset: [0, -1] }}
-                        transition={{ duration: 7.6, repeat: Infinity, ease: 'linear' }}
-                      />
-                    </svg>
-                  </span>
+                  <CtaPerimeter mobile />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Link>
