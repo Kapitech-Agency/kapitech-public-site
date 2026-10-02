@@ -357,94 +357,80 @@ export const Work = () => {
 
       {/* Filter & Search Bar Section */}
       <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-1.5 sm:py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2 sm:px-3 sm:py-2.5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.85)]">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <span className="kapi-section-label mb-0 shrink-0">
-                {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
-              </span>
+        <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2 sm:px-3 sm:py-2.5 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.28),inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="flex flex-col gap-2 sm:gap-2.5">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-2.5">
+                <span className="kapi-section-label mb-0 shrink-0">
+                  {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
+                </span>
 
-              <div className="hidden md:flex min-w-0 flex-1 items-center gap-1 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                {[
-                  { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
-                  { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
-                  { key: 'Innovation Development', labelEn: 'Innovation Development', labelId: 'Innovation Development' }
-                ].map(tab => (
-                  <button
-                    key={tab.key}
-                    onClick={() => handlePillarChange(tab.key)}
-                    className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-[11px] font-mono font-medium transition-all duration-200 min-h-[34px] flex items-center justify-center whitespace-nowrap ${
-                      activePillar === tab.key
-                        ? 'bg-brand-red text-white shadow-[0_10px_24px_-18px_rgba(229,9,20,0.75)]'
-                        : 'text-[#8A909D] hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {language === 'id' ? tab.labelId : tab.labelEn}
-                  </button>
-                ))}
+                <div className="min-w-0 flex-1 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="flex w-max items-center gap-1">
+                    {[
+                      { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
+                      { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
+                      { key: 'Innovation Development', labelEn: 'Innovation Development', labelId: 'Innovation Development' }
+                    ].map(tab => (
+                      <button
+                        key={tab.key}
+                        onClick={() => handlePillarChange(tab.key)}
+                        className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 min-h-[34px] flex items-center justify-center whitespace-nowrap ${
+                          activePillar === tab.key
+                            ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
+                            : 'text-[#8A909D] hover:text-white hover:bg-white/5'
+                        }`}
+                      >
+                        {language === 'id' ? tab.labelId : tab.labelEn}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <span className="ml-auto shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
-                {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
-              </span>
+              <div className="flex items-center gap-2 md:shrink-0">
+                <div className="relative w-full md:w-56 lg:w-64">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#8A909D]" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setVisibleCount(12);
+                    }}
+                    placeholder={language === 'id' ? 'Cari studi kasus, klien...' : 'Search case study, client...'}
+                    className="w-full bg-white/[0.018] border border-white/[0.08] rounded-xl pl-9 pr-8 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-colors font-mono min-h-[36px] backdrop-blur-md"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[28px] min-h-[28px] flex items-center justify-center"
+                      aria-label="Clear search"
+                    >
+                      <X size={13} />
+                    </button>
+                  )}
+                </div>
 
-              {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
-                <button
-                  onClick={() => {
-                    setActivePillar('All');
-                    setActiveService('All');
-                    setSearchQuery('');
-                    setVisibleCount(12);
-                  }}
-                  className="shrink-0 text-[10px] font-mono uppercase tracking-[0.1em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[28px]"
-                >
-                  <X size={10} />
-                  <span className="hidden sm:inline">Reset</span>
-                </button>
-              )}
-            </div>
+                <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
+                  {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
+                </span>
 
-            <div className="flex md:hidden items-center gap-2 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              {[
-                { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
-                { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
-                { key: 'Innovation Development', labelEn: 'Innovation Development', labelId: 'Innovation Development' }
-              ].map(tab => (
-                <button
-                  key={tab.key}
-                  onClick={() => handlePillarChange(tab.key)}
-                  className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-medium transition-all duration-200 min-h-[34px] flex items-center justify-center whitespace-nowrap ${
-                    activePillar === tab.key
-                      ? 'bg-brand-red text-white shadow-[0_10px_24px_-18px_rgba(229,9,20,0.75)]'
-                      : 'text-[#8A909D] hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {language === 'id' ? tab.labelId : tab.labelEn}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative w-full md:w-60 md:ml-auto">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#8A909D]" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setVisibleCount(12);
-                }}
-                placeholder={language === 'id' ? 'Cari studi kasus, klien, stack...' : 'Search case study, client, tech...'}
-                className="w-full bg-white/[0.018] border border-white/[0.08] rounded-xl pl-9 pr-8 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-colors font-mono min-h-[36px] backdrop-blur-md"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[28px] min-h-[28px] flex items-center justify-center"
-                  aria-label="Clear search"
-                >
-                  <X size={13} />
-                </button>
-              )}
+                {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
+                  <button
+                    onClick={() => {
+                      setActivePillar('All');
+                      setActiveService('All');
+                      setSearchQuery('');
+                      setVisibleCount(12);
+                    }}
+                    className="shrink-0 text-[10px] font-mono uppercase tracking-[0.1em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[28px]"
+                  >
+                    <X size={10} />
+                    <span className="hidden sm:inline">Reset</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="relative group/filter">
@@ -468,9 +454,9 @@ export const Work = () => {
                       setActiveService(srv);
                       setVisibleCount(12);
                     }}
-                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono whitespace-nowrap transition-all duration-200 shrink-0 border min-h-[30px] flex items-center ${
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 shrink-0 border min-h-[30px] flex items-center ${
                       activeService === srv
-                        ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_10px_24px_-18px_rgba(229,9,20,0.75)]'
+                        ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
                         : 'bg-white/[0.018] text-[#8A909D] border-white/[0.08] hover:border-brand-red/30 hover:text-white'
                     }`}
                   >
