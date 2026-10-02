@@ -145,13 +145,18 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
-            ? `flex flex-col ${navbarGlassMaterial} min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none`
+            ? "flex flex-col min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none bg-transparent"
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
                 ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
+        style={isMenuOpen ? {
+          backgroundColor: 'rgba(11, 12, 14, 0.64)',
+          backdropFilter: 'blur(36px) saturate(1.2)',
+          WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
+        } : undefined}
       >
         {/* Scroll Progress Bar */}
         <motion.div 
@@ -471,7 +476,7 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="relative z-10 flex-1 min-h-0 w-full overflow-hidden pointer-events-auto md:hidden">
+            className="relative z-10 flex-1 min-h-0 w-full overflow-hidden pointer-events-auto">
             <div
               className="flex h-full min-h-0 flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
             >
