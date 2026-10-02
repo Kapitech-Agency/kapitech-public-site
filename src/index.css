@@ -19,6 +19,27 @@
   --accent-hover:#c40f34; --accent-pressed:#a10c2b;
 }
 
+/* Public-site card tokens. Kept aligned with the existing dark/red visual system. */
+:root,
+:root[data-theme="dark"] {
+  --kapi-bg-charcoal-deep: #0B0C0E;
+  --kapi-bg-obsidian: #16181D;
+  --kapi-bg-card: #16181D;
+  --kapi-bg-card-hover: #1E2128;
+  --kapi-border-subtle: #262930;
+  --kapi-border-highlight: rgba(229, 9, 20, 0.38);
+  --kapi-red-primary: #E50914;
+  --kapi-red-electric: #FF1E27;
+  --kapi-red-border-hover: rgba(229, 9, 20, 0.55);
+  --kapi-red-glow-hover: rgba(229, 9, 20, 0.12);
+  --kapi-text-white: #FFFFFF;
+  --kapi-text-slate: #8A909D;
+  --kapi-radius-card: 1rem;
+  --kapi-radius-inner: 0.75rem;
+  --kapi-radius-pill: 999px;
+  --kapi-transition-smooth: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @theme inline {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --color-bg: var(--bg);
