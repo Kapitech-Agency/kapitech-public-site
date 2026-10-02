@@ -24,11 +24,11 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit]"
+    className="pointer-events-none absolute -inset-px z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
-      className="absolute inset-0 h-full w-full"
+      className="absolute inset-0 h-full w-full overflow-visible"
       viewBox={mobile ? '0 0 240 48' : '0 0 240 40'}
       preserveAspectRatio="none"
       fill="none"
@@ -39,16 +39,17 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => (
         width="238"
         height={mobile ? '46' : '38'}
         rx={mobile ? '23' : '19'}
-        pathLength="1"
+        pathLength="100"
+        fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.2"
         strokeLinecap="round"
-        strokeDasharray="0.16 0.84"
+        strokeDasharray="34 66"
         vectorEffect="non-scaling-stroke"
-        className="text-white/55 transition-colors duration-500 group-hover:text-brand-red"
-        animate={{ strokeDashoffset: [0, -1] }}
+        className="text-white/45 transition-colors duration-500 group-hover:text-brand-red"
+        animate={{ strokeDashoffset: [0, -100] }}
         transition={{
-          duration: mobile ? 6.2 : 5.8,
+          duration: mobile ? 8.8 : 8.2,
           repeat: Infinity,
           ease: 'linear'
         }}
@@ -208,21 +209,27 @@ export const Navbar = () => {
                   {isServicesActive && (
                     <motion.span
                       layoutId="desktop-nav-active"
-                      className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
-                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                      className="pointer-events-none absolute left-0 right-6 bottom-0 h-px rounded-full bg-brand-red"
+                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
                       aria-hidden="true"
                     />
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
                   <motion.span
-                    className="relative z-10 flex h-4 w-4 shrink-0 items-center justify-center overflow-visible"
-                    animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
-                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative z-10 ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center"
+                    animate={{ y: isServicesDropdownOpen ? 1 : 0 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <ChevronDown className={cn(
-                      "h-3.5 w-3.5",
-                      isServicesDropdownOpen ? "text-white" : "text-[#8A909D]"
-                    )} />
+                    <motion.span
+                      animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
+                      transition={{ type: 'spring', stiffness: 420, damping: 28 }}
+                      className="flex items-center justify-center"
+                    >
+                      <ChevronDown className={cn(
+                        "h-3.5 w-3.5",
+                        isServicesDropdownOpen ? "text-white" : "text-[#8A909D]"
+                      )} />
+                    </motion.span>
                   </motion.span>
                 </button>
               </div>
