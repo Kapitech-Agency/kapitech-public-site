@@ -1163,3 +1163,57 @@
     padding-top: 22px;
   }
 }
+
+
+/* Careers art-directed talent composition */
+.kapi-careers-hero::after {
+  content: "";
+  position: absolute;
+  right: 7%;
+  top: 26%;
+  width: clamp(90px, 10vw, 150px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(229,9,20,.6));
+  pointer-events: none;
+}
+.kapi-careers-talent-feature,
+.kapi-careers-talent-mini {
+  box-shadow: 0 14px 36px rgba(0,0,0,.24);
+}
+.kapi-careers-talent-feature {
+  isolation: isolate;
+}
+.kapi-careers-talent-feature::after,
+.kapi-careers-talent-mini::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 44%, rgba(0,0,0,.08) 60%, rgba(0,0,0,.84) 100%);
+}
+.kapi-careers-talent-feature:hover,
+.kapi-careers-talent-mini:hover {
+  border-color: rgba(229,9,20,.42);
+  box-shadow: 0 22px 52px rgba(0,0,0,.34);
+}
+.kapi-careers-talent-feature > *,
+.kapi-careers-talent-mini > * {
+  position: relative;
+  z-index: 1;
+}
+.kapi-careers-talent-mini .kapi-talent-arrow {
+  opacity: 0;
+}
+@media (max-width: 1023px) {
+  .kapi-careers-hero::after {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .kapi-careers-talent-feature {
+    border-radius: 18px;
+  }
+  .kapi-careers-talent-mini {
+    border-radius: 14px;
+  }
+}
