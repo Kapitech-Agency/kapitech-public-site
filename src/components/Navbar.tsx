@@ -176,11 +176,7 @@ export const Navbar = () => {
                 aria-current={isWorkActive ? 'page' : undefined}
               >
                 {isWorkActive && (
-                  <motion.span
-                    layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px rounded-full bg-brand-red"
-                    aria-hidden="true"
-                  />
+                  <span className="pointer-events-none absolute left-2 right-2 bottom-0 h-px rounded-full bg-brand-red" aria-hidden="true" />
                 )}
                 <span className="relative z-10">{t('nav.work')}</span>
 
@@ -204,11 +200,7 @@ export const Navbar = () => {
                   aria-current={isServicesActive ? 'page' : undefined}
                 >
                   {isServicesActive && (
-                    <motion.span
-                      layoutId="desktop-nav-active"
-                      className="pointer-events-none absolute left-2 right-8 bottom-0 h-px rounded-full bg-brand-red"
-                      aria-hidden="true"
-                    />
+                    <span className="pointer-events-none absolute left-2 right-8 bottom-0 h-px rounded-full bg-brand-red" aria-hidden="true" />
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
 
@@ -226,11 +218,7 @@ export const Navbar = () => {
                 aria-current={isAboutActive ? 'page' : undefined}
               >
                 {isAboutActive && (
-                  <motion.span
-                    layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-2 right-2 bottom-0 h-px rounded-full bg-brand-red"
-                    aria-hidden="true"
-                  />
+                  <span className="pointer-events-none absolute left-2 right-2 bottom-0 h-px rounded-full bg-brand-red" aria-hidden="true" />
                 )}
                 <span className="relative z-10">{t('nav.about')}</span>
 
@@ -243,14 +231,7 @@ export const Navbar = () => {
                 aria-current={isCareersActive ? 'page' : undefined}
               >
                 {isCareersActive && (
-                  <motion.span
-                    layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red"
-                    initial={{ scaleX: 0.55, opacity: 0 }}
-                    animate={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                    aria-hidden="true"
-                  />
+                  <span className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1.5px] origin-center rounded-full bg-brand-red" aria-hidden="true" />
                 )}
                 <span className="relative z-10">{t('nav.careers')}</span>
                 <span className="pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px origin-center scale-x-0 rounded-full bg-white/40 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
