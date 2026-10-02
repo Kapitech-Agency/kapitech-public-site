@@ -1450,3 +1450,135 @@ select {
 .kapi-public-shell .kapi-careers-talent-mini:hover {
   border-color: rgba(230,57,70,0.30);
 }
+
+
+/* Native styling for the remaining detail-oriented pages. Scoped to avoid affecting the new page system. */
+.kapi-careers,
+.kapi-service-detail {
+  background:
+    radial-gradient(circle at 82% 10%, rgba(230,57,70,0.045), transparent 24rem),
+    var(--k-bg);
+}
+
+.kapi-careers .kapi-careers-hero,
+.kapi-service-detail > div:first-of-type {
+  background:
+    radial-gradient(circle at 68% 18%, rgba(230,57,70,0.11), transparent 30rem),
+    linear-gradient(180deg, #0a0b0f 0%, #08090b 100%);
+}
+
+.kapi-careers .kapi-careers-role-card,
+.kapi-careers .kapi-careers-talent-card,
+.kapi-careers .kapi-careers-talent-feature,
+.kapi-careers .kapi-careers-talent-mini,
+.kapi-service-detail .rounded-2xl.border,
+.kapi-service-detail .rounded-xl.border {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012)),
+    rgba(15,17,22,0.72);
+  border-color: var(--k-line);
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--k-radius-md);
+}
+
+.kapi-careers .kapi-careers-role-card:hover,
+.kapi-careers .kapi-careers-talent-card:hover,
+.kapi-careers .kapi-careers-talent-feature:hover,
+.kapi-careers .kapi-careers-talent-mini:hover,
+.kapi-service-detail .rounded-2xl.border:hover {
+  border-color: rgba(230,57,70,0.3);
+  box-shadow: var(--k-shadow);
+}
+
+.kapi-service-detail h1,
+.kapi-service-detail h2,
+.kapi-service-detail h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.045em;
+}
+
+.kapi-service-detail > div.relative.z-10 > div.flex.items-center {
+  color: var(--k-muted);
+}
+
+.kapi-service-detail .text-xl,
+.kapi-service-detail .text-2xl,
+.kapi-service-detail .text-3xl,
+.kapi-service-detail .text-4xl,
+.kapi-service-detail .text-5xl,
+.kapi-service-detail .text-6xl,
+.kapi-careers h1,
+.kapi-careers h2,
+.kapi-careers h3 {
+  text-wrap: balance;
+}
+
+.kapi-careers input,
+.kapi-careers select,
+.kapi-careers textarea,
+.kapi-service-detail input,
+.kapi-service-detail select,
+.kapi-service-detail textarea {
+  border-color: var(--k-line);
+  background: rgba(255,255,255,0.025);
+  color: #fff;
+  border-radius: 12px;
+}
+
+.kapi-careers input:focus,
+.kapi-careers select:focus,
+.kapi-careers textarea:focus,
+.kapi-service-detail input:focus,
+.kapi-service-detail select:focus,
+.kapi-service-detail textarea:focus {
+  outline: none;
+  border-color: rgba(230,57,70,0.58);
+  box-shadow: 0 0 0 4px rgba(230,57,70,0.08);
+}
+
+.kapi-policy-page {
+  min-height: 100dvh;
+  padding: 9rem 0 5rem;
+  background: var(--k-bg);
+}
+
+.kapi-policy-page .max-w-4xl {
+  width: min(860px, calc(100% - 32px));
+}
+
+.kapi-policy-page h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: .94;
+  letter-spacing: -.06em;
+  color: #fff;
+}
+
+.kapi-policy-page h2,
+.kapi-policy-page h3 {
+  font-family: var(--font-display);
+  color: #fff;
+  letter-spacing: -.035em;
+}
+
+.kapi-policy-page p,
+.kapi-policy-page li {
+  color: var(--k-muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+  .kapi-careers .kapi-careers-hero {
+    min-height: auto;
+  }
+
+  .kapi-service-detail {
+    padding-top: 7rem;
+  }
+
+  .kapi-policy-page {
+    padding-top: 7.5rem;
+  }
+}
