@@ -1276,6 +1276,7 @@ html.kapi-custom-cursor-enabled select {
 /* Unified action language. No vertical lift on hover. */
 .kapi-public-shell main :where(a, button)[class*="bg-brand-red"],
 .kapi-public-shell main :where(a, button)[class*="bg-[#E50914]"],
+.kapi-public-shell main :where(a, button)[class*="bg-[#FF1E27]"],
 .kapi-public-shell footer :where(a, button)[class*="bg-brand-red"] {
   background-color: rgba(229, 9, 20, 0.72);
   backdrop-filter: blur(14px) saturate(120%);
@@ -1292,6 +1293,7 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-public-shell main :where(a, button)[class*="bg-brand-red"]:hover,
 .kapi-public-shell main :where(a, button)[class*="bg-[#E50914]"]:hover,
+.kapi-public-shell main :where(a, button)[class*="bg-[#FF1E27]"]:hover,
 .kapi-public-shell footer :where(a, button)[class*="bg-brand-red"]:hover {
   transform: none;
   background-color: rgba(229, 9, 20, 0.82);
