@@ -137,18 +137,20 @@ export const Navbar = () => {
             <div className="flex items-center gap-6 lg:gap-8">
               
               {/* Work Link */}
-              <Link 
-                to="/work" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/work' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
+              <Link
+                to="/work"
+                className={desktopNavItemClass(isWorkActive)}
+                aria-current={isWorkActive ? 'page' : undefined}
               >
-                <span>{t('nav.work')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/work' ? "w-full" : "hover:w-full"
-                )} />
+                {isWorkActive && (
+                  <motion.span
+                    layoutId="desktop-nav-active"
+                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative z-10">{t('nav.work')}</span>
               </Link>
 
               {/* SERVICES DROPDOWN TRIGGER */}
@@ -184,33 +186,37 @@ export const Navbar = () => {
               </div>
 
               {/* About Link */}
-              <Link 
-                to="/about" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/about' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
+              <Link
+                to="/about"
+                className={desktopNavItemClass(isAboutActive)}
+                aria-current={isAboutActive ? 'page' : undefined}
               >
-                <span>{t('nav.about')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/about' ? "w-full" : "hover:w-full"
-                )} />
+                {isAboutActive && (
+                  <motion.span
+                    layoutId="desktop-nav-active"
+                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative z-10">{t('nav.about')}</span>
               </Link>
 
               {/* Careers Link */}
-              <Link 
-                to="/careers" 
-                className={cn(
-                  "relative inline-flex items-center h-7 text-[11px] font-medium uppercase tracking-[0.16em] leading-none transition-colors",
-                  location.pathname === '/careers' ? "text-brand-red font-semibold" : "text-[#8A909D] hover:text-white"
-                )}
+              <Link
+                to="/careers"
+                className={desktopNavItemClass(isCareersActive)}
+                aria-current={isCareersActive ? 'page' : undefined}
               >
-                <span>{t('nav.careers')}</span>
-                <span className={cn(
-                  "absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-brand-red transition-all duration-300",
-                  location.pathname === '/careers' ? "w-full" : "hover:w-full"
-                )} />
+                {isCareersActive && (
+                  <motion.span
+                    layoutId="desktop-nav-active"
+                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative z-10">{t('nav.careers')}</span>
               </Link>
             </div>
 
