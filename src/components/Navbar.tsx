@@ -143,13 +143,13 @@ export const Navbar = () => {
 
       <nav
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
+          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,height,padding] duration-500 border-b",
           isMenuOpen
             ? "flex flex-col min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none bg-transparent"
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
-                ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
+                ? `flex flex-col ${dropdownGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
         style={isMenuOpen ? {
@@ -333,11 +333,11 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className="hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
+              className="hidden md:block relative z-10 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12"
               style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.52)',
-                backdropFilter: 'blur(38px) saturate(1.18) brightness(0.82)',
-                WebkitBackdropFilter: 'blur(38px) saturate(1.18) brightness(0.82)',
+                backgroundColor: 'transparent',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
               }}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
