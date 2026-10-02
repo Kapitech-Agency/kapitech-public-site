@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GlassPanel, Reveal, SectionHeader } from '../components/ui/PublicUI';
+import { ParallaxMedia } from '../components/motion/MotionSystem';
 import { useLanguage } from '../lib/LanguageContext';
 
 export const About = () => {
@@ -322,18 +323,20 @@ export const About = () => {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="kapi-media aspect-[4/3]">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
-                alt="Kapitech Agency team collaboration"
-                className="w-full h-full"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08090b] via-transparent to-transparent" />
-              <div className="absolute left-5 right-5 bottom-5">
-                <span className="kapi-eyebrow">Kapitech Agency</span>
-                <div className="mt-2 font-display text-xl sm:text-2xl tracking-[-.04em]">{language === 'id' ? 'Kualitas, transparansi, dan delivery yang dapat diandalkan.' : 'Quality, transparency, and dependable delivery.'}</div>
+            <ParallaxMedia strength={7} className="kapi-about-visual">
+              <div className="kapi-media aspect-[4/3]" data-motion-scale-scroll>
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+                  alt="Kapitech Agency team collaboration"
+                  className="w-full h-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08090b] via-transparent to-transparent" />
+                <div className="absolute left-5 right-5 bottom-5">
+                  <span className="kapi-eyebrow">Kapitech Agency</span>
+                  <div className="mt-2 font-display text-xl sm:text-2xl tracking-[-.04em]">{language === 'id' ? 'Kualitas, transparansi, dan delivery yang dapat diandalkan.' : 'Quality, transparency, and dependable delivery.'}</div>
+                </div>
               </div>
-            </div>
+            </ParallaxMedia>
           </Reveal>
         </div>
       </section>
