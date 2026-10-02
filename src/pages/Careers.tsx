@@ -659,7 +659,7 @@ export const Careers = () => {
   };
 
   return (
-    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground 
@@ -675,13 +675,13 @@ export const Careers = () => {
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white mb-6">
               {language === 'id' ? 'Berkarya Bersama Kapitech.' : 'Build the Future With Us.'}
             </h1>
-            <p className="text-base sm:text-lg text-[#8E8E93] font-light leading-relaxed mb-6">
+            <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
               {language === 'id'
                 ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek (100% WFA) untuk berkolaborasi menggarap produk digital kelas dunia.'
                 : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
               }
             </p>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93] mb-6">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D] mb-6">
               <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
@@ -720,7 +720,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="py-16 sm:py-24 border-b border-[#262930] bg-[#0A0A0A] relative overflow-hidden">
+      <section className="py-16 sm:py-24 border-b border-[#262930] bg-[#0B0C0E] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -732,7 +732,7 @@ export const Careers = () => {
                 {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
+            <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
               {language === 'id'
                 ? 'Bekerja bahu-membahu bersama para insinyur software, desainer visual, animator 3D, dan spesialis kreatif kami.'
                 : 'Collaborate shoulder-to-shoulder with our multidisciplinary squad of software engineers, visual designers, 3D animators, and creative strategists.'
@@ -812,7 +812,7 @@ export const Careers = () => {
                 </button>
 
                 <div className="flex items-center gap-4 mb-5 sm:mb-6 pr-8">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0A0A0A] shrink-0 relative shadow-lg shadow-brand-red/10">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0B0C0E] shrink-0 relative shadow-lg shadow-brand-red/10">
                     <img 
                       src={selectedTalent.image} 
                       alt={selectedTalent.name}
@@ -826,7 +826,7 @@ export const Careers = () => {
                     <h3 className="text-lg sm:text-xl font-display font-bold text-white truncate">
                       {selectedTalent.name}
                     </h3>
-                    <p className="text-xs text-[#8E8E93] truncate">
+                    <p className="text-xs text-[#8A909D] truncate">
                       {selectedTalent.role}
                     </p>
                   </div>
@@ -834,7 +834,7 @@ export const Careers = () => {
 
                 <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#262930] pt-4">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
+                    <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
                       {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
                     </span>
                     <p className="font-mono text-brand-red font-medium text-xs sm:text-sm">
@@ -842,10 +842,10 @@ export const Careers = () => {
                     </p>
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
+                    <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
                       {language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}
                     </span>
-                    <p className="leading-relaxed text-[#8E8E93]">
+                    <p className="leading-relaxed text-[#8A909D]">
                       {selectedTalent.bio}
                     </p>
                   </div>
@@ -877,7 +877,7 @@ export const Careers = () => {
                 {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md">
+            <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
               {language === 'id'
                 ? 'Klik salah satu posisi di bawah ini untuk melihat detail kualifikasi, tanggung jawab, dan mengirimkan lamaran langsung.'
                 : 'Click any role below to review full responsibilities, qualification benchmarks, and submit your application.'
@@ -899,7 +899,7 @@ export const Careers = () => {
                       <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
                         {pos.workplace}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-[#0A0A0A] border border-[#262930] text-[#8E8E93] text-xs font-mono">
+                      <span className="px-3 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[#8A909D] text-xs font-mono">
                         {pos.department}
                       </span>
                       <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
@@ -911,11 +911,11 @@ export const Careers = () => {
                       {pos.title}
                     </h3>
 
-                    <p className="text-sm text-[#8E8E93] font-light leading-relaxed">
+                    <p className="text-sm text-[#8A909D] font-light leading-relaxed">
                       {pos.summary}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#8E8E93] pt-1">
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#8A909D] pt-1">
                       <div className="flex items-center gap-1.5">
                         <MapPin size={13} className="text-brand-red" />
                         <span>{pos.location}</span>
@@ -928,7 +928,7 @@ export const Careers = () => {
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0 pt-2 lg:pt-0">
-                    <span className="px-5 py-2.5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#262930] group-hover:border-brand-red">
+                    <span className="px-5 py-2.5 rounded-full bg-[#0B0C0E] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#262930] group-hover:border-brand-red">
                       <span>{language === 'id' ? 'Lihat Detail & Lamar' : 'View Role & Apply'}</span>
                       <ArrowUpRight size={14} />
                     </span>
@@ -941,7 +941,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative overflow-hidden" id="freelance-vendor">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative overflow-hidden" id="freelance-vendor">
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -956,7 +956,7 @@ export const Careers = () => {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                 {language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}
               </h2>
-              <p className="mt-4 text-sm sm:text-base text-[#8E8E93] font-light leading-relaxed">
+              <p className="mt-4 text-sm sm:text-base text-[#8A909D] font-light leading-relaxed">
                 {language === 'id'
                   ? 'Kapitech secara aktif berkolaborasi dengan para freelancer bertalenta, independent designer, dan developer profesional untuk menggarap proyek-proyek inovatif skala global & nasional. Pekerjaan bersifat 100% WFA (Work From Anywhere) dengan sistem kontrak berbasis proyek (Project-Based).'
                   : 'Kapitech actively collaborates with top-tier freelancers, independent designers, and specialized developers to execute high-stakes digital products for global scaleups. All engagements are 100% remote (WFA) under a project-based contract model.'
@@ -989,7 +989,7 @@ export const Careers = () => {
                 <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
                   {language === 'id' ? '100% WFA (Remote)' : '100% WFA (Remote)'}
                 </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
+                <p className="text-xs text-[#8A909D] font-light">
                   {language === 'id' ? 'Bekerja fleksibel dari mana saja tanpa batasan geografi.' : 'Work from anywhere globally with complete location flexibility.'}
                 </p>
               </div>
@@ -1003,7 +1003,7 @@ export const Careers = () => {
                 <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red font-bold mb-1">
                   {language === 'id' ? 'Project-Based' : 'Project-Based'}
                 </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
+                <p className="text-xs text-[#8A909D] font-light">
                   {language === 'id' ? 'Kontrak penugasan per milestone proyek dengan scope terdefinisi jelas.' : 'Engagement scoped per milestone with clear deliverables and fees.'}
                 </p>
               </div>
@@ -1017,7 +1017,7 @@ export const Careers = () => {
                 <h4 className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold mb-1">
                   {language === 'id' ? 'BYOD (No Device)' : 'BYOD (No Device)'}
                 </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
+                <p className="text-xs text-[#8A909D] font-light">
                   {language === 'id' ? 'Kami TIDAK menyediakan device/laptop. Gunakan perangkat & lisensi pribadi.' : 'We do NOT provide devices/hardware. BYOD with your own workstations.'}
                 </p>
               </div>
@@ -1031,7 +1031,7 @@ export const Careers = () => {
                 <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
                   {language === 'id' ? 'NDA & Ketepatan Waktu' : 'NDA & Strict Deadlines'}
                 </h4>
-                <p className="text-xs text-[#8E8E93] font-light">
+                <p className="text-xs text-[#8A909D] font-light">
                   {language === 'id' ? 'Kerahasiaan data klien terjamin & disiplin deadline yang tinggi.' : 'Signed client NDA protection & rigorous milestone adherence.'}
                 </p>
               </div>
@@ -1043,13 +1043,13 @@ export const Careers = () => {
             {/* 1. Keterangan & Deskripsi */}
             <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <Layers size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
                   {language === 'id' ? 'Deskripsi Kemitraan' : 'Partnership Model'}
                 </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                <p className="text-xs text-[#8A909D] font-light leading-relaxed mb-4">
                   {language === 'id'
                     ? 'Kami menjembatani talenta spesialis dengan proyek riil dari klien korporat, startup VC, dan scaleup internasional tanpa birokrasi berbelit.'
                     : 'We connect specialized independent contractors with real projects from venture-backed startups and enterprises with zero unnecessary friction.'
@@ -1075,13 +1075,13 @@ export const Careers = () => {
             {/* 2. Aturan & Ketentuan */}
             <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <ShieldCheck size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
                   {language === 'id' ? 'Aturan & Ketentuan' : 'Rules & Standards'}
                 </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                <p className="text-xs text-[#8A909D] font-light leading-relaxed mb-4">
                   {language === 'id'
                     ? 'Integritas, kepatuhan pada milestone yang telah disetujui, dan standar kualitas adalah nilai utama kami.'
                     : 'Integrity, adherence to committed milestone deadlines, and pristine craft quality are non-negotiables.'
@@ -1107,13 +1107,13 @@ export const Careers = () => {
             {/* 3. Benefit & Keuntungan */}
             <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <DollarSign size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
                   {language === 'id' ? 'Benefit & Keuntungan' : 'Vendor Benefits'}
                 </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                <p className="text-xs text-[#8A909D] font-light leading-relaxed mb-4">
                   {language === 'id'
                     ? 'Dapatkan apresiasi finansial yang pantas atas keahlian Anda dengan kepastian pembayaran yang transparan.'
                     : 'Receive fair, premium milestone compensation with prompt payouts upon approved deliverables.'
@@ -1139,13 +1139,13 @@ export const Careers = () => {
             {/* 4. Apa yang Kami Butuhkan */}
             <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <Code2 size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
                   {language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need'}
                 </h3>
-                <p className="text-xs text-[#8E8E93] font-light leading-relaxed mb-4">
+                <p className="text-xs text-[#8A909D] font-light leading-relaxed mb-4">
                   {language === 'id'
                     ? 'Kami secara berkelanjutan menyaring mitra vendor pada domain berikut:'
                     : 'We continuously recruit high-caliber vendor partners across these domains:'
@@ -1176,7 +1176,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A]">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
@@ -1200,7 +1200,7 @@ export const Careers = () => {
                   <h3 className="text-lg font-display font-bold text-white mb-2">
                     {benefit.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
                     {benefit.desc}
                   </p>
                 </div>
@@ -1229,7 +1229,7 @@ export const Careers = () => {
                       <span className="px-2.5 py-0.5 rounded-full bg-brand-red/15 border border-brand-red/40 text-brand-red text-[11px] font-mono font-semibold">
                         {selectedPosition.workplace}
                       </span>
-                      <span className="text-[11px] font-mono text-[#8E8E93]">
+                      <span className="text-[11px] font-mono text-[#8A909D]">
                         {selectedPosition.department}
                       </span>
                     </div>
@@ -1244,14 +1244,14 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
                   </button>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono text-[#8E8E93]">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono text-[#8A909D]">
                   <span className="flex items-center gap-1.5">
                     <MapPin size={13} className="text-brand-red shrink-0" />
                     <span>{selectedPosition.location}</span>
@@ -1306,7 +1306,7 @@ export const Careers = () => {
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
-                  <p className="text-xs text-[#8E8E93] font-light mb-6">
+                  <p className="text-xs text-[#8A909D] font-light mb-6">
                     {language === 'id'
                       ? 'Lengkapi formulir di bawah ini atau kirimkan CV & portofolio Anda langsung ke recruitment@kapitech.id'
                       : 'Fill in the form below or send your resume and portfolio directly to recruitment@kapitech.id'
@@ -1506,14 +1506,14 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
                   </button>
                 </div>
 
-                <p className="text-xs text-[#8E8E93] font-light">
+                <p className="text-xs text-[#8A909D] font-light">
                   {language === 'id'
                     ? 'Daftarkan profil Anda untuk bergabung dalam jaringan vendor spesialis Kapitech. Kami akan menghubungi Anda ketika terdapat proyek yang cocok dengan keahlian Anda.'
                     : 'Submit your profile to join Kapitech’s vetted vendor network. We will reach out when a project matching your expertise becomes available.'
@@ -1531,7 +1531,7 @@ export const Careers = () => {
                     <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
                       {language === 'id' ? 'Pendaftaran Vendor Berhasil Diterima!' : 'Vendor Application Received!'}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#8E8E93] max-w-lg mx-auto font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#8A909D] max-w-lg mx-auto font-light leading-relaxed">
                       {language === 'id'
                         ? 'Terima kasih atas minat Anda bermitra dengan Kapitech. Tim operasional dan tech/creative lead kami akan meninjau portofolio Anda dan menghubungi Anda via WhatsApp/Email saat proyek baru dimulai.'
                         : 'Thank you for registering. Our creative and engineering leads will review your portfolio and reach out via WhatsApp/Email when matching project scopes kick off.'
