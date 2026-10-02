@@ -54,6 +54,7 @@ const clamp = (value: number, min: number, max: number) =>
 
 function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
   if (!root || reducedMotion) return () => undefined;
+  const coarsePointer = isTouchDevice();
 
   const cleanups: Array<() => void> = [];
 
@@ -101,7 +102,7 @@ function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
     });
 
     gsap.utils.toArray<HTMLElement>('[data-motion-parallax]').forEach((element) => {
-      const strength = parseFloat(element.dataset.motionParallax || '10');
+      const strength = parseFloat(element.dataset.motionParallax || '10') * (coarsePointer ? 0.4 : 1);
 
       gsap.fromTo(
         element,
@@ -123,7 +124,7 @@ function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
       gsap.fromTo(
         element,
         {
-          scale: parseFloat(element.dataset.motionScaleStart || '1.08'),
+          scale: parseFloat(element.dataset.motionScaleStart || (coarsePointer ? '1.035' : '1.08')),
           yPercent: parseFloat(element.dataset.motionScaleY || '2'),
         },
         {
@@ -159,6 +160,7 @@ function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
     });
 
     gsap.utils.toArray<HTMLElement>('[data-motion-pin]').forEach((element) => {
+      if (coarsePointer) return;
       const distance = element.dataset.motionPinDistance || '+=900';
       ScrollTrigger.create({
         trigger: element,
