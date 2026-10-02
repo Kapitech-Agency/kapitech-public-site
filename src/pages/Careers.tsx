@@ -680,7 +680,7 @@ export const Careers = () => {
   };
 
   return (
-    <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="kapi-careers bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
         <AtmosphericBackground 
@@ -789,7 +789,7 @@ export const Careers = () => {
                 >
                   <button
                     onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#2A2A2A] bg-[#161616] transition-all duration-500 hover:scale-[1.04] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    className="kapi-careers-talent-card group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-line bg-panel transition-all duration-500 hover:scale-[1.025] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_18px_44px_rgba(0,0,0,0.45)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     title={`${talent.name} - ${talent.role}`}
                     aria-label={`View photo and profile of ${talent.name}`}
                   >
@@ -797,9 +797,17 @@ export const Careers = () => {
                     <img 
                       src={talent.image} 
                       alt={talent.name}
-                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.70] contrast-[1.15] saturate-[0.85] group-hover:brightness-[0.92] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out"
+                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.72] contrast-[1.08] saturate-[0.88] group-hover:brightness-[0.96] group-hover:saturate-[1.02] group-hover:scale-105 transition-all duration-700 ease-out"
                       loading="lazy"
                     />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                      <span className="block text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red mb-1">{talent.department}</span>
+                      <span className="block text-sm font-display font-semibold text-white leading-tight">{talent.name}</span>
+                      <span className="block text-[11px] text-white/65 mt-0.5 truncate">{talent.role}</span>
+                    </div>
+                    <div className="absolute top-3 left-3 rounded-full border border-white/15 bg-black/35 px-2 py-1 text-[9px] font-mono uppercase tracking-widest text-white/70 backdrop-blur-sm">
+                      0{(index % 12) + 1}
+                    </div>
                   </button>
                 </div>
               );
@@ -822,11 +830,11 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#161616] border border-[#2A2A2A] rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+                className="kapi-careers-modal relative w-full max-w-lg bg-panel border border-line rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors z-10"
+                  className="kapi-modal-close absolute top-4 right-4 w-10 h-10 rounded-xl bg-bg/80 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all z-10 backdrop-blur-sm"
                   aria-label="Close talent profile"
                 >
                   <X size={18} />
@@ -1240,10 +1248,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#161616] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="kapi-careers-modal relative w-full max-w-4xl bg-panel border border-line rounded-3xl overflow-hidden shadow-2xl my-8 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1265,7 +1273,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="kapi-modal-close w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-bg/70 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1291,7 +1299,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto p-6 sm:p-8 space-y-8">
+              <div className="kapi-careers-modal-body overflow-y-auto p-5 sm:p-8 space-y-8">
                 {/* Responsibilities */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
@@ -1507,10 +1515,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#161616] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="kapi-careers-modal relative w-full max-w-4xl bg-panel border border-brand-red/35 rounded-3xl overflow-hidden shadow-2xl my-8 max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-panel/95 backdrop-blur-md border-b border-line space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1532,7 +1540,7 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="kapi-modal-close w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-bg/70 hover:bg-brand-red hover:text-white border border-line hover:border-brand-red flex items-center justify-center text-muted transition-all shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1548,7 +1556,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto p-6 sm:p-8">
+              <div className="kapi-careers-modal-body overflow-y-auto p-5 sm:p-8">
                 {isVendorSubmitted ? (
                   <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4 my-6">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
@@ -1834,7 +1842,7 @@ export const Careers = () => {
                     <button
                       type="submit"
                       disabled={isVendorSubmitting}
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full min-h-[48px] py-3.5 rounded-xl bg-brand-red hover:bg-[#FF2B38] text-white font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       <span>
                         {isVendorSubmitting
