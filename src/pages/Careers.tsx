@@ -566,7 +566,7 @@ export const Careers = () => {
         positionTitle: selectedPosition ? selectedPosition.title : 'General Studio Application',
         portfolioUrl: sanitizedPortfolio,
         resumeUrl: resumeUpload.data.resumeUrl,
-        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${resumeUpload.data.filename}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
+        message: `[Studio Role Application: ${selectedPosition?.title || 'Open Role'}]\nResume File: ${resumeUpload?.data?.filename || 'Not attached'}\nPortfolio: ${sanitizedPortfolio || '-'}\n\nCover Letter:\n${sanitizedCoverLetter || 'No cover letter provided.'}`,
         source: `Careers: ${selectedPosition?.title || 'Studio Role'}`,
         type: 'career'
       });
@@ -647,7 +647,7 @@ export const Careers = () => {
     setIsVendorSubmitting(true);
     try {
       const resumeUpload = vendorFormData.resume ? await uploadPublicResume(vendorFormData.resume) : null;
-      if (!resumeUpload?.success || !resumeUpload.data?.resumeUrl) {
+      if (vendorFormData.resume && (!resumeUpload?.success || !resumeUpload.data?.resumeUrl)) {
         throw new Error(resumeUpload?.error || 'Resume upload failed.');
       }
 
@@ -660,7 +660,7 @@ export const Careers = () => {
         experienceYears: vendorFormData.experienceYears,
         tools: sanitizedTools,
         portfolioUrl: sanitizedPortfolio,
-        resumeUrl: resumeUpload.data.resumeUrl,
+        resumeUrl: resumeUpload?.data?.resumeUrl,
         message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${resumeUpload.data.filename}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
         source: 'Careers: Freelance Vendor Network',
         type: 'vendor'
@@ -1480,9 +1480,14 @@ export const Careers = () => {
 
                       <button
                         type="submit"
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2"
+                        disabled={isApplicantSubmitting}
+                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                       >
-                        <span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span>
+                        <span>
+                          {isApplicantSubmitting
+                            ? (language === 'id' ? 'Mengunggah & Mengirim...' : 'Uploading & Submitting...')
+                            : (language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now')}
+                        </span>
                         <ArrowUpRight size={16} />
                       </button>
                     </form>
@@ -1828,9 +1833,14 @@ export const Careers = () => {
 
                     <button
                       type="submit"
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2"
+                      disabled={isVendorSubmitting}
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-xl shadow-brand-red/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span>
+                      <span>
+                        {isVendorSubmitting
+                          ? (language === 'id' ? 'Mengunggah & Mengirim...' : 'Uploading & Submitting...')
+                          : (language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application')}
+                      </span>
                       <ArrowUpRight size={16} />
                     </button>
                   </form>
