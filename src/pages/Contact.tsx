@@ -634,7 +634,7 @@ export const Contact = () => {
                                       data-cursor-label="Select"
                                     >
                                       <div className="flex items-start justify-between gap-4">
-                                        <span className={`text-[10px] font-mono tracking-[0.16em] ${selected ? 'text-brand-red' : 'text-[#8A909D]'}`}>0{index + 1}</span>
+                                        <span className={`text-[10px] font-mono tracking-[0.16em] ${selected ? 'text-white' : 'text-[#8A909D]'}`}>0{index + 1}</span>
                                         <span className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${selected ? 'bg-brand-red/[0.14] border-brand-red/55 text-brand-red' : 'border-white/[0.14] text-transparent'}`}>
                                           <CheckCircle2 size={12} />
                                         </span>
