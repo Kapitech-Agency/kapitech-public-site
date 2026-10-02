@@ -67,7 +67,7 @@ export const EditorialPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">5. Pengajuan Umpan Balik</h2>
               <p>
-                Jika Anda memiliki masukan editorial atau permohonan klarifikasi teknis mengenai publikasi kami, silakan hubungi tim editorial di <a href="mailto:editorial@kapitech.id" className="text-brand-red hover:underline">editorial@kapitech.id</a>.
+                Jika Anda memiliki masukan editorial atau permohonan klarifikasi teknis mengenai publikasi kami, silakan hubungi tim editorial di <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
@@ -107,7 +107,7 @@ export const EditorialPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">5. Feedback & Inquiries</h2>
               <p>
-                For editorial inquiries, technical corrections, or publishing partnerships, contact our editorial team at <a href="mailto:editorial@kapitech.id" className="text-brand-red hover:underline">editorial@kapitech.id</a>.
+                For editorial inquiries, technical corrections, or publishing partnerships, contact our editorial team at <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
               </p>
             </section>
           </div>
