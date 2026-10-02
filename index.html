@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitech | Creative Technology Agency</title>
+    <meta name="description" content="Award-winning creative technology agency. We build digital products, brands, and experiences.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#050505',
+                        magma: '#FF0033',
+                        oxblood: '#800000',
+                        contrast: '#FFFFFF',
+                        subtle: '#888888',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'ticker': 'ticker 40s linear infinite',
+                        'ticker-reverse': 'tickerReverse 50s linear infinite',
+                        'grain': 'grain 8s steps(10) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                    },
+                    keyframes: {
+                        ticker: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                        tickerReverse: { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } },
+                        grain: { '0%, 100%': { transform: 'translate(0, 0)' }, '10%': { transform: 'translate(-5%, -10%)' } },
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+                    },
+                    backgroundImage: {
+                        'red-gradient': 'linear-gradient(135deg, #800000 0%, #FF0033 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-main: #050505;
+            --text-main: #FFFFFF;
+            --nav-bg: rgba(5, 5, 5, 0.8);
+            --magma: #FF0033;
+        }
+
+        body { background-color: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--magma); }
+
+        .noise-wrapper {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200vh;
+            background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            pointer-events: none; z-index: 50; animation: grain 6s steps(10) infinite; mix-blend-mode: overlay;
+        }
+
+        .hero-video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; background-color: var(--bg-main); }
+        .hero-video-wrapper video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .hero-video-wrapper .video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, var(--bg-main) 100%); }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .glowing-text { text-shadow: 0 0 40px rgba(255,255,255,0.2); }
+        
+        /* LIQUID GLASSMORPHISM - STRICT ADHERENCE TO SYSTEM INSTRUCTION */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.02), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border-radius: 24px;
+        }
+        
+        .liquid-glass:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 0, 51, 0.5); /* Magma Red Border */
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.1), inset 0 0 20px rgba(255,255,255,0.05);
+            transform: translateY(-5px);
+        }
+
+        .liquid-glass:hover h3, .liquid-glass:hover i, .liquid-glass:hover h4 {
+            color: var(--magma);
+            transition: color 0.3s ease;
+        }
+        
+        /* Service List Item */
+        .service-row {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+        .service-row:hover {
+            border-color: var(--magma);
+            background: linear-gradient(90deg, rgba(255,0,51,0.05) 0%, transparent 100%);
+            padding-left: 20px;
+        }
+        
+        .nav-link:hover { color: var(--magma); text-shadow: 0 0 10px rgba(255,0,51,0.5); }
+        .nav-link.active { color: var(--magma); }
+        
+        /* Client Logos */
+        .client-logo { 
+            transition: all 0.4s ease; 
+            filter: brightness(0) invert(0.3); /* Dark grey */
+            opacity: 0.7;
+        }
+        .client-logo:hover { 
+            opacity: 1; 
+            filter: brightness(0) invert(1); /* Pure white */
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+        }
+
+        /* 3D Footer Grid & Atmosphere */
+        .footer-wrapper {
+            position: relative;
+            background: #020202;
+            overflow: hidden;
+        }
+        .footer-atmosphere {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 800px;
+            background: radial-gradient(circle at bottom center, rgba(255, 0, 51, 0.15), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse-red 8s infinite alternate;
+        }
+        @keyframes pulse-red {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .footer-grid-3d {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 51, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 51, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(800px) rotateX(70deg);
+            mask-image: linear-gradient(to top, black, transparent);
+            pointer-events: none;
+            z-index: 0;
+            animation: grid-scroll 20s linear infinite;
+        }
+        @keyframes grid-scroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 60px; }
+        }
+
+        .stat-number { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+        .hover-glow:hover { color: var(--magma); text-shadow: 0 0 20px rgba(255, 0, 51, 0.6); }
+
+        /* Magma Text Animation - Matching Theme Red EXACTLY */
+        .text-magma-glow {
+            color: #FF0033;
+            text-shadow: 0 0 30px rgba(255, 0, 51, 0.6);
+        }
+
+        /* Redesigned FAQ Styles - Split Grid */
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 2px solid transparent;
+        }
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 0, 51, 0.3);
+        }
+        .faq-item.open {
+            border-left-color: var(--magma);
+            background: linear-gradient(90deg, rgba(255,0,51,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; }
+        .faq-item.open .accordion-content { max-height: 300px; opacity: 1; transition: all 0.5s ease; }
+        .accordion-icon { transition: transform 0.3s; }
+        .faq-item.open .accordion-icon { transform: rotate(45deg); color: var(--magma); }
+
+        /* Logo Pulse */
+        .logo-k path {
+            fill: #FF0033;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-magma selection:text-white">
+
+    <div class="noise-wrapper"></div>
+
+    <!-- GLOBAL NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-5 border-b border-white/5 transition-all duration-300" style="background-color: var(--nav-bg); backdrop-filter: blur(20px);">
+        <div class="max-w-[1920px] mx-auto flex justify-between items-center">
+            <a href="./index.html" class="text-2xl font-display font-bold tracking-tighter leading-none flex items-center gap-3 group text-contrast">
+                <!-- SVG Kapitech Logo K (Red) -->
+                <div class="w-7 h-7 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(255,0,51,0.5)]">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 15 L45 15 L45 45 L70 15 L100 15 L65 55 L100 100 L70 100 L45 65 L45 100 L20 100 Z" fill="#FF0033"/>
+                    </svg>
+                </div>
+                KAPITECH
+            </a>
+            
+            <div class="hidden lg:flex items-center gap-8">
+                <!-- Main Nav -->
+                <div class="flex items-center gap-8 text-xs font-bold uppercase tracking-[0.2em] text-subtle">
+                    <a href="./index.html" class="nav-link active transition-colors">Home</a>
+                    <a href="./about.html" class="nav-link transition-colors">About</a>
+                    <a href="./services.html" class="nav-link transition-colors">Services</a>
+                    <a href="./portfolio.html" class="nav-link transition-colors">Work</a>
+                </div>
+                
+                <!-- Divider -->
+                <div class="w-[1px] h-4 bg-white/10"></div>
+
+                <!-- Secondary Nav -->
+                <div class="flex items-center gap-8 text-xs font-bold uppercase tracking-[0.2em] text-subtle">
+                    <a href="./academy.html" class="nav-link transition-colors">Academy</a>
+                    <a href="./career.html" class="nav-link transition-colors">Career</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="hidden md:flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-subtle hover:text-white transition-colors">
+                    <i data-lucide="log-in" class="w-4 h-4 mr-2"></i> Login
+                </a>
+                <a href="./contact.html" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-8 py-3 rounded-full relative overflow-hidden group text-contrast hover:border-magma/50 transition-colors">
+                    <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
+                    <span class="relative z-10 group-hover:text-white transition-colors">Start Project</span>
+                </a>
+                <button class="lg:hidden text-contrast" onclick="toggleMenu()">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl transition-colors duration-500">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-contrast p-4">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <a href="./index.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Home</a>
+        <a href="./about.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">About</a>
+        <a href="./services.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Services</a>
+        <a href="./portfolio.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Work</a>
+        <a href="./academy.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Academy</a>
+        <a href="./career.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Career</a>
+        <a href="./contact.html" class="text-5xl font-display font-bold text-magma">Contact</a>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-end pb-24 px-6 relative max-w-[1920px] mx-auto overflow-hidden">
+        <div class="hero-video-wrapper">
+            <video autoplay muted loop playsinline>
+                <source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="relative z-10 w-full">
+            <div class="reveal relative">
+                 <div class="absolute -top-12 left-1 md:left-2 border border-white/10 bg-white/5 backdrop-blur-md px-4 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase text-white/70 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-magma animate-pulse"></span>
+                    Systems Operational
+                </div>
+                <h1 class="font-display font-bold text-[13vw] md:text-[14vw] leading-[0.85] tracking-tighter uppercase mb-8 mix-blend-exclusion glowing-text relative select-none text-contrast">
+                    <span class="block">Creative</span>
+                    <!-- FIX: Pure Magma Color -->
+                    <span class="block text-magma-glow">Technology</span>
+                </h1>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-end border-t border-white/10 pt-10 reveal delay-100 backdrop-blur-[2px]">
+                <div class="max-w-xl relative p-6 border-l border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-r-3xl rounded-br-3xl">
+                     <div class="absolute top-0 left-0 w-[2px] h-full bg-magma"></div>
+                    <p class="text-xl md:text-2xl font-light text-contrast/80 leading-relaxed tracking-wide">
+                        Merging <span class="text-contrast font-medium">strategic design</span> with <span class="text-contrast font-medium">engineering rigor</span> to build digital ecosystems that endure.
+                    </p>
+                </div>
+                <div class="mt-12 md:mt-0 flex items-center gap-6">
+                    <button onclick="alert('Playing Reel...')" class="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-contrast hover:text-magma transition-colors group">
+                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-magma transition-colors">
+                            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        Watch Reel
+                    </button>
+                     <a href="./portfolio.html" class="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center hover:bg-magma hover:border-magma hover:text-white transition-all duration-500 group backdrop-blur-md relative overflow-hidden text-contrast liquid-glass">
+                        <i data-lucide="arrow-right" class="w-8 h-8 group-hover:-rotate-45 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIO / STATS -->
+    <section class="py-24 border-b border-white/10 bg-void relative z-20 reveal">
+        <div class="max-w-[1920px] mx-auto px-6">
+             <div class="liquid-glass p-8 md:p-16 rounded-3xl relative overflow-hidden">
+                <!-- Decorative blurred orb -->
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-magma/20 blur-[100px] rounded-full pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <!-- Left: Narrative -->
+                    <div>
+                         <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-[1px] bg-magma"></div>
+                            <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">The Identity</span>
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-display font-bold text-contrast mb-8 leading-[0.9] tracking-tighter">
+                            Born in the Void.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-magma to-white">Forged in Code.</span>
+                        </h3>
+                        <p class="text-lg text-subtle leading-loose max-w-lg mb-8">
+                            Kapitech is where aesthetic mastery intersects with technical scalability. We don't just build websites; we engineer digital dominance for the brands of tomorrow.
+                        </p>
+                        
+                        <a href="./about.html" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-contrast hover:text-magma transition-colors">
+                            Explore Our DNA <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Right: Data Grid (Dashboard Style) -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Card 1 -->
+                        <div class="bg-white/[0.03] border border-white/10 p-6 rounded-2xl hover:bg-white/[0.05] hover:border-magma/30 transition-all duration-300 group">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="users" class="w-5 h-5 text-subtle group-hover:text-magma transition-colors"></i>
+                                <span class="text-[10px] font-mono text-subtle uppercase tracking-widest">Active</span>
+                            </div>
+                            <h4 class="text-4xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors stat-number">50+</h4>
+                            <p class="text-xs text-subtle mt-2">Enterprise Clients</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-white/[0.03] border border-white/10 p-6 rounded-2xl hover:bg-white/[0.05] hover:border-magma/30 transition-all duration-300 group">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="trophy" class="w-5 h-5 text-subtle group-hover:text-magma transition-colors"></i>
+                                <span class="text-[10px] font-mono text-subtle uppercase tracking-widest">Recog</span>
+                            </div>
+                            <h4 class="text-4xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors stat-number">12</h4>
+                            <p class="text-xs text-subtle mt-2">Industry Awards</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-white/[0.03] border border-white/10 p-6 rounded-2xl hover:bg-white/[0.05] hover:border-magma/30 transition-all duration-300 group">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="zap" class="w-5 h-5 text-subtle group-hover:text-magma transition-colors"></i>
+                                <span class="text-[10px] font-mono text-subtle uppercase tracking-widest">Time</span>
+                            </div>
+                            <h4 class="text-4xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors stat-number">6y</h4>
+                            <p class="text-xs text-subtle mt-2">Operational</p>
+                        </div>
+
+                        <!-- Card 4: Google Review -->
+                        <a href="https://share.google/8TIRYlXBGMWbjsHRF" target="_blank" class="bg-magma/10 border border-magma/20 p-6 rounded-2xl hover:bg-magma/20 transition-all duration-300 group cursor-pointer relative overflow-hidden">
+                            <div class="absolute -right-4 -top-4 w-16 h-16 bg-magma/20 blur-xl rounded-full"></div>
+                            <div class="flex justify-between items-start mb-4 relative z-10">
+                                <div class="flex gap-0.5">
+                                    <i data-lucide="star" class="w-3 h-3 text-magma fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 text-magma fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 text-magma fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 text-magma fill-current"></i>
+                                    <i data-lucide="star" class="w-3 h-3 text-magma fill-current"></i>
+                                </div>
+                                <i data-lucide="external-link" class="w-4 h-4 text-magma opacity-50 group-hover:opacity-100"></i>
+                            </div>
+                            <h4 class="text-4xl md:text-5xl font-display font-bold text-white relative z-10 stat-number">4.9</h4>
+                            <p class="text-xs text-magma/80 mt-2 font-medium tracking-wide">Google Rating</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS SECTION (Renamed & Borderless) -->
+    <div class="py-16 bg-void overflow-hidden reveal relative">
+        <div class="max-w-[1920px] mx-auto px-6 mb-8">
+             <div class="flex items-center gap-4">
+                <div class="w-12 h-[1px] bg-magma"></div>
+                <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Client</span>
+            </div>
+        </div>
+        <div class="relative w-full">
+            <div class="flex whitespace-nowrap animate-ticker w-max items-center gap-24">
+                 <!-- Loop Set 1 -->
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM">
+                 <!-- Loop Set 2 -->
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-8 w-auto client-logo" alt="Google">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="h-8 w-auto client-logo" alt="Spotify">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="h-8 w-auto client-logo" alt="Nike">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-8 w-auto client-logo" alt="Apple">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 w-auto client-logo" alt="Amazon">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="h-8 w-auto client-logo" alt="IBM">
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTNERS SECTION (New) -->
+    <section class="py-24 px-6 max-w-[1920px] mx-auto border-t border-white/5 reveal">
+        <div class="flex justify-between items-end mb-16">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-[1px] bg-magma"></div>
+                <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Partners</span>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Partner 1 -->
+            <div class="group p-8 border border-white/5 rounded-2xl hover:bg-white/[0.02] transition-colors bg-white/[0.01]">
+                <div class="w-12 h-12 mb-6 text-white group-hover:text-magma transition-colors">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M50 20L80 70H20L50 20Z" />
+                        <circle cx="50" cy="45" r="5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-contrast mb-2">Kamora AI</h3>
+                <p class="text-sm text-subtle">Advanced Generative Intelligence infrastructure for scalable automated systems.</p>
+            </div>
+
+            <!-- Partner 2 -->
+            <div class="group p-8 border border-white/5 rounded-2xl hover:bg-white/[0.02] transition-colors bg-white/[0.01]">
+                <div class="w-12 h-12 mb-6 text-white group-hover:text-magma transition-colors">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 50 Q50 20 80 50 T 20 50" />
+                        <path d="M25 60 L75 60" />
+                        <path d="M30 70 L70 70" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-contrast mb-2">3R Shoes</h3>
+                <p class="text-sm text-subtle">Premium restoration services specializing in high-value footwear assets.</p>
+            </div>
+
+            <!-- Partner 3 -->
+            <div class="group p-8 border border-white/5 rounded-2xl hover:bg-white/[0.02] transition-colors bg-white/[0.01]">
+                <div class="w-12 h-12 mb-6 text-white group-hover:text-magma transition-colors">
+                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="50" cy="50" r="30" />
+                        <circle cx="50" cy="50" r="20" />
+                        <circle cx="50" cy="50" r="10" />
+                        <path d="M10 50 H90" opacity="0.5"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-contrast mb-2">Apollo Studio</h3>
+                <p class="text-sm text-subtle">Sonic identity engineering and professional music production services.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCIPLINES (Services - REFINED) -->
+    <section class="py-32 px-6 max-w-[1920px] mx-auto reveal">
+        <div class="flex items-center gap-4 mb-16">
+            <div class="w-12 h-[1px] bg-magma"></div>
+            <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Disciplines</span>
+        </div>
+        
+        <!-- Featured Service Spotlight -->
+        <div class="mb-16">
+            <a href="./services.html" class="liquid-glass p-12 rounded-3xl group flex flex-col md:flex-row gap-12 items-center relative overflow-hidden border border-magma/20 hover:border-magma/50 transition-all duration-500">
+                <!-- Holographic Texture Overlay -->
+                <div class="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-magma/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <div class="flex-1 relative z-10">
+                    <span class="inline-block px-4 py-1 rounded-full border border-magma/50 text-magma text-xs font-bold uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(255,0,51,0.3)]">Featured Capability</span>
+                    <h3 class="text-4xl md:text-6xl font-display font-bold text-contrast mb-6 group-hover:translate-x-2 transition-transform duration-500">Immersive 3D Web</h3>
+                    <p class="text-contrast/80 text-lg max-w-xl leading-relaxed">
+                        Push the boundaries of the browser with WebGL and Three.js. We build interactive 3D environments that captivate users and increase session duration by up to 300%.
+                    </p>
+                </div>
+                <div class="relative z-10 w-full md:w-1/3 aspect-video bg-black/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000" class="w-full h-full object-cover">
+                </div>
+            </a>
+        </div>
+
+        <div class="flex flex-col gap-0">
+            <!-- Service 1 -->
+            <a href="./services.html" class="service-row py-10 flex flex-col md:flex-row md:items-center justify-between cursor-pointer group">
+                <div class="flex items-baseline gap-12">
+                    <span class="font-mono text-magma text-sm opacity-50">01</span>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors">Brand Identity</h3>
+                </div>
+                <div class="flex items-center gap-12 mt-6 md:mt-0">
+                    <p class="text-subtle text-sm max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0 hidden md:block">
+                        Visual systems that transcend logos to create lasting cultural impact.
+                    </p>
+                    <i data-lucide="arrow-right" class="w-6 h-6 text-white group-hover:text-magma group-hover:-rotate-45 transition-all duration-300"></i>
+                </div>
+            </a>
+            
+            <!-- Service 2 -->
+            <a href="./services.html" class="service-row py-10 flex flex-col md:flex-row md:items-center justify-between cursor-pointer group">
+                <div class="flex items-baseline gap-12">
+                    <span class="font-mono text-magma text-sm opacity-50">02</span>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors">UI/UX Design</h3>
+                </div>
+                <div class="flex items-center gap-12 mt-6 md:mt-0">
+                    <p class="text-subtle text-sm max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0 hidden md:block">
+                        Human-centric interfaces backed by data and behavioral psychology.
+                    </p>
+                    <i data-lucide="arrow-right" class="w-6 h-6 text-white group-hover:text-magma group-hover:-rotate-45 transition-all duration-300"></i>
+                </div>
+            </a>
+
+            <!-- Service 3 -->
+            <a href="./services.html" class="service-row py-10 flex flex-col md:flex-row md:items-center justify-between cursor-pointer group">
+                <div class="flex items-baseline gap-12">
+                    <span class="font-mono text-magma text-sm opacity-50">03</span>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors">Mobile Development</h3>
+                </div>
+                <div class="flex items-center gap-12 mt-6 md:mt-0">
+                    <p class="text-subtle text-sm max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0 hidden md:block">
+                        High-performance native and cross-platform mobile applications.
+                    </p>
+                    <i data-lucide="arrow-right" class="w-6 h-6 text-white group-hover:text-magma group-hover:-rotate-45 transition-all duration-300"></i>
+                </div>
+            </a>
+
+            <!-- Service 4 (Added for Balance) -->
+            <a href="./services.html" class="service-row py-10 flex flex-col md:flex-row md:items-center justify-between cursor-pointer group">
+                <div class="flex items-baseline gap-12">
+                    <span class="font-mono text-magma text-sm opacity-50">04</span>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-contrast group-hover:text-magma transition-colors">Spatial Computing</h3>
+                </div>
+                <div class="flex items-center gap-12 mt-6 md:mt-0">
+                    <p class="text-subtle text-sm max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0 hidden md:block">
+                        AR/VR infrastructure for the next generation of spatial web experiences.
+                    </p>
+                    <i data-lucide="arrow-right" class="w-6 h-6 text-white group-hover:text-magma group-hover:-rotate-45 transition-all duration-300"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- INFRASTRUCTURE -->
+    <section class="py-24 px-6 max-w-[1920px] mx-auto reveal">
+        <div class="flex items-center gap-4 mb-16">
+            <div class="w-12 h-[1px] bg-magma"></div>
+            <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Infrastructure</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="liquid-glass p-8 rounded-3xl text-center group">
+                <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-magma/20 transition-colors">
+                    <i data-lucide="server" class="w-8 h-8 text-contrast group-hover:text-magma transition-colors"></i>
+                </div>
+                <h4 class="text-xl font-bold text-contrast mb-2">Cloud Native</h4>
+                <p class="text-xs text-subtle">AWS / Google Cloud</p>
+            </div>
+            <div class="liquid-glass p-8 rounded-3xl text-center group">
+                <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-magma/20 transition-colors">
+                     <i data-lucide="shield-check" class="w-8 h-8 text-contrast group-hover:text-magma transition-colors"></i>
+                </div>
+                <h4 class="text-xl font-bold text-contrast mb-2">Security</h4>
+                <p class="text-xs text-subtle">ISO 27001 Compliant</p>
+            </div>
+            <div class="liquid-glass p-8 rounded-3xl text-center group">
+                <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-magma/20 transition-colors">
+                    <i data-lucide="cpu" class="w-8 h-8 text-contrast group-hover:text-magma transition-colors"></i>
+                </div>
+                <h4 class="text-xl font-bold text-contrast mb-2">AI Core</h4>
+                <p class="text-xs text-subtle">Machine Learning Ops</p>
+            </div>
+            <div class="liquid-glass p-8 rounded-3xl text-center group">
+                 <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-magma/20 transition-colors">
+                    <i data-lucide="zap" class="w-8 h-8 text-contrast group-hover:text-magma transition-colors"></i>
+                </div>
+                <h4 class="text-xl font-bold text-contrast mb-2">Speed</h4>
+                <p class="text-xs text-subtle">Edge Computing</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED WORK -->
+    <section class="py-32 px-6 max-w-[1920px] mx-auto reveal">
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                 <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-[1px] bg-magma"></div>
+                    <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Selected Works</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-display font-bold text-contrast">Featured Projects.</h2>
+            </div>
+            <a href="./portfolio.html" class="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-contrast hover:text-magma transition-colors">
+                View All Work <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
+            <!-- Item 1 -->
+            <div class="group cursor-pointer">
+                <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
+                     <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
+                     </div>
+                </div>
+                <div class="flex justify-between items-start border-t border-white/10 pt-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-contrast mb-1 group-hover:text-magma transition-colors">BAIC Automotive</h3>
+                        <p class="text-sm text-subtle line-clamp-1">Revolutionizing the car buying journey.</p>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest text-contrast block mb-1">Web</span>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="group cursor-pointer md:mt-12">
+                <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
+                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
+                     </div>
+                </div>
+                 <div class="flex justify-between items-start border-t border-white/10 pt-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-contrast mb-1 group-hover:text-magma transition-colors">Neon Verse</h3>
+                        <p class="text-sm text-subtle line-clamp-1">A cyberpunk-inspired brand identity system.</p>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest text-contrast block mb-1">Branding</span>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group cursor-pointer">
+                <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
+                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
+                     </div>
+                </div>
+                <div class="flex justify-between items-start border-t border-white/10 pt-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-contrast mb-1 group-hover:text-magma transition-colors">FinTech Dash</h3>
+                        <p class="text-sm text-subtle line-clamp-1">Real-time financial data visualization.</p>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest text-contrast block mb-1">Product</span>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="group cursor-pointer md:mt-12">
+                <div class="w-full aspect-[16/10] bg-white/5 overflow-hidden relative mb-6 rounded-3xl liquid-glass">
+                     <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2670" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                     <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <span class="border border-white/30 px-6 py-2 rounded-full text-white text-xs uppercase tracking-widest backdrop-blur-md">View Case Study</span>
+                     </div>
+                </div>
+                 <div class="flex justify-between items-start border-t border-white/10 pt-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-contrast mb-1 group-hover:text-magma transition-colors">EcoStream</h3>
+                        <p class="text-sm text-subtle line-clamp-1">Sustainability tracking platform.</p>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest text-contrast block mb-1">Web App</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (MARQUEE SLIDER) -->
+    <section class="py-24 border-y border-white/5 bg-void overflow-hidden reveal">
+        <div class="px-6 max-w-[1920px] mx-auto mb-16">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-[1px] bg-magma"></div>
+                <span class="text-magma font-mono text-xs uppercase tracking-[0.2em]">Intel</span>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-display font-bold text-contrast mt-4">Field Reports.</h2>
+        </div>
+        
+        <!-- Row 1 -->
+        <div class="relative w-full mb-8">
+            <div class="flex whitespace-nowrap animate-ticker w-max items-center gap-8">
+                 <!-- LOOP START 1 -->
+                 <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"Kapitech didn't just build a website; they constructed a digital universe for our brand. The WebGL performance is insane."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">JS</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">James Sterling</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">CEO, Neon Verse</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"The 3D configurator increased our pre-order sales by 200%. Flawless execution from the engineering team."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">SJ</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Sarah Jenkins</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">CMO, BAIC</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"Technical scalability meets high-end art. Exactly what we needed for our fintech platform launch."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">ER</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Elena R.</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">CTO, FinTech</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"A true partner in innovation. They solved problems we didn't know we had with elegant code."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">DK</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">David K.</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">Founder, EcoStream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 (Reverse) -->
+         <div class="relative w-full">
+            <div class="flex whitespace-nowrap animate-ticker-reverse w-max items-center gap-8">
+                 <!-- LOOP START 2 -->
+                 <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"Our site speed improved by 400% after migrating to their stack. Incredible technical prowess."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">TL</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Tech Lead</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">Global Corp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"Professional, agile, and incredibly talented team. They operate on a different level."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">MB</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Manager</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">Brand Co</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="liquid-glass p-8 rounded-2xl w-[400px] whitespace-normal border border-white/5 hover:border-magma/30 transition-colors group">
+                    <div class="flex gap-1 mb-4 text-magma">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-contrast/80 mb-6 font-light leading-relaxed">"Best agency experience I've had in 10 years of marketing. They just get it."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-magma/20 flex items-center justify-center text-magma font-bold">VP</div>
+                        <div>
+                            <p class="text-sm font-bold text-white">VP Marketing</p>
+                            <p class="text-xs text-subtle uppercase tracking-wider">RetailGiant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AESTHETIC FOOTER (3D GRID & ATMOSPHERE & LOGO WATERMARK) -->
+    <footer class="footer-wrapper pt-40 pb-12 relative overflow-hidden">
+        <!-- Living Background Elements -->
+        <div class="footer-atmosphere"></div>
+        <div class="footer-grid-3d"></div>
+        
+        <!-- Giant Rotating Logo Ornament -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.03] pointer-events-none animate-spin-slow z-0">
+             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-white">
+                <path d="M20 15 L45 15 L45 45 L70 15 L100 15 L65 55 L100 100 L70 100 L45 65 L45 100 L20 100 Z" stroke="currentColor" stroke-width="0.5"/>
+            </svg>
+        </div>
+        
+        <div class="max-w-[1920px] mx-auto px-6 relative z-10">
+             <div class="mb-24 text-center flex flex-col items-center">
+                <h2 class="text-4xl md:text-8xl font-display font-bold text-contrast relative z-10 drop-shadow-[0_0_30px_rgba(255,0,51,0.6)] leading-tight hover:text-magma transition-colors duration-700 cursor-default">LET'S BUILD<br>THE FUTURE</h2>
+                
+                <!-- NEW CTA BUTTON -->
+                <a href="./contact.html" class="mt-12 group relative inline-flex items-center gap-3 px-12 py-6 rounded-full border border-magma/50 bg-magma/10 hover:bg-magma transition-all duration-500 overflow-hidden">
+                    <span class="absolute inset-0 bg-magma opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></span>
+                    <span class="relative z-10 text-xl font-bold uppercase tracking-widest text-white group-hover:scale-110 transition-transform">Let's Talk</span>
+                    <i data-lucide="arrow-right" class="relative z-10 w-6 h-6 text-magma group-hover:text-white transition-colors group-hover:-rotate-45 duration-300"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 border-b border-white/10 pb-12 backdrop-blur-sm bg-black/40 rounded-3xl p-8 lg:p-12 border border-white/5 relative overflow-hidden group">
+                <!-- Hover Glow Effect on Box -->
+                <div class="absolute inset-0 bg-magma/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                <!-- Brand -->
+                <div class="lg:col-span-5 relative z-10">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 text-magma">
+                             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 15 L45 15 L45 45 L70 15 L100 15 L65 55 L100 100 L70 100 L45 65 L45 100 L20 100 Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-display font-bold tracking-tighter text-contrast">KAPITECH</h2>
+                    </div>
+                    <p class="text-gray-300 text-lg max-w-md leading-relaxed mb-8">
+                        Rukan Crown H-29, Green Lake City.<br>Cipondoh, Indonesia.
+                    </p>
+                    <a href="mailto:hello@kapitech.co.id" class="text-2xl font-bold text-contrast hover:text-magma transition-all border-b-2 border-transparent hover:border-magma">hello@kapitech.co.id</a>
+                </div>
+
+                <!-- Links 1 -->
+                <div class="lg:col-span-2 lg:col-start-7 relative z-10">
+                     <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-magma mb-8 shadow-magma drop-shadow-md">Sitemap</h4>
+                     <ul class="space-y-4 text-sm font-medium text-gray-300">
+                         <li><a href="./index.html" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Home</a></li>
+                         <li><a href="./about.html" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">About</a></li>
+                         <li><a href="./services.html" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Services</a></li>
+                         <li><a href="./portfolio.html" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Work</a></li>
+                         <li><a href="./academy.html" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Academy</a></li>
+                     </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div class="lg:col-span-2 relative z-10">
+                     <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-magma mb-8 shadow-magma drop-shadow-md">Socials</h4>
+                     <ul class="space-y-4 text-sm font-medium text-gray-300">
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Instagram</a></li>
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">LinkedIn</a></li>
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Twitter / X</a></li>
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Behance</a></li>
+                     </ul>
+                </div>
+
+                <!-- Links 3 -->
+                <div class="lg:col-span-2 relative z-10">
+                     <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-magma mb-8 shadow-magma drop-shadow-md">Legal</h4>
+                     <ul class="space-y-4 text-sm font-medium text-gray-300">
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Privacy Policy</a></li>
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Terms of Service</a></li>
+                         <li><a href="#" class="hover:text-magma transition-colors hover:translate-x-2 inline-block duration-300">Cookies</a></li>
+                     </ul>
+                </div>
+            </div>
+
+            <!-- Strategic Partners Row (Centered) -->
+            <div class="border-b border-white/10 pb-8 mb-8 flex flex-wrap justify-center items-center gap-12 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-subtle w-full md:w-auto md:mr-8 text-center md:text-left">Strategic Partners</span>
+                
+                <!-- Kamora AI -->
+                <div class="flex items-center gap-3 group cursor-default">
+                    <svg class="w-6 h-6 text-white group-hover:text-magma transition-colors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="M50 20L80 70H20L50 20Z" />
+                        <circle cx="50" cy="45" r="5" fill="currentColor"/>
+                    </svg>
+                    <span class="text-sm font-bold text-white tracking-widest uppercase">Kamora AI</span>
+                </div>
+
+                <!-- 3R Shoes -->
+                <div class="flex items-center gap-3 group cursor-default">
+                    <svg class="w-6 h-6 text-white group-hover:text-magma transition-colors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="M20 50 Q50 20 80 50 T 20 50" />
+                    </svg>
+                    <span class="text-sm font-bold text-white tracking-widest uppercase">3R Shoes</span>
+                </div>
+
+                <!-- Apollo Studio -->
+                <div class="flex items-center gap-3 group cursor-default">
+                    <svg class="w-6 h-6 text-white group-hover:text-magma transition-colors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+                        <circle cx="50" cy="50" r="30" />
+                        <circle cx="50" cy="50" r="15" />
+                    </svg>
+                    <span class="text-sm font-bold text-white tracking-widest uppercase">Apollo Studio</span>
+                </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="flex flex-col md:flex-row justify-between items-end pt-4 text-gray-400">
+                <span class="text-[10px] font-mono uppercase tracking-widest">© 2025 Kapitech Agency. All Rights Reserved.</span>
+                <span class="text-[10px] font-mono uppercase tracking-widest mt-4 md:mt-0">Made in the Void.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); document.getElementById('mobileMenu').classList.toggle('flex'); }
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

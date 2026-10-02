@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Kapitech</title>
+    <meta name="description" content="We are the architects of reality. Kapitech bridges the gap between abstract art and engineering rigor.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#050505',
+                        magma: '#FF0033',
+                        oxblood: '#800000',
+                        contrast: '#FFFFFF',
+                        subtle: '#888888',
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    animation: { 
+                        'spin-slow': 'spin 20s linear infinite',
+                        'grid-scroll': 'grid-scroll 20s linear infinite'
+                    },
+                    keyframes: {
+                        'grid-scroll': { '0%': { backgroundPosition: '0 0' }, '100%': { backgroundPosition: '0 60px' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { --bg-main: #050505; --text-main: #FFFFFF; --nav-bg: rgba(5, 5, 5, 0.8); --magma: #FF0033; }
+        body { background-color: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
+        
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.02), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .liquid-glass:hover { transform: translateY(-5px); border-color: rgba(255, 0, 51, 0.5); box-shadow: 0 0 30px rgba(255, 0, 51, 0.1); }
+        
+        .hero-video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; background-color: var(--bg-main); }
+        .hero-video-wrapper video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-video-wrapper .video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, var(--bg-main) 100%); }
+        
+        .text-magma-glow { color: #FF0033; text-shadow: 0 0 30px rgba(255, 0, 51, 0.6); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .footer-grid-3d {
+            position: absolute; bottom: -50%; left: -50%; width: 200%; height: 100%;
+            background-image: linear-gradient(rgba(255, 0, 51, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 51, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px; transform: perspective(800px) rotateX(70deg);
+            mask-image: linear-gradient(to top, black, transparent); pointer-events: none; z-index: 0;
+            animation: grid-scroll 20s linear infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-magma selection:text-white">
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-5 border-b border-white/5 transition-all duration-300 backdrop-blur-xl bg-void/80">
+        <div class="max-w-[1920px] mx-auto flex justify-between items-center">
+            <a href="./index.html" class="text-2xl font-display font-bold tracking-tighter flex items-center gap-3 group text-contrast">
+                <div class="w-7 h-7 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(255,0,51,0.5)]">
+                    <svg viewBox="0 0 100 100" fill="none"><path d="M20 15 L45 15 L45 45 L70 15 L100 15 L65 55 L100 100 L70 100 L45 65 L45 100 L20 100 Z" fill="#FF0033"/></svg>
+                </div>
+                KAPITECH
+            </a>
+            <div class="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.2em] text-subtle">
+                <a href="./index.html" class="hover:text-magma transition-colors">Home</a>
+                <a href="./about.html" class="text-magma">About</a>
+                <a href="./services.html" class="hover:text-magma transition-colors">Services</a>
+                <a href="./portfolio.html" class="hover:text-magma transition-colors">Work</a>
+                <div class="w-[1px] h-4 bg-white/10"></div>
+                <a href="./academy.html" class="hover:text-magma transition-colors">Academy</a>
+                <a href="./career.html" class="hover:text-magma transition-colors">Career</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="./contact.html" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-8 py-3 rounded-full hover:border-magma/50 transition-colors group relative overflow-hidden">
+                    <span class="absolute inset-0 bg-magma translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+                    <span class="relative z-10 group-hover:text-white">Start Project</span>
+                </a>
+                <button class="lg:hidden text-white" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"><i data-lucide="menu" class="w-8 h-8"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl">
+        <button onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="absolute top-8 right-8 text-white"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <a href="./index.html" class="text-5xl font-display font-bold text-white hover:text-magma">Home</a>
+        <a href="./about.html" class="text-5xl font-display font-bold text-magma">About</a>
+        <a href="./services.html" class="text-5xl font-display font-bold text-white hover:text-magma">Services</a>
+        <a href="./portfolio.html" class="text-5xl font-display font-bold text-white hover:text-magma">Work</a>
+        <a href="./academy.html" class="text-5xl font-display font-bold text-white hover:text-magma">Academy</a>
+        <a href="./career.html" class="text-5xl font-display font-bold text-white hover:text-magma">Career</a>
+        <a href="./contact.html" class="text-5xl font-display font-bold text-white hover:text-magma">Contact</a>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-end pb-24 px-6 relative max-w-[1920px] mx-auto overflow-hidden">
+        <div class="hero-video-wrapper">
+            <video autoplay muted loop playsinline>
+                <source src="https://videos.pexels.com/video-files/3130182/3130182-hd_1920_1080_30fps.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="relative z-10 w-full reveal">
+            <div class="absolute -top-12 left-1 md:left-2 border border-white/10 bg-white/5 backdrop-blur-md px-4 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase text-white/70 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-magma animate-pulse"></span> Identity Core
+            </div>
+            <h1 class="font-display font-bold text-[13vw] md:text-[14vw] leading-[0.85] tracking-tighter uppercase mb-8 mix-blend-exclusion text-white select-none">
+                <span class="block">Architects of</span>
+                <span class="block text-magma-glow">Reality</span>
+            </h1>
+            <div class="flex flex-col md:flex-row justify-between items-end border-t border-white/10 pt-10 backdrop-blur-[2px]">
+                <div class="max-w-xl relative p-6 border-l border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-r-3xl rounded-br-3xl">
+                    <div class="absolute top-0 left-0 w-[2px] h-full bg-magma"></div>
+                    <p class="text-xl md:text-2xl font-light text-white/80 leading-relaxed tracking-wide">
+                        We are the bridge between abstract art and absolute logic. Forging the digital future from the void.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <main class="pt-24 px-6 max-w-[1920px] mx-auto pb-32">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 reveal">
+            <div class="liquid-glass p-12">
+                <h3 class="text-3xl font-display font-bold mb-6 text-white">The Origin</h3>
+                <p class="text-gray-400 leading-loose">Born in the data streams of Jakarta, Kapitech emerged as a response to digital mediocrity. We saw a web filled with templates and decided to build monuments instead.</p>
+            </div>
+            <div class="liquid-glass p-12">
+                <h3 class="text-3xl font-display font-bold mb-6 text-white">The Philosophy</h3>
+                <p class="text-gray-400 leading-loose">Code is not just utility; it is a medium of expression. Design is not just decoration; it is function visualized. We exist at this intersection.</p>
+            </div>
+        </div>
+
+        <div class="mt-32 reveal">
+            <h2 class="text-4xl font-display font-bold mb-12 text-white">The Squad</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="liquid-glass p-4 group">
+                    <div class="aspect-[4/5] bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Alex Thorne</h4>
+                    <p class="text-magma text-xs uppercase tracking-widest">Founder & CEO</p>
+                </div>
+                <div class="liquid-glass p-4 group">
+                    <div class="aspect-[4/5] bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Elena Vance</h4>
+                    <p class="text-magma text-xs uppercase tracking-widest">Creative Director</p>
+                </div>
+                <div class="liquid-glass p-4 group">
+                    <div class="aspect-[4/5] bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Marcus Chen</h4>
+                    <p class="text-magma text-xs uppercase tracking-widest">Lead Engineer</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative pt-32 pb-12 overflow-hidden bg-void border-t border-white/5">
+        <div class="footer-grid-3d"></div>
+        <div class="max-w-[1920px] mx-auto px-6 relative z-10">
+            <div class="text-center mb-24">
+                <h2 class="text-5xl md:text-8xl font-display font-bold text-white mb-8">LET'S BUILD<br>THE FUTURE</h2>
+                <a href="./contact.html" class="inline-flex items-center gap-2 border border-magma px-8 py-4 rounded-full text-white hover:bg-magma transition-colors text-sm uppercase tracking-widest font-bold">Start Project <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-12">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <div class="w-5 h-5 text-magma"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M20 15 L45 15 L45 45 L70 15 L100 15 L65 55 L100 100 L70 100 L45 65 L45 100 L20 100 Z"/></svg></div>
+                    <span class="font-bold text-white tracking-widest">KAPITECH</span>
+                </div>
+                <div class="flex gap-8 text-xs text-gray-500 uppercase tracking-widest">
+                    <a href="#" class="hover:text-magma">Instagram</a>
+                    <a href="#" class="hover:text-magma">Twitter</a>
+                    <a href="#" class="hover:text-magma">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

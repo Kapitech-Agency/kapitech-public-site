@@ -1,0 +1,1 @@
+console.log("Kapitech System Initialized");

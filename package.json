@@ -1,0 +1,8 @@
+{
+  "name": "kapitech-website",
+  "version": "1.0.0",
+  "description": "Kapitech Creative Technology Agency",
+  "scripts": {
+    "build": "mkdir -p dist && cp *.html dist/"
+  }
+}
