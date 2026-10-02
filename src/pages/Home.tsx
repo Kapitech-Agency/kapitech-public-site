@@ -125,8 +125,8 @@ export const Home = () => {
     {
       index: "04",
       label: language === 'id' ? "Cara Kerja" : "Service Approach",
-      value: "End-to-End",
-      meta: language === 'id' ? "Strategy • Design • Code" : "Strategy • Design • Code",
+      value: "E2E",
+      meta: language === 'id' ? "End-to-End • Strategy • Design • Code" : "End-to-End • Strategy • Design • Code",
       desc: language === 'id' ? "Satu tim dari arah awal hingga produk berjalan." : "One team from direction to delivery."
     }
   ];
@@ -296,9 +296,9 @@ export const Home = () => {
                       {stat.index}
                     </span>
                   </div>
-                  <div className="mt-7 sm:mt-8 flex min-w-0 flex-col gap-3">
-                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1.5">
-                      <span className="min-w-0 max-w-full text-[3.25rem] sm:text-[4.25rem] lg:text-[4.75rem] font-display font-semibold leading-[0.86] tracking-[-0.07em] text-white transition-colors duration-500 group-hover:text-brand-red break-words">
+                  <div className="mt-7 sm:mt-8 flex min-w-0 flex-1 flex-col gap-3">
+                    <div className="flex min-w-0 min-h-[4.25rem] sm:min-h-[5rem] items-end flex-wrap gap-x-2.5 gap-y-1.5">
+                      <span className="min-w-0 max-w-full text-[3.25rem] sm:text-[4.25rem] lg:text-[4.5rem] font-display font-semibold leading-[0.86] tracking-[-0.07em] text-white transition-colors duration-500 group-hover:text-brand-red break-words">
                         {stat.value}
                       </span>
                       {stat.suffix && (
