@@ -442,10 +442,12 @@ export const Contact = () => {
                       </button>
 
                       <a
-                        href="/inbox"
+                        href="https://ams.kapitech.id/admin/inbox"
+                        target="_blank"
+                        rel="noreferrer"
                         className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white text-xs font-mono font-semibold uppercase tracking-wider transition-colors min-h-[44px] flex items-center justify-center gap-2"
                       >
-                        <span>{language === 'id' ? 'Lihat di Inbox Database' : 'View in Inbox'}</span>
+                        <span>{language === 'id' ? 'Buka AMS Inbox' : 'Open AMS Inbox'}</span>
                         <ArrowUpRight size={14} />
                       </a>
                     </div>
