@@ -1275,3 +1275,37 @@
 .kapi-home-hero-video mux-player::part(media-layer) {
   pointer-events: none;
 }
+
+/* Homepage hero red animated background */
+.kapi-home-hero-redwash {
+  background:
+    radial-gradient(circle at 18% 42%, rgba(229, 9, 20, 0.52) 0%, rgba(229, 9, 20, 0.24) 22%, transparent 52%),
+    radial-gradient(circle at 82% 22%, rgba(180, 0, 12, 0.32) 0%, transparent 46%),
+    linear-gradient(120deg, rgba(96, 0, 8, 0.46), rgba(229, 9, 20, 0.16), rgba(54, 0, 5, 0.44));
+  background-size: 140% 140%, 120% 120%, 180% 180%;
+  background-position: 0% 50%, 100% 0%, 50% 50%;
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  animation: kapi-home-red-drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes kapi-home-red-drift {
+  0% {
+    background-position: 0% 50%, 100% 0%, 50% 50%;
+    transform: scale(1);
+  }
+  50% {
+    background-position: 48% 34%, 54% 46%, 34% 56%;
+    transform: scale(1.035);
+  }
+  100% {
+    background-position: 100% 50%, 0% 100%, 66% 44%;
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-home-hero-redwash {
+    animation: none;
+  }
+}
