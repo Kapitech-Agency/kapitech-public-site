@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -22,22 +22,45 @@ import {
 } from 'lucide-react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
-import { getServiceBySlug, allSolutionsAndServices } from '../data/servicesData';
-import { allProjects } from '../data/projectsData';
+import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
+import { getServiceBySlug } from '../data/servicesData';
 
 export const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { language } = useLanguage();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
+  const [cmsProjects, setCmsProjects] = useState(() => getCmsProjects());
 
-  const service = slug ? getServiceBySlug(slug) : undefined;
+  useEffect(() => {
+    const handleUpdate = () => {
+      setCmsServices(getCmsServices());
+      setCmsProjects(getCmsProjects());
+    };
+
+    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void Promise.all([
+      fetchServerCmsServices(),
+      fetchServerCmsProjects()
+    ]).then(() => {
+      setCmsServices(getCmsServices());
+      setCmsProjects(getCmsProjects());
+    });
+
+    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+  }, []);
+
+  const staticService = slug ? getServiceBySlug(slug) : undefined;
+  const service = slug
+    ? cmsServices.find((item) => item.slug === slug) || staticService
+    : undefined;
 
   if (!service) {
     return <Navigate to="/services" replace />;
   }
 
   // Find related case studies from allProjects
-  const relatedProjects = allProjects.filter(p => 
+  const relatedProjects = cmsProjects.filter(p => 
     service.caseStudySlugs.includes(p.id) ||
     p.pillar.toLowerCase().includes(service.category.toLowerCase()) ||
     p.service.toLowerCase().includes(service.category.toLowerCase()) ||
