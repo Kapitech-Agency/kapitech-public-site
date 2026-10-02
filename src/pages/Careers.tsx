@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowUpRight, 
@@ -90,6 +90,28 @@ export const Careers = () => {
 
   const [selectedTalent, setSelectedTalent] = useState<any | null>(null);
 
+  const hasOpenCareerModal = Boolean(selectedPosition || isFreelanceModalOpen || selectedTalent);
+
+  useEffect(() => {
+    if (!hasOpenCareerModal) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      if (selectedTalent) setSelectedTalent(null);
+      else if (isFreelanceModalOpen) setIsFreelanceModalOpen(false);
+      else if (selectedPosition) setSelectedPosition(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [hasOpenCareerModal, selectedTalent, isFreelanceModalOpen, selectedPosition]);
+
   const twelveTalentsEn = [
     {
       id: "aditya-pratama",
@@ -144,12 +166,12 @@ export const Careers = () => {
     {
       id: "evelyn-santoso",
       name: "Evelyn Santoso",
-      role: "Senior Product & Mobile UI Designer",
-      specialty: "iOS/Android Ergonomics & Prototypes",
+      role: "Senior Product UI Designer",
+      specialty: "Responsive Product UI & Prototypes",
       department: "Visual Experience",
       experience: "5+ Years Exp",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Engineers thumb-accessible mobile UX flows, haptic feedback loops, and multi-tenant mobile applications."
+      bio: "Designs responsive product interfaces, thoughtful interaction patterns, and scalable SaaS experiences."
     },
     {
       id: "farhan-ramadhan",
@@ -267,12 +289,12 @@ export const Careers = () => {
     {
       id: "evelyn-santoso",
       name: "Evelyn Santoso",
-      role: "Senior Product & Mobile UI Designer",
-      specialty: "Ergonomi iOS/Android & Prototipe",
+      role: "Senior Product UI Designer",
+      specialty: "UI Produk Responsif & Prototipe",
       department: "Visual Experience",
       experience: "Pengalaman 5+ Tahun",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Merancang pengalaman aplikasi mobile yang ramah ibu jari, alur onboarding mulus, dan responsivitas layar."
+      bio: "Merancang pengalaman produk digital yang responsif, alur onboarding yang mulus, dan interaksi antarmuka yang konsisten."
     },
     {
       id: "farhan-ramadhan",
@@ -374,14 +396,14 @@ export const Careers = () => {
       badge: 'Full Time • On-site Studio',
       summary: 'Join our in-studio creative squad to author world-class digital interfaces, responsive design systems in Figma, and interactive user experiences for global and domestic client projects.',
       responsibilities: [
-        'Design pixel-perfect responsive web, mobile app (iOS/Android), and SaaS software interfaces',
+        'Design pixel-perfect responsive web products and SaaS interfaces across desktop, tablet, and mobile breakpoints',
         'Architect and maintain scalable design systems, design tokens, and comprehensive component libraries in Figma',
         'Conduct user journey mapping, wireframing, interactive prototyping, and usability validation sprints',
         'Collaborate side-by-side with our Executive Creative Director and frontend engineers for flawless implementation',
         'Prepare presentation decks and articulate UX/UI rationale directly during client review sessions'
       ],
       requirements: [
-        '2+ years of professional experience in UI/UX design for web platforms, mobile apps, or digital agencies',
+        '2+ years of professional experience in UI/UX design for web products or digital agencies',
         'Stunning design portfolio showcasing modern visual hierarchy, clean typography, and responsive UX systems',
         'Mastery of Figma, FigJam, auto-layout, component variants, and interactive prototyping',
         'Ability to work full-time on-site at our South Tangerang studio with strong collaborative energy',
@@ -427,14 +449,14 @@ export const Careers = () => {
       badge: 'Full Time • Studio On-site',
       summary: 'Bergabunglah bersama tim kreatif di studio kami untuk merancang antarmuka digital kelas dunia, sistem desain responsif di Figma, dan pengalaman pengguna interaktif untuk klien global dan nasional.',
       responsibilities: [
-        'Merancang antarmuka web responsif, aplikasi mobile (iOS/Android), dan sistem software SaaS berpresisi tinggi',
+        'Merancang antarmuka web responsif dan sistem software SaaS berpresisi tinggi di seluruh breakpoint',
         'Membangun serta memelihara sistem desain modular, token desain, dan pustaka komponen di Figma',
         'Melakukan pemetaan alur pengguna, wireframing, pembuatan prototipe interaktif, dan uji usabilitas',
         'Berkolaborasi langsung di studio bersama Executive Creative Director dan frontend engineer untuk memastikan hasil koding sesuai desain',
         'Mempersiapkan deck presentasi dan menjelaskan pertimbangan desain secara objektif dalam sesi review klien'
       ],
       requirements: [
-        '2+ tahun pengalaman profesional di bidang desain UI/UX untuk platform web, aplikasi mobile, atau agensi',
+        '2+ tahun pengalaman profesional di bidang desain UI/UX untuk produk web atau agensi digital',
         'Portofolio desain yang kuat menunjukkan penguasaan tipografi, tata letak visual modern, dan sistem UX responsif',
         'Keahlian mendalam dalam Figma, FigJam, auto-layout, varian komponen, dan prototipe interaktif',
         'Bersedia bekerja full-time on-site (WFO) di studio Tangerang Selatan dengan semangat kolaborasi tinggi',
@@ -794,6 +816,9 @@ export const Careers = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="talent-profile-title"
               onClick={() => setSelectedTalent(null)}
             >
               <motion.div
@@ -823,7 +848,7 @@ export const Careers = () => {
                     <span className="text-[11px] sm:text-xs font-mono text-brand-red font-semibold block mb-0.5 truncate">
                       {selectedTalent.department} • {selectedTalent.experience}
                     </span>
-                    <h3 className="text-lg sm:text-xl font-display font-bold text-white truncate">
+                    <h3 id="talent-profile-title" className="text-lg sm:text-xl font-display font-bold text-white truncate">
                       {selectedTalent.name}
                     </h3>
                     <p className="text-xs text-[#8A909D] truncate">
@@ -1189,8 +1214,13 @@ export const Careers = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, i) => (
-              <div 
+              <motion.div
                 key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -3 }}
                 className="p-6 sm:p-8 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mb-6">
@@ -1204,7 +1234,7 @@ export const Careers = () => {
                     {benefit.desc}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -1213,7 +1243,19 @@ export const Careers = () => {
       {/* Detail & Application Modal */}
       <AnimatePresence>
         {selectedPosition && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="career-position-title"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setSelectedPosition(null);
+                setIsSubmitted(false);
+                setApplicantSubmitError('');
+              }
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -1233,7 +1275,7 @@ export const Careers = () => {
                         {selectedPosition.department}
                       </span>
                     </div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white tracking-tight leading-tight">
+                    <h2 id="career-position-title" className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white tracking-tight leading-tight">
                       {selectedPosition.title}
                     </h2>
                   </div>
@@ -1475,7 +1517,19 @@ export const Careers = () => {
       {/* Freelance Vendor Application Modal */}
       <AnimatePresence>
         {isFreelanceModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="freelance-network-title"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setIsFreelanceModalOpen(false);
+                setIsVendorSubmitted(false);
+                setVendorSubmitError('');
+              }
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -1495,7 +1549,7 @@ export const Careers = () => {
                         BYOD (No Device Provided)
                       </span>
                     </div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white tracking-tight leading-tight">
+                    <h2 id="freelance-network-title" className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white tracking-tight leading-tight">
                       {language === 'id' ? 'Formulir Pendaftaran Freelance Vendor' : 'Freelance Vendor Application Form'}
                     </h2>
                   </div>
