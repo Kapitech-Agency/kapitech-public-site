@@ -85,15 +85,11 @@ export const Home = () => {
     },
     {
       name: "Kemenparekraf",
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kementerian_Pariwisata_Republik_Indonesia_(2024).svg"
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Seal_of_the_Ministry_of_Tourism_and_Creative_Economy_of_the_Republic_of_Indonesia_(2020_Indonesian_version).svg"
     },
     {
-      name: "Astra Otoparts",
-      src: "https://drive.google.com/uc?export=download&id=1IRRMIgjlZ0cSgh0Z5MOjr0c-iuSuthOx"
-    },
-    {
-      name: "Sinar Mas",
-      src: "https://images.seeklogo.com/logo-png/64/1/sinarmas-logo-png_seeklogo-641927.png"
+      name: "Siloam Hospitals",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Siloam_Hospitals.svg"
     }
   ];
 
@@ -381,7 +377,7 @@ export const Home = () => {
               {[...trustedBrands, ...trustedBrands].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
-                  className="flex w-[180px] sm:w-[200px] lg:w-[220px] h-20 sm:h-24 items-center justify-center shrink-0 px-5 sm:px-6"
+                  className="flex w-[180px] sm:w-[200px] lg:w-[220px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
                   aria-label={logo.name}
                 >
                   <img
@@ -389,7 +385,7 @@ export const Home = () => {
                     alt={logo.name}
                     loading="lazy"
                     referrerPolicy="no-referrer"
-                    className="block h-9 w-36 sm:h-10 sm:w-40 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
+                    className="block h-8 w-36 sm:h-9 sm:w-40 object-contain opacity-60 grayscale brightness-0 invert hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
