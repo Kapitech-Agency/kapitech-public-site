@@ -748,7 +748,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="py-16 sm:py-24 border-b border-[#262930] bg-[#0B0C0E] relative overflow-hidden">
+      <section className="py-16 sm:py-24 border-b border-white/[0.08] bg-[#0B0C0E] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -796,7 +796,7 @@ export const Careers = () => {
                 >
                   <button
                     onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] bg-[#16181D] transition-all duration-500 hover:-translate-y-1 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.09] bg-[#16181D] transition-all duration-500 hover:-translate-y-1 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     title={`${talent.name} - ${talent.role}`}
                     aria-label={`View photo and profile of ${talent.name}`}
                   >
@@ -821,7 +821,7 @@ export const Careers = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150 overflow-y-auto"
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150 overflow-y-auto"
               role="dialog"
               aria-modal="true"
               aria-labelledby="talent-profile-title"
@@ -832,7 +832,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+                className="relative w-full max-w-lg bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
@@ -863,7 +863,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#262930] pt-4">
+                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-white/[0.09] pt-4">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
                       {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
@@ -882,7 +882,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 sm:mt-6 pt-4 border-t border-[#262930] flex justify-end">
+                <div className="mt-5 sm:mt-6 pt-4 border-t border-white/[0.09] flex justify-end">
                   <button
                     onClick={() => setSelectedTalent(null)}
                     className="w-full sm:w-auto px-6 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-medium rounded-full transition-colors"
@@ -897,7 +897,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Current Opportunities */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930]" id="open-positions">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-white/[0.08]" id="open-positions">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -922,7 +922,7 @@ export const Careers = () => {
                 key={pos.id}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300"
+                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-white/[0.09] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
@@ -933,7 +933,7 @@ export const Careers = () => {
                       <span className="px-3 py-1 rounded-full bg-white/[0.02] border border-white/[0.08] text-[#8A909D] text-xs font-mono">
                         {pos.department}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                      <span className="px-3 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-emerald-400 text-xs font-mono">
                         {pos.badge}
                       </span>
                     </div>
@@ -972,7 +972,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative overflow-hidden" id="freelance-vendor">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] bg-[#0B0C0E] relative overflow-hidden" id="freelance-vendor">
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -1001,7 +1001,7 @@ export const Careers = () => {
                   setIsFreelanceModalOpen(true);
                   setIsVendorSubmitted(false);
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2.5"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2.5"
               >
                 <FolderGit2 size={16} />
                 <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
@@ -1207,7 +1207,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] bg-[#0B0C0E]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
             <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/46 backdrop-blur-xl backdrop-saturate-150 text-brand-red font-mono font-semibold tracking-[0.16em] uppercase text-[10px] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.12)] mb-5">
@@ -1227,7 +1227,7 @@ export const Careers = () => {
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -3 }}
-                className="p-6 sm:p-8 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+                className="p-6 sm:p-8 rounded-2xl border border-white/[0.09] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mb-6">
                   {benefit.icon}
@@ -1250,7 +1250,7 @@ export const Careers = () => {
       <AnimatePresence>
         {selectedPosition && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="career-position-title"
@@ -1267,10 +1267,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/92 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1292,7 +1292,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1350,7 +1350,7 @@ export const Careers = () => {
                 </div>
 
                 {/* Application Form */}
-                <div className="pt-6 border-t border-[#262930]">
+                <div className="pt-6 border-t border-white/[0.09]">
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
@@ -1362,7 +1362,7 @@ export const Careers = () => {
                   </p>
 
                   {isSubmitted ? (
-                    <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3">
+                    <div className="p-6 rounded-xl bg-white/[0.025] border border-white/[0.08] text-center space-y-3">
                       <CheckCircle2 size={36} className="text-emerald-400 mx-auto" />
                       <h5 className="text-lg font-display font-bold text-white">
                         {language === 'id' ? 'Lamaran Berhasil Dikirimkan!' : 'Application Successfully Submitted!'}
@@ -1402,7 +1402,7 @@ export const Careers = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                             placeholder={language === 'id' ? 'e.g. Alex Pratama' : 'e.g. Alex Morgan'}
-                            className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${applicantErrors.name ? 'border-brand-red' : 'border-[#262930]'}`}
+                            className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.name ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.name && (
                             <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.name}</span>
@@ -1420,7 +1420,7 @@ export const Careers = () => {
                             value={formData.email}
                             onChange={handleInputChange}
                             placeholder="alex@example.com"
-                            className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${applicantErrors.email ? 'border-brand-red' : 'border-[#262930]'}`}
+                            className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.email ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.email && (
                             <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.email}</span>
@@ -1440,7 +1440,7 @@ export const Careers = () => {
                             value={formData.phone}
                             onChange={handleInputChange}
                             placeholder="+62 812-3456-7890"
-                            className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${applicantErrors.phone ? 'border-brand-red' : 'border-[#262930]'}`}
+                            className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.phone ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.phone && (
                             <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.phone}</span>
@@ -1458,7 +1458,7 @@ export const Careers = () => {
                             value={formData.portfolio}
                             onChange={handleInputChange}
                             placeholder="https://linkedin.com/in/... or https://behance.net/..."
-                            className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                            className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                           />
                         </div>
                       </div>
@@ -1473,7 +1473,7 @@ export const Careers = () => {
                           value={formData.coverLetter}
                           onChange={handleInputChange}
                           placeholder={language === 'id' ? 'Ceritakan secara singkat pengalaman dan motivasi Anda...' : 'Briefly describe your relevant background and motivations...'}
-                          className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         />
                       </div>
 
@@ -1481,7 +1481,7 @@ export const Careers = () => {
                         <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                           {language === 'id' ? 'Unggah CV / Resume (PDF maks 5MB)' : 'Upload Resume / CV (PDF max 5MB)'}
                         </label>
-                        <div className="relative border border-dashed border-[#262930] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-[#0B0C0E]/50">
+                        <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
                           <input 
                             type="file"
                             accept=".pdf,.doc,.docx"
@@ -1507,7 +1507,7 @@ export const Careers = () => {
 
                       <button
                         type="submit"
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                       >
                         <span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span>
                         <ArrowUpRight size={16} />
@@ -1524,7 +1524,7 @@ export const Careers = () => {
       <AnimatePresence>
         {isFreelanceModalOpen && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="freelance-network-title"
@@ -1544,7 +1544,7 @@ export const Careers = () => {
               className="relative w-full max-w-3xl bg-[#16181D] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/92 backdrop-blur-2xl border-b border-white/[0.08] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1566,7 +1566,7 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1584,8 +1584,8 @@ export const Careers = () => {
               {/* Modal Body */}
               <div className="overflow-y-auto p-6 sm:p-8">
                 {isVendorSubmitted ? (
-                  <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4 my-6">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
+                  <div className="p-8 rounded-2xl bg-white/[0.025] border border-white/[0.08] text-center space-y-4 my-6">
+                    <div className="w-16 h-16 rounded-full bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mx-auto">
                       <CheckCircle2 size={36} />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
@@ -1637,7 +1637,7 @@ export const Careers = () => {
                           value={vendorFormData.name}
                           onChange={handleVendorInputChange}
                           placeholder={language === 'id' ? 'e.g. Budi Santoso / Studio Koding' : 'e.g. Alex Morgan / Pixel Studio'}
-                          className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${vendorErrors.name ? 'border-brand-red' : 'border-[#262930]'}`}
+                          className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.name ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.name && (
                           <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.name}</span>
@@ -1655,7 +1655,7 @@ export const Careers = () => {
                           value={vendorFormData.email}
                           onChange={handleVendorInputChange}
                           placeholder="freelancer@example.com"
-                          className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${vendorErrors.email ? 'border-brand-red' : 'border-[#262930]'}`}
+                          className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.email ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.email && (
                           <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.email}</span>
@@ -1675,7 +1675,7 @@ export const Careers = () => {
                           value={vendorFormData.phone}
                           onChange={handleVendorInputChange}
                           placeholder="+62 812-3456-7890"
-                          className={`w-full min-h-[44px] bg-[#0B0C0E] border rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono ${vendorErrors.phone ? 'border-brand-red' : 'border-[#262930]'}`}
+                          className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.phone ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.phone && (
                           <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.phone}</span>
@@ -1691,7 +1691,7 @@ export const Careers = () => {
                           required
                           value={vendorFormData.specialty}
                           onChange={handleVendorInputChange}
-                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         >
                           <option value="UI/UX & Product Design">UI/UX & Product Design (Figma, Systems, Prototyping)</option>
                           <option value="Frontend Web Development">Frontend Web Dev (React, Next.js, Tailwind, Motion)</option>
@@ -1716,7 +1716,7 @@ export const Careers = () => {
                           value={vendorFormData.portfolio}
                           onChange={handleVendorInputChange}
                           placeholder="https://behance.net/... or https://github.com/..."
-                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         />
                       </div>
 
@@ -1730,7 +1730,7 @@ export const Careers = () => {
                           value={vendorFormData.rateCard}
                           onChange={handleVendorInputChange}
                           placeholder={language === 'id' ? 'e.g. Rp 5.000.000 - Rp 15.000.000 / project' : 'e.g. $25 - $45 / hour or per project range'}
-                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         />
                       </div>
                     </div>
@@ -1744,7 +1744,7 @@ export const Careers = () => {
                           name="experienceYears"
                           value={vendorFormData.experienceYears}
                           onChange={handleVendorInputChange}
-                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         >
                           <option value="1-2 Years">1 - 2 Years</option>
                           <option value="3-5 Years">3 - 5 Years (Mid-Level)</option>
@@ -1763,7 +1763,7 @@ export const Careers = () => {
                           value={vendorFormData.tools}
                           onChange={handleVendorInputChange}
                           placeholder="e.g. Figma, React, Next.js, After Effects, Blender"
-                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                          className="w-full min-h-[44px] bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                         />
                       </div>
                     </div>
@@ -1781,7 +1781,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedWfa}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-[#262930] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>100% WFA & Project-Based:</strong> {language === 'id' 
@@ -1797,7 +1797,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedDevice}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-[#262930] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>BYOD (No Device Provided):</strong> {language === 'id'
@@ -1813,7 +1813,7 @@ export const Careers = () => {
                           required
                           checked={vendorFormData.agreedNda}
                           onChange={handleVendorInputChange}
-                          className="mt-0.5 rounded border-[#262930] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
+                          className="mt-0.5 rounded border-white/[0.09] text-brand-red focus:ring-brand-red bg-[#16181D] w-4 h-4 shrink-0"
                         />
                         <span>
                           <strong>NDA & Deadline Discipline:</strong> {language === 'id'
@@ -1833,7 +1833,7 @@ export const Careers = () => {
                         value={vendorFormData.notes}
                         onChange={handleVendorInputChange}
                         placeholder={language === 'id' ? 'Ceritakan proyek terbaik yang pernah Anda kerjakan atau keahlian spesifik Anda...' : 'Highlight your proudest past projects or unique skill sets...'}
-                        className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red font-mono"
+                        className="w-full bg-white/[0.02] border border-white/[0.08] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300"
                       />
                     </div>
 
@@ -1841,7 +1841,7 @@ export const Careers = () => {
                       <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                         {language === 'id' ? 'Unggah CV / Portofolio PDF (Opsional, maks 5MB)' : 'Upload CV / Portfolio PDF (Optional, max 5MB)'}
                       </label>
-                      <div className="relative border border-dashed border-[#262930] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-[#0B0C0E]/50">
+                      <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
                         <input 
                           type="file"
                           accept=".pdf,.doc,.docx"
@@ -1867,7 +1867,7 @@ export const Careers = () => {
 
                     <button
                       type="submit"
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red hover:bg-white text-white hover:text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                     >
                       <span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span>
                       <ArrowUpRight size={16} />
