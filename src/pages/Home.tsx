@@ -153,24 +153,6 @@ export const Home = () => {
             depth={0.72}
           />
         </div>
-        <div className="kapi-home-hero-video absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-          <mux-player
-            playback-id="T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g"
-            stream-type="on-demand"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-            poster="/hero_background_3d.png"
-            metadata-video-title="Kapitech Agency Hero"
-            className="absolute inset-0 h-full w-full"
-          />
-          <div className="absolute inset-0 bg-[#120507]/48" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#120507]/88 via-[#24060A]/66 to-[#42080F]/42" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#180307]/36" />
-        </div>
-
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl">
             {/* Status Chip */}
