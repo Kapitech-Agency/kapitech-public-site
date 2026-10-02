@@ -688,21 +688,21 @@ export const Services = () => {
           <PatternWaves
             preset="mesh"
             color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
+            backgroundColor="#140D10"
+            opacity={0.48}
             fade="edges"
-            fadeSize={0.72}
+            fadeSize={0.68}
             interactive
-            cursorSize={46}
-            cursorStrength={0.34}
-            speed={0.22}
-            scale={1.04}
-            depth={0.7}
-            shine={0.45}
-            contrast={1.05}
+            cursorSize={48}
+            cursorStrength={0.44}
+            speed={0.24}
+            scale={1.05}
+            depth={0.72}
+            shine={0.58}
+            contrast={1.06}
             intro
           />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/48 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/34 to-transparent" />
         </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
