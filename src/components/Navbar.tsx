@@ -141,22 +141,11 @@ export const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22 }}
-          aria-hidden="true"
-          className="fixed inset-0 z-40 pointer-events-none bg-[#0B0C0E]/58 backdrop-blur-2xl backdrop-saturate-150"
-        />
-      )}
-
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
           isMenuOpen
-            ? `bg-transparent min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none`
+            ? `flex flex-col ${navbarGlassMaterial} min-h-[100dvh] h-[100dvh] overflow-hidden py-4 sm:py-5 border-transparent shadow-none`
             : isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
@@ -169,7 +158,7 @@ export const Navbar = () => {
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
           style={{ scaleX }}
         />
-        <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] items-center justify-between">
+        <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
             <img 
               src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
@@ -471,9 +460,7 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
-
-      {/* Fullscreen Mobile Menu Drawer */}
+        {/* Expanded hamburger menu: part of the same navbar glass surface */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -484,9 +471,9 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-50 overflow-hidden bg-transparent pointer-events-none">
+            className="relative z-10 flex-1 min-h-0 w-full overflow-hidden pointer-events-auto md:hidden">
             <div
-              className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent pointer-events-auto"
+              className="flex h-full min-h-0 flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
             >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
@@ -759,6 +746,9 @@ export const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      </nav>
+
+
     </>
   );
 };
