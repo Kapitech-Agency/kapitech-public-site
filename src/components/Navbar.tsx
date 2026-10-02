@@ -21,44 +21,27 @@ import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
-  const height = mobile ? 48 : 40;
-  const radius = mobile ? 12 : 20;
-  const pathHeight = mobile ? 46 : 38;
-  const duration = mobile ? 6.2 : 5.8;
+  const duration = mobile ? 4.8 : 4.6;
 
   return (
-    <span
-      className="pointer-events-none absolute -inset-[1.75px] z-20 rounded-[inherit]"
+    <motion.span
+      className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
+      style={{
+        padding: '1.2px',
+        background: 'conic-gradient(from 0deg, transparent 0deg, transparent 286deg, rgba(229,9,20,0.08) 306deg, rgba(229,9,20,0.96) 338deg, rgba(229,9,20,0.2) 354deg, transparent 360deg)',
+        WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+        WebkitMaskComposite: 'xor',
+        mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+        maskComposite: 'exclude',
+      }}
+      animate={{ rotate: 360 }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
       aria-hidden="true"
-    >
-      <svg
-        className="absolute inset-0 h-full w-full overflow-visible"
-        viewBox={`0 0 100 ${height}`}
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        <motion.rect
-          x="0.5"
-          y="0.5"
-          width="99"
-          height={pathHeight}
-          rx={radius}
-          pathLength="1"
-          stroke="#E50914"
-          strokeWidth="1.1"
-          strokeLinecap="round"
-          strokeDasharray="0.14 0.86"
-          strokeOpacity="0.72"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1] }}
-          transition={{
-            duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </svg>
-    </span>
+    />
   );
 };
 
@@ -385,13 +368,13 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/solutions/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
                           <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
                         </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
+                        <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                         </div>
                       </Link>
@@ -411,13 +394,13 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
                           <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
                         </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
+                        <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                         </div>
                       </Link>
@@ -437,13 +420,13 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
                           <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
                         </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
+                        <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                         </div>
                       </Link>
@@ -463,13 +446,13 @@ export const Navbar = () => {
                         key={item.slug}
                         to={`/services/${item.slug}`}
                         onClick={() => setIsServicesDropdownOpen(false)}
-                        className="group block p-2.5 rounded-xl hover:bg-[#1B1F26] border border-transparent hover:border-[#262930] transition-all duration-200"
+                        className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-white group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
                           <span>{item.title}</span>
                           <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
                         </div>
-                        <div className="text-xs text-[#8A909D] group-hover:text-white/90 transition-colors mt-0.5 font-light">
+                        <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                         </div>
                       </Link>
