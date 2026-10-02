@@ -205,7 +205,7 @@ export const Home = () => {
               </Link>
               <Link 
                 to="/work" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1E2128] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
               >
                 <span>{language === 'id' ? 'Jelajahi 50 Portofolio' : 'Explore 50 Case Studies'}</span>
               </Link>
@@ -374,7 +374,7 @@ export const Home = () => {
               <Link 
                 key={idx} 
                 to={`/solutions/${sol.slug}`}
-                className="group p-6 sm:p-7 rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 hover:bg-[#1E2128] transition-all flex flex-col justify-between"
+                className="group p-6 sm:p-7 rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 hover:bg-[#1B1F26] transition-all flex flex-col justify-between"
               >
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-brand-red font-semibold block mb-1">
