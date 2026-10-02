@@ -542,6 +542,9 @@ export function InteractiveMedia({
 
     const xTo = gsap.quickTo(img, 'xPercent', { duration: 0.7, ease: 'power3.out' });
     const yTo = gsap.quickTo(img, 'yPercent', { duration: 0.7, ease: 'power3.out' });
+    const rotateXTo = gsap.quickTo(container, 'rotationX', { duration: 0.7, ease: 'power3.out' });
+    const rotateYTo = gsap.quickTo(container, 'rotationY', { duration: 0.7, ease: 'power3.out' });
+    gsap.set(container, { transformPerspective: 900, transformOrigin: 'center center' });
     const sheenX = shine ? gsap.quickTo(shine, 'xPercent', { duration: 0.5, ease: 'power3.out' }) : null;
     const sheenY = shine ? gsap.quickTo(shine, 'yPercent', { duration: 0.5, ease: 'power3.out' }) : null;
 
@@ -551,6 +554,8 @@ export function InteractiveMedia({
       const py = clamp((event.clientY - rect.top) / rect.height, 0, 1);
       xTo((px - 0.5) * -3.8);
       yTo((py - 0.5) * -3.8);
+      rotateXTo((0.5 - py) * 2.4);
+      rotateYTo((px - 0.5) * 3.1);
       sheenX?.((px - 0.5) * 110);
       sheenY?.((py - 0.5) * 75);
       container.style.setProperty('--pointer-x', `${px * 100}%`);
@@ -560,6 +565,8 @@ export function InteractiveMedia({
     const onLeave = () => {
       xTo(0);
       yTo(0);
+      rotateXTo(0);
+      rotateYTo(0);
       sheenX?.(0);
       sheenY?.(0);
       container.style.setProperty('--pointer-x', '50%');
