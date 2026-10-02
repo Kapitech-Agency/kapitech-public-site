@@ -189,20 +189,20 @@ export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
 };
 
 export function CursorFollow({
-  transition = { stiffness: 420, damping: 42, bounce: 0 },
+  transition = { stiffness: 500, damping: 44, bounce: 0 },
   children,
   style,
   ...props
 }: CursorFollowProps) {
   const { cursorPos, active } = useCursor();
   const x = useMotionValue(cursorPos.x + 14);
-  const y = useMotionValue(cursorPos.y + 14);
+  const y = useMotionValue(cursorPos.y + 48);
   const springX = useSpring(x, transition);
   const springY = useSpring(y, transition);
 
   React.useEffect(() => {
     x.set(cursorPos.x + 14);
-    y.set(cursorPos.y + 14);
+    y.set(cursorPos.y + 48);
   }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
