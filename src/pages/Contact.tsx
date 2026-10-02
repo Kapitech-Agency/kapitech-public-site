@@ -352,9 +352,9 @@ export const Contact = () => {
             preset="silk"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.16}
+            opacity={0.28}
             fade="edges"
-            fadeSize={0.84}
+            fadeSize={0.76}
             interactive
             cursorSize={48}
             cursorStrength={0.38}
@@ -365,7 +365,7 @@ export const Contact = () => {
             contrast={1.04}
             intro
           />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/75 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/52 to-transparent" />
         </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
