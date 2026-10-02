@@ -254,11 +254,12 @@ export const Home = () => {
 
       {/* STUDIO PROOF / EDITORIAL METRICS */}
       <section
-        className="relative overflow-hidden py-20 sm:py-24 lg:py-28 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-y border-[#262930]"
+        className="relative overflow-hidden py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
         aria-label="Agency metrics"
       >
         <div className="max-w-7xl mx-auto relative">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.45fr] gap-10 lg:gap-20 items-end mb-16 sm:mb-20">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-9 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.45fr] gap-10 lg:gap-16 items-end mb-12 sm:mb-14">
             <div>
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW NUMBERS'}
@@ -273,7 +274,7 @@ export const Home = () => {
                 : 'Not just numbers. A small glimpse into how Kapitech works: close to the business, serious about detail, and involved from first brief to final delivery.'}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-12 border-t border-[#262930]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {stats.map((stat, i) => {
               const layout = [
                 'sm:col-span-5 lg:min-h-[250px]',
@@ -288,8 +289,7 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-12% 0px' }}
                   transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ x: i % 2 === 0 ? 4 : -4 }}
-                  className={`group relative ${layout} py-8 sm:py-10 lg:py-12 pr-5 sm:pr-8 lg:pr-10 border-b border-[#262930] ${i % 2 === 1 ? 'sm:pl-8 lg:pl-10 sm:border-l' : ''}`}
+                  className={`group relative min-h-[240px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] ${layout}`}
                 >
                   <div className="flex items-start justify-between gap-6">
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-white">
@@ -321,12 +321,13 @@ export const Home = () => {
                     </p>
                   </div>
                   <span
-                    className="pointer-events-none absolute left-0 right-0 bottom-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+                    className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 rounded-full bg-brand-red/70 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
                     aria-hidden="true"
                   />
                 </motion.article>
               );
             })}
+          </div>
           </div>
         </div>
       </section>
