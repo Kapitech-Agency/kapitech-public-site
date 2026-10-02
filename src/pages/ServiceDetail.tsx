@@ -60,8 +60,9 @@ export const ServiceDetail = () => {
   }
 
   // Find related case studies from allProjects
-  const relatedProjects = cmsProjects.filter(p => 
-    service.caseStudySlugs.includes(p.id) ||
+  const relatedCaseStudySlugs = Array.isArray(service.caseStudySlugs) ? service.caseStudySlugs : [];
+  const relatedProjects = cmsProjects.filter(p =>
+    relatedCaseStudySlugs.includes(p.id) ||
     p.pillar.toLowerCase().includes(service.category.toLowerCase()) ||
     p.service.toLowerCase().includes(service.category.toLowerCase()) ||
     p.title.toLowerCase().includes(service.title.toLowerCase())
@@ -97,7 +98,12 @@ export const ServiceDetail = () => {
         </div>
 
         {/* HERO SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mb-20 lg:mb-28">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mb-20 lg:mb-28"
+        >
           <div className="lg:col-span-8">
             
             {/* Category / Badge */}
@@ -107,7 +113,7 @@ export const ServiceDetail = () => {
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif tracking-tight text-white leading-[1.1] mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display tracking-tight text-white leading-[1.1] mb-6">
               {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
             </h1>
 
@@ -137,7 +143,12 @@ export const ServiceDetail = () => {
 
           {/* METRICS SIDEBAR */}
           <div className="lg:col-span-4 w-full">
-            <div className="rounded-2xl border border-[#262930] bg-[#16181D] backdrop-blur-md p-6 sm:p-8 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: 18 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-2xl border border-[#262930] bg-[#16181D] backdrop-blur-md p-6 sm:p-8 space-y-6"
+            >
               <div className="text-xs font-mono uppercase tracking-widest text-[#8A909D] flex items-center justify-between">
                 <span>{language === 'id' ? 'METRIK KINERJA' : 'PERFORMANCE METRICS'}</span>
                 <Sparkles className="w-4 h-4 text-brand-red" />
@@ -145,7 +156,7 @@ export const ServiceDetail = () => {
               <div className="space-y-6 divide-y divide-[#262930]">
                 {service.metrics.map((metric, idx) => (
                   <div key={idx} className={idx > 0 ? 'pt-6' : ''}>
-                    <div className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
+                    <div className="text-3xl sm:text-4xl font-display text-white tracking-tight">
                       {metric.value}
                     </div>
                     <div className="text-xs sm:text-sm text-[#8A909D] mt-1">
@@ -171,21 +182,27 @@ export const ServiceDetail = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* TESTIMONIAL PULL QUOTE */}
         {service.testimonial && (
           <div className="mb-20 sm:mb-28">
-            <div className="relative rounded-2xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 backdrop-blur-lg overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="relative rounded-2xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 backdrop-blur-lg overflow-hidden"
+            >
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
               <div className="flex items-center gap-1.5 text-brand-red mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <blockquote className="text-xl sm:text-2xl lg:text-3xl font-serif text-white leading-relaxed mb-8">
+              <blockquote className="text-xl sm:text-2xl lg:text-3xl font-display text-white leading-relaxed mb-8">
                 &ldquo;{language === 'id' ? service.testimonial.quoteId : service.testimonial.quote}&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
@@ -204,7 +221,7 @@ export const ServiceDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         )}
 
@@ -214,15 +231,20 @@ export const ServiceDetail = () => {
             <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
               {language === 'id' ? 'TANTANGAN & SOLUSI' : 'CHALLENGE & SOLUTION'}
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Menghadapi hambatan umum produk digital?' : 'Facing common digital bottlenecks?'}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {service.problemsSolutions.map((item, idx) => (
-              <div 
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -3 }}
                 className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
               >
                 <div>
@@ -254,7 +276,7 @@ export const ServiceDetail = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -265,15 +287,20 @@ export const ServiceDetail = () => {
             <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
               {language === 'id' ? 'KAPABILITAS UTAMA' : 'CORE CAPABILITIES'}
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Apa yang kami kerjakan untuk Anda' : 'What we deliver for your business'}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {service.capabilities.map((cap, idx) => (
-              <div 
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -3 }}
                 className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 hover:border-brand-red/40 transition-all duration-300 group"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#0B0C0E] border border-[#262930] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
@@ -285,7 +312,7 @@ export const ServiceDetail = () => {
                 <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed">
                   {language === 'id' ? cap.descId : cap.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -297,7 +324,7 @@ export const ServiceDetail = () => {
               <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
                 {language === 'id' ? 'BUKTI NYATA' : 'PROVEN CASE STUDIES'}
               </div>
-              <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                 {language === 'id' ? 'Proyek terkait yang telah kami rilis' : 'Related work we have shipped'}
               </h2>
             </div>
@@ -305,18 +332,24 @@ export const ServiceDetail = () => {
               to="/work"
               className="inline-flex items-center gap-2 text-sm text-[#8A909D] hover:text-white font-medium transition-colors"
             >
-              <span>{language === 'id' ? 'Lihat Semua 250+ Proyek' : 'View All 250+ Projects'}</span>
+              <span>{language === 'id' ? 'Lihat Semua Proyek' : 'View All Projects'}</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {relatedProjects.map((project) => (
-              <Link
+              <motion.div
                 key={project.id}
-                to={`/work`}
-                className="group block rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="group rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden hover:border-brand-red/50 transition-all duration-300"
               >
+                <Link
+                  to="/work"
+                  data-cursor-label="Open"
+                  className="block"
+                >
                 <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
                   <img
                     src={project.image}
@@ -333,7 +366,7 @@ export const ServiceDetail = () => {
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="text-lg font-serif font-medium text-white group-hover:text-brand-red transition-colors truncate">
+                    <h3 className="text-lg font-display font-medium text-white group-hover:text-brand-red transition-colors truncate">
                       {project.title}
                     </h3>
                     <ArrowUpRight className="w-4 h-4 text-[#8A909D] group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
@@ -352,7 +385,8 @@ export const ServiceDetail = () => {
                     ))}
                   </div>
                 </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -363,19 +397,24 @@ export const ServiceDetail = () => {
             <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
               {language === 'id' ? 'METODOLOGI KERJA' : 'PROCESS & METHODOLOGY'}
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
               {language === 'id' ? 'Tahapan pelaksanaan terstruktur' : 'How we execute from day one'}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {service.processStages.map((stage, idx) => (
-              <div 
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -3 }}
                 className="rounded-2xl border border-[#262930] bg-[#16181D] p-6 flex flex-col justify-between hover:border-brand-red/40 transition-all duration-300"
               >
                 <div>
-                  <div className="text-3xl font-serif text-[#8A909D] font-light mb-4">
+                  <div className="text-3xl font-display text-[#8A909D] font-light mb-4">
                     {stage.stageNumber}
                   </div>
                   <h3 className="text-base font-semibold text-white mb-2">
@@ -397,7 +436,7 @@ export const ServiceDetail = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -410,7 +449,7 @@ export const ServiceDetail = () => {
                 <div className="text-xs font-mono uppercase tracking-widest text-brand-red">
                   {language === 'id' ? 'NILAI TAMBAH BISNIS' : 'TANGIBLE ROI'}
                 </div>
-                <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+                <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                   {language === 'id' ? service.businessOutcomes.headingId : service.businessOutcomes.heading}
                 </h2>
                 <div className="space-y-3.5 pt-2">
@@ -430,7 +469,7 @@ export const ServiceDetail = () => {
                   <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mx-auto">
                     <Sparkles className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-serif text-white">
+                  <h3 className="text-xl font-display text-white">
                     {language === 'id' ? 'Siap mendiskusikan kebutuhan Anda?' : 'Ready to discuss your project?'}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed">
@@ -446,7 +485,7 @@ export const ServiceDetail = () => {
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                   <div className="text-xs text-[#8A909D] font-mono">
-                    business@kapitech.id &bull; 48-hr Response SLA
+                    hello@kapitech.co.id &bull; Response within 24 business hours
                   </div>
                 </div>
               </div>
@@ -461,7 +500,7 @@ export const ServiceDetail = () => {
               <div className="text-xs font-mono uppercase tracking-widest text-brand-red mb-3">
                 {language === 'id' ? 'PERTANYAAN UMUM' : 'FREQUENTLY ASKED QUESTIONS'}
               </div>
-              <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
                 {language === 'id' ? 'Hal yang sering ditanyakan' : 'Everything you need to know'}
               </h2>
             </div>
