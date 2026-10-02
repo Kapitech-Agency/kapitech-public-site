@@ -15,6 +15,7 @@ type CursorContextType = {
   active: boolean;
   global: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
+  cursorRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const CursorContext = React.createContext<CursorContextType | null>(null);
@@ -36,6 +37,7 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
   const [enabled, setEnabled] = React.useState(false);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const cursorRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -45,24 +47,28 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
 
     if (!shouldEnable) return;
 
-    const html = document.documentElement;
-    html.classList.add('kapi-custom-cursor-enabled');
+    const root = document.documentElement;
+    root.classList.add('kapi-custom-cursor-enabled');
 
     const handlePointerMove = (event: PointerEvent) => {
       if (global) {
         setCursorPos({ x: event.clientX, y: event.clientY });
         setActive(true);
-      } else if (containerRef.current?.parentElement) {
-        const rect = containerRef.current.parentElement.getBoundingClientRect();
-        setCursorPos({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
-        setActive(true);
+        return;
       }
+
+      const parent = containerRef.current?.parentElement;
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
+      setCursorPos({
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      });
+      setActive(true);
     };
 
-    const handlePointerLeave = (event: PointerEvent) => {
+    const handlePointerOut = (event: PointerEvent) => {
       if (event.relatedTarget === null) setActive(false);
     };
 
@@ -74,19 +80,19 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
     if (!target) return;
 
     target.addEventListener('pointermove', handlePointerMove as EventListener, { passive: true });
-    target.addEventListener('pointerout', handlePointerLeave as EventListener, { passive: true });
+    target.addEventListener('pointerout', handlePointerOut as EventListener, { passive: true });
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       target.removeEventListener('pointermove', handlePointerMove as EventListener);
-      target.removeEventListener('pointerout', handlePointerLeave as EventListener);
+      target.removeEventListener('pointerout', handlePointerOut as EventListener);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      html.classList.remove('kapi-custom-cursor-enabled');
+      root.classList.remove('kapi-custom-cursor-enabled');
     };
   }, [global]);
 
   return (
-    <CursorContext.Provider value={{ cursorPos, active: enabled && active, global, containerRef }}>
+    <CursorContext.Provider value={{ cursorPos, active: enabled && active, global, containerRef, cursorRef }}>
       {children}
     </CursorContext.Provider>
   );
@@ -110,70 +116,45 @@ export type CursorProps = HTMLMotionProps<'div'> & {
 };
 
 export function Cursor({ children, style, ...props }: CursorProps) {
-  const { cursorPos, active, containerRef, global } = useCursor();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const { cursorPos, active, cursorRef } = useCursor();
+  const x = useMotionValue(cursorPos.x);
+  const y = useMotionValue(cursorPos.y);
+  const springX = useSpring(x, { stiffness: 900, damping: 58, mass: 0.35 });
+  const springY = useSpring(y, { stiffness: 900, damping: 58, mass: 0.35 });
 
   React.useEffect(() => {
     x.set(cursorPos.x);
     y.set(cursorPos.y);
-  }, [cursorPos, x, y]);
+  }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
     <AnimatePresence>
       {active && (
         <motion.div
+          ref={cursorRef}
           data-slot="cursor"
           className="kapi-cursor-pointer"
-          style={{
-            ...style,
-            top: y,
-            left: x,
-          }}
-          initial={{ opacity: 0, scale: 0.65 }}
+          style={{ ...style, top: springY, left: springX }}
+          initial={{ opacity: 0, scale: 0.84 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.65 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+          exit={{ opacity: 0, scale: 0.84 }}
+          transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
           {...props}
         >
           <svg
             className="kapi-cursor-svg"
-            viewBox="0 0 34 38"
-            width="34"
-            height="38"
+            viewBox="0 0 30 34"
+            width="30"
+            height="34"
             aria-hidden="true"
           >
             <path
-              d="M6.1 2.9c-1.55-.58-3.08.78-2.72 2.39l6.36 28.03c.32 1.43 2.21 1.86 3.13.72l4.16-5.2 7.05 5.07c1.25.9 2.94-.34 2.51-1.82L19.4 9.08a2.1 2.1 0 0 0-1.27-1.37L6.1 2.9Z"
-              fill="#F8FAFC"
-              stroke="#111318"
-              strokeWidth="1.25"
+              d="M5.25 2.95C3.57 2.18 1.82 3.56 2.2 5.38l5.08 24.1c.4 1.9 2.86 2.35 4.04.73l4.18-5.98 6.55 4.65c1.52 1.08 3.48-.25 2.93-1.98L19.1 8.36a2.1 2.1 0 0 0-1.16-1.31L5.25 2.95Z"
+              fill="#FFFFFF"
+              stroke="#101216"
+              strokeWidth="1.3"
               strokeLinejoin="round"
               strokeLinecap="round"
-            />
-            <path
-              d="M17.03 7.65 10.95 24.96"
-              fill="none"
-              stroke="#111318"
-              strokeWidth="1.15"
-              strokeLinecap="round"
-              opacity="0.42"
-            />
-            <path
-              d="M17.03 7.65 20.16 17.56"
-              fill="none"
-              stroke="#FFFFFF"
-              strokeWidth="0.85"
-              strokeLinecap="round"
-              opacity="0.6"
-            />
-            <path
-              d="M21.2 25.16 24.6 27.6"
-              fill="none"
-              stroke="#111318"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.3"
             />
           </svg>
         </motion.div>
@@ -188,20 +169,20 @@ export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
 };
 
 export function CursorFollow({
-  transition = { stiffness: 500, damping: 44, bounce: 0 },
+  transition = { stiffness: 760, damping: 54, mass: 0.35 },
   children,
   style,
   ...props
 }: CursorFollowProps) {
   const { cursorPos, active } = useCursor();
-  const x = useMotionValue(cursorPos.x + 14);
-  const y = useMotionValue(cursorPos.y + 48);
+  const x = useMotionValue(cursorPos.x + 12);
+  const y = useMotionValue(cursorPos.y + 40);
   const springX = useSpring(x, transition);
   const springY = useSpring(y, transition);
 
   React.useEffect(() => {
-    x.set(cursorPos.x + 14);
-    y.set(cursorPos.y + 48);
+    x.set(cursorPos.x + 12);
+    y.set(cursorPos.y + 40);
   }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
@@ -210,15 +191,11 @@ export function CursorFollow({
         <motion.div
           data-slot="cursor-follow"
           className="kapi-cursor-follow"
-          style={{
-            ...style,
-            top: springY,
-            left: springX,
-          }}
-          initial={{ opacity: 0, scale: 0.72 }}
+          style={{ ...style, top: springY, left: springX }}
+          initial={{ opacity: 0, scale: 0.78 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.72 }}
-          transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 0.78 }}
+          transition={{ duration: 0.13, ease: [0.22, 1, 0.36, 1] }}
           {...props}
         >
           {children}
