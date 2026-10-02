@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Layout, 
@@ -25,9 +26,13 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsServices, getCmsServices } from '../lib/cmsStore';
+
+const ServiceModalPortal = ({ children }: { children: React.ReactNode }) => {
+  if (typeof document === 'undefined') return null;
+  return createPortal(children, document.body);
+};
 
 export interface ServiceDetail {
   id: string;
@@ -677,12 +682,9 @@ export const Services = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
-        <AtmosphericBackground 
-          imageUrl="/hero_background_3d.png"
-          opacity={0.06}
-          disableGrayscale={true}
-        />
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
+        <div className="pointer-events-none absolute -right-32 top-10 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
@@ -698,14 +700,14 @@ export const Services = () => {
               }
             </p>
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
+              <span className="px-3 py-1.5 rounded-full bg-white/[0.018] border border-white/[0.08] backdrop-blur-xl flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
                 <span className="text-white">{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] text-white">
+              <span className="px-3 py-1.5 rounded-full bg-white/[0.018] border border-white/[0.08] text-white backdrop-blur-xl">
                 {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] text-brand-red font-semibold">
+              <span className="px-3 py-1.5 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red font-semibold">
                 Branding • Design • Development
               </span>
             </div>
@@ -714,7 +716,7 @@ export const Services = () => {
       </section>
 
       {/* SECTION 1: STRATEGIC SOLUTIONS (Always visible above filter) */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 relative">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
@@ -739,10 +741,9 @@ export const Services = () => {
                 key={sol.id}
                 type="button"
                 onClick={() => setSelectedService(sol)}
-                whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.995 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative rounded-2xl p-7 sm:p-8 min-h-[300px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between text-left"
+                className="group relative rounded-3xl p-6 sm:p-7 min-h-[300px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left"
                 data-cursor-label="Preview"
               >
                 <div>
@@ -750,7 +751,7 @@ export const Services = () => {
                     <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                       {sol.icon}
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[10px] sm:text-[11px] font-mono text-[#8A909D] font-semibold">
+                    <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-[#8A909D] font-semibold">
                       {language === 'id' ? sol.badgeId : sol.badge}
                     </span>
                   </div>
@@ -768,7 +769,7 @@ export const Services = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#262930] flex items-center justify-between">
+                <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between">
                   <span className="text-xs font-mono text-[#8A909D]/70">
                     {language === 'id' ? sol.timelineId : sol.timeline}
                   </span>
@@ -784,44 +785,41 @@ export const Services = () => {
       </section>
 
       {/* Pillar Filter Tabs */}
-      <section className="py-6 sm:py-8 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]/95 sticky top-16 sm:top-20 z-30 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2 bg-[#16181D] p-1.5 rounded-xl border border-[#262930] w-full sm:w-auto">
-            {[
-              { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
-              {
-                key: 'Branding',
-                labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`,
-                labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`
-              },
-              {
-                key: 'Design',
-                labelEn: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`,
-                labelId: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`
-              },
-              {
-                key: 'Development',
-                labelEn: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`,
-                labelId: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`
-              }
-            ].map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveCategory(tab.key as any)}
-                className={`flex-1 sm:flex-none min-h-[44px] px-3.5 sm:px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-200 text-center ${
-                  activeCategory === tab.key
-                    ? 'bg-brand-red text-white shadow-lg shadow-brand-red/20 font-bold'
-                    : 'text-[#8A909D] hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {language === 'id' ? tab.labelId : tab.labelEn}
-              </button>
-            ))}
-          </div>
+      <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
+        <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="flex flex-col gap-2.5 sm:gap-3">
+            <div className="flex items-center justify-between gap-3 px-0.5">
+              <span className="kapi-section-label mb-0 shrink-0">
+                {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
+              </span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
+                {filteredServices.length} {language === 'id' ? 'layanan' : 'services'}
+              </span>
+            </div>
 
-          <span className="text-xs font-mono text-[#8A909D] hidden sm:block">
-            {language === 'id' ? `Menampilkan ${filteredServices.length} Layanan Spesialis` : `Showing ${filteredServices.length} Specialized Services`}
-          </span>
+            <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex w-max items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.018] p-1">
+                {[
+                  { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
+                  { key: 'Branding', labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
+                  { key: 'Design', labelEn: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`, labelId: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})` },
+                  { key: 'Development', labelEn: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`, labelId: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})` }
+                ].map(tab => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setActiveCategory(tab.key as any)}
+                    className={`min-h-[34px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
+                      activeCategory === tab.key
+                        ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
+                        : 'text-[#8A909D] hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {language === 'id' ? tab.labelId : tab.labelEn}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -861,7 +859,7 @@ export const Services = () => {
                       whileHover={{ y: -4 }}
                       whileTap={{ scale: 0.995 }}
                       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                      className="group rounded-2xl p-7 sm:p-8 min-h-[320px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between text-left"
+                      className="group rounded-3xl p-6 sm:p-7 min-h-[320px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left"
                       data-cursor-label="Preview"
                     >
                       <div>
@@ -869,7 +867,7 @@ export const Services = () => {
                           <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                             {srv.icon}
                           </div>
-                          <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[10px] sm:text-[11px] font-mono text-[#8A909D]">
+                          <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-[#8A909D] backdrop-blur-md">
                             {srv.category}
                           </span>
                         </div>
@@ -889,7 +887,7 @@ export const Services = () => {
                         <div className="pt-3.5 border-t border-[#262930] space-y-1.5 mb-5">
                           {(language === 'id' ? srv.deliverablesId : srv.deliverables).slice(0, 2).map((item, idx) => (
                             <div key={idx} className="flex items-center gap-2 text-xs text-[#8A909D] font-light truncate">
-                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />
+                              <CheckCircle2 size={13} className="text-brand-red shrink-0" />
                               <span className="truncate">{item}</span>
                             </div>
                           ))}
@@ -915,10 +913,11 @@ export const Services = () => {
       </section>
 
       {/* Service / Solution Detail Modal */}
-      <AnimatePresence>
-        {selectedService && (
+      <ServiceModalPortal>
+        <AnimatePresence>
+          {selectedService && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-preview-title"
@@ -931,12 +930,12 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
             >
               {/* Modal Header */}
-              <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930]">
+              <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-white/[0.02] backdrop-blur-2xl border-b border-white/[0.07]">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                  <div className="w-10 h-10 rounded-2xl bg-brand-red/[0.07] border border-brand-red/25 flex items-center justify-center text-brand-red">
                     {selectedService.icon}
                   </div>
                   <div>
@@ -950,7 +949,7 @@ export const Services = () => {
                 </div>
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="w-9 h-9 rounded-full bg-[#0B0C0E] hover:bg-white/10 border border-[#262930] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
                   aria-label="Close modal"
                 >
                   <X size={18} />
@@ -971,7 +970,7 @@ export const Services = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-[#0B0C0E] border border-[#262930]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
                   <div>
                     <span className="text-[11px] font-mono text-[#8A909D] uppercase block mb-1">
                       {language === 'id' ? 'Estimasi Pengerjaan' : 'Estimated Timeline'}
@@ -1000,7 +999,7 @@ export const Services = () => {
                   <ul className="space-y-2">
                     {(language === 'id' ? selectedService.deliverablesId : selectedService.deliverables).map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#8A909D] font-light">
-                        <CheckCircle2 size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+                        <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -1014,7 +1013,7 @@ export const Services = () => {
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedService.tools.map((tool, idx) => (
-                        <span key={idx} className="px-3 py-1 rounded-lg bg-[#0B0C0E] border border-[#262930] text-xs font-mono text-[#8A909D]">
+                        <span key={idx} className="px-3 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-xs font-mono text-[#8A909D]">
                           {tool}
                         </span>
                       ))}
@@ -1023,7 +1022,7 @@ export const Services = () => {
                 )}
 
                 {/* Modal Footer CTA */}
-                <div className="pt-4 border-t border-[#262930] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="pt-4 border-t border-white/[0.07] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                   <div>
                     <span className="text-xs text-[#8A909D] font-light block">
                       {language === 'id' ? 'Konsultasikan kebutuhan spesifik Anda dengan tim kami.' : 'Consult your specific requirements with our team.'}
@@ -1033,7 +1032,7 @@ export const Services = () => {
                     <Link
                       to={'category' in selectedService ? `/services/${selectedService.id}` : `/solutions/${selectedService.id}`}
                       onClick={() => setSelectedService(null)}
-                      className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-full bg-white/[0.018] border border-white/[0.08] hover:border-brand-red/35 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                     >
                       <span>{language === 'id' ? 'Lihat Detail' : 'View Full Detail'}</span>
                       <ChevronRight size={14} />
@@ -1041,7 +1040,7 @@ export const Services = () => {
                     <Link
                       to="/contact"
                       onClick={() => setSelectedService(null)}
-                      className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                     >
                       <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                       <ArrowUpRight size={14} />
@@ -1052,7 +1051,8 @@ export const Services = () => {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </ServiceModalPortal>
     </div>
   );
 };
