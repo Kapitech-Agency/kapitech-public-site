@@ -1,0 +1,9 @@
+<svg width="80" height="30" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="80" height="30" rx="8" fill="#18181A"/>
+<rect x="0.375" y="0.375" width="79.25" height="29.25" rx="7.625" stroke="white" stroke-opacity="0.2" stroke-width="0.75"/>
+<g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 14.5V7L11.37 9.02V12.39H16.48L20.41 14.5H7.5ZM17.53 11.77V7L21.5 8.97V14.03L17.53 11.77ZM17.53 20.93V17.58L12.37 17.58C12.38 17.6 8.38 15.45 8.38 15.45L21.5 15.51V23L17.53 20.93ZM7.5 20.93V16.03L11.37 18.24V22.9L7.5 20.93Z" fill="#F8F9FA"/>
+<text x="26.5" y="13.4" fill="#F8F9FA" font-family="Arial, Helvetica, sans-serif" font-size="5.4" font-weight="700" letter-spacing=".35">HOSTINGER</text>
+<text x="26.5" y="19.7" fill="#F8F9FA" font-family="Arial, Helvetica, sans-serif" font-size="5.1" font-weight="500" letter-spacing=".55">PARTNER</text>
+</g>
+</svg>
