@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { gsap } from 'gsap';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Code2, Layers, Palette, Sparkles, X } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import type { ProjectItem } from '../data/projectsData';
 import PatternWaves from '../components/ui/PatternWaves';
 import { EASE, GlassButton, GlassPanel, ImageReveal, Reveal, SectionHeader, TextReveal } from '../components/ui/PublicUI';
+import { AnimatedNumber, ParallaxMedia, SplitWords, useMotion } from '../components/motion/MotionSystem';
 import { Testimonials } from '../components/Testimonials';
 
 const pillars = [
@@ -47,6 +49,8 @@ export const Home = () => {
   const { language } = useLanguage();
   const [projects, setProjects] = useState<ProjectItem[]>(() => getCmsProjects());
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const { reducedMotion } = useMotion();
 
   useEffect(() => {
     const update = () => setProjects(getCmsProjects());
@@ -57,10 +61,64 @@ export const Home = () => {
 
   const featured = useMemo(() => projects.filter(item => item.featured).slice(0, 4), [projects]);
 
+  useLayoutEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || reducedMotion) return undefined;
+
+    const ctx = gsap.context(() => {
+      const words = hero.querySelectorAll<HTMLElement>('.kapi-word-inner');
+      const intro = hero.querySelector<HTMLElement>('[data-hero-intro]');
+      const copy = hero.querySelector<HTMLElement>('[data-hero-copy]');
+      const actions = hero.querySelector<HTMLElement>('[data-hero-actions]');
+      const meta = hero.querySelector<HTMLElement>('[data-hero-meta]');
+      const visual = hero.querySelector<HTMLElement>('[data-hero-visual]');
+      const center = hero.querySelector<HTMLElement>('.kapi-hero-center');
+      const rings = hero.querySelectorAll<HTMLElement>('.kapi-hero-ring, .kapi-hero-orbit');
+
+      const introTimeline = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      introTimeline
+        .fromTo(intro, { autoAlpha: 0, y: 18, letterSpacing: '0.24em' }, { autoAlpha: 1, y: 0, letterSpacing: '0.18em', duration: 0.55 })
+        .fromTo(words, { yPercent: 120, rotateX: -28, autoAlpha: 0 }, { yPercent: 0, rotateX: 0, autoAlpha: 1, duration: 1.08, stagger: 0.045, ease: 'expo.out' }, '-=0.15')
+        .fromTo(copy, { autoAlpha: 0, y: 28, clipPath: 'inset(0 0 100% 0)' }, { autoAlpha: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.82 }, '-=0.52')
+        .fromTo(actions, { autoAlpha: 0, y: 24, scale: 0.97 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.3)' }, '-=0.38')
+        .fromTo(meta, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.58 }, '-=0.26')
+        .fromTo(visual, { autoAlpha: 0, clipPath: 'inset(12% 12% 12% 12% round 32px)', scale: 1.08, y: 44 }, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0% round 32px)', scale: 1, y: 0, duration: 1.35, ease: 'expo.out' }, 0.42)
+        .fromTo(center, { scale: 0.86, rotate: -8 }, { scale: 1, rotate: 0, duration: 1.2, ease: 'back.out(1.2)' }, 0.55)
+        .fromTo(rings, { autoAlpha: 0, scale: 0.82 }, { autoAlpha: 1, scale: 1, duration: 1.4, stagger: 0.08, ease: 'expo.out' }, 0.65);
+
+      const scrub = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: '+=88%',
+          scrub: 1.1,
+        },
+      });
+
+      scrub
+        .to(words, { yPercent: -28, rotateX: 7, stagger: 0.012, ease: 'none' }, 0)
+        .to(copy, { yPercent: -18, autoAlpha: 0.38, ease: 'none' }, 0.04)
+        .to(actions, { yPercent: -10, autoAlpha: 0.22, scale: 0.96, ease: 'none' }, 0.04)
+        .to(meta, { yPercent: -4, autoAlpha: 0, ease: 'none' }, 0.08)
+        .to(visual, { yPercent: 18, scale: 0.88, rotateY: -5, rotateX: 3, ease: 'none' }, 0)
+        .to(center, { rotate: 9, scale: 0.9, ease: 'none' }, 0)
+        .to(rings, { rotation: 26, scale: 1.08, ease: 'none', stagger: 0.02 }, 0);
+
+      gsap.to(hero.querySelector('.kapi-hero-grid'), {
+        backgroundPosition: '36px 36px',
+        duration: 7,
+        repeat: -1,
+        ease: 'none',
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, [reducedMotion]);
+
   return (
     <div className="kapi-page kapi-home">
-      <section className="relative overflow-hidden min-h-[760px] sm:min-h-[860px] flex items-center border-b border-white/[0.08]">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <section ref={heroRef} className="relative overflow-hidden min-h-[760px] sm:min-h-[860px] flex items-center border-b border-white/[0.08] kapi-hero-scene" data-motion-section>
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true" data-hero-bg>
           <PatternWaves
             preset="silk"
             color="#e63946"
@@ -84,13 +142,17 @@ export const Home = () => {
               </span>
             </Reveal>
 
-            <TextReveal delay={0.05}>
-              <h1 className="mt-5 font-display text-[clamp(3.2rem,7.5vw,7rem)] leading-[.9] tracking-[-.065em] font-semibold max-w-[900px]">
-                {language === 'id'
-                  ? <>Studio digital untuk <span className="text-brand-red">membangun dan memperluas</span> bisnis Anda.</>
-                  : <>A digital studio built to <span className="text-brand-red">build and scale</span> your business.</>}
+            <div className="mt-5 kapi-hero-title-mask" style={{ perspective: '900px' }}>
+              <h1 className="font-display text-[clamp(3.2rem,7.5vw,7rem)] leading-[.9] tracking-[-.065em] font-semibold max-w-[900px]">
+                {language === 'id' ? (
+                  <>
+                    <SplitWords text="Studio digital untuk membangun dan memperluas bisnis Anda." highlight={['membangun', 'memperluas']} />
+                  </>
+                ) : (
+                  <SplitWords text="A digital studio built to build and scale your business." highlight={['build', 'scale']} />
+                )}
               </h1>
-            </TextReveal>
+            </div>
 
             <Reveal delay={0.18}>
               <p className="mt-6 max-w-[660px] text-base sm:text-lg leading-8 text-white/58">
@@ -123,7 +185,7 @@ export const Home = () => {
           </div>
 
           <Reveal delay={0.15} className="hidden lg:block">
-            <div className="kapi-hero-visual">
+            <ParallaxMedia strength={5} className="kapi-hero-visual-wrap" ><div className="kapi-hero-visual" data-hero-visual>
               <div className="kapi-hero-ring" />
               <div className="kapi-hero-orbit" />
               <div className="kapi-hero-center">
@@ -145,18 +207,26 @@ export const Home = () => {
         <div className="kapi-container">
           <Reveal>
             <div className="grid grid-cols-2 lg:grid-cols-4 border-y border-white/[0.08]">
-              {[
-                ['03+', language === 'id' ? 'Years in industry' : 'Years in industry'],
-                ['50+', language === 'id' ? 'Completed projects' : 'Completed projects'],
-                ['SME', language === 'id' ? '& enterprise' : '& enterprise'],
-                ['E2E', language === 'id' ? 'Strategy • Design • Code' : 'Strategy • Design • Code'],
-              ].map(([value, label], index) => (
-                <div key={label} className="kapi-stat border-r border-white/[0.08] last:border-r-0 p-5 sm:p-7">
-                  <span className="kapi-surface-number">0{index + 1}</span>
-                  <span className="kapi-stat-value">{value}</span>
-                  <span className="kapi-stat-label">{label}</span>
-                </div>
-              ))}
+              <div className="kapi-stat border-r border-white/[0.08] p-5 sm:p-7">
+                <span className="kapi-surface-number">01</span>
+                <AnimatedNumber value={3} suffix="+" className="kapi-stat-value" />
+                <span className="kapi-stat-label">{language === 'id' ? 'Years in industry' : 'Years in industry'}</span>
+              </div>
+              <div className="kapi-stat border-r border-white/[0.08] p-5 sm:p-7">
+                <span className="kapi-surface-number">02</span>
+                <AnimatedNumber value={50} suffix="+" className="kapi-stat-value" />
+                <span className="kapi-stat-label">{language === 'id' ? 'Completed projects' : 'Completed projects'}</span>
+              </div>
+              <div className="kapi-stat border-r border-white/[0.08] p-5 sm:p-7">
+                <span className="kapi-surface-number">03</span>
+                <span className="kapi-stat-value">SME</span>
+                <span className="kapi-stat-label">{language === 'id' ? '& enterprise' : '& enterprise'}</span>
+              </div>
+              <div className="kapi-stat p-5 sm:p-7">
+                <span className="kapi-surface-number">04</span>
+                <span className="kapi-stat-value">E2E</span>
+                <span className="kapi-stat-label">{language === 'id' ? 'Strategy • Design • Code' : 'Strategy • Design • Code'}</span>
+              </div>
             </div>
           </Reveal>
         </div>
