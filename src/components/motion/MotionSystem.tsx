@@ -55,6 +55,8 @@ const clamp = (value: number, min: number, max: number) =>
 function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
   if (!root || reducedMotion) return () => undefined;
 
+  const cleanups: Array<() => void> = [];
+
   const ctx = gsap.context(() => {
     gsap.utils.toArray<HTMLElement>('[data-motion-reveal]').forEach((element) => {
       gsap.fromTo(
@@ -212,12 +214,19 @@ function setupGlobalScenes(root: HTMLElement | null, reducedMotion: boolean) {
 
       surface.addEventListener('pointermove', onMove, { passive: true });
       surface.addEventListener('pointerleave', onLeave);
+      cleanups.push(() => {
+        surface.removeEventListener('pointermove', onMove);
+        surface.removeEventListener('pointerleave', onLeave);
+      });
     });
 
     ScrollTrigger.refresh();
   }, root);
 
-  return () => ctx.revert();
+  return () => {
+    cleanups.forEach((cleanup) => cleanup());
+    ctx.revert();
+  };
 }
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
