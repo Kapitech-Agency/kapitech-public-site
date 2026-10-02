@@ -34,6 +34,11 @@ const setMotionState = (element: Element, state: 'hidden' | 'entering' | 'visibl
   (element as HTMLElement).dataset.kapiMotionState = state;
 };
 
+const isSpotlightTarget = (element: Element) =>
+  element.matches(
+    '.kapi-card, [class*="rounded-2xl"][class*="bg-[#16181D]"][class*="border"], [class*="rounded-3xl"][class*="bg-[#16181D]"][class*="border"]'
+  );
+
 export const PublicMotion = () => {
   const progressRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +68,9 @@ export const PublicMotion = () => {
         if (element.dataset.kapiMotionBound === 'true') return;
         element.dataset.kapiMotionBound = 'true';
         element.dataset.kapiMotionKind = getKind(element);
+        if (isSpotlightTarget(element)) {
+          element.dataset.kapiSpotlight = 'true';
+        }
 
         const parent = element.parentElement;
         const siblings = parent
@@ -120,6 +128,24 @@ export const PublicMotion = () => {
 
     mutationObserver.observe(root, { childList: true, subtree: true });
 
+    const handlePointerMove = (event: PointerEvent) => {
+      if (reducedMotion.matches || event.pointerType === 'touch') return;
+
+      const rawTarget = event.target as Element | null;
+      const target = rawTarget?.closest<HTMLElement>('[data-kapi-spotlight="true"]');
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+      target.style.setProperty('--kapi-spotlight-x', Math.max(0, Math.min(100, x)) + '%');
+      target.style.setProperty('--kapi-spotlight-y', Math.max(0, Math.min(100, y)) + '%');
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('scroll', requestProgressUpdate, { passive: true });
     window.addEventListener('resize', requestProgressUpdate);
     requestProgressUpdate();
@@ -127,6 +153,7 @@ export const PublicMotion = () => {
     return () => {
       mutationObserver.disconnect();
       observer?.disconnect();
+      window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('scroll', requestProgressUpdate);
       window.removeEventListener('resize', requestProgressUpdate);
       if (rafId) window.cancelAnimationFrame(rafId);
