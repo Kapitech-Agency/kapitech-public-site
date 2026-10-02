@@ -75,7 +75,7 @@ export const Testimonials = () => {
   );
 
   return (
-    <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#262930]" id="testimonials">
+    <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]" id="testimonials">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
@@ -89,14 +89,14 @@ export const Testimonials = () => {
           <div className="flex items-center gap-2.5 self-start sm:self-auto">
             <button 
               onClick={prev}
-              className="w-11 h-11 rounded-full border border-[#262930] bg-[#16181D] flex items-center justify-center text-[#8E8E93] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
+              className="w-11 h-11 rounded-full border border-[#262930] bg-[#16181D] flex items-center justify-center text-[#8A909D] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
               aria-label="Previous testimonials"
             >
               <ChevronLeft size={18} />
             </button>
             <button 
               onClick={next}
-              className="w-11 h-11 rounded-full border border-[#262930] bg-[#16181D] flex items-center justify-center text-[#8E8E93] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
+              className="w-11 h-11 rounded-full border border-[#262930] bg-[#16181D] flex items-center justify-center text-[#8A909D] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
               aria-label="Next testimonials"
             >
               <ChevronRight size={18} />
@@ -126,7 +126,7 @@ export const Testimonials = () => {
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
                     "{item.quote}"
                   </p>
                 </div>
@@ -134,7 +134,7 @@ export const Testimonials = () => {
                 <div className="pt-4 sm:pt-5 mt-4 border-t border-[#262930]">
                   <h4 className="text-sm font-semibold text-white">{item.author}</h4>
                   <p className="text-xs text-brand-red font-medium mt-0.5">{item.role}, {item.company}</p>
-                  <p className="text-[11px] text-[#8E8E93]/70 font-mono mt-0.5">{item.location}</p>
+                  <p className="text-[11px] text-[#8A909D]/70 font-mono mt-0.5">{item.location}</p>
                 </div>
               </motion.div>
             ))}
