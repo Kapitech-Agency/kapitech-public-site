@@ -248,7 +248,7 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.12] bg-white/[0.045] backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/42 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/60 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.48)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(230,57,70,0.16)]"
               data-cursor-label="Start"
             >
 
@@ -260,7 +260,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
               <button
                 onClick={() => setLanguage('en')}
-                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-transparent bg-transparent px-2.5 py-1.5 text-[#8A909D] backdrop-blur-xl backdrop-saturate-150 transition-[background-color,border-color,color,box-shadow] duration-300 hover:border-white/[0.1] hover:bg-white/[0.045] hover:text-white cursor-pointer"
                 aria-label="Switch to English"
               >
                 <span className={cn(
@@ -272,7 +272,7 @@ export const Navbar = () => {
               <span className="h-3 w-px bg-[#262930]" aria-hidden="true" />
               <button
                 onClick={() => setLanguage('id')}
-                className="group inline-flex items-center gap-1.5 text-[#8A909D] transition-colors duration-200 hover:text-white cursor-pointer"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-transparent bg-transparent px-2.5 py-1.5 text-[#8A909D] backdrop-blur-xl backdrop-saturate-150 transition-[background-color,border-color,color,box-shadow] duration-300 hover:border-white/[0.1] hover:bg-white/[0.045] hover:text-white cursor-pointer"
                 aria-label="Switch to Indonesian"
               >
                 <span className={cn(
@@ -286,12 +286,12 @@ export const Navbar = () => {
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
           <div className="flex items-center gap-2 sm:gap-3 md:hidden">
-            <div className="flex items-center p-0.5 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold">
+            <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_22px_rgba(0,0,0,0.12)]">
               <button
                 onClick={() => setLanguage('en')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
+                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
+                  language === 'en' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
                 )}
                 aria-label="Switch to English"
               >
@@ -300,8 +300,8 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('id')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                  language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
+                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
+                  language === 'id' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
                 )}
                 aria-label="Ganti ke Bahasa Indonesia"
               >
@@ -310,7 +310,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D]/80 border border-[#262930] hover:border-white/15 hover:bg-[#1B1F26] flex items-center justify-center text-white active:bg-white/20 transition-all duration-200 shrink-0 cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 hover:border-white/[0.16] hover:bg-white/[0.07] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.12)] active:bg-white/[0.1] transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
@@ -488,7 +488,7 @@ export const Navbar = () => {
               </Link>
               
               <div className="flex items-center gap-2">
-                <div className="flex items-center p-0.5 rounded-full bg-[#16181D] border border-[#262930] text-[11px] font-mono font-semibold">
+                <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_22px_rgba(0,0,0,0.12)]">
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
@@ -511,7 +511,7 @@ export const Navbar = () => {
 
                 <button 
                   onClick={() => setIsMenuOpen(false)} 
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#16181D] border border-[#262930] hover:bg-brand-red hover:text-white active:scale-95 transition-all text-white flex items-center justify-center shrink-0 cursor-pointer"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.12)]"
                   aria-label="Close menu"
                 >
                   <X size={22} />
