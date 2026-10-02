@@ -306,7 +306,12 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
-              className={cn("hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12", dropdownGlassMaterial)}
+              className="hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.58)] py-8 px-6 lg:px-12"
+              style={{
+                backgroundColor: 'rgba(11, 12, 14, 0.72)',
+                backdropFilter: 'blur(36px) saturate(1.2)',
+                WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
+              }}
             >
               <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
                 
@@ -452,9 +457,9 @@ export const Navbar = () => {
               className="absolute inset-0"
               aria-hidden="true"
               style={{
-                backgroundColor: 'rgba(11, 12, 14, 0.62)',
-                backdropFilter: 'blur(48px) saturate(1.25)',
-                WebkitBackdropFilter: 'blur(48px) saturate(1.25)',
+                backgroundColor: 'rgba(11, 12, 14, 0.72)',
+                backdropFilter: 'blur(36px) saturate(1.2)',
+                WebkitBackdropFilter: 'blur(36px) saturate(1.2)',
               }}
             />
             <div className="relative z-10 flex min-h-full flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7">
