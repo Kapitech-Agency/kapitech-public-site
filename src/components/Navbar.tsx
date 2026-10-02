@@ -156,8 +156,8 @@ export const Navbar = () => {
               >
                 {isWorkActive && (
                   <motion.span
+                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -188,10 +188,10 @@ export const Navbar = () => {
                   aria-haspopup="true"
                   aria-current={isServicesActive ? 'page' : undefined}
                 >
-                  {isServicesActive && (
+                  {(isServicesActive || isServicesDropdownOpen) && (
                     <motion.span
+                      className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
                       layoutId="desktop-nav-active"
-                      className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                       transition={{ type: 'spring', stiffness: 520, damping: 38 }}
                       aria-hidden="true"
                     />
@@ -220,8 +220,8 @@ export const Navbar = () => {
               >
                 {isAboutActive && (
                   <motion.span
+                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -237,8 +237,8 @@ export const Navbar = () => {
               >
                 {isCareersActive && (
                   <motion.span
+                    className="pointer-events-none absolute -left-1.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand-red shadow-[0_0_10px_rgba(230,57,70,0.38)]"
                     layoutId="desktop-nav-active"
-                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
