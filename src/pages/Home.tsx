@@ -151,9 +151,10 @@ export const Home = () => {
             metadata-video-title="Kapitech Agency Hero"
             className="absolute inset-0 h-full w-full"
           />
-          <div className="absolute inset-0 bg-[#0B0C0E]/68" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0C0E]/96 via-[#0B0C0E]/70 to-[#0B0C0E]/45" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#0B0C0E]/35" />
+          <div className="kapi-home-hero-redwash absolute inset-0" />
+          <div className="absolute inset-0 bg-[#120507]/58" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#120507]/92 via-[#24060A]/72 to-[#42080F]/46" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#180307]/42" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
