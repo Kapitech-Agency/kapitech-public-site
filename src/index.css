@@ -857,3 +857,197 @@
     animation: none !important;
   }
 }
+
+
+/* ==========================================================================
+   PUBLIC SITE UI REFINEMENT
+   Visual cleanup only: same content, same sections, same concept.
+   ========================================================================== */
+.kapi-public-shell {
+  --kapi-ui-surface: #16181D;
+  --kapi-ui-surface-hover: #1B1F26;
+  --kapi-ui-bg: #0B0C0E;
+  --kapi-ui-border: #262930;
+  --kapi-ui-border-soft: rgba(255, 255, 255, 0.08);
+  --kapi-ui-text: #F8FAFC;
+  --kapi-ui-muted: #8A909D;
+  --kapi-ui-radius: 18px;
+  --kapi-ui-radius-sm: 12px;
+  --kapi-ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Consistent section rhythm and dividers without changing the existing layout. */
+.kapi-public-shell main section {
+  border-color: var(--kapi-ui-border);
+}
+
+.kapi-public-shell main section > :where(.max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl) {
+  isolation: isolate;
+}
+
+/* Card surfaces: one quiet material treatment across the site. */
+.kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-2xl"],
+.kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-3xl"] {
+  background-color: var(--kapi-ui-surface);
+  border-color: var(--kapi-ui-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.018),
+    0 10px 30px -28px rgba(0, 0, 0, 0.95);
+  transition:
+    transform 420ms var(--kapi-ui-ease),
+    background-color 320ms var(--kapi-ui-ease),
+    border-color 320ms var(--kapi-ui-ease),
+    box-shadow 420ms var(--kapi-ui-ease);
+}
+
+.kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-2xl"]:hover,
+.kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-3xl"]:hover {
+  background-color: var(--kapi-ui-surface-hover);
+  border-color: rgba(229, 9, 20, 0.34);
+}
+
+/* Card imagery remains quiet until interaction. */
+.kapi-public-shell main [class*="overflow-hidden"][class*="bg-[#16181D]"] img {
+  transition:
+    transform 700ms var(--kapi-ui-ease),
+    filter 500ms var(--kapi-ui-ease),
+    opacity 320ms ease;
+}
+
+.kapi-public-shell main [class*="overflow-hidden"][class*="bg-[#16181D]"]:hover img {
+  transform: scale(1.025);
+  filter: saturate(1.03);
+}
+
+/* Small surfaces, chips and icon containers use the same material language. */
+.kapi-public-shell :where(
+  span[class*="bg-[#16181D]"],
+  div[class*="bg-[#16181D]"][class*="border"][class*="rounded-xl"],
+  div[class*="bg-[#16181D]"][class*="border"][class*="rounded-lg"]
+) {
+  border-color: var(--kapi-ui-border);
+}
+
+.kapi-public-shell :where(
+  span[class*="bg-[#0B0C0E]"][class*="border"],
+  div[class*="bg-[#0B0C0E]"][class*="border"]
+) {
+  border-color: var(--kapi-ui-border);
+}
+
+/* Forms: restrained, legible, and consistent with the cards. */
+.kapi-public-shell :where(
+  input,
+  textarea,
+  select
+) {
+  min-height: 44px;
+  border-radius: var(--kapi-ui-radius-sm);
+  background-color: var(--kapi-ui-bg);
+  border-color: var(--kapi-ui-border);
+  color: var(--kapi-ui-text);
+  outline: none;
+}
+
+.kapi-public-shell :where(
+  input,
+  textarea,
+  select
+)::placeholder {
+  color: rgba(138, 144, 157, 0.58);
+}
+
+.kapi-public-shell :where(
+  input,
+  textarea,
+  select
+):hover {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.kapi-public-shell :where(
+  input,
+  textarea,
+  select
+):focus-visible {
+  border-color: rgba(229, 9, 20, 0.62);
+  box-shadow:
+    0 0 0 3px rgba(229, 9, 20, 0.09),
+    0 10px 28px -20px rgba(229, 9, 20, 0.40);
+}
+
+/* All pill controls share one optical height. */
+.kapi-public-shell :where(
+  a.rounded-full,
+  button.rounded-full
+) {
+  min-height: 44px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.kapi-public-shell :where(
+  a.rounded-full,
+  button.rounded-full
+):focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.12);
+}
+
+/* Modal surfaces keep a clean frame and stronger separation from the page. */
+.kapi-public-shell :where(
+  [class*="fixed inset-0"]
+) {
+  isolation: isolate;
+}
+
+.kapi-public-shell :where(
+  [class*="fixed inset-0"] [class*="bg-[#16181D]"][class*="border-[#262930]"]
+) {
+  border-color: var(--kapi-ui-border);
+  box-shadow:
+    0 28px 90px -36px rgba(0, 0, 0, 0.92),
+    inset 0 1px 0 rgba(255, 255, 255, 0.022);
+}
+
+/* Tables, lists and dividers inherit the same hairline contrast. */
+.kapi-public-shell :where(
+  .border-t,
+  .border-b,
+  .border-l,
+  .border-r,
+  [class*="border-[#262930]"]
+) {
+  border-color: var(--kapi-ui-border);
+}
+
+/* Keep muted text consistent across older page implementations. */
+.kapi-public-shell :where(
+  .text-[#8A909D],
+  .text-[#64748B],
+  .text-[#8A94A6]
+) {
+  color: var(--kapi-ui-muted);
+}
+
+/* Icons should feel optical, not noisy. */
+.kapi-public-shell svg {
+  flex-shrink: 0;
+}
+
+.kapi-public-shell button svg,
+.kapi-public-shell a svg {
+  stroke-width: 1.8;
+}
+
+/* Mobile: slightly tighter surfaces, same hierarchy. */
+@media (max-width: 767px) {
+  .kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-2xl"],
+  .kapi-public-shell main [class*="bg-[#16181D]"][class*="border-[#262930]"][class*="rounded-3xl"] {
+    border-radius: 16px;
+  }
+
+  .kapi-public-shell :where(input, textarea, select) {
+    min-height: 46px;
+  }
+}
