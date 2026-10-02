@@ -689,9 +689,9 @@ export const Services = () => {
             preset="mesh"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.2}
+            opacity={0.34}
             fade="edges"
-            fadeSize={0.78}
+            fadeSize={0.72}
             interactive
             cursorSize={46}
             cursorStrength={0.34}
@@ -702,7 +702,7 @@ export const Services = () => {
             contrast={1.05}
             intro
           />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/48 to-transparent" />
         </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
