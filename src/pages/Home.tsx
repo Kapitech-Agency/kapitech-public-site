@@ -51,21 +51,6 @@ export const Home = () => {
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
-  useEffect(() => {
-    const scriptSrc = 'https://cdn.jsdelivr.net/npm/@mux/mux-player@3.10.1';
-    if (customElements.get('mux-player')) return;
-
-    const existingScript = document.querySelector(
-      'script[src="' + scriptSrc + '"]'
-    );
-    if (existingScript) return;
-
-    const script = document.createElement('script');
-    script.src = scriptSrc;
-    script.async = true;
-    document.head.appendChild(script);
-  }, []);
-
   const clientPartners = [
     { name: "Lumina Property", industry: language === 'id' ? "Teknologi Properti" : "Real Estate Tech", logoText: "LUMINA", desc: language === 'id' ? "Pencarian Properti & Web Interaktif 3D" : "Property Search & 3D Interactive Web" },
     { name: "Nexus Fintech", industry: language === 'id' ? "Layanan Finansial" : "Financial Services", logoText: "NEXUS", desc: language === 'id' ? "UI Mobile Banking & Dashboard Finansial" : "Mobile Banking & Dashboard UI" },
@@ -154,18 +139,18 @@ export const Home = () => {
       {/* Hero Section */}
       <section className="kapi-home-hero relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
         <div className="kapi-home-hero-video absolute inset-0 pointer-events-none" aria-hidden="true">
-          {React.createElement('mux-player', {
-            'playback-id': 'T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g',
-            'stream-type': 'on-demand',
-            autoplay: 'muted',
-            loop: true,
-            muted: true,
-            playsinline: true,
-            preload: 'auto',
-            poster: '/hero_background_3d.png',
-            'metadata-video-title': 'Kapitech Agency Hero',
-            className: 'absolute inset-0 h-full w-full'
-          })}
+          <mux-player
+            playback-id="T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g"
+            stream-type="on-demand"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="/hero_background_3d.png"
+            metadata-video-title="Kapitech Agency Hero"
+            className="absolute inset-0 h-full w-full"
+          />
           <div className="absolute inset-0 bg-[#0B0C0E]/68" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B0C0E]/96 via-[#0B0C0E]/70 to-[#0B0C0E]/45" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-[#0B0C0E]/35" />
