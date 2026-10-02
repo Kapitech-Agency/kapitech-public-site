@@ -753,14 +753,14 @@ export const Services = () => {
               <Link
                 key={sol.id}
                 to={`/solutions/${sol.id}`}
-                className="group relative rounded-2xl p-6 sm:p-8 bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/60 transition-all duration-300 flex flex-col justify-between"
+                className="group relative rounded-2xl p-7 sm:p-8 min-h-[300px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                       {sol.icon}
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-[10px] sm:text-[11px] font-mono text-[#FF6B00] font-semibold">
+                    <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E] border border-[#262930] text-[10px] sm:text-[11px] font-mono text-[#8A909D] font-semibold">
                       {language === 'id' ? sol.badgeId : sol.badge}
                     </span>
                   </div>
@@ -867,7 +867,7 @@ export const Services = () => {
                     <Link
                       key={srv.id}
                       to={`/services/${srv.id}`}
-                      className="group rounded-2xl p-6 sm:p-7 bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
+                      className="group rounded-2xl p-7 sm:p-8 min-h-[320px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-center justify-between mb-5">
