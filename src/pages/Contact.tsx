@@ -297,7 +297,7 @@ export const Contact = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             {/* Left Column: Direct Info & Location */}
-            <div className="lg:col-span-5 space-y-6 sm:space-y-8">
+            <div className="lg:col-span-5 self-start lg:sticky lg:top-28 space-y-6 sm:space-y-8">
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-brand-red block mb-2 font-semibold">
                   {language === 'id' ? 'Informasi Perusahaan' : 'Corporate Information'}
