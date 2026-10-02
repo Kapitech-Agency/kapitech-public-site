@@ -1129,7 +1129,7 @@ html.kapi-custom-cursor-enabled select {
   transform-origin: 7px 7px;
   filter:
     drop-shadow(0 2px 2px rgba(0,0,0,0.62))
-    drop-shadow(0 0 7px rgba(229,9,20,0.06));
+    drop-shadow(0 0 6px rgba(255,255,255,0.08));
 }
 
 .kapi-cursor-follow {
