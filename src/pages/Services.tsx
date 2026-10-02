@@ -9,7 +9,6 @@ import {
   X, 
   Layers, 
   Sparkles, 
-  Smartphone, 
   Globe, 
   Cpu, 
   TrendingUp,
@@ -83,6 +82,22 @@ export const Services = () => {
 
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
+
+  useEffect(() => {
+    if (!selectedService) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedService(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedService]);
 
   const strategicSolutions: StrategicSolution[] = [
     {
@@ -388,37 +403,6 @@ export const Services = () => {
       idealForId: 'Bisnis yang meluncurkan website baru, agensi, dan firma profesional.',
       timeline: '2 - 4 Weeks',
       timelineId: '2 - 4 Minggu'
-    },
-    {
-      id: 'mobile-app-design',
-      title: 'Mobile App Design',
-      category: 'Design',
-      subtitle: 'Apps your users love',
-      subtitleId: 'Aplikasi mobile iOS & Android yang dicintai pengguna',
-      icon: <Smartphone size={24} />,
-      summary: 'iOS Human Interface and Android Material 3 compliant mobile interfaces designed for natural single-handed ergonomics.',
-      summaryId: 'Antarmuka aplikasi iOS & Android berstandar resmi (Apple HIG / Material 3) yang nyaman digunakan satu tangan.',
-      fullDescription: 'We design thumb-friendly navigation, tactile micro-interactions, dark/light mode parity, and intuitive onboarding screens that minimize churn.',
-      fullDescriptionId: 'Kami merancang navigasi ramah ibu jari, mikro-interaksi responsif, dukungan tema gelap/terang, dan alur onboarding yang mudah dipahami pengguna baru.',
-      deliverables: [
-        'Complete iOS & Android Flow Wireframes & Hi-Fi UI',
-        'Native Component Library (Apple HIG & Material 3)',
-        'Micro-Interactions & Animated Transition Prototypes',
-        'App Store & Google Play Screenshot Mockup Pack',
-        'Handoff Specs with Exportable 1x, 2x, 3x Assets'
-      ],
-      deliverablesId: [
-        'Wireframe & Desain UI Resolusi Tinggi untuk iOS dan Android',
-        'Pustaka Komponen Asli (Apple HIG & Material 3)',
-        'Prototipe Animasi Transisi & Mikro-Interaksi',
-        'Paket Tangkapan Layar Promosi App Store & Google Play',
-        'Aset Ekspor Siap Pakai (1x, 2x, 3x) untuk Mobile Engineer'
-      ],
-      tools: ['Figma', 'Protopie', 'LottieFiles'],
-      idealFor: 'Mobile-first startups, fintech wallets, healthcare apps, and on-demand services.',
-      idealForId: 'Startup mobile-first, aplikasi fintech, dompet digital, dan layanan on-demand.',
-      timeline: '3 - 6 Weeks',
-      timelineId: '3 - 6 Minggu'
     },
     {
       id: 'website-redesign',
@@ -750,10 +734,15 @@ export const Services = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {resolvedStrategicSolutions.map((sol) => (
-              <Link
+              <motion.button
                 key={sol.id}
-                to={`/solutions/${sol.id}`}
-                className="group relative rounded-2xl p-7 sm:p-8 min-h-[300px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
+                type="button"
+                onClick={() => setSelectedService(sol)}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.995 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-2xl p-7 sm:p-8 min-h-[300px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between text-left"
+                data-cursor-label="Preview"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -787,7 +776,7 @@ export const Services = () => {
                     <ArrowUpRight size={14} />
                   </div>
                 </div>
-              </Link>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -864,10 +853,15 @@ export const Services = () => {
                 {/* 5-Column / Responsive Grid for This Pillar */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
                   {catServices.map((srv) => (
-                    <Link
+                    <motion.button
                       key={srv.id}
-                      to={`/services/${srv.id}`}
-                      className="group rounded-2xl p-7 sm:p-8 min-h-[320px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
+                      type="button"
+                      onClick={() => setSelectedService(srv)}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.995 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="group rounded-2xl p-7 sm:p-8 min-h-[320px] bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930] hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between text-left"
+                      data-cursor-label="Preview"
                     >
                       <div>
                         <div className="flex items-center justify-between mb-5">
@@ -910,7 +904,7 @@ export const Services = () => {
                           <ArrowUpRight size={14} />
                         </div>
                       </div>
-                    </Link>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -922,7 +916,15 @@ export const Services = () => {
       {/* Service / Solution Detail Modal */}
       <AnimatePresence>
         {selectedService && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="service-preview-title"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setSelectedService(null);
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -940,7 +942,7 @@ export const Services = () => {
                     <span className="text-[11px] font-mono text-brand-red block">
                       {'category' in selectedService ? selectedService.category : 'Strategic Solution'}
                     </span>
-                    <h3 className="text-base sm:text-xl font-display font-bold text-white">
+                    <h3 id="service-preview-title" className="text-base sm:text-xl font-display font-bold text-white">
                       {selectedService.title}
                     </h3>
                   </div>
@@ -1020,20 +1022,30 @@ export const Services = () => {
                 )}
 
                 {/* Modal Footer CTA */}
-                <div className="pt-4 border-t border-[#262930] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="pt-4 border-t border-[#262930] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                   <div>
                     <span className="text-xs text-[#8A909D] font-light block">
                       {language === 'id' ? 'Konsultasikan kebutuhan spesifik Anda dengan tim kami.' : 'Consult your specific requirements with our team.'}
                     </span>
                   </div>
-                  <Link
-                    to="/contact"
-                    onClick={() => setSelectedService(null)}
-                    className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
-                  >
-                    <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
-                    <ArrowUpRight size={14} />
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+                    <Link
+                      to={'category' in selectedService ? `/services/${selectedService.id}` : `/solutions/${selectedService.id}`}
+                      onClick={() => setSelectedService(null)}
+                      className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-full bg-[#0B0C0E] border border-[#262930] hover:border-brand-red/50 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    >
+                      <span>{language === 'id' ? 'Lihat Detail' : 'View Full Detail'}</span>
+                      <ChevronRight size={14} />
+                    </Link>
+                    <Link
+                      to="/contact"
+                      onClick={() => setSelectedService(null)}
+                      className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    >
+                      <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
+                      <ArrowUpRight size={14} />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
