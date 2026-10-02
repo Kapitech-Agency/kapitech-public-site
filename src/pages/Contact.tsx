@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -640,7 +639,7 @@ export const Contact = () => {
                                           <CheckCircle2 size={12} />
                                         </span>
                                       </div>
-                                      <h4 className="mt-5 text-sm font-semibold text-white group-hover:text-brand-red transition-colors">{choice.title}</h4>
+                                      <h4 className={`mt-5 text-sm font-semibold transition-colors duration-300 ${selected ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
                                       <p className="mt-1 text-[11px] text-[#8A909D] leading-relaxed">{choice.description}</p>
                                     </motion.button>
                                   );
@@ -677,7 +676,7 @@ export const Contact = () => {
                                                   key={srv}
                                                   type="button"
                                                   onClick={() => toggleService(srv)}
-                                                  className={`rounded-lg border px-3 py-2 text-[11px] transition-[border-color,background-color,color] duration-200 ${selected ? 'border-brand-red/45 bg-brand-red/[0.07] text-white' : 'border-white/[0.08] bg-white/[0.02] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
+                                                  className={`rounded-lg border px-3 py-2 text-[11px] transition-[border-color,background-color,color] duration-200 ${selected ? 'border-brand-red/40 bg-brand-red/[0.045] text-white' : 'border-white/[0.08] bg-white/[0.02] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
                                                   aria-pressed={selected}
                                                 >
                                                   {srv}
@@ -813,7 +812,7 @@ export const Contact = () => {
                                         onClick={() => setBudgetRange(opt)}
                                         whileTap={{ scale: 0.985 }}
                                         aria-pressed={selected}
-                                        className={`min-h-[50px] rounded-xl border px-3.5 py-2.5 text-left text-xs transition-[border-color,background-color,color,box-shadow] duration-250 ${selected ? 'border-brand-red/50 bg-brand-red/[0.10] text-white font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]' : 'border-white/[0.08] bg-white/[0.015] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
+                                        className={`min-h-[50px] rounded-xl border px-3.5 py-2.5 text-left text-xs transition-[border-color,background-color,color,box-shadow] duration-250 ${selected ? 'border-brand-red/45 bg-brand-red/[0.055] text-white font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]' : 'border-white/[0.08] bg-white/[0.015] text-[#8A909D] hover:border-white/[0.15] hover:text-white'}`}
                                       >
                                         <span className="block text-[9px] font-mono uppercase tracking-[0.1em] opacity-70">0{index + 1}</span>
                                         <span className="block mt-0.5">{opt}</span>
