@@ -38,7 +38,6 @@ export const Contact = () => {
     // Design
     'UI/UX Design (Web & Mobile)',
     'Website Design & Landings',
-    'Mobile App Design (iOS & Android)',
     'Website Redesign',
     'Product UX/UI Audit',
     // Development
@@ -63,7 +62,6 @@ export const Contact = () => {
     // Design
     'Desain UI/UX (Web & Mobile)',
     'Desain Website & Landing Page',
-    'Desain Aplikasi Mobile (iOS/Android)',
     'Redesain Website & Modernisasi',
     'Audit UX/UI Produk Digital',
     // Development
@@ -118,27 +116,27 @@ export const Contact = () => {
     {
       title: language === 'id' ? 'Website & Landing Page' : 'Website & Landing Page',
       description: language === 'id' ? 'Website baru, redesign, atau landing page.' : 'New websites, redesigns, or landing pages.',
-      values: [serviceOptions[6], serviceOptions[7], serviceOptions[9]]
+      values: [serviceOptions[6], serviceOptions[7], serviceOptions[8]]
     },
     {
       title: language === 'id' ? 'Product & UX/UI' : 'Product & UX/UI',
       description: language === 'id' ? 'Design produk digital dan audit pengalaman.' : 'Digital product design and UX audits.',
-      values: [serviceOptions[5], serviceOptions[9]]
+      values: [serviceOptions[5], serviceOptions[8]]
     },
     {
       title: language === 'id' ? 'Web App & MVP' : 'Web App & MVP',
       description: language === 'id' ? 'Bangun aplikasi web atau MVP yang siap diuji.' : 'Build a web application or testable MVP.',
-      values: [serviceOptions[10], serviceOptions[11], serviceOptions[12]]
+      values: [serviceOptions[9], serviceOptions[10], serviceOptions[11]]
     },
     {
       title: language === 'id' ? 'Interactive Digital' : 'Interactive Digital',
       description: language === 'id' ? 'Website atau experience digital yang lebih immersive.' : 'More immersive digital experiences.',
-      values: [serviceOptions[14]]
+      values: [serviceOptions[13]]
     },
     {
       title: language === 'id' ? 'Strategy / Lainnya' : 'Strategy / Other',
       description: language === 'id' ? 'Masih eksplorasi atau butuh arahan.' : 'Still exploring or need direction.',
-      values: [serviceOptions[15], serviceOptions[16], serviceOptions[17]]
+      values: [serviceOptions[14], serviceOptions[15], serviceOptions[16]]
     }
   ];
 
