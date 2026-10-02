@@ -31,7 +31,7 @@ export const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. Pendahuluan</h2>
               <p>
-                PT Kapitech Digital Indonesia ("Kapitech Agency", "kami", atau "kita") berkomitmen penuh untuk melindungi privasi dan keamanan data pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, memproses, dan melindungi informasi Anda saat Anda mengunjungi situs web kami, berinteraksi dengan tim kami, atau menggunakan layanan kami, termasuk Pengembangan Perangkat Lunak & Web, Desain UI/UX, Aplikasi Mobile, dan Sistem Identitas Brand.
+                PT Kapitech Digital Indonesia ("Kapitech Agency", "kami", atau "kita") berkomitmen penuh untuk melindungi privasi dan keamanan data pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, memproses, dan melindungi informasi Anda saat Anda mengunjungi situs web kami, berinteraksi dengan tim kami, atau menggunakan layanan kami, termasuk Pengembangan Perangkat Lunak & Web, Desain UI/UX, Produk Digital, dan Sistem Identitas Brand.
               </p>
             </section>
 
@@ -77,8 +77,7 @@ export const PrivacyPolicy = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Blok G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia<br />
-                Email Bisnis: <a href="mailto:business@kapitech.id" className="text-brand-red hover:underline">business@kapitech.id</a><br />
-                Email Resmi: <a href="mailto:hello@kapitech.id" className="text-white/90 hover:underline">hello@kapitech.id</a><br />
+                Email Resmi: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
                 Telepon / WhatsApp: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
@@ -88,7 +87,7 @@ export const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. Introduction</h2>
               <p>
-                PT Kapitech Digital Indonesia ("Kapitech Agency," "we," "our," or "us") is deeply committed to protecting your privacy and confidential data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our digital services, including IT Development, UI/UX Design, Mobile Engineering, and Brand Identity Systems.
+                PT Kapitech Digital Indonesia ("Kapitech Agency," "we," "our," or "us") is deeply committed to protecting your privacy and confidential data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our digital services, including IT Development, UI/UX Design, Digital Product Engineering, and Brand Identity Systems.
               </p>
             </section>
 
@@ -134,8 +133,7 @@ export const PrivacyPolicy = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia<br />
-                Business Email: <a href="mailto:business@kapitech.id" className="text-brand-red hover:underline">business@kapitech.id</a><br />
-                Official Email: <a href="mailto:hello@kapitech.id" className="text-white/90 hover:underline">hello@kapitech.id</a><br />
+                Official Email: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
                 Phone / WhatsApp: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
