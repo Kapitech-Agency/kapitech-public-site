@@ -234,7 +234,7 @@ export const Work = () => {
                 {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
               </span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
