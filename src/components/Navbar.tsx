@@ -24,7 +24,7 @@ import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesDat
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"
+    className="pointer-events-none absolute inset-[1px] overflow-hidden rounded-[inherit] opacity-70 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -34,31 +34,31 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
       fill="none"
     >
       <rect
-        x="0.75"
-        y="0.75"
-        width={mobile ? '98.5' : '98.5'}
-        height={mobile ? '46.5' : '38.5'}
-        rx={mobile ? '12' : '19'}
+        x="0.5"
+        y="0.5"
+        width="99"
+        height={mobile ? '47' : '39'}
+        rx={mobile ? '11' : '18.5'}
         pathLength="1"
-        stroke="rgba(255,255,255,0.16)"
+        className="stroke-white/[0.11] transition-colors duration-500 group-hover:stroke-white/[0.18]"
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
       <motion.rect
-        x="0.75"
-        y="0.75"
-        width={mobile ? '98.5' : '98.5'}
-        height={mobile ? '46.5' : '38.5'}
-        rx={mobile ? '12' : '19'}
+        x="0.5"
+        y="0.5"
+        width="99"
+        height={mobile ? '47' : '39'}
+        rx={mobile ? '11' : '18.5'}
         pathLength="1"
-        stroke="rgba(255,255,255,0.95)"
-        strokeWidth="1.35"
+        className="stroke-white/[0.34] transition-colors duration-500 group-hover:stroke-brand-red"
+        strokeWidth="1.1"
         strokeLinecap="round"
-        strokeDasharray="0.12 0.88"
+        strokeDasharray="0.22 0.78"
         vectorEffect="non-scaling-stroke"
         animate={{ strokeDashoffset: [0, -1] }}
         transition={{
-          duration: mobile ? 4.8 : 4.4,
+          duration: mobile ? 7.2 : 6.8,
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -269,11 +269,11 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full text-white text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-300 shrink-0 shadow-[0_12px_32px_-18px_rgba(229,9,20,0.9)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 lg:px-5 rounded-full border border-white/[0.1] bg-[#16181D]/80 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-500 shrink-0 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.9)] hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_32px_-20px_rgba(229,9,20,0.55)]"
               data-cursor-label="Start"
             >
               <CtaFlowLine />
-              <span className="absolute inset-[1px] rounded-full bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
+              <span className="absolute inset-[1px] rounded-full bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
@@ -716,11 +716,11 @@ export const Navbar = () => {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 rounded-xl text-white flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-lg shadow-brand-red/20 active:scale-[0.98] transition-all cursor-pointer"
+                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D]/85 text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.9)] hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_32px_-20px_rgba(229,9,20,0.45)] active:scale-[0.98] transition-all duration-500 cursor-pointer"
                   data-cursor-label="Start"
                 >
                   <CtaFlowLine mobile />
-                  <span className="absolute inset-[1px] rounded-[11px] bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
+                  <span className="absolute inset-[1px] rounded-[11px] bg-transparent transition-colors duration-500 group-hover:bg-brand-red" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </Link>
