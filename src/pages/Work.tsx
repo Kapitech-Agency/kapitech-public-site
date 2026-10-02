@@ -431,7 +431,7 @@ export const Work = () => {
               </div>
             </div>
 
-            <div className="relative group/filter rounded-full border border-white/[0.05] bg-white/[0.012] shadow-[inset_0_1px_0_rgba(255,255,255,0.02),0_10px_28px_-24px_rgba(229,9,20,0.42)]">
+            <div className="relative group/filter drop-shadow-[0_10px_24px_rgba(229,9,20,0.16)]">
               <div
                 ref={serviceScrollRef}
                 onMouseDown={handleMouseDownService}
