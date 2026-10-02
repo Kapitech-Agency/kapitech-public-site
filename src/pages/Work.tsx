@@ -196,6 +196,7 @@ export const Work = () => {
         <div className="pointer-events-none absolute -right-32 top-12 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
         <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
         <div className="max-w-7xl mx-auto relative z-10">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-5 sm:p-7 lg:p-9 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
           <motion.div
             className="max-w-3xl"
             initial={{ opacity: 0, y: 18 }}
@@ -237,14 +238,16 @@ export const Work = () => {
               </span>
             </div>
           </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Featured Spotlight Carousel */}
       {currentFeatured && (
-        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E]">
+        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between gap-4 mb-8">
+            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+            <div className="flex items-center justify-between gap-4 mb-6 sm:mb-7">
               <div className="flex items-center gap-3">
                 <span className="kapi-section-label mb-0">
 
@@ -328,7 +331,7 @@ export const Work = () => {
                 </div>
 
                 <div>
-                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#262930] mb-6">
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/[0.07] mb-6">
                     {currentFeatured.impact.map((metric, i) => (
                       <div key={i}>
                         <span className="text-lg sm:text-xl font-display font-bold text-white block">
@@ -349,17 +352,26 @@ export const Work = () => {
               </div>
               </motion.div>
             </AnimatePresence>
+            </div>
           </div>
         </section>
       )}
 
       {/* Filter & Search Bar Section */}
       <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-3 sm:py-4 bg-[#0B0C0E]/72 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-3 sm:p-4 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.85)] space-y-3 sm:space-y-4">
+        <div className="max-w-7xl mx-auto rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-3 sm:p-4 lg:p-5 shadow-[0_16px_40px_-30px_rgba(0,0,0,0.85)] space-y-3 sm:space-y-4">
+          <div className="flex items-center justify-between gap-4 px-1 sm:px-2">
+            <span className="kapi-section-label mb-0">
+              {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
+            </span>
+            <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]/75">
+              {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
+            </span>
+          </div>
           {/* Top Controls: Main Pillars + Instant Search */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
             {/* Primary Pillar Tabs */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-xl border border-white/[0.07] bg-white/[0.018] p-1 sm:p-1.5">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-full border border-white/[0.07] bg-white/[0.018] p-1 sm:p-1.5">
               {[
                 { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
                 { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
@@ -441,7 +453,7 @@ export const Work = () => {
           </div>
 
           {/* Results Count Bar */}
-          <div className="flex items-center justify-between text-xs font-mono text-[#8A909D] pt-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[#8A909D] pt-1 px-1 sm:px-2">
             <span>
               {language === 'id' 
                 ? `Menampilkan ${Math.min(visibleCount, filteredProjects.length)} dari ${filteredProjects.length} Studi Kasus` 
@@ -469,6 +481,21 @@ export const Work = () => {
       {/* Projects Grid Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
         <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
+            <div>
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Studi Kasus' : 'Case Studies'}
+              </span>
+              <h2 className="mt-1 max-w-3xl text-2xl sm:text-3xl md:text-4xl font-display font-semibold tracking-[-0.045em] text-white">
+                {language === 'id' ? 'Pekerjaan yang kami banggakan.' : 'Selected work, built for impact.'}
+              </h2>
+            </div>
+            <p className="max-w-sm text-xs sm:text-sm leading-6 text-[#8A909D] font-light sm:text-right">
+              {language === 'id'
+                ? 'Jelajahi proyek berdasarkan bidang, layanan, atau pencarian langsung.'
+                : 'Filter the portfolio by discipline, service, or a direct search.'}
+            </p>
+          </div>
           {filteredProjects.length === 0 ? (
             <div className="text-center py-24 border border-dashed border-white/[0.09] rounded-3xl p-8 bg-white/[0.018] backdrop-blur-xl">
               <Search className="w-10 h-10 text-[#8A909D] mx-auto mb-4" />
@@ -658,8 +685,8 @@ export const Work = () => {
                 {/* Challenge & Solution */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#E50914] mb-2 font-semibold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#E50914]" />
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 font-semibold flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-brand-red" />
                       <span>{language === 'id' ? 'Tantangan Bisnis' : 'The Challenge'}</span>
                     </h4>
                     <p className="text-sm text-[#8A909D] leading-relaxed font-light">
@@ -679,22 +706,22 @@ export const Work = () => {
                 </div>
 
                 {/* Deliverables & Tech Stack */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-white/[0.07]">
-                  <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-5">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3 font-semibold">
                       {language === 'id' ? 'Hasil Kerja & Serah Terima' : 'Core Deliverables'}
                     </h4>
                     <ul className="space-y-2">
                       {selectedProject.deliverables.map((item, idx) => (
                         <li key={idx} className="flex items-center gap-2.5 text-xs text-white font-light">
-                          <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                          <CheckCircle2 size={14} className="text-brand-red shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div>
+                  <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-5">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3 font-semibold">
                       {language === 'id' ? 'Teknologi & Perangkat' : 'Tech Stack & Tooling'}
                     </h4>
