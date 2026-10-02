@@ -23,72 +23,52 @@ import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
-  const viewBox = mobile ? '0 0 240 54' : '0 0 240 46';
   const height = mobile ? 48 : 40;
   const radius = mobile ? 14 : 20;
+  const phases = [
+    { dash: 150, gap: 850, offset: 0, width: 3.8, opacity: 0.96 },
+    { dash: 118, gap: 882, offset: 18, width: 3.2, opacity: 0.82 },
+    { dash: 88, gap: 912, offset: 36, width: 2.7, opacity: 0.66 },
+    { dash: 62, gap: 938, offset: 54, width: 2.25, opacity: 0.50 },
+    { dash: 40, gap: 960, offset: 72, width: 1.85, opacity: 0.34 },
+  ];
 
   return (
     <span
-      className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-80"
+      className="pointer-events-none absolute -inset-[3px] z-20 overflow-visible rounded-[inherit] opacity-75 transition-opacity duration-500 group-hover:opacity-100"
       aria-hidden="true"
     >
       <svg
         className="absolute inset-0 h-full w-full overflow-visible"
-        viewBox={viewBox}
+        viewBox={mobile ? '0 0 240 54' : '0 0 240 46'}
         preserveAspectRatio="none"
         fill="none"
       >
-        <motion.rect
-          x="3"
-          y="3"
-          width="234"
-          height={height}
-          rx={radius}
-          pathLength="1000"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.15"
-          strokeLinecap="round"
-          strokeDasharray="205 795"
-          vectorEffect="non-scaling-stroke"
-          className="text-white/24 group-hover:text-brand-red/55"
-          animate={{ strokeDashoffset: [0, -1000] }}
-          transition={{ duration: mobile ? 10.5 : 9.8, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.rect
-          x="3"
-          y="3"
-          width="234"
-          height={height}
-          rx={radius}
-          pathLength="1000"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.85"
-          strokeLinecap="round"
-          strokeDasharray="105 895"
-          vectorEffect="non-scaling-stroke"
-          className="text-white/34 group-hover:text-brand-red/72"
-          animate={{ strokeDashoffset: [0, -1000] }}
-          transition={{ duration: mobile ? 10.5 : 9.8, repeat: Infinity, ease: 'linear' }}
-        />
-        <motion.rect
-          x="3"
-          y="3"
-          width="234"
-          height={height}
-          rx={radius}
-          pathLength="1000"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3.25"
-          strokeLinecap="round"
-          strokeDasharray="42 958"
-          vectorEffect="non-scaling-stroke"
-          className="text-white/82 group-hover:text-white"
-          animate={{ strokeDashoffset: [0, -1000] }}
-          transition={{ duration: mobile ? 10.5 : 9.8, repeat: Infinity, ease: 'linear' }}
-        />
+        {phases.map((phase, index) => (
+          <motion.rect
+            key={phase.width}
+            x="3"
+            y="3"
+            width="234"
+            height={height}
+            rx={radius}
+            pathLength="1000"
+            fill="none"
+            stroke={index === 0 ? 'white' : 'white'}
+            strokeWidth={phase.width}
+            strokeLinecap="round"
+            strokeDasharray={`${phase.dash} ${phase.gap}`}
+            vectorEffect="non-scaling-stroke"
+            opacity={phase.opacity}
+            animate={{ strokeDashoffset: [phase.offset, phase.offset - 1000] }}
+            transition={{
+              duration: mobile ? 9.4 : 8.8,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+            className="transition-[stroke,opacity] duration-500 group-hover:stroke-brand-red"
+          />
+        ))}
       </svg>
     </span>
   );
@@ -252,20 +232,16 @@ export const Navbar = () => {
                   )}
                   <span className="relative z-10">{t('nav.services')}</span>
                   <motion.span
-                    className="relative z-10 ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center"
-                    animate={{ y: isServicesDropdownOpen ? 1 : 0 }}
+                    className="relative z-10 ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center origin-center"
+                    animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <motion.span
-                      animate={{ rotate: isServicesDropdownOpen ? 180 : 0 }}
-                      transition={{ type: 'spring', stiffness: 420, damping: 28 }}
-                      className="flex items-center justify-center"
-                    >
-                      <ChevronDown className={cn(
-                        "h-3.5 w-3.5",
+                    <ChevronDown
+                      className={cn(
+                        "h-3.5 w-3.5 transition-colors duration-200",
                         isServicesDropdownOpen ? "text-white" : "text-[#8A909D]"
-                      )} />
-                    </motion.span>
+                      )}
+                    />
                   </motion.span>
                 </button>
               </div>
