@@ -24,7 +24,7 @@ import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
   <span
-    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit]"
+    className="pointer-events-none absolute inset-[1px] z-20 overflow-hidden rounded-[inherit] opacity-55 transition-opacity duration-500 group-hover:opacity-100"
     aria-hidden="true"
   >
     <svg
@@ -34,21 +34,20 @@ const CtaFlowLine = ({ mobile = false }: { mobile?: boolean }) => (
       fill="none"
     >
       <motion.rect
-        x="0.55"
-        y="0.55"
-        width="98.9"
-        height={mobile ? '46.9' : '38.9'}
+        x="0.5"
+        y="0.5"
+        width="99"
+        height={mobile ? '47' : '39'}
         rx={mobile ? '11' : '19'}
-        pathLength="100"
-        stroke="currentColor"
-        className="text-white/40 transition-colors duration-500 group-hover:text-brand-red"
-        strokeWidth="2"
+        pathLength="1"
+        className="stroke-white/55 transition-colors duration-500 group-hover:stroke-brand-red"
+        strokeWidth="2.2"
         strokeLinecap="round"
-        strokeDasharray="97 3"
+        strokeDasharray="0.965 0.035"
         vectorEffect="non-scaling-stroke"
-        animate={{ strokeDashoffset: [0, -100] }}
+        animate={{ strokeDashoffset: [0, -1] }}
         transition={{
-          duration: mobile ? 7.6 : 7.1,
+          duration: mobile ? 8.4 : 7.8,
           repeat: Infinity,
           ease: 'linear',
         }}
