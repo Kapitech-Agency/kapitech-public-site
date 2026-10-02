@@ -4,8 +4,6 @@ import {
   Menu, 
   X, 
   Instagram, 
-  Linkedin, 
-  Twitter, 
   ChevronRight, 
   ChevronDown, 
   Phone, 
@@ -26,7 +24,7 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
   const height = mobile ? 48 : 40;
   const radius = mobile ? 12 : 20;
   const pathHeight = mobile ? 46 : 38;
-  const duration = mobile ? 3.4 : 3.1;
+  const duration = mobile ? 6.2 : 5.8;
 
   return (
     <span
@@ -47,10 +45,10 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
           rx={radius}
           pathLength="1"
           stroke="#E50914"
-          strokeWidth="1.5"
+          strokeWidth="1.1"
           strokeLinecap="round"
-          strokeDasharray="0.18 0.82"
-          strokeOpacity="0.9"
+          strokeDasharray="0.14 0.86"
+          strokeOpacity="0.72"
           vectorEffect="non-scaling-stroke"
           animate={{ strokeDashoffset: [0, -1] }}
           transition={{
@@ -82,8 +80,17 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
   }, []);
 
   // Lock background scroll while the mobile navigation drawer is open.
@@ -93,6 +100,7 @@ export const Navbar = () => {
       if (event.key === 'Escape') {
         setIsMenuOpen(false);
         setIsServicesDropdownOpen(false);
+        setIsMobileServicesOpen(false);
       }
     };
 
@@ -133,17 +141,15 @@ export const Navbar = () => {
   const design = allSolutionsAndServices.filter(s => s.category === 'Design');
   const development = allSolutionsAndServices.filter(s => s.category === 'Development');
 
-  const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/');
-  const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
-  const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/');
+  const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/')|| location.pathname.startsWith('/work/');
+  const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/')|| location.pathname.startsWith('/about/');
+  const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/')|| location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.16em] leading-none transition-all duration-250",
-      active
-        ? "text-white bg-white/[0.045] border border-brand-red/25 shadow-[0_8px_24px_-18px_rgba(229,9,20,0.9)]"
-        : "text-[#8A909D] border border-transparent hover:text-white hover:bg-white/[0.035]"
+      "group relative inline-flex items-center h-9 px-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] leading-none transition-colors duration-300",
+      active ? "text-white" : "text-[#8A909D] hover:text-white"
     );
 
   return (
@@ -161,7 +167,7 @@ export const Navbar = () => {
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
           style={{ scaleX }}
         />
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
             <img 
               src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
@@ -175,8 +181,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <div className="flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+            <div className="flex items-center gap-7 lg:gap-9">
               
               {/* Work Link */}
               <Link
@@ -187,7 +193,7 @@ export const Navbar = () => {
                 {isWorkActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -204,6 +210,12 @@ export const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => setIsServicesDropdownOpen(prev => !prev)}
+                  onFocus={handleMouseEnterServices}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      setIsServicesDropdownOpen(false);
+                    }
+                  }}
                   className={cn(
                     desktopNavItemClass(isServicesActive || isServicesDropdownOpen),
                     "gap-1.5",
@@ -215,7 +227,7 @@ export const Navbar = () => {
                   {isServicesActive && (
                     <motion.span
                       layoutId="desktop-nav-active"
-                      className="pointer-events-none absolute left-0 right-6 bottom-0 h-px rounded-full bg-brand-red"
+                      className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                       transition={{ type: 'spring', stiffness: 520, damping: 38 }}
                       aria-hidden="true"
                     />
@@ -245,7 +257,7 @@ export const Navbar = () => {
                 {isAboutActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -262,7 +274,7 @@ export const Navbar = () => {
                 {isCareersActive && (
                   <motion.span
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full border border-brand-red/30 bg-brand-red/[0.05]"
+                    className="pointer-events-none absolute left-0 right-0 -bottom-2 h-px rounded-full bg-brand-red"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     aria-hidden="true"
                   />
@@ -274,7 +286,7 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.14em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.45)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.12] bg-[#141519] text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 hover:border-brand-red/60 hover:bg-brand-red hover:text-white hover:shadow-[0_14px_34px_-22px_rgba(229,9,20,0.48)]"
               data-cursor-label="Start"
             >
               <CtaPerimeter />
@@ -497,7 +509,7 @@ export const Navbar = () => {
             role="dialog"
             aria-modal="true"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="fixed inset-0 z-[100] bg-[#0B0C0E]/98 flex flex-col p-4 sm:p-6 overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#0B0C0E]/98 flex flex-col px-5 py-5 sm:px-8 sm:py-7 overflow-y-auto"
           >
             {/* Header in Mobile Menu */}
             <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
@@ -546,16 +558,16 @@ export const Navbar = () => {
             </div>
 
             {/* Nav Links in Mobile */}
-            <div className="flex flex-col gap-2 my-auto py-6">
+            <div className="flex flex-col my-auto py-8">
               
               {/* Work */}
               <Link
                 to="/work"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
                   location.pathname === '/work' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
+                    ? "text-white font-bold border-brand-red/60" 
                     : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
                 )}
               >
@@ -567,11 +579,11 @@ export const Navbar = () => {
               </Link>
 
               {/* Services & Solutions (Accordion in Mobile Menu) */}
-              <div className="rounded-2xl border border-[#262930] bg-[#16181D] overflow-hidden">
+              <div className="border-b border-[#262930] overflow-hidden">
                 <button
                   type="button"
                   onClick={() => setIsMobileServicesOpen(prev => !prev)}
-                  className="w-full flex items-center justify-between py-3.5 px-4 text-left text-white font-display text-xl min-h-[48px] cursor-pointer"
+                  className="w-full flex items-center justify-between py-3.5 px-1 text-left text-white font-display text-xl min-h-[52px] cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-brand-red">02</span>
@@ -685,9 +697,9 @@ export const Navbar = () => {
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
                   location.pathname === '/about' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
+                    ? "text-white font-bold border-brand-red/60" 
                     : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
                 )}
               >
@@ -703,9 +715,9 @@ export const Navbar = () => {
                 to="/careers"
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "flex items-center justify-between py-3.5 px-4 rounded-2xl transition-colors min-h-[48px]",
+                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
                   location.pathname === '/careers' 
-                    ? "bg-[#16181D] text-white font-bold border border-brand-red/40" 
+                    ? "text-white font-bold border-brand-red/60" 
                     : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
                 )}
               >
@@ -742,30 +754,27 @@ export const Navbar = () => {
                   <Phone size={15} className="text-brand-red shrink-0" />
                   <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
                 </a>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 gap-2">
                   <a
                     href="mailto:hello@kapitech.co.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-brand-red/30 flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
+                    className="flex min-h-[44px] items-center gap-2.5 border-b border-[#262930] px-1 py-3 text-white transition-colors active:text-brand-red"
                   >
                     <Mail size={15} className="text-brand-red shrink-0" />
-                    <span className="truncate">hello@kapitech.co.id</span>
-                  </a>
-                  <a
-                    href="mailto:hello@kapitech.co.id"
-                    className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
-                  >
-                    <Mail size={15} className="text-[#8A909D] shrink-0" />
                     <span className="truncate">hello@kapitech.co.id</span>
                   </a>
                 </div>
               </div>
 
               <div className="flex items-center justify-between text-xs text-[#8A909D] pt-1">
-                <div className="flex gap-4">
-                  <Instagram className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                  <Linkedin className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                  <Twitter className="text-[#8A909D] hover:text-white cursor-pointer" size={16} />
-                </div>
+                <a
+                  href="https://www.instagram.com/kapitechagency/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Kapitech Agency on Instagram"
+                  className="text-[#8A909D] transition-colors hover:text-white"
+                >
+                  <Instagram size={16} />
+                </a>
                 <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
               </div>
             </div>
