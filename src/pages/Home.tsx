@@ -67,18 +67,18 @@ export const Home = () => {
     },
     {
       name: "IHC",
-      src: "https://kftd.co.id/assets/img/customer/1.%20IHC.jpg",
-      className: "w-[130px] sm:w-[160px] lg:w-[170px]"
+      src: "https://vectorseek.com/wp-content/uploads/2023/10/ihc-Logo-Vector.svg-.png",
+      className: "w-[118px] sm:w-[146px] lg:w-[156px]"
     },
     {
       name: "MarkPlus",
-      src: "https://www.markplusinc.com/_next/image?q=50&url=%2Fassets%2Flogo%2Flogo.png&w=3840",
-      className: "w-[132px] sm:w-[162px] lg:w-[174px]"
+      src: "https://www.markplusinc.com/assets/logo/logo.png",
+      className: "w-[124px] sm:w-[152px] lg:w-[164px]"
     },
     {
       name: "Sababay Winery",
-      src: "https://cdn.sejutacita.id/657558cf2470a30014750e5d/JobPortalCompanyLogo/c1ac6eb5-23f1-4de6-909f-36d9b584456e.jpg",
-      className: "w-[120px] sm:w-[146px] lg:w-[156px]"
+      src: "https://sababaywinery.com/cdn/shop/files/Logo-Sababay-Black_300x300.gif?v=1723305632",
+      className: "w-[108px] sm:w-[132px] lg:w-[144px]"
     },
   ];
 
