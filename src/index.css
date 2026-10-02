@@ -494,6 +494,137 @@
   background-color: var(--kapi-bg-card-hover);
 }
 
+/* Careers page polish: keep the existing concept while enforcing one coherent surface system. */
+.kapi-careers {
+  --careers-surface: var(--kapi-bg-card);
+  --careers-surface-hover: var(--kapi-bg-card-hover);
+  --careers-border: var(--kapi-border-subtle);
+  --careers-text-muted: var(--kapi-text-slate);
+}
+
+.kapi-careers [class*="bg-[#161616]"],
+.kapi-careers [class*="bg-[#111318]"],
+.kapi-careers [class*="bg-[#16181D]"] {
+  background-color: var(--careers-surface);
+}
+
+.kapi-careers [class*="bg-[#161616]"]:hover,
+.kapi-careers [class*="bg-[#111318]"]:hover,
+.kapi-careers [class*="bg-[#16181D]"]:hover,
+.kapi-careers [class*="bg-[#1E1E1E]"]:hover,
+.kapi-careers [class*="bg-[#20232B]"]:hover {
+  background-color: var(--careers-surface-hover);
+}
+
+.kapi-careers [class*="border-[#2A2A2A]"],
+.kapi-careers [class*="border-white/[0.07]"] {
+  border-color: var(--careers-border);
+}
+
+.kapi-careers [class*="text-[#8E8E93]"],
+.kapi-careers [class*="text-[#8A909D]"] {
+  color: var(--careers-text-muted);
+}
+
+.kapi-careers section {
+  scroll-margin-top: 88px;
+}
+
+.kapi-careers-talent-card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.kapi-careers-talent-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.24) 100%);
+  opacity: 0.9;
+}
+
+.kapi-careers-talent-card:hover::after {
+  background: linear-gradient(180deg, transparent 44%, rgba(229,9,20,0.08) 100%);
+}
+
+.kapi-careers .kapi-careers-modal {
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.kapi-careers .kapi-careers-modal-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kapi-border-subtle) transparent;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kapi-careers .kapi-careers-modal-body::-webkit-scrollbar-thumb {
+  background: var(--kapi-border-subtle);
+  border-radius: 999px;
+}
+
+.kapi-careers .kapi-modal-close:focus-visible {
+  outline: 2px solid var(--kapi-red-primary);
+  outline-offset: 2px;
+}
+
+.kapi-careers #open-positions .group {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+
+.kapi-careers #open-positions .group:hover {
+  box-shadow: 0 18px 42px rgba(0,0,0,0.32);
+}
+
+.kapi-careers #freelance-vendor > div > .grid:last-child > div {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+}
+
+.kapi-careers #freelance-vendor > div > .grid:last-child > div:hover {
+  transform: translateY(-2px);
+}
+
+.kapi-careers input,
+.kapi-careers textarea,
+.kapi-careers select {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.kapi-careers input:focus,
+.kapi-careers textarea:focus,
+.kapi-careers select:focus {
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.08);
+}
+
+.kapi-careers [class*="border-dashed"] {
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(135deg, rgba(229,9,20,0.38), rgba(255,255,255,0.06)) border-box;
+  border-color: transparent;
+}
+
+.kapi-careers [class*="border-dashed"]:hover {
+  background:
+    linear-gradient(var(--kapi-bg-card), var(--kapi-bg-card)) padding-box,
+    linear-gradient(135deg, rgba(229,9,20,0.58), rgba(255,255,255,0.10)) border-box;
+}
+
+.kapi-careers [class*="bg-brand-red"] {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
