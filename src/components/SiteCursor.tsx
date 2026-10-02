@@ -42,7 +42,10 @@ export const SiteCursor = () => {
         <Cursor />
         {label && (
           <CursorFollow>
-            {label}
+            <span className="kapi-cursor-label-content">
+              <span className="kapi-cursor-label-accent" aria-hidden="true" />
+              <span>{label}</span>
+            </span>
           </CursorFollow>
         )}
       </CursorProvider>
