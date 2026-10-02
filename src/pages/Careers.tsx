@@ -661,7 +661,7 @@ export const Careers = () => {
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
         <AtmosphericBackground 
           imageUrl="/hero_background_3d.png"
           opacity={0.06}
@@ -682,7 +682,7 @@ export const Careers = () => {
               }
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8E8E93] mb-6">
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A] flex items-center gap-2">
+              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930] flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
               </span>
@@ -690,7 +690,7 @@ export const Careers = () => {
                 <Sparkles size={12} />
                 <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
               </span>
-              <span className="px-3 py-1.5 rounded-full bg-[#161616] border border-[#2A2A2A]">
+              <span className="px-3 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
                 {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
               </span>
             </div>
@@ -720,7 +720,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="py-16 sm:py-24 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden">
+      <section className="py-16 sm:py-24 border-b border-[#262930] bg-[#0A0A0A] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -768,7 +768,7 @@ export const Careers = () => {
                 >
                   <button
                     onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#2A2A2A] bg-[#161616] transition-all duration-500 hover:scale-[1.04] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
+                    className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] bg-[#16181D] transition-all duration-500 hover:scale-[1.04] hover:-translate-y-1.5 hover:border-brand-red/60 hover:shadow-[0_16px_36px_rgba(255,26,26,0.22)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
                     title={`${talent.name} - ${talent.role}`}
                     aria-label={`View photo and profile of ${talent.name}`}
                   >
@@ -801,7 +801,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#161616] border border-[#2A2A2A] rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+                className="relative w-full max-w-lg bg-[#16181D] border border-[#262930] rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
@@ -832,7 +832,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#2A2A2A] pt-4">
+                <div className="space-y-3.5 sm:space-y-4 text-xs font-light text-white/80 border-t border-[#262930] pt-4">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#8E8E93] block mb-1">
                       {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
@@ -851,7 +851,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 sm:mt-6 pt-4 border-t border-[#2A2A2A] flex justify-end">
+                <div className="mt-5 sm:mt-6 pt-4 border-t border-[#262930] flex justify-end">
                   <button
                     onClick={() => setSelectedTalent(null)}
                     className="w-full sm:w-auto px-6 py-2.5 bg-brand-red hover:bg-white hover:text-black text-white text-xs font-mono font-medium rounded-full transition-colors"
@@ -866,7 +866,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Current Opportunities */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A]" id="open-positions">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930]" id="open-positions">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -891,7 +891,7 @@ export const Careers = () => {
                 key={pos.id}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/50 transition-all duration-300"
+                className="cursor-pointer group p-6 sm:p-8 lg:p-10 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/50 transition-all duration-300"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
@@ -899,7 +899,7 @@ export const Careers = () => {
                       <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
                         {pos.workplace}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-[#0A0A0A] border border-[#2A2A2A] text-[#8E8E93] text-xs font-mono">
+                      <span className="px-3 py-1 rounded-full bg-[#0A0A0A] border border-[#262930] text-[#8E8E93] text-xs font-mono">
                         {pos.department}
                       </span>
                       <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
@@ -928,7 +928,7 @@ export const Careers = () => {
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0 pt-2 lg:pt-0">
-                    <span className="px-5 py-2.5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#2A2A2A] group-hover:border-brand-red">
+                    <span className="px-5 py-2.5 rounded-full bg-[#0A0A0A] group-hover:bg-brand-red text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 border border-[#262930] group-hover:border-brand-red">
                       <span>{language === 'id' ? 'Lihat Detail & Lamar' : 'View Role & Apply'}</span>
                       <ArrowUpRight size={14} />
                     </span>
@@ -941,7 +941,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A] relative overflow-hidden" id="freelance-vendor">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A] relative overflow-hidden" id="freelance-vendor">
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -980,7 +980,7 @@ export const Careers = () => {
           </div>
 
           {/* Key Work Policy Banner (Crucial Terms Callout) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 p-5 sm:p-6 rounded-2xl bg-[#161616] border border-brand-red/30">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 p-5 sm:p-6 rounded-2xl bg-[#16181D] border border-brand-red/30">
             <div className="flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-brand-red/15 border border-brand-red/30 flex items-center justify-center text-brand-red shrink-0">
                 <Globe size={18} />
@@ -1041,9 +1041,9 @@ export const Careers = () => {
           {/* 4 In-Depth Information Columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* 1. Keterangan & Deskripsi */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <Layers size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1073,9 +1073,9 @@ export const Careers = () => {
             </div>
 
             {/* 2. Aturan & Ketentuan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <ShieldCheck size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1105,9 +1105,9 @@ export const Careers = () => {
             </div>
 
             {/* 3. Benefit & Keuntungan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <DollarSign size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1137,9 +1137,9 @@ export const Careers = () => {
             </div>
 
             {/* 4. Apa yang Kami Butuhkan */}
-            <div className="p-6 sm:p-7 rounded-2xl border border-[#2A2A2A] bg-[#161616] flex flex-col justify-between hover:border-brand-red/30 transition-all">
+            <div className="p-6 sm:p-7 rounded-2xl border border-[#262930] bg-[#16181D] flex flex-col justify-between hover:border-brand-red/30 transition-all">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#2A2A2A] flex items-center justify-center text-white mb-5">
+                <div className="w-11 h-11 rounded-xl bg-[#0A0A0A] border border-[#262930] flex items-center justify-center text-white mb-5">
                   <Code2 size={20} className="text-brand-red" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-white mb-3">
@@ -1176,7 +1176,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#2A2A2A] bg-[#0A0A0A]">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
             <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
@@ -1191,7 +1191,7 @@ export const Careers = () => {
             {benefits.map((benefit, i) => (
               <div 
                 key={i}
-                className="p-6 sm:p-8 rounded-2xl border border-[#2A2A2A] bg-[#161616] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
+                className="p-6 sm:p-8 rounded-2xl border border-[#262930] bg-[#16181D] hover:border-brand-red/30 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mb-6">
                   {benefit.icon}
@@ -1219,10 +1219,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#161616] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#16181D] border border-[#262930] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#16181D]/95 backdrop-blur-md border-b border-[#262930] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1244,7 +1244,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1302,7 +1302,7 @@ export const Careers = () => {
                 </div>
 
                 {/* Application Form */}
-                <div className="pt-6 border-t border-[#2A2A2A]">
+                <div className="pt-6 border-t border-[#262930]">
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
@@ -1481,10 +1481,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#161616] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#16181D] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#161616]/95 backdrop-blur-md border-b border-[#2A2A2A] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#16181D]/95 backdrop-blur-md border-b border-[#262930] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1506,7 +1506,7 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#2A2A2A] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-[#262930] flex items-center justify-center text-[#8E8E93] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
