@@ -806,7 +806,7 @@ export const Careers = () => {
                       <span className="block text-[11px] text-white/65 mt-0.5 truncate">{talent.role}</span>
                     </div>
                     <div className="absolute top-3 left-3 rounded-full border border-white/15 bg-black/35 px-2 py-1 text-[9px] font-mono uppercase tracking-widest text-white/70 backdrop-blur-sm">
-                      0{(index % 12) + 1}
+                      0String((index % 12) + 1).padStart(2, '0')
                     </div>
                   </button>
                 </div>
