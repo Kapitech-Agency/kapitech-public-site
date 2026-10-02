@@ -1046,7 +1046,7 @@ export const Careers = () => {
             </div>
             <div className="grid sm:grid-cols-2 gap-px border border-line bg-line rounded-2xl overflow-hidden">
               {benefits.map((benefit) => (
-                <div key={benefit.title} className="bg-panel p-6 sm:p-7 hover:bg-panel-hover transition-colors">
+                <div key={benefit.title} className="bg-panel p-6 sm:p-7 hover:bg-[var(--kapi-bg-card-hover)] transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/25 flex items-center justify-center text-brand-red mb-5">
                     {benefit.icon}
                   </div>
