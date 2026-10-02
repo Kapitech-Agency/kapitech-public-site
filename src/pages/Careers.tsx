@@ -981,12 +981,13 @@ export const Careers = () => {
 
       {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
       <section
-        className="relative overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-20 sm:px-6 sm:py-28 md:px-12"
+        className="relative overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
         id="freelance-vendor"
       >
         <div className="pointer-events-none absolute -right-24 top-16 h-72 w-72 rounded-full bg-brand-red/[0.035] blur-3xl" />
         <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="border-t border-white/[0.1] pt-8 sm:pt-10">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl sm:p-7 lg:p-9">
+            <div className="pt-1 sm:pt-2">
             <div className="mb-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-16">
               <div className="max-w-4xl">
                 <div className="mb-5 flex items-center gap-3 text-[10px] font-mono font-semibold uppercase tracking-[0.22em] text-brand-red">
@@ -1010,7 +1011,7 @@ export const Careers = () => {
                     setIsFreelanceModalOpen(true);
                     setIsVendorSubmitted(false);
                   }}
-                  className="group inline-flex w-full items-center justify-between gap-4 border border-brand-red/55 bg-brand-red px-5 py-4 text-left text-xs font-mono font-semibold uppercase tracking-[0.14em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/88 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] sm:w-auto sm:min-w-[280px]"
+                  className="group inline-flex w-full items-center justify-between gap-4 rounded-full border border-brand-red/55 bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.14em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/88 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] sm:w-auto sm:min-w-[280px]"
                 >
                   <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
                   <ArrowUpRight size={16} className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -1021,7 +1022,7 @@ export const Careers = () => {
               </div>
             </div>
 
-            <div className="grid border-y border-white/[0.08] md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-2 sm:gap-3 md:grid-cols-2 lg:grid-cols-4">
               {[
                 {
                   icon: Globe,
@@ -1046,8 +1047,7 @@ export const Careers = () => {
               ].map(({ icon: Icon, title, text }, index) => (
                 <div
                   key={title}
-                  className="px-0 py-6 sm:px-6 lg:px-7"
-                  style={{ borderLeft: index === 0 ? undefined : '1px solid rgba(255,255,255,0.08)' }}
+                  className="rounded-2xl border border-white/[0.07] bg-white/[0.014] px-5 py-5 transition-[background-color,border-color] duration-300 hover:border-white/[0.12] hover:bg-white/[0.022] sm:px-6 sm:py-6 lg:px-6"
                 >
                   <div className="mb-4 flex items-center gap-3 text-white">
                     <Icon size={16} className="text-brand-red" />
@@ -1058,7 +1058,7 @@ export const Careers = () => {
               ))}
             </div>
 
-            <div className="mt-14 grid gap-0 md:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/[0.08]">
+            <div className="mt-10 grid gap-3 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
               {[
                 {
                   number: '01',
@@ -1107,9 +1107,9 @@ export const Careers = () => {
               ].map(({ number, icon: Icon, title, intro, items }, index) => (
                 <div
                   key={number}
-                  className="border-t border-white/[0.08] px-0 py-7 lg:border-t-0 lg:px-7 lg:py-1 first:lg:pl-0 last:lg:pr-0"
+                  className="rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] sm:p-6 lg:p-6"
                 >
-                  <div className="mb-7 flex items-center justify-between">
+                  <div className="mb-6 flex items-center justify-between">
                     <span className="text-[11px] font-mono tabular-nums tracking-[0.16em] text-white/35">{number}</span>
                     <Icon size={17} className="text-brand-red" />
                   </div>
