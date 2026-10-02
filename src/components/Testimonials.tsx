@@ -1,158 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsTestimonials, getCmsTestimonials, TestimonialItem } from '../lib/cmsStore';
+import { EASE, GlassPanel, SectionHeader } from './ui/PublicUI';
 
 export const Testimonials = () => {
   const { language } = useLanguage();
-  const [cmsTestimonials, setCmsTestimonials] = useState<TestimonialItem[]>(() => getCmsTestimonials());
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerSlide, setItemsPerSlide] = useState(3);
+  const [items, setItems] = useState<TestimonialItem[]>(() => getCmsTestimonials());
+  const [index, setIndex] = useState(0);
+  const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
-    const handleUpdate = () => {
-      setCmsTestimonials(getCmsTestimonials());
-    };
-
-    window.addEventListener('kapitech_cms_updated', handleUpdate);
-    void fetchServerCmsTestimonials().then(() => {
-      setCmsTestimonials(getCmsTestimonials());
-    });
-
-    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+    const update = () => setItems(getCmsTestimonials());
+    window.addEventListener('kapitech_cms_updated', update);
+    void fetchServerCmsTestimonials().then(() => setItems(getCmsTestimonials()));
+    return () => window.removeEventListener('kapitech_cms_updated', update);
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setItemsPerSlide(1);
-      } else if (window.innerWidth < 1024) {
-        setItemsPerSlide(2);
-      } else {
-        setItemsPerSlide(3);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const testimonials = cmsTestimonials.map(t => ({
-    quote: language === 'id' ? (t.quoteId || t.quote) : (t.quote || t.quoteId),
-    author: t.author,
-    role: t.role,
-    company: t.company,
-    location: t.location,
-    rating: t.rating || 5
-  }));
-  const totalSlides = Math.max(1, Math.ceil(testimonials.length / itemsPerSlide));
-
-  const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  // Reset index if out of bounds on resize
-  useEffect(() => {
-    if (currentIndex >= totalSlides) {
-      setCurrentIndex(0);
-    }
-  }, [itemsPerSlide, totalSlides]);
+  const visible = useMemo(() => items.slice(index, index + 1), [items, index]);
 
   useEffect(() => {
-    const timer = setInterval(next, 8000);
-    return () => clearInterval(timer);
-  }, [totalSlides]);
+    if (isInteracting || items.length <= 1) return;
+    const timer = window.setInterval(() => setIndex(prev => (prev + 1) % items.length), 8200);
+    return () => window.clearInterval(timer);
+  }, [items.length, isInteracting]);
 
-  const currentItems = testimonials.slice(
-    currentIndex * itemsPerSlide,
-    (currentIndex + 1) * itemsPerSlide
-  );
+  const current = visible[0] || items[0];
+  if (!current) return null;
 
   return (
-    <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0A0A0A] border-b border-[#2A2A2A]" id="testimonials">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
-          <div>
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2.5 block">
-              {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
-              {language === 'id' ? 'Dipercaya oleh para pendiri dan pemimpin produk.' : 'Trusted by founders and product leaders.'}
-            </h2>
-          </div>
-          <div className="flex items-center gap-2.5 self-start sm:self-auto">
-            <button 
-              onClick={prev}
-              className="w-11 h-11 rounded-full border border-[#2A2A2A] bg-[#161616] flex items-center justify-center text-[#8E8E93] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
-              aria-label="Previous testimonials"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button 
-              onClick={next}
-              className="w-11 h-11 rounded-full border border-[#2A2A2A] bg-[#161616] flex items-center justify-center text-[#8E8E93] hover:text-white hover:border-brand-red/50 active:scale-95 transition-all"
-              aria-label="Next testimonials"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        </div>
+    <section className="kapi-section" onPointerEnter={() => setIsInteracting(true)} onPointerLeave={() => setIsInteracting(false)}>
+      <div className="kapi-container">
+        <SectionHeader
+          eyebrow={language === 'id' ? 'Client testimonials' : 'Client testimonials'}
+          title={language === 'id' ? 'Dipercaya oleh founder dan product leaders.' : 'Trusted by founders and product leaders.'}
+        />
 
-        <div className={`grid gap-4 sm:gap-6 md:gap-8 ${
-          itemsPerSlide === 1 ? 'grid-cols-1' : itemsPerSlide === 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-        }`}>
-          <AnimatePresence mode="wait">
-            {currentItems.map((item, index) => (
-              <motion.div
-                key={item.author + currentIndex + language}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3, delay: index * 0.06 }}
-                className="p-6 sm:p-8 rounded-2xl bg-[#161616] border border-[#2A2A2A] flex flex-col justify-between min-h-[260px] sm:min-h-[300px] transition-colors hover:border-brand-red/40"
-              >
+        <div className="grid lg:grid-cols-[1.3fr_.7fr] gap-4">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={current.id}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.42, ease: EASE }}
+            >
+              <GlassPanel className="p-7 sm:p-10 min-h-[320px] flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-4 sm:mb-5">
-                    <Quote size={22} className="text-brand-red opacity-80" />
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={13} className="fill-brand-red text-brand-red" />
-                      ))}
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="w-11 h-11 rounded-[14px] border border-brand-red/20 bg-brand-red/10 text-brand-red grid place-items-center">
+                      <Quote size={18} />
                     </div>
+                    <span className="kapi-surface-number">Kapitech / {String(index + 1).padStart(2,'0')}</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#8E8E93] font-light leading-relaxed">
-                    "{item.quote}"
-                  </p>
+                  <blockquote className="mt-8 font-display text-2xl sm:text-4xl leading-[1.08] tracking-[-.045em] max-w-4xl">
+                    “{language === 'id' ? current.quoteId : current.quote}”
+                  </blockquote>
                 </div>
 
-                <div className="pt-4 sm:pt-5 mt-4 border-t border-[#2A2A2A]">
-                  <h4 className="text-sm font-semibold text-white">{item.author}</h4>
-                  <p className="text-xs text-brand-red font-medium mt-0.5">{item.role}, {item.company}</p>
-                  <p className="text-[11px] text-[#8E8E93]/70 font-mono mt-0.5">{item.location}</p>
+                <div className="mt-10 pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+                  <div>
+                    <div className="font-semibold">{current.author}</div>
+                    <div className="mt-1 text-xs text-brand-red">{current.role}, {current.company}</div>
+                  </div>
+                  <div className="text-[10px] font-mono uppercase tracking-[.14em] text-white/32">{current.location}</div>
                 </div>
-              </motion.div>
-            ))}
+              </GlassPanel>
+            </motion.div>
           </AnimatePresence>
-        </div>
 
-        {/* Carousel Dots */}
-        <div className="flex justify-center gap-2 mt-8 sm:mt-10">
-          {[...Array(totalSlides)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                currentIndex === i ? 'w-8 bg-brand-red' : 'w-2 bg-[#2A2A2A]'
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+          <GlassPanel className="p-5 flex flex-col justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-[.16em] font-mono text-white/34">Navigate</div>
+              <p className="mt-3 text-sm leading-7 text-white/45">
+                {language === 'id' ? 'Geser antar testimoni tanpa mengganggu pembacaan kutipan.' : 'Move between testimonials without interrupting the reading flow.'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="kapi-close" type="button" onClick={() => setIndex(prev => (prev - 1 + items.length) % items.length)} aria-label="Previous testimonial">
+                <ChevronLeft size={18} />
+              </button>
+              <button className="kapi-close" type="button" onClick={() => setIndex(prev => (prev + 1) % items.length)} aria-label="Next testimonial">
+                <ChevronRight size={18} />
+              </button>
+              <div className="ml-auto font-mono text-[10px] text-white/30">{index + 1} / {items.length}</div>
+            </div>
+          </GlassPanel>
         </div>
       </div>
     </section>
