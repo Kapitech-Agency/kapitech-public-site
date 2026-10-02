@@ -729,7 +729,7 @@ export const Careers = () => {
                 variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="text-3xl sm:text-5xl md:text-[3.5rem] font-display font-bold text-white tracking-[-0.045em] leading-[0.96]"
-              >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</h2>
+              >{language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join With Our 12 Great Talents'}</motion.h2>
             </div>
             <motion.p
               variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
@@ -792,9 +792,9 @@ export const Careers = () => {
                 </motion.button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-                <AnimatePresence>
+        <AnimatePresence>
           {selectedTalent && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="kapi-careers-modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/88 backdrop-blur-md overflow-y-auto" onClick={() => setSelectedTalent(null)} role="dialog" aria-modal="true" aria-label={'Talent profile: ' + selectedTalent.name}>
               <motion.div initial={{ opacity: 0, scale: 0.98, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 24 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }} onClick={(e) => e.stopPropagation()} className="kapi-careers-modal kapi-talent-modal relative w-full max-w-3xl bg-panel border border-line rounded-[1.75rem] overflow-hidden shadow-2xl my-4">
@@ -823,6 +823,7 @@ export const Careers = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </section>
 
       {/* SECTION: Current Opportunities */}
@@ -936,14 +937,14 @@ export const Careers = () => {
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
                 {language === 'id' ? 'Lingkungan Kerja Berorientasi Prestasi' : 'Craft, Autonomy, and Real Growth'}
-              </motion.h2>
+              </h2>
             </div>
             <motion.p
               variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="text-xs sm:text-sm text-[#8E8E93] font-light max-w-md leading-relaxed">
               {language === 'id' ? 'Hal-hal yang kami jaga dalam keseharian, tanpa daftar fasilitas yang panjang.' : 'The principles we keep close in the day-to-day, without a long list of perks.'}
-            </p>
+            </motion.p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 rounded-2xl border border-[#2A2A2A] overflow-hidden">
             {benefits.map((benefit, i) => (
