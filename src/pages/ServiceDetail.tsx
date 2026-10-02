@@ -208,7 +208,7 @@ export const ServiceDetail = () => {
                   src={service.testimonial.avatar}
                   alt={service.testimonial.author}
                   referrerPolicy="no-referrer"
-                  className="w-12 h-12 rounded-full object-cover border border-[#262930]"
+                  className="w-12 h-12 rounded-full object-cover border border-white/[0.07]"
                 />
                 <div>
                   <div className="text-base font-semibold text-white">
@@ -437,7 +437,7 @@ export const ServiceDetail = () => {
 
         {/* BUSINESS OUTCOMES & DISCOVERY CALL BANNER */}
         <div className="mb-20 sm:mb-28">
-          <div className="rounded-3xl border border-[#262930] bg-[#16181D] p-8 sm:p-12 lg:p-16">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-8 sm:p-12 lg:p-16 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <span className="kapi-section-label mb-5">
@@ -459,7 +459,7 @@ export const ServiceDetail = () => {
               </div>
 
               <div className="lg:col-span-5 w-full">
-                <div className="rounded-2xl border border-[#262930] bg-[#0B0C0E] p-6 sm:p-8 space-y-5 text-center">
+                <div className="rounded-2xl border border-white/[0.07] bg-white/[0.012] p-6 sm:p-8 space-y-5 text-center">
                   <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red mx-auto">
                     <Sparkles className="w-6 h-6" />
                   </div>
@@ -554,7 +554,7 @@ export const ServiceDetail = () => {
           </Link>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-red text-white text-sm font-medium hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(255,26,26,0.3)]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-red text-white text-sm font-medium hover:bg-brand-red/90 transition-[background-color,color,box-shadow] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)]"
           >
             <span>{language === 'id' ? 'Konsultasi Gratis' : 'Book a Discovery Call'}</span>
             <ArrowUpRight className="w-4 h-4" />
