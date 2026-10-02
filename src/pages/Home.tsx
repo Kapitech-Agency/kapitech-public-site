@@ -715,9 +715,9 @@ export const Home = () => {
             />
 
             <motion.div
-              className="hidden lg:block absolute left-[12.5%] top-[31px] h-3 w-3 rounded-full bg-brand-red/80 blur-[1px] shadow-[0_0_20px_rgba(229,9,20,0.55)]"
-              initial={{ opacity: 0, x: 0 }}
-              whileInView={{ opacity: [0, 1, 1, 0], x: ['0%', 'calc(100% - 12px)'] }}
+              className="hidden lg:block absolute top-[31px] h-3 w-3 -translate-x-1/2 rounded-full bg-brand-red/80 blur-[1px] shadow-[0_0_20px_rgba(229,9,20,0.55)]"
+              initial={{ opacity: 0, left: '12.5%' }}
+              whileInView={{ opacity: [0, 1, 1, 0], left: ['12.5%', '87.5%'] }}
               viewport={{ once: true, margin: '-8% 0px' }}
               transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               aria-hidden="true"
