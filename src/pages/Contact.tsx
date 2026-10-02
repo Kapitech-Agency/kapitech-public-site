@@ -697,7 +697,7 @@ export const Contact = () => {
           <div className="flex justify-center">
             <button
               onClick={() => setShowAllFaqs(prev => !prev)}
-              className="px-7 sm:px-8 py-3.5 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1E2128] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 active:scale-95 min-h-[44px]"
+              className="px-7 sm:px-8 py-3.5 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 active:scale-95 min-h-[44px]"
             >
               <span>
                 {language === 'id'
