@@ -192,7 +192,7 @@ export const Work = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] overflow-hidden">
+      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
         <div className="pointer-events-none absolute -right-32 top-12 h-72 w-72 rounded-full border border-brand-red/[0.035] blur-[0.2px]" aria-hidden="true" />
         <div className="pointer-events-none absolute left-[22%] -bottom-40 h-72 w-72 rounded-full border border-white/[0.025]" aria-hidden="true" />
         <div className="max-w-7xl mx-auto relative z-10">
@@ -371,7 +371,7 @@ export const Work = () => {
           {/* Top Controls: Main Pillars + Instant Search */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
             {/* Primary Pillar Tabs */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-full border border-white/[0.07] bg-white/[0.018] p-1 sm:p-1.5">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 sm:p-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               {[
                 { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
                 { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
@@ -566,7 +566,7 @@ export const Work = () => {
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-[#262930] flex items-center justify-between">
+                      <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
                           {project.impact[0] && (
                             <span className="text-xs font-mono font-bold text-white">
