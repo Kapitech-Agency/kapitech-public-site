@@ -227,9 +227,39 @@ export const Navbar = () => {
               data-cursor-label="Start"
             >
               <span
-                className="pointer-events-none absolute -inset-px rounded-full border border-transparent border-t-white/95 border-r-white/25 opacity-90 animate-[spin_3.4s_linear_infinite]"
+                className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
                 aria-hidden="true"
-              />
+              >
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  viewBox="0 0 240 40"
+                  preserveAspectRatio="none"
+                  fill="none"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="238"
+                    height="38"
+                    rx="19"
+                    pathLength="100"
+                    stroke="rgba(255,255,255,0.92)"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeDasharray="10 90"
+                    vectorEffect="non-scaling-stroke"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="-100"
+                      dur="3.6s"
+                      calcMode="linear"
+                      repeatCount="indefinite"
+                    />
+                  </rect>
+                </svg>
+              </span>
               <span className="absolute inset-[1px] rounded-full bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-85 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -677,9 +707,39 @@ export const Navbar = () => {
                   data-cursor-label="Start"
                 >
                   <span
-                    className="pointer-events-none absolute -inset-px rounded-xl border border-transparent border-t-white/95 border-r-white/25 opacity-90 animate-[spin_3.8s_linear_infinite]"
+                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl"
                     aria-hidden="true"
-                  />
+                  >
+                    <svg
+                      className="absolute inset-0 h-full w-full"
+                      viewBox="0 0 240 48"
+                      preserveAspectRatio="none"
+                      fill="none"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="238"
+                        height="46"
+                        rx="23"
+                        pathLength="100"
+                        stroke="rgba(255,255,255,0.92)"
+                        strokeWidth="1.25"
+                        strokeLinecap="round"
+                        strokeDasharray="9 91"
+                        vectorEffect="non-scaling-stroke"
+                      >
+                        <animate
+                          attributeName="stroke-dashoffset"
+                          from="0"
+                          to="-100"
+                          dur="3.9s"
+                          calcMode="linear"
+                          repeatCount="indefinite"
+                        />
+                      </rect>
+                    </svg>
+                  </span>
                   <span className="absolute inset-[1px] rounded-[11px] bg-brand-red transition-colors duration-300 group-hover:bg-[#FF1E27]" aria-hidden="true" />
                   <span className="relative z-10">{t('nav.startProject')}</span>
                   <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
