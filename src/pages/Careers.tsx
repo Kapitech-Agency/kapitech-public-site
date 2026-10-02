@@ -815,7 +815,7 @@ export const Careers = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto"
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150 overflow-y-auto"
               role="dialog"
               aria-modal="true"
               aria-labelledby="talent-profile-title"
@@ -826,7 +826,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-[#16181D] border border-[#262930] rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
+                className="relative w-full max-w-lg bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] p-5 sm:p-8 shadow-2xl overflow-hidden my-6"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
@@ -1244,7 +1244,7 @@ export const Careers = () => {
       <AnimatePresence>
         {selectedPosition && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="career-position-title"
@@ -1261,10 +1261,10 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#16181D] border border-[#262930] rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/88 backdrop-blur-xl border border-white/[0.08] rounded-[20px] overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#16181D]/95 backdrop-blur-md border-b border-[#262930] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -1518,7 +1518,7 @@ export const Careers = () => {
       <AnimatePresence>
         {isFreelanceModalOpen && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/72 backdrop-blur-xl backdrop-saturate-150"
             role="dialog"
             aria-modal="true"
             aria-labelledby="freelance-network-title"
@@ -1538,7 +1538,7 @@ export const Careers = () => {
               className="relative w-full max-w-3xl bg-[#16181D] border border-brand-red/40 rounded-2xl overflow-hidden shadow-2xl my-8 max-h-[90vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#16181D]/95 backdrop-blur-md border-b border-[#262930] space-y-3">
+              <div className="sticky top-0 z-20 p-5 sm:p-6 bg-[#0F1116]/86 backdrop-blur-xl border-b border-[#262930] space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
