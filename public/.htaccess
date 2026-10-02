@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^api(?:/|$) - [L]
+  RewriteRule ^assets(?:/|$) - [L]
+  RewriteRule ^favicon\.ico$ - [L]
+
+  RewriteRule ^$ index.html [L]
+  RewriteRule ^.*$ index.html [L]
+</IfModule>
