@@ -280,7 +280,7 @@ export const Navbar = () => {
             </div>
 
             <button 
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.08] bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84 hover:border-white/[0.12] hover:bg-[#0B0C0E]/92 flex items-center justify-center text-white shadow-[0_6px_18px_rgba(0,0,0,0.14)] active:bg-[#0B0C0E]/92 transition-[background-color,border-color,box-shadow] duration-300 shrink-0 cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.08] bg-[#0B0C0E]/62 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/54 hover:border-white/[0.08] hover:bg-[#0B0C0E]/62 hover:backdrop-blur-2xl flex items-center justify-center text-white shadow-none active:bg-[#0B0C0E]/62 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer"
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
             >
