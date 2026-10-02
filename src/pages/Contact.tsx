@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
+import { GlassPanel, PageHero, Reveal, SectionHeader } from '../components/ui/PublicUI';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
