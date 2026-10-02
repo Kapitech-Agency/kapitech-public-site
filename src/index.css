@@ -1273,6 +1273,9 @@ html.kapi-custom-cursor-enabled select {
 .kapi-public-shell main :where(a, button)[class*="bg-brand-red"],
 .kapi-public-shell main :where(a, button)[class*="bg-[#E50914]"],
 .kapi-public-shell footer :where(a, button)[class*="bg-brand-red"] {
+  background-color: rgba(229, 9, 20, 0.72);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
   border-color: rgba(229, 9, 20, 0.42);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.12),
