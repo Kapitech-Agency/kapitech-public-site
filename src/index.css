@@ -1173,8 +1173,8 @@ html.kapi-custom-cursor-enabled select {
   height: 5px;
   flex: 0 0 auto;
   border-radius: 999px;
-  background: #E50914;
-  box-shadow: 0 0 8px rgba(229,9,20,0.36);
+  background: rgba(248,250,252,0.62);
+  box-shadow: 0 0 7px rgba(255,255,255,0.12);
 }
 
 @media (max-width: 767px) {
