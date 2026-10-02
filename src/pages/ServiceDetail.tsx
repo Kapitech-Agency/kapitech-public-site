@@ -73,7 +73,7 @@ export const ServiceDetail = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white pt-28 pb-24 overflow-hidden">
+    <div className="kapi-service-page relative min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white pt-28 pb-24 overflow-hidden">
       <AtmosphericBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
