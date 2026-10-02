@@ -20,17 +20,17 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
-import { allSolutionsAndServices, ServiceItemData } from '@/src/data/servicesData';
+import { allSolutionsAndServices } from '@/src/data/servicesData';
 
 const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
   const height = mobile ? 48 : 40;
-  const radius = mobile ? 11.5 : 19;
-  const pathHeight = mobile ? 46.5 : 38.5;
-  const duration = mobile ? 3.8 : 3.5;
+  const radius = mobile ? 12 : 20;
+  const pathHeight = mobile ? 46 : 38;
+  const duration = mobile ? 3.4 : 3.1;
 
   return (
     <span
-      className="pointer-events-none absolute -inset-[1.5px] z-20 rounded-[inherit]"
+      className="pointer-events-none absolute -inset-[1.75px] z-20 rounded-[inherit]"
       aria-hidden="true"
     >
       <svg
@@ -47,61 +47,17 @@ const CtaPerimeter = ({ mobile = false }: { mobile?: boolean }) => {
           rx={radius}
           pathLength="1"
           stroke="#E50914"
-          strokeWidth="0.55"
+          strokeWidth="1.5"
           strokeLinecap="round"
-          strokeDasharray="0.22 0.78"
-          strokeOpacity="0.16"
+          strokeDasharray="0.18 0.82"
+          strokeOpacity="0.9"
           vectorEffect="non-scaling-stroke"
           animate={{ strokeDashoffset: [0, -1] }}
-          transition={{ duration, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.rect
-          x="0.5"
-          y="0.5"
-          width="99"
-          height={pathHeight}
-          rx={radius}
-          pathLength="1"
-          stroke="#E50914"
-          strokeWidth="0.7"
-          strokeLinecap="round"
-          strokeDasharray="0.14 0.86"
-          strokeOpacity="0.28"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1] }}
-          transition={{ duration, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.rect
-          x="0.5"
-          y="0.5"
-          width="99"
-          height={pathHeight}
-          rx={radius}
-          pathLength="1"
-          stroke="#E50914"
-          strokeWidth="0.92"
-          strokeLinecap="round"
-          strokeDasharray="0.075 0.925"
-          strokeOpacity="0.48"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1] }}
-          transition={{ duration, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.rect
-          x="0.5"
-          y="0.5"
-          width="99"
-          height={pathHeight}
-          rx={radius}
-          pathLength="1"
-          stroke="#E50914"
-          strokeWidth="1.15"
-          strokeLinecap="round"
-          strokeDasharray="0.024 0.976"
-          strokeOpacity="0.86"
-          vectorEffect="non-scaling-stroke"
-          animate={{ strokeDashoffset: [0, -1] }}
-          transition={{ duration, repeat: Infinity, ease: "linear" }}
+          transition={{
+            duration,
+            repeat: Infinity,
+            ease: "linear",
+          }}
         />
       </svg>
     </span>
