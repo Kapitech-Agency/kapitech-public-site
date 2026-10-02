@@ -80,8 +80,9 @@
         .hero-video-wrapper video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
         .hero-video-wrapper .video-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, var(--bg-main) 100%); }
         
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal { opacity: 1; transform: none; }
+        .js-reveal .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .js-reveal .reveal.active { opacity: 1; transform: translateY(0); }
         
         .glowing-text { text-shadow: 0 0 40px rgba(255,255,255,0.2); }
         
@@ -302,7 +303,7 @@
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl transition-colors duration-500" aria-hidden="true">
+    <div id="mobileMenu" class="fixed inset-0 z-[90] bg-void hidden flex-col justify-center px-8 gap-6 backdrop-blur-3xl transition-colors duration-500"  role="dialog" aria-modal="true" aria-label="Main navigation" aria-hidden="true">
         <button type="button" class="absolute top-8 right-8 text-white p-4" data-mobile-menu-close aria-label="Close navigation menu" >
             <i data-lucide="x" class="w-10 h-10"></i>
         </button>
@@ -312,6 +313,7 @@
         <a href="./portfolio.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Work</a>
         <a href="./academy.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Academy</a>
         <a href="./career.html" class="text-5xl font-display font-bold text-contrast hover:text-magma border-b border-white/10 pb-4">Career</a>
+        <a href="https://ams.kapitech.id" target="_blank" rel="noopener noreferrer" data-mobile-login class="text-5xl font-display font-bold text-white hover:text-magma">Login</a>
         <a href="./contact.html" class="text-5xl font-display font-bold text-magma">Contact</a>
     </div>
 
@@ -991,7 +993,20 @@
     </footer>
 
     <script>
-        lucide.createIcons();
+        document.documentElement.classList.add('js-reveal');
+        window.lucide?.createIcons?.();
+
+        const currentPage = window.location.pathname.split('/').filter(Boolean).pop() || 'index.html';
+        document.querySelectorAll('.nav-link, #mobileMenu a[href]').forEach(link => {
+            const href = link.getAttribute('href') || '';
+            if (!href.startsWith('./')) return;
+            const page = href.slice(2);
+            const active = page === currentPage;
+            link.classList.toggle('active', active);
+            link.classList.toggle('text-magma', active);
+            if (active) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
 
         const mobileMenu = document.getElementById('mobileMenu');
         const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
