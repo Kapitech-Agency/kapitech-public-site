@@ -807,7 +807,7 @@ export const Services = () => {
         <div className="w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-[#111216] px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
-              <span className="kapi-section-label mb-0 shrink-0">
+              <span className="kapi-section-label mb-0 shrink-0 bg-[#16181D] backdrop-blur-none shadow-none">
                 {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
               </span>
               <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
