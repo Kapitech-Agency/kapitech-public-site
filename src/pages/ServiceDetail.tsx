@@ -122,16 +122,15 @@ export const ServiceDetail = () => {
           </span>
         </div>
 
+
         {/* HERO SECTION */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20 lg:mb-28"
+          className="mb-14 sm:mb-16 lg:mb-20"
         >
-          <div className="lg:col-span-8">
-            
-            {/* Category / Badge */}
+          <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-2.5 mb-6">
               <span className="kapi-section-label mb-0">
                 {language === 'id' ? service.badgeId : service.badge}
@@ -143,20 +142,17 @@ export const ServiceDetail = () => {
               )}
             </div>
 
-            {/* Headline */}
             <h1 className="max-w-5xl text-3xl sm:text-5xl lg:text-[4.5rem] font-display font-semibold tracking-[-0.055em] text-white leading-[0.98] mb-6">
               {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
             </h1>
 
-            {/* Subtitle */}
             <p className="text-sm sm:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.8] max-w-3xl mb-10">
               {language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
             </p>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                to={`/contact?service=${encodeURIComponent(service.title)}`}
+                to={'/contact?service=' + encodeURIComponent(service.title)}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
               >
                 <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
@@ -171,95 +167,82 @@ export const ServiceDetail = () => {
               </a>
             </div>
           </div>
-
-          {/* PERFORMANCE METRICS */}
-          <div className="lg:col-span-4 w-full lg:sticky lg:top-28">
-            <motion.div
-              initial={{ opacity: 0, x: 18 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
-            >
-              <div className="border-b border-white/[0.07] px-5 py-6 sm:px-7 sm:py-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                      {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
-                    </span>
-                    <h2 className="mt-3 max-w-xs text-xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-2xl">
-                      {language === 'id' ? 'Sinyal yang mengukur kualitas delivery.' : 'Signals that measure delivery quality.'}
-                    </h2>
-                  </div>
-                  <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#6F757F]">
-                    {String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'Metrik' : 'Signals'}
-                  </span>
-                </div>
-                <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D]">
-                  {language === 'id'
-                    ? 'Indikator utama yang menggambarkan kualitas, kecepatan, atau dampak dari layanan ini.'
-                    : 'Key indicators that reflect the quality, speed, or impact of this service.'}
-                </p>
-              </div>
-
-              <div className="space-y-3 p-4 sm:p-5">
-                {performanceMetrics.length > 0 ? (
-                  performanceMetrics.map((metric, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.45, delay: 0.14 + idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                      className="group relative min-h-[128px] overflow-hidden rounded-xl border border-white/[0.065] bg-[#0F1013]/90 p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/25 hover:bg-white/[0.024] sm:min-h-[136px] sm:p-6"
-                    >
-                      <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6" aria-hidden="true" />
-                      <div className="flex items-center justify-between gap-4">
-                        <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
-                          {String(idx + 1).padStart(2, '0')}
-                        </span>
-                        <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
-                          {language === 'id' ? 'Kinerja' : 'Performance'}
-                        </span>
-                      </div>
-                      <div className="mt-5">
-                        <div className="break-words text-[2.15rem] font-display font-semibold leading-[0.92] tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.55rem]">
-                          {metric.value}
-                        </div>
-                        <div className="mt-3 max-w-sm text-xs leading-[1.55] text-[#A7ACB5] sm:text-sm">
-                          {language === 'id' ? metric.labelId : metric.label}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))
-                ) : (
-                  <div className="rounded-xl border border-white/[0.065] bg-white/[0.012] p-5 text-xs leading-relaxed text-[#8A909D]">
-                    {language === 'id' ? 'Metrik layanan belum tersedia.' : 'Service metrics are not available yet.'}
-                  </div>
-                )}
-              </div>
-
-              <div className="border-t border-white/[0.07] px-5 py-6 sm:px-7 sm:py-7">
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6F757F]">
-                    {language === 'id' ? 'Toolchain & Standar' : 'Toolchain & Stack'}
-                  </span>
-                  <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
-                    {service.tools.length} {language === 'id' ? 'tools' : 'tools'}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {service.tools.map((tool, idx) => (
-                    <span
-                      key={idx}
-                      className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#A7ACB5] transition-colors duration-200 hover:border-white/[0.14] hover:text-white"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
         </motion.div>
+
+        {/* PERFORMANCE METRICS */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          aria-labelledby="performance-metrics-title"
+          className="mb-20 sm:mb-24 lg:mb-28 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
+        >
+          <div className="flex flex-col gap-5 border-b border-white/[0.07] px-5 py-5 sm:px-6 sm:py-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
+              </span>
+              <h2 id="performance-metrics-title" className="mt-2 max-w-2xl text-xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-2xl">
+                {language === 'id' ? 'Sinyal utama dari kualitas delivery.' : 'Key signals from delivery quality.'}
+              </h2>
+            </div>
+            <span className="shrink-0 text-[9px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#555A63]">
+              {String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'Metrik' : 'Signals'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {performanceMetrics.length > 0 ? (
+              performanceMetrics.map((metric, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.12 + idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative min-h-[132px] p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:min-h-[150px] sm:p-6 lg:p-7"
+                >
+                  <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
+                      {language === 'id' ? 'Kinerja' : 'Performance'}
+                    </span>
+                  </div>
+                  <div className="mt-6">
+                    <div className="break-words text-[2.35rem] font-display font-semibold leading-[0.92] tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.7rem]">
+                      {metric.value}
+                    </div>
+                    <div className="mt-2.5 max-w-xs text-xs leading-[1.55] text-[#A7ACB5] sm:text-sm">
+                      {language === 'id' ? metric.labelId : metric.label}
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="p-5 text-xs leading-relaxed text-[#8A909D] sm:col-span-3 sm:p-6">
+                {language === 'id' ? 'Metrik layanan belum tersedia.' : 'Service metrics are not available yet.'}
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-3 border-t border-white/[0.07] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#555A63]">
+              {language === 'id' ? 'Toolchain & Stack' : 'Toolchain & Stack'}
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {service.tools.map((tool, idx) => (
+                <span
+                  key={idx}
+                  className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.section>
 
         {/* TESTIMONIAL PULL QUOTE */}
         {service.testimonial && (
