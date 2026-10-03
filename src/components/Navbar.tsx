@@ -302,7 +302,7 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('en')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
+                  "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
                   language === 'en' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
                 )}
                 aria-label="Switch to English"
@@ -312,7 +312,7 @@ export const Navbar = () => {
               <button
                 onClick={() => setLanguage('id')}
                 className={cn(
-                  "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
+                  "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
                   language === 'id' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
                 )}
                 aria-label="Ganti ke Bahasa Indonesia"
@@ -508,7 +508,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => setLanguage('en')}
                     className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
+                      "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
                       language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
@@ -517,7 +517,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => setLanguage('id')}
                     className={cn(
-                      "min-w-[36px] min-h-[36px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
+                      "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
                       language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
                     )}
                   >
