@@ -39,6 +39,9 @@ export const Work = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
+  const [isSpotlightPaused, setIsSpotlightPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const spotlightRef = React.useRef<HTMLElement>(null);
   const [visibleCount, setVisibleCount] = useState<number>(12);
 
   // Sync with CMS updates
@@ -116,12 +119,30 @@ export const Work = () => {
   }, [projectsList]);
 
   useEffect(() => {
-    if (featuredProjects.length === 0) return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncReducedMotion = () => setReducedMotion(media.matches);
+
+    syncReducedMotion();
+    media.addEventListener('change', syncReducedMotion);
+
+    return () => media.removeEventListener('change', syncReducedMotion);
+  }, []);
+
+  useEffect(() => {
+    setFeaturedIndex((current) =>
+      Math.min(current, Math.max(0, featuredProjects.length - 1)),
+    );
+  }, [featuredProjects.length]);
+
+  useEffect(() => {
+    if (reducedMotion || isSpotlightPaused || featuredProjects.length <= 1) return;
+
     const interval = setInterval(() => {
       setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
-    }, 6500);
+    }, 7000);
+
     return () => clearInterval(interval);
-  }, [featuredProjects.length]);
+  }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
 
   const serviceOptions = useMemo(() => {
     if (activePillar === 'Visual Experience') {
@@ -194,6 +215,12 @@ export const Work = () => {
 
   const currentFeatured = featuredProjects[featuredIndex] || projectsList[0];
 
+  const featuredPositionLabel =
+    language === 'id'
+      ? `${featuredIndex + 1} dari ${featuredProjects.length}: ${currentFeatured?.title ?? ''}`
+      : `${featuredIndex + 1} of ${featuredProjects.length}: ${currentFeatured?.title ?? ''}`;
+  const featuredProgress = `${((featuredIndex + 1) / Math.max(featuredProjects.length, 1)) * 100}%`;
+
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
       {/* Hero Section */}
@@ -265,114 +292,190 @@ export const Work = () => {
 
       {/* Featured Spotlight Carousel */}
       {currentFeatured && (
-        <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
+        <section
+          ref={spotlightRef}
+          className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={language === 'id' ? 'Sorotan studi kasus unggulan' : 'Featured case studies'}
+          onMouseEnter={() => setIsSpotlightPaused(true)}
+          onMouseLeave={() => setIsSpotlightPaused(false)}
+          onFocusCapture={() => setIsSpotlightPaused(true)}
+          onBlurCapture={(event) => {
+            if (!spotlightRef.current?.contains(event.relatedTarget as Node | null)) {
+              setIsSpotlightPaused(false);
+            }
+          }}
+        >
           <div className="max-w-7xl mx-auto">
-            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
-            <div className="flex items-center justify-between gap-4 mb-7 sm:mb-8">
-              <div className="flex items-center gap-3">
-                <span className="kapi-section-label mb-0">
-
-                  {language === 'id' ? 'Sorotan Proyek Terpilih' : 'Featured Case Study Spotlight'}
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 mb-7 sm:mb-9">
+              <div className="min-w-0">
+                <span className="kapi-section-label mb-4">
+                  {language === 'id' ? 'Sorotan Studi Kasus Unggulan' : 'Featured Case Study Spotlight'}
                 </span>
+                <h2 className="mt-3 max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-[3.25rem] font-display font-semibold tracking-[-0.055em] leading-[1.02] text-white">
+                  {language === 'id'
+                    ? 'Satu pekerjaan, dilihat lebih dekat.'
+                    : 'One project, brought into closer focus.'}
+                </h2>
+                <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light">
+                  {language === 'id'
+                    ? 'Pilih salah satu pekerjaan unggulan untuk melihat konteks, hasil, dan cara kami mengeksekusinya.'
+                    : 'Explore selected work with the context, outcomes, and execution behind the final result.'}
+                </p>
               </div>
-              <div className="flex items-center gap-2">
+
+              <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">
+                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
+                  {String(featuredIndex + 1).padStart(2, '0')} / {String(featuredProjects.length).padStart(2, '0')}
+                </div>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
-                  className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.06] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
-                  aria-label="Previous featured project"
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
+                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
+                  data-cursor-label="Previous"
                 >
                   <ChevronLeft size={16} />
                 </button>
-                <span className="text-xs font-mono text-[#8A909D]/70">
-                  {featuredIndex + 1} / {featuredProjects.length}
-                </span>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev + 1) % featuredProjects.length)}
-                  className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.025] hover:bg-white/[0.06] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
-                  aria-label="Next featured project"
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
+                  aria-label={language === 'id' ? 'Studi kasus unggulan berikutnya' : 'Next featured case study'}
+                  data-cursor-label="Next"
                 >
                   <ChevronRight size={16} />
                 </button>
               </div>
             </div>
 
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={currentFeatured.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                onClick={() => setSelectedProject(currentFeatured)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    setSelectedProject(currentFeatured);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label={language === 'id' ? `Buka studi kasus ${currentFeatured.title}` : `Open case study ${currentFeatured.title}`}
-                data-cursor-label="Open"
-                className="cursor-pointer group relative rounded-3xl overflow-hidden border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl hover:border-brand-red/25 hover:bg-white/[0.024] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
-              >
-              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[430px] overflow-hidden bg-[#0B0C0E]">
-                <img 
-                  src={currentFeatured.image} 
-                  alt={currentFeatured.title}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.04] lg:scale-[1.03] lg:group-hover:scale-[1.06]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/30 to-transparent lg:hidden" />
-              </div>
-
-              <div className="lg:col-span-5 p-7 sm:p-9 lg:p-11 flex flex-col justify-between min-h-[360px] sm:min-h-[430px]">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2.5 mb-6">
-                    <span className="px-2.5 py-1 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red text-[11px] font-mono font-medium">
-                      {currentFeatured.pillar}
-                    </span>
-                    <span className="px-2.5 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-[#8A909D] text-[11px] font-mono backdrop-blur-md">
-                      {currentFeatured.service}
-                    </span>
-                    <span className="text-[#8A909D]/70 text-xs font-mono ml-auto">
-                      {currentFeatured.year}
-                    </span>
+            <div className="relative rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-1.5 sm:p-2 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025),0_30px_90px_-60px_rgba(0,0,0,0.85)]">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.article
+                  key={currentFeatured.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{
+                    duration: reducedMotion ? 0 : 0.32,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  onClick={() => setSelectedProject(currentFeatured)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setSelectedProject(currentFeatured);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-roledescription="slide"
+                  aria-label={featuredPositionLabel}
+                  data-cursor-label="Open"
+                  className="cursor-pointer group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-[#0F1116]/82 hover:border-brand-red/28 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12"
+                >
+                  <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[480px] overflow-hidden bg-[#0B0C0E]">
+                    <img
+                      src={currentFeatured.image}
+                      alt={currentFeatured.title}
+                      className="block w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035] lg:scale-[1.025] lg:group-hover:scale-[1.055]"
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/92 via-[#0B0C0E]/20 to-transparent" />
+                    <div className="absolute top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/72 backdrop-blur-md border border-white/[0.1] text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-white">
+                        Featured
+                      </span>
+                      <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/58 backdrop-blur-md border border-brand-red/25 text-[10px] font-mono text-brand-red">
+                        {currentFeatured.year}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 lg:hidden">
+                      <span className="text-[10px] sm:text-xs font-mono text-white/72">
+                        {currentFeatured.client} • {currentFeatured.industry}
+                      </span>
+                    </div>
                   </div>
 
-                  <h3 className="text-2xl sm:text-[2rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white group-hover:text-brand-red transition-colors mb-3">
-                    {currentFeatured.title}
-                  </h3>
-                  <p className="text-xs font-mono text-[#8A909D] mb-5">
-                    {currentFeatured.client} • {currentFeatured.industry}
-                  </p>
-                  <p className="text-sm sm:text-[0.95rem] text-[#8A909D] leading-[1.75] line-clamp-3 mb-8 font-light max-w-xl">
-                    {language === 'id' ? currentFeatured.descId : currentFeatured.desc}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="grid grid-cols-3 gap-x-5 gap-y-4 pt-5 border-t border-white/[0.07] mb-7">
-                    {currentFeatured.impact.map((metric, i) => (
-                      <div key={i}>
-                        <span className="text-lg sm:text-xl font-display font-bold leading-none text-white block">
-                          {metric.value}
+                  <div className="lg:col-span-5 p-5 sm:p-7 lg:p-9 xl:p-10 flex flex-col justify-between min-h-[420px] sm:min-h-[440px] lg:min-h-[480px]">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 mb-5">
+                        <span className="px-2.5 py-1 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red text-[10px] sm:text-[11px] font-mono font-medium">
+                          {currentFeatured.pillar}
                         </span>
-                        <span className="text-[10px] font-mono text-[#8A909D] leading-[1.45] block mt-1.5 line-clamp-2">
-                          {metric.label}
+                        <span className="px-2.5 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-[#8A909D] text-[10px] sm:text-[11px] font-mono backdrop-blur-md">
+                          {currentFeatured.service}
+                        </span>
+                        <span className="ml-auto shrink-0 text-[#8A909D]/70 text-[10px] sm:text-xs font-mono tabular-nums">
+                          {currentFeatured.year}
                         </span>
                       </div>
-                    ))}
-                  </div>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-brand-red font-semibold pt-1 group-hover:translate-x-1 transition-transform">
-                    <span>{language === 'id' ? 'Buka Detail Studi Kasus' : 'Inspect Full Case Study'}</span>
-                    <ArrowUpRight size={14} />
+                      <h3 className="text-2xl sm:text-3xl lg:text-[2.45rem] font-display font-bold leading-[1.04] tracking-[-0.045em] text-white group-hover:text-brand-red transition-colors mb-3">
+                        {currentFeatured.title}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs font-mono text-[#8A909D] leading-relaxed mb-5">
+                        {currentFeatured.client} <span className="text-white/20">•</span> {currentFeatured.industry}
+                      </p>
+                      <p className="text-sm sm:text-[0.95rem] text-[#8A909D] leading-[1.78] line-clamp-4 font-light max-w-xl">
+                        {language === 'id' ? currentFeatured.descId : currentFeatured.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 lg:mt-10">
+                      <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-5 border-t border-white/[0.07]">
+                        {currentFeatured.impact.slice(0, 3).map((metric, i) => (
+                          <div key={i} className="min-w-0">
+                            <span className="text-base sm:text-xl font-display font-bold leading-none text-white block truncate">
+                              {metric.value}
+                            </span>
+                            <span className="text-[9px] sm:text-[10px] font-mono text-[#8A909D] leading-[1.45] block mt-1.5 line-clamp-2">
+                              {metric.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 pt-4 border-t border-white/[0.07] flex flex-col gap-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          {currentFeatured.technologies.slice(0, 4).map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono text-[#8A909D]"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center justify-between gap-4">
+                          <span className="text-xs font-mono font-semibold text-brand-red inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                            <span>{language === 'id' ? 'Buka Detail Studi Kasus' : 'Inspect Full Case Study'}</span>
+                            <ArrowUpRight size={14} />
+                          </span>
+                          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
+                            {reducedMotion || isSpotlightPaused
+                              ? (language === 'id' ? 'Interaksi aktif' : 'Interaction mode')
+                              : 'Auto showcase'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </motion.article>
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-4 flex items-center gap-3">
+              <div className="h-px flex-1 overflow-hidden rounded-full bg-white/[0.07]">
+                <div
+                  className="h-full rounded-full bg-brand-red transition-[width] duration-500"
+                  style={{ width: featuredProgress }}
+                />
               </div>
-              </motion.div>
-            </AnimatePresence>
+              <span className="shrink-0 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
+                {featuredProjects.length} {language === 'id' ? 'studi kasus unggulan' : 'featured case studies'}
+              </span>
             </div>
           </div>
         </section>
