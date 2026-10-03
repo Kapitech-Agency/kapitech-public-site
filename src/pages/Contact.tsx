@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
@@ -77,6 +77,33 @@ export const Contact = () => {
   ];
 
   const serviceOptions = language === 'id' ? serviceOptionsId : serviceOptionsEn;
+  const [searchParams] = useSearchParams();
+  const hasPrefilledService = useRef(false);
+
+  useEffect(() => {
+    if (hasPrefilledService.current) return;
+
+    const requestedService = searchParams.get('service')?.trim();
+    if (!requestedService) {
+      hasPrefilledService.current = true;
+      return;
+    }
+
+    const normalizedRequest = requestedService.toLowerCase();
+    const matchedService = serviceOptions.find((option) => {
+      const normalizedOption = option.toLowerCase();
+      return normalizedOption === normalizedRequest
+        || normalizedOption.includes(normalizedRequest)
+        || normalizedRequest.includes(normalizedOption);
+    });
+
+    if (matchedService) {
+      setSelectedServices((current) => current.includes(matchedService) ? current : [matchedService]);
+      setShowSpecificServices(true);
+    }
+
+    hasPrefilledService.current = true;
+  }, [searchParams, serviceOptions]);
 
   const serviceGroups = [
     { label: 'Branding', items: serviceOptions.slice(0, 5) },
