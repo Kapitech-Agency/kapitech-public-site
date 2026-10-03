@@ -5,6 +5,13 @@ import {
   CursorProvider,
 } from './animate-ui/components/animate/cursor';
 
+const interactiveSelector = 'a, button, [role="button"], input, textarea, select';
+
+const getInteractiveElement = (target: EventTarget | null) => {
+  const element = target instanceof Element ? target : null;
+  return element?.closest<HTMLElement>(interactiveSelector) ?? null;
+};
+
 const getCursorLabel = (element: Element | null) => {
   const custom = element?.closest<HTMLElement>('[data-cursor-label]')?.dataset.cursorLabel;
   return custom?.trim() || null;
@@ -12,37 +19,60 @@ const getCursorLabel = (element: Element | null) => {
 
 export const SiteCursor = () => {
   const [label, setLabel] = React.useState<string | null>(null);
+  const currentInteractiveRef = React.useRef<HTMLElement | null>(null);
 
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    if (!canHover.matches || reducedMotion.matches) return;
+    const updateLabelFromTarget = (target: EventTarget | null) => {
+      if (!canHover.matches || reducedMotion.matches) return;
+
+      const interactive = getInteractiveElement(target);
+
+      if (interactive === currentInteractiveRef.current) return;
+
+      currentInteractiveRef.current = interactive;
+      setLabel(interactive ? getCursorLabel(interactive) : null);
+    };
 
     const handlePointerOver = (event: PointerEvent) => {
-      const target = event.target as Element | null;
-      const interactive = target?.closest('a, button, [role="button"], input, textarea, select');
+      updateLabelFromTarget(event.target);
+    };
 
-      if (!interactive) {
+    const handlePointerLeave = (event: PointerEvent) => {
+      if (event.relatedTarget === null) {
+        currentInteractiveRef.current = null;
         setLabel(null);
         return;
       }
 
-      setLabel(getCursorLabel(interactive));
+      updateLabelFromTarget(event.relatedTarget);
     };
 
-    const handlePointerLeave = (event: PointerEvent) => {
-      const next = event.relatedTarget as Element | null;
-      const nextInteractive = next?.closest('a, button, [role="button"], input, textarea, select');
-      if (!nextInteractive) setLabel(null);
+    const handleModeChange = () => {
+      if (!canHover.matches || reducedMotion.matches) {
+        currentInteractiveRef.current = null;
+        setLabel(null);
+      }
     };
 
     window.addEventListener('pointerover', handlePointerOver, { passive: true });
     window.addEventListener('pointerout', handlePointerLeave, { passive: true });
+    window.addEventListener('blur', () => {
+      currentInteractiveRef.current = null;
+      setLabel(null);
+    });
+    canHover.addEventListener('change', handleModeChange);
+    reducedMotion.addEventListener('change', handleModeChange);
 
     return () => {
       window.removeEventListener('pointerover', handlePointerOver);
       window.removeEventListener('pointerout', handlePointerLeave);
+      canHover.removeEventListener('change', handleModeChange);
+      reducedMotion.removeEventListener('change', handleModeChange);
+      currentInteractiveRef.current = null;
+      setLabel(null);
     };
   }, []);
 
