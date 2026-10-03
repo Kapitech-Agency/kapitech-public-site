@@ -10,6 +10,7 @@ import { fetchServerCmsProjects, fetchServerCmsServices, fetchServerCmsTestimoni
 import { cn } from './lib/utils';
 import { PublicMotion } from './components/ui/PublicMotion';
 import { SiteCursor } from './components/SiteCursor';
+import { CookieConsent } from './components/CookieConsent';
 
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })));
@@ -147,6 +148,7 @@ function AppShell() {
         </main>
         <Footer />
         <FloatingContact />
+        <CookieConsent />
       </div>
     </>
   );
