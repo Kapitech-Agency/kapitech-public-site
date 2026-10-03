@@ -711,34 +711,44 @@ export const Work = () => {
       </section>
 
       {/* Projects Grid Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
-            <div>
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 mb-8 sm:mb-10">
+            <div className="min-w-0">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus' : 'Case Studies'}
               </span>
-              <h2 className="mt-1 max-w-3xl text-2xl sm:text-3xl md:text-4xl font-display font-semibold tracking-[-0.045em] text-white">
+              <h2 className="mt-1 max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.05em] leading-[1.04] text-white">
                 {language === 'id' ? 'Pekerjaan yang kami banggakan.' : 'Selected work, built for impact.'}
               </h2>
+              <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light">
+                {language === 'id'
+                  ? 'Setiap studi kasus memperlihatkan konteks proyek, hasil utama, dan cara kami mengeksekusinya.'
+                  : 'Each case study brings the project context, key outcome, and execution into focus.'}
+              </p>
             </div>
-            <p className="max-w-sm text-xs sm:text-sm leading-6 text-[#8A909D] font-light sm:text-right">
-              {language === 'id'
-                ? 'Jelajahi proyek berdasarkan bidang, layanan, atau pencarian langsung.'
-                : 'Filter the portfolio by discipline, service, or a direct search.'}
-            </p>
+
+            <div className="shrink-0 flex items-center gap-3 self-start sm:self-auto">
+              <span className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+                {language === 'id'
+                  ? 'Menampilkan ' + Math.min(visibleCount, filteredProjects.length) + ' dari ' + filteredProjects.length
+                  : 'Showing ' + Math.min(visibleCount, filteredProjects.length) + ' of ' + filteredProjects.length}
+              </span>
+            </div>
           </div>
+
           {filteredProjects.length === 0 ? (
-            <div className="text-center py-24 border border-dashed border-white/[0.09] rounded-3xl p-8 bg-white/[0.018] backdrop-blur-xl">
-              <Search className="w-10 h-10 text-[#8A909D] mx-auto mb-4" />
+            <div className="min-h-[340px] flex flex-col items-center justify-center text-center border border-dashed border-white/[0.09] rounded-3xl p-8 sm:p-10 bg-white/[0.012]">
+              <div className="w-12 h-12 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex items-center justify-center text-[#8A909D] mb-5">
+                <Search className="w-5 h-5" aria-hidden="true" />
+              </div>
               <h3 className="text-xl font-display font-bold text-white mb-2">
                 {language === 'id' ? 'Studi Kasus Tidak Ditemukan' : 'No Case Studies Found'}
               </h3>
-              <p className="text-sm text-[#8A909D] max-w-md mx-auto mb-6 font-light">
-                {language === 'id' 
-                  ? 'Coba sesuaikan kata kunci pencarian Anda atau reset filter untuk melihat 50 studi kasus kami.'
-                  : 'Try adjusting your search query or reset filters to browse all 50 case studies.'
-                }
+              <p className="text-sm text-[#8A909D] max-w-md mb-6 font-light leading-relaxed">
+                {language === 'id'
+                  ? 'Coba ubah kata kunci atau filter Anda untuk melihat studi kasus lain.'
+                  : 'Try adjusting your search or filters to explore other case studies.'}
               </p>
               <button
                 onClick={() => {
@@ -750,19 +760,19 @@ export const Work = () => {
                 className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px]"
                 data-cursor-label="Reset"
               >
-                {language === 'id' ? 'Lihat Semua 50 Portofolio' : 'View All 50 Projects'}
+                {language === 'id' ? 'Reset Filter' : 'Reset Filters'}
               </button>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {filteredProjects.slice(0, visibleCount).map((project) => (
                   <motion.article
                     key={project.id}
                     layout
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => setSelectedProject(project)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
@@ -772,54 +782,78 @@ export const Work = () => {
                     }}
                     role="button"
                     tabIndex={0}
-                    aria-label={language === 'id' ? `Buka studi kasus ${project.title}` : `Open case study ${project.title}`}
+                    aria-label={
+                      language === 'id'
+                        ? 'Buka studi kasus ' + project.title
+                        : 'Open case study ' + project.title
+                    }
                     data-cursor-label="Open"
-                    className="cursor-pointer group rounded-3xl overflow-hidden border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl hover:bg-white/[0.024] hover:border-brand-red/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 flex flex-col h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
+                    className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/28 hover:bg-white/[0.024] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40"
                   >
-                    {/* Thumbnail Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
-                      <img 
-                        src={project.image} 
+                      <img
+                        src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
                         loading="lazy"
+                        decoding="async"
                       />
-                      <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                        <span className="px-2 py-0.5 rounded-full bg-[#0B0C0E]/78 backdrop-blur-md border border-white/[0.08] text-[10px] font-mono text-white">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/76 via-transparent to-transparent" aria-hidden="true" />
+
+                      <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-3 sm:inset-x-4 sm:top-4">
+                        <span className="max-w-[72%] truncate rounded-full border border-white/[0.1] bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-white backdrop-blur-md">
                           {project.service}
                         </span>
-                      </div>
-                      <div className="absolute top-3 right-3">
-                        <span className="px-2 py-0.5 rounded-full bg-[#0B0C0E]/78 backdrop-blur-md border border-white/[0.08] text-[10px] font-mono text-[#8A909D]">
+                        <span className="shrink-0 rounded-full border border-white/[0.1] bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono tabular-nums text-[#D8DCE5] backdrop-blur-md">
                           {project.year}
                         </span>
                       </div>
+
+                      <span className="absolute bottom-3 left-3 rounded-full border border-brand-red/25 bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-brand-red backdrop-blur-md sm:bottom-4 sm:left-4">
+                        {project.pillar}
+                      </span>
                     </div>
 
-                    {/* Content Body */}
-                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red uppercase tracking-wider mb-1.5 font-medium">
-                          {project.client} • {project.industry}
+                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                      <div className="min-w-0">
+                        <div className="mb-2 flex min-w-0 items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.08em] text-[#8A909D]">
+                          <span className="min-w-0 truncate text-brand-red">{project.client}</span>
+                          <span className="text-white/20" aria-hidden="true">•</span>
+                          <span className="min-w-0 truncate">{project.industry}</span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-2.5">
+
+                        <h3 className="min-h-[3.2rem] text-lg sm:text-xl font-display font-bold leading-[1.15] tracking-[-0.02em] text-white transition-colors duration-300 group-hover:text-brand-red">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-[#8A909D] font-light leading-relaxed line-clamp-2 mb-4">
+
+                        <p className="mt-3 min-h-[3rem] text-xs sm:text-sm font-light leading-[1.7] text-[#8A909D] line-clamp-2">
                           {language === 'id' ? project.descId : project.desc}
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between">
-                        <div className="flex items-center gap-1.5">
-                          {project.impact[0] && (
-                            <span className="text-xs font-mono font-bold text-white">
-                              {project.impact[0].value} <span className="text-[10px] text-[#8A909D] font-normal">{project.impact[0].label}</span>
-                            </span>
-                          )}
-                        </div>
-                        <div className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.018] flex items-center justify-center text-[#8A909D] group-hover:text-brand-red group-hover:border-brand-red/35 transition-[border-color,color,background-color] duration-300">
-                          <ArrowUpRight size={14} />
+                      <div className="mt-6 border-t border-white/[0.07] pt-4">
+                        <div className="flex min-w-0 items-center justify-between gap-4">
+                          <div className="min-w-0">
+                            {project.impact[0] ? (
+                              <>
+                                <span className="block truncate text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]/70">
+                                  {project.impact[0].label}
+                                </span>
+                                <span className="mt-1 block truncate text-sm sm:text-base font-display font-semibold leading-none text-white">
+                                  {project.impact[0].value}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]/70">
+                                {language === 'id' ? 'Hasil proyek' : 'Project outcome'}
+                              </span>
+                            )}
+                          </div>
+
+                          <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-2 text-[10px] font-mono font-semibold uppercase tracking-[0.08em] text-[#8A909D] transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-white">
+                            <span>{language === 'id' ? 'Buka' : 'Open'}</span>
+                            <ArrowUpRight size={13} aria-hidden="true" />
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -827,14 +861,16 @@ export const Work = () => {
                 ))}
               </div>
 
-              {/* Load More Button */}
               {visibleCount < filteredProjects.length && (
-                <div className="text-center pt-12">
+                <div className="flex justify-center pt-10 sm:pt-12">
                   <button
-                    onClick={() => setVisibleCount(prev => prev + 12)}
-                    className="px-8 py-3.5 rounded-full bg-white/[0.025] hover:bg-brand-red text-white border border-white/[0.09] hover:border-brand-red text-xs font-mono font-semibold transition-[background-color,border-color,box-shadow] duration-300 shadow-[0_12px_28px_-22px_rgba(0,0,0,0.8)] min-h-[44px]"
+                    type="button"
+                    onClick={() => setVisibleCount(prev => Math.min(prev + 12, filteredProjects.length))}
+                    className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.018] px-6 sm:px-7 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-[0.08em] text-white transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/40 hover:bg-brand-red/[0.08] hover:shadow-[0_14px_34px_-24px_rgba(229,9,20,0.7)] active:scale-[0.985]"
+                    data-cursor-label="Load more"
                   >
-                    {language === 'id' ? 'Muat Lebih Banyak Studi Kasus' : 'Load More Case Studies'} ({filteredProjects.length - visibleCount} {language === 'id' ? 'tersisa' : 'remaining'})
+                    <span>{language === 'id' ? 'Muat Lebih Banyak' : 'Load More'}</span>
+                    <span className="text-[#8A909D]">+{Math.min(12, filteredProjects.length - visibleCount)}</span>
                   </button>
                 </div>
               )}
