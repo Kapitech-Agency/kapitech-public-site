@@ -882,166 +882,305 @@ export const Work = () => {
       {/* Case Study Detail Modal */}
       <WorkModalPortal>
         <AnimatePresence>
-        {selectedProject && (
-          <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="case-study-modal-title"
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setSelectedProject(null);
-            }}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.25 }}
-              className="relative w-full max-w-5xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-3 sm:my-8 max-h-[calc(100dvh-1.5rem)] sm:max-h-[92vh] flex flex-col"
+          {selectedProject && (
+            <div
+              className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 lg:p-6 overflow-y-auto bg-[#0B0C0E]/88 backdrop-blur-2xl backdrop-saturate-150"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="case-study-modal-title"
+              aria-describedby="case-study-modal-summary"
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) setSelectedProject(null);
+              }}
             >
-              {/* Modal Header Bar */}
-              <div className="sticky top-0 z-20 flex items-center justify-between px-5 sm:px-7 py-5 sm:py-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] gap-3">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className="px-2.5 py-0.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[11px] font-mono font-medium">
-                      {selectedProject.pillar}
-                    </span>
-                    <span className="text-[11px] font-mono text-[#8A909D] truncate">
-                      {selectedProject.service}
-                    </span>
-                  </div>
-                  <h3 id="case-study-modal-title" className="text-sm sm:text-base font-display font-bold text-white truncate">
-                    {selectedProject.title} <span className="text-[#8A909D] font-normal">({selectedProject.client})</span>
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 shrink-0"
-                  aria-label="Close case study modal"
-                  data-cursor-label="Close"
-                  autoFocus
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Modal Scrollable Content */}
-              <div className="overflow-y-auto px-5 sm:px-7 py-6 sm:py-7 space-y-8">
-                {/* Hero Banner */}
-                <div className="relative aspect-[16/10] sm:aspect-auto sm:h-80 md:h-96 rounded-2xl overflow-hidden bg-[#0B0C0E] border border-white/[0.08]">
-                  <img 
-                    src={selectedProject.image} 
-                    alt={selectedProject.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/40 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6">
-                    <span className="text-xs font-mono text-[#8A909D] block mb-1">
-                      {selectedProject.client} • {selectedProject.industry} • {selectedProject.year}
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white">
-                      {selectedProject.title}
-                    </h2>
-                  </div>
-                </div>
-
-                {/* Measurable Impact Metrics Grid */}
-                <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
-                    {language === 'id' ? 'Hasil & Dampak Terukur' : 'Key Performance & Impact Metrics'}
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {selectedProject.impact.map((item, idx) => (
-                      <div key={idx} className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
-                        <span className="text-2xl sm:text-3xl font-display font-bold text-white block mb-1">
-                          {item.value}
-                        </span>
-                        <span className="text-xs font-mono text-[#8A909D] block">
-                          {item.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Challenge & Solution */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 font-semibold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-brand-red" />
-                      <span>{language === 'id' ? 'Tantangan Bisnis' : 'The Challenge'}</span>
-                    </h4>
-                    <p className="text-sm text-[#8A909D] leading-relaxed font-light">
-                      {language === 'id' ? selectedProject.challengeId : selectedProject.challenge}
-                    </p>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 font-semibold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-brand-red" />
-                      <span>{language === 'id' ? 'Solusi & Rekayasa Kapitech' : 'Our Solution & Execution'}</span>
-                    </h4>
-                    <p className="text-sm text-[#8A909D] leading-relaxed font-light">
-                      {language === 'id' ? selectedProject.solutionId : selectedProject.solution}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Deliverables & Tech Stack */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-5">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3 font-semibold">
-                      {language === 'id' ? 'Hasil Kerja & Serah Terima' : 'Core Deliverables'}
-                    </h4>
-                    <ul className="space-y-2">
-                      {selectedProject.deliverables.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2.5 text-xs text-white font-light">
-                          <CheckCircle2 size={14} className="text-brand-red shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-5">
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3 font-semibold">
-                      {language === 'id' ? 'Teknologi & Perangkat' : 'Tech Stack & Tooling'}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.technologies.map((tech, idx) => (
-                        <span key={idx} className="px-3 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-xs font-mono text-[#8A909D]">
-                          {tech}
-                        </span>
-                      ))}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: 18 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 18 }}
+                transition={{ duration: 0.26 }}
+                className="relative w-full max-w-6xl bg-[#0F1116]/98 border border-white/[0.09] rounded-[28px] overflow-hidden shadow-[0_28px_100px_-38px_rgba(0,0,0,0.95)] my-2 sm:my-6 max-h-[calc(100dvh-1rem)] sm:max-h-[94vh] flex flex-col"
+              >
+                {/* Modal Header */}
+                <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 lg:px-7 py-4 sm:py-5 bg-[#0F1116] border-b border-white/[0.08] gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                      <span className="px-2.5 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-[10px] font-mono font-semibold uppercase tracking-[0.1em]">
+                        {selectedProject.pillar}
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] font-mono text-[#8A909D] truncate">
+                        {selectedProject.service}
+                      </span>
+                      <span className="text-white/15" aria-hidden="true">•</span>
+                      <span className="text-[10px] sm:text-[11px] font-mono tabular-nums text-[#8A909D]">
+                        {selectedProject.year}
+                      </span>
                     </div>
+                    <h3 id="case-study-modal-title" className="text-sm sm:text-base lg:text-lg font-display font-semibold text-white truncate">
+                      {selectedProject.title}
+                    </h3>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(null)}
+                    className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.07] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 shrink-0"
+                    aria-label={language === 'id' ? 'Tutup studi kasus' : 'Close case study modal'}
+                    data-cursor-label="Close"
+                    autoFocus
+                  >
+                    <X size={18} />
+                  </button>
                 </div>
 
-                {/* Footer CTA inside Modal */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-brand-red/[0.11] via-white/[0.018] to-white/[0.018] border border-brand-red/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div>
-                    <h4 className="text-base font-display font-bold text-white">
-                      {language === 'id' ? 'Tertarik membangun proyek serupa?' : 'Looking to build a similar project?'}
-                    </h4>
-                    <p className="text-xs text-[#8A909D] font-light">
-                      {language === 'id' ? 'Diskusikan kebutuhan produk Anda bersama tim arsitek dan desainer kami.' : 'Schedule a discovery session with our tech leads and creative directors.'}
-                    </p>
+                {/* Modal Content */}
+                <div className="overflow-y-auto overscroll-contain px-4 sm:px-6 lg:px-7 py-5 sm:py-7">
+                  <div className="space-y-8 sm:space-y-10">
+                    {/* Hero / Project Overview */}
+                    <section aria-labelledby="case-study-overview-heading">
+                      <div className="relative aspect-[16/10] sm:aspect-[2/1] lg:aspect-[2.25/1] rounded-[22px] overflow-hidden bg-[#0B0C0E] border border-white/[0.08]">
+                        <img
+                          src={selectedProject.image}
+                          alt={selectedProject.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/45 to-transparent" />
+                        <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 lg:inset-x-7 lg:bottom-7">
+                          <p className="text-[10px] sm:text-xs font-mono text-white/70 uppercase tracking-[0.1em] mb-2">
+                            {selectedProject.client} <span className="text-white/25">•</span> {selectedProject.industry}
+                          </p>
+                          <h2 id="case-study-overview-heading" className="max-w-4xl text-2xl sm:text-3xl md:text-4xl lg:text-[3.15rem] font-display font-bold tracking-[-0.04em] leading-[1.04] text-white">
+                            {selectedProject.title}
+                          </h2>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 sm:mt-5 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                        {[
+                          {
+                            label: language === 'id' ? 'Klien' : 'Client',
+                            value: selectedProject.client,
+                          },
+                          {
+                            label: language === 'id' ? 'Industri' : 'Industry',
+                            value: selectedProject.industry,
+                          },
+                          {
+                            label: language === 'id' ? 'Layanan' : 'Service',
+                            value: selectedProject.service,
+                          },
+                          {
+                            label: language === 'id' ? 'Tahun' : 'Year',
+                            value: selectedProject.year,
+                          },
+                        ].map((item) => (
+                          <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 sm:px-4.5 sm:py-4">
+                            <span className="block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.1em] text-[#8A909D]/70 mb-1.5">
+                              {item.label}
+                            </span>
+                            <span className="block truncate text-xs sm:text-sm font-medium text-white" title={item.value}>
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div id="case-study-modal-summary" className="mt-5 sm:mt-6 max-w-4xl">
+                        <span className="kapi-section-label">
+                          {language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}
+                        </span>
+                        <p className="mt-3 text-sm sm:text-base lg:text-[1.04rem] text-[#C2C7D1] leading-[1.8] font-light">
+                          {language === 'id' ? selectedProject.descId : selectedProject.desc}
+                        </p>
+                      </div>
+                    </section>
+
+                    {/* 01 / 02: Problem + Kapitech Solution */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+                      <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6 lg:p-7" aria-labelledby="case-study-challenge-heading">
+                        <div className="flex items-start justify-between gap-4 mb-5">
+                          <div>
+                            <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">01</span>
+                            <h4 id="case-study-challenge-heading" className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                              {language === 'id' ? 'Masalah Klien' : 'Client Challenge'}
+                            </h4>
+                          </div>
+                          <span className="w-9 h-9 rounded-full border border-white/[0.08] bg-white/[0.018] flex items-center justify-center text-brand-red shrink-0">
+                            <Briefcase size={15} />
+                          </span>
+                        </div>
+                        <p className="text-sm sm:text-[0.96rem] text-[#A9AFBB] leading-[1.8] font-light">
+                          {language === 'id' ? selectedProject.challengeId : selectedProject.challenge}
+                        </p>
+                      </section>
+
+                      <section className="rounded-[22px] border border-brand-red/20 bg-brand-red/[0.035] p-5 sm:p-6 lg:p-7" aria-labelledby="case-study-solution-heading">
+                        <div className="flex items-start justify-between gap-4 mb-5">
+                          <div>
+                            <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">02</span>
+                            <h4 id="case-study-solution-heading" className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                              {language === 'id' ? 'Solusi Kapitech' : 'Kapitech Solution'}
+                            </h4>
+                          </div>
+                          <span className="w-9 h-9 rounded-full border border-brand-red/20 bg-brand-red/[0.07] flex items-center justify-center text-brand-red shrink-0">
+                            <Sparkles size={15} />
+                          </span>
+                        </div>
+                        <p className="text-sm sm:text-[0.96rem] text-[#C1C6D0] leading-[1.8] font-light">
+                          {language === 'id' ? selectedProject.solutionId : selectedProject.solution}
+                        </p>
+                      </section>
+                    </div>
+
+                    {/* 03: Execution */}
+                    <section aria-labelledby="case-study-execution-heading">
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+                        <div>
+                          <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">03</span>
+                          <h4 id="case-study-execution-heading" className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                            {language === 'id' ? 'Eksekusi & Delivery' : 'Execution & Delivery'}
+                          </h4>
+                          <p className="mt-2 max-w-2xl text-xs sm:text-sm text-[#8A909D] leading-relaxed font-light">
+                            {language === 'id'
+                              ? 'Bagaimana solusi diterjemahkan menjadi output yang dapat digunakan, diserahkan, dan dikembangkan lebih lanjut.'
+                              : 'How the solution was translated into usable, handoff-ready outputs and a practical delivery scope.'}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] gap-4 sm:gap-5">
+                        <div className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                          <div className="flex items-center gap-2 mb-5">
+                            <span className="w-2 h-2 rounded-full bg-brand-red" />
+                            <h5 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold">
+                              {language === 'id' ? 'Ruang Lingkup yang Dieksekusi' : 'Executed Scope'}
+                            </h5>
+                          </div>
+
+                          <div className="space-y-3">
+                            {selectedProject.deliverables.map((item, idx) => (
+                              <div key={idx} className="flex items-start gap-3 rounded-2xl border border-white/[0.06] bg-black/10 px-4 py-3.5">
+                                <span className="shrink-0 w-7 h-7 rounded-full border border-brand-red/20 bg-brand-red/[0.06] text-[10px] font-mono font-semibold text-brand-red flex items-center justify-center tabular-nums">
+                                  {String(idx + 1).padStart(2, '0')}
+                                </span>
+                                <div className="min-w-0 pt-0.5">
+                                  <span className="text-sm text-white font-medium leading-snug">{item}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                          <div className="flex items-center justify-between gap-3 mb-5">
+                            <h5 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold">
+                              {language === 'id' ? 'Teknologi & Tooling' : 'Technology & Tooling'}
+                            </h5>
+                            <Cpu size={14} className="text-[#8A909D]" />
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProject.technologies.map((tech, idx) => (
+                              <span key={idx} className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-[10px] sm:text-xs font-mono text-[#A9AFBB]">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* 04: Outcome / Impact */}
+                    <section aria-labelledby="case-study-impact-heading">
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+                        <div>
+                          <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">04</span>
+                          <h4 id="case-study-impact-heading" className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                            {language === 'id' ? 'Hasil & Dampak ke Klien' : 'Outcome & Client Impact'}
+                          </h4>
+                          <p className="mt-2 max-w-2xl text-xs sm:text-sm text-[#8A909D] leading-relaxed font-light">
+                            {language === 'id'
+                              ? 'Indikator hasil yang digunakan untuk menunjukkan dampak proyek terhadap performa, adopsi, efisiensi, atau pengalaman pengguna.'
+                              : 'Outcome indicators showing the project’s effect on performance, adoption, efficiency, or customer experience.'}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                        {selectedProject.impact.map((item, idx) => (
+                          <div key={idx} className="relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/60 to-transparent" />
+                            <span className="block text-3xl sm:text-4xl font-display font-bold tracking-[-0.035em] text-white">
+                              {item.value}
+                            </span>
+                            <span className="mt-2 block text-[10px] sm:text-xs font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">
+                              {item.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    {/* Deliverable + stack recap */}
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5" aria-label={language === 'id' ? 'Ringkasan studi kasus' : 'Case study summary'}>
+                      <div className="rounded-[22px] border border-white/[0.08] bg-[#111318] p-5 sm:p-6">
+                        <h4 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold mb-4">
+                          {language === 'id' ? 'Output Utama' : 'Primary Outputs'}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.deliverables.map((item, idx) => (
+                            <span key={idx} className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-xs text-[#C4C8D0]">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rounded-[22px] border border-white/[0.08] bg-[#111318] p-5 sm:p-6">
+                        <h4 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold mb-4">
+                          {language === 'id' ? 'Stack yang Digunakan' : 'Delivery Stack'}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.technologies.map((tech, idx) => (
+                            <span key={idx} className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-xs font-mono text-[#C4C8D0]">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* CTA */}
+                    <section className="rounded-[22px] border border-brand-red/20 bg-gradient-to-br from-brand-red/[0.12] via-white/[0.018] to-transparent p-5 sm:p-6 lg:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                      <div className="max-w-2xl">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">
+                          {language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}
+                        </span>
+                        <h4 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">
+                          {language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}
+                        </h4>
+                        <p className="mt-2 text-xs sm:text-sm text-[#8A909D] leading-relaxed font-light">
+                          {language === 'id'
+                            ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.'
+                            : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}
+                        </p>
+                      </div>
+                      <Link
+                        to="/contact"
+                        onClick={() => setSelectedProject(null)}
+                        className="w-full md:w-auto px-6 py-3 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white text-xs font-semibold uppercase tracking-wider transition-[background-color,transform] duration-300 shrink-0 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 min-h-[46px] hover:-translate-y-0.5"
+                        data-cursor-label="Start"
+                      >
+                        <span>{language === 'id' ? 'Mulai Proyek' : 'Start Project'}</span>
+                        <ArrowUpRight size={14} />
+                      </Link>
+                    </section>
                   </div>
-                  <Link
-                    to="/contact"
-                    onClick={() => setSelectedProject(null)}
-                    className="px-6 py-3 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white text-xs font-semibold uppercase tracking-wider transition-colors shrink-0 flex items-center gap-2 shadow-lg shadow-brand-red/20 min-h-[44px]"
-                  >
-                    <span>{language === 'id' ? 'Mulai Konsultasi' : 'Start Project'}</span>
-                    <ArrowUpRight size={14} />
-                  </Link>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
+              </motion.div>
+            </div>
+          )}
         </AnimatePresence>
       </WorkModalPortal>
+
     </div>
   );
 };
