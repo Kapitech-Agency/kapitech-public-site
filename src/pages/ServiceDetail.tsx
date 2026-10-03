@@ -169,72 +169,7 @@ export const ServiceDetail = () => {
 
         {/* PERFORMANCE METRICS */}
         <motion.section
-          initial={{ opacity: 0, y: 1import React, { useEffect, useState } from 'react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ArrowUpRight, 
-  ChevronRight, 
-  CheckCircle2, 
-  ArrowLeft, 
-  Sparkles, 
-  Layers, 
-  Cpu, 
-  Code2, 
-  Palette, 
-  ShieldCheck, 
-  TrendingUp, 
-  Clock, 
-  HelpCircle, 
-  ChevronDown, 
-  ExternalLink,
-  Briefcase,
-  Star
-} from 'lucide-react';
-import { useLanguage } from '../lib/LanguageContext';
-import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
-import { getServiceBySlug } from '../data/servicesData';
-import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
-
-export const ServiceDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { language } = useLanguage();
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
-  const [cmsProjects, setCmsProjects] = useState(() => getCmsProjects());
-
-  useEffect(() => {
-    const handleUpdate = () => {
-      setCmsServices(getCmsServices());
-      setCmsProjects(getCmsProjects());
-    };
-
-    window.addEventListener('kapitech_cms_updated', handleUpdate);
-    void Promise.all([
-      fetchServerCmsServices(),
-      fetchServerCmsProjects()
-    ]).then(() => {
-      setCmsServices(getCmsServices());
-      setCmsProjects(getCmsProjects());
-    });
-
-    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
-  }, []);
-
-  const staticService = slug ? getServiceBySlug(slug) : undefined;
-  const isSolutionPage = staticService?.type === 'solution';
-  const baseService = slug
-    ? cmsServices.find((item) => item.slug === slug) || staticService
-    : undefined;
-  const service = baseService
-    ? mergeServiceContent(baseService, serviceContentEnhancements[baseService.slug])
-    : undefined;
-
-  if (!service) {
-    return <Navigate to="/services" replace />;
-  }
-
+          initial={{ opacity: 0, y: 14 }}
   const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
 
   // Find related case studies from allProjects
