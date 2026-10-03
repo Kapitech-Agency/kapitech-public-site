@@ -947,7 +947,7 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-8 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-3 sm:my-8 max-h-[calc(100dvh-1.5rem)] sm:max-h-[92vh] flex flex-col"
             >
               {/* Modal Header */}
               <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-white/[0.02] backdrop-blur-2xl border-b border-white/[0.07]">
@@ -966,8 +966,9 @@ export const Services = () => {
                 </div>
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="w-9 h-9 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
                   aria-label="Close modal"
+                  autoFocus
                 >
                   <X size={18} />
                 </button>
