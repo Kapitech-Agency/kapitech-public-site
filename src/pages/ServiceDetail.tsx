@@ -25,6 +25,7 @@ import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
 import { allSolutionsAndServices, getServiceBySlug } from '../data/servicesData';
 import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
+import { cn } from '../lib/utils';
 
 export const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
