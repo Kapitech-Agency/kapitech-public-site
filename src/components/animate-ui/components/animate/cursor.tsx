@@ -4,12 +4,14 @@ import * as React from 'react';
 import {
   motion,
   useMotionValue,
+  useTransform,
   AnimatePresence,
   type HTMLMotionProps,
+  type MotionValue,
 } from 'motion/react';
 
 type CursorContextType = {
-  cursorPos: { x: number; y: number };
+  cursorPos: { x: MotionValue<number>; y: MotionValue<number> };
   active: boolean;
   global: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -30,39 +32,50 @@ export type CursorProviderProps = {
 };
 
 export function CursorProvider({ children, global = false }: CursorProviderProps) {
-  const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
-  const [active, setActive] = React.useState(false);
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
   const [enabled, setEnabled] = React.useState(false);
+  const [active, setActive] = React.useState(false);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const cursorRef = React.useRef<HTMLDivElement>(null);
+  const mediaHoverRef = React.useRef<MediaQueryList | null>(null);
+  const mediaReducedRef = React.useRef<MediaQueryList | null>(null);
 
   React.useEffect(() => {
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const shouldEnable = canHover && !reducedMotion;
-    setEnabled(shouldEnable);
-
-    if (!shouldEnable) return;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mediaHoverRef.current = canHover;
+    mediaReducedRef.current = reducedMotion;
 
     const root = document.documentElement;
-    root.classList.add('kapi-custom-cursor-enabled');
+    const updateAvailability = () => {
+      const shouldEnable = canHover.matches && !reducedMotion.matches;
+      setEnabled(shouldEnable);
+
+      if (shouldEnable) {
+        root.classList.add('kapi-custom-cursor-enabled');
+      } else {
+        root.classList.remove('kapi-custom-cursor-enabled');
+        setActive(false);
+        cursorX.set(-100);
+        cursorY.set(-100);
+      }
+    };
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (global) {
-        setCursorPos({ x: event.clientX, y: event.clientY });
-        setActive(true);
-        return;
+      if (!global) {
+        const parent = containerRef.current?.parentElement;
+        if (!parent) return;
+
+        const rect = parent.getBoundingClientRect();
+        cursorX.set(event.clientX - rect.left);
+        cursorY.set(event.clientY - rect.top);
+      } else {
+        cursorX.set(event.clientX);
+        cursorY.set(event.clientY);
       }
 
-      const parent = containerRef.current?.parentElement;
-      if (!parent) return;
-
-      const rect = parent.getBoundingClientRect();
-      setCursorPos({
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top,
-      });
       setActive(true);
     };
 
@@ -70,27 +83,52 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
       if (event.relatedTarget === null) setActive(false);
     };
 
+    const handlePointerCancel = () => setActive(false);
+    const handleWindowBlur = () => setActive(false);
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') setActive(false);
     };
 
-    const target = global ? window : containerRef.current?.parentElement;
-    if (!target) return;
+    const handleAvailabilityChange = () => updateAvailability();
 
-    target.addEventListener('pointermove', handlePointerMove as EventListener, { passive: true });
-    target.addEventListener('pointerout', handlePointerOut as EventListener, { passive: true });
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    updateAvailability();
+    canHover.addEventListener('change', handleAvailabilityChange);
+    reducedMotion.addEventListener('change', handleAvailabilityChange);
+
+    if (canHover.matches && !reducedMotion.matches) {
+      const target = global ? window : containerRef.current?.parentElement;
+      target?.addEventListener('pointermove', handlePointerMove as EventListener, { passive: true });
+      target?.addEventListener('pointerout', handlePointerOut as EventListener, { passive: true });
+      target?.addEventListener('pointercancel', handlePointerCancel as EventListener, { passive: true });
+      window.addEventListener('blur', handleWindowBlur, { passive: true });
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+    }
 
     return () => {
-      target.removeEventListener('pointermove', handlePointerMove as EventListener);
-      target.removeEventListener('pointerout', handlePointerOut as EventListener);
+      canHover.removeEventListener('change', handleAvailabilityChange);
+      reducedMotion.removeEventListener('change', handleAvailabilityChange);
+      const target = global ? window : containerRef.current?.parentElement;
+      target?.removeEventListener('pointermove', handlePointerMove as EventListener);
+      target?.removeEventListener('pointerout', handlePointerOut as EventListener);
+      target?.removeEventListener('pointercancel', handlePointerCancel as EventListener);
+      window.removeEventListener('blur', handleWindowBlur);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       root.classList.remove('kapi-custom-cursor-enabled');
+      mediaHoverRef.current = null;
+      mediaReducedRef.current = null;
     };
-  }, [global]);
+  }, [cursorX, cursorY, global]);
 
   return (
-    <CursorContext.Provider value={{ cursorPos, active: enabled && active, global, containerRef, cursorRef }}>
+    <CursorContext.Provider
+      value={{
+        cursorPos: { x: cursorX, y: cursorY },
+        active: enabled && active,
+        global,
+        containerRef,
+        cursorRef,
+      }}
+    >
       {children}
     </CursorContext.Provider>
   );
@@ -115,13 +153,6 @@ export type CursorProps = HTMLMotionProps<'div'> & {
 
 export function Cursor({ children, style, ...props }: CursorProps) {
   const { cursorPos, active, cursorRef } = useCursor();
-  const x = useMotionValue(cursorPos.x);
-  const y = useMotionValue(cursorPos.y);
-
-  React.useEffect(() => {
-    x.set(cursorPos.x);
-    y.set(cursorPos.y);
-  }, [cursorPos.x, cursorPos.y, x, y]);
 
   return (
     <AnimatePresence>
@@ -130,7 +161,7 @@ export function Cursor({ children, style, ...props }: CursorProps) {
           ref={cursorRef}
           data-slot="cursor"
           className="kapi-cursor-pointer"
-          style={{ ...style, top: y, left: x }}
+          style={{ ...style, left: cursorPos.x, top: cursorPos.y }}
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.94 }}
@@ -144,22 +175,24 @@ export function Cursor({ children, style, ...props }: CursorProps) {
             height="34"
             aria-hidden="true"
           >
-            <path
-              d="M5.25 2.95C3.57 2.18 1.82 3.56 2.2 5.38l5.08 24.1c.4 1.9 2.86 2.35 4.04.73l4.18-5.98 6.55 4.65c1.52 1.08 3.48-.25 2.93-1.98L19.1 8.36a2.1 2.1 0 0 0-1.16-1.31L5.25 2.95Z"
-              fill="#FFFFFF"
-              stroke="#111318"
-              strokeWidth="1.25"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            />
-            <path
-              d="M6.4 6.1 10.9 27.5"
-              fill="none"
-              stroke="#FFFFFF"
-              strokeWidth="0.9"
-              strokeLinecap="round"
-              opacity="0.48"
-            />
+            <g transform="translate(-2.2 -2.95)">
+              <path
+                d="M5.25 2.95C3.57 2.18 1.82 3.56 2.2 5.38l5.08 24.1c.4 1.9 2.86 2.35 4.04.73l4.18-5.98 6.55 4.65c1.52 1.08 3.48-.25 2.93-1.98L19.1 8.36a2.1 2.1 0 0 0-1.16-1.31L5.25 2.95Z"
+                fill="#FFFFFF"
+                stroke="#111318"
+                strokeWidth="1.25"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+              <path
+                d="M6.4 6.1 10.9 27.5"
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth="0.9"
+                strokeLinecap="round"
+                opacity="0.48"
+              />
+            </g>
           </svg>
         </motion.div>
       )}
@@ -171,19 +204,20 @@ export type CursorFollowProps = Omit<HTMLMotionProps<'div'>, 'transition'> & {
   children: React.ReactNode;
 };
 
-export function CursorFollow({
-  children,
-  style,
-  ...props
-}: CursorFollowProps) {
+export function CursorFollow({ children, style, ...props }: CursorFollowProps) {
   const { cursorPos, active } = useCursor();
-  const x = useMotionValue(cursorPos.x + 12);
-  const y = useMotionValue(cursorPos.y + 46);
 
-  React.useEffect(() => {
-    x.set(cursorPos.x + 12);
-    y.set(cursorPos.y + 46);
-  }, [cursorPos.x, cursorPos.y, x, y]);
+  const labelX = useTransform(cursorPos.x, (value) => {
+    if (typeof window === 'undefined') return value + 12;
+    const rightBound = Math.max(8, window.innerWidth - 152);
+    return value > window.innerWidth - 180 ? Math.max(8, value - 152) : Math.min(value + 12, rightBound);
+  });
+
+  const labelY = useTransform(cursorPos.y, (value) => {
+    if (typeof window === 'undefined') return value + 46;
+    const bottomBound = Math.max(8, window.innerHeight - 30);
+    return value > window.innerHeight - 82 ? Math.max(8, value - 30) : Math.min(value + 46, bottomBound);
+  });
 
   return (
     <AnimatePresence>
@@ -191,7 +225,7 @@ export function CursorFollow({
         <motion.div
           data-slot="cursor-follow"
           className="kapi-cursor-follow"
-          style={{ ...style, top: y, left: x }}
+          style={{ ...style, left: labelX, top: labelY }}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96 }}
