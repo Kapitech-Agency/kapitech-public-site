@@ -24,6 +24,7 @@ import {
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
 import { getServiceBySlug } from '../data/servicesData';
+import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
 
 export const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -52,8 +53,11 @@ export const ServiceDetail = () => {
 
   const staticService = slug ? getServiceBySlug(slug) : undefined;
   const isSolutionPage = staticService?.type === 'solution';
-  const service = slug
+  const baseService = slug
     ? cmsServices.find((item) => item.slug === slug) || staticService
+    : undefined;
+  const service = baseService
+    ? mergeServiceContent(baseService, serviceContentEnhancements[baseService.slug])
     : undefined;
 
   if (!service) {
