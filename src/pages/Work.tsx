@@ -447,7 +447,8 @@ export const Work = () => {
                 </p>
               </div>
 
-              <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
+              <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">
+                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
                   {String(featuredIndex + 1).padStart(2, '0')} / {String(featuredProjects.length).padStart(2, '0')}
                 </div>
                 <button
@@ -896,7 +897,8 @@ export const Work = () => {
                         </h3>
 
                         <p className="mt-3 min-h-[3rem] text-xs sm:text-sm font-light leading-[1.7] text-[#8A909D] line-clamp-2">
-                          {language === 'id' ? project.descId : project.desc}                        </p>
+                          {language === 'id' ? project.descId : project.desc}
+                        </p>
                       </div>
 
                       <div className="mt-6 border-t border-white/[0.07] pt-4">
