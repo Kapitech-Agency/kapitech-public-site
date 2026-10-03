@@ -543,14 +543,17 @@ export const About = () => {
               className="group relative mb-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30"
             >
               <div className="grid lg:grid-cols-[minmax(320px,0.78fr)_1.22fr]">
-                <div className="relative min-h-[320px] overflow-hidden bg-[#171920] sm:min-h-[430px] lg:min-h-[500px]">
-                  <img
-                    src={team[0].image}
-                    alt={team[0].name}
-                    referrerPolicy="no-referrer"
-                    className="absolute inset-0 h-full w-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/85 via-[#08090B]/10 to-transparent" />
+                <div className="relative flex min-h-[320px] items-center overflow-hidden bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.045),transparent_55%)] p-5 sm:min-h-[430px] sm:p-6 lg:min-h-[500px]">
+                  <div className="relative w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#0D0E11] aspect-[16/15]">
+                    <img
+                      src={team[0].image}
+                      alt={team[0].name}
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/65 via-transparent to-transparent" />
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#08090B]/10 via-transparent to-[#08090B]/10" />
                   <div className="absolute bottom-5 left-5 flex items-center gap-3 sm:bottom-7 sm:left-7">
                     <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
                       01
@@ -633,12 +636,12 @@ export const About = () => {
                   transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-[#141519]"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#171920]">
+                  <div className="relative aspect-[16/15] overflow-hidden bg-[#171920]">
                     <img
                       src={member.image}
                       alt={member.name}
                       referrerPolicy="no-referrer"
-                      className="h-full w-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/80 via-transparent to-transparent" />
                     <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/65 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/75 backdrop-blur-md">
