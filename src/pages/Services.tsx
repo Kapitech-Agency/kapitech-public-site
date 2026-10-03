@@ -1056,7 +1056,7 @@ export const Services = () => {
                       <ChevronRight size={14} />
                     </Link>
                     <Link
-                      to="/contact"
+                      to={`/contact?service=${encodeURIComponent(selectedService.title)}`}
                       onClick={() => setSelectedService(null)}
                       className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                     >
