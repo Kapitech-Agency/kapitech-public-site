@@ -69,7 +69,7 @@ export const Footer = () => {
     { name: 'Web Development', href: '/services/web-development' },
     { name: 'Corporate Websites', href: '/services/corporate-websites' },
     { name: 'MVP Development', href: '/services/mvp-development' },
-    { name: '3D Visualization', href: '/services/3d-visualization' },
+    { name: 'Website Redesign', href: '/services/website-redesign' },
   ];
 
   const socialLinks = [
