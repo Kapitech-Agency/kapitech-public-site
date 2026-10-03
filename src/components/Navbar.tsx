@@ -100,9 +100,9 @@ export const Navbar = () => {
   const design = allSolutionsAndServices.filter(s => s.category === 'Design');
   const development = allSolutionsAndServices.filter(s => s.category === 'Development');
 
-  const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/')|| location.pathname.startsWith('/work/');
-  const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/')|| location.pathname.startsWith('/about/');
-  const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/')|| location.pathname.startsWith('/careers/');
+  const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/');
+  const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
+  const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
 
   // Shared navbar material used by the scrolled navbar and mobile controls.
@@ -131,7 +131,7 @@ export const Navbar = () => {
             className="fixed inset-x-0 z-40 hidden md:block pointer-events-none"
             aria-hidden="true"
             style={{
-              top: isScrolled ? '76px' : '88px',
+              top: isScrolled ? '72px' : '88px',
               height: '430px',
               backgroundColor: 'rgba(11, 12, 14, 0.26)',
               backdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
@@ -349,7 +349,7 @@ export const Navbar = () => {
               )}
 
             >
-              <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 lg:gap-10">
+              <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
                 
                 {/* COLUMN 1: SOLUTIONS */}
                 <div className="space-y-4">
@@ -458,7 +458,7 @@ export const Navbar = () => {
               </div>
 
               {/* Bottom Quick Hub Bar */}
-              <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-[#262930] flex items-center justify-between text-xs text-[#8A909D]">
+              <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-[#262930] flex flex-wrap items-center justify-between gap-4 text-xs text-[#8A909D]">
                 <Link 
                   to="/services" 
                   onClick={() => setIsServicesDropdownOpen(false)}
