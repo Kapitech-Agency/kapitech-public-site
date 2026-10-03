@@ -1024,9 +1024,6 @@ export const serviceContentEnhancements: Record<string, ServiceContentEnhancemen
     ],
   },
 
-  'pitch-deck': {
-    faqs: [],
-  },
 };
 
 const businessOutcomeEnhancements: Record<string, { en: string[]; id: string[] }> = {
