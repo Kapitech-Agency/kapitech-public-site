@@ -684,6 +684,7 @@ export const Work = () => {
                 {serviceOptions.map((srv) => (
                   <button
                     key={srv}
+                    type="button"
                     onClick={() => {
                       if (suppressServiceClickRef.current) {
                         suppressServiceClickRef.current = false;
@@ -744,6 +745,7 @@ export const Work = () => {
                   setActivePillar('All');
                   setActiveService('All');
                   setSearchQuery('');
+                  setVisibleCount(12);
                 }}
                 className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px]"
                 data-cursor-label="Reset"
