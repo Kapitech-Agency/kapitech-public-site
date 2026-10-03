@@ -51,6 +51,8 @@ export const ServiceDetail = () => {
   }, []);
 
   const staticService = slug ? getServiceBySlug(slug) : undefined;
+  const isSolutionPage = staticService?.type === 'solution';
+  const isMvpDesign = slug === 'mvp-design';
   const service = slug
     ? cmsServices.find((item) => item.slug === slug) || staticService
     : undefined;
@@ -120,22 +122,29 @@ export const ServiceDetail = () => {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mb-20 lg:mb-28"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-20 lg:mb-28"
         >
           <div className="lg:col-span-8">
             
             {/* Category / Badge */}
-            <span className="kapi-section-label mb-6">
-              {language === 'id' ? service.badgeId : service.badge}
-            </span>
+            <div className="flex flex-wrap items-center gap-2.5 mb-6">
+              <span className="kapi-section-label mb-0">
+                {language === 'id' ? service.badgeId : service.badge}
+              </span>
+              {isSolutionPage && (
+                <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                  {language === 'id' ? 'Solution' : 'Solution'}
+                </span>
+              )}
+            </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display tracking-tight text-white leading-[1.1] mb-6">
+            <h1 className="max-w-5xl text-3xl sm:text-5xl lg:text-[4.5rem] font-display font-semibold tracking-[-0.055em] text-white leading-[0.98] mb-6">
               {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-xl text-[#8A909D] font-light leading-relaxed max-w-3xl mb-10">
+            <p className="text-sm sm:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.8] max-w-3xl mb-10">
               {language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
             </p>
 
@@ -159,12 +168,12 @@ export const ServiceDetail = () => {
           </div>
 
           {/* METRICS SIDEBAR */}
-          <div className="lg:col-span-4 w-full">
+          <div className="lg:col-span-4 w-full lg:sticky lg:top-28">
             <motion.div
               initial={{ opacity: 0, x: 18 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-6 sm:p-8 space-y-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.025),0_22px_60px_-42px_rgba(229,9,20,0.22)]"
+              className="rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-5 sm:p-7 space-y-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
             >
               <div className="text-xs font-mono uppercase tracking-widest text-[#8A909D] flex items-center justify-between">
                 <span>{language === 'id' ? 'METRIK KINERJA' : 'PERFORMANCE METRICS'}</span>
@@ -192,7 +201,7 @@ export const ServiceDetail = () => {
                   {service.tools.map((tool, idx) => (
                     <span 
                       key={idx}
-                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-white/[0.018] border border-white/[0.08] text-[#8A909D]"
+                      className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#A7ACB5]"
                     >
                       {tool}
                     </span>
@@ -253,7 +262,7 @@ export const ServiceDetail = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
             {service.problemsSolutions.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -261,9 +270,14 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5"
               >
+                <span className="pointer-events-none absolute inset-x-6 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
                 <div>
+                  <div className="mb-5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]/65">
+                    <span>{language === 'id' ? 'Kasus' : 'Case'}</span>
+                    <span>{String(idx + 1).padStart(2, '0')}</span>
+                  </div>
                   {/* Problem Block */}
                   <div className="mb-6 pb-6 border-b border-white/[0.07]">
                     <div className="text-xs font-mono uppercase tracking-wider text-brand-red mb-2 flex items-center gap-1.5">
@@ -308,7 +322,7 @@ export const ServiceDetail = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {service.capabilities.map((cap, idx) => (
               <motion.div
                 key={idx}
@@ -316,9 +330,9 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 group"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7 hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-white/[0.012] border border-white/[0.07] flex items-center justify-center text-white mb-4 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-[#0F1013] border border-white/[0.07] flex items-center justify-center text-white mb-5 group-hover:border-brand-red/40 group-hover:text-brand-red transition-colors">
                   <Layers className="w-5 h-5 text-brand-red" />
                 </div>
                 <h3 className="text-base font-medium text-white mb-2">
@@ -416,7 +430,7 @@ export const ServiceDetail = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {service.processStages.map((stage, idx) => (
               <motion.div
                 key={idx}
@@ -424,10 +438,10 @@ export const ServiceDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300"
+                className="rounded-2xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5"
               >
                 <div>
-                  <div className="text-3xl font-display text-[#8A909D] font-light mb-4">
+                  <div className="text-3xl font-display text-brand-red/75 font-light mb-4">
                     {stage.stageNumber}
                   </div>
                   <h3 className="text-base font-semibold text-white mb-2">
@@ -438,7 +452,7 @@ export const ServiceDetail = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/[0.07] space-y-1.5">
+                <div className="pt-5 border-t border-white/[0.07] space-y-1.5">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-[#8A909D] mb-2">
                     {language === 'id' ? 'Hasil Kerja:' : 'Deliverables:'}
                   </div>
@@ -498,7 +512,7 @@ export const ServiceDetail = () => {
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                   <div className="text-xs text-[#8A909D] font-mono">
-                    hello@kapitech.co.id &bull; Response within 24 business hours
+                    hello@kapitech.id &bull; Response within 24 business hours
                   </div>
                 </div>
               </div>
