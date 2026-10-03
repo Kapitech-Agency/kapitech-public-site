@@ -231,7 +231,7 @@ export const Footer = () => {
                 />
                 <button 
                   type="submit"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-lg bg-brand-red text-white text-xs font-semibold hover:bg-[#E01414] transition-colors min-h-[34px]"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-[#E01414] transition-colors min-h-[34px]"
                 >
                   {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
