@@ -294,15 +294,26 @@ export const Footer = () => {
                 { name: t('nav.about'), href: '/about' },
                 { name: t('nav.careers'), href: '/careers' },
                 { name: t('nav.contact'), href: '/contact' },
-                { name: language === 'id' ? 'Inbox Database' : 'Database Inbox', href: '/inbox' }
+                { name: language === 'id' ? 'Inbox Database' : 'Database Inbox', href: 'https://ams.kapitech.id/admin/inbox', external: true }
               ].map((item) => (
                 <li key={item.name}>
-                  <Link 
-                    to={item.href} 
-                    className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
-                  >
-                    <span>{item.name}</span>
-                  </Link>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
+                    >
+                      <span>{item.name}</span>
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
+                    >
+                      <span>{item.name}</span>
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -417,13 +428,15 @@ export const Footer = () => {
         <div className="pt-6 border-t border-[#262930] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8A909D]">
           <p>© 2021-{currentYear} Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
           <div className="flex items-center gap-4 sm:gap-6">
-            <Link 
-              to="/admin/login" 
+            <a
+              href="https://ams.kapitech.id/admin/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#5C626E] hover:text-[#8A909D] transition-colors text-[11px] font-mono"
               title="Kapitech Internal Admin Portal"
             >
               <span>Admin Portal</span>
-            </Link>
+            </a>
             <button 
               onClick={scrollToTop} 
               id="footer-back-to-top"
