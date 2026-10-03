@@ -220,18 +220,18 @@ export const Footer = () => {
               <span className="text-[11px] font-mono text-[#8A909D] uppercase tracking-wider block mb-2 font-medium">
                 {language === 'id' ? 'Berlangganan Wawasan Proyek' : 'Subscribe for Project Insights'}
               </span>
-              <form onSubmit={handleSubscribe} className="relative max-w-sm">
+              <form onSubmit={handleSubscribe} className="flex w-full max-w-sm flex-col gap-2 sm:relative sm:block">
                 <input 
                   type="email" 
                   placeholder={language === 'id' ? 'Masukkan email bisnis Anda...' : 'Enter your work email...'} 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-[44px] bg-[#16181D] border border-[#262930] rounded-xl px-4 py-3 text-xs text-white placeholder:text-[#8A909D]/70 focus:outline-none focus:border-brand-red transition-colors"
+                  className="w-full min-h-[44px] bg-[#16181D] border border-[#262930] rounded-xl px-4 py-3 text-xs text-white placeholder:text-[#8A909D]/70 focus:outline-none focus:border-brand-red transition-colors sm:pr-28"
                 />
                 <button 
                   type="submit"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-[#FF1E27] transition-[background-color,box-shadow] duration-200 min-h-[34px] shadow-[0_8px_20px_-12px_rgba(229,9,20,0.75)]"
+                  className="w-full min-h-[40px] rounded-xl bg-brand-red px-4 py-2 text-xs font-semibold text-white transition-[background-color,box-shadow] duration-200 hover:bg-[#FF1E27] shadow-[0_8px_20px_-12px_rgba(229,9,20,0.75)] sm:absolute sm:right-1.5 sm:top-1/2 sm:w-auto sm:min-h-[34px] sm:-translate-y-1/2 sm:rounded-full"
                 >
                   {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
