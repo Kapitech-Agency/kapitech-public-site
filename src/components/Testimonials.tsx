@@ -174,9 +174,9 @@ export const Testimonials = () => {
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setCurrentIndex(testimonialIndex)}
+                    onClick={() => setCurrentIndex(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      currentIndex === testimonialIndex ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
+                      currentIndex === index ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
                     }`}
                     aria-label={`${language === 'id' ? 'Pilih testimoni' : 'Select testimonial'} ${index + 1}`}
                     aria-pressed={currentIndex === index}
@@ -197,9 +197,9 @@ export const Testimonials = () => {
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setCurrentIndex(index)}
+                    onClick={() => setCurrentIndex(testimonialIndex)}
                     className={`group w-full rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
-                      currentIndex === index
+                      currentIndex === testimonialIndex
                         ? 'bg-brand-red/[0.07] border border-brand-red/20'
                         : 'border border-transparent hover:bg-white/[0.025]'
                     }`}
