@@ -420,7 +420,7 @@ export const Contact = () => {
                     <span className="text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase block mb-0.5">
                       {language === 'id' ? 'Konsultasi Klien & Proyek' : 'Client Inquiries'}
                     </span>
-                    <a href="mailto:hello@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block truncate">
+                    <a href="mailto:hello@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block break-all sm:truncate">
                       hello@kapitech.id
                     </a>
                     <p className="text-[10px] sm:text-[11px] text-[#8A909D]/70 mt-0.5">
@@ -438,7 +438,7 @@ export const Contact = () => {
                     <span className="text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase block mb-0.5">
                       {language === 'id' ? 'Kemitraan & Korporasi' : 'Partnerships & Corporate'}
                     </span>
-                    <a href="mailto:business@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block truncate">
+                    <a href="mailto:business@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block break-all sm:truncate">
                       business@kapitech.id
                     </a>
                     <p className="text-[10px] sm:text-[11px] text-[#8A909D]/70 mt-0.5">
@@ -456,7 +456,7 @@ export const Contact = () => {
                     <span className="text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase block mb-0.5">
                       {language === 'id' ? 'Karir & Rekrutmen' : 'Careers & Talent'}
                     </span>
-                    <a href="mailto:recruitment@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block truncate">
+                    <a href="mailto:recruitment@kapitech.id" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block break-all sm:truncate">
                       recruitment@kapitech.id
                     </a>
                     <p className="text-[10px] sm:text-[11px] text-[#8A909D]/70 mt-0.5">
@@ -474,7 +474,7 @@ export const Contact = () => {
                     <span className="text-[10px] sm:text-[11px] font-mono text-[#8A909D] uppercase block mb-0.5">
                       {language === 'id' ? 'Telepon Langsung / WhatsApp' : 'Direct Phone / WhatsApp'}
                     </span>
-                    <a href="tel:+6287769957062" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block truncate">
+                    <a href="tel:+6287769957062" className="text-xs sm:text-sm font-semibold text-white hover:text-brand-red transition-colors block break-all sm:truncate">
                       +62 877-6995-7062
                     </a>
                     <p className="text-[10px] sm:text-[11px] text-[#8A909D]/70 mt-0.5">
