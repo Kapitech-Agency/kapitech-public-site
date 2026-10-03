@@ -376,10 +376,10 @@ export const About = () => {
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 sm:pt-6 border-t border-[#262930]">
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-6 pt-5 sm:pt-6 border-t border-[#262930]">
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white block">50+</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.projects')}</span>
+                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase break-words"{t('about.stats.projects')}</span>
               </div>
               <div>
                 <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-red block">3+</span>
