@@ -577,7 +577,10 @@ export const Work = () => {
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => setSearchQuery('')}
+                    onClick={() => {
+                      setSearchQuery('');
+                      setVisibleCount(12);
+                    }}
                     type="button"
                     className="absolute right-1.5 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/[0.05] transition-colors"
                     aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
