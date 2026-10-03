@@ -90,14 +90,21 @@ export const Contact = () => {
     }
 
     const normalizedRequest = requestedService.toLowerCase();
-    const matchedService = serviceOptions.find((option) => {
-      const normalizedOption = option.toLowerCase();
-      return normalizedOption === normalizedRequest
-        || normalizedOption.includes(normalizedRequest)
-        || normalizedRequest.includes(normalizedOption);
-    });
+    const matchIndex = [serviceOptionsEn, serviceOptionsId].reduce<number | null>((found, options) => {
+      if (found !== null) return found;
 
-    if (matchedService) {
+      const index = options.findIndex((option) => {
+        const normalizedOption = option.toLowerCase();
+        return normalizedOption === normalizedRequest
+          || normalizedOption.includes(normalizedRequest)
+          || normalizedRequest.includes(normalizedOption);
+      });
+
+      return index >= 0 ? index : null;
+    }, null);
+
+    if (matchIndex !== null) {
+      const matchedService = serviceOptions[matchIndex];
       setSelectedServices((current) => current.includes(matchedService) ? current : [matchedService]);
       setShowSpecificServices(true);
     }
