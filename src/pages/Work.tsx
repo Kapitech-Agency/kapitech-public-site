@@ -658,6 +658,7 @@ export const Work = () => {
                   onClick={() => setSelectedProject(null)}
                   className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 shrink-0"
                   aria-label="Close case study modal"
+                  data-cursor-label="Close"
                   autoFocus
                 >
                   <X size={18} />
