@@ -384,183 +384,171 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* SOLUTIONS & 3 CORE PILLARS SECTION */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930] relative z-10" id="services">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-16">
-            <div>
+      {/* SOLUTIONS & CORE CAPABILITIES */}
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="services">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+            <div className="max-w-3xl">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Core Capabilities'}
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold tracking-tight text-white">
-                {language === 'id' ? 'Solusi Strategis & Keahlian Studio' : 'Strategic Solutions & Studio Craft'}
+              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+                {language === 'id' ? 'Satu studio untuk brand, experience, dan engineering.' : 'One studio for brand, experience, and engineering.'}
               </h2>
+              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
+                {language === 'id'
+                  ? 'Kami menyatukan strategi kreatif, desain produk, dan engineering untuk membantu tim bergerak dari ide hingga delivery dengan lebih sedikit handoff.'
+                  : 'We bring creative strategy, product design, and engineering together so teams can move from idea to delivery with fewer handoffs.'}
+              </p>
             </div>
-            <Link 
-              to="/services" 
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-red hover:text-white transition-colors"
+
+            <Link
+              to="/services"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] lg:self-end"
             >
-              <span>{language === 'id' ? 'Lihat Semua Layanan & Solusi' : 'Explore All Services & Solutions'}</span>
-              <ArrowUpRight size={14} />
+              <span>{language === 'id' ? 'Jelajahi Semua Layanan' : 'Explore All Services'}</span>
+              <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
-          {/* Solutions 3 Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-12">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
             {[
               {
-                slug: 'mvp-design',
-                title: 'MVP DESIGN',
-                audience: language === 'id' ? 'Untuk ekosistem enterprise & startup' : 'For enterprise ecosystems',
-                desc: language === 'id' ? 'Ciptakan produk digital berdaya saing, pikat investor, dan raih klien baru.' : 'Create a digital product, attract investors and new clients'
+                number: '01',
+                eyebrow: language === 'id' ? 'Identity' : 'Identity',
+                title: 'Brand Systems',
+                desc: language === 'id'
+                  ? 'Positioning visual, identitas, dan sistem brand yang konsisten di setiap touchpoint.'
+                  : 'Positioning, identity, and scalable brand systems built for consistency across every touchpoint.',
+                icon: Sparkles,
+                services: ['Brand Identity', 'Logo Design', 'Pitch Deck', 'Rebranding'],
+                href: '/services/brand-identity'
               },
               {
-                slug: 'product-redesign',
-                title: 'PRODUCT REDESIGN',
-                audience: language === 'id' ? 'Untuk UKM & korporasi berkembang' : 'For SMEs & enterprises',
-                desc: language === 'id' ? 'Dapatkan tampilan modern, tingkatkan UX, dan optimalkan konversi.' : 'Get a fresh look, improved user experience, or enhanced functionality'
+                number: '02',
+                eyebrow: language === 'id' ? 'Experience' : 'Experience',
+                title: 'Product Experience',
+                desc: language === 'id'
+                  ? 'UI/UX, website, dan product design yang membuat produk lebih jelas, mudah digunakan, dan siap berkembang.'
+                  : 'UI/UX, websites, and product design that make digital experiences clearer, easier to use, and ready to grow.',
+                icon: Layers,
+                services: ['UI/UX Design', 'Website Design', 'Website Redesign', 'UX/UI Audit'],
+                href: '/services/ui-ux-design'
               },
               {
-                slug: 'team-extension',
-                title: 'TEAM EXTENSION',
-                audience: language === 'id' ? 'Untuk perusahaan dengan tim internal' : 'For existing companies',
-                desc: language === 'id' ? 'Perluas kapasitas tim Anda bersama desainer & engineer berdedikasi kami.' : 'Expand your team with our dedicated and talented design experts'
+                number: '03',
+                eyebrow: language === 'id' ? 'Engineering' : 'Engineering',
+                title: 'Digital Engineering',
+                desc: language === 'id'
+                  ? 'Build web modern yang cepat, scalable, dan terhubung dengan kebutuhan bisnis nyata.'
+                  : 'Modern web builds that are fast, scalable, and connected to real business requirements.',
+                icon: Code2,
+                services: ['Web Development', 'MVP Development', 'Corporate Websites', 'Landing Pages'],
+                href: '/services/web-development'
               }
-            ].map((sol, idx) => (
-              <Link 
-                key={idx} 
-                to={`/solutions/${sol.slug}`}
-                className="group p-7 sm:p-8 min-h-[250px] rounded-2xl bg-[#16181D] border border-[#262930] hover:border-brand-red/40 hover:bg-[#1B1F26] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-red font-semibold block mb-1">
-                    {sol.audience}
-                  </span>
-                  <h3 className="text-xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-2">
-                    {sol.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
-                    {sol.desc}
-                  </p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-[#262930]">
-                  <div className="text-xs font-mono text-brand-red group-hover:text-white flex items-center gap-1.5 transition-colors">
-                    <span>{language === 'id' ? 'Lihat Detail Subpage' : 'Explore Subpage'}</span>
-                    <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            ].map((capability, index) => {
+              const Icon = capability.icon;
+              return (
+                <motion.article
+                  key={capability.number}
+                  initial={{ opacity: 0, y: 22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.7, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-2xl border border-white/[0.075] bg-white/[0.015] p-6 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-white/[0.024] sm:p-7 lg:p-8"
+                >
+                  <div className="pointer-events-none absolute inset-x-8 top-0 h-px origin-left scale-x-0 bg-brand-red/70 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
+
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0F1013] text-[#D9DCE2] transition-colors duration-300 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                      <Icon size={19} strokeWidth={1.8} />
+                    </div>
+                    <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]/65 transition-colors duration-300 group-hover:text-brand-red/85">
+                      {capability.number}
+                    </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+
+                  <div className="mt-10">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red/90">
+                      {capability.eyebrow}
+                    </span>
+                    <h3 className="mt-3 text-[1.7rem] font-display font-semibold leading-[1] tracking-[-0.05em] text-white sm:text-[1.9rem]">
+                      {capability.title}
+                    </h3>
+                    <p className="mt-4 max-w-md text-sm font-light leading-[1.75] text-[#8A909D]">
+                      {capability.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto pt-8">
+                    <div className="flex flex-wrap gap-2">
+                      {capability.services.map((service) => (
+                        <span
+                          key={service}
+                          className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#A7ACB5] transition-colors duration-300 group-hover:border-white/[0.12] group-hover:text-white"
+                        >
+                          {service}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      to={capability.href}
+                      className="mt-7 inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:text-brand-red"
+                    >
+                      <span>{language === 'id' ? 'Lihat Capability' : 'View Capability'}</span>
+                      <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
 
-          {/* 3 Pillars Grid (Branding, Design, Development) with kapi-card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Pillar 1: Branding */}
-            <div className="kapi-card" id="card-branding">
-              <div className="kapi-card-header">
-                <div className="kapi-card-icon-box">
-                  <Sparkles className="w-5 h-5 text-current" />
-                </div>
-                <span className="kapi-card-pill">01. IDENTITY</span>
-              </div>
-
-              <div className="kapi-card-body">
-                <h3 className="kapi-card-title">
-                  BRAND IDENTITY & SYSTEM
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
+            <div className="grid lg:grid-cols-[1.1fr_1.9fr]">
+              <div className="border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                  {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
+                </span>
+                <h3 className="mt-3 max-w-sm text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
+                  {language === 'id' ? 'Mulai dari kebutuhan Anda.' : 'Start with the way you need us.'}
                 </h3>
-                <p className="kapi-card-desc">
-                  {language === 'id' 
-                    ? 'Merumuskan positioning, panduan gaya visual terstruktur, dan strategi diferensiasi brand yang memperkuat reputasi pasar.' 
-                    : 'Build undeniable market distinction, cohesive visual systems, and high-trust positioning.'}
-                </p>
-                <div className="kapi-card-tags">
-                  <span className="kapi-card-tag">Pitch Deck</span>
-                  <span className="kapi-card-tag">Brand Identity</span>
-                  <span className="kapi-card-tag">Logo Design</span>
-                  <span className="kapi-card-tag">Rebranding</span>
-                </div>
               </div>
 
-              <div className="kapi-card-footer">
-                <Link to="/services" className="flex items-center justify-between w-full">
-                  <span>{language === 'id' ? 'Jelajahi 5 Layanan Branding' : 'Explore 5 Branding Services'}</span>
-                  <div className="kapi-card-arrow">
-                    <ArrowUpRight size={14} />
-                  </div>
-                </Link>
-              </div>
-            </div>
-
-            {/* Pillar 2: Design */}
-            <div className="kapi-card" id="card-design">
-              <div className="kapi-card-header">
-                <div className="kapi-card-icon-box">
-                  <Layers className="w-5 h-5 text-current" />
-                </div>
-                <span className="kapi-card-pill">02. EXPERIENCE</span>
-              </div>
-
-              <div className="kapi-card-body">
-                <h3 className="kapi-card-title">
-                  UI/UX & PRODUCT DESIGN
-                </h3>
-                <p className="kapi-card-desc">
-                  {language === 'id' 
-                    ? 'Pengalaman antarmuka intuitif berstandar global, prototipe interaktif, dan Design System multi-platform di Figma.' 
-                    : 'Frictionless UI/UX architectures, interactive prototyping, and cross-platform design systems in Figma.'}
-                </p>
-                <div className="kapi-card-tags">
-                  <span className="kapi-card-tag">UI/UX Design</span>
-                  <span className="kapi-card-tag">Web & Mobile</span>
-                  <span className="kapi-card-tag">Redesign</span>
-                  <span className="kapi-card-tag">UX Audit</span>
-                </div>
-              </div>
-
-              <div className="kapi-card-footer">
-                <Link to="/services" className="flex items-center justify-between w-full">
-                  <span>{language === 'id' ? 'Jelajahi 5 Layanan Desain' : 'Explore 5 Design Services'}</span>
-                  <div className="kapi-card-arrow">
-                    <ArrowUpRight size={14} />
-                  </div>
-                </Link>
-              </div>
-            </div>
-
-            {/* Pillar 3: Development */}
-            <div className="kapi-card" id="card-development">
-              <div className="kapi-card-header">
-                <div className="kapi-card-icon-box">
-                  <Code2 className="w-5 h-5 text-current" />
-                </div>
-                <span className="kapi-card-pill">03. ENGINEERING</span>
-              </div>
-
-              <div className="kapi-card-body">
-                <h3 className="kapi-card-title">
-                  FULL-STACK ENGINEERING
-                </h3>
-                <p className="kapi-card-desc">
-                  {language === 'id' 
-                    ? 'Rekayasa web modern berperforma tinggi, skalabilitas cloud elastis, integrasi API, dan skor Lighthouse 99+.' 
-                    : 'High-performance web applications, resilient cloud architecture, and ultra-fast Lighthouse 99+ loading speeds.'}
-                </p>
-                <div className="kapi-card-tags">
-                  <span className="kapi-card-tag">Web Development</span>
-                  <span className="kapi-card-tag">MVP Build</span>
-                  <span className="kapi-card-tag">Landing Pages</span>
-                  <span className="kapi-card-tag">Enterprise</span>
-                </div>
-              </div>
-
-              <div className="kapi-card-footer">
-                <Link to="/services" className="flex items-center justify-between w-full">
-                  <span>{language === 'id' ? 'Jelajahi 5 Layanan Engineering' : 'Explore 5 Engineering Services'}</span>
-                  <div className="kapi-card-arrow">
-                    <ArrowUpRight size={14} />
-                  </div>
-                </Link>
+              <div className="grid divide-y divide-white/[0.065] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                {[
+                  {
+                    slug: 'mvp-design',
+                    title: 'MVP Design',
+                    desc: language === 'id' ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan dan divalidasi.' : 'Turn an idea into clearer product direction ready for validation and presentation.'
+                  },
+                  {
+                    slug: 'product-redesign',
+                    title: 'Product Redesign',
+                    desc: language === 'id' ? 'Modernisasi experience yang sudah ada tanpa kehilangan inti bisnisnya.' : 'Modernize an existing experience without losing the business logic behind it.'
+                  },
+                  {
+                    slug: 'team-extension',
+                    title: 'Team Extension',
+                    desc: language === 'id' ? 'Tambah kapasitas desain dan engineering tanpa menambah handoff yang tidak perlu.' : 'Add design and engineering capacity without creating unnecessary handoffs.'
+                  }
+                ].map((solution) => (
+                  <Link
+                    key={solution.slug}
+                    to={'/solutions/' + solution.slug}
+                    className="group p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:p-6"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-display font-semibold text-white transition-colors duration-300 group-hover:text-brand-red">
+                        {solution.title}
+                      </span>
+                      <ArrowUpRight size={15} className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red" />
+                    </div>
+                    <p className="mt-2.5 text-xs leading-[1.65] text-[#8A909D]">
+                      {solution.desc}
+                    </p>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
