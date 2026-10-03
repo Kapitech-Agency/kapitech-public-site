@@ -69,7 +69,8 @@ export const Testimonials = () => {
     return null;
   }
 
-  const visibleTestimonials = testimonials.slice(0, 4);
+  const visibleStart = Math.min(Math.max(0, currentIndex - 3), Math.max(0, testimonials.length - 4));
+  const visibleTestimonials = testimonials.slice(visibleStart, visibleStart + 4);
 
   return (
     <section
@@ -173,9 +174,9 @@ export const Testimonials = () => {
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setCurrentIndex(index)}
+                    onClick={() => setCurrentIndex(testimonialIndex)}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      currentIndex === index ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
+                      currentIndex === testimonialIndex ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
                     }`}
                     aria-label={`${language === 'id' ? 'Pilih testimoni' : 'Select testimonial'} ${index + 1}`}
                     aria-pressed={currentIndex === index}
@@ -190,7 +191,9 @@ export const Testimonials = () => {
               </div>
 
               <div className="space-y-1">
-                {visibleTestimonials.map((item, index) => (
+                {visibleTestimonials.map((item, index) => {
+                  const testimonialIndex = visibleStart + index;
+                  return (
                   <button
                     key={item.id}
                     type="button"
@@ -205,7 +208,7 @@ export const Testimonials = () => {
                       <div className="min-w-0">
                         <span
                           className={`block text-sm font-semibold transition-colors duration-300 ${
-                            currentIndex === index ? 'text-white' : 'text-[#D7DAE0] group-hover:text-white'
+                            currentIndex === testimonialIndex ? 'text-white' : 'text-[#D7DAE0] group-hover:text-white'
                           }`}
                         >
                           {item.author}
@@ -217,7 +220,7 @@ export const Testimonials = () => {
                       <ArrowUpRight
                         size={15}
                         className={`mt-0.5 shrink-0 transition-all duration-300 ${
-                          currentIndex === index
+                          currentIndex === testimonialIndex
                             ? 'text-brand-red -translate-y-0.5 translate-x-0.5'
                             : 'text-[#555B65] group-hover:text-white'
                         }`}
@@ -226,11 +229,12 @@ export const Testimonials = () => {
 
                     <span
                       className={`mt-4 block h-px transition-all duration-300 ${
-                        currentIndex === index ? 'w-10 bg-brand-red' : 'w-5 bg-white/[0.12] group-hover:w-8'
+                        currentIndex === testimonialIndex ? 'w-10 bg-brand-red' : 'w-5 bg-white/[0.12] group-hover:w-8'
                       }`}
                     />
                   </button>
-                ))}
+                  );
+                })}
               </div>
 
               {testimonials.length > visibleTestimonials.length && (
