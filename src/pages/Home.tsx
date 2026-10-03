@@ -84,11 +84,14 @@ export const Home = () => {
 
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
-        const next = event.key === 'ArrowLeft'
-          ? (selectedProcessStep - 1 + processSteps.length) % processSteps.length
-          : (selectedProcessStep + 1) % processSteps.length;
-        setActiveProcessStep(next);
-        setSelectedProcessStep(next);
+        setSelectedProcessStep((current) => {
+          if (current === null) return current;
+          const next = event.key === 'ArrowLeft'
+            ? (current - 1 + processSteps.length) % processSteps.length
+            : (current + 1) % processSteps.length;
+          setActiveProcessStep(next);
+          return next;
+        });
         return;
       }
 
@@ -124,12 +127,16 @@ export const Home = () => {
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
-
-      if (processModalTriggerRef.current && document.contains(processModalTriggerRef.current)) {
-        processModalTriggerRef.current.focus();
-      }
-      processModalTriggerRef.current = null;
     };
+  }, [selectedProcessStep]);
+
+  useEffect(() => {
+    if (selectedProcessStep !== null) return;
+
+    if (processModalTriggerRef.current && document.contains(processModalTriggerRef.current)) {
+      processModalTriggerRef.current.focus();
+    }
+    processModalTriggerRef.current = null;
   }, [selectedProcessStep]);
 
   const trustedBrands = [
@@ -1002,13 +1009,12 @@ export const Home = () => {
                 }}
               >
                 <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, scale: 0.965, y: 16 }}
+                  initial={{ opacity: 0, scale: 0.985, y: 12 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.965, y: 16 }}
-                  transition={{ duration: 0.26 }}
+                  exit={{ opacity: 0, scale: 0.985, y: 12 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   ref={processModalRef}
-                  className="relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
+                  className="relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)]"
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="process-phase-modal-title"
@@ -1044,8 +1050,8 @@ export const Home = () => {
                     </button>
                   </header>
 
-                  <div className="grid min-h-0 flex-1 overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-                    <aside className="min-h-0 border-b border-white/[0.08] bg-[#0B0C0E] lg:overflow-y-auto lg:border-b-0 lg:border-r">
+                  <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                    <aside className="min-h-0 overflow-y-auto border-b border-white/[0.08] bg-[#0B0C0E] lg:border-b-0 lg:border-r">
                       <div className="p-4 sm:p-5 lg:p-6">
                         <div className="mb-3 flex items-center justify-between gap-3">
                           <div>
@@ -1096,7 +1102,7 @@ export const Home = () => {
                       </div>
                     </aside>
 
-                    <section className="min-h-0 overflow-visible overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:overflow-y-auto lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail fase' : 'Phase details'}>
+                    <section className="min-h-0 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail fase' : 'Phase details'}>
                       <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                         <section>
                           <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">
