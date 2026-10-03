@@ -76,42 +76,84 @@ export const Work = () => {
 
   // Drag-to-scroll refs & state for horizontal filter bars
   const serviceScrollRef = React.useRef<HTMLDivElement>(null);
+  const serviceDragRef = React.useRef({
+    active: false,
+    pointerId: -1,
+    startX: 0,
+    startScrollLeft: 0,
+    moved: false,
+  });
+  const suppressServiceClickRef = React.useRef(false);
   const [isDraggingService, setIsDraggingService] = useState(false);
   const [isServiceScrolled, setIsServiceScrolled] = useState(false);
-  const [startXService, setStartXService] = useState(0);
-  const [scrollLeftService, setScrollLeftService] = useState(0);
 
   const handleServiceScroll = (e: React.UIEvent<HTMLDivElement>) => {
     setIsServiceScrolled(e.currentTarget.scrollLeft > 2);
   };
 
-  const handleMouseDownService = (e: React.MouseEvent) => {
-    if (!serviceScrollRef.current) return;
+  const handleServicePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!serviceScrollRef.current || (e.pointerType === 'mouse' && e.button !== 0)) return;
+
+    serviceDragRef.current = {
+      active: true,
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startScrollLeft: serviceScrollRef.current.scrollLeft,
+      moved: false,
+    };
+
+    suppressServiceClickRef.current = false;
     setIsDraggingService(true);
-    setStartXService(e.pageX - serviceScrollRef.current.offsetLeft);
-    setScrollLeftService(serviceScrollRef.current.scrollLeft);
+    serviceScrollRef.current.setPointerCapture(e.pointerId);
   };
 
-  const handleMouseMoveService = (e: React.MouseEvent) => {
-    if (!isDraggingService || !serviceScrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - serviceScrollRef.current.offsetLeft;
-    const walk = (x - startXService) * 1.5;
-    serviceScrollRef.current.scrollLeft = scrollLeftService - walk;
-  };
+  const handleServicePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = serviceDragRef.current;
+    if (!drag.active || drag.pointerId !== e.pointerId || !serviceScrollRef.current) return;
 
-  const handleMouseUpOrLeaveService = () => {
-    setIsDraggingService(false);
-  };
-
-  const handleWheelService = (e: React.WheelEvent) => {
-    if (!serviceScrollRef.current) return;
-    // Strictly horizontal scrolling
-    if (e.deltaY !== 0) {
-      serviceScrollRef.current.scrollLeft += e.deltaY;
-    } else if (e.deltaX !== 0) {
-      serviceScrollRef.current.scrollLeft += e.deltaX;
+    const deltaX = e.clientX - drag.startX;
+    if (Math.abs(deltaX) > 4) {
+      drag.moved = true;
     }
+
+    if (drag.moved) {
+      e.preventDefault();
+      serviceScrollRef.current.scrollLeft = drag.startScrollLeft - deltaX * 1.35;
+    }
+  };
+
+  const handleServicePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = serviceDragRef.current;
+    if (drag.pointerId !== e.pointerId) return;
+
+    if (serviceScrollRef.current?.hasPointerCapture(e.pointerId)) {
+      serviceScrollRef.current.releasePointerCapture(e.pointerId);
+    }
+
+    suppressServiceClickRef.current = drag.moved;
+    serviceDragRef.current.active = false;
+    serviceDragRef.current.pointerId = -1;
+    setIsDraggingService(false);
+
+    if (drag.moved) {
+      window.setTimeout(() => {
+        suppressServiceClickRef.current = false;
+      }, 0);
+    }
+  };
+
+  const handleServicePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = serviceDragRef.current;
+    if (drag.pointerId !== e.pointerId) return;
+
+    if (serviceScrollRef.current?.hasPointerCapture(e.pointerId)) {
+      serviceScrollRef.current.releasePointerCapture(e.pointerId);
+    }
+
+    suppressServiceClickRef.current = false;
+    serviceDragRef.current.active = false;
+    serviceDragRef.current.pointerId = -1;
+    setIsDraggingService(false);
   };
 
   const featuredProjects = useMemo(() => {
@@ -143,6 +185,14 @@ export const Work = () => {
 
     return () => clearInterval(interval);
   }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
+
+  useEffect(() => {
+    const scroller = serviceScrollRef.current;
+    if (!scroller) return;
+
+    scroller.scrollTo({ left: 0, behavior: 'auto' });
+    setIsServiceScrolled(false);
+  }, [activePillar, serviceOptions.length]);
 
   const serviceOptions = useMemo(() => {
     if (activePillar === 'Visual Experience') {
@@ -512,7 +562,10 @@ export const Work = () => {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
+                <span
+                  className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70"
+                  aria-live="polite"
+                >
                   {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
                 </span>
                 {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
@@ -534,7 +587,11 @@ export const Work = () => {
             </div>
 
             <div className="flex flex-col gap-2 sm:gap-2.5 lg:flex-row lg:items-center lg:gap-3">
-              <div className="min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div
+                className="min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                role="group"
+                aria-label={language === 'id' ? 'Filter bidang' : 'Discipline filters'}
+              >
                 <div className="flex w-max items-center gap-1">
                   {[
                     { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
@@ -544,7 +601,14 @@ export const Work = () => {
                     <button
                       key={tab.key}
                       type="button"
-                      onClick={() => handlePillarChange(tab.key)}
+                      onClick={() => {
+                        if (suppressServiceClickRef.current) {
+                          suppressServiceClickRef.current = false;
+                          return;
+                        }
+                        handlePillarChange(tab.key);
+                      }}
+                      data-cursor-label="Filter"
                       aria-pressed={activePillar === tab.key}
                       className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 min-h-[40px] sm:min-h-[34px] flex items-center justify-center whitespace-nowrap ${
                         activePillar === tab.key
@@ -573,7 +637,7 @@ export const Work = () => {
                     setVisibleCount(12);
                   }}
                   placeholder={language === 'id' ? 'Cari studi kasus, klien...' : 'Search case study, client...'}
-                  className="w-full bg-white/[0.018] border border-white/[0.08] rounded-full pl-10 pr-10 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-[border-color,background-color,box-shadow] duration-200 font-mono min-h-[44px] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                  className="w-full [appearance:textfield] [&::-webkit-search-cancel-button]:appearance-none bg-white/[0.018] border border-white/[0.08] rounded-full pl-10 pr-10 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-[border-color,background-color,box-shadow] duration-200 font-mono min-h-[44px] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                 />
                 {searchQuery && (
                   <button
@@ -600,11 +664,10 @@ export const Work = () => {
               <div
                 ref={serviceScrollRef}
                 onScroll={handleServiceScroll}
-                onMouseDown={handleMouseDownService}
-                onMouseMove={handleMouseMoveService}
-                onMouseUp={handleMouseUpOrLeaveService}
-                onMouseLeave={handleMouseUpOrLeaveService}
-                onWheel={handleWheelService}
+                onPointerDown={handleServicePointerDown}
+                onPointerMove={handleServicePointerMove}
+                onPointerUp={handleServicePointerUp}
+                onPointerCancel={handleServicePointerCancel}
                 style={{
                   maskImage: isServiceScrolled
                     ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
@@ -613,7 +676,7 @@ export const Work = () => {
                     ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
                     : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
                 }}
-                className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
+                className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
                 }`}
               >
@@ -622,10 +685,15 @@ export const Work = () => {
                   <button
                     key={srv}
                     onClick={() => {
+                      if (suppressServiceClickRef.current) {
+                        suppressServiceClickRef.current = false;
+                        return;
+                      }
                       setActiveService(srv);
                       setVisibleCount(12);
                     }}
                     aria-pressed={activeService === srv}
+                    data-cursor-label="Filter"
                     className={`px-2.5 py-1 rounded-full text-[10px] font-mono whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 shrink-0 border min-h-[38px] sm:min-h-[30px] flex items-center ${
                       activeService === srv
                         ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
