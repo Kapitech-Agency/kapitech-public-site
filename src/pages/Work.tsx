@@ -268,7 +268,7 @@ export const Work = () => {
         <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
           <div className="max-w-7xl mx-auto">
             <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
-            <div className="flex items-center justify-between gap-4 mb-6 sm:mb-7">
+            <div className="flex items-center justify-between gap-4 mb-7 sm:mb-8">
               <div className="flex items-center gap-3">
                 <span className="kapi-section-label mb-0">
 
@@ -326,9 +326,9 @@ export const Work = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/30 to-transparent lg:hidden" />
               </div>
 
-              <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+              <div className="lg:col-span-5 p-7 sm:p-9 lg:p-11 flex flex-col justify-between min-h-[430px]">
                 <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <div className="flex flex-wrap items-center gap-2.5 mb-6">
                     <span className="px-2.5 py-1 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red text-[11px] font-mono font-medium">
                       {currentFeatured.pillar}
                     </span>
@@ -340,32 +340,32 @@ export const Work = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-2">
+                  <h3 className="text-2xl sm:text-[2rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white group-hover:text-brand-red transition-colors mb-3">
                     {currentFeatured.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#8A909D] mb-4">
+                  <p className="text-xs font-mono text-[#8A909D] mb-5">
                     {currentFeatured.client} • {currentFeatured.industry}
                   </p>
-                  <p className="text-sm text-[#8A909D] leading-relaxed line-clamp-3 mb-6 font-light">
+                  <p className="text-sm sm:text-[0.95rem] text-[#8A909D] leading-[1.75] line-clamp-3 mb-8 font-light max-w-xl">
                     {language === 'id' ? currentFeatured.descId : currentFeatured.desc}
                   </p>
                 </div>
 
                 <div>
-                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/[0.07] mb-6">
+                  <div className="grid grid-cols-3 gap-x-5 gap-y-4 pt-5 border-t border-white/[0.07] mb-7">
                     {currentFeatured.impact.map((metric, i) => (
                       <div key={i}>
-                        <span className="text-lg sm:text-xl font-display font-bold text-white block">
+                        <span className="text-lg sm:text-xl font-display font-bold leading-none text-white block">
                           {metric.value}
                         </span>
-                        <span className="text-[10px] font-mono text-[#8A909D] leading-tight block">
+                        <span className="text-[10px] font-mono text-[#8A909D] leading-[1.45] block mt-1.5 line-clamp-2">
                           {metric.label}
                         </span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-brand-red font-semibold group-hover:translate-x-1 transition-transform">
+                  <div className="flex items-center gap-2 text-xs font-mono text-brand-red font-semibold pt-1 group-hover:translate-x-1 transition-transform">
                     <span>{language === 'id' ? 'Buka Detail Studi Kasus' : 'Inspect Full Case Study'}</span>
                     <ArrowUpRight size={14} />
                   </div>
