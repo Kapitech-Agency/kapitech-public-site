@@ -326,7 +326,7 @@ export const Work = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/30 to-transparent lg:hidden" />
               </div>
 
-              <div className="lg:col-span-5 p-7 sm:p-9 lg:p-11 flex flex-col justify-between min-h-[430px]">
+              <div className="lg:col-span-5 p-7 sm:p-9 lg:p-11 flex flex-col justify-between min-h-[360px] sm:min-h-[430px]">
                 <div>
                   <div className="flex flex-wrap items-center gap-2.5 mb-6">
                     <span className="px-2.5 py-1 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red text-[11px] font-mono font-medium">
