@@ -61,6 +61,28 @@ export const Home = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setSelectedProcessStep(null);
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setSelectedProcessStep((current) => {
+          if (current === null) return current;
+          const next = (current + 1) % 4;
+          setActiveProcessStep(next);
+          return next;
+        });
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setSelectedProcessStep((current) => {
+          if (current === null) return current;
+          const previous = (current - 1 + 4) % 4;
+          setActiveProcessStep(previous);
+          return previous;
+        });
       }
     };
 
@@ -935,10 +957,12 @@ export const Home = () => {
       <AnimatePresence>
         {selectedProcessStep !== null && (() => {
           const step = processSteps[selectedProcessStep];
+          const isFirst = selectedProcessStep === 0;
+          const isLast = selectedProcessStep === processSteps.length - 1;
 
           return (
             <motion.div
-              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-md sm:px-6"
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 px-4 py-5 backdrop-blur-md sm:px-6 sm:py-8"
               role="presentation"
               onMouseDown={(event) => {
                 if (event.target === event.currentTarget) {
@@ -950,24 +974,34 @@ export const Home = () => {
               exit={{ opacity: 0 }}
             >
               <motion.div
+                key={step.step}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="process-phase-modal-title"
                 aria-describedby="process-phase-modal-description"
-                className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0F1013] shadow-[0_28px_100px_-35px_rgba(0,0,0,0.9)]"
+                className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0F1013] shadow-[0_32px_120px_-42px_rgba(0,0,0,0.95)]"
                 initial={{ opacity: 0, y: 18, scale: 0.985 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 12, scale: 0.985 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex items-center justify-between gap-4 border-b border-white/[0.08] px-5 py-4 sm:px-7 sm:py-5">
+                <div className="flex items-start justify-between gap-5 border-b border-white/[0.08] px-5 py-4 sm:px-7 sm:py-5">
                   <div className="min-w-0">
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                      {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
-                    </span>
-                    <h3 id="process-phase-modal-title" className="mt-1.5 truncate text-xl font-display font-semibold tracking-[-0.035em] text-white sm:text-2xl">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                        {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
+                      </span>
+                      <span className="h-px w-8 bg-white/[0.12]" aria-hidden="true" />
+                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                        {language === 'id' ? 'OUR WORKING FRAMEWORK' : 'OUR WORKING FRAMEWORK'}
+                      </span>
+                    </div>
+                    <h3 id="process-phase-modal-title" className="mt-2 text-2xl font-display font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-3xl">
                       {step.title}
                     </h3>
+                    <p className="mt-3 max-w-2xl text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
+                      {step.desc}
+                    </p>
                   </div>
 
                   <button
@@ -981,39 +1015,66 @@ export const Home = () => {
                 </div>
 
                 <div className="overflow-y-auto">
-                  <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+                  <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
                     <div className="border-b border-white/[0.08] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
-                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
-                        {language === 'id' ? 'Tujuan Phase' : 'Phase Objective'}
-                      </span>
-                      <p id="process-phase-modal-description" className="mt-3 text-sm font-light leading-[1.8] text-[#E1E3E8] sm:text-base">
-                        {step.objective}
-                      </p>
+                      <div>
+                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                          {language === 'id' ? 'Tujuan Phase' : 'Phase Objective'}
+                        </span>
+                        <p id="process-phase-modal-description" className="mt-3 text-sm font-light leading-[1.85] text-[#E1E3E8] sm:text-base">
+                          {step.objective}
+                        </p>
+                      </div>
 
                       <div className="mt-8">
                         <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
                           {language === 'id' ? 'Checkpoint' : 'Checkpoint'}
                         </span>
-                        <div className="mt-3 border-l border-brand-red/50 pl-4">
+                        <div className="mt-3 border-l-2 border-brand-red/55 pl-4">
                           <p className="text-sm leading-[1.75] text-white">
                             {step.checkpoint}
                           </p>
                         </div>
                       </div>
+
+                      <div className="mt-8 rounded-xl border border-white/[0.07] bg-white/[0.018] p-4">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                          {language === 'id' ? 'Posisi dalam workflow' : 'Workflow position'}
+                        </span>
+                        <div className="mt-3 flex items-center gap-2">
+                          {processSteps.map((phase, index) => (
+                            <span
+                              key={phase.step}
+                              className={cn(
+                                "h-1.5 flex-1 rounded-full transition-colors duration-300",
+                                index === selectedProcessStep ? "bg-brand-red" : "bg-white/[0.08]"
+                              )}
+                            />
+                          ))}
+                        </div>
+                        <div className="mt-2 flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                          <span>{language === 'id' ? `Phase ${step.step} dari ${processSteps.length}` : `Phase ${step.step} of ${processSteps.length}`}</span>
+                          <span>{language === 'id' ? '← → untuk navigasi' : '← → to navigate'}</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="p-5 sm:p-7 lg:p-8">
-                      <div>
-                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
-                          {language === 'id' ? 'Aktivitas Utama' : 'Key Activities'}
-                        </span>
-                        <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                          {step.activities.map((activity) => (
-                            <div key={activity} className="rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-[1.6] text-[#D0D4DB]">
-                              {activity}
-                            </div>
-                          ))}
-                        </div>
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
+                        {language === 'id' ? 'Aktivitas Utama' : 'Key Activities'}
+                      </span>
+                      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                        {step.activities.map((activity, index) => (
+                          <div
+                            key={activity}
+                            className="flex gap-3 rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 text-xs leading-[1.6] text-[#D0D4DB]"
+                          >
+                            <span className="shrink-0 text-[9px] font-mono tabular-nums text-brand-red/80">
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span>{activity}</span>
+                          </div>
+                        ))}
                       </div>
 
                       <div className="mt-8">
@@ -1022,7 +1083,10 @@ export const Home = () => {
                         </span>
                         <div className="mt-4 flex flex-wrap gap-2">
                           {step.deliverables.map((deliverable) => (
-                            <span key={deliverable} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#B4BAC3]">
+                            <span
+                              key={deliverable}
+                              className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#B4BAC3]"
+                            >
                               {deliverable}
                             </span>
                           ))}
@@ -1030,6 +1094,43 @@ export const Home = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-3 border-t border-white/[0.08] bg-[#0D0E11] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const previous = (selectedProcessStep - 1 + processSteps.length) % processSteps.length;
+                      setActiveProcessStep(previous);
+                      setSelectedProcessStep(previous);
+                    }}
+                    className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#D0D4DB] transition-colors hover:border-brand-red/30 hover:bg-brand-red/[0.06] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[150px]"
+                    disabled={isFirst}
+                  >
+                    <ChevronRight size={14} className="rotate-180" />
+                    <span>{language === 'id' ? 'Phase Sebelumnya' : 'Previous Phase'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProcessStep(null)}
+                    className="inline-flex min-h-[42px] items-center justify-center rounded-full px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors hover:text-white"
+                  >
+                    {language === 'id' ? 'Tutup' : 'Close'}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = (selectedProcessStep + 1) % processSteps.length;
+                      setActiveProcessStep(next);
+                      setSelectedProcessStep(next);
+                    }}
+                    className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:min-w-[150px]"
+                  >
+                    <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
+                    <ChevronRight size={14} />
+                  </button>
                 </div>
               </motion.div>
             </motion.div>
