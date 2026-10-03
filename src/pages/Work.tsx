@@ -447,8 +447,7 @@ export const Work = () => {
                 </p>
               </div>
 
-              <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">
-                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
+              <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
                   {String(featuredIndex + 1).padStart(2, '0')} / {String(featuredProjects.length).padStart(2, '0')}
                 </div>
                 <button
@@ -897,8 +896,7 @@ export const Work = () => {
                         </h3>
 
                         <p className="mt-3 min-h-[3rem] text-xs sm:text-sm font-light leading-[1.7] text-[#8A909D] line-clamp-2">
-                          {language === 'id' ? project.descId : project.desc}
-                        </p>
+                          {language === 'id' ? project.descId : project.desc}                        </p>
                       </div>
 
                       <div className="mt-6 border-t border-white/[0.07] pt-4">
@@ -952,7 +950,7 @@ export const Work = () => {
       <WorkModalPortal>
         <AnimatePresence>
           {selectedProject && (
-            <div              className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B0C0E]/90 p-2 sm:p-4 lg:p-6 backdrop-blur-2xl"
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B0C0E]/90 p-2 sm:p-4 lg:p-6 backdrop-blur-2xl"
               role="dialog"
               aria-modal="true"
               aria-labelledby="case-study-modal-title"
@@ -972,12 +970,12 @@ export const Work = () => {
                 <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
                   <div className="min-w-0 flex-1">
                     <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                      <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">${selectedProject.pillar}</span>
-                      <span className="truncate text-[10px] sm:text-[11px] font-mono text-[#8A909D]">${selectedProject.service}</span>
+                      <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">{selectedProject.pillar}</span>
+                      <span className="truncate text-[10px] sm:text-[11px] font-mono text-[#8A909D]">{selectedProject.service}</span>
                       <span className="text-white/15" aria-hidden="true">•</span>
-                      <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-[#8A909D]">${selectedProject.year}</span>
+                      <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-[#8A909D]">{selectedProject.year}</span>
                     </div>
-                    <h3 id="case-study-modal-title" className="truncate text-sm sm:text-base lg:text-lg font-display font-semibold text-white">${selectedProject.title}</h3>
+                    <h3 id="case-study-modal-title" className="truncate text-sm sm:text-base lg:text-lg font-display font-semibold text-white">{selectedProject.title}</h3>
                   </div>
                   <button
                     type="button"
@@ -998,7 +996,7 @@ export const Work = () => {
                         <div>
                           <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Visual Proof</span>
                           <p className="mt-1 text-xs text-[#8A909D]">
-                            ${selectedProjectGallery.length > 1
+                            {selectedProjectGallery.length > 1
                               ? String(selectedProjectGallery.length) + ' ' + (language === 'id' ? 'foto dokumentasi proyek' : 'project proof images')
                               : language === 'id'
                                 ? 'Dokumentasi proyek'
@@ -1006,12 +1004,12 @@ export const Work = () => {
                           </p>
                         </div>
                         <span className="tabular-nums text-[10px] font-mono text-[#6F7480]">
-                          ${String(selectedMediaIndex + 1).padStart(2, '0')} / ${String(Math.max(selectedProjectGallery.length, 1)).padStart(2, '0')}
+                          {String(selectedMediaIndex + 1).padStart(2, '0')} / {String(Math.max(selectedProjectGallery.length, 1)).padStart(2, '0')}
                         </span>
                       </div>
 
                       <div className="relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#111318]">
-                        ${selectedProjectGallery[selectedMediaIndex] ? (
+                        {selectedProjectGallery[selectedMediaIndex] ? (
                           <img
                             src={selectedProjectGallery[selectedMediaIndex]}
                             alt={selectedProject.title + ' ' + (language === 'id' ? 'dokumentasi' : 'proof') + ' ' + (selectedMediaIndex + 1)}
@@ -1022,7 +1020,7 @@ export const Work = () => {
                           <div className="flex aspect-[4/3] items-center justify-center text-[#6F7480]"><Layers size={28} aria-hidden="true" /></div>
                         )}
 
-                        ${selectedProjectGallery.length > 1 && (
+                        {selectedProjectGallery.length > 1 && (
                           <>
                             <button
                               type="button"
@@ -1042,9 +1040,9 @@ export const Work = () => {
                         )}
                       </div>
 
-                      ${selectedProjectGallery.length > 1 && (
+                      {selectedProjectGallery.length > 1 && (
                         <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5">
-                          ${selectedProjectGallery.map((image, index) => (
+                          {selectedProjectGallery.map((image, index) => (
                             <button
                               key={image + '-' + index}
                               type="button"
@@ -1069,9 +1067,9 @@ export const Work = () => {
                   <section className="min-h-0 overflow-visible overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:overflow-y-auto lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail studi kasus' : 'Case study details'}>
                     <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                       <section id="case-study-modal-summary" aria-labelledby="case-study-overview-heading">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">${language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
-                        <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">${language === 'id' ? 'Konteks, eksekusi, dan hasil.' : 'Context, execution, and outcome.'}</h2>
-                        <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">${language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
+                        <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">{language === 'id' ? 'Konteks, eksekusi, dan hasil.' : 'Context, execution, and outcome.'}</h2>
+                        <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">{language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
                       </section>
 
                       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
@@ -1082,8 +1080,8 @@ export const Work = () => {
                           { label: language === 'id' ? 'Tahun' : 'Year', value: selectedProject.year },
                         ].map((item) => (
                           <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-3 py-3 sm:px-4">
-                            <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">${item.label}</span>
-                            <span className="mt-1 block truncate text-xs sm:text-sm font-medium text-white" title={item.value}>${item.value}</span>
+                            <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{item.label}</span>
+                            <span className="mt-1 block truncate text-xs sm:text-sm font-medium text-white" title={item.value}>{item.value}</span>
                           </div>
                         ))}
                       </div>
@@ -1093,46 +1091,46 @@ export const Work = () => {
                           <div className="mb-4 flex items-start gap-3">
                             <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">01</span>
                             <div>
-                              <h3 id="case-study-challenge-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">${language === 'id' ? 'Masalah Klien' : 'Client Challenge'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">${language === 'id' ? 'Business context' : 'Business context'}</p>
+                              <h3 id="case-study-challenge-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Masalah Klien' : 'Client Challenge'}</h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Business context' : 'Business context'}</p>
                             </div>
                           </div>
-                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#A9AFBB] font-light">${language === 'id' ? selectedProject.challengeId : selectedProject.challenge}</p>
+                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#A9AFBB] font-light">{language === 'id' ? selectedProject.challengeId : selectedProject.challenge}</p>
                         </section>
 
                         <section className="rounded-[22px] border border-brand-red/20 bg-brand-red/[0.035] p-5 sm:p-6" aria-labelledby="case-study-solution-heading">
                           <div className="mb-4 flex items-start gap-3">
                             <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">02</span>
                             <div>
-                              <h3 id="case-study-solution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">${language === 'id' ? 'Solusi Kapitech' : 'Kapitech Solution'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">${language === 'id' ? 'Approach & direction' : 'Approach & direction'}</p>
+                              <h3 id="case-study-solution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Solusi Kapitech' : 'Kapitech Solution'}</h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Approach & direction' : 'Approach & direction'}</p>
                             </div>
                           </div>
-                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#C1C6D0] font-light">${language === 'id' ? selectedProject.solutionId : selectedProject.solution}</p>
+                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#C1C6D0] font-light">{language === 'id' ? selectedProject.solutionId : selectedProject.solution}</p>
                         </section>
 
                         <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-execution-heading">
                           <div className="mb-4 flex items-start gap-3">
                             <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">03</span>
                             <div>
-                              <h3 id="case-study-execution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">${language === 'id' ? 'Eksekusi & Delivery' : 'Execution & Delivery'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">${language === 'id' ? 'How the work was delivered' : 'How the work was delivered'}</p>
+                              <h3 id="case-study-execution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Eksekusi & Delivery' : 'Execution & Delivery'}</h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'How the work was delivered' : 'How the work was delivered'}</p>
                             </div>
                           </div>
-                          ${(language === 'id' ? selectedProject.executionId : selectedProject.execution) && (
-                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">${language === 'id' ? selectedProject.executionId : selectedProject.execution}</p>
+                          {(language === 'id' ? selectedProject.executionId : selectedProject.execution) && (
+                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">{language === 'id' ? selectedProject.executionId : selectedProject.execution}</p>
                           )}
                           <div className="space-y-2.5">
-                            ${selectedProject.deliverables.map((item, idx) => (
+                            {selectedProject.deliverables.map((item, idx) => (
                               <div key={idx} className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-black/10 px-4 py-3">
-                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-brand-red/20 bg-brand-red/[0.06] text-[10px] font-mono font-semibold tabular-nums text-brand-red">${String(idx + 1).padStart(2, '0')}</span>
-                                <span className="pt-1 text-sm font-medium leading-snug text-white">${item}</span>
+                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-brand-red/20 bg-brand-red/[0.06] text-[10px] font-mono font-semibold tabular-nums text-brand-red">{String(idx + 1).padStart(2, '0')}</span>
+                                <span className="pt-1 text-sm font-medium leading-snug text-white">{item}</span>
                               </div>
                             ))}
                           </div>
                           <div className="mt-5 flex flex-wrap gap-2">
-                            ${selectedProject.technologies.map((tech, idx) => (
-                              <span key={idx} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] sm:text-xs font-mono text-[#A9AFBB]">${tech}</span>
+                            {selectedProject.technologies.map((tech, idx) => (
+                              <span key={idx} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] sm:text-xs font-mono text-[#A9AFBB]">{tech}</span>
                             ))}
                           </div>
                         </section>
@@ -1141,19 +1139,19 @@ export const Work = () => {
                           <div className="mb-4 flex items-start gap-3">
                             <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">04</span>
                             <div>
-                              <h3 id="case-study-impact-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">${language === 'id' ? 'Hasil & Dampak ke Klien' : 'Outcome & Client Impact'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">${language === 'id' ? 'What changed after delivery' : 'What changed after delivery'}</p>
+                              <h3 id="case-study-impact-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Hasil & Dampak ke Klien' : 'Outcome & Client Impact'}</h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'What changed after delivery' : 'What changed after delivery'}</p>
                             </div>
                           </div>
-                          ${(language === 'id' ? selectedProject.outcomeId : selectedProject.outcome) && (
-                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">${language === 'id' ? selectedProject.outcomeId : selectedProject.outcome}</p>
+                          {(language === 'id' ? selectedProject.outcomeId : selectedProject.outcome) && (
+                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">{language === 'id' ? selectedProject.outcomeId : selectedProject.outcome}</p>
                           )}
                           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                            ${selectedProject.impact.map((item, idx) => (
+                            {selectedProject.impact.map((item, idx) => (
                               <div key={idx} className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
                                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/60 to-transparent" />
-                                <span className="block text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">${item.value}</span>
-                                <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">${item.label}</span>
+                                <span className="block text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">{item.value}</span>
+                                <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">{item.label}</span>
                               </div>
                             ))}
                           </div>
@@ -1161,16 +1159,16 @@ export const Work = () => {
                       </div>
 
                       <section className="rounded-[22px] border border-brand-red/20 bg-gradient-to-br from-brand-red/[0.12] via-white/[0.018] to-transparent p-5 sm:p-6 lg:p-7">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">${language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</span>
-                        <h3 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">${language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}</h3>
-                        <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">${language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</span>
+                        <h3 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">{language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}</h3>
+                        <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">{language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
                         <Link
                           to="/contact"
                           onClick={() => closeCaseStudy()}
                           className="mt-5 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           data-cursor-label="Start"
                         >
-                          <span>${language === 'id' ? 'Mulai Proyek' : 'Start Project'}</span>
+                          <span>{language === 'id' ? 'Mulai Proyek' : 'Start Project'}</span>
                           <ArrowUpRight size={14} />
                         </Link>
                       </section>
