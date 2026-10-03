@@ -398,7 +398,7 @@ export const Work = () => {
                       setSearchQuery('');
                       setVisibleCount(12);
                     }}
-                    className="shrink-0 text-[10px] font-mono uppercase tracking-[0.1em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[28px]"
+                    className="shrink-0 text-[10px] font-mono uppercase tracking-[0.1em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[40px]"
                   >
                     <X size={10} />
                     <span>Reset</span>
@@ -445,7 +445,7 @@ export const Work = () => {
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[28px] min-h-[28px] flex items-center justify-center"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[40px] min-h-[40px] flex items-center justify-center"
                     aria-label="Clear search"
                   >
                     <X size={13} />
