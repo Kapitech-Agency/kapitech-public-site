@@ -92,7 +92,9 @@ export const Home = () => {
     { name: "AWS & GCP", category: "Cloud", icon: <Shield size={18} /> },
   ];
 
-  const previewProjects = projectsList.slice(0, 4);
+  const featuredProjects = projectsList
+    .filter((project) => project.featured && project.isPublished !== false)
+    .slice(0, 3);
 
   // Redesigned Simple, High-Contrast Stats
   const stats = [
@@ -585,77 +587,120 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS PREVIEW (Linked to 50 Case Studies) */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930] relative z-10" id="work">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
-            <div>
+      {/* FEATURED CASE STUDIES */}
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+            <div className="max-w-3xl">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
-                {language === 'id' ? 'Karya Nyata & Berkelanjutan' : 'Real Work for Real Leaders'}
+              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+                {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
               </h2>
+              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
+                {language === 'id'
+                  ? 'Pilihan case study dari pekerjaan visual, product, dan digital engineering yang kami bangun bersama klien.'
+                  : 'A selection of visual, product, and digital engineering work built in close partnership with our clients.'}
+              </p>
             </div>
-            <Link 
-              to="/work" 
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white hover:text-brand-red transition-colors"
+
+            <Link
+              to="/work"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] lg:self-end"
             >
-              <span>{language === 'id' ? 'Buka Semua 50 Portofolio' : 'View All 50 Case Studies'}</span>
-              <ArrowUpRight size={14} />
+              <span>{language === 'id' ? 'Lihat Semua Case Studies' : 'View All Case Studies'}</span>
+              <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-6 md:gap-8">
-            {previewProjects.map((project) => (
-              <Link 
-                key={project.id}
-                to="/work"
-                className="group h-full rounded-2xl overflow-hidden bg-[#16181D] border border-[#262930] hover:border-brand-red/40 transition-all duration-300 flex flex-col"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E] shrink-0">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#0B0C0E]/90 backdrop-blur-md text-[10px] font-mono text-brand-red border border-[#262930]">
-                    {project.impact[0] ? `${project.impact[0].value} ${project.impact[0].label}` : project.year}
-                  </div>
-                </div>
-                <div className="p-6 sm:p-8 flex flex-col flex-grow justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <span className="text-[11px] font-mono font-medium text-brand-red uppercase tracking-wider">
+          <div className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
+            {featuredProjects.map((project, index) => {
+              const isLead = index === 0;
+              const impact = project.impact?.[0];
+
+              return (
+                <Link
+                  key={project.id}
+                  to="/work"
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl border border-white/[0.075] bg-[#101114] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25",
+                    isLead ? "lg:row-span-2" : "min-h-[260px] lg:min-h-0"
+                  )}
+                >
+                  <div className={cn(
+                    "relative overflow-hidden",
+                    isLead ? "aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto" : "aspect-[16/8] sm:aspect-[16/7] lg:aspect-[16/9]"
+                  )}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
+
+                    <div className="absolute left-4 top-4 flex items-center gap-2 sm:left-5 sm:top-5">
+                      <span className="rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
                         {project.service}
                       </span>
-                      <span className="text-[11px] font-light text-[#8A909D]">
-                        {project.client}
-                      </span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-display font-bold mb-2.5 text-white group-hover:text-brand-red transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed mb-5">
-                      {language === 'id' ? project.descId : project.desc}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[#262930]">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.technologies.slice(0, 3).map((item) => (
-                        <span key={item} className="px-2 py-0.5 rounded bg-[#0B0C0E] border border-[#262930] text-[10px] font-mono text-[#8A909D]">
-                          {item}
+                      {impact && (
+                        <span className="hidden rounded-full border border-brand-red/25 bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono text-brand-red backdrop-blur-md sm:inline-flex">
+                          {impact.value} {impact.label}
                         </span>
-                      ))}
+                      )}
                     </div>
-                    <span className="text-xs font-medium text-brand-red inline-flex items-center gap-1">
-                      {language === 'id' ? 'Buka Kasus' : 'Inspect'} <ChevronRight size={14} />
+
+                    <span className="absolute right-4 top-4 text-[10px] font-mono tabular-nums text-white/65 sm:right-5 sm:top-5">
+                      {project.year}
                     </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+
+                  <div className={cn(
+                    "relative z-10 flex flex-col",
+                    isLead ? "p-5 sm:p-7 lg:absolute lg:inset-x-0 lg:bottom-0 lg:p-8" : "p-5 sm:p-6"
+                  )}>
+                    <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                      <span>{project.client}</span>
+                      <span className="h-px w-4 bg-white/[0.18]" aria-hidden="true" />
+                      <span>{project.industry}</span>
+                    </div>
+
+                    <h3 className={cn(
+                      "mt-3 font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red",
+                      isLead ? "max-w-3xl text-2xl sm:text-3xl md:text-4xl" : "text-xl sm:text-[1.45rem]"
+                    )}>
+                      {project.title}
+                    </h3>
+
+                    <p className={cn(
+                      "mt-3 max-w-2xl font-light leading-[1.7] text-[#A0A5AE]",
+                      isLead ? "text-xs sm:text-sm" : "text-xs"
+                    )}>
+                      {language === 'id' ? project.descId : project.desc}
+                    </p>
+
+                    <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/[0.08] pt-4">
+                      <div className="flex min-w-0 flex-wrap gap-1.5">
+                        {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
+                          <span
+                            key={technology}
+                            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-300 group-hover:border-white/[0.13] group-hover:text-white"
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="inline-flex shrink-0 items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                        {language === 'id' ? 'Buka Kasus' : 'Inspect Case'}
+                        <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
