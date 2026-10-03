@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -35,12 +36,19 @@ import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { cn } from '../lib/utils';
 
+const ProcessModalPortal = ({ children }: { children: React.ReactNode }) => {
+  if (typeof document === 'undefined') return null;
+  return createPortal(children, document.body);
+};
+
 export const Home = () => {
   const { t, language } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
+  const processModalRef = React.useRef<HTMLDivElement>(null);
+  const processModalTriggerRef = React.useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -55,8 +63,18 @@ export const Home = () => {
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
+  const openProcessStep = (index: number) => {
+    processModalTriggerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    setActiveProcessStep(index);
+    setSelectedProcessStep(index);
+  };
+
   useEffect(() => {
     if (selectedProcessStep === null) return;
+
+    const previousOverflow = document.body.style.overflow;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -64,35 +82,53 @@ export const Home = () => {
         return;
       }
 
-      if (event.key === 'ArrowRight') {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
-        setSelectedProcessStep((current) => {
-          if (current === null) return current;
-          const next = (current + 1) % 4;
-          setActiveProcessStep(next);
-          return next;
-        });
+        const next = event.key === 'ArrowLeft'
+          ? (selectedProcessStep - 1 + processSteps.length) % processSteps.length
+          : (selectedProcessStep + 1) % processSteps.length;
+        setActiveProcessStep(next);
+        setSelectedProcessStep(next);
         return;
       }
 
-      if (event.key === 'ArrowLeft') {
+      if (event.key !== 'Tab') return;
+
+      const dialog = processModalRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === first) {
         event.preventDefault();
-        setSelectedProcessStep((current) => {
-          if (current === null) return current;
-          const previous = (current - 1 + 4) % 4;
-          setActiveProcessStep(previous);
-          return previous;
-        });
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
-    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
+
+      if (processModalTriggerRef.current && document.contains(processModalTriggerRef.current)) {
+        processModalTriggerRef.current.focus();
+      }
+      processModalTriggerRef.current = null;
     };
   }, [selectedProcessStep]);
 
@@ -870,10 +906,7 @@ export const Home = () => {
                   >
                     <button
                       type="button"
-                      onClick={() => {
-                        setActiveProcessStep(index);
-                        setSelectedProcessStep(index);
-                      }}
+                      onClick={() => openProcessStep(index)}
                       onFocus={() => setActiveProcessStep(index)}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
@@ -954,190 +987,210 @@ export const Home = () => {
         </div>
       </section>
 
-      <AnimatePresence>
-        {selectedProcessStep !== null && (() => {
-          const step = processSteps[selectedProcessStep];
-          const isFirst = selectedProcessStep === 0;
-          const isLast = selectedProcessStep === processSteps.length - 1;
+      <ProcessModalPortal>
+        <AnimatePresence>
+          {selectedProcessStep !== null && (() => {
+            const step = processSteps[selectedProcessStep];
+            const isFirst = selectedProcessStep === 0;
+            const isLast = selectedProcessStep === processSteps.length - 1;
 
-          return (
-            <motion.div
-              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 px-4 py-5 backdrop-blur-md sm:px-6 sm:py-8"
-              role="presentation"
-              onMouseDown={(event) => {
-                if (event.target === event.currentTarget) {
-                  setSelectedProcessStep(null);
-                }
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <motion.div
-                key={step.step}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="process-phase-modal-title"
-                aria-describedby="process-phase-modal-description"
-                className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0F1013] shadow-[0_32px_120px_-42px_rgba(0,0,0,0.95)]"
-                initial={{ opacity: 0, y: 18, scale: 0.985 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 12, scale: 0.985 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            return (
+              <div
+                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#0B0C0E]/90 p-2 backdrop-blur-2xl sm:p-4 lg:p-6"
+                role="presentation"
+                onMouseDown={(event) => {
+                  if (event.target === event.currentTarget) setSelectedProcessStep(null);
+                }}
               >
-                <div className="flex items-start justify-between gap-5 border-b border-white/[0.08] px-5 py-4 sm:px-7 sm:py-5">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                        {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
-                      </span>
-                      <span className="h-px w-8 bg-white/[0.12]" aria-hidden="true" />
-                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                        {language === 'id' ? 'OUR WORKING FRAMEWORK' : 'OUR WORKING FRAMEWORK'}
-                      </span>
-                    </div>
-                    <h3 id="process-phase-modal-title" className="mt-2 text-2xl font-display font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-3xl">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 max-w-2xl text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
-                      {step.desc}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedProcessStep(null)}
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#8A909D] transition-colors hover:border-brand-red/35 hover:bg-brand-red/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
-                    aria-label={language === 'id' ? 'Tutup detail fase' : 'Close phase details'}
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-
-                <div className="overflow-y-auto">
-                  <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
-                    <div className="border-b border-white/[0.08] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
-                      <div>
-                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
-                          {language === 'id' ? 'Tujuan Phase' : 'Phase Objective'}
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, scale: 0.965, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.965, y: 16 }}
+                  transition={{ duration: 0.26 }}
+                  ref={processModalRef}
+                  className="relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="process-phase-modal-title"
+                  aria-describedby="process-phase-modal-description"
+                >
+                  <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                        <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">
+                          Framework Phase
                         </span>
-                        <p id="process-phase-modal-description" className="mt-3 text-sm font-light leading-[1.85] text-[#E1E3E8] sm:text-base">
-                          {step.objective}
-                        </p>
+                        <span className="truncate text-[10px] sm:text-[11px] font-mono text-[#8A909D]">
+                          {language === 'id' ? 'Fase ' + step.step : 'Phase ' + step.step}
+                        </span>
+                        <span className="text-white/15" aria-hidden="true">•</span>
+                        <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-[#8A909D]">
+                          {String(selectedProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
+                        </span>
                       </div>
+                      <h3 id="process-phase-modal-title" className="truncate text-sm sm:text-base lg:text-lg font-display font-semibold text-white">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProcessStep(null)}
+                      className="flex h-11 min-h-[44px] min-w-[44px] w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#8A909D] transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                      aria-label={language === 'id' ? 'Tutup detail fase' : 'Close phase details'}
+                      data-cursor-label="Close"
+                      autoFocus
+                    >
+                      <X size={18} />
+                    </button>
+                  </header>
 
-                      <div className="mt-8">
-                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
-                          {language === 'id' ? 'Checkpoint' : 'Checkpoint'}
-                        </span>
-                        <div className="mt-3 border-l-2 border-brand-red/55 pl-4">
-                          <p className="text-sm leading-[1.75] text-white">
+                  <div className="grid min-h-0 flex-1 overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                    <aside className="min-h-0 border-b border-white/[0.08] bg-[#0B0C0E] lg:overflow-y-auto lg:border-b-0 lg:border-r">
+                      <div className="p-4 sm:p-5 lg:p-6">
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                          <div>
+                            <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Phase Overview</span>
+                            <p className="mt-1 text-xs text-[#8A909D]">
+                              {language === 'id' ? 'Tujuan dan checkpoint fase ini.' : 'Objective and checkpoint for this phase.'}
+                            </p>
+                          </div>
+                          <span className="tabular-nums text-[10px] font-mono text-[#6F7480]">{step.step}</span>
+                        </div>
+
+                        <div className="overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#111318] p-5 sm:p-6 lg:p-7">
+                          <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Phase Objective</span>
+                          <p id="process-phase-modal-description" className="mt-4 text-sm leading-[1.85] text-[#C2C7D1] font-light sm:text-base">
+                            {step.objective}
+                          </p>
+                        </div>
+
+                        <div className="mt-4 rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
+                          <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">Checkpoint</span>
+                          <p className="mt-3 border-l-2 border-brand-red/55 pl-4 text-sm leading-[1.75] text-white">
                             {step.checkpoint}
                           </p>
                         </div>
-                      </div>
 
-                      <div className="mt-8 rounded-xl border border-white/[0.07] bg-white/[0.018] p-4">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                          {language === 'id' ? 'Posisi dalam workflow' : 'Workflow position'}
-                        </span>
-                        <div className="mt-3 flex items-center gap-2">
-                          {processSteps.map((phase, index) => (
-                            <span
-                              key={phase.step}
-                              className={cn(
-                                "h-1.5 flex-1 rounded-full transition-colors duration-300",
-                                index === selectedProcessStep ? "bg-brand-red" : "bg-white/[0.08]"
-                              )}
-                            />
-                          ))}
-                        </div>
-                        <div className="mt-2 flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                          <span>{language === 'id' ? `Phase ${step.step} dari ${processSteps.length}` : `Phase ${step.step} of ${processSteps.length}`}</span>
-                          <span>{language === 'id' ? '← → untuk navigasi' : '← → to navigate'}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-5 sm:p-7 lg:p-8">
-                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
-                        {language === 'id' ? 'Aktivitas Utama' : 'Key Activities'}
-                      </span>
-                      <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                        {step.activities.map((activity, index) => (
-                          <div
-                            key={activity}
-                            className="flex gap-3 rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 text-xs leading-[1.6] text-[#D0D4DB]"
-                          >
-                            <span className="shrink-0 text-[9px] font-mono tabular-nums text-brand-red/80">
-                              {String(index + 1).padStart(2, '0')}
+                        <div className="mt-4 rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
+                          <div className="mb-3 flex items-center justify-between gap-3">
+                            <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">Workflow position</span>
+                            <span className="text-[9px] font-mono tabular-nums text-[#6F7480]">
+                              {String(selectedProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
                             </span>
-                            <span>{activity}</span>
                           </div>
-                        ))}
-                      </div>
-
-                      <div className="mt-8">
-                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
-                          {language === 'id' ? 'Output & Deliverables' : 'Outputs & Deliverables'}
-                        </span>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {step.deliverables.map((deliverable) => (
-                            <span
-                              key={deliverable}
-                              className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#B4BAC3]"
-                            >
-                              {deliverable}
-                            </span>
-                          ))}
+                          <div className="flex items-center gap-2">
+                            {processSteps.map((phase, index) => (
+                              <button
+                                key={phase.step}
+                                type="button"
+                                onClick={() => openProcessStep(index)}
+                                className={cn(
+                                  "h-1.5 flex-1 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60",
+                                  index === selectedProcessStep ? "bg-brand-red" : "bg-white/[0.08] hover:bg-white/[0.16]"
+                                )}
+                                aria-label={(language === 'id' ? 'Buka fase ' : 'Open phase ') + phase.step}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </aside>
+
+                    <section className="min-h-0 overflow-visible overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:overflow-y-auto lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail fase' : 'Phase details'}>
+                      <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
+                        <section>
+                          <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">
+                            {language === 'id' ? 'Ringkasan Fase' : 'Phase Overview'}
+                          </span>
+                          <h2 className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">
+                            {step.title}
+                          </h2>
+                          <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">
+                            {step.desc}
+                          </p>
+                        </section>
+
+                        <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                          <div className="mb-4 flex items-start gap-3">
+                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">01</span>
+                            <div>
+                              <h3 className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                                {language === 'id' ? 'Aktivitas Utama' : 'Key Activities'}
+                              </h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">
+                                {language === 'id' ? 'Yang dikerjakan pada fase ini' : 'What happens in this phase'}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                            {step.activities.map((activity, index) => (
+                              <div key={activity} className="flex gap-3 rounded-xl border border-white/[0.06] bg-black/10 px-4 py-3.5 text-xs leading-[1.6] text-[#D0D4DB]">
+                                <span className="shrink-0 text-[9px] font-mono tabular-nums text-brand-red/80">{String(index + 1).padStart(2, '0')}</span>
+                                <span>{activity}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+
+                        <section className="rounded-[22px] border border-brand-red/20 bg-brand-red/[0.035] p-5 sm:p-6">
+                          <div className="mb-4 flex items-start gap-3">
+                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">02</span>
+                            <div>
+                              <h3 className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">
+                                {language === 'id' ? 'Output & Deliverables' : 'Outputs & Deliverables'}
+                              </h3>
+                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">
+                                {language === 'id' ? 'Yang dibawa ke tahap berikutnya' : 'What moves forward'}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {step.deliverables.map((deliverable) => (
+                              <span key={deliverable} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] sm:text-xs font-mono text-[#A9AFBB]">
+                                {deliverable}
+                              </span>
+                            ))}
+                          </div>
+                        </section>
+                      </div>
+                    </section>
                   </div>
-                </div>
 
-                <div className="flex flex-col gap-3 border-t border-white/[0.08] bg-[#0D0E11] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const previous = (selectedProcessStep - 1 + processSteps.length) % processSteps.length;
-                      setActiveProcessStep(previous);
-                      setSelectedProcessStep(previous);
-                    }}
-                    className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#D0D4DB] transition-colors hover:border-brand-red/30 hover:bg-brand-red/[0.06] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[150px]"
-                    disabled={isFirst}
-                  >
-                    <ChevronRight size={14} className="rotate-180" />
-                    <span>{language === 'id' ? 'Phase Sebelumnya' : 'Previous Phase'}</span>
-                  </button>
+                  <div className="flex flex-col gap-3 border-t border-white/[0.08] bg-[#0D0E11] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
+                    <button
+                      type="button"
+                      onClick={() => openProcessStep((selectedProcessStep - 1 + processSteps.length) % processSteps.length)}
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#D0D4DB] transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
+                      disabled={isFirst}
+                    >
+                      <ChevronRight size={14} className="rotate-180" />
+                      <span>{language === 'id' ? 'Phase Sebelumnya' : 'Previous Phase'}</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setSelectedProcessStep(null)}
-                    className="inline-flex min-h-[42px] items-center justify-center rounded-full px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors hover:text-white"
-                  >
-                    {language === 'id' ? 'Tutup' : 'Close'}
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProcessStep(null)}
+                      className="inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors duration-300 hover:text-white"
+                    >
+                      {language === 'id' ? 'Tutup' : 'Close'}
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const next = (selectedProcessStep + 1) % processSteps.length;
-                      setActiveProcessStep(next);
-                      setSelectedProcessStep(next);
-                    }}
-                    className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:min-w-[150px]"
-                  >
-                    <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
-                    <ChevronRight size={14} />
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          );
-        })()}
-      </AnimatePresence>
-
+                    <button
+                      type="button"
+                      onClick={() => openProcessStep((selectedProcessStep + 1) % processSteps.length)}
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:min-w-[160px]"
+                    >
+                      <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })()}
+        </AnimatePresence>
+      </ProcessModalPortal>
       {/* Testimonials */}
       <Testimonials />
     </div>
