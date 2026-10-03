@@ -853,7 +853,7 @@ export const Services = () => {
             return (
               <div key={cat} className="space-y-6">
                 {/* Category Pillar Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-white/[0.07]">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/[0.07]">
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono tracking-widest text-brand-red font-semibold uppercase">
                       {cat === 'Branding' ? '01. ' : cat === 'Design' ? '02. ' : '03. '}
