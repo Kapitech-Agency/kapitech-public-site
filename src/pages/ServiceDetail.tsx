@@ -52,7 +52,6 @@ export const ServiceDetail = () => {
 
   const staticService = slug ? getServiceBySlug(slug) : undefined;
   const isSolutionPage = staticService?.type === 'solution';
-  const isMvpDesign = slug === 'mvp-design';
   const service = slug
     ? cmsServices.find((item) => item.slug === slug) || staticService
     : undefined;
