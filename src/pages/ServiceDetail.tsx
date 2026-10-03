@@ -64,6 +64,181 @@ export const ServiceDetail = () => {
     return <Navigate to="/services" replace />;
   }
 
+  const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
+
+  // Find related case studies from allProjects
+  const relatedCaseStudySlugs = Array.isArray(service.caseStudySlugs) ? service.caseStudySlugs : [];
+  const relatedProjects = cmsProjects.filter(p =>
+    relatedCaseStudySlugs.includes(p.id) ||
+    p.pillar.toLowerCase().includes(service.category.toLowerCase()) ||
+    p.service.toLowerCase().includes(service.category.toLowerCase()) ||
+    p.title.toLowerCase().includes(service.title.toLowerCase())
+  ).slice(0, 3);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(prev => (prev === index ? null : index));
+  };
+
+  return (
+    <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <PatternWaves
+          preset="terminal"
+          color="#E50914"
+          backgroundColor="#0B0C0E"
+          opacity={0.1}
+          fade="edges"
+          fadeSize={0.86}
+          interactive
+          cursorSize={46}
+          cursorStrength={0.28}
+          speed={0.17}
+          scale={1.05}
+          depth={0.62}
+          shine={0.42}
+          contrast={1.02}
+          intro
+        />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/78 to-transparent" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+        
+        {/* BREADCRUMB & BACK NAVIGATION */}
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12">
+          <Link 
+            to="/services" 
+            className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
+          <span className="kapi-section-label mb-0">
+            {service.category}
+          </span>
+          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
+          <span className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
+            {service.title}
+          </span>
+        </div>
+
+
+        {/* HERO SECTION */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-14 sm:mb-16 lg:mb-20"
+        >
+          <div className="max-w-4xl">
+            <div className="flex flex-wrap items-center gap-2.5 mb-6">
+              <span className="kapi-section-label mb-0">
+                {language === 'id' ? service.badgeId : service.badge}
+              </span>
+              {isSolutionPage && (
+                <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                  {language === 'id' ? 'Solution' : 'Solution'}
+                </span>
+              )}
+            </div>
+
+            <h1 className="max-w-5xl text-3xl sm:text-5xl lg:text-[4.5rem] font-display font-semibold tracking-[-0.055em] text-white leading-[0.98] mb-6">
+              {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
+            </h1>
+
+            <p className="text-sm sm:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.8] max-w-3xl mb-10">
+              {language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <Link
+                to={'/contact?service=' + encodeURIComponent(service.title)}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
+              >
+                <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <a
+                href="#case-studies"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200"
+              >
+                <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
+                <ChevronDown className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* PERFORMANCE METRICS */}
+        <motion.section
+          initial={{ opacity: 0, y: 1import React, { useEffect, useState } from 'react';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  ArrowUpRight, 
+  ChevronRight, 
+  CheckCircle2, 
+  ArrowLeft, 
+  Sparkles, 
+  Layers, 
+  Cpu, 
+  Code2, 
+  Palette, 
+  ShieldCheck, 
+  TrendingUp, 
+  Clock, 
+  HelpCircle, 
+  ChevronDown, 
+  ExternalLink,
+  Briefcase,
+  Star
+} from 'lucide-react';
+import { useLanguage } from '../lib/LanguageContext';
+import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
+import { getServiceBySlug } from '../data/servicesData';
+import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
+
+export const ServiceDetail = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const { language } = useLanguage();
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
+  const [cmsProjects, setCmsProjects] = useState(() => getCmsProjects());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setCmsServices(getCmsServices());
+      setCmsProjects(getCmsProjects());
+    };
+
+    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    void Promise.all([
+      fetchServerCmsServices(),
+      fetchServerCmsProjects()
+    ]).then(() => {
+      setCmsServices(getCmsServices());
+      setCmsProjects(getCmsProjects());
+    });
+
+    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+  }, []);
+
+  const staticService = slug ? getServiceBySlug(slug) : undefined;
+  const isSolutionPage = staticService?.type === 'solution';
+  const baseService = slug
+    ? cmsServices.find((item) => item.slug === slug) || staticService
+    : undefined;
+  const service = baseService
+    ? mergeServiceContent(baseService, serviceContentEnhancements[baseService.slug])
+    : undefined;
+
+  if (!service) {
+    return <Navigate to="/services" replace />;
+  }
+
+  const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
+
   // Find related case studies from allProjects
   const relatedCaseStudySlugs = Array.isArray(service.caseStudySlugs) ? service.caseStudySlugs : [];
   const relatedProjects = cmsProjects.filter(p =>
@@ -170,110 +345,77 @@ export const ServiceDetail = () => {
         {/* PERFORMANCE METRICS */}
         <motion.section
           initial={{ opacity: 0, y: 14 }}
-  const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
-
-  // Find related case studies from allProjects
-  const relatedCaseStudySlugs = Array.isArray(service.caseStudySlugs) ? service.caseStudySlugs : [];
-  const relatedProjects = cmsProjects.filter(p =>
-    relatedCaseStudySlugs.includes(p.id) ||
-    p.pillar.toLowerCase().includes(service.category.toLowerCase()) ||
-    p.service.toLowerCase().includes(service.category.toLowerCase()) ||
-    p.title.toLowerCase().includes(service.title.toLowerCase())
-  ).slice(0, 3);
-
-  const toggleFaq = (index: number) => {
-    setOpenFaqIndex(prev => (prev === index ? null : index));
-  };
-
-  return (
-    <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <PatternWaves
-          preset="terminal"
-          color="#E50914"
-          backgroundColor="#0B0C0E"
-          opacity={0.1}
-          fade="edges"
-          fadeSize={0.86}
-          interactive
-          cursorSize={46}
-          cursorStrength={0.28}
-          speed={0.17}
-          scale={1.05}
-          depth={0.62}
-          shine={0.42}
-          contrast={1.02}
-          intro
-        />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/78 to-transparent" />
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
-        
-        {/* BREADCRUMB & BACK NAVIGATION */}
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12">
-          <Link 
-            to="/services" 
-            className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="kapi-section-label mb-0">
-            {service.category}
-          </span>
-          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
-            {service.title}
-          </span>
-        </div>
-
-
-        {/* HERO SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 sm:mb-16 lg:mb-20"
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          aria-labelledby="performance-metrics-title"
+          className="mb-20 sm:mb-24 lg:mb-28 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
         >
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center gap-2.5 mb-6">
-              <span className="kapi-section-label mb-0">
-                {language === 'id' ? service.badgeId : service.badge}
+          <div className="flex flex-col gap-5 border-b border-white/[0.07] px-5 py-5 sm:px-6 sm:py-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
               </span>
-              {isSolutionPage && (
-                <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
-                  {language === 'id' ? 'Solution' : 'Solution'}
-                </span>
-              )}
+              <h2 id="performance-metrics-title" className="mt-2 max-w-2xl text-xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-2xl">
+                {language === 'id' ? 'Sinyal utama dari kualitas delivery.' : 'Key signals from delivery quality.'}
+              </h2>
             </div>
+            <span className="shrink-0 text-[9px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#555A63]">
+              {String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'Metrik' : 'Signals'}
+            </span>
+          </div>
 
-            <h1 className="max-w-5xl text-3xl sm:text-5xl lg:text-[4.5rem] font-display font-semibold tracking-[-0.055em] text-white leading-[0.98] mb-6">
-              {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
-            </h1>
+          <div className="grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {performanceMetrics.length > 0 ? (
+              performanceMetrics.map((metric, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.12 + idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative min-h-[132px] p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:min-h-[150px] sm:p-6 lg:p-7"
+                >
+                  <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
+                      {language === 'id' ? 'Kinerja' : 'Performance'}
+                    </span>
+                  </div>
+                  <div className="mt-6">
+                    <div className="break-words text-[2.35rem] font-display font-semibold leading-[0.92] tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.7rem]">
+                      {metric.value}
+                    </div>
+                    <div className="mt-2.5 max-w-xs text-xs leading-[1.55] text-[#A7ACB5] sm:text-sm">
+                      {language === 'id' ? metric.labelId : metric.label}
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="p-5 text-xs leading-relaxed text-[#8A909D] sm:col-span-3 sm:p-6">
+                {language === 'id' ? 'Metrik layanan belum tersedia.' : 'Service metrics are not available yet.'}
+              </div>
+            )}
+          </div>
 
-            <p className="text-sm sm:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.8] max-w-3xl mb-10">
-              {language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                to={'/contact?service=' + encodeURIComponent(service.title)}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
-              >
-                <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <a
-                href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200"
-              >
-                <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
-                <ChevronDown className="w-4 h-4" />
-              </a>
+          <div className="flex flex-col gap-3 border-t border-white/[0.07] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#555A63]">
+              {language === 'id' ? 'Toolchain & Stack' : 'Toolchain & Stack'}
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {service.tools.map((tool, idx) => (
+                <span
+                  key={idx}
+                  className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
+                >
+                  {tool}
+                </span>
+              ))}
             </div>
           </div>
-        </motion.div>
+        </motion.section>
 
         {/* PERFORMANCE METRICS */}
         <motion.section
