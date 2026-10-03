@@ -504,54 +504,84 @@ export const Home = () => {
             })}
           </div>
 
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
-            <div className="grid lg:grid-cols-[1.1fr_1.9fr]">
-              <div className="border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                  {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
-                </span>
-                <h3 className="mt-3 max-w-sm text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
-                  {language === 'id' ? 'Mulai dari kebutuhan Anda.' : 'Start with the way you need us.'}
-                </h3>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
+            <div className="grid lg:grid-cols-[0.82fr_2.18fr]">
+              <div className="relative overflow-hidden border-b border-white/[0.07] p-6 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full border border-brand-red/[0.06]" aria-hidden="true" />
+                <div className="pointer-events-none absolute -right-4 top-2 h-24 w-24 rounded-full border border-white/[0.025]" aria-hidden="true" />
+                <div className="relative">
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                    {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
+                  </span>
+                  <h3 className="mt-4 max-w-sm text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem]">
+                    {language === 'id' ? 'Pilih bentuk engagement yang paling pas.' : 'Choose the engagement that fits.'}
+                  </h3>
+                  <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
+                    {language === 'id'
+                      ? 'Mulai dari kebutuhan yang paling dekat dengan fase bisnis Anda, lalu masuk lebih dalam saat dibutuhkan.'
+                      : 'Start with the need closest to your current business stage, then expand the engagement as the work grows.'}
+                  </p>
+                </div>
               </div>
 
-              <div className="grid divide-y divide-white/[0.065] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              <div className="grid divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
                 {[
                   {
                     slug: 'mvp-design',
+                    number: '01',
                     title: 'MVP Design',
-                    desc: language === 'id' ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan dan divalidasi.' : 'Turn an idea into clearer product direction ready for validation and presentation.'
+                    fit: language === 'id' ? 'Untuk ide & produk baru' : 'Best for new products',
+                    desc: language === 'id' ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan, divalidasi, dan dikembangkan.' : 'Turn an idea into clearer product direction ready for validation, presentation, and build.'
                   },
                   {
                     slug: 'product-redesign',
+                    number: '02',
                     title: 'Product Redesign',
-                    desc: language === 'id' ? 'Modernisasi experience yang sudah ada tanpa kehilangan inti bisnisnya.' : 'Modernize an existing experience without losing the business logic behind it.'
+                    fit: language === 'id' ? 'Untuk produk yang sudah berjalan' : 'Best for existing products',
+                    desc: language === 'id' ? 'Modernisasi experience, perjelas alur, dan tingkatkan kualitas produk tanpa kehilangan logika bisnisnya.' : 'Modernize the experience, clarify the flow, and improve product quality without losing business logic.'
                   },
                   {
                     slug: 'team-extension',
+                    number: '03',
                     title: 'Team Extension',
-                    desc: language === 'id' ? 'Tambah kapasitas desain dan engineering tanpa menambah handoff yang tidak perlu.' : 'Add design and engineering capacity without creating unnecessary handoffs.'
+                    fit: language === 'id' ? 'Untuk tim internal yang butuh kapasitas' : 'Best for growing teams',
+                    desc: language === 'id' ? 'Tambah kapasitas desain dan engineering dengan tim yang bisa langsung masuk ke workflow Anda.' : 'Add design and engineering capacity with a team that can plug directly into your workflow.'
                   }
                 ].map((solution) => (
                   <Link
                     key={solution.slug}
                     to={'/solutions/' + solution.slug}
-                    className="group p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:p-6"
+                    className="group relative flex min-h-[270px] flex-col p-5 transition-[background-color] duration-300 hover:bg-white/[0.022] sm:p-6 lg:p-7"
                   >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-display font-semibold text-white transition-colors duration-300 group-hover:text-brand-red">
-                        {solution.title}
+                    <span className="absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
+
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]/65 transition-colors duration-300 group-hover:text-brand-red">
+                        {solution.number}
                       </span>
                       <ArrowUpRight size={15} className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red" />
                     </div>
-                    <p className="mt-2.5 text-xs leading-[1.65] text-[#8A909D]">
-                      {solution.desc}
-                    </p>
+
+                    <div className="mt-10">
+                      <h4 className="text-xl font-display font-semibold leading-none tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
+                        {solution.title}
+                      </h4>
+                      <span className="mt-3 inline-flex text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                        {solution.fit}
+                      </span>
+                      <p className="mt-4 text-xs leading-[1.75] text-[#8A909D] sm:text-[13px]">
+                        {solution.desc}
+                      </p>
+                    </div>
+
+                    <span className="mt-auto pt-7 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                      {language === 'id' ? 'Jelajahi Solusi' : 'Explore Solution'}
+                    </span>
                   </Link>
                 ))}
               </div>
             </div>
-          </div>
+          </div>          </div>
         </div>
       </section>
 
