@@ -936,7 +936,7 @@ export const Work = () => {
                   </button>
                 </header>
 
-                <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                <div className="grid min-h-0 flex-1 overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
                   <aside className="min-h-0 border-b border-white/[0.08] bg-[#0B0C0E] lg:overflow-y-auto lg:border-b-0 lg:border-r">
                     <div className="p-4 sm:p-5 lg:p-6">
                       <div className="mb-3 flex items-center justify-between gap-3">
@@ -1023,7 +1023,7 @@ export const Work = () => {
                     </div>
                   </aside>
 
-                  <section className="min-h-0 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail studi kasus' : 'Case study details'}>
+                  <section className="min-h-0 overflow-visible overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:overflow-y-auto lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail studi kasus' : 'Case study details'}>
                     <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                       <section id="case-study-modal-summary" aria-labelledby="case-study-overview-heading">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">${language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
