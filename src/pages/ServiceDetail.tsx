@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
-import { getServiceBySlug } from '../data/servicesData';
+import { allSolutionsAndServices, getServiceBySlug } from '../data/servicesData';
 import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
 
 export const ServiceDetail = () => {
@@ -608,21 +608,106 @@ export const ServiceDetail = () => {
           </div>
         )}
 
-        {/* BOTTOM GLOBAL NAVIGATION STRIP (Browse other services) */}
-        <div className="pt-12 mt-8 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* BROWSE SERVICES */}
+        <section className="mt-8 border-t border-white/[0.07] pt-12 sm:pt-16" aria-labelledby="browse-services-title">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
+              </span>
+              <h2 id="browse-services-title" className="mt-4 max-w-3xl text-2xl font-display font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-3xl lg:text-4xl">
+                {language === 'id' ? 'Temukan layanan lain yang sesuai dengan kebutuhan Anda.' : 'Explore another service that fits your next move.'}
+              </h2>
+            </div>
+            <Link
+              to="/services"
+              className="inline-flex shrink-0 items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors hover:text-white"
+            >
+              <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
+            {(['Solutions', 'Branding', 'Design', 'Development'] as const).map((category, categoryIndex) => {
+              const items = allSolutionsAndServices.filter((item) => item.category === category);
+              return (
+                <div
+                  key={category}
+                  className={categoryIndex > 0 ? 'border-t border-white/[0.07]' : ''}
+                >
+                  <div className="grid lg:grid-cols-[180px_1fr]">
+                    <div className="border-b border-white/[0.07] px-5 py-5 sm:px-6 lg:border-b-0 lg:border-r lg:px-7 lg:py-6">
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                        {category === 'Solutions' ? '01' : category === 'Branding' ? '02' : category === 'Design' ? '03' : '04'}
+                      </span>
+                      <div className="mt-2 text-sm font-medium text-white">
+                        {category}
+                      </div>
+                      <div className="mt-1 text-[10px] font-mono tabular-nums text-[#555A63]">
+                        {String(items.length).padStart(2, '0')} {language === 'id' ? 'Pilihan' : 'Options'}
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2">
+                      {items.map((item) => {
+                        const isCurrent = item.slug === service.slug;
+                        return (
+                          <Link
+                            key={item.slug}
+                            to={`/services/${item.slug}`}
+                            aria-current={isCurrent ? 'page' : undefined}
+                            className={cn(
+                              'group relative flex min-h-[92px] items-center justify-between gap-4 border-b border-white/[0.06] px-5 py-5 transition-colors duration-300 sm:px-6',
+                              'sm:[&:nth-last-child(-n+2)]:border-b-0',
+                              isCurrent ? 'bg-brand-red/[0.055]' : 'hover:bg-white/[0.022]'
+                            )}
+                          >
+                            <div className="min-w-0">
+                              <div className={cn(
+                                'text-sm font-display font-semibold leading-tight transition-colors duration-300',
+                                isCurrent ? 'text-brand-red' : 'text-white group-hover:text-brand-red'
+                              )}>
+                                {item.title}
+                              </div>
+                              <div className="mt-1 text-[10px] leading-[1.5] text-[#6F757F] transition-colors duration-300 group-hover:text-[#8A909D]">
+                                {language === 'id' ? item.navSubtitleId : item.navSubtitle}
+                              </div>
+                            </div>
+                            <div className={cn(
+                              'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300',
+                              isCurrent
+                                ? 'border-brand-red/35 bg-brand-red/10 text-brand-red'
+                                : 'border-white/[0.08] text-[#6F757F] group-hover:border-brand-red/30 group-hover:text-brand-red'
+                            )}>
+                              {isCurrent ? <CheckCircle2 className="h-3.5 w-3.5" /> : <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* CONTACT CTA */}
+        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-white/[0.07] pt-10 sm:flex-row">
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-sm text-[#8A909D] hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-[#8A909D] transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             <span>{language === 'id' ? 'Kembali ke Semua Layanan' : 'Back to All Services'}</span>
           </Link>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-red text-white text-sm font-medium hover:bg-brand-red/90 transition-[background-color,color,box-shadow] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)]"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-medium text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,color,box-shadow] hover:bg-brand-red/90"
           >
             <span>{language === 'id' ? 'Konsultasi Gratis' : 'Book a Discovery Call'}</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
 
