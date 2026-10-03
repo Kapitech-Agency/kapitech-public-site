@@ -711,7 +711,7 @@ export const Home = () => {
                       "group relative min-w-0 transition-opacity duration-500 ease-out",
                       isActive
                         ? "opacity-100"
-                        : "opacity-[0.46] group-hover:opacity-100",
+                        : "opacity-[0.68] group-hover:opacity-100",
                       "min-w-0"
                     )}
                   >
