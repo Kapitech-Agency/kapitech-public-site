@@ -1074,7 +1074,7 @@ export const Work = () => {
                         <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">{language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
                       </section>
 
-                      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-2 xl:grid-cols-4">
                         {[
                           { label: language === 'id' ? 'Klien' : 'Client', value: selectedProject.client },
                           { label: language === 'id' ? 'Industri' : 'Industry', value: selectedProject.industry },
@@ -1083,7 +1083,12 @@ export const Work = () => {
                         ].map((item) => (
                           <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-3 py-3 sm:px-4">
                             <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{item.label}</span>
-                            <span className="mt-1 block truncate text-xs sm:text-sm font-medium text-white" title={item.value}>{item.value}</span>
+                            <span
+                              className="mt-1 block whitespace-normal break-words text-xs sm:text-sm font-medium leading-snug text-white"
+                              title={item.value}
+                            >
+                              {item.value}
+                            </span>
                           </div>
                         ))}
                       </div>
