@@ -44,7 +44,7 @@ export const NotFound = () => {
           <Link 
             to="/" 
             data-cursor-label="Home"
-            className="group w-full sm:w-auto justify-center px-8 md:px-10 py-4 md:py-5 bg-brand-red text-white rounded-full font-bold flex items-center gap-3 hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(255,26,26,0.3)]"
+            className="group w-full sm:w-auto justify-center px-8 md:px-10 py-4 md:py-5 bg-brand-red text-white rounded-full font-bold flex items-center gap-3 hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 text-xs md:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(255,26,26,0.3)]"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             {language === 'id' ? 'Kembali ke Beranda' : 'Return to Home'}
