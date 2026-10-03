@@ -314,27 +314,7 @@ export const Footer = () => {
               ))}
             </ul>
 
-            <div className="mt-9">
-              <h3 className="mb-3 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#5E636D]">
-                Legal
-              </h3>
-              <ul className="space-y-1">
-                {[
-                  { name: language === 'id' ? 'Privasi' : 'Privacy', href: '/privacy' },
-                  { name: language === 'id' ? 'Syarat' : 'Terms', href: '/terms' },
-                  { name: language === 'id' ? 'Cookie' : 'Cookie', href: '/cookie-policy' },
-                ].map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      to={item.href}
-                      className="inline-flex min-h-[30px] items-center text-[11px] text-[#626771] transition-colors duration-200 hover:text-white"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
           </nav>
 
           <div className="lg:col-span-2">
