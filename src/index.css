@@ -1163,6 +1163,7 @@ html.kapi-custom-cursor-enabled select {
 .kapi-cursor-follow {
   position: fixed;
   pointer-events: none;
+  will-change: transform, opacity;
   z-index: 9998;
   display: inline-flex;
   align-items: center;
