@@ -1029,6 +1029,142 @@ export const serviceContentEnhancements: Record<string, ServiceContentEnhancemen
   },
 };
 
+const businessOutcomeEnhancements: Record<string, { en: string[]; id: string[] }> = {
+  'mvp-design': { en: [], id: [] },
+  'product-redesign': { en: [], id: [] },
+  'team-extension': {
+    en: [
+      'Add senior design or engineering capacity without rebuilding your internal team structure',
+      'Increase delivery bandwidth while keeping ownership and product context close to your team',
+    ],
+    id: [
+      'Menambah kapasitas design atau engineering senior tanpa membangun ulang struktur tim internal',
+      'Meningkatkan bandwidth delivery sambil menjaga ownership dan konteks produk tetap dekat dengan tim Anda',
+    ],
+  },
+  'pitch-deck': {
+    en: [
+      'Present a clearer investment story with stronger hierarchy, proof, and visual consistency',
+      'Create a reusable presentation system for fundraising, sales, and executive communication',
+    ],
+    id: [
+      'Menyajikan cerita investasi yang lebih jelas dengan hierarchy, proof, dan konsistensi visual yang lebih kuat',
+      'Membangun sistem presentasi reusable untuk fundraising, sales, dan komunikasi eksekutif',
+    ],
+  },
+  'brand-identity': {
+    en: [
+      'Create a consistent identity that scales across digital, print, campaigns, and internal materials',
+      'Reduce design inconsistency by giving teams a practical system they can reuse confidently',
+    ],
+    id: [
+      'Membangun identitas konsisten yang scalable untuk digital, print, campaign, dan materi internal',
+      'Mengurangi inkonsistensi desain dengan sistem praktis yang dapat digunakan ulang oleh tim',
+    ],
+  },
+  'rebranding': {
+    en: [
+      'Refresh market perception while protecting the equity the existing brand has already built',
+      'Roll out the new identity through prioritized assets instead of an uncontrolled big-bang migration',
+    ],
+    id: [
+      'Memperbarui persepsi pasar sambil menjaga ekuitas yang sudah dibangun brand sebelumnya',
+      'Meluncurkan identitas baru melalui aset prioritas tanpa migrasi besar yang tidak terkontrol',
+    ],
+  },
+  'website-design': {
+    en: [
+      'Turn brand and business goals into a clear website structure that supports discovery and conversion',
+      'Start development with reusable design decisions instead of one-off screens',
+    ],
+    id: [
+      'Menerjemahkan brand dan tujuan bisnis menjadi struktur website yang jelas untuk discovery dan conversion',
+      'Memulai development dengan keputusan desain reusable, bukan screen satu kali',
+    ],
+  },
+  'website-redesign': {
+    en: [
+      'Improve trust, usability, and content clarity without treating the redesign as a purely visual refresh',
+      'Reduce migration risk with an implementation plan that accounts for existing content and URLs',
+    ],
+    id: [
+      'Meningkatkan trust, usability, dan kejelasan konten tanpa menjadikan redesign sekadar refresh visual',
+      'Mengurangi risiko migrasi dengan rencana implementasi yang mempertimbangkan konten dan URL existing',
+    ],
+  },
+  'product-ux-ui-audit': {
+    en: [
+      'Give product teams an evidence-based backlog instead of a long list of subjective opinions',
+      'Focus limited design and engineering capacity on changes with the clearest user and business impact',
+    ],
+    id: [
+      'Memberikan backlog berbasis bukti alih-alih daftar opini subjektif yang panjang',
+      'Memfokuskan kapasitas design dan engineering pada perubahan dengan dampak pengguna dan bisnis yang paling jelas',
+    ],
+  },
+  'web-development': {
+    en: [
+      'Ship faster with a codebase and release workflow designed for maintainability',
+      'Improve production confidence through structured testing, deployment, and monitoring practices',
+    ],
+    id: [
+      'Merilis lebih cepat dengan codebase dan workflow release yang dirancang untuk maintainability',
+      'Meningkatkan kepercayaan production melalui testing, deployment, dan monitoring yang terstruktur',
+    ],
+  },
+  'mvp-development': {
+    en: [
+      'Validate a working product with a focused technical scope instead of overbuilding before learning',
+      'Create a production-ready foundation that can continue evolving after the first release',
+    ],
+    id: [
+      'Memvalidasi produk yang berfungsi dengan scope teknis terfokus tanpa overbuilding sebelum mendapat pembelajaran',
+      'Membangun fondasi production-ready yang dapat terus berkembang setelah release pertama',
+    ],
+  },
+  'landing-page': {
+    en: [
+      'Turn paid and organic traffic into clearer conversion journeys with measurable actions',
+      'Launch campaign pages faster through reusable sections and tracking conventions',
+    ],
+    id: [
+      'Mengubah traffic berbayar dan organik menjadi conversion journey yang lebih jelas dan terukur',
+      'Meluncurkan campaign page lebih cepat melalui section reusable dan konvensi tracking',
+    ],
+  },
+  'corporate-websites': {
+    en: [
+      'Give corporate audiences a clearer path to services, careers, newsroom, and investor information',
+      'Reduce publishing bottlenecks with a content system that internal teams can operate confidently',
+    ],
+    id: [
+      'Memberikan jalur yang lebih jelas bagi audiens ke layanan, careers, newsroom, dan informasi investor',
+      'Mengurangi bottleneck publishing dengan sistem konten yang dapat dioperasikan tim internal',
+    ],
+  },
+  'wow-websites': {
+    en: [
+      'Create a distinctive digital flagship that strengthens brand perception and product storytelling',
+      'Deliver immersive interaction with deliberate performance budgets and device-aware fallbacks',
+    ],
+    id: [
+      'Membangun digital flagship yang memperkuat persepsi brand dan product storytelling',
+      'Menghadirkan interaksi immersive dengan performance budget dan fallback berbasis perangkat yang terukur',
+    ],
+  },
+  'logo-design': { en: [], id: [] },
+  'graphic-design': {
+    en: [
+      'Produce campaign assets faster with a reusable visual direction and organized asset structure',
+      'Keep brand quality consistent across recurring campaigns and multiple production formats',
+    ],
+    id: [
+      'Memproduksi aset kampanye lebih cepat dengan arah visual reusable dan struktur aset yang terorganisir',
+      'Menjaga kualitas brand konsisten pada kampanye berulang dan berbagai format produksi',
+    ],
+  },
+};
+
 export const mergeServiceContent = (
   service: ServiceItemData,
   enhancement?: ServiceContentEnhancement,
@@ -1040,7 +1176,7 @@ export const mergeServiceContent = (
     return merged.slice(0, Math.max(minimum, base.length));
   };
 
-  const extraBenefits = enhancement.benefits;
+  const extraBenefits = enhancement.benefits || businessOutcomeEnhancements[service.slug];
   return {
     ...service,
     problemsSolutions: takeMinimum(service.problemsSolutions, enhancement.problemsSolutions, 3),
