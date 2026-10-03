@@ -163,251 +163,296 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-[#0B0C0E] pt-20 pb-12 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-[#262930]" id="main-footer">
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Top CTA Banner */}
-        <div className="pb-16 mb-16 border-b border-[#262930]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <footer
+      className="relative overflow-hidden border-t border-white/[0.08] bg-[#0B0C0E]"
+      id="main-footer"
+      aria-label={language === 'id' ? 'Footer Kapitech Agency' : 'Kapitech Agency footer'}
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-40 right-[-12%] h-[34rem] w-[34rem] rounded-full bg-brand-red/[0.055] blur-[120px]" />
+        <div className="absolute bottom-[-18rem] left-[-8%] h-[30rem] w-[30rem] rounded-full bg-white/[0.02] blur-[100px]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 sm:pb-10 sm:pt-20 md:px-12 lg:pt-24">
+        {/* Primary CTA */}
+        <section className="border-b border-white/[0.08] pb-16 sm:pb-20" aria-labelledby="footer-cta-title">
+          <div className="grid grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-8">
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+              <span className="mb-4 inline-flex items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                <span className="h-px w-7 bg-brand-red" aria-hidden="true" />
                 {t('footer.cta.tag')}
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-4 text-white">
+              <h2
+                id="footer-cta-title"
+                className="max-w-4xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-5xl md:text-6xl lg:text-[5.25rem]"
+              >
                 {t('footer.cta.title')}
               </h2>
-              <p className="text-sm md:text-base text-[#8A909D] font-light max-w-2xl leading-relaxed">
+              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
                 {t('footer.cta.desc')}
               </p>
             </div>
 
-            <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-4">
-              <Link 
-                to="/contact" 
+            <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
+              <Link
+                to="/contact"
                 id="footer-cta-button"
-                className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
+                className="group inline-flex min-h-[52px] items-center gap-3 rounded-full bg-brand-red px-7 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_-22px_rgba(229,9,20,0.9)] transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-[0_22px_46px_-20px_rgba(229,9,20,0.8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:px-8"
               >
                 <span>{t('footer.cta.button')}</span>
-                <ArrowUpRight size={18} />
+                <ArrowUpRight size={17} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
-              <div className="text-xs font-mono text-[#8A909D] flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
-                <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
-                <span>{language === 'id' ? 'Tangerang Selatan, ID' : 'South Tangerang, ID'} • {localTime || '12:00:00'} WIB</span>
+
+              <div className="inline-flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]">
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inset-0 rounded-full bg-brand-red opacity-50 blur-[2px]" />
+                  <span className="relative h-2 w-2 rounded-full bg-brand-red" />
+                </span>
+                <span>{language === 'id' ? 'Tangerang Selatan, Indonesia' : 'South Tangerang, Indonesia'}</span>
+                <span className="text-white/15" aria-hidden="true">•</span>
+                <span>{localTime || '00:00:00'} WIB</span>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Main Footer Links - 5 Columns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
-          {/* Col 1: Brand & Newsletter (4 cols) */}
-          <div className="lg:col-span-4 space-y-6">
+        {/* Main footer navigation */}
+        <div className="grid grid-cols-1 gap-12 py-14 sm:py-16 lg:grid-cols-12 lg:gap-8 lg:py-20">
+          {/* Brand / newsletter */}
+          <div className="lg:col-span-4">
             <Link to="/" className="inline-flex items-center gap-3 group" aria-label="Kapitech Agency Home">
-              <img 
-                src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
-                alt="Kapitech Agency" 
-                className="h-6 sm:h-7 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
+              <img
+                src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png"
+                alt="Kapitech Agency"
+                className="h-7 w-auto max-w-[150px] object-contain transition-opacity duration-300 group-hover:opacity-90"
               />
-              <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-brand-red transition-colors">
-                Kapitech Agency
-              </span>
             </Link>
-            <p className="text-xs text-[#8A909D] font-light leading-relaxed max-w-sm">
+
+            <p className="mt-5 max-w-md text-sm font-light leading-[1.8] text-[#8A909D]">
               {t('footer.about')}
             </p>
-            
-            {/* Newsletter Subscription */}
-            <div className="pt-2">
-              <span className="text-[11px] font-mono text-[#8A909D] uppercase tracking-wider block mb-2 font-medium">
-                {language === 'id' ? 'Berlangganan Wawasan Proyek' : 'Subscribe for Project Insights'}
+
+            <a
+              href="mailto:hello@kapitech.co.id"
+              className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-white transition-colors duration-200 hover:text-brand-red"
+            >
+              <Mail size={14} className="text-brand-red" aria-hidden="true" />
+              hello@kapitech.co.id
+            </a>
+
+            <div className="mt-9">
+              <span className="mb-2.5 block text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#6F7480]">
+                {language === 'id' ? 'Wawasan proyek' : 'Project insights'}
               </span>
-              <form onSubmit={handleSubscribe} className="flex w-full max-w-sm flex-col gap-2 sm:relative sm:block">
-                <input 
-                  type="email" 
-                  placeholder={language === 'id' ? 'Masukkan email bisnis Anda...' : 'Enter your work email...'} 
+
+              <form onSubmit={handleSubscribe} className="flex w-full max-w-md flex-col gap-2.5 sm:flex-row">
+                <label htmlFor="footer-newsletter-email" className="sr-only">
+                  {language === 'id' ? 'Email bisnis' : 'Work email'}
+                </label>
+                <input
+                  id="footer-newsletter-email"
+                  type="email"
+                  placeholder={language === 'id' ? 'Masukkan email bisnis Anda' : 'Enter your work email'}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-[44px] bg-[#16181D] border border-[#262930] rounded-xl px-4 py-3 text-xs text-white placeholder:text-[#8A909D]/70 focus:outline-none focus:border-brand-red transition-colors sm:pr-28"
+                  className="min-h-[46px] min-w-0 flex-1 rounded-xl border border-white/[0.09] bg-white/[0.025] px-4 text-xs text-white placeholder:text-[#6F7480] outline-none transition-[border-color,background-color] duration-200 focus:border-brand-red/50 focus:bg-white/[0.04]"
                 />
-                <button 
+                <button
                   type="submit"
-                  className="w-full min-h-[44px] rounded-xl bg-brand-red px-4 py-2 text-xs font-semibold text-white transition-[background-color,box-shadow] duration-200 hover:bg-[#FF1E27] shadow-[0_8px_20px_-12px_rgba(229,9,20,0.75)] sm:absolute sm:right-1.5 sm:top-1/2 sm:w-auto sm:min-h-[34px] sm:-translate-y-1/2 sm:rounded-full"
+                  className="min-h-[46px] shrink-0 rounded-xl border border-brand-red/30 bg-brand-red px-5 text-xs font-semibold text-white transition-[background-color,border-color,box-shadow] duration-200 hover:border-brand-red/50 hover:bg-[#FF1E27] hover:shadow-[0_12px_28px_-18px_rgba(229,9,20,0.85)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                 >
-                  {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
+                  {isSubscribed
+                    ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!')
+                    : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
               </form>
+
               {isSubscribed && (
-                <p className="text-[11px] text-brand-red font-mono mt-2 flex items-center gap-1.5">
-                  <CheckCircle2 size={12} /> {language === 'id' ? 'Terima kasih telah berlangganan info Kapitech Agency.' : 'Thank you for subscribing to Kapitech Agency updates.'}
+                <p className="mt-2.5 flex items-center gap-1.5 text-[10px] font-mono text-brand-red">
+                  <CheckCircle2 size={12} aria-hidden="true" />
+                  {language === 'id'
+                    ? 'Terima kasih telah berlangganan info Kapitech Agency.'
+                    : 'Thank you for subscribing to Kapitech Agency updates.'}
                 </p>
               )}
             </div>
           </div>
 
-          {/* Col 2: Branding & Design (2 cols) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
-              Branding & Design
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              {[...brandingServices.slice(0, 3), ...designServices.slice(0, 3)].map((srv) => (
-                <li key={srv.name}>
-                  <Link 
-                    to={srv.href} 
-                    className="group block text-[#8A909D] hover:text-white transition-colors"
-                  >
-                    <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3: Development & Solutions (2 cols) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
-              Development & Solutions
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              {devServices.map((srv) => (
-                <li key={srv.name}>
-                  <Link 
-                    to={srv.href} 
-                    className="group block text-[#8A909D] hover:text-white transition-colors"
-                  >
-                    <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Col 4: Company & Case Studies (2 cols) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
-              {language === 'id' ? 'Perusahaan & Portofolio' : 'Company & Portfolio'}
-            </h4>
-            <ul className="space-y-2.5 text-xs">
+          {/* Explore */}
+          <nav className="lg:col-span-2" aria-label={language === 'id' ? 'Navigasi footer' : 'Footer navigation'}>
+            <h3 className="mb-4 text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-brand-red">
+              {language === 'id' ? 'Jelajahi' : 'Explore'}
+            </h3>
+            <ul className="space-y-2.5">
               {[
                 { name: t('nav.work'), href: '/work' },
                 { name: t('nav.services'), href: '/services' },
                 { name: t('nav.about'), href: '/about' },
                 { name: t('nav.careers'), href: '/careers' },
                 { name: t('nav.contact'), href: '/contact' },
-                { name: language === 'id' ? 'Inbox Database' : 'Database Inbox', href: 'https://ams.kapitech.id/admin/inbox', external: true }
               ].map((item) => (
                 <li key={item.name}>
-                  {item.external ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
-                    >
-                      <span>{item.name}</span>
-                    </a>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
-                    >
-                      <span>{item.name}</span>
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mt-6 mb-3 font-semibold">
-              {language === 'id' ? 'Kebijakan & Legalitas' : 'Policy & Legal'}
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {[
-                { name: language === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy', href: '/privacy' },
-                { name: language === 'id' ? 'Syarat & Ketentuan' : 'Terms of Service', href: '/terms' },
-                { name: language === 'id' ? 'Panduan & Etika AI' : 'AI Instructions', href: '/ai-instructions' },
-                { name: language === 'id' ? 'Kebijakan Editorial' : 'Editorial Policy', href: '/editorial-policy' },
-                { name: language === 'id' ? 'Kebijakan Cookie' : 'Cookie Policy', href: '/cookie-policy' }
-              ].map((policy) => (
-                <li key={policy.name}>
-                  <Link 
-                    to={policy.href} 
-                    className="text-[#8A909D]/80 hover:text-white transition-colors block text-[11px]"
+                  <Link
+                    to={item.href}
+                    className="inline-flex min-h-[30px] items-center text-xs font-medium text-[#8A909D] transition-colors duration-200 hover:text-white"
                   >
-                    {policy.name}
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
+
+            <div className="mt-9">
+              <h3 className="mb-3 text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-[#6F7480]">
+                {language === 'id' ? 'Legal' : 'Legal'}
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  { name: language === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy', href: '/privacy' },
+                  { name: language === 'id' ? 'Syarat & Ketentuan' : 'Terms of Service', href: '/terms' },
+                  { name: language === 'id' ? 'Kebijakan Cookie' : 'Cookie Policy', href: '/cookie-policy' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      to={item.href}
+                      className="inline-flex min-h-[28px] items-center text-[11px] text-[#6F7480] transition-colors duration-200 hover:text-white"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+
+          {/* Capabilities */}
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-brand-red">
+              {language === 'id' ? 'Kapabilitas' : 'Capabilities'}
+            </h3>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-5">
+              <div>
+                <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">Brand & Design</p>
+                <ul className="space-y-2.5">
+                  {[...brandingServices.slice(0, 3), ...designServices.slice(0, 3)].map((srv) => (
+                    <li key={srv.name}>
+                      <Link
+                        to={srv.href}
+                        className="group inline-flex min-h-[30px] items-center text-xs font-medium text-[#8A909D] transition-colors duration-200 hover:text-white"
+                      >
+                        <span className="transition-colors duration-200 group-hover:text-brand-red">{srv.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">Development</p>
+                <ul className="space-y-2.5">
+                  {devServices.map((srv) => (
+                    <li key={srv.name}>
+                      <Link
+                        to={srv.href}
+                        className="group inline-flex min-h-[30px] items-center text-xs font-medium text-[#8A909D] transition-colors duration-200 hover:text-white"
+                      >
+                        <span className="transition-colors duration-200 group-hover:text-brand-red">{srv.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
-          {/* Col 5: Direct Office & Contacts (2 cols) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
+          {/* Contact */}
+          <section className="lg:col-span-3" aria-labelledby="footer-contact-title">
+            <h3 id="footer-contact-title" className="mb-4 text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-brand-red">
               {t('footer.contactsTitle')}
-            </h4>
-            <div className="space-y-3.5 text-xs text-[#8A909D]">
-              <a href="mailto:hello@kapitech.co.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
-                  <Mail size={13} />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.clientInquiry')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">hello@kapitech.co.id</span>
-                </div>
+            </h3>
+            <div className="space-y-1">
+              <a
+                href="mailto:hello@kapitech.co.id"
+                className="group flex min-h-[54px] items-center gap-3 border-b border-white/[0.06] py-2.5 transition-colors duration-200"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-brand-red transition-colors duration-200 group-hover:border-brand-red/30">
+                  <Mail size={13} aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.08em] text-[#6F7480]">{t('footer.clientInquiry')}</span>
+                  <span className="mt-0.5 block break-words text-xs font-medium text-white transition-colors duration-200 group-hover:text-brand-red">hello@kapitech.co.id</span>
+                </span>
               </a>
 
-              <a href="mailto:business@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
-                  <Globe size={13} />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">business@kapitech.id</span>
-                </div>
+              <a
+                href="mailto:business@kapitech.id"
+                className="group flex min-h-[54px] items-center gap-3 border-b border-white/[0.06] py-2.5 transition-colors duration-200"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-brand-red transition-colors duration-200 group-hover:border-brand-red/30">
+                  <Globe size={13} aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.08em] text-[#6F7480]">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
+                  <span className="mt-0.5 block break-words text-xs font-medium text-white transition-colors duration-200 group-hover:text-brand-red">business@kapitech.id</span>
+                </span>
               </a>
 
-              <a href="mailto:recruitment@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
-                  <Briefcase size={13} />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.recruitment')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">recruitment@kapitech.id</span>
-                </div>
+              <a
+                href="mailto:recruitment@kapitech.id"
+                className="group flex min-h-[54px] items-center gap-3 border-b border-white/[0.06] py-2.5 transition-colors duration-200"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-brand-red transition-colors duration-200 group-hover:border-brand-red/30">
+                  <Briefcase size={13} aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.08em] text-[#6F7480]">{t('footer.recruitment')}</span>
+                  <span className="mt-0.5 block break-words text-xs font-medium text-white transition-colors duration-200 group-hover:text-brand-red">recruitment@kapitech.id</span>
+                </span>
               </a>
 
-              <a href="tel:+6287769957062" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
-                  <Phone size={13} />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.phone')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] block">+62 877-6995-7062</span>
-                </div>
+              <a
+                href="tel:+6287769957062"
+                className="group flex min-h-[54px] items-center gap-3 border-b border-white/[0.06] py-2.5 transition-colors duration-200"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-brand-red transition-colors duration-200 group-hover:border-brand-red/30">
+                  <Phone size={13} aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.08em] text-[#6F7480]">{t('footer.phone')}</span>
+                  <span className="mt-0.5 block text-xs font-medium text-white transition-colors duration-200 group-hover:text-brand-red">+62 877-6995-7062</span>
+                </span>
               </a>
 
-              <div className="flex items-start gap-2.5 pt-1">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red shrink-0 mt-0.5">
-                  <MapPin size={13} />
-                </div>
-                <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.addressTitle')}</span>
-                  <p className="leading-tight text-white/90 text-[11px] font-light">
+              <div className="flex items-start gap-3 pt-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-brand-red">
+                  <MapPin size={13} aria-hidden="true" />
+                </span>
+                <div>
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.08em] text-[#6F7480]">{t('footer.addressTitle')}</span>
+                  <p className="mt-1 text-xs font-light leading-[1.6] text-white/85">
                     {t('footer.address')}
                   </p>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
 
-        {/* Social Media Links Bar (Crisp Monochrome Logo Icons) */}
-        <div className="py-6 border-t border-[#262930] flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-xs font-mono text-[#8A909D] uppercase tracking-widest">
-            {language === 'id' ? 'Kanal Resmi & Media Sosial' : 'Official Channels & Social Media'}
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        {/* Social channels */}
+        <div className="flex flex-col gap-5 border-t border-white/[0.08] py-7 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <span className="block text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F7480]">
+              {language === 'id' ? 'Kanal resmi' : 'Official channels'}
+            </span>
+            <span className="mt-1 block text-xs text-[#8A909D]">
+              {language === 'id' ? 'Ikuti pekerjaan dan pembaruan Kapitech.' : 'Follow Kapitech work and updates.'}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 sm:justify-end">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -416,7 +461,7 @@ export const Footer = () => {
                 rel="noopener noreferrer"
                 aria-label={social.name}
                 title={social.name}
-                className="w-11 h-11 min-h-[44px] min-w-[44px] rounded-xl flex items-center justify-center text-[#8A909D] hover:text-white bg-[#16181D] hover:bg-[#1B1F26] hover:border-brand-red/30 border border-[#262930] transition-all duration-200"
+                className="flex h-10 min-h-[40px] w-10 min-w-[40px] items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#8A909D] transition-[background-color,border-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand-red/25 hover:bg-brand-red/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
               >
                 {social.icon}
               </a>
@@ -424,26 +469,37 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Copyright Bar */}
-        <div className="pt-6 border-t border-[#262930] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8A909D]">
-          <p>© 2021-{currentYear} Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
-          <div className="flex items-center gap-4 sm:gap-6">
-            <a
-              href="https://ams.kapitech.id/admin/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#5C626E] hover:text-[#8A909D] transition-colors text-[11px] font-mono"
-              title="Kapitech Internal Admin Portal"
-            >
-              <span>Admin Portal</span>
-            </a>
-            <button 
-              onClick={scrollToTop} 
+        {/* Bottom utility bar */}
+        <div className="flex flex-col gap-5 border-t border-white/[0.08] pt-6 text-[11px] text-[#6F7480] sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-3xl leading-[1.7]">
+            © 2021-{currentYear} Kapitech. {language === 'id'
+              ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.'
+              : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {[
+              { name: language === 'id' ? 'Privacy' : 'Privacy', href: '/privacy' },
+              { name: language === 'id' ? 'Terms' : 'Terms', href: '/terms' },
+              { name: language === 'id' ? 'Cookie' : 'Cookie', href: '/cookie-policy' },
+              { name: language === 'id' ? 'AI' : 'AI', href: '/ai-instructions' },
+              { name: language === 'id' ? 'Editorial' : 'Editorial', href: '/editorial-policy' },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="transition-colors duration-200 hover:text-white"
+              >
+                {item.name}
+              </Link>
+            ))}
+            <button
+              onClick={scrollToTop}
               id="footer-back-to-top"
-              className="flex items-center gap-1.5 hover:text-white transition-colors py-2 px-3 min-h-[36px] rounded-lg bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930]"
+              className="inline-flex min-h-[38px] items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.06em] text-[#8A909D] transition-[background-color,border-color,color] duration-200 hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
             >
               <span>{t('footer.backToTop')}</span>
-              <ArrowUp size={14} />
+              <ArrowUp size={13} aria-hidden="true" />
             </button>
           </div>
         </div>
