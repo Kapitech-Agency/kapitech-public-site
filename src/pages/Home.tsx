@@ -1002,19 +1002,19 @@ export const Home = () => {
 
             return (
               <div
-                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#0B0C0E]/90 p-2 backdrop-blur-2xl sm:p-4 lg:p-6"
+                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050609]/42 p-2 backdrop-blur-md backdrop-saturate-75 sm:p-4 lg:p-6"
                 role="presentation"
                 onMouseDown={(event) => {
                   if (event.target === event.currentTarget) setSelectedProcessStep(null);
                 }}
               >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.985, y: 12 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.985, y: 12 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   ref={processModalRef}
-                  className="relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)]"
+                  className="relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] will-change-[opacity,transform]" border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)]"
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="process-phase-modal-title"
