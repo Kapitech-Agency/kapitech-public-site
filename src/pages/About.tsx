@@ -488,26 +488,49 @@ export const About = () => {
 
       {/* Executive Leadership */}
       <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team">
-        <div className="pointer-events-none absolute right-[-8rem] top-20 h-80 w-80 rounded-full border border-brand-red/[0.04]" aria-hidden="true" />
-        <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[100px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -right-40 top-10 h-96 w-96 rounded-full border border-brand-red/[0.035]" />
+          <div className="absolute -left-40 bottom-[-12rem] h-96 w-96 rounded-full border border-white/[0.02]" />
+          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[110px]" />
+        </div>
 
         <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
-            <div className="max-w-3xl">
+          <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+            <div className="max-w-4xl">
               <span className="kapi-section-label mb-5">
                 {t('about.leadership.tag')}
               </span>
-              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+              <motion.h2
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              >
                 {t('about.leadership.title')}
-              </h2>
-              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+              >
                 {t('about.leadership.subtitle')}
-              </p>
+              </motion.p>
             </div>
 
-            <div className="hidden items-center gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F] lg:flex">
-              <span className="h-px w-8 bg-brand-red/70" aria-hidden="true" />
-              <span>{language === 'id' ? 'Pimpinan & Direktur Utama' : 'Leadership & Direction'}</span>
+            <div className="hidden lg:flex lg:flex-col lg:items-end lg:gap-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#6F757F]">
+                {language === 'id' ? 'Tim inti' : 'Core team'}
+              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">05</span>
+                <span className="h-px w-10 bg-brand-red/70" aria-hidden="true" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                  {language === 'id' ? 'Leadership roles' : 'Leadership roles'}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -519,28 +542,38 @@ export const About = () => {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="group relative mb-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30"
             >
-              <div className="grid lg:grid-cols-[minmax(280px,0.8fr)_1.2fr]">
-                <div className="relative min-h-[320px] overflow-hidden bg-[#171920] sm:min-h-[420px] lg:min-h-[460px]">
+              <div className="grid lg:grid-cols-[minmax(320px,0.78fr)_1.22fr]">
+                <div className="relative min-h-[320px] overflow-hidden bg-[#171920] sm:min-h-[430px] lg:min-h-[500px]">
                   <img
                     src={team[0].image}
                     alt={team[0].name}
                     referrerPolicy="no-referrer"
-                    className="absolute inset-0 h-full w-full object-contain object-top transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                    className="absolute inset-0 h-full w-full object-contain object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/85 via-[#08090B]/10 to-transparent" />
+                  <div className="absolute bottom-5 left-5 flex items-center gap-3 sm:bottom-7 sm:left-7">
                     <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
                       01
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/65">
+                      {language === 'id' ? 'Executive lead' : 'Executive lead'}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+                <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10 xl:p-12">
                   <div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                      {language === 'id' ? 'Executive Leadership' : 'Executive Leadership'}
-                    </span>
-                    <h3 className="mt-4 max-w-2xl text-3xl font-display font-semibold leading-[0.98] tracking-[-0.05em] text-white sm:text-4xl lg:text-[3rem]">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                        {language === 'id' ? 'Executive Leadership' : 'Executive Leadership'}
+                      </span>
+                      <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
+                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                        01 / 05
+                      </span>
+                    </div>
+
+                    <h3 className="mt-5 max-w-3xl text-3xl font-display font-semibold leading-[0.96] tracking-[-0.055em] text-white sm:text-4xl lg:text-[3.4rem]">
                       {team[0].name}
                     </h3>
                     <p className="mt-3 text-xs font-mono uppercase tracking-[0.12em] text-[#A7ACB5] sm:text-sm">
@@ -551,22 +584,24 @@ export const About = () => {
                     </p>
                   </div>
 
-                  <div className="mt-8 grid grid-cols-1 gap-3 border-t border-white/[0.07] pt-6 sm:grid-cols-2">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                        {language === 'id' ? 'Fokus' : 'Focus'}
-                      </span>
-                      <p className="mt-2 text-sm font-medium text-white">
-                        {language === 'id' ? 'Visi, arsitektur & partnership' : 'Vision, architecture & partnerships'}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                        {language === 'id' ? 'Peran' : 'Role'}
-                      </span>
-                      <p className="mt-2 text-sm font-medium text-white">
-                        {team[0].role}
-                      </p>
+                  <div className="mt-10 border-t border-white/[0.07] pt-6">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                          {language === 'id' ? 'Fokus kepemimpinan' : 'Leadership focus'}
+                        </span>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-white">
+                          {language === 'id' ? 'Visi, arsitektur, dan partnership' : 'Vision, architecture, and partnerships'}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                          {language === 'id' ? 'Cara memimpin' : 'Leadership approach'}
+                        </span>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-white">
+                          {language === 'id' ? 'Strategis, langsung, dan delivery-focused' : 'Strategic, direct, and delivery-focused'}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -574,42 +609,65 @@ export const About = () => {
             </motion.article>
           )}
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {team.slice(1).map((member, index) => (
-              <motion.article
-                key={member.name}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-10% 0px' }}
-                transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25"
-              >
-                <div className="relative aspect-[4/4.2] overflow-hidden bg-[#171920]">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-contain object-top transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/75 via-transparent to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/65 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/75 backdrop-blur-md">
-                    {String(index + 2).padStart(2, '0')}
-                  </span>
-                </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {team.slice(1).map((member, index) => {
+              const focusEn = [
+                'Project delivery & operations',
+                'Creative direction & brand systems',
+                'Growth, marketing & partnerships',
+                'Project coordination & team execution'
+              ][index];
+              const focusId = [
+                'Delivery proyek & operasional',
+                'Arahan kreatif & sistem brand',
+                'Growth, marketing & partnership',
+                'Koordinasi proyek & eksekusi tim'
+              ][index];
 
-                <div className="p-5 sm:p-6">
-                  <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red">
-                    {member.name}
-                  </h3>
-                  <p className="mt-2 text-[10px] font-mono uppercase leading-[1.4] tracking-[0.12em] text-brand-red sm:text-[11px]">
-                    {member.role}
-                  </p>
-                  <p className="mt-4 text-xs font-light leading-[1.75] text-[#8A909D]">
-                    {member.bio}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
+              return (
+                <motion.article
+                  key={member.name}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-[#141519]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#171920]">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full object-contain object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/80 via-transparent to-transparent" />
+                    <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/65 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/75 backdrop-blur-md">
+                      {String(index + 2).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="p-5 sm:p-6">
+                    <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                      {member.name}
+                    </h3>
+                    <p className="mt-2 text-[10px] font-mono uppercase leading-[1.4] tracking-[0.12em] text-brand-red sm:text-[11px]">
+                      {member.role}
+                    </p>
+                    <div className="mt-4 border-t border-white/[0.07] pt-4">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                        {language === 'id' ? 'Fokus' : 'Focus'}
+                      </span>
+                      <p className="mt-1.5 text-xs font-medium leading-relaxed text-white/90">
+                        {language === 'id' ? focusId : focusEn}
+                      </p>
+                    </div>
+                    <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D]">
+                      {member.bio}
+                    </p>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </section>
