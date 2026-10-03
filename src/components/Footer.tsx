@@ -304,27 +304,7 @@ export const Footer = () => {
               ))}
             </ul>
 
-            <div className="mt-9">
-              <h3 className="mb-3 text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-[#6F7480]">
-                {language === 'id' ? 'Legal' : 'Legal'}
-              </h3>
-              <ul className="space-y-2">
-                {[
-                  { name: language === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy', href: '/privacy' },
-                  { name: language === 'id' ? 'Syarat & Ketentuan' : 'Terms of Service', href: '/terms' },
-                  { name: language === 'id' ? 'Kebijakan Cookie' : 'Cookie Policy', href: '/cookie-policy' },
-                ].map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      to={item.href}
-                      className="inline-flex min-h-[28px] items-center text-[11px] text-[#6F7480] transition-colors duration-200 hover:text-white"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
           </nav>
 
           {/* Capabilities */}
