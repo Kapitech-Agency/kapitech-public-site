@@ -132,7 +132,7 @@ export const Navbar = () => {
             aria-hidden="true"
             style={{
               top: isScrolled ? '72px' : '88px',
-              height: '430px',
+              height: '480px',
               backgroundColor: 'rgba(11, 12, 14, 0.26)',
               backdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
               WebkitBackdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
@@ -349,7 +349,7 @@ export const Navbar = () => {
               )}
 
             >
-              <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
+              <div className="max-w-7xl mx-auto grid grid-cols-4 gap-4 lg:gap-10">
                 
                 {/* COLUMN 1: SOLUTIONS */}
                 <div className="space-y-4">
