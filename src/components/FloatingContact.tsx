@@ -80,7 +80,7 @@ export const FloatingContact = () => {
               initial={{ opacity: 0, scale: 0.85, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.85, y: 15 }}
-              className="flex flex-col gap-2.5 mb-2 max-w-[85vw]"
+              className="flex flex-col gap-2.5 mb-2 w-full max-w-[calc(100vw-5rem)] sm:max-w-[85vw]"
             >
               {contactOptions.map((option, i) => (
                 <motion.div
@@ -95,7 +95,7 @@ export const FloatingContact = () => {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
-                      <span className="px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
+                      <span className="max-w-full px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-normal break-words sm:whitespace-nowrap">
                         {option.label}
                       </span>
                       <div className={cn(
