@@ -127,7 +127,7 @@ export const ServiceDetail = () => {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-20 lg:mb-28"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20 lg:mb-28"
         >
           <div className="lg:col-span-8">
             
@@ -172,7 +172,7 @@ export const ServiceDetail = () => {
             </div>
           </div>
 
-          {/* PERFORMANCE METRICS SIDEBAR */}
+          {/* PERFORMANCE METRICS */}
           <div className="lg:col-span-4 w-full lg:sticky lg:top-28">
             <motion.div
               initial={{ opacity: 0, x: 18 }}
@@ -180,67 +180,73 @@ export const ServiceDetail = () => {
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
             >
-              <div className="border-b border-white/[0.07] px-5 py-5 sm:px-7 sm:py-6">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                    {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
-                  </span>
-                  <div className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                    <Sparkles className="h-3.5 w-3.5 text-brand-red" />
-                    <span>{String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'sinyal' : 'signals'}</span>
+              <div className="border-b border-white/[0.07] px-5 py-6 sm:px-7 sm:py-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                      {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
+                    </span>
+                    <h2 className="mt-3 max-w-xs text-xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-2xl">
+                      {language === 'id' ? 'Sinyal yang mengukur kualitas delivery.' : 'Signals that measure delivery quality.'}
+                    </h2>
                   </div>
+                  <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#6F757F]">
+                    {String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'Metrik' : 'Signals'}
+                  </span>
                 </div>
-                <p className="mt-3 max-w-sm text-xs leading-[1.7] text-[#8A909D]">
+                <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D]">
                   {language === 'id'
                     ? 'Indikator utama yang menggambarkan kualitas, kecepatan, atau dampak dari layanan ini.'
                     : 'Key indicators that reflect the quality, speed, or impact of this service.'}
                 </p>
               </div>
 
-              <div className="p-3 sm:p-4">
+              <div className="space-y-3 p-4 sm:p-5">
                 {performanceMetrics.length > 0 ? (
-                  <div className="grid gap-2.5">
-                    {performanceMetrics.map((metric, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45, delay: 0.14 + idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                        className="group relative overflow-hidden rounded-xl border border-white/[0.065] bg-[#0F1013]/80 p-4 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/25 hover:bg-white/[0.025] sm:p-5"
-                      >
-                        <span className="pointer-events-none absolute inset-y-0 left-0 w-px bg-brand-red/70 opacity-40 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-                        <div className="flex items-start justify-between gap-4">
-                          <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
-                            {String(idx + 1).padStart(2, '0')}
-                          </span>
-                          <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
-                            {language === 'id' ? 'Kinerja' : 'Performance'}
-                          </span>
+                  performanceMetrics.map((metric, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: 0.14 + idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                      className="group relative min-h-[128px] overflow-hidden rounded-xl border border-white/[0.065] bg-[#0F1013]/90 p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/25 hover:bg-white/[0.024] sm:min-h-[136px] sm:p-6"
+                    >
+                      <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6" aria-hidden="true" />
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
+                          {language === 'id' ? 'Kinerja' : 'Performance'}
+                        </span>
+                      </div>
+                      <div className="mt-5">
+                        <div className="break-words text-[2.15rem] font-display font-semibold leading-[0.92] tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.55rem]">
+                          {metric.value}
                         </div>
-                        <div className="mt-5">
-                          <div className="text-[2.35rem] font-display font-semibold leading-none tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.7rem]">
-                            {metric.value}
-                          </div>
-                          <div className="mt-2 max-w-xs text-xs leading-[1.55] text-[#A7ACB5] sm:text-sm">
-                            {language === 'id' ? metric.labelId : metric.label}
-                          </div>
+                        <div className="mt-3 max-w-sm text-xs leading-[1.55] text-[#A7ACB5] sm:text-sm">
+                          {language === 'id' ? metric.labelId : metric.label}
                         </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                      </div>
+                    </motion.div>
+                  ))
                 ) : (
-                  <div className="rounded-xl border border-white/[0.065] bg-white/[0.012] p-5 text-xs text-[#8A909D]">
+                  <div className="rounded-xl border border-white/[0.065] bg-white/[0.012] p-5 text-xs leading-relaxed text-[#8A909D]">
                     {language === 'id' ? 'Metrik layanan belum tersedia.' : 'Service metrics are not available yet.'}
                   </div>
                 )}
               </div>
 
-              {/* Tools Stack */}
-              <div className="border-t border-white/[0.07] px-5 py-5 sm:px-7 sm:py-6">
-                <div className="mb-3 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6F757F]">
-                  {language === 'id' ? 'Toolchain & Standar' : 'Toolchain & Stack'}
+              <div className="border-t border-white/[0.07] px-5 py-6 sm:px-7 sm:py-7">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6F757F]">
+                    {language === 'id' ? 'Toolchain & Standar' : 'Toolchain & Stack'}
+                  </span>
+                  <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
+                    {service.tools.length} {language === 'id' ? 'tools' : 'tools'}
+                  </span>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {service.tools.map((tool, idx) => (
                     <span
                       key={idx}
