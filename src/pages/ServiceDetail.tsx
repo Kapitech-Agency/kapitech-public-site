@@ -143,7 +143,7 @@ export const ServiceDetail = () => {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 to={`/contact?service=${encodeURIComponent(service.title)}`}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
               >
                 <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -492,7 +492,7 @@ export const ServiceDetail = () => {
                   </p>
                   <Link
                     to={`/contact?service=${encodeURIComponent(service.title)}`}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Sekarang' : 'Start a Project Now'}</span>
                     <ArrowUpRight className="w-4 h-4" />
