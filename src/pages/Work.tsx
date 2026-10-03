@@ -1047,6 +1047,17 @@ export const Work = () => {
                         </div>
                       </div>
 
+                      {(language === 'id' ? selectedProject.executionId : selectedProject.execution) && (
+                        <div className="mt-5 rounded-[22px] border border-white/[0.07] bg-white/[0.012] p-5 sm:p-6">
+                          <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+                            {language === 'id' ? 'Narasi Eksekusi' : 'Execution Narrative'}
+                          </p>
+                          <p className="mt-3 max-w-4xl text-sm sm:text-[0.96rem] leading-[1.8] text-[#B8BEC9] font-light">
+                            {language === 'id' ? selectedProject.executionId : selectedProject.execution}
+                          </p>
+                        </div>
+                      )}
+
                       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] gap-4 sm:gap-5">
                         <div className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
                           <div className="flex items-center gap-2 mb-5">
@@ -1117,6 +1128,17 @@ export const Work = () => {
                           </div>
                         ))}
                       </div>
+
+                      {(language === 'id' ? selectedProject.outcomeId : selectedProject.outcome) && (
+                        <div className="mb-5 rounded-[22px] border border-white/[0.07] bg-white/[0.012] p-5 sm:p-6">
+                          <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+                            {language === 'id' ? 'Dampak ke Klien' : 'Client Outcome Narrative'}
+                          </p>
+                          <p className="mt-3 max-w-4xl text-sm sm:text-[0.96rem] leading-[1.8] text-[#B8BEC9] font-light">
+                            {language === 'id' ? selectedProject.outcomeId : selectedProject.outcome}
+                          </p>
+                        </div>
+                      )}
                     </section>
 
                     {/* CTA */}
