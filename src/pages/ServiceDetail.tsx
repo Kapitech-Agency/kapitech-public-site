@@ -67,6 +67,43 @@ export const ServiceDetail = () => {
 
   const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
 
+  const identityFoundations = [
+    {
+      number: '01',
+      label: language === 'id' ? 'Identitas' : 'Service Identity',
+      title: service.badge,
+      description: language === 'id' ? service.heroSubtitleId : service.heroSubtitle,
+      icon: Sparkles,
+    },
+    {
+      number: '02',
+      label: language === 'id' ? 'Fondasi Strategis' : 'Strategic Foundation',
+      title: service.capabilities?.[0]?.title || service.category,
+      description: service.capabilities?.[0]
+        ? (language === 'id' ? service.capabilities[0].descId : service.capabilities[0].desc)
+        : (language === 'id' ? 'Arah kerja dibangun dari kebutuhan bisnis dan pengguna.' : 'The engagement is grounded in business and user needs.'),
+      icon: Target,
+    },
+    {
+      number: '03',
+      label: language === 'id' ? 'Fondasi Delivery' : 'Delivery Foundation',
+      title: service.processStages?.[0]?.stageName || (language === 'id' ? 'Discovery' : 'Discovery'),
+      description: service.processStages?.[0]
+        ? (language === 'id' ? service.processStages[0].stageDescId : service.processStages[0].stageDesc)
+        : (language === 'id' ? 'Tahapan kerja terstruktur dari discovery sampai delivery.' : 'A structured workflow from discovery through delivery.'),
+      icon: Layers,
+    },
+    {
+      number: '04',
+      label: language === 'id' ? 'Fondasi Teknis' : 'Technical Foundation',
+      title: service.tools?.slice(0, 2).join(' · ') || 'Kapitech Toolkit',
+      description: language === 'id'
+        ? 'Toolchain dipilih berdasarkan kebutuhan proyek, kualitas output, dan kesiapan untuk handoff.'
+        : 'The toolchain is selected around project needs, output quality, and production-ready handoff.',
+      icon: ShieldCheck,
+    },
+  ];
+
   // Find related case studies from allProjects
   const relatedCaseStudySlugs = Array.isArray(service.caseStudySlugs) ? service.caseStudySlugs : [];
   const relatedProjects = cmsProjects.filter(p =>
@@ -241,6 +278,96 @@ export const ServiceDetail = () => {
                   {tool}
                 </span>
               ))}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* OUR IDENTITY & FOUNDATIONS */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10% 0px' }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          aria-labelledby="identity-foundations-title"
+          className="mb-20 sm:mb-24 lg:mb-28"
+        >
+          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
+              </span>
+              <h2
+                id="identity-foundations-title"
+                className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.75rem]"
+              >
+                {language === 'id'
+                  ? 'Bukan sekadar layanan. Ada fondasi yang menjaga setiap engagement tetap terarah.'
+                  : 'More than a service. A set of foundations keeps every engagement intentional.'}
+              </h2>
+            </div>
+            <p className="max-w-md text-xs leading-[1.8] text-[#8A909D] sm:text-sm lg:pb-1">
+              {language === 'id'
+                ? 'Kami menyatukan positioning layanan, keputusan strategis, cara delivery, dan toolchain agar pekerjaan tetap konsisten dari brief sampai handoff.'
+                : 'We connect service positioning, strategic decisions, delivery discipline, and the right toolchain so the work stays coherent from brief to handoff.'}
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/[0.07]">
+              {identityFoundations.map((foundation) => {
+                const Icon = foundation.icon;
+                return (
+                  <motion.article
+                    key={foundation.number}
+                    whileHover={{ y: -2 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="group relative min-h-[255px] border-b border-white/[0.07] p-5 transition-colors duration-300 hover:bg-white/[0.018] sm:p-6 lg:border-b-0 lg:p-7"
+                  >
+                    <span
+                      className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
+                      aria-hidden="true"
+                    />
+
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] text-[#A7ACB5] transition-colors duration-300 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                        <Icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+                      </div>
+                      <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#555A63] transition-colors duration-300 group-hover:text-brand-red">
+                        {foundation.number}
+                      </span>
+                    </div>
+
+                    <div className="mt-9">
+                      <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                        {foundation.label}
+                      </span>
+                      <h3 className="mt-3 text-base font-display font-semibold leading-[1.12] tracking-[-0.025em] text-white sm:text-lg">
+                        {foundation.title}
+                      </h3>
+                      <p className="mt-3 text-xs leading-[1.75] text-[#8A909D]">
+                        {foundation.description}
+                      </p>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-col gap-3 border-t border-white/[0.07] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
+              <div className="flex items-center gap-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#555A63]">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+                <span>{language === 'id' ? 'Foundation untuk engagement ini' : 'Foundation for this engagement'}</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {(service.tools || []).slice(0, 5).map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </motion.section>
