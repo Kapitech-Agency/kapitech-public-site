@@ -38,6 +38,7 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
   const [active, setActive] = React.useState(false);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const activeRef = React.useRef(false);
   const cursorRef = React.useRef<HTMLDivElement>(null);
   const mediaHoverRef = React.useRef<MediaQueryList | null>(null);
   const mediaReducedRef = React.useRef<MediaQueryList | null>(null);
@@ -57,13 +58,21 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
         root.classList.add('kapi-custom-cursor-enabled');
       } else {
         root.classList.remove('kapi-custom-cursor-enabled');
-        setActive(false);
+        setCursorActive(false);
         cursorX.set(-100);
         cursorY.set(-100);
       }
     };
 
+    const setCursorActive = (nextActive: boolean) => {
+      if (activeRef.current === nextActive) return;
+      activeRef.current = nextActive;
+      setActive(nextActive);
+    };
+
     const handlePointerMove = (event: PointerEvent) => {
+      if (!canHover.matches || reducedMotion.matches) return;
+
       if (!global) {
         const parent = containerRef.current?.parentElement;
         if (!parent) return;
@@ -76,15 +85,15 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
         cursorY.set(event.clientY);
       }
 
-      setActive(true);
+      setCursorActive(true);
     };
 
     const handlePointerOut = (event: PointerEvent) => {
-      if (event.relatedTarget === null) setActive(false);
+      if (event.relatedTarget === null) setCursorActive(false);
     };
 
-    const handlePointerCancel = () => setActive(false);
-    const handleWindowBlur = () => setActive(false);
+    const handlePointerCancel = () => setCursorActive(false);
+    const handleWindowBlur = () => setCursorActive(false);
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') setActive(false);
     };
@@ -95,14 +104,12 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
     canHover.addEventListener('change', handleAvailabilityChange);
     reducedMotion.addEventListener('change', handleAvailabilityChange);
 
-    if (canHover.matches && !reducedMotion.matches) {
-      const target = global ? window : containerRef.current?.parentElement;
-      target?.addEventListener('pointermove', handlePointerMove as EventListener, { passive: true });
-      target?.addEventListener('pointerout', handlePointerOut as EventListener, { passive: true });
-      target?.addEventListener('pointercancel', handlePointerCancel as EventListener, { passive: true });
-      window.addEventListener('blur', handleWindowBlur, { passive: true });
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-    }
+    const target = global ? window : containerRef.current?.parentElement;
+    target?.addEventListener('pointermove', handlePointerMove as EventListener, { passive: true });
+    target?.addEventListener('pointerout', handlePointerOut as EventListener, { passive: true });
+    target?.addEventListener('pointercancel', handlePointerCancel as EventListener, { passive: true });
+    window.addEventListener('blur', handleWindowBlur, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       canHover.removeEventListener('change', handleAvailabilityChange);
@@ -161,7 +168,7 @@ export function Cursor({ children, style, ...props }: CursorProps) {
           ref={cursorRef}
           data-slot="cursor"
           className="kapi-cursor-pointer"
-          style={{ ...style, left: cursorPos.x, top: cursorPos.y }}
+          style={{ ...style, left: 0, top: 0, x: cursorPos.x, y: cursorPos.y }}
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.94 }}
@@ -225,7 +232,7 @@ export function CursorFollow({ children, style, ...props }: CursorFollowProps) {
         <motion.div
           data-slot="cursor-follow"
           className="kapi-cursor-follow"
-          style={{ ...style, left: labelX, top: labelY }}
+          style={{ ...style, left: 0, top: 0, x: labelX, y: labelY }}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96 }}
