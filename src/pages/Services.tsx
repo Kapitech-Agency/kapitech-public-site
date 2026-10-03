@@ -968,6 +968,7 @@ export const Services = () => {
                   onClick={() => setSelectedService(null)}
                   className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors"
                   aria-label="Close modal"
+                  data-cursor-label="Close"
                   autoFocus
                 >
                   <X size={18} />
