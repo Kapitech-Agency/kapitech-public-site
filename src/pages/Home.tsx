@@ -595,11 +595,11 @@ export const Home = () => {
                 to="/work"
                 className="group rounded-2xl overflow-hidden bg-[#16181D] border border-[#262930] hover:border-brand-red/40 transition-all duration-300 flex flex-col"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
+                <div className="relative overflow-hidden bg-[#0B0C0E]">
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="block w-full h-auto object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
                   <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#0B0C0E]/90 backdrop-blur-md text-[10px] font-mono text-brand-red border border-[#262930]">
