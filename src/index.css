@@ -599,7 +599,13 @@
   transition-property: transform, border-color, background-color, box-shadow;
   transition-duration: var(--kapi-motion-duration);
   transition-timing-function: var(--kapi-motion-ease);
-  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kapi-public-shell main section .group.rounded-2xl,
+  .kapi-public-shell main section .kapi-card {
+    will-change: transform;
+  }
 }
 
 .kapi-public-shell main section .group.rounded-2xl:hover {
