@@ -186,14 +186,6 @@ export const Work = () => {
     return () => clearInterval(interval);
   }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
 
-  useEffect(() => {
-    const scroller = serviceScrollRef.current;
-    if (!scroller) return;
-
-    scroller.scrollTo({ left: 0, behavior: 'auto' });
-    setIsServiceScrolled(false);
-  }, [activePillar, serviceOptions.length]);
-
   const serviceOptions = useMemo(() => {
     if (activePillar === 'Visual Experience') {
       return [
@@ -233,6 +225,14 @@ export const Work = () => {
       'IT Support & Infrastructure'
     ];
   }, [activePillar]);
+
+  useEffect(() => {
+    const scroller = serviceScrollRef.current;
+    if (!scroller) return;
+
+    scroller.scrollTo({ left: 0, behavior: 'auto' });
+    setIsServiceScrolled(false);
+  }, [activePillar, serviceOptions.length]);
 
   // Reset granular filter if pillar changes
   const handlePillarChange = (pillar: string) => {
