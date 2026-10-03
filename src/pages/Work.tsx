@@ -746,6 +746,7 @@ export const Work = () => {
                   setSearchQuery('');
                 }}
                 className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px]"
+                data-cursor-label="Reset"
               >
                 {language === 'id' ? 'Lihat Semua 50 Portofolio' : 'View All 50 Projects'}
               </button>
@@ -761,7 +762,17 @@ export const Work = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => setSelectedProject(project)}
-                    className="cursor-pointer group rounded-3xl overflow-hidden border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl hover:bg-white/[0.024] hover:border-brand-red/25 transition-[background-color,border-color,box-shadow] duration-300 flex flex-col h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setSelectedProject(project);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={language === 'id' ? `Buka studi kasus ${project.title}` : `Open case study ${project.title}`}
+                    data-cursor-label="Open"
+                    className="cursor-pointer group rounded-3xl overflow-hidden border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl hover:bg-white/[0.024] hover:border-brand-red/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 flex flex-col h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
                   >
                     {/* Thumbnail Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
