@@ -803,8 +803,8 @@ export const Services = () => {
       </section>
 
       {/* Pillar Filter Tabs */}
-      <section className="sticky top-16 sm:top-20 md:top-[72px] z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
-        <div className="w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
+      <section className="sticky top-16 sm:top-20 md:top-[72px] z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]">
+        <div className="w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-[#111216] px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
               <span className="kapi-section-label mb-0 shrink-0">
@@ -816,7 +816,7 @@ export const Services = () => {
             </div>
 
             <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex w-max items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.018] p-1">
+              <div className="flex w-max items-center gap-1 rounded-full border border-white/[0.07] bg-[#0B0C0E] p-1">
                 {[
                   { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
                   { key: 'Branding', labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
