@@ -58,17 +58,20 @@ export const SiteCursor = () => {
     };
 
     window.addEventListener('pointerover', handlePointerOver, { passive: true });
-    window.addEventListener('pointerout', handlePointerLeave, { passive: true });
-    window.addEventListener('blur', () => {
+    const handleWindowBlur = () => {
       currentInteractiveRef.current = null;
       setLabel(null);
-    });
+    };
+
+    window.addEventListener('pointerout', handlePointerLeave, { passive: true });
+    window.addEventListener('blur', handleWindowBlur, { passive: true });
     canHover.addEventListener('change', handleModeChange);
     reducedMotion.addEventListener('change', handleModeChange);
 
     return () => {
       window.removeEventListener('pointerover', handlePointerOver);
       window.removeEventListener('pointerout', handlePointerLeave);
+      window.removeEventListener('blur', handleWindowBlur);
       canHover.removeEventListener('change', handleModeChange);
       reducedMotion.removeEventListener('change', handleModeChange);
       currentInteractiveRef.current = null;
