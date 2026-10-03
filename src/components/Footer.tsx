@@ -231,7 +231,7 @@ export const Footer = () => {
                 />
                 <button 
                   type="submit"
-                  className="w-full min-h-[40px] rounded-xl bg-brand-red px-4 py-2 text-xs font-semibold text-white transition-[background-color,box-shadow] duration-200 hover:bg-[#FF1E27] shadow-[0_8px_20px_-12px_rgba(229,9,20,0.75)] sm:absolute sm:right-1.5 sm:top-1/2 sm:w-auto sm:min-h-[34px] sm:-translate-y-1/2 sm:rounded-full"
+                  className="w-full min-h-[44px] rounded-xl bg-brand-red px-4 py-2 text-xs font-semibold text-white transition-[background-color,box-shadow] duration-200 hover:bg-[#FF1E27] shadow-[0_8px_20px_-12px_rgba(229,9,20,0.75)] sm:absolute sm:right-1.5 sm:top-1/2 sm:w-auto sm:min-h-[34px] sm:-translate-y-1/2 sm:rounded-full"
                 >
                   {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
@@ -336,7 +336,7 @@ export const Footer = () => {
               {t('footer.contactsTitle')}
             </h4>
             <div className="space-y-3.5 text-xs text-[#8A909D]">
-              <a href="mailto:hello@kapitech.co.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:hello@kapitech.co.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Mail size={13} />
                 </div>
@@ -346,7 +346,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="mailto:business@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:business@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Globe size={13} />
                 </div>
@@ -356,7 +356,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="mailto:recruitment@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:recruitment@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Briefcase size={13} />
                 </div>
@@ -366,7 +366,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="tel:+6287769957062" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="tel:+6287769957062" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[44px]">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Phone size={13} />
                 </div>
