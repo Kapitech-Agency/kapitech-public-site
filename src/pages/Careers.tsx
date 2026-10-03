@@ -867,8 +867,9 @@ export const Careers = () => {
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 z-10"
+                  className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 z-10"
                   aria-label="Close talent profile"
+                  autoFocus
                 >
                   <X size={18} />
                 </button>
@@ -1520,8 +1521,9 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
+                    autoFocus
                   >
                     <X size={18} />
                   </button>
