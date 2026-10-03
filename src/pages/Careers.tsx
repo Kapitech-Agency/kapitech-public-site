@@ -869,6 +869,7 @@ export const Careers = () => {
                   onClick={() => setSelectedTalent(null)}
                   className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 z-10"
                   aria-label="Close talent profile"
+                  data-cursor-label="Close"
                   autoFocus
                 >
                   <X size={18} />
@@ -1244,6 +1245,7 @@ export const Careers = () => {
                     }}
                     className="w-11 h-11 min-w-[44px] min-h-[44px] sm:w-11 sm:h-11 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
+                    data-cursor-label="Close"
                     autoFocus
                   >
                     <X size={18} />
@@ -1523,6 +1525,7 @@ export const Careers = () => {
                     }}
                     className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
+                    data-cursor-label="Close"
                     autoFocus
                   >
                     <X size={18} />
