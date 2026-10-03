@@ -73,7 +73,7 @@ export const FloatingContact = () => {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[95] flex flex-col items-end gap-3">
+      <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 sm:bottom-8 sm:right-8 z-[95] flex flex-col items-end gap-3">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -113,7 +113,7 @@ export const FloatingContact = () => {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
-                      <span className="px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-nowrap">
+                      <span className="max-w-full px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-normal break-words sm:whitespace-nowrap">
                         {option.label}
                       </span>
                       <div className={cn(
