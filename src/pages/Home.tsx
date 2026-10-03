@@ -226,26 +226,59 @@ export const Home = () => {
               </Link>
             </div>
 
-            <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-[#8A909D]">
-              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]/75">
+            <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 text-[#8A909D]">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]/75 shrink-0">
                 {language === 'id' ? 'Partner' : 'Partner'}
               </span>
-              <span className="h-px w-5 sm:w-7 bg-[#262930]" aria-hidden="true" />
-              <a
-                href="https://www.hostinger.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center rounded-lg opacity-90 hover:opacity-100 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
-                aria-label="Hostinger Partner"
-              >
-                <img
-                  src="/hostinger-partner-badge.svg"
-                  alt="Hostinger Partner"
-                  width="112"
-                  height="42"
-                  className="w-28 h-auto"
-                />
-              </a>
+
+              <span className="hidden sm:block h-px w-5 bg-[#262930]" aria-hidden="true" />
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href="https://www.hostinger.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center rounded-lg opacity-90 hover:opacity-100 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  aria-label="Hostinger Partner"
+                >
+                  <img
+                    src="/hostinger-partner-badge.svg"
+                    alt="Hostinger Partner"
+                    width="112"
+                    height="42"
+                    className="w-28 h-auto"
+                  />
+                </a>
+
+                <a
+                  href="https://framer.com/m/Badges-Framer-Expert-Badge-8yp9.js"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex h-[42px] items-center gap-2 rounded-lg border border-white/[0.1] bg-white/[0.025] px-3.5 text-white/90 backdrop-blur-md transition-[border-color,background-color,color,box-shadow] duration-300 hover:border-white/[0.18] hover:bg-white/[0.05] hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_10px_28px_rgba(0,0,0,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  aria-label="Framer Expert Badge"
+                  title="Framer Expert"
+                >
+                  <svg
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                    className="h-5 w-5 shrink-0"
+                  >
+                    <defs>
+                      <linearGradient id="framer-badge-gradient" x1="3" y1="2" x2="17" y2="18" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#9B6DFF" />
+                        <stop offset="1" stopColor="#42A5FF" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      fill="url(#framer-badge-gradient)"
+                      d="M4 2.5h12v5.25H10l6 6H4V8.75h6l-6-6.25Zm0 11.25h6L16 19H4v-5.25Z"
+                    />
+                  </svg>
+                  <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] leading-none">
+                    Framer Expert
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
