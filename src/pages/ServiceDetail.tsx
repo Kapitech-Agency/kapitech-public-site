@@ -97,7 +97,7 @@ export const ServiceDetail = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* BREADCRUMB & BACK NAVIGATION */}
-        <div className="flex items-center gap-3 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12">
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12">
           <Link 
             to="/services" 
             className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
@@ -110,7 +110,7 @@ export const ServiceDetail = () => {
             {service.category}
           </span>
           <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">
+          <span className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
             {service.title}
           </span>
         </div>
