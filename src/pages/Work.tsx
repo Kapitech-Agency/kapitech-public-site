@@ -1070,28 +1070,53 @@ export const Work = () => {
                     <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                       <section id="case-study-modal-summary" aria-labelledby="case-study-overview-heading">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
-                        <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">{language === 'id' ? 'Konteks, eksekusi, dan hasil.' : 'Context, execution, and outcome.'}</h2>
+                        <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">{language === 'id' ? 'Konteks, ruang lingkup, dan hasil.' : 'Context, scope, and outcome.'}</h2>
                         <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">{language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
-                      </section>
 
-                      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-2 xl:grid-cols-4">
-                        {[
-                          { label: language === 'id' ? 'Klien' : 'Client', value: selectedProject.client },
-                          { label: language === 'id' ? 'Industri' : 'Industry', value: selectedProject.industry },
-                          { label: language === 'id' ? 'Layanan' : 'Service', value: selectedProject.service },
-                          { label: language === 'id' ? 'Tahun' : 'Year', value: selectedProject.year },
-                        ].map((item) => (
-                          <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-3 py-3 sm:px-4">
-                            <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{item.label}</span>
-                            <span
-                              className="mt-1 block whitespace-normal break-words text-xs sm:text-sm font-medium leading-snug text-white"
-                              title={item.value}
-                            >
-                              {item.value}
+                        <div className="mt-6 rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
+                          <div className="mb-4 flex items-center justify-between gap-3">
+                            <div>
+                              <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">{language === 'id' ? 'Profil pekerjaan' : 'Engagement profile'}</span>
+                              <p className="mt-1 text-xs text-[#8A909D]">{language === 'id' ? 'Gambaran singkat mengenai konteks dan cakupan proyek.' : 'A compact view of the project context and delivery scope.'}</p>
+                            </div>
+                            <span className="shrink-0 rounded-full border border-brand-red/20 bg-brand-red/[0.06] px-2.5 py-1 text-[9px] font-mono font-semibold uppercase tracking-[0.08em] text-brand-red">
+                              {selectedProject.pillar}
                             </span>
                           </div>
-                        ))}
-                      </div>
+
+                          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                            {[
+                              { label: language === 'id' ? 'Klien' : 'Client', value: selectedProject.client },
+                              { label: language === 'id' ? 'Industri' : 'Industry', value: selectedProject.industry },
+                              { label: language === 'id' ? 'Layanan' : 'Service', value: selectedProject.service },
+                              { label: language === 'id' ? 'Tahun' : 'Year', value: selectedProject.year },
+                              { label: language === 'id' ? 'Output' : 'Deliverables', value: String(selectedProject.deliverables.length) + (language === 'id' ? ' item' : ' items') },
+                              { label: language === 'id' ? 'Teknologi' : 'Technologies', value: String(selectedProject.technologies.length) + (language === 'id' ? ' tools' : ' tools') },
+                            ].map((item) => (
+                              <div key={item.label} className="min-w-0 rounded-xl border border-white/[0.06] bg-black/10 px-3 py-3">
+                                <span className="block text-[8px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{item.label}</span>
+                                <span className="mt-1 block whitespace-normal break-words text-xs font-medium leading-snug text-white" title={item.value}>{item.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {selectedProject.deliverables.length > 0 && (
+                          <div className="mt-5">
+                            <div className="mb-2.5 flex items-center justify-between gap-3">
+                              <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">{language === 'id' ? 'Ruang lingkup utama' : 'Core scope'}</span>
+                              <span className="text-[9px] font-mono text-[#6F7480]">{selectedProject.deliverables.length} {language === 'id' ? 'output' : 'outputs'}</span>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedProject.deliverables.map((item, idx) => (
+                                <span key={item + '-' + idx} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] leading-snug text-[#C0C5CF]">
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </section>
 
                       <div className="grid grid-cols-1 gap-4">
                         <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-challenge-heading">
