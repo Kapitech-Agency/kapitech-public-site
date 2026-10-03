@@ -548,7 +548,7 @@ export const About = () => {
                     src={team[0].image}
                     alt={team[0].name}
                     referrerPolicy="no-referrer"
-                    className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                    className="absolute inset-0 h-full w-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/85 via-[#08090B]/10 to-transparent" />
                   <div className="absolute bottom-5 left-5 flex items-center gap-3 sm:bottom-7 sm:left-7">
@@ -638,7 +638,7 @@ export const About = () => {
                       src={member.image}
                       alt={member.name}
                       referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover object-[center_18%] transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                      className="h-full w-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/80 via-transparent to-transparent" />
                     <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/65 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/75 backdrop-blur-md">
