@@ -973,7 +973,7 @@ export const Work = () => {
                             value: selectedProject.year,
                           },
                         ].map((item) => (
-                          <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 sm:px-4.5 sm:py-4">
+                          <div key={item.label} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 sm:px-5 sm:py-4">
                             <span className="block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.1em] text-[#8A909D]/70 mb-1.5">
                               {item.label}
                             </span>
@@ -1116,35 +1116,6 @@ export const Work = () => {
                             </span>
                           </div>
                         ))}
-                      </div>
-                    </section>
-
-                    {/* Deliverable + stack recap */}
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5" aria-label={language === 'id' ? 'Ringkasan studi kasus' : 'Case study summary'}>
-                      <div className="rounded-[22px] border border-white/[0.08] bg-[#111318] p-5 sm:p-6">
-                        <h4 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold mb-4">
-                          {language === 'id' ? 'Output Utama' : 'Primary Outputs'}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.deliverables.map((item, idx) => (
-                            <span key={idx} className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-xs text-[#C4C8D0]">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="rounded-[22px] border border-white/[0.08] bg-[#111318] p-5 sm:p-6">
-                        <h4 className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] font-semibold mb-4">
-                          {language === 'id' ? 'Stack yang Digunakan' : 'Delivery Stack'}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.technologies.map((tech, idx) => (
-                            <span key={idx} className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-xs font-mono text-[#C4C8D0]">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     </section>
 
