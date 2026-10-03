@@ -339,84 +339,150 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Company Story / Mission */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative z-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
-            <span className="text-xs font-mono uppercase tracking-wider text-brand-red block font-semibold">
-              {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
-              {language === 'id'
-                ? 'Menjembatani desain strategis dengan rekayasa software yang andal.'
-                : 'Bridging strategic design with dependable software engineering.'}
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed">
-              {language === 'id'
-                ? 'Kapitech Agency beroperasi di bawah badan hukum resmi PT Kapitech Digital Indonesia, berkantor pusat di Tangerang Selatan dengan tim kolaboratif yang terdistribusi.'
-                : 'Kapitech Agency operates under the formal legal entity of PT Kapitech Digital Indonesia, headquartered in South Tangerang with a collaborative, remote-friendly team.'}
-            </p>
-            <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed">
-              {language === 'id'
-                ? 'Kami menolak template yang lambat dan jargon berlebihan. Kami berfokus pada hasil nyata: kode yang bersih, kecepatan muat tinggi, alur pengguna intuitif, dan arsitektur kokoh yang mendukung perkembangan bisnis Anda.'
-                : 'We reject bloated, slow templates and overcomplicated jargon. Instead, we focus on what really moves the needle: clean code, fast loading speeds, intuitive user journeys, and robust architectures that support your business as it grows.'}
-            </p>
+      {/* Our Identity & Foundations */}
+      <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -right-40 top-10 h-96 w-96 rounded-full border border-brand-red/[0.045]" />
+          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.025] blur-[120px]" />
+        </div>
 
-            {/* Address callout */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#16181D] border border-[#262930] flex items-start gap-3">
-              <MapPin size={18} className="text-brand-red shrink-0 mt-0.5" />
-              <div className="text-xs">
-                <span className="font-mono text-[#8A909D] uppercase block mb-1">
-                  {language === 'id' ? 'Kantor Pusat Perusahaan' : 'Corporate Headquarters'}
-                </span>
-                <p className="text-white leading-relaxed font-light">
-                  Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
-                </p>
-              </div>
-            </div>
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:gap-24">
+            <div>
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
+              </span>
 
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-6 pt-5 sm:pt-6 border-t border-[#262930]">
-              <div>
-                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white block">50+</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase break-words">{t('about.stats.projects')}</span>
-              </div>
-              <div>
-                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-red block">3+</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.experience')}</span>
-              </div>
-              <div>
-                <span className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-red block">100%</span>
-                <span className="text-[10px] sm:text-xs font-mono text-[#8A909D] uppercase">{t('about.stats.craft')}</span>
-              </div>
-            </div>
-          </div>
+              <motion.h2
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              >
+                {language === 'id'
+                  ? 'Menjembatani strategi, desain, dan engineering untuk pekerjaan yang benar-benar berjalan.'
+                  : 'Bridging strategy, design, and engineering for work that actually ships.'}
+              </motion.h2>
 
-          <motion.div
-            className="lg:col-span-6"
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-12% 0px' }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="group rounded-2xl sm:rounded-3xl overflow-hidden border border-[#262930] shadow-2xl relative aspect-[16/10] sm:aspect-[4/3] bg-[#16181D]">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
-                alt="Kapitech Agency Team Collaboration"
-                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/20 to-transparent flex items-end p-5 sm:p-8">
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-6 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+              >
+                {language === 'id'
+                  ? 'Kapitech Agency beroperasi di bawah PT Kapitech Digital Indonesia, berbasis di Tangerang Selatan. Kami bekerja sebagai tim kolaboratif yang menyatukan keputusan kreatif dan teknis sejak awal, sehingga hasil akhir tidak berhenti sebagai konsep.'
+                  : 'Kapitech Agency operates under PT Kapitech Digital Indonesia, based in South Tangerang. We work as a collaborative team that connects creative and technical decisions from the start, so the final result does not stop at the concept stage.'}
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+              >
+                {language === 'id'
+                  ? 'Kami mengutamakan struktur yang jelas, eksekusi yang disiplin, dan kualitas yang dapat dipertanggungjawabkan. Dari identitas visual hingga produk digital, setiap keputusan harus punya alasan dan tujuan yang jelas.'
+                  : 'We value clear structure, disciplined execution, and accountable quality. From visual identity to digital products, every decision should have a clear reason and a clear purpose.'}
+              </motion.p>
+
+              <div className="mt-10 border-y border-white/[0.07] py-6 sm:py-7">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-5">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                      {language === 'id' ? 'Portofolio' : 'Portfolio'}
+                    </span>
+                    <div className="mt-2 flex items-end gap-2">
+                      <span className="text-4xl font-display font-semibold leading-none tracking-[-0.06em] text-white">50+</span>
+                      <span className="pb-0.5 text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">projects</span>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                      {language === 'id' ? 'Pengalaman' : 'Experience'}
+                    </span>
+                    <div className="mt-2 flex items-end gap-2">
+                      <span className="text-4xl font-display font-semibold leading-none tracking-[-0.06em] text-white">3+</span>
+                      <span className="pb-0.5 text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">years</span>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                      {language === 'id' ? 'Basis' : 'Base'}
+                    </span>
+                    <div className="mt-2 text-sm font-medium leading-tight text-white sm:max-w-[11rem]">
+                      South Tangerang, Indonesia
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-7 flex items-start gap-3 text-xs text-[#8A909D]">
+                <MapPin size={15} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                 <div>
-                  <span className="text-[10px] sm:text-xs font-mono text-brand-red uppercase tracking-wider block mb-1 font-semibold">
-                    {language === 'id' ? 'Komitmen Kami' : 'Our Commitment'}
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-[#6F757F]">
+                    {language === 'id' ? 'Kantor Pusat Perusahaan' : 'Corporate Headquarters'}
                   </span>
-                  <p className="text-sm sm:text-base font-display font-semibold text-white">
-                    {language === 'id' ? 'Kualitas, transparansi, dan eksekusi yang dapat diandalkan.' : 'Quality, transparency, and dependable delivery.'}
+                  <p className="mt-1 max-w-2xl leading-[1.7] text-[#A7ACB5]">
+                    Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
                   </p>
                 </div>
               </div>
             </div>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:pt-10"
+            >
+              <div className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#121316] sm:rounded-3xl">
+                <div className="aspect-[4/5] overflow-hidden sm:aspect-[5/6]">
+                  <img
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+                    alt="Kapitech Agency team collaboration"
+                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08090B] via-[#08090B]/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                  <div className="border-t border-white/[0.14] pt-4">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                      {language === 'id' ? 'Fondasi Kapitech' : 'Kapitech Foundation'}
+                    </span>
+                    <p className="mt-2 max-w-md text-lg font-display font-semibold leading-tight tracking-[-0.035em] text-white sm:text-xl">
+                      {language === 'id'
+                        ? 'Kualitas, transparansi, dan delivery yang dapat diandalkan.'
+                        : 'Quality, transparency, and dependable delivery.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-4">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                    {language === 'id' ? 'Model kerja' : 'Working model'}
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-white">
+                    {language === 'id' ? 'Kolaboratif & langsung' : 'Direct & collaborative'}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-4">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                    {language === 'id' ? 'Fokus' : 'Focus'}
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-white">
+                    {language === 'id' ? 'Outcome & delivery' : 'Outcome & delivery'}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
