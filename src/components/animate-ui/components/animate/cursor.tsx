@@ -95,7 +95,7 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
     const handlePointerCancel = () => setCursorActive(false);
     const handleWindowBlur = () => setCursorActive(false);
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') setActive(false);
+      if (document.visibilityState === 'hidden') setCursorActive(false);
     };
 
     const handleAvailabilityChange = () => updateAvailability();
