@@ -826,7 +826,7 @@ export const Services = () => {
                   <button
                     key={tab.key}
                     onClick={() => setActiveCategory(tab.key as any)}
-                    className={`min-h-[34px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
+                    className={`min-h-[40px] sm:min-h-[34px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
                       activeCategory === tab.key
                         ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
                         : 'text-[#8A909D] hover:text-white hover:bg-white/5'
