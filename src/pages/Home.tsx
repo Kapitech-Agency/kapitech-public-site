@@ -40,6 +40,7 @@ export const Home = () => {
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
   const [activeProcessStep, setActiveProcessStep] = useState(0);
+  const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -53,6 +54,25 @@ export const Home = () => {
 
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
+
+  useEffect(() => {
+    if (selectedProcessStep === null) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedProcessStep(null);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProcessStep]);
 
   const trustedBrands = [
     {
@@ -133,30 +153,78 @@ export const Home = () => {
     {
       step: "01",
       title: language === 'id' ? "Penemuan & Ruang Lingkup" : "Discovery & Scope",
-      desc: language === 'id' 
+      desc: language === 'id'
         ? "Kami menganalisis target bisnis, audiens sasaran, dan kebutuhan teknis untuk merancang roadmap kerja yang terukur."
-        : "We analyze your business goals, target audience, and project specifications to create an actionable roadmap."
+        : "We analyze your business goals, target audience, and project specifications to create an actionable roadmap.",
+      objective: language === 'id'
+        ? "Menyamakan arah bisnis, kebutuhan pengguna, batasan teknis, dan definisi keberhasilan sebelum pekerjaan inti dimulai."
+        : "Align business goals, user needs, technical constraints, and success criteria before core production begins.",
+      activities: language === 'id'
+        ? ["Workshop kebutuhan & tujuan", "Audit existing product / website", "Prioritisasi scope & roadmap", "Definisi milestone dan success criteria"]
+        : ["Goals & requirements workshop", "Existing product / website audit", "Scope prioritization & roadmap", "Milestone and success criteria definition"],
+      deliverables: language === 'id'
+        ? ["Project brief", "Scope & priority map", "User / stakeholder insights", "Roadmap delivery"]
+        : ["Project brief", "Scope & priority map", "User / stakeholder insights", "Delivery roadmap"],
+      checkpoint: language === 'id'
+        ? "Scope disetujui bersama sebelum masuk ke tahap desain."
+        : "The scope is aligned and approved before design work begins."
     },
     {
       step: "02",
       title: language === 'id' ? "Desain UI/UX & Prototipe" : "UI/UX & Prototyping",
       desc: language === 'id'
         ? "Kami merancang wireframe, alur pengguna, dan prototipe interaktif di Figma untuk ditinjau dan disetujui sebelum coding."
-        : "We design wireframes, user flows, and interactive mockups in Figma for your review and approval before coding."
+        : "We design wireframes, user flows, and interactive mockups in Figma for your review and approval before coding.",
+      objective: language === 'id'
+        ? "Mengubah kebutuhan menjadi experience yang jelas, teruji, dan siap di-handoff ke engineering."
+        : "Turn requirements into a clear, validated experience that is ready for engineering handoff.",
+      activities: language === 'id'
+        ? ["Information architecture", "Wireframe & user flow", "High-fidelity UI", "Prototype & design review"]
+        : ["Information architecture", "Wireframes & user flows", "High-fidelity UI", "Prototype & design review"],
+      deliverables: language === 'id'
+        ? ["UI/UX design", "Interactive prototype", "Design system / components", "Developer handoff"]
+        : ["UI/UX design", "Interactive prototype", "Design system / components", "Developer handoff"],
+      checkpoint: language === 'id'
+        ? "Prototype dan visual direction siap diproduksi."
+        : "The prototype and visual direction are production-ready."
     },
     {
       step: "03",
       title: language === 'id' ? "Pengembangan Agile" : "Agile Development",
       desc: language === 'id'
         ? "Tim engineer kami menulis kode yang bersih, teruji, dan modular dengan laporan kemajuan berkala di setiap milestone."
-        : "Our engineering team writes clean, tested, and modular code with regular milestone updates and progress demos."
+        : "Our engineering team writes clean, tested, and modular code with regular milestone updates and progress demos.",
+      objective: language === 'id'
+        ? "Membangun produk yang stabil, maintainable, dan sesuai dengan keputusan desain serta kebutuhan bisnis."
+        : "Build a stable, maintainable product that stays aligned with design decisions and business requirements.",
+      activities: language === 'id'
+        ? ["Frontend / backend implementation", "API & third-party integration", "Responsive & state handling", "Sprint review & progress demo"]
+        : ["Frontend / backend implementation", "API & third-party integration", "Responsive & state handling", "Sprint reviews & progress demos"],
+      deliverables: language === 'id'
+        ? ["Production-ready features", "Integrated services", "Responsive implementation", "Progress builds"]
+        : ["Production-ready features", "Integrated services", "Responsive implementation", "Progress builds"],
+      checkpoint: language === 'id'
+        ? "Milestone fungsional tervalidasi sebelum release candidate."
+        : "Functional milestones are validated before the release candidate."
     },
     {
       step: "04",
       title: language === 'id' ? "Pengujian & Peluncuran" : "Testing & Launch",
       desc: language === 'id'
         ? "QA menyeluruh di berbagai peramban dan perangkat, konfigurasi domain, deployment cloud, dan garansi pemeliharaan."
-        : "Comprehensive QA across browsers and devices, domain setup, deployment, and ongoing post-launch maintenance."
+        : "Comprehensive QA across browsers and devices, domain setup, deployment, and ongoing post-launch maintenance.",
+      objective: language === 'id'
+        ? "Memastikan produk siap digunakan, aman, stabil, dan dapat dipantau setelah live."
+        : "Make sure the product is ready to launch, stable in production, and supported after going live.",
+      activities: language === 'id'
+        ? ["Functional QA & regression testing", "Browser / device checks", "Production deployment", "Post-launch monitoring"]
+        : ["Functional QA & regression testing", "Browser / device checks", "Production deployment", "Post-launch monitoring"],
+      deliverables: language === 'id'
+        ? ["QA checklist", "Production release", "Deployment configuration", "Post-launch support"]
+        : ["QA checklist", "Production release", "Deployment configuration", "Post-launch support"],
+      checkpoint: language === 'id'
+        ? "Release dinyatakan siap dan handover dilakukan."
+        : "The release is signed off and handover is completed."
     }
   ];
 
@@ -780,7 +848,10 @@ export const Home = () => {
                   >
                     <button
                       type="button"
-                      onClick={() => setActiveProcessStep(index)}
+                      onClick={() => {
+                        setActiveProcessStep(index);
+                        setSelectedProcessStep(index);
+                      }}
                       onFocus={() => setActiveProcessStep(index)}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
@@ -851,7 +922,7 @@ export const Home = () => {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
             >
-              <span>{language === 'id' ? 'Hover atau pilih fase untuk menjelajah' : 'Hover or select a phase to explore'}</span>
+              <span>{language === 'id' ? 'Hover untuk preview, klik phase untuk membuka detail' : 'Hover to preview, click a phase for details'}</span>
               <span className="text-brand-red/85 tabular-nums">
                 {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
               </span>
@@ -860,6 +931,111 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedProcessStep !== null && (() => {
+          const step = processSteps[selectedProcessStep];
+
+          return (
+            <motion.div
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-md sm:px-6"
+              role="presentation"
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) {
+                  setSelectedProcessStep(null);
+                }
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="process-phase-modal-title"
+                aria-describedby="process-phase-modal-description"
+                className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0F1013] shadow-[0_28px_100px_-35px_rgba(0,0,0,0.9)]"
+                initial={{ opacity: 0, y: 18, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.985 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="flex items-center justify-between gap-4 border-b border-white/[0.08] px-5 py-4 sm:px-7 sm:py-5">
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                      {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
+                    </span>
+                    <h3 id="process-phase-modal-title" className="mt-1.5 truncate text-xl font-display font-semibold tracking-[-0.035em] text-white sm:text-2xl">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProcessStep(null)}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#8A909D] transition-colors hover:border-brand-red/35 hover:bg-brand-red/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                    aria-label={language === 'id' ? 'Tutup detail fase' : 'Close phase details'}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                <div className="overflow-y-auto">
+                  <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+                    <div className="border-b border-white/[0.08] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
+                        {language === 'id' ? 'Tujuan Phase' : 'Phase Objective'}
+                      </span>
+                      <p id="process-phase-modal-description" className="mt-3 text-sm font-light leading-[1.8] text-[#E1E3E8] sm:text-base">
+                        {step.objective}
+                      </p>
+
+                      <div className="mt-8">
+                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
+                          {language === 'id' ? 'Checkpoint' : 'Checkpoint'}
+                        </span>
+                        <div className="mt-3 border-l border-brand-red/50 pl-4">
+                          <p className="text-sm leading-[1.75] text-white">
+                            {step.checkpoint}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-5 sm:p-7 lg:p-8">
+                      <div>
+                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
+                          {language === 'id' ? 'Aktivitas Utama' : 'Key Activities'}
+                        </span>
+                        <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                          {step.activities.map((activity) => (
+                            <div key={activity} className="rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-[1.6] text-[#D0D4DB]">
+                              {activity}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-8">
+                        <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#8A909D]">
+                          {language === 'id' ? 'Output & Deliverables' : 'Outputs & Deliverables'}
+                        </span>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {step.deliverables.map((deliverable) => (
+                            <span key={deliverable} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#B4BAC3]">
+                              {deliverable}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          );
+        })()}
+      </AnimatePresence>
 
       {/* Testimonials */}
       <Testimonials />
