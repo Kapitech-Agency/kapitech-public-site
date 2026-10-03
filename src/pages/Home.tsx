@@ -273,7 +273,7 @@ export const Home = () => {
                 : 'Not just numbers. A small glimpse into how Kapitech works: close to the business, serious about detail, and involved from first brief to final delivery.'}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 lg:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-stretch gap-3 sm:gap-3.5 lg:gap-4">
             {stats.map((stat, i) => {
               return (
                 <motion.article
@@ -282,7 +282,7 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-12% 0px' }}
                   transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative min-h-[232px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-5 lg:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
+                  className={`group relative h-full min-h-[232px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-5 lg:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
                 >
                   <div className="flex items-start justify-between gap-6">
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-white">
@@ -588,18 +588,18 @@ export const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-6 md:gap-8">
             {previewProjects.map((project) => (
               <Link 
                 key={project.id}
                 to="/work"
-                className="group rounded-2xl overflow-hidden bg-[#16181D] border border-[#262930] hover:border-brand-red/40 transition-all duration-300 flex flex-col"
+                className="group h-full rounded-2xl overflow-hidden bg-[#16181D] border border-[#262930] hover:border-brand-red/40 transition-all duration-300 flex flex-col"
               >
-                <div className="relative overflow-hidden bg-[#0B0C0E]">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E] shrink-0">
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="block w-full h-auto object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
                   <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#0B0C0E]/90 backdrop-blur-md text-[10px] font-mono text-brand-red border border-[#262930]">
