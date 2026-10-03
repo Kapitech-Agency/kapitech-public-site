@@ -70,6 +70,17 @@ export const Work = () => {
     return Array.from(new Set(candidates.filter((item): item is string => Boolean(item && item.trim()))));
   }, [selectedProject]);
 
+  const openCaseStudy = (project: ProjectItem) => {
+    modalTriggerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    setSelectedProject(project);
+  };
+
+  const closeCaseStudy = () => {
+    setSelectedProject(null);
+  };
+
   useEffect(() => {
     setSelectedMediaIndex(0);
   }, [selectedProject?.id]);
@@ -78,15 +89,10 @@ export const Work = () => {
     if (!selectedProject) return;
 
     const previousOverflow = document.body.style.overflow;
-    const previouslyFocused = document.activeElement instanceof HTMLElement
-      ? document.activeElement
-      : null;
-
-    modalTriggerRef.current = previouslyFocused;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setSelectedProject(null);
+        closeCaseStudy();
         return;
       }
 
@@ -447,8 +453,7 @@ export const Work = () => {
                 </div>
                 <button
                   onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
-                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
-                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
                   data-cursor-label="Previous"
                 >
                   <ChevronLeft size={16} />
@@ -475,11 +480,11 @@ export const Work = () => {
                     duration: reducedMotion ? 0 : 0.32,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  onClick={() => setSelectedProject(currentFeatured)}
+                  onClick={() => openCaseStudy(currentFeatured)}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault();
-                      setSelectedProject(currentFeatured);
+                      openCaseStudy(currentFeatured);
                       return;
                     }
 
@@ -838,11 +843,11 @@ export const Work = () => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    onClick={() => setSelectedProject(project)}
+                    onClick={() => openCaseStudy(project)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        setSelectedProject(project);
+                        openCaseStudy(project);
                       }
                     }}
                     role="button"
@@ -897,8 +902,7 @@ export const Work = () => {
                       </div>
 
                       <div className="mt-6 border-t border-white/[0.07] pt-4">
-                        <div className="flex min-w-0 items-center justify-between gap-4">
-                          <div className="min-w-0">
+                        <div className="flex min-w-0 items-center justify-between gap-4">                          <div className="min-w-0">
                             {project.impact[0] ? (
                               <>
                                 <span className="block truncate text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]/70">
@@ -954,7 +958,7 @@ export const Work = () => {
               aria-labelledby="case-study-modal-title"
               aria-describedby="case-study-modal-summary"
               onMouseDown={(event) => {
-                if (event.target === event.currentTarget) setSelectedProject(null);
+                if (event.target === event.currentTarget) closeCaseStudy();
               }}
             >
               <motion.div
@@ -977,7 +981,7 @@ export const Work = () => {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setSelectedProject(null)}
+                    onClick={() => closeCaseStudy()}
                     className="flex h-11 min-h-[44px] min-w-[44px] w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#8A909D] transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                     aria-label={language === 'id' ? 'Tutup studi kasus' : 'Close case study modal'}
                     data-cursor-label="Close"
@@ -1162,7 +1166,7 @@ export const Work = () => {
                         <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">${language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
                         <Link
                           to="/contact"
-                          onClick={() => setSelectedProject(null)}
+                          onClick={() => closeCaseStudy()}
                           className="mt-5 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           data-cursor-label="Start"
                         >
