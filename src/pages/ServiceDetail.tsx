@@ -19,7 +19,8 @@ import {
   ChevronDown, 
   ExternalLink,
   Briefcase,
-  Star
+  Star,
+  Target
 } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
