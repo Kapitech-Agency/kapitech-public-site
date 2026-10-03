@@ -364,6 +364,18 @@ export const Work = () => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault();
                       setSelectedProject(currentFeatured);
+                      return;
+                    }
+
+                    if (event.key === 'ArrowLeft' && featuredProjects.length > 1) {
+                      event.preventDefault();
+                      setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length);
+                      return;
+                    }
+
+                    if (event.key === 'ArrowRight' && featuredProjects.length > 1) {
+                      event.preventDefault();
+                      setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
                     }
                   }}
                   role="button"
@@ -385,7 +397,7 @@ export const Work = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/92 via-[#0B0C0E]/20 to-transparent" />
                     <div className="absolute top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
                       <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/72 backdrop-blur-md border border-white/[0.1] text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-white">
-                        Featured
+                        {language === 'id' ? 'Unggulan' : 'Featured'}
                       </span>
                       <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/58 backdrop-blur-md border border-brand-red/25 text-[10px] font-mono text-brand-red">
                         {currentFeatured.year}
@@ -455,8 +467,8 @@ export const Work = () => {
                           </span>
                           <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
                             {reducedMotion || isSpotlightPaused
-                              ? (language === 'id' ? 'Interaksi aktif' : 'Interaction mode')
-                              : 'Auto showcase'}
+                              ? (language === 'id' ? 'Mode interaksi' : 'Interaction mode')
+                              : (language === 'id' ? 'Putar otomatis' : 'Auto showcase')}
                           </span>
                         </div>
                       </div>
