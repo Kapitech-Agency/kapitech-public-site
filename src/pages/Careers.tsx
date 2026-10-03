@@ -1216,7 +1216,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[92vh] flex flex-col"
+              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[calc(100dvh-1.5rem)] sm:max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header with Role Title */}
               <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
@@ -1241,7 +1241,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="w-11 h-11 min-w-[44px] min-h-[44px] sm:w-11 sm:h-11 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
                     aria-label="Close modal"
                   >
                     <X size={18} />
@@ -1494,7 +1494,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[92vh] flex flex-col"
+              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6 max-h-[calc(100dvh-1.5rem)] sm:max-h-[92vh] flex flex-col"
             >
               {/* Sticky Modal Header */}
               <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
