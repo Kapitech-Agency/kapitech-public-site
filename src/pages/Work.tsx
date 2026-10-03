@@ -316,11 +316,11 @@ export const Work = () => {
                 data-cursor-label="Open"
                 className="cursor-pointer group relative rounded-3xl overflow-hidden border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl hover:border-brand-red/25 hover:bg-white/[0.024] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]"
               >
-              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[460px] overflow-hidden bg-[#0B0C0E]">
+              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-auto sm:h-96 lg:h-[430px] overflow-hidden bg-[#0B0C0E]">
                 <img 
                   src={currentFeatured.image} 
                   alt={currentFeatured.title}
-                  className="w-full h-full object-cover sm:object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.04] lg:scale-[1.03] lg:group-hover:scale-[1.06]"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/90 via-[#0B0C0E]/30 to-transparent lg:hidden" />
