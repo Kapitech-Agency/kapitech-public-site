@@ -1727,7 +1727,7 @@ export const Careers = () => {
                         {language === 'id' ? 'Konfirmasi Aturan & Ketentuan Kerja Sama *' : 'Mandatory Terms & Policy Acknowledgment *'}
                       </span>
 
-                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white/80 font-light min-h-[32px]">
+                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white\/80 font-light min-h-[44px]">
                         <input 
                           type="checkbox"
                           name="agreedWfa"
@@ -1743,7 +1743,7 @@ export const Careers = () => {
                         </span>
                       </label>
 
-                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white/80 font-light min-h-[32px]">
+                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white\/80 font-light min-h-[44px]">
                         <input 
                           type="checkbox"
                           name="agreedDevice"
@@ -1759,7 +1759,7 @@ export const Careers = () => {
                         </span>
                       </label>
 
-                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white/80 font-light min-h-[32px]">
+                      <label className="flex items-start gap-3 cursor-pointer select-none text-xs text-white\/80 font-light min-h-[44px]">
                         <input 
                           type="checkbox"
                           name="agreedNda"
