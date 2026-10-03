@@ -379,7 +379,7 @@ export const Work = () => {
       )}
 
       {/* Filter & Search Bar Section */}
-      <section className="sticky top-16 sm:top-20 z-30 px-4 sm:px-6 md:px-12 py-1.5 sm:py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
+      <section className="sticky top-16 sm:top-20 md:top-[72px] z-30 px-4 sm:px-6 md:px-12 py-1.5 sm:py-2 bg-[#0B0C0E]/72 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] backdrop-blur-xl px-2.5 py-2 sm:px-3 sm:py-2.5 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.28),inset_0_1px_0_rgba(255,255,255,0.025)]">
           <div className="flex flex-col gap-2 sm:gap-2.5">
             <div className="flex items-center justify-between gap-3 px-0.5">
@@ -407,7 +407,7 @@ export const Work = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 sm:gap-2.5 md:flex-row md:items-center md:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-2.5 lg:flex-row lg:items-center lg:gap-3">
               <div className="min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.07] bg-white/[0.018] p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex w-max items-center gap-1">
                   {[
