@@ -992,7 +992,6 @@ export const Home = () => {
           {selectedProcessStep !== null && (() => {
             const step = processSteps[selectedProcessStep];
             const isFirst = selectedProcessStep === 0;
-            const isLast = selectedProcessStep === processSteps.length - 1;
 
             return (
               <div
