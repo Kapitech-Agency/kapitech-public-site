@@ -44,6 +44,8 @@ export const Work = () => {
   const spotlightRef = React.useRef<HTMLElement>(null);
   const [visibleCount, setVisibleCount] = useState<number>(12);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
+  const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
+  const modalTriggerRef = React.useRef<HTMLElement | null>(null);
 
   // Sync with CMS updates
   useEffect(() => {
@@ -76,17 +78,67 @@ export const Work = () => {
     if (!selectedProject) return;
 
     const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+
+    modalTriggerRef.current = previouslyFocused;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedProject(null);
+      if (event.key === 'Escape') {
+        setSelectedProject(null);
+        return;
+      }
+
+      if (selectedProjectGallery.length > 1 && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+        event.preventDefault();
+        setSelectedMediaIndex((current) =>
+          event.key === 'ArrowLeft'
+            ? (current === 0 ? selectedProjectGallery.length - 1 : current - 1)
+            : (current + 1) % selectedProjectGallery.length,
+        );
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const dialog = caseStudyModalRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
+
+      if (modalTriggerRef.current && document.contains(modalTriggerRef.current)) {
+        modalTriggerRef.current.focus();
+      }
+      modalTriggerRef.current = null;
     };
-  }, [selectedProject]);
+  }, [selectedProject, selectedProjectGallery.length]);
 
   // Drag-to-scroll refs & state for horizontal filter bars
   const serviceScrollRef = React.useRef<HTMLDivElement>(null);
@@ -447,8 +499,7 @@ export const Work = () => {
                   aria-roledescription="slide"
                   aria-label={featuredPositionLabel}
                   data-cursor-label="Open"
-                  className="cursor-pointer group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-[#0F1116]/82 hover:border-brand-red/28 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12"
-                >
+                  className="cursor-pointer group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-[#0F1116]/82 hover:border-brand-red/28 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12"                >
                   <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[480px] overflow-hidden bg-[#0B0C0E]">
                     <img
                       src={currentFeatured.image}
@@ -897,8 +948,7 @@ export const Work = () => {
       <WorkModalPortal>
         <AnimatePresence>
           {selectedProject && (
-            <div
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B0C0E]/90 p-2 sm:p-4 lg:p-6 backdrop-blur-2xl"
+            <div              className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B0C0E]/90 p-2 sm:p-4 lg:p-6 backdrop-blur-2xl"
               role="dialog"
               aria-modal="true"
               aria-labelledby="case-study-modal-title"
@@ -912,6 +962,7 @@ export const Work = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.965, y: 16 }}
                 transition={{ duration: 0.26 }}
+                ref={caseStudyModalRef}
                 className="relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
               >
                 <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
@@ -927,7 +978,7 @@ export const Work = () => {
                   <button
                     type="button"
                     onClick={() => setSelectedProject(null)}
-                    className="flex h-11 min-h-[44px] min-w-[44px] w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#8A909D] transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white"
+                    className="flex h-11 min-h-[44px] min-w-[44px] w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#8A909D] transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                     aria-label={language === 'id' ? 'Tutup studi kasus' : 'Close case study modal'}
                     data-cursor-label="Close"
                     autoFocus
@@ -972,14 +1023,14 @@ export const Work = () => {
                             <button
                               type="button"
                               onClick={() => setSelectedMediaIndex((current) => current === 0 ? selectedProjectGallery.length - 1 : current - 1)}
-                              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92"
+                              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                               aria-label={language === 'id' ? 'Foto sebelumnya' : 'Previous proof image'}
                               data-cursor-label="Previous"
                             ><ChevronLeft size={17} aria-hidden="true" /></button>
                             <button
                               type="button"
                               onClick={() => setSelectedMediaIndex((current) => (current + 1) % selectedProjectGallery.length)}
-                              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92"
+                              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                               aria-label={language === 'id' ? 'Foto berikutnya' : 'Next proof image'}
                               data-cursor-label="Next"
                             ><ChevronRight size={17} aria-hidden="true" /></button>
@@ -1008,18 +1059,6 @@ export const Work = () => {
                         </div>
                       )}
 
-                      <div className="mt-5 rounded-[20px] border border-white/[0.07] bg-white/[0.018] p-4">
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">Client</span>
-                            <span className="mt-1 block truncate text-xs font-medium text-white" title="${selectedProject.client}">${selectedProject.client}</span>
-                          </div>
-                          <div>
-                            <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">Industry</span>
-                            <span className="mt-1 block truncate text-xs font-medium text-white" title="${selectedProject.industry}">${selectedProject.industry}</span>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </aside>
 
@@ -1027,7 +1066,7 @@ export const Work = () => {
                     <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                       <section id="case-study-modal-summary" aria-labelledby="case-study-overview-heading">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">${language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
-                        <h2 id="case-study-overview-heading" className="mt-2 text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">${selectedProject.title}</h2>
+                        <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">${language === 'id' ? 'Konteks, eksekusi, dan hasil.' : 'Context, execution, and outcome.'}</h2>
                         <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">${language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
                       </section>
 
@@ -1124,7 +1163,7 @@ export const Work = () => {
                         <Link
                           to="/contact"
                           onClick={() => setSelectedProject(null)}
-                          className="mt-5 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:w-auto"
+                          className="mt-5 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           data-cursor-label="Start"
                         >
                           <span>${language === 'id' ? 'Mulai Proyek' : 'Start Project'}</span>
