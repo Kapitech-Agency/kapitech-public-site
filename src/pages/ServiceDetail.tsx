@@ -425,6 +425,10 @@ export const ServiceDetail = () => {
                   src={service.testimonial.avatar}
                   alt={service.testimonial.author}
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
+                  width="48"
+                  height="48"
                   className="w-12 h-12 rounded-full object-cover border border-white/[0.07]"
                 />
                 <div>
@@ -572,6 +576,8 @@ export const ServiceDetail = () => {
                     src={project.image}
                     alt={project.title}
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
