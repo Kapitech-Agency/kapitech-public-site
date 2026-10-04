@@ -867,8 +867,8 @@ export const ServiceDetail = () => {
                             'group relative flex min-w-0 items-center gap-4 rounded-2xl px-3.5 py-3.5 transition-[background-color,color] duration-300 sm:px-4',
                             !isLast && 'mb-1',
                             isCurrent
-                              ? 'bg-brand-red/[0.065]'
-                              : 'hover:bg-white/[0.024]'
+                              ? 'border border-brand-red/20 bg-white/[0.045] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
+                              : 'border border-transparent hover:bg-white/[0.024]'
                           )}
                         >
                           <span
@@ -886,13 +886,16 @@ export const ServiceDetail = () => {
                               className={cn(
                                 'text-sm font-display font-semibold leading-[1.25] transition-colors duration-300 sm:text-[15px]',
                                 isCurrent
-                                  ? 'text-brand-red'
+                                  ? 'text-white'
                                   : 'text-[#F4F5F7] group-hover:text-white'
                               )}
                             >
                               {item.title}
                             </div>
-                            <div className="mt-1 text-[10px] leading-[1.5] text-[#6F757F] transition-colors duration-300 group-hover:text-[#8A909D]">
+                            <div className={cn(
+                              'mt-1 text-[10px] leading-[1.5] transition-colors duration-300',
+                              isCurrent ? 'text-[#AEB4BF]' : 'text-[#6F757F] group-hover:text-[#8A909D]'
+                            )}>
                               {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                             </div>
                           </div>
@@ -901,7 +904,7 @@ export const ServiceDetail = () => {
                             className={cn(
                               'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[border-color,background-color,color,transform] duration-300',
                               isCurrent
-                                ? 'border-brand-red/30 bg-brand-red/[0.09] text-brand-red'
+                                ? 'border-brand-red/35 bg-brand-red/[0.14] text-white'
                                 : 'border-white/[0.07] bg-white/[0.012] text-[#6F757F] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-white/[0.14] group-hover:text-white'
                             )}
                             aria-hidden="true"
