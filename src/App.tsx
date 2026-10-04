@@ -6,7 +6,6 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { FloatingContact } from './components/FloatingContact';
 import { api } from './lib/apiClient';
-import { fetchServerCmsProjects, fetchServerCmsServices, fetchServerCmsTestimonials } from './lib/cmsStore';
 import { cn } from './lib/utils';
 import { PublicMotion } from './components/ui/PublicMotion';
 import { SiteCursor } from './components/SiteCursor';
@@ -103,16 +102,6 @@ function AppShell() {
         description.content = siteDescription;
       }
     }).catch(() => undefined);
-
-    void Promise.all([
-      fetchServerCmsServices(),
-      fetchServerCmsProjects(),
-      fetchServerCmsTestimonials()
-    ]).finally(() => {
-      if (!cancelled) {
-        window.dispatchEvent(new Event('kapitech_cms_updated'));
-      }
-    });
 
     return () => {
       cancelled = true;
