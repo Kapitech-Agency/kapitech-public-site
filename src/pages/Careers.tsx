@@ -1486,69 +1486,81 @@ export const Careers = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-name" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                             {language === 'id' ? 'Nama Lengkap *' : 'Full Name *'}
                           </label>
                           <input 
                             type="text"
+                            id="career-name"
                             name="name"
                             required
+                            aria-invalid={Boolean(applicantErrors.name)}
+                            aria-describedby={applicantErrors.name ? 'career-name-error' : undefined}
                             value={formData.name}
                             onChange={handleInputChange}
                             placeholder={language === 'id' ? 'e.g. Alex Pratama' : 'e.g. Alex Morgan'}
                             className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.name ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.name && (
-                            <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.name}</span>
+                            <span id="career-name-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{applicantErrors.name}</span>
                           )}
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-email" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                             {language === 'id' ? 'Alamat Email *' : 'Email Address *'}
                           </label>
                           <input 
                             type="email"
+                            id="career-email"
                             name="email"
                             required
+                            aria-invalid={Boolean(applicantErrors.email)}
+                            aria-describedby={applicantErrors.email ? 'career-email-error' : undefined}
                             value={formData.email}
                             onChange={handleInputChange}
                             placeholder="alex@example.com"
                             className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.email ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.email && (
-                            <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.email}</span>
+                            <span id="career-email-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{applicantErrors.email}</span>
                           )}
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-phone" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                             {language === 'id' ? 'Nomor WhatsApp / HP *' : 'Phone / WhatsApp *'}
                           </label>
                           <input 
                             type="tel"
+                            id="career-phone"
                             name="phone"
                             required
+                            aria-invalid={Boolean(applicantErrors.phone)}
+                            aria-describedby={applicantErrors.phone ? 'career-phone-error' : undefined}
                             value={formData.phone}
                             onChange={handleInputChange}
                             placeholder="+62 812-3456-7890"
                             className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${applicantErrors.phone ? 'border-brand-red' : 'border-white/[0.09]'}`}
                           />
                           {applicantErrors.phone && (
-                            <span className="text-[11px] font-mono text-brand-red mt-1 block">{applicantErrors.phone}</span>
+                            <span id="career-phone-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{applicantErrors.phone}</span>
                           )}
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-portfolio" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                             {language === 'id' ? 'Tautan Portofolio / LinkedIn *' : 'Portfolio / LinkedIn URL *'}
                           </label>
                           <input 
                             type="url"
+                            id="career-portfolio"
                             name="portfolio"
                             required
+                            aria-invalid={Boolean(applicantErrors.portfolio)}
+                            aria-describedby={applicantErrors.portfolio ? 'career-portfolio-error' : undefined}
                             value={formData.portfolio}
                             onChange={handleInputChange}
                             placeholder="https://linkedin.com/in/... or https://behance.net/..."
@@ -1558,10 +1570,11 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                        <label htmlFor="career-cover-letter" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                           {language === 'id' ? 'Pesan / Pengantar Singkat' : 'Cover Note / Introduction'}
                         </label>
                         <textarea 
+                          id="career-cover-letter"
                           name="coverLetter"
                           rows={3}
                           value={formData.coverLetter}
@@ -1572,12 +1585,13 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                        <label htmlFor="career-resume" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
                           {language === 'id' ? 'Unggah CV / Resume (PDF maks 5MB)' : 'Upload Resume / CV (PDF max 5MB)'}
                         </label>
                         <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
                           <input 
                             type="file"
+                            id="career-resume"
                             accept=".pdf,.doc,.docx"
                             onChange={handleFileChange}
                             className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
