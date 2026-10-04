@@ -44,6 +44,8 @@ export const PublicMotion = () => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const progress = progressRef.current;
     let rafId = 0;
+    let spotlightTarget: HTMLElement | null = null;
+    let spotlightRect: DOMRect | null = null;
 
     const updateProgress = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -132,8 +134,13 @@ export const PublicMotion = () => {
       const target = rawTarget?.closest<HTMLElement>('[data-kapi-spotlight="true"]');
       if (!target) return;
 
-      const rect = target.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
+      if (target !== spotlightTarget || !spotlightRect) {
+        spotlightTarget = target;
+        spotlightRect = target.getBoundingClientRect();
+      }
+
+      const rect = spotlightRect;
+      if (!rect || rect.width === 0 || rect.height === 0) return;
 
       const x = ((event.clientX - rect.left) / rect.width) * 100;
       const y = ((event.clientY - rect.top) / rect.height) * 100;
@@ -142,17 +149,23 @@ export const PublicMotion = () => {
       target.style.setProperty('--kapi-spotlight-y', Math.max(0, Math.min(100, y)) + '%');
     };
 
+    const handleViewportChange = () => {
+      spotlightTarget = null;
+      spotlightRect = null;
+      requestProgressUpdate();
+    };
+
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('scroll', requestProgressUpdate, { passive: true });
-    window.addEventListener('resize', requestProgressUpdate);
+    window.addEventListener('scroll', handleViewportChange, { passive: true });
+    window.addEventListener('resize', handleViewportChange);
     requestProgressUpdate();
 
     return () => {
       mutationObserver.disconnect();
       observer?.disconnect();
       window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('scroll', requestProgressUpdate);
-      window.removeEventListener('resize', requestProgressUpdate);
+      window.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('resize', handleViewportChange);
       if (rafId) window.cancelAnimationFrame(rafId);
     };
   }, []);
