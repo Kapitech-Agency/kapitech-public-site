@@ -321,7 +321,7 @@ export const Footer = () => {
                 <li key={policy.name}>
                   <Link 
                     to={policy.href} 
-                    className="text-[#8A909D]/80 hover:text-white transition-colors block text-[11px]"
+                    className="text-[#8A909D]/80 hover:text-brand-red transition-colors block text-[11px]"
                   >
                     {policy.name}
                   </Link>
