@@ -43,7 +43,7 @@ export const CookieConsent = () => {
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="kapi-cookie-consent fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-5 sm:pb-5"
-          role="dialog"
+          role="region"
           aria-label={language === 'id' ? 'Persetujuan cookie' : 'Cookie consent'}
         >
           <div className="mx-auto flex w-full max-w-5xl items-start gap-4 rounded-2xl border border-white/[0.1] bg-[#111318]/96 p-4 shadow-[0_24px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:p-5 lg:items-center lg:gap-6">
