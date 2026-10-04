@@ -801,8 +801,16 @@ export const ServiceDetail = () => {
               const items = allSolutionsAndServices.filter((item) => item.category === category);
               const categoryLabel =
                 category === 'Solutions'
-                  ? (language === 'id' ? 'Strategic Solutions' : 'Strategic Solutions')
+                  ? 'Strategic Solutions'
                   : category;
+              const categoryKicker =
+                category === 'Solutions'
+                  ? (language === 'id' ? 'Strategic' : 'Strategic')
+                  : category === 'Branding'
+                    ? (language === 'id' ? 'Brand' : 'Brand')
+                    : category === 'Design'
+                      ? (language === 'id' ? 'Experience' : 'Experience')
+                      : (language === 'id' ? 'Build' : 'Build');
               const categoryDescription =
                 category === 'Solutions'
                   ? (language === 'id'
@@ -829,9 +837,7 @@ export const ServiceDetail = () => {
                     <div className="flex items-start justify-between gap-5">
                       <div className="min-w-0">
                         <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
-                          {category === 'Solutions'
-                            ? (language === 'id' ? 'Solutions' : 'Solutions')
-                            : categoryLabel}
+                          {categoryKicker}
                         </span>
                         <h3 className="mt-2 text-xl font-display font-semibold tracking-[-0.03em] text-white sm:text-[1.35rem]">
                           {categoryLabel}
