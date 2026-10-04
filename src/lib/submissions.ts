@@ -1,4 +1,5 @@
 import { api } from './apiClient';
+import { getAttributionContext, trackEvent, type AttributionContext } from './analytics';
 
 export interface ContactSubmission {
   id: string;
@@ -23,17 +24,35 @@ export interface ContactSubmission {
   userAgent?: string;
   priority?: 'urgent' | 'high' | 'normal' | 'low';
   tags?: string[];
+  attribution?: AttributionContext;
 }
 
 export const submitToInbox = async (
-  data: Omit<ContactSubmission, 'id' | 'createdAt' | 'status'>
+  data: Omit<ContactSubmission, 'id' | 'createdAt' | 'status' | 'attribution'>
 ): Promise<{ success: boolean; id: string }> => {
-  const result = await api.leads.submit(data);
+  const attribution = getAttributionContext();
+  const enrichedData = { ...data, attribution };
+
+  trackEvent('contact_submit', {
+    form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+    service_count: data.services?.length || 0,
+  });
+
+  const result = await api.leads.submit(enrichedData);
   const id = (result.data as { id?: string } | undefined)?.id;
 
   if (!result.success || !id) {
+    trackEvent('contact_error', {
+      form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+      error_type: 'api_rejection',
+    });
     throw new Error(result.error || 'Lead submission failed.');
   }
+
+  trackEvent('contact_success', {
+    form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+    lead_id: id,
+  });
 
   return { success: true, id };
 };
