@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, MapPin, Phone, ArrowUpRight, ArrowUp, CheckCircle2, Globe, Briefcase } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { submitToInbox } from '@/src/lib/submissions';
 
@@ -10,6 +10,8 @@ export const Footer = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const { t, language } = useLanguage();
+  const { pathname } = useLocation();
+  const isContactPage = pathname === '/contact';
 
   useEffect(() => {
     const updateTime = () => {
@@ -165,37 +167,39 @@ export const Footer = () => {
   return (
     <footer className="relative bg-[#0B0C0E] pt-20 pb-12 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-[#262930]" id="main-footer">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Top CTA Banner */}
-        <div className="pb-16 mb-16 border-b border-[#262930]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-8">
-              <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
-                {t('footer.cta.tag')}
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-4 text-white">
-                {t('footer.cta.title')}
-              </h2>
-              <p className="text-sm md:text-base text-[#8A909D] font-light max-w-2xl leading-relaxed">
-                {t('footer.cta.desc')}
-              </p>
-            </div>
+        {!isContactPage && (
+          /* Top CTA Banner */
+          <div className="pb-16 mb-16 border-b border-[#262930]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-8">
+                <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-3 block">
+                  {t('footer.cta.tag')}
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-4 text-white">
+                  {t('footer.cta.title')}
+                </h2>
+                <p className="text-sm md:text-base text-[#8A909D] font-light max-w-2xl leading-relaxed">
+                  {t('footer.cta.desc')}
+                </p>
+              </div>
 
-            <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-4">
-              <Link 
-                to="/contact" 
-                id="footer-cta-button"
-                className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#E01414] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
-              >
-                <span>{t('footer.cta.button')}</span>
-                <ArrowUpRight size={18} />
-              </Link>
-              <div className="text-xs font-mono text-[#8A909D] flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
-                <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
-                <span>{language === 'id' ? 'Tangerang Selatan, ID' : 'South Tangerang, ID'} • {localTime || '12:00:00'} WIB</span>
+              <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-4">
+                <Link
+                  to="/contact"
+                  id="footer-cta-button"
+                  className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#E01414] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
+                >
+                  <span>{t('footer.cta.button')}</span>
+                  <ArrowUpRight size={18} />
+                </Link>
+                <div className="text-xs font-mono text-[#8A909D] flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#16181D] border border-[#262930]">
+                  <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
+                  <span>{language === 'id' ? 'Tangerang Selatan, ID' : 'South Tangerang, ID'} • {localTime || '12:00:00'} WIB</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Main Footer Links - 5 Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
