@@ -1522,3 +1522,49 @@ html.kapi-custom-cursor-enabled select {
     border-radius: 18px;
   }
 }
+
+/* ==========================================================================
+   RESPONSIVE HARDENING - PUBLIC SITE ONLY
+   ========================================================================== */
+.kapi-cookie-consent {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.kapi-process-modal-body {
+  min-height: 0;
+}
+
+@media (min-width: 640px) {
+  .kapi-cookie-consent {
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 1023px) {
+  .kapi-process-modal-body {
+    grid-template-rows: minmax(0, auto) minmax(0, 1fr);
+  }
+
+  .kapi-process-modal-overview {
+    max-height: min(34dvh, 18rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .kapi-process-modal-detail {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 767px) {
+  .kapi-public-shell main :where(.grid > *, .flex > *) {
+    min-width: 0;
+  }
+
+  .kapi-public-shell main :where(img, video) {
+    max-width: 100%;
+  }
+}
+
