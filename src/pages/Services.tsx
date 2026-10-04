@@ -947,15 +947,15 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-3 sm:my-8 max-h-[calc(100dvh-1.5rem)] sm:max-h-[92vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-0 sm:my-8 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
             >
               {/* Modal Header */}
               <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-white/[0.02] backdrop-blur-2xl border-b border-white/[0.07]">
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-brand-red/[0.07] border border-brand-red/25 flex items-center justify-center text-brand-red">
                     {selectedService.icon}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <span className="text-[11px] font-mono text-brand-red block">
                       {'category' in selectedService ? selectedService.category : 'Strategic Solution'}
                     </span>
