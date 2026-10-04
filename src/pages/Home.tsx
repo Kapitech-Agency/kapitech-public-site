@@ -1091,12 +1091,18 @@ export const Home = () => {
                                 key={phase.step}
                                 type="button"
                                 onClick={() => openProcessStep(index)}
-                                className={cn(
-                                  "h-1.5 flex-1 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60",
-                                  index === selectedProcessStep ? "bg-brand-red" : "bg-white/[0.08] hover:bg-white/[0.16]"
-                                )}
+                                className="relative flex min-h-[24px] flex-1 items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                                 aria-label={(language === 'id' ? 'Buka fase ' : 'Open phase ') + phase.step}
-                              />
+                                aria-pressed={index === selectedProcessStep}
+                              >
+                                <span
+                                  className={cn(
+                                    "block h-1.5 w-full rounded-full transition-colors duration-300",
+                                    index === selectedProcessStep ? "bg-brand-red" : "bg-white/[0.08] hover:bg-white/[0.16]"
+                                  )}
+                                  aria-hidden="true"
+                                />
+                              </button>
                             ))}
                           </div>
                         </div>
