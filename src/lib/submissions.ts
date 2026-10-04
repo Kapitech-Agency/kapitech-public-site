@@ -51,7 +51,6 @@ export const submitToInbox = async (
 
   trackEvent('contact_success', {
     form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
-    lead_id: id,
   });
 
   return { success: true, id };
