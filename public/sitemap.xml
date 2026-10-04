@@ -3,37 +3,37 @@
   <!-- Core Main Pages -->
   <url>
     <loc>https://kapitech.id/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kapitech.id/work</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kapitech.id/about</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/careers</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/contact</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -41,19 +41,19 @@
   <!-- Strategic Solutions Subpages -->
   <url>
     <loc>https://kapitech.id/solutions/mvp-design</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://kapitech.id/solutions/product-redesign</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://kapitech.id/solutions/team-extension</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -61,31 +61,31 @@
   <!-- Dedicated Services Subpages - Pillar 1: Branding -->
   <url>
     <loc>https://kapitech.id/services/pitch-deck</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/brand-identity</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/logo-design</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/graphic-design</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/rebranding</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -93,31 +93,25 @@
   <!-- Dedicated Services Subpages - Pillar 2: Design -->
   <url>
     <loc>https://kapitech.id/services/ui-ux-design</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/website-design</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kapitech.id/services/mobile-app-design</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/website-redesign</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/product-ux-ui-audit</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -125,31 +119,31 @@
   <!-- Dedicated Services Subpages - Pillar 3: Development -->
   <url>
     <loc>https://kapitech.id/services/web-development</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/mvp-development</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/landing-page</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/corporate-websites</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kapitech.id/services/wow-websites</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
