@@ -113,7 +113,9 @@ function updateAttributionStorage(): AttributionContext {
   );
 
   const next: AttributionContext = {
-    anonymousId: existing.anonymousId || getAnonymousId(),
+    anonymousId: (getGaMeasurementId() || getGtmId())
+      ? (existing.anonymousId || getAnonymousId())
+      : undefined,
     firstTouch: existing.firstTouch || current,
     lastTouch: hasMarketingSignal || !existing.lastTouch ? current : existing.lastTouch,
   };
