@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, Briefcase, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
