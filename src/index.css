@@ -601,8 +601,8 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .kapi-public-shell main section .group.rounded-2xl,
-  .kapi-public-shell main section .kapi-card {
+  .kapi-public-shell main section .group.rounded-2xl:hover,
+  .kapi-public-shell main section .kapi-card:hover {
     will-change: transform;
   }
 }
