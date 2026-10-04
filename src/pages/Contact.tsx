@@ -144,32 +144,38 @@ export const Contact = () => {
   const serviceChoices = [
     {
       title: language === 'id' ? 'Brand & Identity' : 'Brand & Identity',
-      description: language === 'id' ? 'Bangun atau perbarui identitas brand.' : 'Build or refresh your brand identity.',
-      values: [serviceOptions[1], serviceOptions[2], serviceOptions[4]]
+      description: language === 'id' ? 'Bangun atau perbarui identitas dan aset visual brand.' : 'Build or refresh your brand identity and visual system.',
+      meta: language === 'id' ? 'Branding · Visual Identity' : 'Branding · Visual Identity',
+      values: [serviceOptions[0], serviceOptions[1], serviceOptions[2], serviceOptions[3], serviceOptions[4]]
     },
     {
       title: language === 'id' ? 'Website & Landing Page' : 'Website & Landing Page',
-      description: language === 'id' ? 'Website baru, redesign, atau landing page.' : 'New websites, redesigns, or landing pages.',
-      values: [serviceOptions[6], serviceOptions[7], serviceOptions[8]]
+      description: language === 'id' ? 'Website baru, redesign, atau landing page yang siap digunakan.' : 'New websites, redesigns, or conversion-ready landing pages.',
+      meta: language === 'id' ? 'Web Design · Landing Pages' : 'Web Design · Landing Pages',
+      values: [serviceOptions[6], serviceOptions[7], serviceOptions[11], serviceOptions[12]]
     },
     {
       title: language === 'id' ? 'Product & UX/UI' : 'Product & UX/UI',
-      description: language === 'id' ? 'Design produk digital dan audit pengalaman.' : 'Digital product design and UX audits.',
+      description: language === 'id' ? 'Rancang pengalaman produk digital dan validasi usability.' : 'Design digital product experiences and validate usability.',
+      meta: language === 'id' ? 'Product Design · UX Audit' : 'Product Design · UX Audit',
       values: [serviceOptions[5], serviceOptions[8]]
     },
     {
       title: language === 'id' ? 'Web App & MVP' : 'Web App & MVP',
       description: language === 'id' ? 'Bangun aplikasi web atau MVP yang siap diuji.' : 'Build a web application or testable MVP.',
-      values: [serviceOptions[9], serviceOptions[10], serviceOptions[11]]
+      meta: language === 'id' ? 'Full-Stack · MVP Development' : 'Full-Stack · MVP Development',
+      values: [serviceOptions[9], serviceOptions[10]]
     },
     {
       title: language === 'id' ? 'Interactive Digital' : 'Interactive Digital',
-      description: language === 'id' ? 'Website atau experience digital yang lebih immersive.' : 'More immersive digital experiences.',
+      description: language === 'id' ? 'Experience web yang lebih eksperimental, cepat, dan immersive.' : 'More experimental, fast, and immersive web experiences.',
+      meta: language === 'id' ? 'Interactive · Experience' : 'Interactive · Experience',
       values: [serviceOptions[13]]
     },
     {
       title: language === 'id' ? 'Strategy / Lainnya' : 'Strategy / Other',
-      description: language === 'id' ? 'Masih eksplorasi atau butuh arahan.' : 'Still exploring or need direction.',
+      description: language === 'id' ? 'Butuh arahan produk, redesign strategis, atau tim tambahan.' : 'Need product direction, strategic redesign, or an extended team.',
+      meta: language === 'id' ? 'Strategy · Redesign · Team Extension' : 'Strategy · Redesign · Team Extension',
       values: [serviceOptions[14], serviceOptions[15], serviceOptions[16]]
     }
   ];
@@ -689,27 +695,29 @@ export const Contact = () => {
                               <div className="grid min-w-0 grid-cols-1 gap-3.5 sm:grid-cols-2">
                                 {serviceChoices.map((choice, index) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
+                                  const partial = !selected && choice.values.some(value => selectedServices.includes(value));
                                   return (
                                     <motion.button
                                       key={choice.title}
                                       type="button"
                                       onClick={() => toggleServiceBundle(choice.values)}
                                       whileTap={{ scale: 0.985 }}
-                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[122px] ${selected ? 'border-brand-red/50 bg-brand-red/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
+                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[132px] ${selected ? 'border-brand-red/50 bg-brand-red/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]' : partial ? 'border-brand-red/25 bg-brand-red/[0.018]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
                                       aria-pressed={selected}
-                                      aria-label={selected ? `${choice.title} selected` : `Select ${choice.title}`}
+                                      aria-label={selected ? `${choice.title} selected` : partial ? `${choice.title} partially selected` : `Select ${choice.title}`}
                                       data-cursor-label="Select"
                                     >
-                                      <span className={`absolute inset-x-0 top-0 h-px origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red/80' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
+                                      <span className={`absolute inset-x-0 top-0 h-px origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red/80' : partial ? 'scale-x-100 bg-brand-red/35' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
                                       <div className="flex items-start justify-between gap-4">
-                                        <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono tracking-[0.16em] transition-colors ${selected ? 'border-brand-red/25 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.07] bg-white/[0.02] text-[#6F757F] group-hover:text-[#8A909D]'}`}>
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono tracking-[0.16em] transition-colors ${selected || partial ? 'border-brand-red/25 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.07] bg-white/[0.02] text-[#6F757F] group-hover:text-[#8A909D]'}`}>
                                           0{index + 1}
                                         </span>
-                                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${selected ? 'border-brand-red/55 bg-brand-red text-white' : 'border-white/[0.14] bg-transparent text-transparent group-hover:border-white/[0.22]'}`}>
-                                          <CheckCircle2 size={11} strokeWidth={2.4} />
+                                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${selected ? 'border-brand-red/55 bg-brand-red text-white' : partial ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.14] bg-transparent text-transparent group-hover:border-white/[0.22]'}`}>
+                                          {selected ? <CheckCircle2 size={11} strokeWidth={2.4} /> : partial ? <span className="h-1.5 w-1.5 rounded-full bg-brand-red/80" /> : <CheckCircle2 size={11} strokeWidth={2.4} />}
                                         </span>
                                       </div>
-                                      <h4 className={`mt-4 text-sm font-semibold leading-snug transition-colors duration-300 ${selected ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
+                                      <h4 className={`mt-4 text-sm font-semibold leading-snug transition-colors duration-300 ${selected || partial ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
+                                      <span className="mt-1.5 block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">{choice.meta}</span>
                                       <p className="mt-1.5 text-[11px] leading-[1.6] text-[#8A909D]">{choice.description}</p>
                                     </motion.button>
                                   );
