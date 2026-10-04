@@ -181,13 +181,13 @@ export const Navbar = () => {
               className="h-6 sm:h-[22px] md:h-6 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
             />
             {/* Hidden strictly on mobile view to maximize space and preserve top-tier minimal aesthetics */}
-            <span className="hidden md:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
+            <span className="hidden lg:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
               Kapitech Agency
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+          <div className="hidden lg:flex items-center gap-7 lg:gap-9">
             <div className="flex items-center gap-7 lg:gap-9">
               
               {/* Work Link */}
@@ -297,7 +297,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3 md:hidden">
+          <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
             <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-white/[0.035] backdrop-blur-2xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.08)]">
               <button
                 onClick={() => setLanguage('en')}
