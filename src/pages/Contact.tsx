@@ -687,19 +687,6 @@ export const Contact = () => {
                             </div>
                           </div>
                         </div>
-                        <p className="mt-2.5 text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed max-w-2xl">
-                          {formStep === 0
-                            ? (language === 'id'
-                              ? 'Pilih yang paling mendekati. Kami bisa bantu merapikan scope setelahnya.'
-                              : 'Pick what feels closest. We can shape the exact scope together afterwards.')
-                            : formStep === 1
-                              ? (language === 'id'
-                                ? 'Nama dan email sudah cukup untuk memulai. Detail lain sepenuhnya opsional.'
-                                : 'Your name and email are enough to start. Everything else is optional.')
-                              : (language === 'id'
-                                ? 'Brief singkat sudah cukup. Tidak perlu menulis proposal panjang.'
-                                : 'A concise brief is enough. No need to write a full proposal.')}
-                        </p>
                       </div>
 
                       <div className="flex min-h-0 flex-1 flex-col px-5 py-5 sm:px-7 sm:py-7">
@@ -711,26 +698,8 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="space-y-5"
+                              className="flex min-h-full flex-col space-y-5"
                             >
-                              <div className="flex items-end justify-between gap-5 border-b border-white/[0.05] pb-4">
-                                <div className="min-w-0">
-                                  <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">
-                                    {language === 'id' ? 'Mulai dari arah utama' : 'Start with a direction'}
-                                  </span>
-                                  <p className="mt-1.5 max-w-lg text-[11px] leading-[1.7] text-[#8A909D] sm:text-xs">
-                                    {language === 'id'
-                                      ? 'Pilih satu atau beberapa area. Detail scope bisa kita rapikan bersama setelahnya.'
-                                      : 'Choose one or more areas. We can shape the exact scope together afterwards.'}
-                                  </p>
-                                </div>
-                                <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                                  {selectedServices.length > 0
-                                    ? `${selectedServices.length} ${language === 'id' ? 'dipilih' : 'selected'}`
-                                    : (language === 'id' ? 'Belum dipilih' : 'Nothing selected')}
-                                </span>
-                              </div>
-
                               <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
                                 {serviceChoices.map((choice, index) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
@@ -826,21 +795,23 @@ export const Contact = () => {
                                 )}
                               </AnimatePresence>
 
-                              <div className="mt-2 flex items-center justify-between gap-5 border-t border-white/[0.07] pt-5 pb-1">
-                                <p className="hidden max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:block">
-                                  {language === 'id'
-                                    ? 'Anda bisa mengubah pilihan kapan saja. Detailnya akan kami rapikan di langkah berikutnya.'
-                                    : 'You can adjust your choices at any time. We will shape the details in the next step.'}
-                                </p>
-                                <button
-                                  type="button"
-                                  onClick={handleNextStep}
-                                  className="inline-flex shrink-0 items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5.5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
-                                  data-cursor-label="Next"
-                                >
-                                  <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
-                                  <ChevronRight size={15} />
-                                </button>
+                              <div className="mt-auto border-t border-white/[0.07] pt-6">
+                                <div className="flex items-end justify-between gap-5">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                    {language === 'id'
+                                      ? 'Pilih satu atau beberapa area. Anda masih bisa memperinci layanan di bawah.'
+                                      : 'Choose one or more areas. You can still refine the exact services below.'}
+                                  </p>
+                                  <button
+                                    type="button"
+                                    onClick={handleNextStep}
+                                    className="inline-flex shrink-0 items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5.5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
+                                    data-cursor-label="Next"
+                                  >
+                                    <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
+                                    <ChevronRight size={15} />
+                                  </button>
+                                </div>
                               </div>
                             </motion.div>
                           )}
@@ -852,7 +823,7 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="space-y-4"
+                              className="flex min-h-full flex-col space-y-5"
                             >
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 <div>
@@ -898,15 +869,24 @@ export const Contact = () => {
                                 )}
                               </AnimatePresence>
 
-                              <div className="flex items-center justify-between gap-3 pt-2">
-                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[44px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/[0.16] transition-colors">
-                                  <ChevronLeft size={15} />
-                                  <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
-                                </button>
-                                <button type="button" onClick={handleNextStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.9)]" data-cursor-label="Next">
-                                  <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
-                                  <ChevronRight size={15} />
-                                </button>
+                              <div className="mt-auto border-t border-white/[0.07] pt-6">
+                                <div className="flex items-end justify-between gap-5">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                    {language === 'id'
+                                      ? 'Nama dan email wajib diisi. Perusahaan dan WhatsApp bisa ditambahkan bila diperlukan.'
+                                      : 'Name and work email are required. Company and phone details are optional.'}
+                                  </p>
+                                  <div className="flex shrink-0 items-center gap-2.5">
+                                    <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[44px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/[0.16] transition-colors">
+                                      <ChevronLeft size={15} />
+                                      <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
+                                    </button>
+                                    <button type="button" onClick={handleNextStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(229,9,20,0.9)]" data-cursor-label="Next">
+                                      <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
+                                      <ChevronRight size={15} />
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </motion.div>
                           )}
@@ -918,7 +898,7 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="space-y-5"
+                              className="flex min-h-full flex-col space-y-5"
                             >
                               <div>
                                 <div className="flex items-center justify-between gap-3 mb-1.5">
@@ -962,20 +942,29 @@ export const Contact = () => {
                                 </div>
                               </div>
 
-                              <div className="flex items-center justify-between gap-3 pt-1">
-                                <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
-                                  <ChevronLeft size={15} />
-                                  <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
-                                </button>
-                                <button
-                                  type="submit"
-                                  disabled={isSubmitting}
-                                  className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait transition-all active:scale-[0.99] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
-                                  data-cursor-label="Send"
-                                >
-                                  {isSubmitting ? <LoaderCircle size={15} className="animate-spin" /> : <span>{language === 'id' ? 'Kirim inquiry' : 'Send inquiry'}</span>}
-                                  {!isSubmitting && <Send size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />}
-                                </button>
+                              <div className="mt-auto border-t border-white/[0.07] pt-6">
+                                <div className="flex items-end justify-between gap-5">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                    {language === 'id'
+                                      ? 'Budget membantu kami memperkirakan scope, tetapi sifatnya opsional.'
+                                      : 'Budget helps us frame the scope, but sharing it is completely optional.'}
+                                  </p>
+                                  <div className="flex shrink-0 items-center gap-2.5">
+                                    <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
+                                      <ChevronLeft size={15} />
+                                      <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
+                                    </button>
+                                    <button
+                                      type="submit"
+                                      disabled={isSubmitting}
+                                      className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.99] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
+                                      data-cursor-label="Send"
+                                    >
+                                      {isSubmitting ? <LoaderCircle size={15} className="animate-spin" /> : <span>{language === 'id' ? 'Kirim inquiry' : 'Send inquiry'}</span>}
+                                      {!isSubmitting && <Send size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />}
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
 
                               {submitError && (
@@ -988,30 +977,6 @@ export const Contact = () => {
                           )}
                         </AnimatePresence>
 
-                        <div className="mt-auto hidden border-t border-white/[0.07] pt-6 lg:block">
-                          <div className="flex items-start justify-between gap-8">
-                            <div className="min-w-0">
-                              <span className="block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                                {language === 'id' ? 'Setelah dikirim' : 'What happens next'}
-                              </span>
-                              <p className="mt-2 max-w-md text-[11px] leading-[1.7] text-[#8A909D]">
-                                {language === 'id'
-                                  ? 'Kami review kebutuhan Anda, rapikan scope bila perlu, lalu hubungi Anda untuk langkah berikutnya.'
-                                  : 'We review your needs, shape the scope if needed, and reach out with the next step.'}
-                              </p>
-                            </div>
-
-                            <div className="flex shrink-0 flex-wrap justify-end gap-x-5 gap-y-2 pt-0.5">
-                              <span className="inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
-                                <span className="h-1.5 w-1.5 rounded-full bg-[#6F757F]" />
-                                {language === 'id' ? 'Respons 24 jam kerja' : '24h business response'}
-                              </span>
-                              <span className="inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
-                                <span className="h-1.5 w-1.5 rounded-full bg-[#6F757F]" />
-                                {language === 'id' ? 'Scope bisa dibentuk bersama' : 'Scope shaped together'}
-                              </span>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
