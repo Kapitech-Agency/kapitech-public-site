@@ -158,6 +158,10 @@
 }
 
 /* Public-site focus styling stays out of AMS so modal/control focus states are not cascaded. */
+.kapi-public-shell .text-brand-red {
+  color: #FF1E27;
+}
+
 .kapi-skip-link {
   position: fixed;
   top: 0.75rem;
