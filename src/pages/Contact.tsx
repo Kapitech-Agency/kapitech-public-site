@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, Me
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
+import { trackEvent } from '../lib/analytics';
 
 export const Contact = () => {
   const { t, language } = useLanguage();
@@ -79,6 +80,7 @@ export const Contact = () => {
   const serviceOptions = language === 'id' ? serviceOptionsId : serviceOptionsEn;
   const [searchParams] = useSearchParams();
   const hasPrefilledService = useRef(false);
+  const hasTrackedContactStart = useRef(false);
 
   useEffect(() => {
     if (hasPrefilledService.current) return;
@@ -216,6 +218,13 @@ export const Contact = () => {
 
   const handleNextStep = () => {
     if (formStep === 1 && !validateContactStep()) return;
+
+    trackEvent('contact_step_complete', {
+      form_name: 'contact_form',
+      from_step: formStep,
+      to_step: Math.min(formStep + 1, 2),
+    });
+
     setFormStep(prev => Math.min(prev + 1, 2));
   };
 
@@ -227,6 +236,15 @@ export const Contact = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+
+    if (!hasTrackedContactStart.current) {
+      hasTrackedContactStart.current = true;
+      trackEvent('contact_start', {
+        form_name: 'contact_form',
+        field: name,
+      });
+    }
+
     setFormState(prev => ({ ...prev, [name]: value }));
     if (formErrors[name]) {
       setFormErrors(prev => {
@@ -292,7 +310,7 @@ export const Contact = () => {
         services: selectedServices.length > 0 ? selectedServices : undefined,
         budget: budgetRange || undefined,
         message: sanitizedMessage,
-        source: 'Contact Page Form',
+        source: 'Website Contact Form',
         type: 'inquiry'
       });
       setSubmissionId(result.id);
