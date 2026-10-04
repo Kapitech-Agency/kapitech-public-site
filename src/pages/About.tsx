@@ -525,7 +525,7 @@ export const About = () => {
                 {language === 'id' ? 'Tim inti' : 'Core team'}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">05</span>
+                <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">{String(team.length).padStart(2, '0')}</span>
                 <span className="h-px w-10 bg-brand-red/70" aria-hidden="true" />
                 <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                   {language === 'id' ? 'Leadership roles' : 'Leadership roles'}
@@ -542,7 +542,7 @@ export const About = () => {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="group relative mb-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30"
             >
-              <div className="grid lg:grid-cols-[minmax(320px,0.78fr)_1.22fr]">
+              <div className="grid min-w-0 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]">
                 <div className="relative flex min-h-[320px] items-center overflow-hidden bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.045),transparent_55%)] p-5 sm:min-h-[430px] sm:p-6 lg:min-h-[500px]">
                   <div className="relative w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#0D0E11] aspect-[16/15]">
                     <img
@@ -552,19 +552,19 @@ export const About = () => {
                       className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/65 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 flex items-center gap-2.5 sm:bottom-5 sm:left-5 sm:gap-3">
+                      <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                        01
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/65">
+                        {language === 'id' ? 'Executive lead' : 'Executive lead'}
+                      </span>
+                    </div>
                   </div>
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#08090B]/10 via-transparent to-[#08090B]/10" />
-                  <div className="absolute bottom-5 left-5 flex items-center gap-3 sm:bottom-7 sm:left-7">
-                    <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
-                      01
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/65">
-                      {language === 'id' ? 'Executive lead' : 'Executive lead'}
-                    </span>
-                  </div>
                 </div>
 
-                <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10 xl:p-12">
+                <div className="flex min-w-0 flex-col justify-between p-6 sm:p-8 lg:p-10 xl:p-12">
                   <div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                       <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
@@ -572,7 +572,7 @@ export const About = () => {
                       </span>
                       <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
                       <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                        01 / 05
+                        {String(1).padStart(2, '0')} / {String(team.length).padStart(2, '0')}
                       </span>
                     </div>
 
@@ -634,7 +634,7 @@ export const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-[#141519]"
+                  className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-[#141519]"
                 >
                   <div className="relative aspect-[16/15] overflow-hidden bg-[#171920]">
                     <img
@@ -649,7 +649,7 @@ export const About = () => {
                     </span>
                   </div>
 
-                  <div className="p-5 sm:p-6">
+                  <div className="min-w-0 p-5 sm:p-6">
                     <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red">
                       {member.name}
                     </h3>
