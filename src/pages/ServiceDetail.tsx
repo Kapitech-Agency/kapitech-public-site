@@ -795,10 +795,7 @@ export const ServiceDetail = () => {
                 >
                   <div className="grid lg:grid-cols-[180px_1fr]">
                     <div className="border-b border-white/[0.07] px-5 py-5 sm:px-6 lg:border-b-0 lg:border-r lg:px-7 lg:py-6">
-                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                        {category}
-                      </span>
-                      <div className="mt-2 text-sm font-medium text-white">
+                      <div className="text-sm font-medium text-white">
                         {category}
                       </div>
                       <div className="mt-1 text-[10px] font-mono tabular-nums text-[#555A63]">
