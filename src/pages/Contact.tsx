@@ -702,23 +702,23 @@ export const Contact = () => {
                                       type="button"
                                       onClick={() => toggleServiceBundle(choice.values)}
                                       whileTap={{ scale: 0.985 }}
-                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[132px] ${selected ? 'border-brand-red/50 bg-brand-red/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]' : partial ? 'border-brand-red/25 bg-brand-red/[0.018]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
+                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[132px] ${selected ? 'border-brand-red/75 bg-brand-red/[0.10] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(229,9,20,0.10)]' : partial ? 'border-brand-red/35 bg-brand-red/[0.025]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
                                       aria-pressed={selected}
                                       aria-label={selected ? `${choice.title} selected` : partial ? `${choice.title} partially selected` : `Select ${choice.title}`}
                                       data-cursor-label="Select"
                                     >
-                                      <span className={`absolute inset-x-0 top-0 h-px origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red/80' : partial ? 'scale-x-100 bg-brand-red/35' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
+                                      <span className={`absolute inset-x-0 top-0 h-0.5 origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red' : partial ? 'scale-x-100 bg-brand-red/45' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
                                       <div className="flex items-start justify-between gap-4">
-                                        <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono tracking-[0.16em] transition-colors ${selected || partial ? 'border-brand-red/25 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.07] bg-white/[0.02] text-[#6F757F] group-hover:text-[#8A909D]'}`}>
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono font-semibold tracking-[0.16em] transition-colors ${selected ? 'border-white/[0.16] bg-white/[0.09] text-white' : partial ? 'border-brand-red/30 bg-brand-red/[0.08] text-white' : 'border-white/[0.07] bg-white/[0.02] text-white group-hover:text-white'}`}>
                                           0{index + 1}
                                         </span>
-                                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${selected ? 'border-brand-red/55 bg-brand-red text-white' : partial ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.14] bg-transparent text-transparent group-hover:border-white/[0.22]'}`}>
-                                          {selected ? <CheckCircle2 size={11} strokeWidth={2.4} /> : partial ? <span className="h-1.5 w-1.5 rounded-full bg-brand-red/80" /> : <CheckCircle2 size={11} strokeWidth={2.4} />}
+                                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${selected ? 'border-brand-red bg-brand-red text-white shadow-[0_0_0_3px_rgba(229,9,20,0.12)]' : partial ? 'border-brand-red/45 bg-brand-red/[0.10] text-brand-red' : 'border-white/[0.14] bg-transparent text-transparent group-hover:border-white/[0.22]'}`}>
+                                          {selected ? <CheckCircle2 size={11} strokeWidth={2.6} /> : partial ? <span className="h-1.5 w-1.5 rounded-full bg-brand-red/90" /> : <CheckCircle2 size={11} strokeWidth={2.4} />}
                                         </span>
                                       </div>
                                       <h4 className={`mt-4 text-sm font-semibold leading-snug transition-colors duration-300 ${selected || partial ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
-                                      <span className="mt-1.5 block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">{choice.meta}</span>
-                                      <p className="mt-1.5 text-[11px] leading-[1.6] text-[#8A909D]">{choice.description}</p>
+                                      <span className={`mt-1.5 block text-[9px] font-mono uppercase tracking-[0.1em] ${selected ? 'text-white/70' : partial ? 'text-[#A7ACB5]' : 'text-[#8A909D]'}`}>{choice.meta}</span>
+                                      <p className={`mt-1.5 text-[11px] leading-[1.6] ${selected ? 'text-[#F0F2F5]' : partial ? 'text-[#C5C9D1]' : 'text-[#B0B5BF]'}`}>{choice.description}</p>
                                     </motion.button>
                                   );
                                 })}
