@@ -941,55 +941,73 @@ export const Contact = () => {
       </section>
 
       {/* Frequently Asked Questions */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-[#0B0C0E]">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-10 sm:mb-16">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -left-48 top-20 h-96 w-96 rounded-full border border-white/[0.025]" />
+          <div className="absolute -right-40 bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
+          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[120px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
+            <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Jawaban Lengkap' : 'Clear Answers'}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
-              {language === 'id' ? 'Pertanyaan yang Sering Diajukan' : 'Frequently Asked Questions'}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
-              {language === 'id'
-                ? 'Semua hal yang perlu Anda ketahui mengenai kolaborasi bersama Kapitech Agency.'
-                : 'Everything you need to know about partnering with Kapitech Agency.'}
-            </p>
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.52fr)] lg:items-end lg:gap-12">
+              <div>
+                <h2 className="max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[3.75rem]">
+                  {language === 'id' ? 'Pertanyaan yang Sering Diajukan' : 'Frequently Asked Questions'}
+                </h2>
+              </div>
+              <p className="max-w-md text-sm font-light leading-[1.8] text-[#9AA0AA] sm:text-base lg:pb-1">
+                {language === 'id'
+                  ? 'Semua hal yang perlu Anda ketahui mengenai kolaborasi bersama Kapitech Agency.'
+                  : 'Everything you need to know about partnering with Kapitech Agency.'}
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
+          <div className="grid min-w-0 grid-cols-1 gap-3.5 md:grid-cols-2 md:gap-4">
             {displayedFaqs.map((faq, i) => (
-              <motion.div
+              <motion.article
                 key={faq.q}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[150px] sm:min-h-[170px] hover:border-brand-red/40 transition-colors"
+                transition={{ duration: 0.35, delay: i * 0.045, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] p-5 sm:p-6 md:p-7 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/30 hover:bg-[#131519]"
               >
-                <div>
-                  <h3 className="text-sm sm:text-base font-display font-bold text-white mb-2 sm:mb-3">
-                    {faq.q}
-                  </h3>
-                  <p className="text-xs text-[#8A909D] font-light leading-relaxed">
-                    {faq.a}
-                  </p>
+                <span className="absolute inset-x-0 top-0 h-px bg-white/[0.06] transition-colors duration-300 group-hover:bg-brand-red/70" />
+                <div className="flex items-start gap-4">
+                  <span className="inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] px-2 text-[9px] font-mono font-semibold tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.06] group-hover:text-brand-red">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-display font-semibold leading-[1.35] tracking-[-0.015em] text-white sm:text-[15px]">
+                      {faq.q}
+                    </h3>
+                    <p className="mt-3 text-[12px] font-light leading-[1.75] text-[#B7BCC5] sm:text-[13px]">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
 
-          {/* View More / Show Less Toggle Button */}
-          <div className="flex justify-center">
+          <div className="mt-9 flex justify-center sm:mt-10">
             <button
+              type="button"
               onClick={() => setShowAllFaqs(prev => !prev)}
-              className="px-7 sm:px-8 py-3.5 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 active:scale-95 min-h-[44px]"
+              className="group inline-flex min-h-[46px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-6 sm:px-7 text-[10px] font-semibold uppercase tracking-[0.14em] text-white transition-[border-color,background-color,box-shadow] duration-300 hover:border-brand-red/35 hover:bg-brand-red/[0.045] hover:shadow-[0_10px_28px_-20px_rgba(229,9,20,0.8)] active:scale-[0.98]"
             >
               <span>
                 {language === 'id'
                   ? showAllFaqs ? 'Tampilkan Lebih Sedikit' : `Lihat FAQ Lainnya (${allFaqs.length - 4} Lainnya)`
                   : showAllFaqs ? 'Show Less FAQs' : `View More FAQs (${allFaqs.length - 4} More)`}
               </span>
-              {showAllFaqs ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              {showAllFaqs
+                ? <ChevronUp size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+                : <ChevronDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />}
             </button>
           </div>
         </div>
