@@ -46,7 +46,7 @@ export const FloatingContact = () => {
     {
       icon: <Mail size={18} />,
       label: language === 'id' ? 'Email Kapitech' : 'Kapitech Email',
-      href: 'mailto:hello@kapitech.co.id',
+      href: 'mailto:hello@kapitech.id',
       color: 'bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08]'
     },
     {
