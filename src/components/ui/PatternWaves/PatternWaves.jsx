@@ -627,6 +627,7 @@ const PatternWaves = ({
 
     let width = 1;
     let height = 1;
+    let containerRect = { left: 0, top: 0, width: 1, height: 1 };
     let raf = 0;
     let last = performance.now();
     let time = 0;
@@ -674,8 +675,9 @@ const PatternWaves = ({
     };
 
     const resize = () => {
-      width = Math.max(1, container.clientWidth);
-      height = Math.max(1, container.clientHeight);
+      containerRect = container.getBoundingClientRect();
+      width = Math.max(1, Math.round(containerRect.width));
+      height = Math.max(1, Math.round(containerRect.height));
       renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
       renderer.setSize(width, height);
       buildRipple();
@@ -806,10 +808,9 @@ const PatternWaves = ({
     };
 
     const locate = e => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      return { x, y, inside: x >= 0 && y >= 0 && x <= rect.width && y <= rect.height };
+      const x = e.clientX - containerRect.left;
+      const y = e.clientY - containerRect.top;
+      return { x, y, inside: x >= 0 && y >= 0 && x <= containerRect.width && y <= containerRect.height };
     };
 
     const onPointerMove = e => {
