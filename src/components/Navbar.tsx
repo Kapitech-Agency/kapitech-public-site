@@ -23,6 +23,7 @@ import { allSolutionsAndServices } from '@/src/data/servicesData';
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const mobileMenuTriggerRef = React.useRef<HTMLButtonElement>(null);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -368,6 +369,9 @@ export const Navbar = () => {
             </div>
 
             <button 
+              ref={mobileMenuTriggerRef}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
               className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_22px_rgba(0,0,0,0.14)] active:bg-white/[0.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer", controlGlassMaterial)}
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open Navigation Menu"
@@ -528,8 +532,7 @@ export const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            role="dialog"
-            aria-modal="true"
+            id="mobile-navigation"
             aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
             className="relative z-20 flex-none min-h-0 w-full overflow-hidden pointer-events-auto bg-transparent">
             <div
@@ -607,6 +610,8 @@ export const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => setIsMobileServicesOpen(prev => !prev)}
+                  aria-expanded={isMobileServicesOpen}
+                  aria-controls="mobile-services-submenu"
                   className="w-full flex items-center justify-between py-3.5 px-1 text-left text-white font-display text-xl min-h-[52px] cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
@@ -618,7 +623,7 @@ export const Navbar = () => {
 
                 <AnimatePresence>
                   {isMobileServicesOpen && (
-                    <motion.div
+                    <motion.div id="mobile-services-submenu"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
