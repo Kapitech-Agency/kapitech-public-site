@@ -766,80 +766,147 @@ export const ServiceDetail = () => {
         )}
 
         {/* BROWSE SERVICES */}
-        <section className="mt-8 border-t border-white/[0.07] pt-12 sm:pt-16" aria-labelledby="browse-services-title">
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
+        <section className="mt-8 border-t border-white/[0.07] pt-14 sm:pt-20" aria-labelledby="browse-services-title">
+          <div className="mb-9 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
               </span>
-              <h2 id="browse-services-title" className="mt-4 max-w-3xl text-2xl font-display font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-3xl lg:text-4xl">
-                {language === 'id' ? 'Temukan layanan lain yang sesuai dengan kebutuhan Anda.' : 'Explore another service that fits your next move.'}
+              <h2
+                id="browse-services-title"
+                className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.65rem]"
+              >
+                {language === 'id'
+                  ? 'Pilih layanan yang paling dekat dengan kebutuhan Anda.'
+                  : 'Choose the service that best matches your next move.'}
               </h2>
+              <p className="mt-4 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-[15px]">
+                {language === 'id'
+                  ? 'Kami mengelompokkan layanan berdasarkan jenis pekerjaan agar Anda bisa membandingkan pilihan tanpa harus membaca semuanya sekaligus.'
+                  : 'Services are grouped by work type so you can compare the right options without scanning one long list.'}
+              </p>
             </div>
+
             <Link
               to="/services"
-              className="inline-flex shrink-0 items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors hover:text-white"
+              className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/[0.08] bg-white/[0.018] px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#A7ACB5] transition-[border-color,background-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.028] hover:text-white lg:self-end"
             >
               <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
-            {(['Solutions', 'Branding', 'Design', 'Development'] as const).map((category, categoryIndex) => {
+          <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
+            {(['Solutions', 'Branding', 'Design', 'Development'] as const).map((category) => {
               const items = allSolutionsAndServices.filter((item) => item.category === category);
+              const categoryLabel =
+                category === 'Solutions'
+                  ? (language === 'id' ? 'Strategic Solutions' : 'Strategic Solutions')
+                  : category;
+              const categoryDescription =
+                category === 'Solutions'
+                  ? (language === 'id'
+                      ? 'Arah strategis untuk keputusan produk, redesign, dan capacity building.'
+                      : 'Strategic engagements for product direction, redesign, and delivery capacity.')
+                  : category === 'Branding'
+                    ? (language === 'id'
+                        ? 'Identitas, presentasi, dan sistem visual yang membuat brand lebih konsisten.'
+                        : 'Identity, presentations, and visual systems that make your brand more consistent.')
+                    : category === 'Design'
+                      ? (language === 'id'
+                          ? 'Pengalaman digital, interface, dan struktur UX yang lebih jelas.'
+                          : 'Digital experiences, interfaces, and UX structures built for clarity.')
+                      : (language === 'id'
+                          ? 'Website dan aplikasi yang siap dibangun, dirilis, dan dikembangkan.'
+                          : 'Websites and applications built to ship, scale, and evolve.');
+
               return (
                 <div
                   key={category}
-                  className={categoryIndex > 0 ? 'border-t border-white/[0.07]' : ''}
+                  className="group/category overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.014] backdrop-blur-xl transition-[border-color,background-color] duration-300 hover:border-white/[0.12] hover:bg-white/[0.018]"
                 >
-                  <div className="grid lg:grid-cols-[180px_1fr]">
-                    <div className="border-b border-white/[0.07] px-5 py-5 sm:px-6 lg:border-b-0 lg:border-r lg:px-7 lg:py-6">
-                      <div className="text-sm font-medium text-white">
-                        {category}
+                  <div className="border-b border-white/[0.07] px-5 py-5 sm:px-6 sm:py-6">
+                    <div className="flex items-start justify-between gap-5">
+                      <div className="min-w-0">
+                        <span className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                          {category === 'Solutions'
+                            ? (language === 'id' ? 'Solutions' : 'Solutions')
+                            : categoryLabel}
+                        </span>
+                        <h3 className="mt-2 text-xl font-display font-semibold tracking-[-0.03em] text-white sm:text-[1.35rem]">
+                          {categoryLabel}
+                        </h3>
+                        <p className="mt-2 max-w-md text-xs leading-[1.7] text-[#8A909D]">
+                          {categoryDescription}
+                        </p>
                       </div>
-                      <div className="mt-1 text-[10px] font-mono tabular-nums text-[#555A63]">
-                        {String(items.length).padStart(2, '0')} {language === 'id' ? 'Pilihan' : 'Options'}
-                      </div>
-                    </div>
 
-                    <div className="grid sm:grid-cols-2">
-                      {items.map((item) => {
-                        const isCurrent = item.slug === service.slug;
-                        return (
-                          <Link
-                            key={item.slug}
-                            to={`/services/${item.slug}`}
-                            aria-current={isCurrent ? 'page' : undefined}
-                            className={cn(
-                              'group relative flex min-h-[92px] items-center justify-between gap-4 border-b border-white/[0.06] px-5 py-5 transition-colors duration-300 sm:px-6',
-                              'sm:[&:nth-last-child(-n+2)]:border-b-0',
-                              isCurrent ? 'bg-brand-red/[0.055]' : 'hover:bg-white/[0.022]'
-                            )}
-                          >
-                            <div className="min-w-0">
-                              <div className={cn(
-                                'text-sm font-display font-semibold leading-tight transition-colors duration-300',
-                                isCurrent ? 'text-brand-red' : 'text-white group-hover:text-brand-red'
-                              )}>
-                                {item.title}
-                              </div>
-                              <div className="mt-1 text-[10px] leading-[1.5] text-[#6F757F] transition-colors duration-300 group-hover:text-[#8A909D]">
-                                {language === 'id' ? item.navSubtitleId : item.navSubtitle}
-                              </div>
-                            </div>
-                            <div className={cn(
-                              'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300',
-                              isCurrent
-                                ? 'border-brand-red/35 bg-brand-red/10 text-brand-red'
-                                : 'border-white/[0.08] text-[#6F757F] group-hover:border-brand-red/30 group-hover:text-brand-red'
-                            )}>
-                              {isCurrent ? <CheckCircle2 className="h-3.5 w-3.5" /> : <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />}
-                            </div>
-                          </Link>
-                        );
-                      })}
+                      <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1.5 text-[9px] font-mono tabular-nums uppercase tracking-[0.12em] text-[#6F757F]">
+                        {String(items.length).padStart(2, '0')} {language === 'id' ? 'Layanan' : 'Services'}
+                      </span>
                     </div>
+                  </div>
+
+                  <div className="px-2 py-2 sm:px-3 sm:py-3">
+                    {items.map((item, index) => {
+                      const isCurrent = item.slug === service.slug;
+                      const isLast = index === items.length - 1;
+
+                      return (
+                        <Link
+                          key={item.slug}
+                          to={`/services/${item.slug}`}
+                          aria-current={isCurrent ? 'page' : undefined}
+                          className={cn(
+                            'group relative flex min-w-0 items-center gap-4 rounded-2xl px-3.5 py-3.5 transition-[background-color,color] duration-300 sm:px-4',
+                            !isLast && 'mb-1',
+                            isCurrent
+                              ? 'bg-brand-red/[0.065]'
+                              : 'hover:bg-white/[0.024]'
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              'h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform] duration-300',
+                              isCurrent
+                                ? 'scale-110 bg-brand-red'
+                                : 'bg-[#4E535C] group-hover:scale-110 group-hover:bg-brand-red/80'
+                            )}
+                            aria-hidden="true"
+                          />
+
+                          <div className="min-w-0 flex-1">
+                            <div
+                              className={cn(
+                                'text-sm font-display font-semibold leading-[1.25] transition-colors duration-300 sm:text-[15px]',
+                                isCurrent
+                                  ? 'text-brand-red'
+                                  : 'text-[#F4F5F7] group-hover:text-white'
+                              )}
+                            >
+                              {item.title}
+                            </div>
+                            <div className="mt-1 text-[10px] leading-[1.5] text-[#6F757F] transition-colors duration-300 group-hover:text-[#8A909D]">
+                              {language === 'id' ? item.navSubtitleId : item.navSubtitle}
+                            </div>
+                          </div>
+
+                          <span
+                            className={cn(
+                              'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[border-color,background-color,color,transform] duration-300',
+                              isCurrent
+                                ? 'border-brand-red/30 bg-brand-red/[0.09] text-brand-red'
+                                : 'border-white/[0.07] bg-white/[0.012] text-[#6F757F] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-white/[0.14] group-hover:text-white'
+                            )}
+                            aria-hidden="true"
+                          >
+                            {isCurrent
+                              ? <CheckCircle2 className="h-3.5 w-3.5" />
+                              : <ArrowUpRight className="h-3.5 w-3.5" />}
+                          </span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               );
