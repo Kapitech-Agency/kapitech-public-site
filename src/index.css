@@ -490,7 +490,7 @@
 /* ==========================================================================
    PUBLIC SITE MOTION POLISH
    Restrained interaction depth, route transitions and ambient movement.
-   AMS stays fully isolated in .ams-shell.
+   Public-site motion stays scoped to .kapi-public-shell.
    ========================================================================== */
 .kapi-public-shell {
   --kapi-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
