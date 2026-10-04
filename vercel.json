@@ -4,14 +4,21 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/(work|services|about|careers|contact|privacy|terms|ai-instructions|editorial-policy|cookie-policy)",
-      "destination": "/index.html"
+      "source": "/services/mvp-design",
+      "destination": "/solutions/mvp-design",
+      "permanent": true
     },
     {
-      "source": "/(services|solutions)/(mvp-design|product-redesign|team-extension|pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|mobile-app-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)",
-      "destination": "/index.html"
+      "source": "/services/product-redesign",
+      "destination": "/solutions/product-redesign",
+      "permanent": true
+    },
+    {
+      "source": "/services/team-extension",
+      "destination": "/solutions/team-extension",
+      "permanent": true
     }
   ]
 }
