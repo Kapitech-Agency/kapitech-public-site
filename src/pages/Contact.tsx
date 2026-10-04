@@ -438,9 +438,9 @@ export const Contact = () => {
             <div className="min-w-0 w-full">
               <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
                 <div className="border-b border-white/[0.08] px-5 py-5 sm:px-7 sm:py-6">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                     <div className="min-w-0">
-                      <span className="kapi-section-label mb-4">
+                      <span className="kapi-section-label mb-3">
                         {language === 'id' ? 'Informasi Perusahaan' : 'Corporate Information'}
                       </span>
                       <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1.5">
@@ -451,28 +451,57 @@ export const Contact = () => {
                           PT Kapitech Digital Indonesia
                         </span>
                       </div>
+                      <p className="mt-3 max-w-2xl text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                        {language === 'id'
+                          ? 'Mulai dari mengenal kami, lalu pilih kanal yang tepat, kemudian lihat lokasi dan jam operasional kami.'
+                          : 'Start with who we are, then choose the right contact, then check our location and working hours.'}
+                      </p>
                     </div>
-                    <p className="max-w-2xl text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm sm:text-right">
-                      {language === 'id'
-                        ? 'Agensi produk digital independen untuk desain UI/UX strategis, rekayasa web full-stack, dan sistem identitas brand.'
-                        : 'An independent digital product agency for strategic UI/UX design, full-stack web engineering, and modern brand systems.'}
-                    </p>
+
+                    <div className="flex shrink-0 items-center gap-2.5 overflow-x-auto pb-0.5">
+                      {[
+                        [language === 'id' ? '01' : '01', language === 'id' ? 'Profil' : 'Profile'],
+                        [language === 'id' ? '02' : '02', language === 'id' ? 'Kontak' : 'Contact'],
+                        [language === 'id' ? '03' : '03', language === 'id' ? 'Kantor' : 'Office']
+                      ].map(([step, label]) => (
+                        <div key={step} className="inline-flex shrink-0 items-center gap-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[8px] text-[#A7ACB5]">
+                            {step}
+                          </span>
+                          <span>{label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid min-w-0 lg:grid-cols-[1.05fr_1.2fr_1fr]">
-                  <div className="min-w-0 border-b border-white/[0.08] px-5 py-5 sm:px-7 sm:py-6 lg:border-b-0 lg:border-r">
-                    <span className="mb-3 block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                      {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
-                    </span>
+                <div className="divide-y divide-white/[0.07]">
+                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
+                    <div className="flex items-center gap-3 lg:w-32">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">01</span>
+                      <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                        {language === 'id' ? 'Profil' : 'Profile'}
+                      </span>
+                    </div>
 
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                    <div className="min-w-0">
+                      <h4 className="text-base font-display font-semibold tracking-[-0.02em] text-white">
+                        {language === 'id' ? 'Siapa kami' : 'Who we are'}
+                      </h4>
+                      <p className="mt-1.5 max-w-sm text-xs leading-[1.7] text-[#8A909D]">
+                        {language === 'id'
+                          ? 'Agensi digital independen untuk UI/UX, engineering web, dan sistem brand.'
+                          : 'An independent digital product agency for UI/UX, web engineering, and brand systems.'}
+                      </p>
+                    </div>
+
+                    <div className="grid min-w-0 gap-4 sm:grid-cols-2">
                       <div className="min-w-0">
                         <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
                           {language === 'id' ? 'Bentuk Usaha' : 'Business Type'}
                         </span>
                         <span className="mt-1.5 block text-xs font-medium leading-relaxed text-white">
-                          {language === 'id' ? 'Digital agency & technology studio' : 'Digital agency & technology studio'}
+                          {language === 'id' ? 'Agensi digital & studio teknologi' : 'Digital agency & technology studio'}
                         </span>
                       </div>
                       <div className="min-w-0">
@@ -480,86 +509,114 @@ export const Contact = () => {
                           {language === 'id' ? 'Cakupan' : 'Coverage'}
                         </span>
                         <span className="mt-1.5 block text-xs font-medium leading-relaxed text-white">
-                          Indonesia · Southeast Asia · Global
+                          {language === 'id' ? 'Indonesia · Asia Tenggara · Global' : 'Indonesia · Southeast Asia · Global'}
                         </span>
                       </div>
-                    </div>
-
-                    <div className="mt-5 border-t border-white/[0.06] pt-4">
-                      <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                        {language === 'id' ? 'Fokus Utama' : 'Core Focus'}
-                      </span>
-                      <div className="mt-2.5 flex flex-wrap gap-2">
-                        {(language === 'id'
-                          ? ['UI/UX', 'Web Engineering', 'Brand Systems']
-                          : ['UI/UX', 'Web Engineering', 'Brand Systems']
-                        ).map((item) => (
-                          <span key={item} className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.1em] text-[#A7ACB5]">
-                            {item}
-                          </span>
-                        ))}
+                      <div className="min-w-0 sm:col-span-2">
+                        <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                          {language === 'id' ? 'Fokus Utama' : 'Core Focus'}
+                        </span>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {['UI/UX', 'Web Engineering', 'Brand Systems'].map((item) => (
+                            <span key={item} className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.1em] text-[#A7ACB5]">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="min-w-0 border-b border-white/[0.08] px-5 py-5 sm:px-7 sm:py-6 lg:border-b-0 lg:border-r">
-                    <span className="mb-3 block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                      {language === 'id' ? 'Hubungi Kami' : 'Talk to us'}
-                    </span>
+                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
+                    <div className="flex items-center gap-3 lg:w-32">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">02</span>
+                      <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                        {language === 'id' ? 'Kontak' : 'Contact'}
+                      </span>
+                    </div>
 
-                    <a
-                      href="mailto:hello@kapitech.id"
-                      className="group flex items-start justify-between gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-4 py-4 transition-[border-color,background-color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.028]"
-                    >
-                      <div className="flex min-w-0 items-start gap-3">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#A7ACB5] transition-colors duration-300 group-hover:text-white">
-                          <Mail size={16} />
-                        </div>
-                        <div className="min-w-0">
-                          <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                            {language === 'id' ? 'Konsultasi Klien & Proyek' : 'Client Inquiries'}
-                          </span>
-                          <span className="mt-1 block break-all text-sm font-semibold tracking-[-0.015em] text-white">
-                            hello@kapitech.id
-                          </span>
-                        </div>
-                      </div>
-                      <ArrowUpRight size={16} className="mt-0.5 shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
-                    </a>
+                    <div className="min-w-0">
+                      <h4 className="text-base font-display font-semibold tracking-[-0.02em] text-white">
+                        {language === 'id' ? 'Hubungi kami' : 'Talk to us'}
+                      </h4>
+                      <p className="mt-1.5 max-w-sm text-xs leading-[1.7] text-[#8A909D]">
+                        {language === 'id'
+                          ? 'Untuk project dan konsultasi, mulai dari email utama. Kanal lain tersedia sesuai kebutuhan.'
+                          : 'For projects and consultations, start with the main email. Other channels are available for specific needs.'}
+                      </p>
+                    </div>
 
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
-                      <a href="mailto:business@kapitech.id" className="group flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-2.5 transition-colors duration-300 hover:bg-white/[0.02]">
+                    <div className="grid min-w-0 gap-2.5 sm:grid-cols-2">
+                      <a href="mailto:hello@kapitech.id" className="group flex min-w-0 items-center justify-between gap-3 rounded-2xl border border-white/[0.09] bg-white/[0.02] px-4 py-3.5 transition-[border-color,background-color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.028] sm:col-span-2">
+                        <div className="flex min-w-0 items-center gap-3">
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#A7ACB5] transition-colors duration-300 group-hover:text-white">
+                            <Mail size={16} />
+                          </div>
+                          <div className="min-w-0">
+                            <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                              {language === 'id' ? 'Pilihan utama · Project & konsultasi' : 'Primary route · Projects & consulting'}
+                            </span>
+                            <span className="mt-1 block break-all text-sm font-semibold tracking-[-0.015em] text-white">
+                              hello@kapitech.id
+                            </span>
+                          </div>
+                        </div>
+                        <ArrowUpRight size={16} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
+                      </a>
+
+                      <a href="mailto:business@kapitech.id" className="group flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-3 transition-colors duration-300 hover:bg-white/[0.02]">
                         <Globe size={14} className="shrink-0 text-[#A7ACB5] transition-colors group-hover:text-white" />
                         <span className="min-w-0">
-                          <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">{language === 'id' ? 'Kemitraan & Korporasi' : 'Partnerships & Corporate'}</span>
+                          <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                            {language === 'id' ? 'Kemitraan & korporasi' : 'Partnerships & corporate'}
+                          </span>
                           <span className="mt-0.5 block break-all text-[11px] font-medium text-white">business@kapitech.id</span>
                         </span>
                       </a>
-                      <a href="mailto:recruitment@kapitech.id" className="group flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-2.5 transition-colors duration-300 hover:bg-white/[0.02]">
+
+                      <a href="mailto:recruitment@kapitech.id" className="group flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-3 transition-colors duration-300 hover:bg-white/[0.02]">
                         <Briefcase size={14} className="shrink-0 text-[#A7ACB5] transition-colors group-hover:text-white" />
                         <span className="min-w-0">
-                          <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">{language === 'id' ? 'Karier & Rekrutmen' : 'Careers & Talent'}</span>
+                          <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                            {language === 'id' ? 'Karier & rekrutmen' : 'Careers & talent'}
+                          </span>
                           <span className="mt-0.5 block break-all text-[11px] font-medium text-white">recruitment@kapitech.id</span>
                         </span>
                       </a>
-                    </div>
 
-                    <a href="tel:+6287769957062" className="group mt-2 flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-2.5 transition-colors duration-300 hover:bg-white/[0.02]">
-                      <Phone size={14} className="shrink-0 text-[#A7ACB5] transition-colors group-hover:text-white" />
-                      <span className="min-w-0">
-                        <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">{language === 'id' ? 'Telepon / WhatsApp' : 'Direct Phone / WhatsApp'}</span>
-                        <span className="mt-0.5 block text-[11px] font-medium text-white">+62 877-6995-7062</span>
-                      </span>
-                    </a>
+                      <a href="tel:+6287769957062" className="group flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.012] px-3.5 py-3 transition-colors duration-300 hover:bg-white/[0.02] sm:col-span-2">
+                        <Phone size={14} className="shrink-0 text-[#A7ACB5] transition-colors group-hover:text-white" />
+                        <span className="min-w-0">
+                          <span className="block text-[8px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                            {language === 'id' ? 'Telepon / WhatsApp' : 'Direct phone / WhatsApp'}
+                          </span>
+                          <span className="mt-0.5 block text-[11px] font-medium text-white">+62 877-6995-7062</span>
+                        </span>
+                      </a>
+                    </div>
                   </div>
 
-                  <div className="min-w-0 px-5 py-5 sm:px-7 sm:py-6">
-                    <span className="mb-3 block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                      {language === 'id' ? 'Kantor & Jam Operasional' : 'Office & Hours'}
-                    </span>
+                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
+                    <div className="flex items-center gap-3 lg:w-32">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">03</span>
+                      <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                        {language === 'id' ? 'Kantor' : 'Office'}
+                      </span>
+                    </div>
 
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3.5">
+                    <div className="min-w-0">
+                      <h4 className="text-base font-display font-semibold tracking-[-0.02em] text-white">
+                        {language === 'id' ? 'Lokasi & jam kerja' : 'Location & hours'}
+                      </h4>
+                      <p className="mt-1.5 max-w-sm text-xs leading-[1.7] text-[#8A909D]">
+                        {language === 'id'
+                          ? 'Gunakan informasi ini untuk mengetahui lokasi dan kapan tim Kapitech biasanya tersedia.'
+                          : 'Use this information to see where we are based and when the Kapitech team is usually available.'}
+                      </p>
+                    </div>
+
+                    <div className="grid min-w-0 gap-4 sm:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
+                      <div className="flex min-w-0 items-start gap-3.5">
                         <MapPin size={15} className="mt-0.5 shrink-0 text-[#A7ACB5]" />
                         <div className="min-w-0">
                           <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
@@ -571,14 +628,14 @@ export const Contact = () => {
                         </div>
                       </div>
 
-                      <div className="border-t border-white/[0.06] pt-4">
+                      <div className="border-t border-white/[0.06] pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
                         <div className="flex items-start gap-3.5">
                           <Clock size={15} className="mt-0.5 shrink-0 text-[#A7ACB5]" />
                           <div>
                             <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
                               {language === 'id' ? 'Jam Operasional' : 'Operating Hours'}
                             </span>
-                            <p className="mt-1.5 text-xs font-semibold text-white">
+                            <p className="mt-1.5 text-xs font-semibold leading-relaxed text-white">
                               {language === 'id' ? 'Senin - Jumat · 09:00 - 18:00 WIB' : 'Monday - Friday · 09:00 - 18:00 WIB'}
                             </p>
                             <p className="mt-0.5 text-[10px] text-[#8A909D]">GMT+7 (Waktu Indonesia Barat)</p>
