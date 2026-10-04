@@ -62,7 +62,14 @@ const CareerDropdown = ({
   ariaLabel: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const [activeOptionIndex, setActiveOptionIndex] = useState(0);
+  const optionRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
   const selected = options.find((option) => option.value === value) ?? options[0];
+
+  useEffect(() => {
+    const selectedIndex = Math.max(0, options.findIndex((option) => option.value === value));
+    setActiveOptionIndex(selectedIndex);
+  }, [options, value]);
 
   useEffect(() => {
     if (!open) return;
@@ -73,17 +80,49 @@ const CareerDropdown = ({
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Home' || event.key === 'End') {
+        event.preventDefault();
+        const lastIndex = options.length - 1;
+        setActiveOptionIndex((current) => {
+          const next = event.key === 'ArrowDown'
+            ? Math.min(current + 1, lastIndex)
+            : event.key === 'ArrowUp'
+              ? Math.max(current - 1, 0)
+              : event.key === 'Home'
+                ? 0
+                : lastIndex;
+          window.requestAnimationFrame(() => optionRefs.current[next]?.focus());
+          return next;
+        });
+      }
+
+      if ((event.key === 'Enter' || event.key === ' ') && document.activeElement?.getAttribute('role') === 'option') {
+        event.preventDefault();
+        const active = options[activeOptionIndex];
+        if (active) {
+          onChange(active.value);
+          setOpen(false);
+        }
+      }
     };
 
     document.addEventListener('mousedown', handlePointerDown);
     document.addEventListener('keydown', handleKeyDown);
 
+    const focusFrame = window.requestAnimationFrame(() => optionRefs.current[activeOptionIndex]?.focus());
+
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('mousedown', handlePointerDown);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open]);
+  }, [open, activeOptionIndex, onChange, options]);
 
   return (
     <div className="relative" data-career-dropdown>
@@ -92,7 +131,10 @@ const CareerDropdown = ({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={ariaLabel}
-        onClick={() => setOpen((currentOpen) => !currentOpen)}
+        onClick={() => {
+          setOpen((currentOpen) => !currentOpen);
+          setActiveOptionIndex(Math.max(0, options.findIndex((option) => option.value === value)));
+        }}
         className="flex min-h-[44px] w-full items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-[#0B0C0E]/70 px-4 py-2.5 text-left font-mono text-xs text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-white/[0.14] hover:bg-white/[0.025] focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20"
       >
         <span className="min-w-0 truncate">{selected?.label ?? value}</span>
@@ -110,14 +152,18 @@ const CareerDropdown = ({
             aria-label={ariaLabel}
           >
             <div className="max-h-64 overflow-y-auto overscroll-contain">
-              {options.map((option) => {
+              {options.map((option, index) => {
                 const isSelected = option.value === value;
                 return (
                   <button
                     key={option.value}
+                    ref={(element) => {
+                      optionRefs.current[index] = element;
+                    }}
                     type="button"
                     role="option"
                     aria-selected={isSelected}
+                    tabIndex={index === activeOptionIndex ? 0 : -1}
                     onClick={() => {
                       onChange(option.value);
                       setOpen(false);
@@ -2011,10 +2057,11 @@ export const Careers = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                      <label htmlFor="vendor-notes" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                         {language === 'id' ? 'Catatan Tambahan / Deskripsi Keahlian' : 'Additional Notes / Key Highlights'}
                       </label>
                       <textarea 
+                        id="vendor-notes"
                         name="notes"
                         rows={2}
                         value={vendorFormData.notes}
@@ -2025,12 +2072,13 @@ export const Careers = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                      <label htmlFor="vendor-resume" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                         {language === 'id' ? 'Unggah CV / Portofolio PDF (Opsional, maks 5MB)' : 'Upload CV / Portfolio PDF (Optional, max 5MB)'}
                       </label>
                       <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
                         <input 
                           type="file"
+                          id="vendor-resume"
                           accept=".pdf,.doc,.docx"
                           onChange={handleVendorFileChange}
                           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
@@ -2041,7 +2089,7 @@ export const Careers = () => {
                         </span>
                       </div>
                       {vendorErrors.resume && (
-                        <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.resume}</span>
+                        <span className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{vendorErrors.resume}</span>
                       )}
                     </div>
 
