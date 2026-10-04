@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getServiceBySlug } from '../data/servicesData';
 import { useLanguage } from '../lib/LanguageContext';
+import seoRoutes from '../data/seoRoutes.json';
 
 type SeoDefinition = {
   title: string;
@@ -13,8 +14,6 @@ type SeoDefinition = {
 const SITE_NAME = seoRoutes.siteName;
 const SITE_URL = seoRoutes.siteUrl;
 const DEFAULT_IMAGE = seoRoutes.defaultImage;
-
-import seoRoutes from '../data/seoRoutes.json';
 
 function setMeta(name: string, content: string): void {
   let tag = document.head.querySelector<HTMLMetaElement>('meta[name="' + name + '"]');
