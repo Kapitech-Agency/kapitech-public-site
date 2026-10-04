@@ -749,37 +749,68 @@ export const About = () => {
       </section>
 
       {/* Timeline Journey */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-10 sm:mb-16">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -left-40 top-20 h-80 w-80 rounded-full border border-white/[0.025]" />
+          <div className="absolute right-[-6rem] bottom-[-8rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
+            <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Sejarah Agensi' : 'Agency History'}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+            <motion.h2
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+            >
               {language === 'id' ? 'Perjalanan pertumbuhan kami yang berkelanjutan.' : 'Our journey of continuous growth.'}
-            </h2>
+            </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {journey.map((item) => (
-              <motion.div
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+            {journey.map((item, index) => (
+              <motion.article
                 key={item.year}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
-                transition={{ duration: 0.5, delay: Number(item.year) * 0.0001, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4 }}
-                className="group relative p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[180px] sm:min-h-[220px] hover:border-brand-red/40 transition-colors overflow-hidden"
+                className="group relative flex min-w-0 min-h-[220px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:min-h-[250px] sm:p-7 lg:p-8"
               >
-                <span className="absolute inset-y-0 left-0 w-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60" aria-hidden="true" />
-                <div>
-                  <span className="text-xl sm:text-2xl font-display font-bold text-brand-red font-mono block mb-3 sm:mb-4">
-                    {item.year}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-display font-bold mb-2 text-white">{item.title}</h3>
-                  <p className="text-xs text-[#8A909D] font-light leading-relaxed">{item.desc}</p>
+                <span
+                  className="absolute inset-y-0 left-0 w-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
+                  aria-hidden="true"
+                />
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-2xl font-display font-semibold tracking-[-0.05em] text-brand-red font-mono sm:text-[1.7rem]">
+                      {item.year}
+                    </span>
+                    <span className="text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#6F757F]">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="mt-8 min-w-0">
+                    <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.035em] text-white sm:text-xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm font-light leading-[1.8] text-[#8A909D]">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
+
+                <span
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
+                  aria-hidden="true"
+                />
+              </motion.article>
             ))}
           </div>
         </div>
