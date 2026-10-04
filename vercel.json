@@ -6,7 +6,11 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!api(?:/|$)|.*\\.[^/]+$).*)",
+      "source": "/(work|services|about|careers|contact|privacy|terms|ai-instructions|editorial-policy|cookie-policy)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/(services|solutions)/(mvp-design|product-redesign|team-extension|pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|mobile-app-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)",
       "destination": "/index.html"
     }
   ]
