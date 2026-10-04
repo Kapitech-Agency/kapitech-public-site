@@ -158,14 +158,43 @@
 }
 
 /* Public-site focus styling stays out of AMS so modal/control focus states are not cascaded. */
+.kapi-skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 260;
+  transform: translateY(-150%);
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  border-radius: 9999px;
+  background: #0B0C0E;
+  color: #FFFFFF;
+  padding: 0.7rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 12px 28px -18px rgba(229, 9, 20, 0.7);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kapi-skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #FFFFFF;
+  outline-offset: 3px;
+}
+
 .kapi-public-shell {
+  scroll-margin-top: 88px;
+
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--kapi-red-primary);
     outline-offset: 2px;
+  }
+
+  :where([tabindex="-1"]):focus {
+    scroll-margin-top: 88px;
   }
 }
 
