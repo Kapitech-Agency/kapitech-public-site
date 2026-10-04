@@ -713,7 +713,7 @@ export const Contact = () => {
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                               className="space-y-5"
                             >
-                              <div className="flex items-end justify-between gap-5">
+                              <div className="flex items-end justify-between gap-5 border-b border-white/[0.05] pb-4">
                                 <div className="min-w-0">
                                   <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">
                                     {language === 'id' ? 'Mulai dari arah utama' : 'Start with a direction'}
@@ -774,7 +774,7 @@ export const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowSpecificServices(prev => !prev)}
-                                className="group flex w-full items-center justify-between gap-4 rounded-xl border border-white/[0.08] bg-white/[0.012] px-4 py-3.5 text-left transition-[border-color,background-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.02]"
+                                className="group flex w-full items-center justify-between gap-4 rounded-xl border border-white/[0.08] bg-white/[0.012] px-4.5 py-3.5 text-left transition-[border-color,background-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.02]"
                                 aria-expanded={showSpecificServices}
                               >
                                 <span className="flex min-w-0 items-start gap-3">
@@ -826,16 +826,16 @@ export const Contact = () => {
                                 )}
                               </AnimatePresence>
 
-                              <div className="flex items-center justify-between gap-4 border-t border-white/[0.07] pt-4">
-                                <p className="hidden max-w-sm text-[10px] leading-[1.6] text-[#6F757F] sm:block">
+                              <div className="mt-2 flex items-center justify-between gap-5 border-t border-white/[0.07] pt-5 pb-1">
+                                <p className="hidden max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:block">
                                   {language === 'id'
-                                    ? 'Anda bisa mengubah pilihan kapan saja di langkah berikutnya.'
-                                    : 'You can adjust your selections at any point in the next steps.'}
+                                    ? 'Anda bisa mengubah pilihan kapan saja. Detailnya akan kami rapikan di langkah berikutnya.'
+                                    : 'You can adjust your choices at any time. We will shape the details in the next step.'}
                                 </p>
                                 <button
                                   type="button"
                                   onClick={handleNextStep}
-                                  className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-all active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
+                                  className="inline-flex shrink-0 items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5.5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#FF1E27] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
                                   data-cursor-label="Next"
                                 >
                                   <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
