@@ -41,7 +41,7 @@ export const CookieConsent = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-5 sm:pb-5"
+          className="kapi-cookie-consent fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-5 sm:pb-5"
           role="dialog"
           aria-label={language === 'id' ? 'Persetujuan cookie' : 'Cookie consent'}
         >
