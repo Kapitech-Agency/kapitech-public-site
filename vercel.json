@@ -20,5 +20,15 @@
       "destination": "/solutions/team-extension",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(work|services|about|careers|contact|privacy|terms|ai-instructions|editorial-policy|cookie-policy)",
+      "destination": "/$1/index"
+    },
+    {
+      "source": "/(services|solutions)/(mvp-design|product-redesign|team-extension|pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)",
+      "destination": "/$1/$2/index"
+    }
   ]
 }
