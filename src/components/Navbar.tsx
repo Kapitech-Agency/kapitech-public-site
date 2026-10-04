@@ -280,7 +280,7 @@ export const Navbar = () => {
                 aria-pressed={language === 'en'}
                 aria-label="Switch to English"
                 className={cn(
-                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-250 cursor-pointer",
+                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
@@ -301,7 +301,7 @@ export const Navbar = () => {
                 aria-pressed={language === 'id'}
                 aria-label="Switch to Indonesian"
                 className={cn(
-                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-250 cursor-pointer",
+                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
                   language === 'id'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px 0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
@@ -331,7 +331,7 @@ export const Navbar = () => {
                 aria-pressed={language === 'en'}
                 aria-label="Switch to English"
                 className={cn(
-                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-250 flex items-center justify-center gap-1.5 cursor-pointer",
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-200 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
@@ -351,7 +351,7 @@ export const Navbar = () => {
                 aria-pressed={language === 'id'}
                 aria-label="Ganti ke Bahasa Indonesia"
                 className={cn(
-                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-250 flex items-center justify-center gap-1.5 cursor-pointer",
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-200 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'id'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
