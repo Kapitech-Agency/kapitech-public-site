@@ -905,26 +905,6 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center relative z-10 bg-[#0B0C0E]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold mb-4 sm:mb-6 text-white">
-            {language === 'id' ? 'Siap berkolaborasi membangun produk digital Anda berikutnya?' : 'Ready to collaborate on your next digital product?'}
-          </h2>
-          <p className="text-xs sm:text-sm md:text-base text-[#8A909D] font-light leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto">
-            {language === 'id'
-              ? 'Hubungi tim Kapitech Agency di Tangerang Selatan untuk mendiskusikan kebutuhan proyek, estimasi waktu, dan rincian biaya.'
-              : 'Get in touch with Kapitech Agency in South Tangerang to discuss your project requirements, timeline, and estimation.'}
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-[#FF1E27] text-white font-semibold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-brand-red/20 active:scale-95"
-          >
-            <span>{language === 'id' ? 'Mulai Diskusi' : 'Start a Conversation'}</span>
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>
     </div>
   );
 };

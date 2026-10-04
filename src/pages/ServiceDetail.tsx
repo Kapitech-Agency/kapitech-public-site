@@ -822,24 +822,6 @@ export const ServiceDetail = () => {
           </div>
         </section>
 
-        {/* CONTACT CTA */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-white/[0.07] pt-10 sm:flex-row">
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-2 text-sm text-[#8A909D] transition-colors hover:text-white"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>{language === 'id' ? 'Kembali ke Semua Layanan' : 'Back to All Services'}</span>
-          </Link>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-medium text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,color,box-shadow] hover:bg-brand-red/90"
-          >
-            <span>{language === 'id' ? 'Konsultasi Gratis' : 'Book a Discovery Call'}</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-
       </div>
     </div>
   );
