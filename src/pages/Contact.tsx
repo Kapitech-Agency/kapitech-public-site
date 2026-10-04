@@ -403,9 +403,9 @@ export const Contact = () => {
         </div><div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Kontak & Konsultasi Proyek' : 'Contact & Inquiries'}
+              {language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white">
+            <h1 className="max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white">
               {language === 'id' ? (
                 <>Mari bangun produk digital <span className="text-brand-red">luar biasa</span> bersama kami.</>
               ) : (
@@ -422,22 +422,26 @@ export const Contact = () => {
       </section>
 
       {/* Main Form & Info Section */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-12 border-b border-[#262930] relative z-10 bg-[#0B0C0E]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -left-40 top-16 h-80 w-80 rounded-full border border-white/[0.025]" />
+          <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
+        </div>
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid min-w-0 grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
             {/* Left Column: Direct Info & Location */}
-            <div className="lg:col-span-5 self-start lg:sticky lg:top-28 space-y-6 sm:space-y-8">
+            <div className="min-w-0 lg:sticky lg:top-28 lg:col-span-5 self-start space-y-6 sm:space-y-8">
               <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-brand-red block mb-2 font-semibold">
+                <span className="kapi-section-label mb-5">
                   {language === 'id' ? 'Informasi Perusahaan' : 'Corporate Information'}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-display font-bold mb-2 sm:mb-3 text-white">
+                <h3 className="max-w-xl text-2xl font-display font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-3xl">
                   Kapitech Agency
                 </h3>
-                <p className="text-xs font-mono text-[#8A909D] uppercase tracking-wider mb-2.5 sm:mb-3">
+                <p className="mt-3 text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                   PT Kapitech Digital Indonesia
                 </p>
-                <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
+                <p className="mt-4 max-w-xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base">
                   {language === 'id'
                     ? 'Agensi produk digital independen yang berfokus pada desain UI/UX strategis, rekayasa web full-stack, dan identitas brand modern.'
                     : 'An independent digital product agency specializing in strategic UI/UX design, full-stack web engineering, and brand systems.'}
@@ -446,7 +450,7 @@ export const Contact = () => {
 
               <div className="space-y-3 sm:space-y-4">
                 {/* Email Client */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#16181D] border border-[#262930] flex items-start gap-3.5 sm:gap-4 hover:border-brand-red/40 transition-colors">
+                <div className="group min-w-0 rounded-2xl border border-white/[0.07] bg-[#111216] p-4 sm:p-5 flex items-start gap-3.5 sm:gap-4 transition-[border-color,background-color] duration-300 hover:border-brand-red/25 hover:bg-[#141519]">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red shrink-0 mt-0.5">
                     <Mail size={16} />
                   </div>
@@ -551,8 +555,8 @@ export const Contact = () => {
             </div>
 
             {/* Right Column: Interactive Consultation Form */}
-            <div className="lg:col-span-7">
-              <div className="p-0">
+            <div className="min-w-0 lg:col-span-7">
+              <div className="relative">
                 {isSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -624,8 +628,8 @@ export const Contact = () => {
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                      <div className="px-5 sm:px-7 pt-5 sm:pt-7 pb-5 sm:pb-6 border-b border-white/[0.08]">
+                    <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+                      <div className="border-b border-white/[0.08] px-5 pt-5 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
                         <div className="flex items-center justify-between gap-4">
                           <div>
                             <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
@@ -663,7 +667,7 @@ export const Contact = () => {
                         </p>
                       </div>
 
-                      <div className="px-5 sm:px-7 py-5 sm:py-7">
+                      <div className="px-5 py-5 sm:px-7 sm:py-7">
                         <AnimatePresence mode="wait" initial={false}>
                           {formStep === 0 && (
                             <motion.div
