@@ -727,8 +727,11 @@ export const Contact = () => {
                       <div className="border-b border-white/[0.08] px-5 pt-5 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
-                            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                              {language === 'id' ? `0${formStep + 1} / 03` : `0${formStep + 1} / 03`}
+                            <span
+                              className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red"
+                              aria-live="polite"
+                            >
+                              {language === 'id' ? `Langkah 0${formStep + 1} dari 03` : `Step 0${formStep + 1} of 03`}
                             </span>
                             <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.04em] text-white">
                               {formStep === 0
