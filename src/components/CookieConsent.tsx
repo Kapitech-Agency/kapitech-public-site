@@ -30,6 +30,7 @@ export const CookieConsent = () => {
       // Keep the banner dismissible even when browser storage is unavailable.
     }
 
+    window.dispatchEvent(new CustomEvent('kapitech_consent_changed', { detail: { choice } }));
     setIsVisible(false);
   };
 
