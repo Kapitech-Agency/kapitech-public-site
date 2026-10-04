@@ -736,8 +736,11 @@ export const ServiceDetail = () => {
                     className="rounded-3xl border border-white/[0.08] bg-white/[0.018] overflow-hidden backdrop-blur-xl transition-[border-color,background-color] duration-300"
                   >
                     <button
+                      id={`service-faq-trigger-${idx}`}
                       type="button"
                       onClick={() => toggleFaq(idx)}
+                      aria-expanded={isOpen}
+                      aria-controls={`service-faq-panel-${idx}`}
                       className="w-full p-6 text-left flex items-center justify-between gap-4 text-white font-medium hover:text-brand-red transition-colors"
                     >
                       <span className="text-base sm:text-lg">
@@ -753,7 +756,10 @@ export const ServiceDetail = () => {
                     <AnimatePresence>
                       {isOpen && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
+                          id={`service-faq-panel-${idx}`}
+                          role="region"
+                          aria-labelledby={`service-faq-trigger-${idx}`}
+                          initial={{ height: 0, opacity: 0 }
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
