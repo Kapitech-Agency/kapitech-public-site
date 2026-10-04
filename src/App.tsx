@@ -132,10 +132,16 @@ function AppShell() {
   return (
     <>
       <SiteCursor />
+      <a
+        href="#main-content"
+        className="kapi-skip-link"
+      >
+        {language === 'id' ? 'Lewati ke konten utama' : 'Skip to main content'}
+      </a>
       <Navbar />
       <div className={cn('relative z-10 text-white selection:bg-brand-red selection:text-white min-h-screen flex flex-col kapi-public-shell')}>
         <PublicMotion />
-        <main className="flex-grow flex flex-col">
+        <main id="main-content" className="flex-grow flex flex-col" tabIndex={-1}>
           <AnimatedRoutes />
         </main>
         <Footer />
