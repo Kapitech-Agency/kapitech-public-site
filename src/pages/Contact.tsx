@@ -711,9 +711,27 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="space-y-4"
+                              className="space-y-5"
                             >
-                              <div className="grid min-w-0 grid-cols-1 gap-3.5 sm:grid-cols-2">
+                              <div className="flex items-end justify-between gap-5">
+                                <div className="min-w-0">
+                                  <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">
+                                    {language === 'id' ? 'Mulai dari arah utama' : 'Start with a direction'}
+                                  </span>
+                                  <p className="mt-1.5 max-w-lg text-[11px] leading-[1.7] text-[#8A909D] sm:text-xs">
+                                    {language === 'id'
+                                      ? 'Pilih satu atau beberapa area. Detail scope bisa kita rapikan bersama setelahnya.'
+                                      : 'Choose one or more areas. We can shape the exact scope together afterwards.'}
+                                  </p>
+                                </div>
+                                <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
+                                  {selectedServices.length > 0
+                                    ? `${selectedServices.length} ${language === 'id' ? 'dipilih' : 'selected'}`
+                                    : (language === 'id' ? 'Belum dipilih' : 'Nothing selected')}
+                                </span>
+                              </div>
+
+                              <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
                                 {serviceChoices.map((choice, index) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   const partial = !selected && choice.values.some(value => selectedServices.includes(value));
@@ -723,13 +741,13 @@ export const Contact = () => {
                                       type="button"
                                       onClick={() => toggleServiceBundle(choice.values)}
                                       whileTap={{ scale: 0.985 }}
-                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[132px] ${selected ? 'border-brand-red/75 bg-brand-red/[0.10] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(229,9,20,0.10)]' : partial ? 'border-brand-red/35 bg-brand-red/[0.025]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
+                                      className={`group relative flex min-h-[148px] min-w-0 flex-col overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ${selected ? 'border-brand-red/75 bg-brand-red/[0.10] shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(229,9,20,0.10)]' : partial ? 'border-brand-red/35 bg-brand-red/[0.025]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
                                       aria-pressed={selected}
                                       aria-label={selected ? `${choice.title} selected` : partial ? `${choice.title} partially selected` : `Select ${choice.title}`}
                                       data-cursor-label="Select"
                                     >
                                       <span className={`absolute inset-x-0 top-0 h-0.5 origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red' : partial ? 'scale-x-100 bg-brand-red/45' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
-                                      <div className="flex items-start justify-between gap-4">
+                                      <div className="flex items-center justify-between gap-4">
                                         <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono font-semibold tracking-[0.16em] transition-colors ${selected ? 'border-white/[0.16] bg-white/[0.09] text-white' : partial ? 'border-brand-red/30 bg-brand-red/[0.08] text-white' : 'border-white/[0.07] bg-white/[0.02] text-white group-hover:text-white'}`}>
                                           0{index + 1}
                                         </span>
@@ -737,9 +755,17 @@ export const Contact = () => {
                                           {selected ? <CheckCircle2 size={11} strokeWidth={2.6} /> : partial ? <span className="h-1.5 w-1.5 rounded-full bg-brand-red/90" /> : <CheckCircle2 size={11} strokeWidth={2.4} />}
                                         </span>
                                       </div>
-                                      <h4 className={`mt-4 text-sm font-semibold leading-snug transition-colors duration-300 ${selected || partial ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
-                                      <span className={`mt-1.5 block text-[9px] font-mono uppercase tracking-[0.1em] ${selected ? 'text-white/70' : partial ? 'text-[#A7ACB5]' : 'text-[#8A909D]'}`}>{choice.meta}</span>
-                                      <p className={`mt-1.5 text-[11px] leading-[1.6] ${selected ? 'text-[#F0F2F5]' : partial ? 'text-[#C5C9D1]' : 'text-[#B0B5BF]'}`}>{choice.description}</p>
+                                      <div className="mt-5 min-w-0">
+                                        <h4 className={`text-[15px] font-semibold leading-snug tracking-[-0.015em] transition-colors duration-300 ${selected || partial ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>
+                                          {choice.title}
+                                        </h4>
+                                        <p className={`mt-2 max-w-md text-[11px] leading-[1.65] ${selected ? 'text-[#F0F2F5]' : partial ? 'text-[#C5C9D1]' : 'text-[#B0B5BF]'}`}>
+                                          {choice.description}
+                                        </p>
+                                      </div>
+                                      <span className={`mt-auto pt-4 text-[9px] font-mono uppercase tracking-[0.1em] ${selected ? 'text-white/65' : partial ? 'text-[#A7ACB5]' : 'text-[#727985]'}`}>
+                                        {choice.meta}
+                                      </span>
                                     </motion.button>
                                   );
                                 })}
@@ -748,15 +774,20 @@ export const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowSpecificServices(prev => !prev)}
-                                className="group flex w-full items-center justify-between gap-4 rounded-xl border border-dashed border-white/[0.1] bg-white/[0.008] px-4 py-3.5 text-left text-xs text-[#8A909D] transition-[border-color,background-color,color] hover:border-brand-red/30 hover:bg-white/[0.015] hover:text-white"
+                                className="group flex w-full items-center justify-between gap-4 rounded-xl border border-white/[0.08] bg-white/[0.012] px-4 py-3.5 text-left transition-[border-color,background-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.02]"
                                 aria-expanded={showSpecificServices}
                               >
-                                <span className="min-w-0">
-                                  <span className="block font-medium text-white/90">{language === 'id' ? 'Perlu pilihan yang lebih spesifik?' : 'Need a more specific service?'}</span>
-                                  <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Pilih layanan individual di bawah.' : 'Choose individual services below.'}</span>
+                                <span className="flex min-w-0 items-start gap-3">
+                                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#8A909D]">
+                                    {showSpecificServices ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                                  </span>
+                                  <span className="min-w-0">
+                                    <span className="block text-xs font-medium text-white/90">{language === 'id' ? 'Perlu pilihan yang lebih spesifik?' : 'Need a more specific service?'}</span>
+                                    <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Pilih layanan individual di bawah.' : 'Choose individual services below.'}</span>
+                                  </span>
                                 </span>
-                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] transition-colors group-hover:border-brand-red/25 group-hover:text-brand-red">
-                                  {showSpecificServices ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F] group-hover:text-[#A7ACB5]">
+                                  {showSpecificServices ? (language === 'id' ? 'Tutup' : 'Collapse') : (language === 'id' ? 'Buka' : 'Explore')}
                                 </span>
                               </button>
 
@@ -795,7 +826,12 @@ export const Contact = () => {
                                 )}
                               </AnimatePresence>
 
-                              <div className="flex justify-end pt-1">
+                              <div className="flex items-center justify-between gap-4 border-t border-white/[0.07] pt-4">
+                                <p className="hidden max-w-sm text-[10px] leading-[1.6] text-[#6F757F] sm:block">
+                                  {language === 'id'
+                                    ? 'Anda bisa mengubah pilihan kapan saja di langkah berikutnya.'
+                                    : 'You can adjust your selections at any point in the next steps.'}
+                                </p>
                                 <button
                                   type="button"
                                   onClick={handleNextStep}
