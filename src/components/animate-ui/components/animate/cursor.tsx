@@ -172,7 +172,10 @@ export function Cursor({ children, style, ...props }: CursorProps) {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.94 }}
-          transition={{ duration: 0.07, ease: 'linear' }}
+          transition={{
+            opacity: { duration: 0.07, ease: 'linear' },
+            scale: { duration: 0.07, ease: 'linear' },
+          }}
           {...props}
         >
           <svg
@@ -236,7 +239,10 @@ export function CursorFollow({ children, style, ...props }: CursorFollowProps) {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96 }}
-          transition={{ duration: 0.08, ease: 'linear' }}
+          transition={{
+            opacity: { duration: 0.08, ease: 'linear' },
+            scale: { duration: 0.08, ease: 'linear' },
+          }}
           {...props}
         >
           {children}
