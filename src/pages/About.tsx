@@ -676,41 +676,73 @@ export const About = () => {
       </section>
 
       {/* Core Principles / Values */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#262930] bg-[#0B0C0E] relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-10 sm:mb-16">
-            <span className="text-brand-red font-mono font-semibold tracking-widest uppercase text-xs mb-2 sm:mb-3 block">
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -right-40 top-10 h-80 w-80 rounded-full border border-brand-red/[0.035]" />
+          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[110px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
+            <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Prinsip Kerja Kami' : 'Our Principles'}
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight mb-3 text-white">
+            <motion.h2
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+            >
               {language === 'id' ? 'Bagaimana kami menangani setiap proyek.' : 'How we approach every project.'}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+            >
               {language === 'id'
                 ? 'Kami memegang standar ketat untuk kegunaan, kecepatan, dan dampak bisnis nyata.'
                 : 'We hold our work to strict standards of usability, speed, and business impact.'}
-            </p>
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 xl:gap-8">
             {values.map((v, i) => (
-              <motion.div
-                key={i}
+              <motion.article
+                key={v.title}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4 }}
-                className="p-6 sm:p-8 rounded-2xl bg-[#16181D] border border-[#262930] flex flex-col justify-between min-h-[200px] sm:min-h-[240px] hover:border-brand-red/40 transition-colors"
+                className="group relative flex min-w-0 min-h-[230px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:min-h-[250px] sm:p-7 md:p-8"
               >
-                <div>
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center text-brand-red mb-5 sm:mb-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-transform duration-300 group-hover:scale-[1.03] sm:h-12 sm:w-12">
                     {v.icon}
                   </div>
-                  <h3 className="text-lg sm:text-xl font-display font-bold mb-2.5 sm:mb-3 text-white">{v.title}</h3>
-                  <p className="text-xs text-[#8A909D] font-light leading-relaxed">{v.desc}</p>
+                  <span className="pt-1 text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#6F757F]">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                 </div>
-              </motion.div>
+
+                <div className="mt-8 min-w-0">
+                  <h3 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-[1.35rem]">
+                    {v.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-light leading-[1.8] text-[#8A909D]">
+                    {v.desc}
+                  </p>
+                </div>
+
+                <span
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
+                  aria-hidden="true"
+                />
+              </motion.article>
             ))}
           </div>
         </div>
