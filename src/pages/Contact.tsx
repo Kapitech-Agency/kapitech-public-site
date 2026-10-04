@@ -702,7 +702,7 @@ export const Contact = () => {
                         </p>
                       </div>
 
-                      <div className="px-5 py-5 sm:px-7 sm:py-7">
+                      <div className="flex min-h-0 flex-1 flex-col px-5 py-5 sm:px-7 sm:py-7">
                         <AnimatePresence mode="wait" initial={false}>
                           {formStep === 0 && (
                             <motion.div
@@ -951,6 +951,32 @@ export const Contact = () => {
                             </motion.div>
                           )}
                         </AnimatePresence>
+
+                        <div className="mt-auto hidden border-t border-white/[0.07] pt-6 lg:block">
+                          <div className="flex items-start justify-between gap-8">
+                            <div className="min-w-0">
+                              <span className="block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
+                                {language === 'id' ? 'Setelah dikirim' : 'What happens next'}
+                              </span>
+                              <p className="mt-2 max-w-md text-[11px] leading-[1.7] text-[#8A909D]">
+                                {language === 'id'
+                                  ? 'Kami review kebutuhan Anda, rapikan scope bila perlu, lalu hubungi Anda untuk langkah berikutnya.'
+                                  : 'We review your needs, shape the scope if needed, and reach out with the next step.'}
+                              </p>
+                            </div>
+
+                            <div className="flex shrink-0 flex-wrap justify-end gap-x-5 gap-y-2 pt-0.5">
+                              <span className="inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#6F757F]" />
+                                {language === 'id' ? 'Respons 24 jam kerja' : '24h business response'}
+                              </span>
+                              <span className="inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#6F757F]" />
+                                {language === 'id' ? 'Scope bisa dibentuk bersama' : 'Scope shaped together'}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </form>
