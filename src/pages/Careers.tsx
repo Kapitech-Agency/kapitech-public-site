@@ -801,7 +801,7 @@ export const Careers = () => {
 
         {/* Dynamic & Aesthetic Staggered Photo Wall (Plain Darkened Photos) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 pb-6">
+          <div className="grid min-w-0 grid-cols-2 gap-3 pb-6 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 lg:gap-5">
             {twelveTalents.map((talent, index) => {
               // Staggered offset for dynamic editorial rhythm
               const offsetClasses = [
@@ -863,7 +863,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-4 sm:my-6"
+                className="career-modal-shell relative flex w-full max-w-xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
@@ -896,7 +896,7 @@ export const Careers = () => {
                   </div>
                 </div>
 
-                <div className="space-y-6 px-5 sm:px-7 py-6 text-xs font-light text-white/80">
+                <div className="career-modal-scroll min-h-0 flex-1 overflow-y-auto space-y-6 px-5 py-6 text-xs font-light text-white/80 overscroll-contain sm:px-7">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
                       {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
@@ -950,15 +950,15 @@ export const Careers = () => {
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5">
             {positions.map((pos) => (
               <motion.div
                 key={pos.id}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="cursor-pointer group p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300"
+                className="cursor-pointer group min-w-0 p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300"
               >
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex min-w-0 flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
@@ -1218,7 +1218,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-0 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
+              className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header with Role Title */}
               <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
@@ -1271,7 +1271,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto px-5 sm:px-7 py-6 sm:py-7 space-y-8 sm:space-y-10">
+              <div className="career-modal-scroll min-h-0 flex-1 overflow-y-auto px-5 py-6 space-y-8 overscroll-contain sm:px-7 sm:py-7 sm:space-y-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 career-detail-grid">
                   {/* Responsibilities */}
                   <div>
@@ -1498,7 +1498,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-4xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] my-0 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
+              className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header */}
               <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
@@ -1541,7 +1541,7 @@ export const Careers = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="overflow-y-auto px-5 sm:px-7 py-6 sm:py-7">
+              <div className="career-modal-scroll min-h-0 flex-1 overflow-y-auto px-5 py-6 overscroll-contain sm:px-7 sm:py-7">
                 {isVendorSubmitted ? (
                   <div className="p-8 rounded-2xl bg-white/[0.025] border border-white/[0.08] text-center space-y-4 my-6">
                     <div className="w-16 h-16 rounded-full bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mx-auto">
