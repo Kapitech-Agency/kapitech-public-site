@@ -237,6 +237,77 @@ export const Careers = () => {
   const [selectedTalent, setSelectedTalent] = useState<any | null>(null);
 
   const hasOpenCareerModal = Boolean(selectedPosition || isFreelanceModalOpen || selectedTalent);
+  const careerModalRef = React.useRef<HTMLDivElement>(null);
+  const careerModalTriggerRef = React.useRef<HTMLElement | null>(null);
+  const careerModalWasOpenRef = React.useRef(false);
+
+  useEffect(() => {
+    if (!hasOpenCareerModal) {
+      if (careerModalWasOpenRef.current) {
+        careerModalWasOpenRef.current = false;
+        if (careerModalTriggerRef.current && document.contains(careerModalTriggerRef.current)) {
+          careerModalTriggerRef.current.focus();
+        }
+        careerModalTriggerRef.current = null;
+      }
+      return;
+    }
+
+    if (!careerModalWasOpenRef.current) {
+      careerModalWasOpenRef.current = true;
+      careerModalTriggerRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
+
+    const focusIntoModal = () => {
+      const dialog = careerModalRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+
+      focusable[0]?.focus();
+    };
+
+    const handleTrap = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+
+      const dialog = careerModalRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    const focusFrame = window.requestAnimationFrame(focusIntoModal);
+    document.addEventListener('keydown', handleTrap);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener('keydown', handleTrap);
+    };
+  }, [hasOpenCareerModal]);
+
 
   useEffect(() => {
     if (!hasOpenCareerModal) return;
@@ -1002,6 +1073,7 @@ export const Careers = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
+                ref={careerModalRef}
                 className="career-modal-shell relative flex w-full max-w-xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
               >
                 <button
@@ -1357,6 +1429,8 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
+              ref={careerModalRef}
+              ref={careerModalRef}
               className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header with Role Title */}
@@ -1739,58 +1813,67 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-name" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Nama Lengkap / Studio *' : 'Full Name / Studio Name *'}
                         </label>
                         <input 
                           type="text"
+                          id="vendor-name"
                           name="name"
                           required
+                          aria-invalid={Boolean(vendorErrors.name)}
+                          aria-describedby={vendorErrors.name ? 'vendor-name-error' : undefined}
                           value={vendorFormData.name}
                           onChange={handleVendorInputChange}
                           placeholder={language === 'id' ? 'e.g. Budi Santoso / Studio Koding' : 'e.g. Alex Morgan / Pixel Studio'}
                           className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.name ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.name && (
-                          <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.name}</span>
+                          <span id="vendor-name-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{vendorErrors.name}</span>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-email" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Alamat Email *' : 'Email Address *'}
                         </label>
                         <input 
                           type="email"
+                          id="vendor-email"
                           name="email"
                           required
+                          aria-invalid={Boolean(vendorErrors.email)}
+                          aria-describedby={vendorErrors.email ? 'vendor-email-error' : undefined}
                           value={vendorFormData.email}
                           onChange={handleVendorInputChange}
                           placeholder="freelancer@example.com"
                           className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.email ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.email && (
-                          <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.email}</span>
+                          <span id="vendor-email-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{vendorErrors.email}</span>
                         )}
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-phone" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Nomor WhatsApp Aktif *' : 'WhatsApp Number (Active) *'}
                         </label>
                         <input 
                           type="tel"
+                          id="vendor-phone"
                           name="phone"
                           required
+                          aria-invalid={Boolean(vendorErrors.phone)}
+                          aria-describedby={vendorErrors.phone ? 'vendor-phone-error' : undefined}
                           value={vendorFormData.phone}
                           onChange={handleVendorInputChange}
                           placeholder="+62 812-3456-7890"
                           className={`w-full min-h-[44px] bg-white/[0.015] border border-white/[0.09] rounded-xl px-4 py-2.5 text-base sm:text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 font-mono transition-[border-color,box-shadow,background-color] duration-300 ${vendorErrors.phone ? 'border-brand-red' : 'border-white/[0.09]'}`}
                         />
                         {vendorErrors.phone && (
-                          <span className="text-[11px] font-mono text-brand-red mt-1 block">{vendorErrors.phone}</span>
+                          <span id="vendor-phone-error" className="text-[11px] font-mono text-brand-red mt-1 block" role="alert">{vendorErrors.phone}</span>
                         )}
                       </div>
 
@@ -1817,13 +1900,16 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-portfolio" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Tautan Portofolio / GitHub / Dribbble *' : 'Portfolio / GitHub / Dribbble URL *'}
                         </label>
                         <input 
                           type="url"
+                          id="vendor-portfolio"
                           name="portfolio"
                           required
+                          aria-invalid={Boolean(vendorErrors.portfolio)}
+                          aria-describedby={vendorErrors.portfolio ? 'vendor-portfolio-error' : undefined}
                           value={vendorFormData.portfolio}
                           onChange={handleVendorInputChange}
                           placeholder="https://behance.net/... or https://github.com/..."
@@ -1832,11 +1918,12 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-rate-card" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Ekspektasi Rate Card (per Proyek / Jam)' : 'Rate Card Expectation (per Project / Hourly)'}
                         </label>
                         <input 
                           type="text"
+                          id="vendor-rate-card"
                           name="rateCard"
                           value={vendorFormData.rateCard}
                           onChange={handleVendorInputChange}
@@ -1865,11 +1952,12 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-tools" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Alat Kerja / Stack Utama' : 'Core Tools & Tech Stack'}
                         </label>
                         <input 
                           type="text"
+                          id="vendor-tools"
                           name="tools"
                           value={vendorFormData.tools}
                           onChange={handleVendorInputChange}
