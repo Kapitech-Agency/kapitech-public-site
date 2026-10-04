@@ -630,8 +630,8 @@ export const Contact = () => {
 
                     <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
                       <div className="border-b border-white/[0.08] px-5 pt-5 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
-                        <div className="flex items-center justify-between gap-4">
-                          <div>
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="min-w-0">
                             <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
                               {language === 'id' ? `0${formStep + 1} / 03` : `0${formStep + 1} / 03`}
                             </span>
@@ -643,13 +643,21 @@ export const Contact = () => {
                                   : (language === 'id' ? 'Sedikit konteks, lalu selesai.' : 'A little context, then we’re done.')}
                             </h3>
                           </div>
-                          <div className="hidden sm:flex items-center gap-1.5 shrink-0">
-                            {[0, 1, 2].map(step => (
-                              <span
-                                key={step}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${step === formStep ? 'w-8 bg-brand-red/90' : step < formStep ? 'w-4 bg-brand-red/45' : 'w-4 bg-white/[0.08]'}`}
-                              />
-                            ))}
+                          <div className="flex shrink-0 items-center gap-2">
+                            {formStep === 0 && selectedServices.length > 0 && (
+                              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">
+                                <CheckCircle2 size={11} />
+                                {language === 'id' ? `${selectedServices.length} dipilih` : `${selectedServices.length} selected`}
+                              </span>
+                            )}
+                            <div className="hidden sm:flex items-center gap-1.5">
+                              {[0, 1, 2].map(step => (
+                                <span
+                                  key={step}
+                                  className={`h-1.5 rounded-full transition-all duration-300 ${step === formStep ? 'w-8 bg-brand-red/90' : step < formStep ? 'w-4 bg-brand-red/45' : 'w-4 bg-white/[0.08]'}`}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
                         <p className="mt-2.5 text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed max-w-2xl">
@@ -678,7 +686,7 @@ export const Contact = () => {
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                               className="space-y-4"
                             >
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="grid min-w-0 grid-cols-1 gap-3.5 sm:grid-cols-2">
                                 {serviceChoices.map((choice, index) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   return (
@@ -687,18 +695,22 @@ export const Contact = () => {
                                       type="button"
                                       onClick={() => toggleServiceBundle(choice.values)}
                                       whileTap={{ scale: 0.985 }}
-                                      className={`group relative overflow-hidden rounded-xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-300 min-h-[108px] ${selected ? 'border-brand-red/45 bg-brand-red/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]' : 'border-white/[0.08] bg-white/[0.015] hover:border-white/[0.15] hover:bg-white/[0.025]'}`}
+                                      className={`group relative min-w-0 overflow-hidden rounded-2xl border px-4 py-4 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 min-h-[122px] ${selected ? 'border-brand-red/50 bg-brand-red/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]' : 'border-white/[0.08] bg-white/[0.015] hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025]'}`}
                                       aria-pressed={selected}
+                                      aria-label={selected ? `${choice.title} selected` : `Select ${choice.title}`}
                                       data-cursor-label="Select"
                                     >
+                                      <span className={`absolute inset-x-0 top-0 h-px origin-left transition-transform duration-300 ${selected ? 'scale-x-100 bg-brand-red/80' : 'scale-x-0 bg-white/20 group-hover:scale-x-100'}`} />
                                       <div className="flex items-start justify-between gap-4">
-                                        <span className={`text-[10px] font-mono tracking-[0.16em] ${selected ? 'text-white' : 'text-[#8A909D]'}`}>0{index + 1}</span>
-                                        <span className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${selected ? 'bg-brand-red/[0.14] border-brand-red/55 text-brand-red' : 'border-white/[0.14] text-transparent'}`}>
-                                          <CheckCircle2 size={12} />
+                                        <span className={`inline-flex items-center rounded-full border px-2 py-1 text-[9px] font-mono tracking-[0.16em] transition-colors ${selected ? 'border-brand-red/25 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.07] bg-white/[0.02] text-[#6F757F] group-hover:text-[#8A909D]'}`}>
+                                          0{index + 1}
+                                        </span>
+                                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${selected ? 'border-brand-red/55 bg-brand-red text-white' : 'border-white/[0.14] bg-transparent text-transparent group-hover:border-white/[0.22]'}`}>
+                                          <CheckCircle2 size={11} strokeWidth={2.4} />
                                         </span>
                                       </div>
-                                      <h4 className={`mt-5 text-sm font-semibold transition-colors duration-300 ${selected ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
-                                      <p className="mt-1 text-[11px] text-[#8A909D] leading-relaxed">{choice.description}</p>
+                                      <h4 className={`mt-4 text-sm font-semibold leading-snug transition-colors duration-300 ${selected ? 'text-white' : 'text-white group-hover:text-brand-red'}`}>{choice.title}</h4>
+                                      <p className="mt-1.5 text-[11px] leading-[1.6] text-[#8A909D]">{choice.description}</p>
                                     </motion.button>
                                   );
                                 })}
@@ -707,11 +719,16 @@ export const Contact = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowSpecificServices(prev => !prev)}
-                                className="w-full flex items-center justify-between rounded-xl border border-dashed border-white/[0.1] bg-transparent px-4 py-3 text-xs text-[#8A909D] hover:border-brand-red/30 hover:text-white transition-colors"
+                                className="group flex w-full items-center justify-between gap-4 rounded-xl border border-dashed border-white/[0.1] bg-white/[0.008] px-4 py-3.5 text-left text-xs text-[#8A909D] transition-[border-color,background-color,color] hover:border-brand-red/30 hover:bg-white/[0.015] hover:text-white"
                                 aria-expanded={showSpecificServices}
                               >
-                                <span>{language === 'id' ? 'Butuh memilih layanan yang lebih spesifik?' : 'Need a more specific service?'}</span>
-                                {showSpecificServices ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+                                <span className="min-w-0">
+                                  <span className="block font-medium text-white/90">{language === 'id' ? 'Perlu pilihan yang lebih spesifik?' : 'Need a more specific service?'}</span>
+                                  <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Pilih layanan individual di bawah.' : 'Choose individual services below.'}</span>
+                                </span>
+                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] transition-colors group-hover:border-brand-red/25 group-hover:text-brand-red">
+                                  {showSpecificServices ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                </span>
                               </button>
 
                               <AnimatePresence initial={false}>
