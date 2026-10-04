@@ -59,7 +59,7 @@ function setJsonLd(data: Record<string, unknown>): void {
 
 function getRouteSeo(pathname: string, language: 'en' | 'id'): { seo: SeoDefinition; canonicalPath: string; structuredData: Record<string, unknown> } {
   const base = seoRoutes.routes.find((route) => route.path === pathname);
-  if (base) {
+  if (base && base.kind !== 'service') {
     return {
       seo: { title: base.title, description: base.description, robots: base.robots },
       canonicalPath: pathname || '/',
