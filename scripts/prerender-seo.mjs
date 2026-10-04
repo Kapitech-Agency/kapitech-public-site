@@ -50,6 +50,7 @@ const renderRoute = (sourceHtml, route) => {
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
   html = setMeta(html, 'property', 'og:image', manifest.defaultImage);
+  html = setMeta(html, 'name', 'twitter:url', canonicalUrl);
   html = setMeta(html, 'name', 'twitter:title', route.title);
   html = setMeta(html, 'name', 'twitter:description', route.description);
   html = setMeta(html, 'name', 'twitter:image', manifest.defaultImage);
