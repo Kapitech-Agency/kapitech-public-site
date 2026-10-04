@@ -1014,7 +1014,7 @@ export const Home = () => {
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   ref={processModalRef}
-                  className="kapi-process-modal relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] will-change-[opacity,transform]"
+                  className="kapi-process-modal relative flex h-[calc(100dvh-2rem)] lg:h-[calc(100dvh-3rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] will-change-[opacity,transform]"
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="process-phase-modal-title"
