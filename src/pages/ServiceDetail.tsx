@@ -205,6 +205,37 @@ export const ServiceDetail = () => {
                 <ChevronDown className="w-4 h-4" />
               </a>
             </div>
+
+            <div className="mt-8 grid max-w-4xl grid-cols-1 gap-2.5 sm:grid-cols-3">
+              {[
+                {
+                  label: language === 'id' ? 'Kategori' : 'Category',
+                  value: service.category
+                },
+                {
+                  label: language === 'id' ? 'Cocok untuk' : 'Best for',
+                  value: language === 'id' ? service.navSubtitleId : service.navSubtitle
+                },
+                {
+                  label: language === 'id' ? 'Tahap awal' : 'Starting point',
+                  value: language === 'id'
+                    ? service.processStages?.[0]?.stageNameId || 'Discovery'
+                    : service.processStages?.[0]?.stageName || 'Discovery'
+                }
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.014] px-4 py-3.5"
+                >
+                  <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">
+                    {item.label}
+                  </span>
+                  <span className="mt-1.5 block text-xs font-medium leading-[1.55] text-white">
+                    {item.value}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -222,11 +253,11 @@ export const ServiceDetail = () => {
                 {language === 'id' ? 'Metrik Kinerja' : 'Performance Metrics'}
               </span>
               <h2 id="performance-metrics-title" className="mt-2 max-w-2xl text-xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-2xl">
-                {language === 'id' ? 'Sinyal utama dari kualitas delivery.' : 'Key signals from delivery quality.'}
+                {language === 'id' ? 'Indikator utama yang membantu menilai layanan ini.' : 'The key indicators that help frame this service.'}
               </h2>
             </div>
-            <span className="shrink-0 text-[9px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#555A63]">
-              {String(performanceMetrics.length).padStart(2, '0')} {language === 'id' ? 'Metrik' : 'Signals'}
+            <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.14em] text-[#555A63]">
+              {language === 'id' ? 'Ringkasan layanan' : 'Service snapshot'}
             </span>
           </div>
 
@@ -242,14 +273,11 @@ export const ServiceDetail = () => {
                 >
                   <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
-                      {String(idx + 1).padStart(2, '0')}
-                    </span>
                     <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
-                      {language === 'id' ? 'Kinerja' : 'Performance'}
+                      {language === 'id' ? 'Indikator' : 'Indicator'}
                     </span>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-5">
                     <div className="break-words text-[2.35rem] font-display font-semibold leading-[0.92] tracking-[-0.055em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[2.7rem]">
                       {metric.value}
                     </div>
@@ -295,21 +323,21 @@ export const ServiceDetail = () => {
           <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <div className="max-w-3xl">
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
+                {language === 'id' ? 'Cara Kami Bekerja' : 'How We Work'}
               </span>
               <h2
                 id="identity-foundations-title"
                 className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.75rem]"
               >
                 {language === 'id'
-                  ? 'Bukan sekadar layanan. Ada fondasi yang menjaga setiap engagement tetap terarah.'
-                  : 'More than a service. A set of foundations keeps every engagement intentional.'}
+                  ? 'Empat fondasi yang menjaga scope, keputusan, delivery, dan handoff tetap selaras.'
+                  : 'Four foundations keep scope, decisions, delivery, and handoff aligned.'}
               </h2>
             </div>
             <p className="max-w-md text-xs leading-[1.8] text-[#8A909D] sm:text-sm lg:pb-1">
               {language === 'id'
-                ? 'Kami menyatukan positioning layanan, keputusan strategis, cara delivery, dan toolchain agar pekerjaan tetap konsisten dari brief sampai handoff.'
-                : 'We connect service positioning, strategic decisions, delivery discipline, and the right toolchain so the work stays coherent from brief to handoff.'}
+                ? 'Lihat cara layanan ini dibentuk, dari arah strategis sampai toolchain yang dipakai untuk delivery.'
+                : 'See how this service is shaped, from strategic direction to the toolchain used for delivery.'}
             </p>
           </div>
 
@@ -357,7 +385,7 @@ export const ServiceDetail = () => {
             <div className="flex flex-col gap-3 border-t border-white/[0.07] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
               <div className="flex items-center gap-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#555A63]">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
-                <span>{language === 'id' ? 'Foundation untuk engagement ini' : 'Foundation for this engagement'}</span>
+                <span>{language === 'id' ? 'Tool yang mendukung delivery' : 'Tools supporting delivery'}</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {(service.tools || []).slice(0, 5).map((tool) => (
@@ -512,10 +540,10 @@ export const ServiceDetail = () => {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'Bukti Nyata' : 'Proven Case Studies'}
+                {language === 'id' ? 'Contoh Pekerjaan' : 'Related Work'}
               </span>
               <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
-                {language === 'id' ? 'Proyek terkait yang telah kami rilis' : 'Related work we have shipped'}
+                {language === 'id' ? 'Contoh proyek yang relevan dengan layanan ini' : 'Selected work relevant to this service'}
               </h2>
             </div>
             <Link
@@ -635,10 +663,10 @@ export const ServiceDetail = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <span className="kapi-section-label mb-5">
-                  {language === 'id' ? 'Nilai Tambah Bisnis' : 'Tangible ROI'}
+                  {language === 'id' ? 'Dampak untuk Bisnis' : 'Business Impact'}
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-display text-white tracking-tight">
-                  {language === 'id' ? service.businessOutcomes.headingId : service.businessOutcomes.heading}
+                  {language === 'id' ? 'Apa yang bisa dibuka oleh engagement ini' : 'What this engagement can unlock'}
                 </h2>
                 <div className="space-y-3.5 pt-2">
                   {(language === 'id' ? service.businessOutcomes.benefitsId : service.businessOutcomes.benefits).map((benefit, idx) => (
@@ -768,7 +796,7 @@ export const ServiceDetail = () => {
                   <div className="grid lg:grid-cols-[180px_1fr]">
                     <div className="border-b border-white/[0.07] px-5 py-5 sm:px-6 lg:border-b-0 lg:border-r lg:px-7 lg:py-6">
                       <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                        {category === 'Solutions' ? '01' : category === 'Branding' ? '02' : category === 'Design' ? '03' : '04'}
+                        {category}
                       </span>
                       <div className="mt-2 text-sm font-medium text-white">
                         {category}
