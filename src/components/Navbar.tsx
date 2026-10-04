@@ -268,54 +268,88 @@ export const Navbar = () => {
               <ChevronRight size={14} className="relative z-10 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
 
-            {/* Language Switcher EN | ID */}
-            <div className="flex items-center gap-2 text-[10px] font-mono font-semibold tracking-[0.16em]">
+            {/* Language Switcher */}
+            <div
+              className="inline-flex items-center rounded-full border border-white/[0.09] bg-[#0B0C0E]/42 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_6px_18px_rgba(0,0,0,0.08)]"
+              role="group"
+              aria-label="Language"
+            >
               <button
+                type="button"
                 onClick={() => setLanguage('en')}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-transparent bg-transparent px-2.5 py-1.5 text-[#8A909D] backdrop-blur-xl backdrop-saturate-150 transition-[background-color,border-color,color,box-shadow] duration-300 hover:border-white/[0.1] hover:bg-white/[0.045] hover:text-white cursor-pointer"
+                aria-pressed={language === 'en'}
                 aria-label="Switch to English"
+                className={cn(
+                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-250 cursor-pointer",
+                  language === 'en'
+                    ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                    : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
+                )}
               >
                 <span className={cn(
-                  "h-1.5 w-1.5 rounded-full transition-all duration-200",
-                  language === 'en' ? "bg-brand-red shadow-[0_0_9px_rgba(229,9,20,0.7)]" : "bg-transparent"
-                )} />
-                <span className={cn(language === 'en' ? "text-white" : "text-[#8A909D]")}>EN</span>
+                  "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
+                  language === 'en'
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.65)]"
+                    : "bg-[#4E535C]"
+                )} aria-hidden="true" />
+                <span>EN</span>
               </button>
-              <span className="h-3 w-px bg-[#262930]" aria-hidden="true" />
+
               <button
+                type="button"
                 onClick={() => setLanguage('id')}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-transparent bg-transparent px-2.5 py-1.5 text-[#8A909D] backdrop-blur-xl backdrop-saturate-150 transition-[background-color,border-color,color,box-shadow] duration-300 hover:border-white/[0.1] hover:bg-white/[0.045] hover:text-white cursor-pointer"
+                aria-pressed={language === 'id'}
                 aria-label="Switch to Indonesian"
+                className={cn(
+                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-250 cursor-pointer",
+                  language === 'id'
+                    ? "bg-white/[0.09] text-white shadow-[inset_0_1px 0_rgba(255,255,255,0.07)]"
+                    : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
+                )}
               >
                 <span className={cn(
-                  "h-1.5 w-1.5 rounded-full transition-all duration-200",
-                  language === 'id' ? "bg-brand-red shadow-[0_0_9px_rgba(229,9,20,0.7)]" : "bg-transparent"
-                )} />
-                <span className={cn(language === 'id' ? "text-white" : "text-[#8A909D]")}>ID</span>
+                  "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
+                  language === 'id'
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.65)]"
+                    : "bg-[#4E535C]"
+                )} aria-hidden="true" />
+                <span>ID</span>
               </button>
             </div>
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
           <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
-            <div className="flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] bg-white/[0.035] backdrop-blur-2xl backdrop-saturate-150 text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.08)]">
+            <div
+              className="inline-flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-[#0B0C0E]/48 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.1)]"
+              role="group"
+              aria-label="Language"
+            >
               <button
+                type="button"
                 onClick={() => setLanguage('en')}
-                className={cn(
-                  "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'en' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
-                )}
+                aria-pressed={language === 'en'}
                 aria-label="Switch to English"
+                className={cn(
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,border-color,color,box-shadow] duration-250 flex items-center justify-center cursor-pointer",
+                  language === 'en'
+                    ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                    : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
+                )}
               >
                 EN
               </button>
               <button
+                type="button"
                 onClick={() => setLanguage('id')}
-                className={cn(
-                  "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full border border-transparent transition-[background-color,border-color,color,box-shadow] duration-300 flex items-center justify-center cursor-pointer",
-                  language === 'id' ? "border-brand-red/35 bg-brand-red/68 text-white font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(230,57,70,0.14)]" : "text-[#8A909D] hover:bg-white/[0.045] hover:text-white"
-                )}
+                aria-pressed={language === 'id'}
                 aria-label="Ganti ke Bahasa Indonesia"
+                className={cn(
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,border-color,color,box-shadow] duration-250 flex items-center justify-center cursor-pointer",
+                  language === 'id'
+                    ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
+                    : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
+                )}
               >
                 ID
               </button>
