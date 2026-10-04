@@ -843,7 +843,7 @@ export const Careers = () => {
   };
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative" role="main">
+    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
