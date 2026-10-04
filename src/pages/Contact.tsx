@@ -942,7 +942,6 @@ export const Contact = () => {
                           )}
                         </AnimatePresence>
 
-                        </div>
                       </div>
                     </div>
                   </form>
