@@ -22,6 +22,9 @@ export default defineConfig({
           if (id.includes('/react-router/') || id.includes('/react-router-dom/') || id.includes('/@remix-run/')) {
             return 'router-vendor';
           }
+          if (id.includes('/ogl/')) {
+            return 'webgl-vendor';
+          }
           return 'vendor';
         }
       }
