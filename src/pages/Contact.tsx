@@ -951,29 +951,47 @@ export const Contact = () => {
           <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(17rem,0.52fr)_minmax(0,1fr)] lg:gap-20">
             <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'Jawaban Lengkap' : 'Clear Answers'}
+                {language === 'id' ? 'Sebelum Memulai' : 'Before We Start'}
               </span>
-              <h2 className="max-w-xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[3.75rem]">
-                {language === 'id' ? 'Pertanyaan yang Sering Diajukan' : 'Frequently Asked Questions'}
-              </h2>
-              <p className="mt-5 max-w-md text-sm font-light leading-[1.85] text-[#9AA0AA] sm:text-base">
+
+              <div className="relative pl-5 sm:pl-6">
+                <span className="absolute left-0 top-1 bottom-1 w-px bg-gradient-to-b from-brand-red via-brand-red/35 to-transparent" aria-hidden="true" />
+                <h2 className="max-w-xl text-3xl font-display font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-4xl md:text-5xl lg:text-[3.55rem]">
+                  {language === 'id'
+                    ? <>Pertanyaan yang <span className="text-brand-red">sering muncul</span> sebelum kita mulai.</>
+                    : <>The questions that come up <span className="text-brand-red">before we start.</span></>}
+                </h2>
+              </div>
+
+              <p className="mt-6 max-w-md text-sm font-light leading-[1.85] text-[#A7ACB5] sm:text-base">
                 {language === 'id'
-                  ? 'Jawaban singkat untuk hal-hal yang paling sering ditanyakan sebelum memulai kolaborasi bersama Kapitech Agency.'
-                  : 'Straight answers to the questions people ask most before starting a collaboration with Kapitech Agency.'}
+                  ? 'Jawaban langsung tentang proses, timeline, pembayaran, support, dan cara kerja bersama Kapitech Agency.'
+                  : 'Straight answers on process, timelines, billing, support, and what it is like to work with Kapitech Agency.'}
               </p>
 
-              <div className="mt-8 flex items-center gap-3 border-t border-white/[0.07] pt-5">
-                <span className="text-3xl font-display font-semibold leading-none tracking-[-0.05em] text-white">
-                  {String(allFaqs.length).padStart(2, '0')}
+              <div className="mt-8 flex flex-wrap gap-2">
+                {(language === 'id'
+                  ? ['Proses', 'Timeline', 'Pembayaran', 'Support']
+                  : ['Process', 'Timeline', 'Billing', 'Support']
+                ).map((topic) => (
+                  <span
+                    key={topic}
+                    className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]"
+                  >
+                    {topic}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-8 max-w-sm border-t border-white/[0.07] pt-5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                  {language === 'id' ? 'Butuh jawaban lain?' : 'Need another answer?'}
                 </span>
-                <div>
-                  <span className="block text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                    {language === 'id' ? 'Pertanyaan' : 'Questions'}
-                  </span>
-                  <span className="mt-0.5 block text-[11px] text-[#A7ACB5]">
-                    {language === 'id' ? 'Topik utama' : 'Key topics'}
-                  </span>
-                </div>
+                <p className="mt-1.5 text-xs leading-relaxed text-[#8A909D]">
+                  {language === 'id'
+                    ? 'Kirim kebutuhan Anda melalui form di atas dan tim kami akan membantu mengarahkan langkah berikutnya.'
+                    : 'Send your project context through the form above and our team will help guide the next step.'}
+                </p>
               </div>
             </div>
 
