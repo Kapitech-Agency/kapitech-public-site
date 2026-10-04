@@ -11,6 +11,7 @@ import { cn } from './lib/utils';
 import { PublicMotion } from './components/ui/PublicMotion';
 import { SiteCursor } from './components/SiteCursor';
 import { CookieConsent } from './components/CookieConsent';
+import { SeoMeta } from './components/SeoMeta';
 import { initAnalytics } from './lib/analytics';
 
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
@@ -162,6 +163,7 @@ export default function App() {
       <LanguageProvider>
         <Router>
           <ScrollToTop />
+          <SeoMeta />
           <AppShell />
         </Router>
       </LanguageProvider>
