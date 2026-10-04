@@ -458,27 +458,12 @@ export const Contact = () => {
                       </p>
                     </div>
 
-                    <div className="flex shrink-0 items-center gap-2.5 overflow-x-auto pb-0.5">
-                      {[
-                        [language === 'id' ? '01' : '01', language === 'id' ? 'Profil' : 'Profile'],
-                        [language === 'id' ? '02' : '02', language === 'id' ? 'Kontak' : 'Contact'],
-                        [language === 'id' ? '03' : '03', language === 'id' ? 'Kantor' : 'Office']
-                      ].map(([step, label]) => (
-                        <div key={step} className="inline-flex shrink-0 items-center gap-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                          <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[8px] text-[#A7ACB5]">
-                            {step}
-                          </span>
-                          <span>{label}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
                 <div className="divide-y divide-white/[0.07]">
                   <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center gap-3 lg:w-32">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">01</span>
+                    <div className="flex items-center lg:w-32">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Profil' : 'Profile'}
                       </span>
@@ -528,8 +513,7 @@ export const Contact = () => {
                   </div>
 
                   <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center gap-3 lg:w-32">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">02</span>
+                    <div className="flex items-center lg:w-32">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Kontak' : 'Contact'}
                       </span>
@@ -597,8 +581,7 @@ export const Contact = () => {
                   </div>
 
                   <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center gap-3 lg:w-32">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[9px] font-mono font-semibold tracking-[0.12em] text-[#A7ACB5]">03</span>
+                    <div className="flex items-center lg:w-32">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Kantor' : 'Office'}
                       </span>
