@@ -10,61 +10,11 @@ type SeoDefinition = {
   type?: 'website' | 'article';
 };
 
-const SITE_NAME = 'Kapitech Agency';
-const SITE_URL = 'https://kapitech.id';
-const DEFAULT_IMAGE = 'https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/hero_background_3d.png';
+const SITE_NAME = seoRoutes.siteName;
+const SITE_URL = seoRoutes.siteUrl;
+const DEFAULT_IMAGE = seoRoutes.defaultImage;
 
-const STATIC_SEO: Record<string, SeoDefinition> = {
-  '/': {
-    title: 'Kapitech Agency | Digital Product Design & Engineering',
-    description: 'Kapitech is a digital product design and engineering agency helping startups, scaleups, B2B companies, and enterprises design, build, and scale digital products.',
-  },
-  '/services': {
-    title: 'Digital Product Design & Engineering Services | Kapitech Agency',
-    description: 'Explore Kapitech services across product design, UI/UX, web development, mobile apps, MVPs, branding, and digital product engineering.',
-  },
-  '/work': {
-    title: 'Digital Product Design & Engineering Portfolio | Kapitech Agency',
-    description: 'Explore Kapitech case studies and delivered work across product design, web engineering, branding, and digital experiences.',
-  },
-  '/about': {
-    title: 'About Kapitech Agency | Digital Product Design & Engineering',
-    description: 'Learn about Kapitech Agency, our capabilities, working model, leadership, and approach to digital product design and engineering.',
-  },
-  '/careers': {
-    title: 'Careers at Kapitech Agency | Design & Engineering',
-    description: 'Explore career opportunities at Kapitech for designers, engineers, project leaders, and digital product specialists.',
-  },
-  '/contact': {
-    title: 'Start a Project with Kapitech Agency',
-    description: 'Tell Kapitech about your digital product, design, engineering, branding, or website project and start a conversation with our team.',
-  },
-  '/privacy': {
-    title: 'Privacy Policy | Kapitech Agency',
-    description: 'Read the Kapitech Agency privacy policy and understand how website and inquiry data is handled.',
-    robots: 'noindex, follow',
-  },
-  '/terms': {
-    title: 'Terms of Service | Kapitech Agency',
-    description: 'Read the Kapitech Agency terms of service governing use of this website and related services.',
-    robots: 'noindex, follow',
-  },
-  '/cookie-policy': {
-    title: 'Cookie Policy | Kapitech Agency',
-    description: 'Read the Kapitech Agency cookie policy and understand how cookies and optional tracking are used.',
-    robots: 'noindex, follow',
-  },
-  '/ai-instructions': {
-    title: 'AI Instructions | Kapitech Agency',
-    description: 'Kapitech Agency machine-readable guidance and publishing instructions.',
-    robots: 'noindex, follow',
-  },
-  '/editorial-policy': {
-    title: 'Editorial Policy | Kapitech Agency',
-    description: 'Read the editorial and content governance policy for Kapitech Agency.',
-    robots: 'noindex, follow',
-  },
-};
+import seoRoutes from '../data/seoRoutes.json';
 
 function setMeta(name: string, content: string): void {
   let tag = document.head.querySelector<HTMLMetaElement>('meta[name="' + name + '"]');
@@ -109,10 +59,10 @@ function setJsonLd(data: Record<string, unknown>): void {
 }
 
 function getRouteSeo(pathname: string, language: 'en' | 'id'): { seo: SeoDefinition; canonicalPath: string; structuredData: Record<string, unknown> } {
-  const base = STATIC_SEO[pathname];
+  const base = seoRoutes.routes.find((route) => route.path === pathname);
   if (base) {
     return {
-      seo: base,
+      seo: { title: base.title, description: base.description, robots: base.robots },
       canonicalPath: pathname || '/',
       structuredData: {
         '@context': 'https://schema.org',
@@ -174,6 +124,7 @@ export const SeoMeta = () => {
     setProperty('og:image', DEFAULT_IMAGE);
     setProperty('og:site_name', SITE_NAME);
     setProperty('og:locale', language === 'id' ? 'id_ID' : 'en_US');
+    setMeta('twitter:url', canonicalUrl);
     setProperty('og:locale:alternate', language === 'id' ? 'en_US' : 'id_ID');
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:title', seo.title);
