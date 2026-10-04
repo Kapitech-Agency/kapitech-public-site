@@ -1002,7 +1002,7 @@ export const Home = () => {
 
             return (
               <div
-                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050609]/42 p-2 backdrop-blur-md backdrop-saturate-75 sm:p-4 lg:p-6"
+                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050609]/42 p-4 backdrop-blur-md backdrop-saturate-75 sm:p-4 lg:p-6"
                 role="presentation"
                 onMouseDown={(event) => {
                   if (event.target === event.currentTarget) setSelectedProcessStep(null);
@@ -1014,7 +1014,7 @@ export const Home = () => {
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   ref={processModalRef}
-                  className="relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] will-change-[opacity,transform]"
+                  className="kapi-process-modal relative flex h-[calc(100dvh-2rem)] w-full max-w-[1400px] max-h-[900px] min-h-0 flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] will-change-[opacity,transform]"
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="process-phase-modal-title"
@@ -1050,8 +1050,8 @@ export const Home = () => {
                     </button>
                   </header>
 
-                  <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-                    <aside className="min-h-0 overflow-y-auto border-b border-white/[0.08] bg-[#0B0C0E] lg:border-b-0 lg:border-r">
+                  <div className="kapi-process-modal-body grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                    <aside className="kapi-process-modal-overview min-h-0 overflow-y-auto border-b border-white/[0.08] bg-[#0B0C0E] lg:border-b-0 lg:border-r">
                       <div className="p-4 sm:p-5 lg:p-6">
                         <div className="mb-3 flex items-center justify-between gap-3">
                           <div>
@@ -1102,7 +1102,7 @@ export const Home = () => {
                       </div>
                     </aside>
 
-                    <section className="min-h-0 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail fase' : 'Phase details'}>
+                    <section className="kapi-process-modal-detail min-h-0 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6 sm:py-7 lg:px-8 lg:py-8" aria-label={language === 'id' ? 'Detail fase' : 'Phase details'}>
                       <div className="mx-auto max-w-3xl space-y-8 sm:space-y-10">
                         <section>
                           <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">
