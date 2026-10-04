@@ -87,7 +87,6 @@ function getMarketingSnapshot(): Record<string, string> {
 
   const referrer = document.referrer?.trim() || '';
   if (referrer) {
-    snapshot.referrer = referrer;
     try {
       snapshot.referrer_host = new URL(referrer).hostname;
     } catch {
@@ -99,8 +98,16 @@ function getMarketingSnapshot(): Record<string, string> {
 }
 
 function updateAttributionStorage(): AttributionContext {
-  const existing = readStoredJson<AttributionContext>(ATTRIBUTION_STORAGE_KEY) || {};
   const current = getMarketingSnapshot();
+
+  if (getConsentChoice() !== 'accepted') {
+    return {
+      firstTouch: current,
+      lastTouch: current,
+    };
+  }
+
+  const existing = readStoredJson<AttributionContext>(ATTRIBUTION_STORAGE_KEY) || {};
   const hasMarketingSignal = Object.keys(current).some((key) =>
     key.startsWith('utm_') || ['gclid', 'fbclid', 'li_fat_id'].includes(key)
   );
@@ -325,6 +332,7 @@ export function initAnalytics(): void {
       return;
     }
 
+    updateAttributionStorage();
     initialized = ensureGoogleAnalytics() || ensureGoogleTagManager();
     if (initialized) trackPageView(window.location.pathname);
   };
