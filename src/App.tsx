@@ -11,6 +11,7 @@ import { cn } from './lib/utils';
 import { PublicMotion } from './components/ui/PublicMotion';
 import { SiteCursor } from './components/SiteCursor';
 import { CookieConsent } from './components/CookieConsent';
+import { initAnalytics } from './lib/analytics';
 
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })));
@@ -81,6 +82,7 @@ function AppShell() {
   const [maintenanceMode, setMaintenanceMode] = React.useState(false);
 
   useEffect(() => {
+    initAnalytics();
     let cancelled = false;
 
     void api.cms.getPublicSettings().then((res) => {
