@@ -331,13 +331,19 @@ export const Navbar = () => {
                 aria-pressed={language === 'en'}
                 aria-label="Switch to English"
                 className={cn(
-                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,border-color,color,box-shadow] duration-250 flex items-center justify-center cursor-pointer",
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-250 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
                 )}
               >
-                EN
+                <span className={cn(
+                  "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
+                  language === 'en'
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.55)]"
+                    : "bg-[#4E535C]"
+                )} aria-hidden="true" />
+                <span>EN</span>
               </button>
               <button
                 type="button"
@@ -345,13 +351,19 @@ export const Navbar = () => {
                 aria-pressed={language === 'id'}
                 aria-label="Ganti ke Bahasa Indonesia"
                 className={cn(
-                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,border-color,color,box-shadow] duration-250 flex items-center justify-center cursor-pointer",
+                  "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-250 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'id'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
                 )}
               >
-                ID
+                <span className={cn(
+                  "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
+                  language === 'id'
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.55)]"
+                    : "bg-[#4E535C]"
+                )} aria-hidden="true" />
+                <span>ID</span>
               </button>
             </div>
 
