@@ -350,7 +350,7 @@ export const About = () => {
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:gap-24">
             <div>
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'Identitas & Fondasi Kami' : 'Our Identity & Foundations'}
+                {language === 'id' ? 'Informasi Korporat' : 'Corporate Information'}
               </span>
 
               <motion.h2
@@ -420,16 +420,55 @@ export const About = () => {
                 </div>
               </div>
 
-              <div className="mt-7 flex items-start gap-3 text-xs text-[#8A909D]">
-                <MapPin size={15} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
-                <div>
-                  <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-[#6F757F]">
-                    {language === 'id' ? 'Kantor Pusat Perusahaan' : 'Corporate Headquarters'}
-                  </span>
-                  <p className="mt-1 max-w-2xl leading-[1.7] text-[#A7ACB5]">
-                    Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
-                  </p>
+              <div className="mt-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216]">
+                <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-5 py-4 sm:px-6">
+                  <div>
+                    <span className="block font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-red">
+                      {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
+                    </span>
+                    <p className="mt-1 text-xs text-[#6F757F]">
+                      {language === 'id' ? 'Informasi operasional utama' : 'Core operating information'}
+                    </p>
+                  </div>
+                  <Building2 size={18} className="shrink-0 text-[#6F757F]" aria-hidden="true" />
                 </div>
+
+                <dl className="divide-y divide-white/[0.06]">
+                  <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-5 sm:px-6">
+                    <dt className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Badan Usaha' : 'Legal Entity'}
+                    </dt>
+                    <dd className="text-sm font-medium leading-relaxed text-white">
+                      PT Kapitech Digital Indonesia
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-5 sm:px-6">
+                    <dt className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Jenis Usaha' : 'Business Type'}
+                    </dt>
+                    <dd className="text-sm font-medium leading-relaxed text-white">
+                      {language === 'id' ? 'Digital agency & technology studio' : 'Digital agency & technology studio'}
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-5 sm:px-6">
+                    <dt className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      <MapPin size={12} className="text-brand-red" aria-hidden="true" />
+                      {language === 'id' ? 'Kantor Pusat' : 'Headquarters'}
+                    </dt>
+                    <dd className="text-sm font-medium leading-relaxed text-[#D4D7DE]">
+                      Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-5 sm:px-6">
+                    <dt className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      <Globe size={12} className="text-brand-red" aria-hidden="true" />
+                      {language === 'id' ? 'Cakupan' : 'Coverage'}
+                    </dt>
+                    <dd className="text-sm font-medium leading-relaxed text-white">
+                      {language === 'id' ? 'Indonesia · Asia Tenggara · Global' : 'Indonesia · Southeast Asia · Global'}
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </div>
 
