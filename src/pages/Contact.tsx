@@ -433,9 +433,9 @@ export const Contact = () => {
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid min-w-0 grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="grid min-w-0 grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
             {/* Left Column: Direct Info & Location */}
-            <div className="min-w-0 lg:sticky lg:top-28 lg:col-span-5 self-start space-y-6 sm:space-y-8">
+            <div className="min-w-0 h-fit lg:col-span-5 self-start space-y-6 sm:space-y-8">
               <div>
                 <span className="kapi-section-label mb-5">
                   {language === 'id' ? 'Informasi Perusahaan' : 'Corporate Information'}
@@ -560,7 +560,7 @@ export const Contact = () => {
             </div>
 
             {/* Right Column: Interactive Consultation Form */}
-            <div className="min-w-0 lg:col-span-7">
+            <div className="min-w-0 h-fit lg:col-span-7 self-start">
               <div className="relative">
                 {isSubmitted ? (
                   <motion.div
