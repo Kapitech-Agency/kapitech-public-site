@@ -1,0 +1,238 @@
+{
+  "version": 1,
+  "siteName": "Kapitech Agency",
+  "siteUrl": "https://kapitech.id",
+  "defaultImage": "https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/hero_background_3d.png",
+  "routes": [
+    {
+      "path": "/",
+      "title": "Kapitech Agency | Digital Product Design & Engineering",
+      "description": "Kapitech is a digital product design and engineering agency helping startups, scaleups, B2B companies, and enterprises design, build, and scale digital products.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "website"
+    },
+    {
+      "path": "/services",
+      "title": "Digital Product Design & Engineering Services | Kapitech Agency",
+      "description": "Explore Kapitech services across product design, UI/UX, web development, mobile apps, MVPs, branding, and digital product engineering.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/work",
+      "title": "Digital Product Design & Engineering Portfolio | Kapitech Agency",
+      "description": "Explore Kapitech case studies and delivered work across product design, web engineering, branding, and digital experiences.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/about",
+      "title": "About Kapitech Agency | Digital Product Design & Engineering",
+      "description": "Learn about Kapitech Agency, our capabilities, working model, leadership, and approach to digital product design and engineering.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/careers",
+      "title": "Careers at Kapitech Agency | Design & Engineering",
+      "description": "Explore career opportunities at Kapitech for designers, engineers, project leaders, and digital product specialists.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/contact",
+      "title": "Start a Project with Kapitech Agency",
+      "description": "Tell Kapitech about your digital product, design, engineering, branding, or website project and start a conversation with our team.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Policy | Kapitech Agency",
+      "description": "Read the Kapitech Agency privacy policy and understand how website and inquiry data is handled.",
+      "robots": "noindex, follow",
+      "kind": "webpage"
+    },
+    {
+      "path": "/terms",
+      "title": "Terms of Service | Kapitech Agency",
+      "description": "Read the Kapitech Agency terms of service governing use of this website and related services.",
+      "robots": "noindex, follow",
+      "kind": "webpage"
+    },
+    {
+      "path": "/cookie-policy",
+      "title": "Cookie Policy | Kapitech Agency",
+      "description": "Read the Kapitech Agency cookie policy and understand how cookies and optional tracking are used.",
+      "robots": "noindex, follow",
+      "kind": "webpage"
+    },
+    {
+      "path": "/ai-instructions",
+      "title": "AI Instructions | Kapitech Agency",
+      "description": "Kapitech Agency machine-readable guidance and publishing instructions.",
+      "robots": "noindex, follow",
+      "kind": "webpage"
+    },
+    {
+      "path": "/editorial-policy",
+      "title": "Editorial Policy | Kapitech Agency",
+      "description": "Read the editorial and content governance policy for Kapitech Agency.",
+      "robots": "noindex, follow",
+      "kind": "webpage"
+    },
+    {
+      "path": "/solutions/mvp-design",
+      "title": "MVP DESIGN | Kapitech Agency",
+      "description": "Turn complex product ideas into a clear, testable MVP experience in 2-4 weeks, with focused UX, high-fidelity prototyping, and developer-ready handoff.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "MVP DESIGN",
+      "serviceType": "Solutions"
+    },
+    {
+      "path": "/solutions/product-redesign",
+      "title": "PRODUCT REDESIGN | Kapitech Agency",
+      "description": "Elevate retention, eliminate churn, and modernize legacy software interfaces into high-impact digital experiences that dominate modern markets.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "PRODUCT REDESIGN",
+      "serviceType": "Solutions"
+    },
+    {
+      "path": "/solutions/team-extension",
+      "title": "TEAM EXTENSION | Kapitech Agency",
+      "description": "Embed battle-tested, high-caliber product designers, motion specialists, and full-stack engineers into your sprints with zero hiring overhead.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "TEAM EXTENSION",
+      "serviceType": "Solutions"
+    },
+    {
+      "path": "/services/pitch-deck",
+      "title": "Pitch Deck | Kapitech Agency",
+      "description": "Deliver an effective, undeniable presentation of your company to venture capital investors, institutional partners, and enterprise clients with our executive-grade deck design services.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Pitch Deck",
+      "serviceType": "Branding"
+    },
+    {
+      "path": "/services/brand-identity",
+      "title": "Brand Identity | Kapitech Agency",
+      "description": "Build undeniable authority, market distinction, and lasting customer trust through unified visual guidelines, bespoke typography, and coherent brand ecosystems.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Brand Identity",
+      "serviceType": "Branding"
+    },
+    {
+      "path": "/services/logo-design",
+      "title": "Logo Design | Kapitech Agency",
+      "description": "Distinctive, timeless, and mathematically balanced logomarks engineered for seamless scalability across app icons, billboards, and high-contrast digital interfaces.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Logo Design",
+      "serviceType": "Branding"
+    },
+    {
+      "path": "/services/graphic-design",
+      "title": "Graphic Design | Kapitech Agency",
+      "description": "Elevate your marketing campaigns, digital products, and physical branding with custom-crafted vector illustrations, bespoke icon sets, and high-converting marketing visuals.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Graphic Design",
+      "serviceType": "Branding"
+    },
+    {
+      "path": "/services/rebranding",
+      "title": "Rebranding | Kapitech Agency",
+      "description": "Revitalize your market position, conquer new enterprise verticals, and shed outdated perception with an end-to-end brand transformation.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Rebranding",
+      "serviceType": "Branding"
+    },
+    {
+      "path": "/services/ui-ux-design",
+      "title": "UI/UX Design | Kapitech Agency",
+      "description": "We combine optical precision, strict ergonomics, and user psychology to design intuitive, high-performance interfaces that maximize engagement and user retention.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "UI/UX Design",
+      "serviceType": "Design"
+    },
+    {
+      "path": "/services/website-design",
+      "title": "Website Design | Kapitech Agency",
+      "description": "Custom-crafted marketing websites that captivate visitors, establish undeniable authority, and convert traffic into qualified inbound inquiries.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Website Design",
+      "serviceType": "Design"
+    },
+    {
+      "path": "/services/website-redesign",
+      "title": "Website Redesign | Kapitech Agency",
+      "description": "Upgrade dated corporate websites into high-speed, modern digital flagships that command market leadership and turn passive traffic into qualified sales opportunities.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Website Redesign",
+      "serviceType": "Design"
+    },
+    {
+      "path": "/services/product-ux-ui-audit",
+      "title": "Product UX/UI Audit | Kapitech Agency",
+      "description": "Uncover where users drop off, get confused, or abandon transactions. We deliver a detailed 40+ page diagnostic report with actionable wireframe fixes to maximize ROI.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Product UX/UI Audit",
+      "serviceType": "Design"
+    },
+    {
+      "path": "/services/web-development",
+      "title": "Web Development | Kapitech Agency",
+      "description": "Clean, maintainable, and strictly-typed web architectures engineered with modern TypeScript, Next.js, Node.js, and resilient PostgreSQL databases.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Web Development",
+      "serviceType": "Development"
+    },
+    {
+      "path": "/services/mvp-development",
+      "title": "MVP Development | Kapitech Agency",
+      "description": "Launch your functional, production-ready minimum viable product in 3-6 weeks with clean architecture, user auth, database persistence, and payment gateways.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "MVP Development",
+      "serviceType": "Development"
+    },
+    {
+      "path": "/services/landing-page",
+      "title": "Landing page | Kapitech Agency",
+      "description": "Ultra-fast, mobile-optimized landing pages with fluid micro-animations, lead capture integrations, and sub-second load times engineered to maximize marketing ROI.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Landing page",
+      "serviceType": "Development"
+    },
+    {
+      "path": "/services/corporate-websites",
+      "title": "Corporate Websites | Kapitech Agency",
+      "description": "Secure, multilingual, and SEO-dominant enterprise web platforms equipped with user-friendly headless CMS for seamless marketing team updates.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "Corporate Websites",
+      "serviceType": "Development"
+    },
+    {
+      "path": "/services/wow-websites",
+      "title": "WOW Websites | Kapitech Agency",
+      "description": "Award-winning experiential websites combining 3D interactive canvases, fluid WebGL physics, and kinetic scroll choreography with blistering-fast sub-second performance.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "service",
+      "serviceName": "WOW Websites",
+      "serviceType": "Development"
+    }
+  ]
+}
