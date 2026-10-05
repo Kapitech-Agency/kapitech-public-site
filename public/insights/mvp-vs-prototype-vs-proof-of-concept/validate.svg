@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<title id="title">Apa yang divalidasi oleh Prototype, MVP, dan PoC</title>
+<desc id="desc">Tiga kolom yang membandingkan fokus validasi pengalaman pengguna, nilai produk, dan kelayakan teknis.</desc>
+<rect width="1400" height="760" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="80" y="90" font-size="18" letter-spacing="4" fill="#E50914">01 / WHAT DOES EACH APPROACH VALIDATE?</text>
+<text x="80" y="150" font-size="46" font-weight="700" fill="#F8FAFC">Satu keputusan, satu pertanyaan utama.</text>
+<g transform="translate(80 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#E50914"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">PROTOTYPE</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">User experience</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Can users use it?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Flow, hierarchy, usability,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">interaction, and comprehension.</text>
+</g>
+<g transform="translate(510 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#FF1E27"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">MVP</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">Product value</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Will users value it?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Core value proposition, adoption,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">behavior, and learning with real users.</text>
+</g>
+<g transform="translate(940 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#E50914"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">PoC</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">Technical feasibility</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Can we build it?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Architecture, integrations,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">performance, data, and constraints.</text>
+</g>
+<text x="80" y="690" font-size="18" fill="#69717D">They are not competing stages. They are different instruments for different uncertainties.</text>
+</g></svg>
