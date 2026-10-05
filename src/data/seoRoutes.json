@@ -6,43 +6,43 @@
   "routes": [
     {
       "path": "/",
-      "title": "Kapitech Agency | Digital Product Design & Engineering",
-      "description": "Kapitech is a digital product design and engineering agency helping startups, scaleups, B2B companies, and enterprises design, build, and scale digital products.",
+      "title": "Kapitech Agency | Creative & IT Development Agency in Indonesia",
+      "description": "Kapitech Agency is a creative and IT development agency in South Tangerang, Indonesia, delivering branding, UI/UX design, website development, custom web applications, and digital products.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "website"
     },
     {
       "path": "/services",
-      "title": "Digital Product Design & Engineering Services | Kapitech Agency",
-      "description": "Explore Kapitech services across product design, UI/UX, web development, mobile apps, MVPs, branding, and digital product engineering.",
+      "title": "Digital Agency Services in Indonesia | Branding, UI/UX & Web Development | Kapitech",
+      "description": "Explore Kapitech services across branding, graphic design, UI/UX, website design, custom web development, MVP development, and digital product engineering.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/work",
-      "title": "Digital Product Design & Engineering Portfolio | Kapitech Agency",
-      "description": "Explore Kapitech case studies and delivered work across product design, web engineering, branding, and digital experiences.",
+      "title": "Creative & IT Agency Portfolio | Branding, UI/UX & Web Development | Kapitech",
+      "description": "Explore Kapitech case studies across branding, UI/UX, website design, web development, motion, and digital product experiences for businesses in Indonesia and beyond.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/about",
-      "title": "About Kapitech Agency | Digital Product Design & Engineering",
-      "description": "Learn about Kapitech Agency, our capabilities, working model, leadership, and approach to digital product design and engineering.",
+      "title": "About Kapitech Agency | Creative & IT Development in Indonesia",
+      "description": "Learn about Kapitech Agency, our team, capabilities, South Tangerang base, and approach to creative design and IT development.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/careers",
-      "title": "Careers at Kapitech Agency | Design & Engineering",
-      "description": "Explore career opportunities at Kapitech for designers, engineers, project leaders, and digital product specialists.",
+      "title": "Careers at Kapitech Agency | Design, Creative & IT Development",
+      "description": "Explore career opportunities and collaboration roles at Kapitech Agency across design, engineering, project delivery, and digital product work.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/contact",
-      "title": "Start a Project with Kapitech Agency",
-      "description": "Tell Kapitech about your digital product, design, engineering, branding, or website project and start a conversation with our team.",
+      "title": "Contact Kapitech Agency | Start a Creative or IT Development Project",
+      "description": "Share your website, branding, UI/UX, custom web application, or digital product needs with Kapitech Agency and start a project discussion.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
@@ -83,8 +83,8 @@
     },
     {
       "path": "/solutions/mvp-design",
-      "title": "MVP DESIGN | Kapitech Agency",
-      "description": "Turn complex product ideas into a clear, testable MVP experience in 2-4 weeks, with focused UX, high-fidelity prototyping, and developer-ready handoff.",
+      "title": "MVP Design Agency | Product UX/UI & Prototyping | Kapitech",
+      "description": "Define and prototype a focused MVP with user journeys, high-fidelity UI, clickable flows, and developer-ready handoff for digital products.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "MVP DESIGN",
@@ -92,8 +92,8 @@
     },
     {
       "path": "/solutions/product-redesign",
-      "title": "PRODUCT REDESIGN | Kapitech Agency",
-      "description": "Modernize legacy software interfaces, clarify complex user journeys, and improve the product experience across critical workflows.",
+      "title": "Product Redesign Agency | UX/UI Audit & Redesign | Kapitech",
+      "description": "Improve legacy products with UX research, interface redesign, clearer user journeys, and a scalable UI system focused on business and user outcomes.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "PRODUCT REDESIGN",
@@ -101,8 +101,8 @@
     },
     {
       "path": "/solutions/team-extension",
-      "title": "TEAM EXTENSION | Kapitech Agency",
-      "description": "Extend your delivery capacity with product designers, motion specialists, and full-stack engineers who can work alongside your team on defined engagements.",
+      "title": "Product Design & Engineering Team Extension | Kapitech",
+      "description": "Extend your delivery team with Kapitech designers, motion specialists, and full-stack engineers for defined product and digital delivery engagements.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "TEAM EXTENSION",
@@ -110,8 +110,8 @@
     },
     {
       "path": "/services/pitch-deck",
-      "title": "Pitch Deck | Kapitech Agency",
-      "description": "Create a clear, structured presentation for investors, institutional partners, and enterprise clients with focused deck design and storytelling.",
+      "title": "Pitch Deck Design Agency | Kapitech",
+      "description": "Create a clear, persuasive pitch deck for investors, partners, and enterprise buyers with structured storytelling, visual hierarchy, and presentation-ready design.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Pitch Deck",
@@ -119,8 +119,8 @@
     },
     {
       "path": "/services/brand-identity",
-      "title": "Brand Identity | Kapitech Agency",
-      "description": "Build a consistent brand system with clear visual guidelines, bespoke typography, and a coherent identity across key touchpoints.",
+      "title": "Brand Identity Agency Indonesia | Kapitech",
+      "description": "Build a consistent brand identity system with visual direction, typography, guidelines, and brand assets designed for digital and business touchpoints.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Brand Identity",
@@ -128,8 +128,8 @@
     },
     {
       "path": "/services/logo-design",
-      "title": "Logo Design | Kapitech Agency",
-      "description": "Distinctive and scalable logomarks designed to work across app icons, large-format applications, and digital interfaces.",
+      "title": "Logo Design Agency Indonesia | Kapitech",
+      "description": "Create a distinctive, scalable logo system for digital products, corporate brands, marketing materials, and high-visibility brand applications.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Logo Design",
@@ -137,8 +137,8 @@
     },
     {
       "path": "/services/graphic-design",
-      "title": "Graphic Design | Kapitech Agency",
-      "description": "Strengthen marketing campaigns, digital products, and physical touchpoints with custom illustrations, icon systems, and campaign-ready visual assets.",
+      "title": "Graphic Design Agency Indonesia | Kapitech",
+      "description": "Develop campaign visuals, illustrations, icons, social media assets, and branded graphics that keep communication clear and consistent.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Graphic Design",
@@ -146,8 +146,8 @@
     },
     {
       "path": "/services/rebranding",
-      "title": "Rebranding | Kapitech Agency",
-      "description": "Refresh your market positioning and modernize an outdated brand through an end-to-end identity transformation.",
+      "title": "Rebranding Agency Indonesia | Kapitech",
+      "description": "Refresh an established brand with clearer positioning, a modern visual system, and a practical rollout across corporate and digital touchpoints.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Rebranding",
@@ -155,8 +155,8 @@
     },
     {
       "path": "/services/ui-ux-design",
-      "title": "UI/UX Design | Kapitech Agency",
-      "description": "We combine interaction design, usability principles, and visual systems to create intuitive interfaces that support stronger engagement and retention.",
+      "title": "UI/UX Design Agency Indonesia | Kapitech",
+      "description": "Design intuitive web and mobile interfaces through user flows, interaction design, visual systems, and high-fidelity prototypes built for real product use.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "UI/UX Design",
@@ -164,8 +164,8 @@
     },
     {
       "path": "/services/website-design",
-      "title": "Website Design | Kapitech Agency",
-      "description": "Custom marketing websites designed to communicate your value clearly, strengthen brand credibility, and turn relevant traffic into qualified inquiries.",
+      "title": "Website Design Agency Indonesia | Kapitech",
+      "description": "Design custom business websites that communicate value clearly, strengthen credibility, and create focused paths from relevant traffic to qualified inquiries.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Website Design",
@@ -173,8 +173,8 @@
     },
     {
       "path": "/services/website-redesign",
-      "title": "Website Redesign | Kapitech Agency",
-      "description": "Upgrade dated corporate websites into modern, performance-focused experiences that strengthen positioning and support qualified sales opportunities.",
+      "title": "Website Redesign Agency Indonesia | Kapitech",
+      "description": "Modernize an outdated website with clearer information architecture, stronger UX, responsive design, and a performance-minded visual system.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Website Redesign",
@@ -182,8 +182,8 @@
     },
     {
       "path": "/services/product-ux-ui-audit",
-      "title": "Product UX/UI Audit | Kapitech Agency",
-      "description": "Identify where users drop off, get confused, or abandon key tasks. We deliver a detailed diagnostic with prioritized UX findings and actionable interface improvements.",
+      "title": "Product UX/UI Audit Agency | Kapitech",
+      "description": "Identify usability friction, unclear flows, and interface issues with a practical UX/UI audit that prioritizes actionable product improvements.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Product UX/UI Audit",
@@ -191,8 +191,8 @@
     },
     {
       "path": "/services/web-development",
-      "title": "Web Development | Kapitech Agency",
-      "description": "Clean, maintainable, and strictly-typed web architectures engineered with modern TypeScript, Next.js, Node.js, and resilient PostgreSQL databases.",
+      "title": "Web Development Agency Indonesia | Kapitech",
+      "description": "Build secure, maintainable websites and custom web applications with modern frontend architecture, APIs, data integrations, and production-ready delivery.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Web Development",
@@ -200,8 +200,8 @@
     },
     {
       "path": "/services/mvp-development",
-      "title": "MVP Development | Kapitech Agency",
-      "description": "Target a focused 3-6 week MVP delivery window with clean architecture, authentication, database persistence, and payment gateway integration.",
+      "title": "MVP Development Agency Indonesia | Kapitech",
+      "description": "Turn a validated product direction into a focused MVP with frontend, backend integration, authentication, data persistence, and production-ready delivery.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "MVP Development",
@@ -209,8 +209,8 @@
     },
     {
       "path": "/services/landing-page",
-      "title": "Landing page | Kapitech Agency",
-      "description": "Mobile-optimized landing pages with focused motion, lead capture integrations, and performance-minded implementation for marketing campaigns.",
+      "title": "Landing Page Design & Development Agency | Kapitech",
+      "description": "Create focused, responsive landing pages with clear messaging, conversion paths, lead capture, and performance-minded implementation.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Landing page",
@@ -218,8 +218,8 @@
     },
     {
       "path": "/services/corporate-websites",
-      "title": "Corporate Websites | Kapitech Agency",
-      "description": "Secure, multilingual, SEO-ready enterprise web platforms with a manageable CMS for ongoing marketing updates.",
+      "title": "Corporate Website Development Agency Indonesia | Kapitech",
+      "description": "Build professional corporate websites with scalable content structures, responsive UX, SEO foundations, integrations, and maintainable CMS workflows.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Corporate Websites",
@@ -227,8 +227,8 @@
     },
     {
       "path": "/services/wow-websites",
-      "title": "WOW Websites | Kapitech Agency",
-      "description": "Experiential websites combining 3D interaction, WebGL motion, and kinetic scroll choreography with performance-focused implementation.",
+      "title": "Experiential & Interactive Website Agency | Kapitech",
+      "description": "Create high-impact interactive websites using motion, 3D, and WebGL techniques where they add meaningful brand or product value without sacrificing usability.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "WOW Websites",
