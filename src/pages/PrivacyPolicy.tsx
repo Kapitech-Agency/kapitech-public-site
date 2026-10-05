@@ -24,7 +24,7 @@ export const PrivacyPolicy = () => {
           {language === 'id' ? 'Kebijakan Privasi.' : 'Privacy Policy.'}
         </h1>
         <p className="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-mono font-semibold mb-12">
-          {language === 'id' ? 'Terakhir Diperbarui: 31 Maret 2026' : 'Last Updated: March 31, 2026'}
+          {language === 'id' ? 'Terakhir Diperbarui: 5 Oktober 2026' : 'Last Updated: October 5, 2026'}
         </p>
         
         {language === 'id' ? (
