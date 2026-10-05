@@ -20,6 +20,7 @@ export const Insights: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [languageFallback, setLanguageFallback] = useState<'id' | null>(null);
 
   useEffect(() => {
     setPage(1);
@@ -29,6 +30,7 @@ export const Insights: React.FC = () => {
     let cancelled = false;
     setLoading(true);
     setError('');
+    setLanguageFallback(null);
 
     void Promise.all([
       api.cms.getInsights({
@@ -39,16 +41,43 @@ export const Insights: React.FC = () => {
         pageSize: 9
       }),
       api.cms.getInsightCategories(language)
-    ]).then(([insightRes, categoryRes]) => {
+    ]).then(async ([insightRes, categoryRes]) => {
       if (cancelled) return;
 
-      if (!insightRes.success) {
-        setError(insightRes.error || (language === 'id' ? 'Insight belum dapat dimuat.' : 'Insights could not be loaded.'));
+      let displayRes = insightRes;
+      let fallbackLanguage: 'id' | null = null;
+
+      if (
+        language === 'en' &&
+        insightRes.success &&
+        Number(insightRes.data?.meta?.total || 0) === 0
+      ) {
+        const fallbackRes = await api.cms.getInsights({
+          language: 'id',
+          categoryId: categoryId || undefined,
+          search: search || undefined,
+          page,
+          pageSize: 9
+        });
+
+        if (fallbackRes.success && Number(fallbackRes.data?.meta?.total || 0) > 0) {
+          displayRes = fallbackRes;
+          fallbackLanguage = 'id';
+        }
+      }
+
+      if (cancelled) return;
+
+      if (!displayRes.success) {
+        setError(displayRes.error || (language === 'id' ? 'Insight belum dapat dimuat.' : 'Insights could not be loaded.'));
         setItems([]);
+        setTotal(0);
+        setTotalPages(1);
       } else {
-        setItems(insightRes.data?.insights || []);
-        setTotal(insightRes.data?.meta?.total || 0);
-        setTotalPages(insightRes.data?.meta?.totalPages || 1);
+        setItems(displayRes.data?.insights || []);
+        setTotal(displayRes.data?.meta?.total || 0);
+        setTotalPages(displayRes.data?.meta?.totalPages || 1);
+        setLanguageFallback(fallbackLanguage);
       }
 
       if (categoryRes.success) {
@@ -58,6 +87,8 @@ export const Insights: React.FC = () => {
       if (cancelled) return;
       setError(language === 'id' ? 'Terjadi masalah saat memuat Insight.' : 'Something went wrong while loading Insights.');
       setItems([]);
+      setTotal(0);
+      setTotalPages(1);
     }).finally(() => {
       if (!cancelled) setLoading(false);
     });
@@ -233,6 +264,14 @@ export const Insights: React.FC = () => {
         </section>
 
         <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24 lg:px-10">
+          {languageFallback === 'id' && (
+            <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-6 text-[#858C99]">
+              {language === 'en'
+                ? 'The latest Insight is currently available in Bahasa Indonesia.'
+                : 'Insight terbaru tersedia dalam Bahasa Indonesia.'}
+            </div>
+          )}
+
           {loading ? (
             <div className="rounded-[26px] border border-white/[0.07] bg-white/[0.018] p-8 text-sm text-[#7E8592]" role="status">
               {language === 'id' ? 'Memuat Insight...' : 'Loading insights...'}
