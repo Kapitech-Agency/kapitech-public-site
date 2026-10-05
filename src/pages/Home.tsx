@@ -516,7 +516,7 @@ export const Home = () => {
                   </div>
 
                   <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-8 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                    <span>14 Services</span>
+                    <span>{allSolutionsAndServices.filter((service) => service.type === 'service').length} Services</span>
                     <span className="h-1 w-1 rounded-full bg-[#4C515A]" aria-hidden="true" />
                     <span>3 Disciplines</span>
                   </div>
