@@ -27,7 +27,7 @@ export const AiInstructions = () => {
           {language === 'id' ? 'Panduan & Kebijakan AI.' : 'AI Instructions & Ethics.'}
         </h1>
         <p className="text-xs sm:text-sm uppercase tracking-[0.11em] leading-[1.35] text-brand-red font-sans font-semibold mb-10">
-          {language === 'id' ? 'Terakhir Diperbarui: Maret 2026' : 'Last Updated: March 2026'}
+          {language === 'id' ? 'Terakhir Diperbarui: 5 Oktober 2026' : 'Last Updated: October 5, 2026'}
         </p>
         
         {language === 'id' ? (
