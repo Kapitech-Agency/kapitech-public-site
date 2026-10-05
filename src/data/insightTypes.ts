@@ -1,5 +1,15 @@
 export type InsightLanguage = 'id' | 'en';
 
+export type InsightPromoBlock = {
+  type: 'promo';
+  eyebrow: string;
+  title: string;
+  description: string;
+  ctaLabel: string;
+  ctaUrl: string;
+  serviceReference?: string;
+};
+
 export type InsightBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'heading'; level: 2 | 3; text: string }
@@ -11,7 +21,8 @@ export type InsightBlock =
   | { type: 'code'; code: string; language?: string }
   | { type: 'link'; url: string; label: string }
   | { type: 'divider' }
-  | { type: 'checklist'; title?: string; items: string[] };
+  | { type: 'checklist'; title?: string; items: string[] }
+  | InsightPromoBlock;
 
 export interface InsightCategory {
   id: string;
