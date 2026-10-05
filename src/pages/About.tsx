@@ -286,7 +286,7 @@ export const About = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="ocean"
             color="#E50914"
