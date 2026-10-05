@@ -1501,6 +1501,27 @@ html.kapi-custom-cursor-enabled select {
   transform: rotate(180deg) !important;
 }
 
+.kapi-public-shell .kapi-insight-toc :where(.kapi-insight-toc-control):active {
+  background-color: rgba(255, 255, 255, 0.075) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(229, 9, 20, 0.06);
+}
+
+.kapi-public-shell .kapi-insight-toc :where(a):active {
+  color: #ffffff !important;
+}
+
+.kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron {
+  flex-shrink: 0;
+  transform: none !important;
+}
+
+.kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron.rotate-180 {
+  transform: rotate(180deg) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron {
     transition: none !important;
