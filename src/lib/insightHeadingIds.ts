@@ -35,11 +35,16 @@ export function buildInsightHeadingIds(blocks: InsightBlock[]): Array<string | u
 
 export function buildInsightToc(blocks: InsightBlock[], headingIds: Array<string | undefined>): InsightTocItem[] {
   return blocks.flatMap((block, index) => {
-    if (block.type !== 'heading' || block.level !== 2 || !headingIds[index]) return [];
+    if (
+      block.type !== 'heading'
+      || (block.level !== 2 && block.level !== 3)
+      || !headingIds[index]
+    ) return [];
+
     return [{
       id: headingIds[index] as string,
       text: block.text || '',
-      level: 2 as const
+      level: block.level
     }];
   });
 }
