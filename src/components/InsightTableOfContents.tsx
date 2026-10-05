@@ -8,6 +8,14 @@ type TocSection = {
   children: InsightTocItem[];
 };
 
+const TOC_SCROLL_OFFSET = 128;
+const NAVIGATION_SETTLE_TOLERANCE = 28;
+const NAVIGATION_TIMEOUT = 1800;
+
+function getHashId(): string {
+  return window.location.hash.replace(/^#/, '');
+}
+
 export const InsightTableOfContents: React.FC<{
   items: InsightTocItem[];
   language: InsightLanguage;
@@ -42,85 +50,139 @@ export const InsightTableOfContents: React.FC<{
   const [activeId, setActiveId] = useState(items[0]?.id || '');
   const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const desktopListRef = useRef<HTMLElement | null>(null);
-  const mobileListRef = useRef<HTMLElement | null>(null);
+
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const rafRef = useRef<number | null>(null);
+  const navigationTargetRef = useRef<string | null>(null);
+  const navigationStartedAtRef = useRef(0);
+
+  const cancelPendingNavigation = () => {
+    navigationTargetRef.current = null;
+    navigationStartedAtRef.current = 0;
+  };
+
+  const syncActiveHeading = () => {
+    if (!items.length) return;
+
+    const pendingId = navigationTargetRef.current;
+
+    if (pendingId) {
+      const pendingHeading = document.getElementById(pendingId);
+      const elapsed = performance.now() - navigationStartedAtRef.current;
+
+      if (!pendingHeading || elapsed > NAVIGATION_TIMEOUT) {
+        cancelPendingNavigation();
+      } else {
+        const pendingTop = pendingHeading.getBoundingClientRect().top;
+        const settled =
+          pendingTop >= -NAVIGATION_SETTLE_TOLERANCE &&
+          pendingTop <= TOC_SCROLL_OFFSET + NAVIGATION_SETTLE_TOLERANCE;
+
+        if (!settled) {
+          setActiveId(prev => (prev === pendingId ? prev : pendingId));
+          return;
+        }
+
+        cancelPendingNavigation();
+      }
+    }
+
+    let current = items[0];
+
+    for (const item of items) {
+      const heading = document.getElementById(item.id);
+      if (!heading) continue;
+
+      if (heading.getBoundingClientRect().top <= TOC_SCROLL_OFFSET) {
+        current = item;
+      } else {
+        break;
+      }
+    }
+
+    setActiveId(prev => (prev === current.id ? prev : current.id));
+  };
+
+  const scheduleSync = () => {
+    if (rafRef.current !== null) return;
+
+    rafRef.current = window.requestAnimationFrame(() => {
+      rafRef.current = null;
+      syncActiveHeading();
+    });
+  };
 
   useEffect(() => {
-    const hash = window.location.hash.replace(/^#/, '');
-    const initialId = items.some(item => item.id === hash) ? hash : (items[0]?.id || '');
-    setActiveId(initialId);
+    if (!items.length) return undefined;
 
+    const hash = getHashId();
+    const initialId = items.some(item => item.id === hash) ? hash : (items[0]?.id || '');
     const initialSectionId = sectionByItemId.get(initialId) || null;
+
+    setActiveId(initialId);
     setExpandedSectionId(initialSectionId);
 
-    const syncActiveHeading = () => {
-      if (!items.length) return;
+    if (hash && initialId === hash) {
+      navigationTargetRef.current = null;
+      navigationStartedAtRef.current = 0;
 
-      const threshold = 128;
-      let current = items[0];
-
-      for (const item of items) {
-        const heading = document.getElementById(item.id);
-        if (!heading) continue;
-
-        if (heading.getBoundingClientRect().top <= threshold) {
-          current = item;
-        } else {
-          break;
-        }
-      }
-
-      setActiveId(prev => (prev === current.id ? prev : current.id));
-    };
-
-    const scheduleSync = () => {
-      if (rafRef.current !== null) return;
-
-      rafRef.current = window.requestAnimationFrame(() => {
-        rafRef.current = null;
-        syncActiveHeading();
+      window.requestAnimationFrame(() => {
+        document.getElementById(initialId)?.scrollIntoView({
+          behavior: 'auto',
+          block: 'start'
+        });
       });
+    }
+
+    const handleHashChange = () => {
+      const nextHash = getHashId();
+      const nextId = items.some(item => item.id === nextHash) ? nextHash : '';
+
+      if (!nextId) {
+        cancelPendingNavigation();
+        scheduleSync();
+        return;
+      }
+
+      const nextSectionId = sectionByItemId.get(nextId) || null;
+      navigationTargetRef.current = nextId;
+      navigationStartedAtRef.current = performance.now();
+      setActiveId(nextId);
+      setExpandedSectionId(nextSectionId);
+      scheduleSync();
     };
 
-    const headings = items
-      .map(item => document.getElementById(item.id))
-      .filter((element): element is HTMLElement => Boolean(element));
+    const handleUserScrollIntent = () => {
+      cancelPendingNavigation();
+    };
 
-    if (!headings.length) return undefined;
-
-    const observer = new IntersectionObserver(
-      () => scheduleSync(),
-      {
-        rootMargin: '-112px 0px -62% 0px',
-        threshold: [0, 0.15, 0.5, 1]
-      }
-    );
-
-    headings.forEach(heading => observer.observe(heading));
     window.addEventListener('scroll', scheduleSync, { passive: true });
     window.addEventListener('resize', scheduleSync);
-    window.addEventListener('hashchange', scheduleSync);
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
+    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
+    window.addEventListener('keydown', event => {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
+        cancelPendingNavigation();
+      }
+    });
+
     window.requestAnimationFrame(syncActiveHeading);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('scroll', scheduleSync);
       window.removeEventListener('resize', scheduleSync);
-      window.removeEventListener('hashchange', scheduleSync);
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('wheel', handleUserScrollIntent);
+      window.removeEventListener('touchstart', handleUserScrollIntent);
 
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
       }
     };
-  }, [items, sectionByItemId, sections]);
-
-
-
-
+  }, [items, sectionByItemId]);
 
   if (!items.length || !sections.length) return null;
 
@@ -139,11 +201,23 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     const sectionId = sectionByItemId.get(item.id);
-    if (sectionId) setExpandedSectionId(sectionId);
+    const currentHashId = getHashId();
+
+    cancelPendingNavigation();
+    navigationTargetRef.current = item.id;
+    navigationStartedAtRef.current = performance.now();
 
     setActiveId(item.id);
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.history.pushState(null, '', '#' + item.id);
+    if (sectionId) setExpandedSectionId(sectionId);
+
+    if (currentHashId !== item.id) {
+      window.history.pushState(null, '', '#' + item.id);
+    }
+
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
 
     if (mobile) setMobileOpen(false);
   };
@@ -183,7 +257,10 @@ export const InsightTableOfContents: React.FC<{
               navigateTo(section.heading, variant === 'mobile');
             }}
             aria-current={activeId === section.heading.id ? 'location' : undefined}
-            className="min-w-0 flex-1 rounded-xl px-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            className={[
+              'min-w-0 flex-1 rounded-xl px-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+              sectionActive ? 'active:bg-brand-red/[0.055]' : 'active:bg-white/[0.035]'
+            ].join(' ')}
           >
             <span className="flex items-center gap-3">
               <span
@@ -229,10 +306,12 @@ export const InsightTableOfContents: React.FC<{
               }}
               onPointerDown={event => event.stopPropagation()}
               className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                'kapi-insight-toc-control flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
                   ? 'border-white/[0.14] bg-white/[0.06] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
-                  : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
+                  : sectionActive
+                    ? 'border-brand-red/25 bg-brand-red/[0.07] text-white'
+                    : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
               ].join(' ')}
               aria-expanded={expanded}
               aria-controls={section.heading.id + '-subsections'}
@@ -246,9 +325,9 @@ export const InsightTableOfContents: React.FC<{
                 size={14}
                 strokeWidth={2}
                 className={[
-  'kapi-insight-toc-chevron transition-transform duration-300',
-  expanded ? 'rotate-180' : ''
-].join(' ')}
+                  'kapi-insight-toc-chevron transition-transform duration-300',
+                  expanded ? 'rotate-180' : ''
+                ].join(' ')}
                 aria-hidden="true"
               />
             </button>
@@ -278,9 +357,9 @@ export const InsightTableOfContents: React.FC<{
                     }}
                     aria-current={active ? 'location' : undefined}
                     className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'bg-brand-red/[0.08] text-white'
+                        ? 'bg-brand-red/[0.08] text-white shadow-[inset_0_0_0_1px_rgba(229,9,20,0.08)]'
                         : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
@@ -324,7 +403,10 @@ export const InsightTableOfContents: React.FC<{
             aria-expanded={mobileOpen}
             aria-controls="insight-mobile-toc"
             onClick={() => setMobileOpen(open => !open)}
-            className="flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+            className={[
+              'kapi-insight-toc-control flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
+              mobileOpen ? 'bg-white/[0.018]' : ''
+            ].join(' ')}
           >
             <span className="min-w-0">
               <span className="flex items-center gap-2">
@@ -351,16 +433,15 @@ export const InsightTableOfContents: React.FC<{
               <ChevronDown
                 size={15}
                 className={[
-  'kapi-insight-toc-chevron transition-transform duration-200',
-  mobileOpen ? 'rotate-180' : ''
-].join(' ')}
+                  'kapi-insight-toc-chevron transition-transform duration-200',
+                  mobileOpen ? 'rotate-180' : ''
+                ].join(' ')}
               />
             </span>
           </button>
 
           {mobileOpen && (
             <nav
-              ref={mobileListRef}
               id="insight-mobile-toc"
               aria-label={navigationLabel}
               className="max-h-[min(24rem,58vh)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
@@ -388,7 +469,6 @@ export const InsightTableOfContents: React.FC<{
 
           <div className="relative mt-4">
             <nav
-              ref={desktopListRef}
               aria-label={navigationLabel}
               className="h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pb-3 pr-1"
             >
