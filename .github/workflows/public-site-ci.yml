@@ -33,7 +33,7 @@ jobs:
           set -euo pipefail
           marker="$(curl -fsSL --max-time 20 https://kapitech.id/kapitech-deployment-health.txt)"
           echo "$marker"
-          echo "$marker" | grep -F "c480c0c5cd4db3aecc1836d7708f4c876e16b670"
+          echo "$marker" | grep -F "Required deployed baseline: e462d195e77916e2f71990751e85c39687b1b88e"
 
       - name: Check Insight API
         run: |
