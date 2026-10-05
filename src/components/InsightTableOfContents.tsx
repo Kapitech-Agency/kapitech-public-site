@@ -46,7 +46,6 @@ export const InsightTableOfContents: React.FC<{
   const mobileListRef = useRef<HTMLElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
-  const suppressTocFollowRef = useRef(false);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -121,37 +120,7 @@ export const InsightTableOfContents: React.FC<{
 
 
 
-  useEffect(() => {
-    if (!activeId || suppressTocFollowRef.current) {
-      suppressTocFollowRef.current = false;
-      return;
-    }
 
-    const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
-    const container = isDesktop
-      ? desktopListRef.current
-      : (mobileOpen ? mobileListRef.current : null);
-    const itemMap = isDesktop ? desktopItemRefs.current : mobileItemRefs.current;
-    const item = itemMap.get(activeId);
-
-    if (!container || !item) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const itemRect = item.getBoundingClientRect();
-    const padding = 14;
-
-    if (itemRect.top < containerRect.top + padding) {
-      container.scrollBy({
-        top: itemRect.top - containerRect.top - padding,
-        behavior: 'smooth'
-      });
-    } else if (itemRect.bottom > containerRect.bottom - padding) {
-      container.scrollBy({
-        top: itemRect.bottom - containerRect.bottom + padding,
-        behavior: 'smooth'
-      });
-    }
-  }, [activeId, expandedSectionId, mobileOpen]);
 
   if (!items.length || !sections.length) return null;
 
@@ -172,7 +141,6 @@ export const InsightTableOfContents: React.FC<{
     const sectionId = sectionByItemId.get(item.id);
     if (sectionId) setExpandedSectionId(sectionId);
 
-    suppressTocFollowRef.current = true;
     setActiveId(item.id);
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.history.pushState(null, '', '#' + item.id);
