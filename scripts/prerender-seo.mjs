@@ -281,8 +281,6 @@ const renderRoute = (sourceHtml, route) => {
   return setPageJsonLd(html, structuredData);
 };
 
-for (const route of manifest.routes) {
-
 try {
   const { variants, byGroup } = await fetchPublishedInsights();
 
@@ -304,6 +302,7 @@ try {
   console.warn('[seo] unable to prerender published Insights:', error instanceof Error ? error.message : error);
 }
 
+for (const route of manifest.routes) {
   const html = renderRoute(template, route);
   const outputPath = route.path === '/'
     ? join(distDir, 'index.html')
