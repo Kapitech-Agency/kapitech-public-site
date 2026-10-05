@@ -33,7 +33,8 @@ import {
   Check,
   AlertCircle,
   FolderGit2,
-  ChevronDown
+  ChevronDown,
+  LoaderCircle
 } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
@@ -248,6 +249,7 @@ export const Careers = () => {
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [applicantSubmitError, setApplicantSubmitError] = useState('');
+  const [isApplicantSubmitting, setIsApplicantSubmitting] = useState(false);
   const [applicantErrors, setApplicantErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -262,6 +264,7 @@ export const Careers = () => {
   const [isFreelanceModalOpen, setIsFreelanceModalOpen] = useState(false);
   const [isVendorSubmitted, setIsVendorSubmitted] = useState(false);
   const [vendorSubmitError, setVendorSubmitError] = useState('');
+  const [isVendorSubmitting, setIsVendorSubmitting] = useState(false);
   const [vendorErrors, setVendorErrors] = useState<{ [key: string]: string }>({});
   const [vendorHoneypot, setVendorHoneypot] = useState('');
   const [vendorFormData, setVendorFormData] = useState({
@@ -834,6 +837,7 @@ export const Careers = () => {
 
     setApplicantErrors({});
     setApplicantSubmitError('');
+    setIsApplicantSubmitting(true);
     try {
       const resumeUpload = await uploadPublicResume(formData.resume!);
       if (!resumeUpload.success || !resumeUpload.data?.resumeUrl) {
@@ -861,6 +865,7 @@ export const Careers = () => {
       return;
     }
     setIsSubmitted(true);
+    setIsApplicantSubmitting(false);
   };
 
   const handleVendorInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -923,6 +928,7 @@ export const Careers = () => {
 
     setVendorErrors({});
     setVendorSubmitError('');
+    setIsVendorSubmitting(true);
     try {
       let resumeUrl = '';
       if (vendorFormData.resume) {
@@ -954,9 +960,11 @@ export const Careers = () => {
           ? 'Pendaftaran vendor belum tersimpan. Periksa koneksi lalu coba lagi.'
           : 'Your vendor application was not saved. Please check your connection and try again.'
       );
+      setIsVendorSubmitting(false);
       return;
     }
     setIsVendorSubmitted(true);
+    setIsVendorSubmitting(false);
   };
 
   return (
@@ -1739,10 +1747,11 @@ export const Careers = () => {
 
                       <button
                         type="submit"
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                        disabled={isApplicantSubmitting}
+                        aria-busy={isApplicantSubmitting}
+                        className="w-full min-h-[44px py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                       >
-                        <span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span>
-                        <ArrowUpRight size={16} />
+                        {isApplicantSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span><ArrowUpRight size={16} />}
                       </button>
                     </form>
                   )}
