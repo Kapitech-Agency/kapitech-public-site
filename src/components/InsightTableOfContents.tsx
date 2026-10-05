@@ -317,7 +317,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-300',
                   sectionActive
-                    ? 'border-brand-red/28 bg-brand-red/10 text-brand-red'
+                    ? 'border-white/[0.13] bg-white/[0.05] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
                     : 'border-white/[0.08] bg-white/[0.025] text-[#69717D]'
                 ].join(' ')}
               >
