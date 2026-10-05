@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 930" role="img" aria-labelledby="title desc">
+<title id="title">Prototype vs MVP vs PoC dalam satu pandangan</title>
+<desc id="desc">Perbandingan cepat tujuan, pengguna nyata, kedalaman teknis, dan kesiapan produksi.</desc>
+<rect width="1500" height="930" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="70" y="82" font-size="18" letter-spacing="4" fill="#E50914">04 / DALAM SATU PANDANGAN</text>
+<text x="70" y="140" font-size="46" font-weight="700" fill="#F8FAFC">Ketiganya menjawab pertanyaan yang berbeda.</text>
+<rect x="70" y="190" width="1360" height="640" rx="28" fill="#111318" stroke="#2A2D34"/>
+<g fill="#fff" font-weight="700" font-size="21">
+<text x="110" y="250">DIMENSI</text><text x="560" y="250">PROTOTYPE</text><text x="925" y="250">MVP</text><text x="1260" y="250">PoC</text>
+</g>
+<g font-size="18">
+<g fill="#8A909D">
+<text x="110" y="305">Tujuan utama</text><text x="110" y="365">Pengguna nyata</text><text x="110" y="425">Fidelitas UX</text><text x="110" y="485">Kedalaman teknis</text><text x="110" y="545">Validasi bisnis</text><text x="110" y="605">Validasi teknis</text><text x="110" y="665">Siap produksi</text><text x="110" y="725">Bukti utama</text>
+</g>
+<g fill="#DDE1E8">
+<text x="560" y="305">Validasi UX</text><text x="925" y="305">Validasi nilai</text><text x="1260" y="305">Kelayakan</text>
+<text x="560" y="365">Opsional</text><text x="925" y="365">Penting</text><text x="1260" y="365">Biasanya bukan fokus utama</text>
+<text x="560" y="425">Rendah → Tinggi</text><text x="925" y="425">Sedang → Tinggi</text><text x="1260" y="425">Rendah</text>
+<text x="560" y="485">Rendah → Medium</text><text x="925" y="485">Sedang → Tinggi</text><text x="1260" y="485">Tinggi</text>
+<text x="560" y="545">Terbatas</text><text x="925" y="545">Tinggi</text><text x="1260" y="545">Terbatas</text>
+<text x="560" y="605">Terbatas</text><text x="925" y="605">Sebagian</text><text x="1260" y="605">Tinggi</text>
+<text x="560" y="665">Tidak</text><text x="925" y="665">Terbatas / controlled</text><text x="1260" y="665">Tidak</text>
+<text x="560" y="725">"Can users use it?"</text><text x="925" y="725">"Will users value it?"</text><text x="1260" y="725">"Can we build it?"</text>
+</g>
+</g>
+<line x1="70" y1="270" x2="1430" y2="270" stroke="#2A2D34"/>
+<g stroke="#24272E"><line x1="500" y1="190" x2="500" y2="830"/><line x1="865" y1="190" x2="865" y2="830"/><line x1="1220" y1="190" x2="1220" y2="830"/></g>
+</g>
+<text x="70" y="875" font-size="17" fill="#69717D">“Minimum” dan “prototype” menjelaskan hal yang berbeda. Pilihan yang tepat bergantung pada ketidakpastian yang ingin Anda kurangi.</text>
+</g></svg>
