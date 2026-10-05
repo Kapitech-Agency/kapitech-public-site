@@ -1,4 +1,5 @@
 name: Kapitech public site CI
+# Final CI verification marker.
 
 on:
   push:
