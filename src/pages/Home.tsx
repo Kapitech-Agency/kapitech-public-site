@@ -35,6 +35,7 @@ import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { cn } from '../lib/utils';
+import { allSolutionsAndServices } from '../data/servicesData';
 
 const ProcessModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
@@ -277,7 +278,7 @@ export const Home = () => {
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
       <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="silk"
             color="#dc143c"
@@ -487,59 +488,66 @@ export const Home = () => {
       </section>
 
       {/* ENGAGEMENT OPTIONS */}
-      <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930]" id="engagement">
+        <div className="max-w-7xl mx-auto w-full min-w-0 px-4 sm:px-6 md:px-12">
           <div className="overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
-            <div className="grid lg:grid-cols-[1.1fr_1.9fr]">
-              <div className="border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
+            <div className="grid min-w-0 lg:grid-cols-[minmax(250px,0.72fr)_minmax(0,1.28fr)]">
+              <div className="min-w-0 border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
                 <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
                   {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
                 </span>
                 <h3 className="mt-3 max-w-sm text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
-                  {language === 'id' ? 'Pilih bentuk engagement yang paling pas.' : 'Choose the engagement that fits.'}
+                  {language === 'id' ? 'Pilih service yang paling sesuai dengan kebutuhan Anda.' : 'Choose the service that fits your needs.'}
                 </h3>
+                <p className="mt-3 max-w-sm text-xs leading-[1.7] text-[#8A909D] sm:text-sm">
+                  {language === 'id'
+                    ? 'Mulai dari branding, lanjut ke design, lalu scale dengan development. Semua service tetap berada dalam satu workflow Kapitech.'
+                    : 'Start with branding, move into design, then scale with development. Every service stays within one connected Kapitech workflow.'}
+                </p>
               </div>
 
-              <div className="grid divide-y divide-white/[0.065] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-                {[
-                  {
-                    slug: 'mvp-design',
-                    title: 'MVP Design',
-                    desc: language === 'id'
-                      ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan, divalidasi, dan dikembangkan.'
-                      : 'Turn an idea into clearer product direction ready for validation, presentation, and build.'
-                  },
-                  {
-                    slug: 'product-redesign',
-                    title: 'Product Redesign',
-                    desc: language === 'id'
-                      ? 'Modernisasi experience, perjelas alur, dan tingkatkan kualitas produk tanpa kehilangan logika bisnisnya.'
-                      : 'Modernize the experience, clarify the flow, and improve product quality without losing business logic.'
-                  },
-                  {
-                    slug: 'team-extension',
-                    title: 'Team Extension',
-                    desc: language === 'id'
-                      ? 'Tambah kapasitas desain dan engineering dengan tim yang bisa langsung masuk ke workflow Anda.'
-                      : 'Add design and engineering capacity with a team that can plug directly into your workflow.'
-                  }
-                ].map((solution) => (
-                  <Link
-                    key={solution.slug}
-                    to={'/solutions/' + solution.slug}
-                    className="group p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:p-6"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-display font-semibold text-white transition-colors duration-300 group-hover:text-brand-red">
-                        {solution.title}
-                      </span>
-                      <ArrowUpRight size={15} className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red" />
-                    </div>
-                    <p className="mt-2.5 text-xs leading-[1.65] text-[#8A909D]">
-                      {solution.desc}
-                    </p>
-                  </Link>
-                ))}
+              <div className="min-w-0">
+                <div className="grid min-w-0 grid-cols-1 divide-y divide-white/[0.065] sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-3">
+                  {(['Branding', 'Design', 'Development'] as const).map((category) => {
+                    const services = allSolutionsAndServices.filter(
+                      (service) => service.type === 'service' && service.category === category,
+                    );
+
+                    return (
+                      <div
+                        key={category}
+                        className="min-w-0 p-5 sm:p-6 lg:p-7"
+                      >
+                        <div className="flex items-center justify-between gap-4 border-b border-white/[0.065] pb-3">
+                          <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                            {category}
+                          </span>
+                          <span className="text-[10px] font-mono tabular-nums text-[#6F757F]">
+                            {String(services.length).padStart(2, '0')}
+                          </span>
+                        </div>
+
+                        <div className="mt-3 min-w-0">
+                          {services.map((service) => (
+                            <Link
+                              key={service.slug}
+                              to={`/services/${service.slug}`}
+                              className="group flex min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-3 text-left last:border-b-0"
+                            >
+                              <span className="min-w-0 truncate pr-2 text-xs font-medium text-white/85 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
+                                {service.title}
+                              </span>
+                              <ArrowUpRight
+                                size={14}
+                                className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                              />
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
