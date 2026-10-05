@@ -235,14 +235,14 @@ export const Services = () => {
       fullDescription: 'A distinctive brand identity that creates instant market differentiation and commands premium positioning across digital and physical mediums.',
       fullDescriptionId: 'Identitas merek terintegrasi yang menciptakan diferensiasi kuat di pasar dan memposisikan bisnis Anda sebagai pemimpin industri yang elegan dan tepercaya.',
       deliverables: [
-        'Comprehensive 50+ Page Digital Brand Guidelines',
+        'Comprehensive Digital Brand Guidelines',
         'Color Harmonization & High-Contrast Typography Hierarchy',
         'Stationery Kit & Corporate Business Collateral',
         'Social Media Template System (10+ Formats)',
         'Packaging & Merchandising Visual Standards'
       ],
       deliverablesId: [
-        'Buku Pedoman Identitas Brand (Brandbook 50+ Halaman)',
+        'Buku Pedoman Identitas Brand',
         'Harmonisasi Palet Warna & Hierarki Tipografi Berstandar',
         'Paket Desain Alat Tulis Kantor & Kartu Nama Resmi',
         'Sistem Template Media Sosial Kustom (10+ Format)',
@@ -298,14 +298,14 @@ export const Services = () => {
       fullDescriptionId: 'Tingkatkan performa pemasaran digital Anda dengan aset visual yang menarik, mudah dipahami, dan seragam di semua saluran promosi.',
       deliverables: [
         'Custom 20+ Vector Illustration Library',
-        'Pixel-Perfect 40+ Branded Icon Set',
-        'High-Converting Social Media Ad Assets',
+        'Custom Branded Icon Set',
+        'Campaign-Ready Social Media Ad Assets',
         'Banner Ads & Digital Display Campaigns',
         'Print-Ready Marketing Flyers & Roll-Up Banners'
       ],
       deliverablesId: [
         'Pustaka Ilustrasi Vektor Kustom (20+ Aset)',
-        'Set Ikon Khusus Brand Berpresisi Piksel (40+ Ikon)',
+        'Set Ikon Khusus Brand',
         'Aset Iklan Media Sosial Berkonversi Tinggi',
         'Banner Iklan Digital & Display Web',
         'Desain Brosur Cetak & Standing Banner Acara'
@@ -418,7 +418,7 @@ export const Services = () => {
       subtitle: 'Modern look, higher impact',
       subtitleId: 'Tampilan modern berkelas dengan dampak bisnis lebih besar',
       icon: <RefreshCw size={24} />,
-      summary: 'Upgrade outdated corporate websites into sleek, modern, high-speed digital flagship experiences that command authority.',
+      summary: 'Upgrade outdated corporate websites into modern, performance-focused digital experiences that communicate authority clearly.',
       summaryId: 'Perbarui website lama yang kaku menjadi representasi digital mutakhir, berkecepatan tinggi, dan berwibawa.',
       fullDescription: 'We audit what works and eliminate friction points, giving your existing website a modern visual aesthetic, sharper typography, and improved mobile UX.',
       fullDescriptionId: 'Kami mengevaluasi data analitik Anda, memperbaiki kelemahan struktur lama, dan memberikan tampilan visual modern yang jauh lebih prestisius.',
@@ -454,14 +454,14 @@ export const Services = () => {
       fullDescription: 'Discover where users drop off, get confused, or abandon transactions. We deliver a comprehensive diagnostic report with wireframe recommendations to boost ROI.',
       fullDescriptionId: 'Temukan penyebab pengguna keluar atau membatalkan transaksi. Kami memberikan laporan diagnostik lengkap beserta solusi wireframe konkret untuk meningkatkan konversi.',
       deliverables: [
-        '40+ Page Detailed UX Diagnostic & Heuristic Report',
+        'Detailed UX Diagnostic & Heuristic Report',
         'Conversion Funnel Drop-off Analysis',
         'Accessibility (WCAG 2.1 AA) Compliance Audit',
         'Quick-Win Low-Hanging Fruit Optimization List',
         'Executive Summary & Video Walkthrough Presentation'
       ],
       deliverablesId: [
-        'Laporan Diagnostik & Heuristik UX Detail (40+ Halaman)',
+        'Laporan Diagnostik & Heuristik UX Detail',
         'Analisis Titik Penurunan (Drop-off) Corong Konversi',
         'Audit Kepatuhan Aksesibilitas Web (WCAG 2.1 AA)',
         'Daftar Rekomendasi Cepat (Quick-Win Optimizations)',
@@ -541,12 +541,12 @@ export const Services = () => {
       id: 'landing-page',
       title: 'Landing page',
       category: 'Development',
-      subtitle: 'High-converting website',
+      subtitle: 'Conversion-focused website',
       subtitleId: 'Landing page berkonversi tinggi dan berkecepatan instan',
       icon: <Monitor size={24} />,
       summary: 'Ultra-fast, conversion-optimized landing pages with dynamic animations, CRM integrations, and seamless lead capture.',
       summaryId: 'Landing page berkecepatan ultra-tinggi yang dioptimalkan untuk konversi, dilengkapi animasi elegan dan integrasi CRM.',
-      fullDescription: 'Engineered for ad campaigns and product launches. We ensure sub-second mobile load times, strict typography, and persuasive layout structure.',
+      fullDescription: 'Designed for ad campaigns and product launches, with mobile performance, clear typography, and persuasive layout structure.',
       fullDescriptionId: 'Dirancang khusus untuk kampanye iklan digital dan peluncuran produk. Kami menjamin waktu muat instan di perangkat mobile serta alur CTA yang persuasif.',
       deliverables: [
         'Single-Page Ultra-Responsive Landing Page',
@@ -575,7 +575,7 @@ export const Services = () => {
       subtitle: 'Built for scale and trust',
       subtitleId: 'Dibangun untuk skala besar dan kredibilitas korporat',
       icon: <Briefcase size={24} />,
-      summary: 'Secure, multilingual, and SEO-dominant enterprise websites equipped with headless CMS for seamless marketing team updates.',
+      summary: 'Secure, multilingual, SEO-ready enterprise websites with a manageable CMS for ongoing marketing updates.',
       summaryId: 'Website korporat multi-bahasa yang aman, berperingkat SEO tinggi, dan dilengkapi CMS headless untuk kemudahan tim internal.',
       fullDescription: 'Establish undisputed market authority. We build enterprise websites featuring structured schema markup, carrier-grade uptime, and modular content management.',
       fullDescriptionId: 'Bangun kredibilitas perusahaan yang tak tertandingi. Kami menciptakan portal korporat dengan arsitektur SEO rapi, keamanan maksimal, dan manajemen konten mandiri.',
@@ -606,7 +606,7 @@ export const Services = () => {
       subtitle: 'Professional, scalable, fast website',
       subtitleId: 'Website profesional, terukur, sangat cepat, dan memukau',
       icon: <Flame size={24} />,
-      summary: 'Award-winning experiential websites featuring 3D canvases, fluid WebGL physics, and kinetic typography that leave audiences in awe.',
+      summary: 'Experiential websites featuring 3D canvases, WebGL motion, and kinetic typography.',
       summaryId: 'Website interaktif berstandar internasional dengan kanvas 3D, efek fisika WebGL, dan tipografi kinetik yang sangat memukau.',
       fullDescription: 'When standard templates won’t do. We engineer cutting-edge web experiences that combine Awwwards-caliber art direction with blistering fast performance.',
       fullDescriptionId: 'Ketika website standar tidak cukup. Kami merancang pengalaman web mutakhir berstandar kelas dunia yang memukau pengunjung tanpa mengorbankan kecepatan.',
@@ -614,7 +614,7 @@ export const Services = () => {
         'Interactive WebGL & Spline 3D Scene Integrations',
         'Kinetic Scroll-Triggered Physics & Micro-Interactions',
         'Custom Sound FX & Audio-Visual Synchronization',
-        'Sub-second Global Asset Delivery via Cloudflare CDN',
+        'Global Asset Delivery via Cloudflare CDN',
         'Mobile-Optimized Touch Gestures & Fallbacks'
       ],
       deliverablesId: [
