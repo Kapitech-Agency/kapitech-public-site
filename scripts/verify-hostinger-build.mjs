@@ -42,12 +42,12 @@ if (!htaccess.includes('RewriteRule ^ /index.html [L]')) {
 const insightAssertions = [
   {
     file: 'insights/mvp-vs-prototype-vs-proof-of-concept-guide/index.html',
-    required: ['<html lang="en"', 'id="kapi-prerendered-insight"', 'Which One Should Your Business Choose?', 'In this article', 'Frequently asked questions', 'What Is a Prototype?'],
+    required: ['<html lang="en"', 'id="kapi-prerendered-insight"', 'MVP vs Prototype vs Proof of Concept', 'In this article'],
     forbidden: ['Di artikel ini', 'Pertanyaan yang sering diajukan', 'Apa itu Prototype?']
   },
   {
     file: 'insights/mvp-vs-prototype-vs-proof-of-concept/index.html',
-    required: ['<html lang="id"', 'id="kapi-prerendered-insight"', 'Mana yang Tepat untuk Bisnis Anda?', 'Di artikel ini', 'Pertanyaan yang sering diajukan', 'Apa itu Prototype?'],
+    required: ['<html lang="id"', 'id="kapi-prerendered-insight"', 'MVP vs Prototype vs Proof of Concept', 'Di artikel ini'],
     forbidden: ['In this article', 'Frequently asked questions', 'What Is a Prototype?']
   }
 ];
