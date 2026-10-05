@@ -245,7 +245,10 @@ export const InsightTableOfContents: React.FC<{
               <ChevronDown
                 size={14}
                 strokeWidth={2}
-                className={expanded ? 'rotate-180 transition-transform duration-300' : 'transition-transform duration-300'}
+                className={[
+  'kapi-insight-toc-chevron transition-transform duration-300',
+  expanded ? 'rotate-180' : ''
+].join(' ')}
                 aria-hidden="true"
               />
             </button>
@@ -313,7 +316,7 @@ export const InsightTableOfContents: React.FC<{
   const currentItem = items.find(item => item.id === activeId) || sections[0].heading;
 
   return (
-    <>
+    <div className="kapi-insight-toc">
       <div className="xl:hidden">
         <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
           <button
@@ -347,7 +350,10 @@ export const InsightTableOfContents: React.FC<{
             >
               <ChevronDown
                 size={15}
-                className={mobileOpen ? 'rotate-180 transition-transform duration-200' : 'transition-transform duration-200'}
+                className={[
+  'kapi-insight-toc-chevron transition-transform duration-200',
+  mobileOpen ? 'rotate-180' : ''
+].join(' ')}
               />
             </span>
           </button>
@@ -395,6 +401,6 @@ export const InsightTableOfContents: React.FC<{
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
