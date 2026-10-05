@@ -100,6 +100,7 @@ export const Navbar = () => {
   const branding = allSolutionsAndServices.filter(s => s.category === 'Branding');
   const design = allSolutionsAndServices.filter(s => s.category === 'Design');
   const development = allSolutionsAndServices.filter(s => s.category === 'Development');
+  const dedicatedServiceCount = branding.length + design.length + development.length;
 
   const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/');
   const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
@@ -518,7 +519,7 @@ export const Navbar = () => {
                   <ArrowUpRight className="w-3.5 h-3.5 text-brand-red" />
                 </Link>
                 <div className="font-mono text-[11px] text-[#8A909D]">
-                  3 Strategic Solutions &bull; 15 Dedicated Services
+                  {solutions.length} Strategic Solutions &bull; {dedicatedServiceCount} Dedicated Services
                 </div>
               </div>
             </motion.div>
