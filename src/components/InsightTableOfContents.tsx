@@ -284,11 +284,18 @@ export const InsightTableOfContents: React.FC<{
         className={[
           'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow] duration-300',
           sectionActive
-            ? 'border-brand-red/25 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_44px_-36px_rgba(229,9,20,0.34)]'
+            ? 'border-white/[0.11] bg-white/[0.028] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_18px_44px_-36px_rgba(0,0,0,0.82)]'
             : 'border-white/[0.075] bg-white/[0.016] hover:border-white/[0.12] hover:bg-white/[0.024] hover:shadow-[0_14px_32px_-28px_rgba(0,0,0,0.9)]'
         ].join(' ')}
       >
-        <div className="flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
+        <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
+          <span
+            aria-hidden="true"
+            className={[
+              'absolute left-0 top-3 bottom-3 w-[2px] rounded-full transition-[opacity,background-color] duration-300',
+              sectionActive ? 'bg-brand-red opacity-100' : 'bg-transparent opacity-0'
+            ].join(' ')}
+          />
           <a
             ref={node => {
               if (node) itemMap.set(section.heading.id, node);
@@ -321,7 +328,7 @@ export const InsightTableOfContents: React.FC<{
                 <span
                   className={[
                     'block text-[12.5px] leading-[1.42] tracking-[-0.008em]',
-                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#D1D5DD]'
+                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#C7CCD5]'
                   ].join(' ')}
                 >
                   {section.heading.text}
@@ -329,7 +336,7 @@ export const InsightTableOfContents: React.FC<{
 
                 {section.children.length > 0 && (
                   <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#656D79]">
-                    <span className={sectionActive ? 'text-brand-red' : 'text-[#555D68]'}>
+                    <span className={sectionActive ? 'text-brand-red' : 'text-[#5F6773]'}>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>{language === 'id' ? 'subbagian' : 'subsections'}</span>
@@ -353,7 +360,7 @@ export const InsightTableOfContents: React.FC<{
                 expanded
                   ? 'border-white/[0.14] bg-white/[0.06] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
                   : sectionActive
-                    ? 'border-brand-red/25 bg-brand-red/[0.07] text-white'
+                    ? 'border-white/[0.12] bg-white/[0.04] text-white hover:border-brand-red/30 hover:bg-brand-red/[0.06]'
                     : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
               ].join(' ')}
               aria-expanded={expanded}
@@ -400,16 +407,16 @@ export const InsightTableOfContents: React.FC<{
                     }}
                     aria-current={active ? 'location' : undefined}
                     className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border-l-2 border-transparent px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'bg-brand-red/[0.08] text-white shadow-[inset_0_0_0_1px_rgba(229,9,20,0.08)]'
-                        : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
+                        ? 'border-brand-red bg-brand-red/[0.055] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]'
+                        : 'text-[#737C89] hover:border-white/[0.08] hover:bg-white/[0.024] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
                     <span
                       className={[
-                        'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
-                        active ? 'bg-brand-red' : 'bg-white/[0.14]'
+                        'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,box-shadow] duration-200',
+                        active ? 'bg-brand-red shadow-[0_0_0_3px_rgba(229,9,20,0.08)]' : 'bg-white/[0.14]'
                       ].join(' ')}
                       aria-hidden="true"
                     />
