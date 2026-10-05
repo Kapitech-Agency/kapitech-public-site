@@ -474,7 +474,7 @@ export const InsightDetail: React.FC = () => {
           <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                {article.language === 'id' ? 'Diskusi Project' : 'Project discussion'}
+                {article.language === 'id' ? 'Diskusi Proyek' : 'Project discussion'}
               </p>
               <h2 className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-4xl">
                 {article.language === 'id'
@@ -483,7 +483,7 @@ export const InsightDetail: React.FC = () => {
               </h2>
               <p className="mt-4 text-sm leading-7 text-[#89909D]">
                 {article.language === 'id'
-                  ? 'Mari terjemahkan ide ini menjadi website, product experience, atau sistem digital yang benar-benar bisa digunakan.'
+                  ? 'Mari terjemahkan ide ini menjadi website, pengalaman produk, atau sistem digital yang benar-benar bisa digunakan.'
                   : 'Let’s turn the idea into a website, product experience, or digital system that can actually be used.'}
               </p>
             </div>
