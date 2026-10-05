@@ -336,6 +336,7 @@ const renderInsight = (sourceHtml, insight, variants) => {
   let html = sourceHtml;
   html = setHtmlLang(html, language);
   html = setTitle(html, title);
+  html = setMeta(html, 'name', 'title', title);
   html = setMeta(html, 'name', 'description', description);
   html = setMeta(html, 'name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
   html = setOpenGraphType(html, 'article');
@@ -343,6 +344,7 @@ const renderInsight = (sourceHtml, insight, variants) => {
   html = setMeta(html, 'property', 'og:title', title);
   html = setMeta(html, 'property', 'og:description', description);
   html = setMeta(html, 'property', 'og:image', image);
+  html = setMeta(html, 'property', 'og:image:alt', title);
   html = setMeta(html, 'property', 'og:site_name', manifest.siteName);
   html = setMeta(html, 'property', 'og:locale', language === 'id' ? 'id_ID' : 'en_US');
   html = setMeta(html, 'property', 'og:locale:alternate', language === 'id' ? 'en_US' : 'id_ID');
