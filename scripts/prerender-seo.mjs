@@ -71,8 +71,13 @@ const setInsightHreflang = (html, variants) => {
     '<link rel="alternate" hreflang="' + escapeHtml(language) + '" href="' +
     escapeHtml(manifest.siteUrl + '/insights/' + slug) + '" />'
   ).join('\n    ');
-  if (!tags) return html;
-  return html.replace('</head>', '    ' + tags + '\n  </head>');
+  const globalVariant = variants.find((item) => item.language === 'en');
+  const xDefault = globalVariant
+    ? '\n    <link rel="alternate" hreflang="x-default" href="' +
+      escapeHtml(manifest.siteUrl + '/insights/' + globalVariant.slug) + '" />'
+    : '';
+  if (!tags && !xDefault) return html;
+  return html.replace('</head>', '    ' + tags + xDefault + '\n  </head>');
 };
 
 const buildInsightBreadcrumbs = (insight, canonicalUrl) => {
@@ -137,12 +142,18 @@ const renderInsight = (sourceHtml, insight, variants) => {
       datePublished: insight.publishedAt || undefined,
       dateModified: insight.updatedAt || insight.publishedAt || undefined,
       author: insight.author
-        ? {
-            '@type': 'Person',
-            '@id': manifest.siteUrl + '/insights#author-' + insight.author.id,
-            name: insight.author.name,
-            jobTitle: insight.author.role || undefined
-          }
+        ? (insight.author.slug === 'kapitech-editorial-team'
+          ? {
+              '@type': 'Organization',
+              '@id': manifest.siteUrl + '/#organization',
+              name: insight.author.name
+            }
+          : {
+              '@type': 'Person',
+              '@id': manifest.siteUrl + '/insights#author-' + insight.author.id,
+              name: insight.author.name,
+              jobTitle: insight.author.role || undefined
+            })
         : { '@type': 'Organization', name: manifest.siteName },
       publisher: { '@id': manifest.siteUrl + '/#organization' },
       inLanguage: language,
