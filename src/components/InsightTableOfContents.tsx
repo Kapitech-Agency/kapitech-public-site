@@ -40,10 +40,7 @@ export const InsightTableOfContents: React.FC<{
   }, [sections]);
 
   const [activeId, setActiveId] = useState(items[0]?.id || '');
-  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(
-    sections[0]?.heading.id || null
-  );
-  const [manuallyCollapsedSectionId, setManuallyCollapsedSectionId] = useState<string | null>(null);
+  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const desktopListRef = useRef<HTMLElement | null>(null);
   const mobileListRef = useRef<HTMLElement | null>(null);
@@ -56,8 +53,7 @@ export const InsightTableOfContents: React.FC<{
     const initialId = items.some(item => item.id === hash) ? hash : (items[0]?.id || '');
     setActiveId(initialId);
 
-    const initialSectionId = sectionByItemId.get(initialId) || sections[0]?.heading.id || null;
-    setManuallyCollapsedSectionId(null);
+    const initialSectionId = sectionByItemId.get(initialId) || null;
     setExpandedSectionId(initialSectionId);
 
     const syncActiveHeading = () => {
@@ -122,15 +118,7 @@ export const InsightTableOfContents: React.FC<{
     };
   }, [items, sectionByItemId, sections]);
 
-  useEffect(() => {
-    const nextSectionId = sectionByItemId.get(activeId);
-    if (!nextSectionId) return;
 
-    setExpandedSectionId(prev => {
-      if (manuallyCollapsedSectionId === nextSectionId) return prev;
-      return prev === nextSectionId ? prev : nextSectionId;
-    });
-  }, [activeId, manuallyCollapsedSectionId, sectionByItemId]);
 
   useEffect(() => {
     if (!activeId) return;
@@ -170,15 +158,7 @@ export const InsightTableOfContents: React.FC<{
     : sections.length === 1 ? 'section' : 'sections';
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSectionId(prev => {
-      if (prev === sectionId) {
-        setManuallyCollapsedSectionId(sectionId);
-        return null;
-      }
-
-      setManuallyCollapsedSectionId(null);
-      return sectionId;
-    });
+    setExpandedSectionId(prev => (prev === sectionId ? null : sectionId));
   };
 
   const navigateTo = (item: InsightTocItem, mobile = false) => {
@@ -186,10 +166,7 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     const sectionId = sectionByItemId.get(item.id);
-    if (sectionId) {
-      setManuallyCollapsedSectionId(null);
-      setExpandedSectionId(sectionId);
-    }
+    if (sectionId) setExpandedSectionId(sectionId);
 
     setActiveId(item.id);
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -297,55 +274,49 @@ export const InsightTableOfContents: React.FC<{
           )}
         </div>
 
-        <div
-          id={section.heading.id + '-subsections'}
-          className={[
-            'grid transition-[grid-template-rows,opacity] duration-300 ease-out will-change-[grid-template-rows,opacity]',
-            expanded && section.children.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-          ].join(' ')}
-        >
-          <div className="min-h-0 overflow-hidden">
-            {section.children.length > 0 && (
-              <div className="mx-3 border-t border-white/[0.07] pb-2.5 pt-2.5">
-                {section.children.map((child, childIndex) => {
-                  const active = child.id === activeId;
+        {expanded && section.children.length > 0 && (
+          <div
+            id={section.heading.id + '-subsections'}
+            className="border-t border-white/[0.06] px-3 pb-3 pt-2.5"
+          >
+            <div className="space-y-0.5">
+              {section.children.map(child => {
+                const active = child.id === activeId;
 
-                  return (
-                    <a
-                      key={child.id}
-                      ref={node => {
-                        if (node) itemMap.set(child.id, node);
-                        else itemMap.delete(child.id);
-                      }}
-                      href={'#' + child.id}
-                      onClick={event => {
-                        event.preventDefault();
-                        navigateTo(child, variant === 'mobile');
-                      }}
-                      aria-current={active ? 'location' : undefined}
+                return (
+                  <a
+                    key={child.id}
+                    ref={node => {
+                      if (node) itemMap.set(child.id, node);
+                      else itemMap.delete(child.id);
+                    }}
+                    href={'#' + child.id}
+                    onClick={event => {
+                      event.preventDefault();
+                      navigateTo(child, variant === 'mobile');
+                    }}
+                    aria-current={active ? 'location' : undefined}
+                    className={[
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      active
+                        ? 'bg-brand-red/[0.08] text-white'
+                        : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
+                    ].join(' ')}
+                  >
+                    <span
                       className={[
-                        'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
-                        active
-                          ? 'bg-brand-red/[0.08] text-white'
-                          : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
+                        'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
+                        active ? 'bg-brand-red' : 'bg-white/[0.14]'
                       ].join(' ')}
-                    >
-                      <span
-                        className={[
-                          'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
-                          active ? 'bg-brand-red' : 'bg-white/[0.14]'
-                        ].join(' ')}
-                        aria-hidden="true"
-                      />
-                      <span className="min-w-0 flex-1">{child.text}</span>
-
-                    </a>
-                  );
-                })}
-              </div>
-            )}
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 flex-1">{child.text}</span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}>
       </div>
     );
   };
