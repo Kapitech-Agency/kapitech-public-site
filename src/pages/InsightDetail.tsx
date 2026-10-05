@@ -231,18 +231,8 @@ export const InsightDetail: React.FC = () => {
         ) : <div className="hidden lg:block" />}
 
         <div className="min-w-0">
-          {toc.length > 0 && (
-            <div className="hidden">
-              {toc.map((item) => item)}
-            </div>
-          )}
-
           <div className="max-w-[760px]">
-            <InsightContentRenderer blocks={blocks.map((block) => {
-              if (block.type !== 'heading') return block;
-              const headingIndex = toc.findIndex(item => item.text === block.text && item.level === block.level);
-              return headingIndex >= 0 ? { ...block, text: block.text } : block;
-            })} />
+            <InsightContentRenderer blocks={blocks} headingIds={toc.map(item => item.id)} />
 
             {article.faq && article.faq.length > 0 && (
               <section className="mt-16 border-t border-white/[0.08] pt-10" aria-labelledby="faq-title">
