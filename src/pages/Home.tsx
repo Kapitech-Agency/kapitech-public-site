@@ -550,7 +550,7 @@ export const Home = () => {
                       </span>
                     </div>
                     <span className="text-[10px] font-mono tabular-nums text-[#8A909D]/60 transition-colors duration-300 group-hover:text-brand-red">
-                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'services' : 'services'}
+                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
                     </span>
                   </div>
 
