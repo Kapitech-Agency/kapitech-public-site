@@ -377,7 +377,7 @@ export const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-7 lg:gap-12 items-end mb-8 sm:mb-10 lg:mb-11">
             <div>
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW NUMBERS'}
+                {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW SIGNALS'}
               </span>
               <h2 className="mt-4 max-w-xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[0.98] text-white">
                 {language === 'id' ? 'Pengalaman yang terlihat dari pekerjaan kami.' : 'Experience you can see in the work.'}
@@ -491,6 +491,346 @@ export const Home = () => {
                   </div>
                 </div>
               ))}
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
+            <div className="grid lg:grid-cols-[0.82fr_2.18fr]">
+              <div className="relative overflow-hidden border-b border-white/[0.07] p-6 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full border border-brand-red/[0.06]" aria-hidden="true" />
+                <div className="pointer-events-none absolute -right-4 top-2 h-24 w-24 rounded-full border border-white/[0.025]" aria-hidden="true" />
+                <div className="relative">
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                    {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
+                  </span>
+                  <h3 className="mt-4 max-w-sm text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem]">
+                    {language === 'id' ? 'Pilih bentuk engagement yang paling pas.' : 'Choose the engagement that fits.'}
+                  </h3>
+                  <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
+                    {language === 'id'
+                      ? 'Mulai dari kebutuhan yang paling dekat dengan fase bisnis Anda, lalu masuk lebih dalam saat dibutuhkan.'
+                      : 'Start with the need closest to your current business stage, then expand the engagement as the work grows.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                {[
+                  {
+                    slug: 'mvp-design',
+                    number: '01',
+                    title: 'MVP Design',
+                    fit: language === 'id' ? 'Untuk ide & produk baru' : 'Best for new products',
+                    desc: language === 'id' ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan, divalidasi, dan dikembangkan.' : 'Turn an idea into clearer product direction ready for validation, presentation, and build.'
+                  },
+                  {
+                    slug: 'product-redesign',
+                    number: '02',
+                    title: 'Product Redesign',
+                    fit: language === 'id' ? 'Untuk produk yang sudah berjalan' : 'Best for existing products',
+                    desc: language === 'id' ? 'Modernisasi experience, perjelas alur, dan tingkatkan kualitas produk tanpa kehilangan logika bisnisnya.' : 'Modernize the experience, clarify the flow, and improve product quality without losing business logic.'
+                  },
+                  {
+                    slug: 'team-extension',
+                    number: '03',
+                    title: 'Team Extension',
+                    fit: language === 'id' ? 'Untuk tim internal yang butuh kapasitas' : 'Best for growing teams',
+                    desc: language === 'id' ? 'Tambah kapasitas desain dan engineering dengan tim yang bisa langsung masuk ke workflow Anda.' : 'Add design and engineering capacity with a team that can plug directly into your workflow.'
+                  }
+                ].map((solution) => (
+                  <Link
+                    key={solution.slug}
+                    to={'/solutions/' + solution.slug}
+                    className="group relative flex min-h-[270px] flex-col p-5 transition-[background-color] duration-300 hover:bg-white/[0.022] sm:p-6 lg:p-7"
+                  >
+                    <span className="absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
+
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]/65 transition-colors duration-300 group-hover:text-brand-red">
+                        {solution.number}
+                      </span>
+                      <ArrowUpRight size={15} className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red" />
+                    </div>
+
+                    <div className="mt-10">
+                      <h4 className="text-xl font-display font-semibold leading-none tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
+                        {solution.title}
+                      </h4>
+                      <span className="mt-3 inline-flex text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                        {solution.fit}
+                      </span>
+                      <p className="mt-4 text-xs leading-[1.75] text-[#8A909D] sm:text-[13px]">
+                        {solution.desc}
+                      </p>
+                    </div>
+
+                    <span className="mt-auto pt-7 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                      {language === 'id' ? 'Jelajahi Solusi' : 'Explore Solution'}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED CASE STUDIES */}
+      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
+              </span>
+              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+                {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
+                {language === 'id'
+                  ? 'Pilihan case study dari pekerjaan visual, product, dan digital engineering yang kami bangun bersama klien.'
+                  : 'A selection of visual, product, and digital engineering work built in close partnership with our clients.'}
+              </p>
+            </div>
+
+            <Link
+              to="/work"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] lg:self-end"
+            >
+              <span>{language === 'id' ? 'Lihat Semua Case Studies' : 'View All Case Studies'}</span>
+              <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </div>
+
+          {featuredProjects.length > 0 ? (
+            <div className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
+            {featuredProjects.map((project, index) => {
+              const isLead = index === 0;
+              const impact = project.impact?.[0];
+
+              return (
+                <Link
+                  key={project.id}
+                  to="/work"
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl border border-white/[0.075] bg-[#101114] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25",
+                    isLead ? "lg:row-span-2" : "min-h-[260px] lg:min-h-0"
+                  )}
+                >
+                  <div className={cn(
+                    "relative overflow-hidden",
+                    isLead ? "aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto" : "aspect-[16/8] sm:aspect-[16/7] lg:aspect-[16/9]"
+                  )}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
+
+                    <div className="absolute left-4 top-4 flex items-center gap-2 sm:left-5 sm:top-5">
+                      <span className="rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                        {project.service}
+                      </span>
+                      {impact && (
+                        <span className="hidden rounded-full border border-brand-red/25 bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono text-brand-red backdrop-blur-md sm:inline-flex">
+                          {impact.value} {impact.label}
+                        </span>
+                      )}
+                    </div>
+
+                    <span className="absolute right-4 top-4 text-[10px] font-mono tabular-nums text-white/65 sm:right-5 sm:top-5">
+                      {project.year}
+                    </span>
+                  </div>
+
+                  <div className={cn(
+                    "relative z-10 flex flex-col",
+                    isLead ? "p-5 sm:p-7 lg:absolute lg:inset-x-0 lg:bottom-0 lg:p-8" : "p-5 sm:p-6"
+                  )}>
+                    <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                      <span>{project.client}</span>
+                      <span className="h-px w-4 bg-white/[0.18]" aria-hidden="true" />
+                      <span>{project.industry}</span>
+                    </div>
+
+                    <h3 className={cn(
+                      "mt-3 font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red",
+                      isLead ? "max-w-3xl text-2xl sm:text-3xl md:text-4xl" : "text-xl sm:text-[1.45rem]"
+                    )}>
+                      {project.title}
+                    </h3>
+
+                    <p className={cn(
+                      "mt-3 max-w-2xl font-light leading-[1.7] text-[#A0A5AE]",
+                      isLead ? "text-xs sm:text-sm" : "text-xs"
+                    )}>
+                      {language === 'id' ? project.descId : project.desc}
+                    </p>
+
+                    <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/[0.08] pt-4">
+                      <div className="flex min-w-0 flex-wrap gap-1.5">
+                        {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
+                          <span
+                            key={technology}
+                            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-300 group-hover:border-white/[0.13] group-hover:text-white"
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="inline-flex shrink-0 items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                        {language === 'id' ? 'Buka Kasus' : 'Inspect Case'}
+                        <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* WORKING PROCESS STEPPING */}
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <motion.div
+            className="absolute -right-32 top-16 h-72 w-72 rounded-full border border-brand-red/[0.045]"
+            animate={{ rotate: [0, 360], scale: [1, 1.04, 1] }}
+            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute left-[28%] -bottom-48 h-80 w-80 rounded-full border border-white/[0.025]"
+            animate={{ y: [0, -18, 0], opacity: [0.25, 0.5, 0.25] }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-9 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-14 mb-12 sm:mb-14">
+            <div className="max-w-4xl">
+              <motion.span
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="kapi-section-label mb-5"
+              >
+                {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
+              </motion.span>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-4 max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[1.01] text-white"
+              >
+                {language === 'id' ? 'Dari brief pertama hingga produk diluncurkan.' : 'From first brief to final launch.'}
+              </motion.h2>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-md lg:pb-1 text-xs sm:text-sm lg:text-base leading-[1.75] text-[#8A909D] font-light"
+            >
+              {language === 'id'
+                ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
+                : 'Four connected phases keep quality, momentum, and project decisions moving in the same direction.'}
+            </motion.p>
+          </div>
+
+          <div className="relative">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {processSteps.map((step, index) => {
+                const isActive = activeProcessStep === index;
+                return (
+                  <motion.article
+                    key={step.step}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-10% 0px' }}
+                    transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    onMouseEnter={() => setActiveProcessStep(index)}
+                    className={cn(
+                      "group relative min-w-0 transition-opacity duration-500 ease-out",
+                      isActive
+                        ? "opacity-100"
+                        : "opacity-[0.68] group-hover:opacity-100",
+                      "min-w-0"
+                    )}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openProcessStep(index)}
+                      onFocus={() => setActiveProcessStep(index)}
+                      aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
+                      aria-pressed={isActive}
+                      className="relative z-10 block w-full cursor-pointer text-left outline-none"
+                    >
+                      <span
+                        className={cn(
+                          "absolute z-20 left-0 top-[11px] h-2.5 w-2.5 rounded-full border transition-all duration-500 lg:hidden",
+                          isActive
+                            ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
+                            : "border-white/[0.18] bg-[#0B0C0E] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(229,9,20,0.05)]"
+                        )}
+                      />
+
+                      <div className="relative min-h-[270px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022]">
+                        <div
+                          className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-3 transition-colors duration-500 lg:pr-1"
+                        >
+                          <span className={cn(
+                            "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
+                            isActive ? "text-brand-red" : "text-[#8A909D]"
+                          )}>
+                            {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
+                          </span>
+                          <motion.span
+                            animate={{ opacity: isActive ? 1 : 0.45, x: isActive ? 0 : 4 }}
+                            transition={{ duration: 0.35 }}
+                            className="text-[10px] font-mono tabular-nums text-[#8A909D]"
+                          >
+                            {step.step}
+                          </motion.span>
+                        </div>
+
+                        <motion.h3
+                          animate={{ x: isActive ? 4 : 0, color: isActive ? '#FF1E27' : '#FFFFFF' }}
+                          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                          className="mt-5 max-w-[18rem] text-xl sm:text-2xl lg:text-[1.65rem] font-display font-semibold tracking-[-0.045em] leading-[1.06]"
+                        >
+                          {step.title}
+                        </motion.h3>
+
+                        <motion.p
+                          animate={{ opacity: isActive ? 1 : 0.68, y: isActive ? 0 : 2 }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
+                        >
+                          {step.desc}
+                        </motion.p>
+
+                        <div className="relative mt-6 h-1 w-10 overflow-hidden rounded-full bg-white/[0.06]">
+                          <motion.div
+                            className="absolute inset-y-0 left-0 rounded-full bg-brand-red"
+                            animate={{ width: isActive ? '100%' : '45%', opacity: isActive ? 1 : 0.45 }}
+                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                          />
+                        </div>
+                      </div>
+                    </button>
+                  </motion.article>
+                );
+              })}
             </div>
 
             <motion.div
@@ -507,6 +847,18 @@ export const Home = () => {
             </motion.div>
           </div>
           </div>
+          ) : (
+            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.014] px-6 py-12 text-center sm:px-10">
+              <p className="text-xs font-mono uppercase tracking-[0.14em] text-white/40">
+                {language === 'id' ? 'Case study dikelola melalui AMS' : 'Case studies are managed through AMS'}
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+                {language === 'id'
+                  ? 'Case study akan tampil otomatis setelah dipublikasikan melalui CMS.'
+                  : 'Case studies appear automatically once they are published through the CMS.'}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
