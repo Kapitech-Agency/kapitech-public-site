@@ -32,7 +32,7 @@ function buildToc(blocks: InsightBlock[]) {
 export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const articleRef = useRef<HTMLElement | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -67,11 +67,8 @@ export const InsightDetail: React.FC = () => {
 
   useEffect(() => {
     if (!article || article.language === language) return;
-    const alternate = article.alternateLanguages?.find(item => item.language === language);
-    if (alternate?.slug && alternate.slug !== slug) {
-      navigate('/insights/' + alternate.slug, { replace: true });
-    }
-  }, [article, language, navigate, slug]);
+    setLanguage(article.language);
+  }, [article, language, setLanguage]);
 
   const blocks = article?.content || [];
   const toc = useMemo(() => buildToc(blocks), [blocks]);
@@ -179,8 +176,7 @@ export const InsightDetail: React.FC = () => {
     || article.category?.name?.id
     || article.category?.slug;
 
-  const languageMismatch = article.language !== language
-    && !(article.alternateLanguages || []).some(item => item.language === language);
+  const languageMismatch = false;
 
   return (
     <article ref={articleRef} className="relative w-full overflow-hidden bg-[#0B0C0E]">
@@ -286,8 +282,8 @@ export const InsightDetail: React.FC = () => {
               </div>
               <div className="mt-5 grid grid-cols-2 gap-2">
                 <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
-                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">Format</p>
-                  <p className="mt-1 text-xs font-semibold text-white">Editorial</p>
+                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">{article.language === 'id' ? 'Format' : 'Format'}</p>
+                  <p className="mt-1 text-xs font-semibold text-white">{article.language === 'id' ? 'Editorial' : 'Editorial'}</p>
                 </div>
                 <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
                   <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">Language</p>
@@ -438,7 +434,7 @@ export const InsightDetail: React.FC = () => {
         <section className="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10" aria-labelledby="related-title">
           <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
             <div>
-              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">Library</p>
+              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">{article.language === 'id' ? 'Perpustakaan' : 'Library'}</p>
               <h2 id="related-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
                 {article.language === 'id' ? 'Insight terkait' : 'Related insights'}
               </h2>
