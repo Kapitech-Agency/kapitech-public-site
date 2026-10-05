@@ -60,14 +60,14 @@ export const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Pengungkapan & Perlindungan Data</h2>
               <p>
-                Kami tidak pernah menjual, menyewakan, atau memperdagangkan data pribadi Anda kepada pihak ketiga mana pun. Data Anda hanya dapat diakses oleh tim internal dan penyedia infrastruktur cloud berlisensi tinggi (seperti Google Cloud, AWS, atau penyedia email terenkripsi) semata-mata untuk kelancaran operasional layanan. Kami juga terikat dengan Perjanjian Kerahasiaan (Non-Disclosure Agreement / NDA) yang ketat untuk setiap proyek klien.
+                Kami tidak menjual, menyewakan, atau memperdagangkan data pribadi Anda. Bergantung pada fitur yang Anda gunakan, data dapat diproses oleh penyedia hosting, database atau penyimpanan dokumen, analitik, serta komunikasi yang dikonfigurasi oleh Kapitech untuk menjalankan operasional layanan. Untuk notifikasi internal, data tertentu dapat diteruskan ke penyedia komunikasi seperti Telegram hanya ketika fitur notifikasi tersebut diaktifkan. Akses dibatasi sesuai kebutuhan operasional dan kontrol keamanan yang berlaku.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">5. Keamanan Informasi</h2>
               <p>
-                Kami menerapkan standar pengamanan administratif, teknis, dan fisik terbaik, termasuk enkripsi SSL/TLS 256-bit, autentikasi multi-faktor, dan protokol firewall modern untuk melindungi data sensitif Anda dari akses yang tidak sah.
+                Kami menerapkan HTTPS/TLS untuk data dalam perjalanan, autentikasi multi-faktor dan kontrol akses pada sistem internal, serta enkripsi untuk dokumen privat seperti resume yang diunggah melalui proses rekrutmen. Kami juga membatasi akses terhadap data dan memantau aktivitas keamanan sesuai kebutuhan operasional.
               </p>
             </section>
 
@@ -78,7 +78,7 @@ export const PrivacyPolicy = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Blok G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia<br />
-                Email Resmi: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
+                Email Resmi: <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a><br />
                 Telepon / WhatsApp: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
@@ -116,14 +116,14 @@ export const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Disclosure & Data Protection</h2>
               <p>
-                We never sell, rent, or trade your personal data or intellectual property. Information is strictly shared with vetted enterprise infrastructure providers (such as Google Cloud, AWS, or secure communication channels) exclusively to fulfill your digital projects under robust Non-Disclosure Agreements (NDAs).
+                We do not sell, rent, or trade your personal data. Depending on the features you use, data may be processed by hosting, database or document-storage, analytics, and communications providers configured by Kapitech to operate our services. For internal notifications, certain data may be sent to communication providers such as Telegram only when that notification feature is enabled. Access is limited according to operational need and applicable security controls.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">5. Security of Your Information</h2>
               <p>
-                We employ comprehensive physical, electronic, and procedural safeguards, including 256-bit SSL/TLS encryption, zero-trust cloud policies, and strict access controls to maintain the integrity and confidentiality of your information.
+                We use HTTPS/TLS for data in transit, multi-factor authentication and access controls for internal systems, and encryption for private documents such as recruitment resumes. Access to personal data is restricted according to operational need and security controls.
               </p>
             </section>
 
@@ -134,7 +134,7 @@ export const PrivacyPolicy = () => {
                 <br /><br />
                 <strong className="text-white">PT Kapitech Digital Indonesia</strong><br />
                 Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia<br />
-                Official Email: <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a><br />
+                Official Email: <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a><br />
                 Phone / WhatsApp: <a href="tel:+6287769957062" className="text-brand-red hover:underline">+62 877-6995-7062</a>
               </p>
             </section>
