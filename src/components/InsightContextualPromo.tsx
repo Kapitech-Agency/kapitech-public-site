@@ -22,17 +22,11 @@ export const InsightContextualPromo: React.FC<{
       </div>
       <Link
         to={block.ctaUrl}
-        className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] px-4.5 py-2.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+        className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
       >
         {block.ctaLabel}
         <ArrowUpRight size={13} aria-hidden="true" />
       </Link>
     </div>
-
-    {block.serviceReference && (
-      <p className="mt-4 text-[9px] font-mono uppercase tracking-[0.13em] text-[#555C68]">
-        {language === 'id' ? 'Relevan untuk' : 'Relevant for'} · {block.serviceReference}
-      </p>
-    )}
   </aside>
 );
