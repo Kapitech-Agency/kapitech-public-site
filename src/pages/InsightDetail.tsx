@@ -29,6 +29,56 @@ function buildToc(blocks: InsightBlock[]) {
     }));
 }
 
+class InsightDetailErrorBoundary extends React.Component<
+  { children: React.ReactNode; language: 'id' | 'en' },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(): { hasError: boolean } {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: unknown): void {
+    console.error('[Kapitech Insight] detail render failed:', error);
+  }
+
+  render() {
+    if (!this.state.hasError) return this.props.children;
+
+    return (
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+        <div className="mx-auto w-full max-w-[980px]">
+          <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Render error</p>
+          <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
+            {this.props.language === 'id' ? 'Artikel gagal ditampilkan' : 'This insight could not be rendered'}
+          </h1>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[#8B929F]">
+            {this.props.language === 'id'
+              ? 'Data artikel berhasil ditemukan, tetapi ada bagian konten yang tidak valid. Silakan muat ulang halaman.'
+              : 'The article was found, but part of its content is invalid. Please reload the page.'}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27]"
+            >
+              {this.props.language === 'id' ? 'Muat ulang' : 'Reload'}
+            </button>
+            <a
+              href="/insights"
+              className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06]"
+            >
+              {this.props.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
+}
+
 export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -100,14 +150,18 @@ export const InsightDetail: React.FC = () => {
 
     if (articleLanguageRef.current === language) return;
 
-    const alternate = article.alternateLanguages?.find(item => item.language === language);
+    const alternate = (Array.isArray(article.alternateLanguages) ? article.alternateLanguages : [])
+      .find(item => item.language === language);
     if (alternate?.slug && alternate.slug !== slug) {
       articleLanguageRef.current = language;
       navigate('/insights/' + alternate.slug, { replace: true });
     }
   }, [article, language, navigate, slug]);
 
-  const blocks = article?.content || [];
+  const blocks = useMemo(
+    () => (article && Array.isArray(article.content) ? article.content : []),
+    [article]
+  );
   const toc = useMemo(() => buildToc(blocks), [blocks]);
 
   useEffect(() => {
@@ -214,7 +268,8 @@ export const InsightDetail: React.FC = () => {
     || article.category?.slug;
 
   return (
-    <article ref={articleRef} className="relative w-full overflow-hidden bg-[#0B0C0E]">
+    <InsightDetailErrorBoundary language={article.language}>
+      <article ref={articleRef} className="relative w-full overflow-hidden bg-[#0B0C0E]">
       <InsightSeoMeta article={article} />
 
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[1000] h-px bg-white/[0.06]" aria-hidden="true">
@@ -342,7 +397,7 @@ export const InsightDetail: React.FC = () => {
         </div>
       </header>
 
-      {article.keyTakeaways && article.keyTakeaways.length > 0 && (
+      {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
         <section className="mx-auto w-full max-w-[980px] px-5 pt-10 sm:px-8 sm:pt-12" aria-labelledby="key-takeaways-title">
           <div className="relative overflow-hidden rounded-[24px] border border-brand-red/18 bg-brand-red/[0.035] p-6 sm:p-8">
             <div className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-brand-red/[0.07] blur-3xl" />
@@ -409,7 +464,7 @@ export const InsightDetail: React.FC = () => {
           <div className="max-w-[780px]">
             <InsightContentRenderer blocks={blocks} headingIds={toc.map(item => item.id)} />
 
-            {article.faq && article.faq.length > 0 && (
+            {Array.isArray(article.faq) && article.faq.length > 0 && (
               <section className="mt-16 border-t border-white/[0.08] pt-10" aria-labelledby="faq-title">
                 <h2 id="faq-title" className="text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                   {article.language === 'id' ? 'FAQ' : 'Frequently asked questions'}
@@ -455,7 +510,7 @@ export const InsightDetail: React.FC = () => {
         </div>
       </div>
 
-      {article.relatedInsights && article.relatedInsights.length > 0 && (
+      {Array.isArray(article.relatedInsights) && article.relatedInsights.length > 0 && (
         <section className="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10" aria-labelledby="related-title">
           <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
             <div>
@@ -514,6 +569,7 @@ export const InsightDetail: React.FC = () => {
           {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
         </Link>
       </div>
-    </article>
+      </article>
+    </InsightDetailErrorBoundary>
   );
 };
