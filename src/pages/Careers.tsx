@@ -1752,7 +1752,7 @@ export const Careers = () => {
                         aria-busy={isApplicantSubmitting}
                         className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                       >
-                        {isApplicantSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span><ArrowUpRight size={16} />}
+                        {isApplicantSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span><ArrowUpRight size={16} /></>}
                       </button>
                     </form>
                   )}
