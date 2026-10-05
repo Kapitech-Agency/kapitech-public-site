@@ -277,7 +277,7 @@ export const Home = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-24 sm:py-32 md:py-36 overflow-visible">
+      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-24 sm:py-32 md:py-36 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="silk"
@@ -298,7 +298,7 @@ export const Home = () => {
           />
           <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
           <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-[-3rem] h-40 sm:h-48 bg-gradient-to-b from-[#0B0C0E]/95 via-[#0B0C0E]/72 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-b from-transparent via-[#0B0C0E]/72 to-[#0B0C0E] pointer-events-none" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
