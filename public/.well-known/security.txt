@@ -1,0 +1,4 @@
+Contact: mailto:hello@kapitech.id
+Expires: 2027-10-01T00:00:00Z
+Preferred-Languages: en, id
+Canonical: https://kapitech.id/.well-known/security.txt
