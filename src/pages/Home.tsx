@@ -690,7 +690,19 @@ export const Home = () => {
                 </Link>
               );
             })}
-          </div>
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.014] px-6 py-12 text-center sm:px-10">
+              <p className="text-xs font-mono uppercase tracking-[0.14em] text-white/40">
+                {language === 'id' ? 'Case study dikelola melalui AMS' : 'Case studies are managed through AMS'}
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+                {language === 'id'
+                  ? 'Case study akan tampil otomatis setelah dipublikasikan melalui CMS.'
+                  : 'Case studies appear automatically once they are published through the CMS.'}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
