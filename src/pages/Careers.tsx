@@ -596,7 +596,7 @@ export const Careers = () => {
       specialty: "Editing TVC, LUT Sinematik & DaVinci",
       department: "Visual Experience",
       experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf028daeb?auto=format&fit=crop&q=85&w=800",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=85&w=800",
       bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
@@ -1775,6 +1775,7 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
+              ref={careerModalRef}
               className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header */}
