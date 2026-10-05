@@ -20,13 +20,39 @@ function formatDate(value: string | null | undefined, language: 'id' | 'en'): st
   }).format(date);
 }
 
-function buildToc(blocks: InsightBlock[]) {
-  return blocks
-    .filter((block): block is Extract<InsightBlock, { type: 'heading' }> => block.type === 'heading')
-    .map((block, index) => ({
+function buildHeadingIds(blocks: InsightBlock[]): Array<string | undefined> {
+  let headingIndex = 0;
+  return blocks.map(block => {
+    if (block.type !== 'heading') return undefined;
+    const id = 'insight-section-' + headingIndex;
+    headingIndex += 1;
+    return id;
+  });
+}
+
+function buildToc(blocks: InsightBlock[], includeFaq: boolean, faqLabel: string) {
+  const items = blocks.flatMap((block, blockIndex) => {
+    if (block.type !== 'heading' || block.level !== 2) return [];
+    let headingIndex = 0;
+    for (let index = 0; index < blockIndex; index += 1) {
+      if (blocks[index].type === 'heading') headingIndex += 1;
+    }
+    return [{
       ...block,
-      id: 'insight-section-' + index
-    }));
+      id: 'insight-section-' + headingIndex
+    }];
+  });
+
+  if (includeFaq) {
+    items.push({
+      type: 'heading' as const,
+      level: 2 as const,
+      text: faqLabel,
+      id: 'faq-title'
+    });
+  }
+
+  return items;
 }
 
 class InsightDetailErrorBoundary extends React.Component<
@@ -162,7 +188,15 @@ export const InsightDetail: React.FC = () => {
     () => (article && Array.isArray(article.content) ? article.content : []),
     [article]
   );
-  const toc = useMemo(() => buildToc(blocks), [blocks]);
+  const headingIds = useMemo(() => buildHeadingIds(blocks), [blocks]);
+  const toc = useMemo(
+    () => buildToc(
+      blocks,
+      Boolean(article?.faq?.length),
+      article?.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'
+    ),
+    [blocks, article?.faq, article?.language]
+  );
 
   useEffect(() => {
     const updateProgress = () => {
@@ -309,7 +343,7 @@ export const InsightDetail: React.FC = () => {
                     <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
                     <span className="inline-flex items-center gap-1.5 text-[#737A87]">
                       <Clock3 size={11} aria-hidden="true" />
-                      {article.readingTime} min read
+                      {article.readingTime} {article.language === 'id' ? 'menit baca' : 'min read'}
                     </span>
                   </>
                 )}
@@ -355,7 +389,7 @@ export const InsightDetail: React.FC = () => {
 
             <aside className="rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]/46 p-5 backdrop-blur-xl sm:p-6">
               <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
-                {article.language === 'id' ? 'Reading signal' : 'Reading signal'}
+                {article.language === 'id' ? 'Status bacaan' : 'Reading status'}
               </p>
               <div className="mt-5">
                 <div className="flex items-end justify-between gap-3">
@@ -373,10 +407,10 @@ export const InsightDetail: React.FC = () => {
               <div className="mt-5 grid grid-cols-2 gap-2">
                 <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
                   <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">{article.language === 'id' ? 'Format' : 'Format'}</p>
-                  <p className="mt-1 text-xs font-semibold text-white">{article.language === 'id' ? 'Editorial' : 'Editorial'}</p>
+                  <p className="mt-1 text-xs font-semibold text-white">{article.language === 'id' ? 'Artikel' : 'Editorial'}</p>
                 </div>
                 <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
-                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">Language</p>
+                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">{article.language === 'id' ? 'Bahasa' : 'Language'}</p>
                   <p className="mt-1 text-xs font-semibold text-white">{article.language.toUpperCase()}</p>
                 </div>
               </div>
@@ -428,7 +462,7 @@ export const InsightDetail: React.FC = () => {
           <aside className="lg:sticky lg:top-28 lg:self-start" aria-label={article.language === 'id' ? 'Daftar isi' : 'Table of contents'}>
             <details className="rounded-[20px] border border-white/[0.08] bg-white/[0.018] p-4 backdrop-blur-xl lg:open:border-white/[0.1]" open>
               <summary className="cursor-pointer list-none text-[9px] font-mono uppercase tracking-[0.16em] text-[#7A818D]">
-                {article.language === 'id' ? 'Daftar isi' : 'Table of contents'}
+                {article.language === 'id' ? 'Di artikel ini' : 'In this article'}
               </summary>
               <nav className="mt-4 space-y-1.5">
                 {toc.map((item, index) => {
@@ -462,12 +496,16 @@ export const InsightDetail: React.FC = () => {
 
         <div className="min-w-0">
           <div className="max-w-[780px]">
-            <InsightContentRenderer blocks={blocks} headingIds={toc.map(item => item.id)} />
+            <InsightContentRenderer
+              blocks={blocks}
+              headingIds={headingIds.filter((id): id is string => Boolean(id))}
+              language={article.language}
+            />
 
             {Array.isArray(article.faq) && article.faq.length > 0 && (
               <section className="mt-16 border-t border-white/[0.08] pt-10" aria-labelledby="faq-title">
                 <h2 id="faq-title" className="text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
-                  {article.language === 'id' ? 'FAQ' : 'Frequently asked questions'}
+                  {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
                 </h2>
                 <div className="mt-5 space-y-3">
                   {article.faq.map((item, index) => (
