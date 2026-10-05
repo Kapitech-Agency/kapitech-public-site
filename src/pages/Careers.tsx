@@ -2116,10 +2116,11 @@ export const Careers = () => {
 
                     <button
                       type="submit"
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                      disabled={isVendorSubmitting}
+                      aria-busy={isVendorSubmitting}
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 disabled:opacity-60 disabled:cursor-wait font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
                     >
-                      <span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span>
-                      <ArrowUpRight size={16} />
+                      {isVendorSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span><ArrowUpRight size={16} /></>}
                     </button>
                   </form>
                 )}
