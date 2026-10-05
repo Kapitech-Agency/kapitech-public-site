@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" role="img" aria-labelledby="title desc">
+<title id="title">Tiga pertanyaan validasi: Prototype, MVP, dan PoC</title>
+<desc id="desc">Perbandingan pertanyaan utama yang dijawab oleh prototype, MVP, dan PoC.</desc>
+<rect width="1400" height="800" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="80" y="90" font-size="18" letter-spacing="4" fill="#E50914">03 / THE QUESTION</text>
+<text x="80" y="150" font-size="50" font-weight="700" fill="#F8FAFC">What question are you trying to answer?</text>
+<g transform="translate(80 230)">
+<path d="M380 170 H480" stroke="#E50914" stroke-width="4"/><path d="M820 170 H920" stroke="#E50914" stroke-width="4"/>
+<g>
+<rect width="380" height="320" rx="28" fill="#111318" stroke="#2A2D34"/><rect x="440" width="380" height="320" rx="28" fill="#111318" stroke="#2A2D34"/><rect x="880" width="380" height="320" rx="28" fill="#111318" stroke="#2A2D34"/>
+</g>
+<g fill="#E50914"><circle cx="42" cy="48" r="6"/><circle cx="482" cy="48" r="6"/><circle cx="922" cy="48" r="6"/></g>
+<g fill="#fff" font-weight="700">
+<text x="40" y="105" font-size="31">Prototype</text><text x="480" y="105" font-size="31">MVP</text><text x="920" y="105" font-size="31">PoC</text>
+</g>
+<g font-size="26" font-weight="600" fill="#fff">
+<text x="40" y="165">Can users</text><text x="40" y="198">use it?</text>
+<text x="480" y="165">Will users</text><text x="480" y="198">value it?</text>
+<text x="920" y="165">Can we</text><text x="920" y="198">build it?</text>
+</g>
+<g font-size="16" fill="#8A909D">
+<text x="40" y="245">Flow • usability • interaction</text>
+<text x="480" y="245">Adoption • behavior • value</text>
+<text x="920" y="245">Architecture • API • performance</text>
+</g>
+</g>
+<text x="80" y="690" font-size="18" fill="#69717D">If the question changes, the validation method should change too.</text>
+</g></svg>
