@@ -35,30 +35,31 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. Apa Itu Cookie?</h2>
               <p>
-                Cookie adalah file teks kecil yang ditempatkan di perangkat Anda saat Anda mengunjungi situs web kami. Cookie membantu kami mengenali preferensi Anda (seperti pilihan bahasa EN/ID), menjaga stabilitas sesi penjelajahan, dan memahami bagaimana pengunjung berinteraksi dengan halaman kami untuk meningkatkan kecepatan dan pengalaman pengguna.
+                Cookie dan penyimpanan lokal adalah data kecil yang ditempatkan atau disimpan di perangkat Anda saat mengunjungi situs web kami. Kami menggunakannya untuk preferensi bahasa, fungsi penting, dan, setelah persetujuan, penyimpanan atribusi serta analitik opsional yang membantu kami memahami interaksi dan meningkatkan performa website.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">2. Kategori Cookie yang Kami Gunakan</h2>
-              <p className="mb-4">Kami menggunakan jenis cookie berikut:</p>
-              <ul className="list-disc pl-6 space-y-3">
-                <li><strong className="text-white">Cookie Esensial & Fungsional (Wajib):</strong> Cookie ini penting agar situs web berfungsi dengan semestinya, seperti menyimpan preferensi bahasa pilihan Anda dan memastikan keamanan formulir kontak.</li>
-                <li><strong className="text-white">Cookie Performa & Analitik (Opsional):</strong> Membantu kami mengukur metrik anonim seperti waktu muat halaman, halaman yang paling sering dilihat, dan rasio interaksi guna meningkatkan kinerja teknis website. Kami tidak melacak informasi identitas pribadi (PII) melalui cookie analitik.</li>
+              <p className="mb-4">Kami menggunakan kategori penyimpanan berikut:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li><strong className="text-white">Penyimpanan Esensial &amp; Fungsional:</strong> Digunakan untuk fungsi inti, seperti preferensi bahasa dan perlindungan formulir.</li>
+                <li><strong className="text-white">Analitik &amp; Atribusi (Opsional):</strong> Setelah Anda memberikan persetujuan, penyimpanan lokal dapat berisi parameter kampanye, halaman pendaratan, host rujukan, dan ID anonim bila integrasi analitik dikonfigurasi. Fitur ini tidak diaktifkan sebelum persetujuan analitik diberikan.</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">3. Pengendalian & Penolakan Cookie</h2>
               <p>
-                Anda memiliki kendali penuh untuk menerima atau menolak cookie melalui pengaturan peramban (browser) Anda. Sebagian besar browser web secara otomatis menerima cookie, namun Anda dapat memodifikasi pengaturan browser Anda untuk menolak cookie jika Anda menginginkannya. Harap diperhatikan bahwa menonaktifkan cookie fungsional tertentu dapat memengaruhi penyimpanan preferensi bahasa Anda.
+                Anda dapat menghapus atau membatasi cookie dan penyimpanan lokal melalui pengaturan browser. Menolak penyimpanan analitik opsional tidak menghalangi fungsi utama website, sedangkan pembatasan penyimpanan esensial dapat membuat preferensi bahasa dan fungsi tertentu tidak tersimpan.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Hubungi Kami</h2>
               <p>
-                Jika Anda memiliki pertanyaan mengenai penggunaan cookie atau perlindungan data privasi di Kapitech Agency, silakan hubungi tim kami di <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
+                Jika Anda memiliki pertanyaan mengenai penggunaan cookie atau perlindungan data privasi di Kapitech Agency, silakan hubungi tim kami di <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a>.
               </p>
             </section>
           </div>
@@ -67,7 +68,7 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">1. What Are Cookies?</h2>
               <p>
-                Cookies are compact data files placed on your browser or device when visiting our website. Cookies enable our application to remember your preferences (such as EN/ID language selection), maintain secure session states, and understand aggregate traffic patterns to optimize performance and responsiveness.
+                Cookies and local browser storage are small pieces of data placed or stored on your device when you visit our website. We use them for language preferences, essential functionality, and, after consent, optional attribution and analytics storage that helps us understand interactions and improve performance.
               </p>
             </section>
 
@@ -83,14 +84,14 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">3. Managing & Disabling Cookies</h2>
               <p>
-                You retain full control over cookie permissions through your web browser preferences. Most modern browsers allow you to inspect, block, or delete stored cookies at any time. Please note that disabling essential storage cookies may reset your UI language choices upon page refresh.
+                You can delete or restrict cookies and local storage through your browser settings. Declining optional analytics storage does not prevent the core website from functioning, while restricting essential storage may reset language preferences and some site functionality after refresh.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">4. Inquiries</h2>
               <p>
-                For questions regarding cookie management or digital privacy compliance at Kapitech Agency, reach out to our privacy office at <a href="mailto:hello@kapitech.co.id" className="text-brand-red hover:underline">hello@kapitech.co.id</a>.
+                For questions regarding cookie management or digital privacy compliance at Kapitech Agency, reach out to our privacy office at <a href="mailto:hello@kapitech.id" className="text-brand-red hover:underline">hello@kapitech.id</a>.
               </p>
             </section>
           </div>
