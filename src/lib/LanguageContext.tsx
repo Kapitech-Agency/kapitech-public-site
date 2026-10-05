@@ -700,7 +700,9 @@ const LanguageContext = createContext<LanguageContextType>({
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('kapitech_lang') as Language;
-    return saved === 'id' || saved === 'en' ? saved : 'en';
+    if (saved === 'id' || saved === 'en') return saved;
+    if (typeof navigator !== 'undefined' && /^id(?:-|$)/i.test(navigator.language || '')) return 'id';
+    return 'en';
   });
 
   useEffect(() => {
