@@ -368,9 +368,9 @@ export const InsightDetail: React.FC = () => {
       )}
 
 
-      <section className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-10 sm:px-8 sm:pb-16 sm:pt-14 lg:px-10 lg:pt-16">
+      <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-10 sm:px-8 sm:pb-16 sm:pt-14 lg:px-10 lg:pt-16">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-14 xl:grid-cols-[minmax(0,820px)_240px] xl:justify-between xl:gap-20">
-          <main className="min-w-0 lg:col-start-1 lg:row-start-1">
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
             <InsightContentRenderer
               blocks={blocks}
               headingIds={headingIds.map(id => id || '')}
@@ -397,7 +397,7 @@ export const InsightDetail: React.FC = () => {
                 </div>
               </section>
             )}
-          </main>
+          </div>
 
           {toc.length > 0 && (
             <aside className="order-first lg:sticky lg:top-24 lg:order-none lg:col-start-2 lg:row-start-1">
