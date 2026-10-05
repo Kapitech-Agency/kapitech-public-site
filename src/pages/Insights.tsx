@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { InsightCard } from '../components/InsightCard';
-import { SeoMeta } from '../components/SeoMeta';
+import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightCategory, InsightItem } from '../data/insightTypes';
@@ -89,7 +89,7 @@ export const Insights: React.FC = () => {
 
   return (
     <>
-      <SeoMeta />
+      <InsightSeoMeta />
       <div className="w-full">
         <section className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-36 lg:px-10 lg:pt-40">
           <div className="max-w-3xl">
