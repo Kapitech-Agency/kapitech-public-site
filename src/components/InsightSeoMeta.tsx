@@ -44,6 +44,16 @@ const setHreflang = (items: Array<{ language: 'id' | 'en'; slug: string }>) => {
     link.dataset.kapiInsightHreflang = 'true';
     document.head.appendChild(link);
   });
+
+  const globalVariant = items.find(item => item.language === 'en');
+  if (globalVariant) {
+    const link = document.createElement('link');
+    link.rel = 'alternate';
+    link.hreflang = 'x-default';
+    link.href = SITE + '/insights/' + globalVariant.slug;
+    link.dataset.kapiInsightHreflang = 'true';
+    document.head.appendChild(link);
+  }
 };
 
 function breadcrumb(article: InsightItem, url: string) {
@@ -76,7 +86,9 @@ function articleStructuredData(article: InsightItem, url: string) {
       datePublished: article.publishedAt || undefined,
       dateModified: article.updatedAt || article.publishedAt || undefined,
       author: article.author
-        ? { '@type': 'Person', '@id': SITE + '/insights#author-' + article.author.id, name: article.author.name, jobTitle: article.author.role || undefined }
+        ? (article.author.slug === 'kapitech-editorial-team'
+          ? { '@type': 'Organization', '@id': SITE + '/#organization', name: article.author.name }
+          : { '@type': 'Person', '@id': SITE + '/insights#author-' + article.author.id, name: article.author.name, jobTitle: article.author.role || undefined })
         : { '@type': 'Organization', name: seoRoutes.siteName },
       publisher: { '@id': SITE + '/#organization' },
       inLanguage: article.language,
