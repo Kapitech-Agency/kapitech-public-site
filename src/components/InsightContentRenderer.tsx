@@ -93,11 +93,10 @@ export const InsightContentRenderer: React.FC<{
               id={headingIds[headingIndex]}
               className={
                 block.level === 3
-                  ? 'group mb-4 mt-11 scroll-mt-32 text-xl font-display font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-[1.4rem]'
-                  : 'group mb-5 mt-16 scroll-mt-32 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem] lg:text-[2.2rem]'
+                  ? 'group mb-4 mt-10 scroll-mt-28 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
+                  : 'group mb-5 mt-14 scroll-mt-28 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem] lg:text-[2.2rem]'
               }
             >
-              <span className="mr-3 inline-block h-5 w-[2px] translate-y-[2px] rounded-full bg-brand-red/80 align-middle opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
               {block.text}
             </Heading>
           );
@@ -138,7 +137,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'image') {
           return (
-            <figure key={index} className="my-10">
+            <figure key={index} className="my-12">
               <div className="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E] shadow-[0_26px_70px_-54px_rgba(0,0,0,0.92)]">
                 <img
                   src={block.url}
@@ -159,7 +158,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'table') {
           return (
-            <div key={index} className="my-10 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.012]">
+            <div key={index} className="my-12 overflow-hidden rounded-[18px] border border-white/[0.08] bg-white/[0.012]">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[560px] border-collapse text-left text-sm">
                   <thead>
