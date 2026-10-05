@@ -59,7 +59,8 @@ const calloutStyles: Record<string, string> = {
 export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
-}> = ({ blocks, headingIds = [] }) => {
+  language?: 'id' | 'en';
+}> = ({ blocks, headingIds = [], language = 'en' }) => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
 
   const copyCode = async (code: string, index: number) => {
@@ -216,7 +217,7 @@ export const InsightContentRenderer: React.FC<{
             <div key={index} className="my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#08090B] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
               <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] bg-white/[0.02] px-4 py-3">
                 <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]">
-                  {block.language || 'Code'}
+                  {block.language || (language === 'id' ? 'Kode' : 'Code')}
                 </span>
                 <button
                   type="button"
@@ -224,7 +225,7 @@ export const InsightContentRenderer: React.FC<{
                   className="inline-flex min-h-[34px] items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#9DA4B0] transition-[background-color,border-color,color] duration-300 hover:border-brand-red/30 hover:bg-brand-red/10 hover:text-white"
                 >
                   {copied ? <Check size={12} aria-hidden="true" /> : <Copy size={12} aria-hidden="true" />}
-                  {copied ? 'Copied' : 'Copy'}
+                  {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}
                 </button>
               </div>
               <pre className="overflow-x-auto p-5 text-xs leading-6 text-[#D7DAE0] sm:p-6">
