@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Copy, ExternalLink } from 'lucide-react';
+import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
 import type { InsightBlock } from '../data/insightTypes';
 
 function inlineMarkdown(value: string): React.ReactNode[] {
