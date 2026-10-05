@@ -199,13 +199,13 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow] duration-300',
+          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow,transform] duration-300',
           sectionActive
-            ? 'border-brand-red/24 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_18px_44px_-36px_rgba(229,9,20,0.32)]'
-            : 'border-white/[0.08] bg-white/[0.018] hover:border-white/[0.12] hover:bg-white/[0.026]'
+            ? 'border-brand-red/25 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_44px_-36px_rgba(229,9,20,0.34)]'
+            : 'border-white/[0.075] bg-white/[0.016] hover:-translate-y-px hover:border-white/[0.12] hover:bg-white/[0.024] hover:shadow-[0_14px_32px_-28px_rgba(0,0,0,0.9)]'
         ].join(' ')}
       >
-        <div className="flex items-center gap-2 px-3 py-3 sm:px-3.5 sm:py-3.5">
+        <div className="flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
           <a
             ref={node => {
               if (node) itemMap.set(section.heading.id, node);
@@ -234,7 +234,7 @@ export const InsightTableOfContents: React.FC<{
               <span className="min-w-0 flex-1">
                 <span
                   className={[
-                    'block text-[12.5px] leading-[1.38] tracking-[-0.008em]',
+                    'block text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     sectionActive ? 'font-semibold text-white' : 'font-medium text-[#D1D5DD]'
                   ].join(' ')}
                 >
@@ -258,7 +258,7 @@ export const InsightTableOfContents: React.FC<{
               type="button"
               onClick={() => toggleSection(section.heading.id)}
               className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
                   ? 'border-brand-red/24 bg-brand-red/10 text-brand-red'
                   : 'border-white/[0.08] bg-white/[0.025] text-[#717986] hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
@@ -308,7 +308,7 @@ export const InsightTableOfContents: React.FC<{
                       }}
                       aria-current={active ? 'location' : undefined}
                       className={[
-                        'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.48] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                        'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                         active
                           ? 'bg-brand-red/[0.08] text-white'
                           : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
@@ -335,7 +335,7 @@ export const InsightTableOfContents: React.FC<{
   };
 
   const renderList = (variant: 'desktop' | 'mobile') => (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       {sections.map((section, index) => renderSection(section, index, variant))}
     </div>
   );
@@ -350,7 +350,7 @@ export const InsightTableOfContents: React.FC<{
   return (
     <>
       <div className="xl:hidden">
-        <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+        <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
           <button
             type="button"
             aria-expanded={mobileOpen}
@@ -404,13 +404,13 @@ export const InsightTableOfContents: React.FC<{
         <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-4 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_22px_55px_-40px_rgba(0,0,0,0.82)]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.16em] text-[#8A909D]">{tocLabel}</p>
+              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-[#969DA8]">{tocLabel}</p>
               <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
                 {sections.length} {sectionCountLabel}
               </p>
             </div>
 
-            <span className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 font-mono text-[9px] font-medium tabular-nums text-[#68717D]">
+            <span className="rounded-full border border-white/[0.08] bg-white/[0.028] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#737C88]">
               {String(currentSectionIndex + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}
             </span>
           </div>
@@ -419,12 +419,12 @@ export const InsightTableOfContents: React.FC<{
             <nav
               ref={desktopListRef}
               aria-label={navigationLabel}
-              className="h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pr-1"
+              className="h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pb-3 pr-1"
             >
               {renderList('desktop')}
             </nav>
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12 rounded-b-[14px] bg-gradient-to-t from-[rgba(15,17,22,0.96)] via-[rgba(15,17,22,0.58)] to-transparent"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-14 rounded-b-[14px] bg-gradient-to-t from-[rgba(15,17,22,0.98)] via-[rgba(15,17,22,0.64)] to-transparent"
               aria-hidden="true"
             />
           </div>
