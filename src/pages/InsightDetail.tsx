@@ -331,7 +331,9 @@ export const InsightDetail: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-white/[0.03] pointer-events-none" />
               <img
                 src={article.coverImage}
-                alt={article.title}
+                alt={article.language === 'id'
+                  ? 'Kerangka visual untuk memilih Prototype, MVP, atau Proof of Concept berdasarkan ketidakpastian terbesar.'
+                  : 'Editorial framework for choosing Prototype, MVP, or Proof of Concept based on the biggest product uncertainty.'}
                 loading="eager"
                 className="block max-h-[720px] w-full object-cover"
               />
@@ -429,7 +431,7 @@ export const InsightDetail: React.FC = () => {
                 <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
                   {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
                 </p>
-                <div className="mt-5 flex items-start gap-4 rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-5 sm:p-6">
+                <div className="mt-5 flex items-start gap-4 border-y border-white/[0.07] py-6">
                   {article.author.avatar ? (
                     <img src={article.author.avatar} alt="" className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover" />
                   ) : (
@@ -468,33 +470,30 @@ export const InsightDetail: React.FC = () => {
         </section>
       )}
 
-      <section className="mx-auto w-full max-w-[1240px] px-5 pb-20 pt-8 sm:px-8 lg:px-10">
-        <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
-          <div className="absolute -right-14 -top-20 h-56 w-56 rounded-full bg-brand-red/[0.07] blur-3xl" />
-          <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                {article.language === 'id' ? 'Diskusi Proyek' : 'Project discussion'}
-              </p>
-              <h2 className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-4xl">
-                {article.language === 'id'
-                  ? 'Butuh bantuan menerapkan insight ini?'
-                  : 'Need help applying this insight?'}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#89909D]">
-                {article.language === 'id'
-                  ? 'Mari terjemahkan ide ini menjadi website, pengalaman produk, atau sistem digital yang benar-benar bisa digunakan.'
-                  : 'Let’s turn the idea into a website, product experience, or digital system that can actually be used.'}
-              </p>
-            </div>
-            <Link
-              to="/contact"
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
-            >
-              {article.language === 'id' ? 'Diskusikan Project' : 'Discuss Your Project'}
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
+      <section className="mx-auto w-full max-w-[900px] px-5 pb-18 pt-4 sm:px-8 sm:pb-20">
+        <div className="flex flex-col gap-5 border-y border-white/[0.08] py-7 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          <div className="max-w-2xl">
+            <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+              {article.language === 'id' ? 'Diskusi Proyek' : 'Project discussion'}
+            </p>
+            <h2 className="mt-3 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-3xl">
+              {article.language === 'id'
+                ? 'Butuh partner untuk langkah berikutnya?'
+                : 'Need a partner for the next step?'}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-[#89909D]">
+              {article.language === 'id'
+                ? 'Mulai dari pertanyaan yang perlu dibuktikan, lalu tentukan ruang lingkup yang masuk akal untuk dibangun.'
+                : 'Start with the question that needs evidence, then define a sensible scope to build.'}
+            </p>
           </div>
+          <Link
+            to="/contact"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
+          >
+            {article.language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
         </div>
       </section>
 
