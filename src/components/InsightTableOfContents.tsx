@@ -43,6 +43,7 @@ export const InsightTableOfContents: React.FC<{
   const [expandedSectionId, setExpandedSectionId] = useState<string | null>(
     sections[0]?.heading.id || null
   );
+  const [manuallyCollapsedSectionId, setManuallyCollapsedSectionId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const desktopListRef = useRef<HTMLElement | null>(null);
   const mobileListRef = useRef<HTMLElement | null>(null);
@@ -56,6 +57,7 @@ export const InsightTableOfContents: React.FC<{
     setActiveId(initialId);
 
     const initialSectionId = sectionByItemId.get(initialId) || sections[0]?.heading.id || null;
+    setManuallyCollapsedSectionId(null);
     setExpandedSectionId(initialSectionId);
 
     const syncActiveHeading = () => {
@@ -124,8 +126,11 @@ export const InsightTableOfContents: React.FC<{
     const nextSectionId = sectionByItemId.get(activeId);
     if (!nextSectionId) return;
 
-    setExpandedSectionId(prev => (prev === nextSectionId ? prev : nextSectionId));
-  }, [activeId, sectionByItemId]);
+    setExpandedSectionId(prev => {
+      if (manuallyCollapsedSectionId === nextSectionId) return prev;
+      return prev === nextSectionId ? prev : nextSectionId;
+    });
+  }, [activeId, manuallyCollapsedSectionId, sectionByItemId]);
 
   useEffect(() => {
     if (!activeId) return;
@@ -165,7 +170,15 @@ export const InsightTableOfContents: React.FC<{
     : sections.length === 1 ? 'section' : 'sections';
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSectionId(prev => (prev === sectionId ? null : sectionId));
+    setExpandedSectionId(prev => {
+      if (prev === sectionId) {
+        setManuallyCollapsedSectionId(sectionId);
+        return null;
+      }
+
+      setManuallyCollapsedSectionId(null);
+      return sectionId;
+    });
   };
 
   const navigateTo = (item: InsightTocItem, mobile = false) => {
@@ -173,7 +186,10 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     const sectionId = sectionByItemId.get(item.id);
-    if (sectionId) setExpandedSectionId(sectionId);
+    if (sectionId) {
+      setManuallyCollapsedSectionId(null);
+      setExpandedSectionId(sectionId);
+    }
 
     setActiveId(item.id);
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -284,7 +300,7 @@ export const InsightTableOfContents: React.FC<{
         <div
           id={section.heading.id + '-subsections'}
           className={[
-            'grid transition-[grid-template-rows,opacity] duration-300',
+            'grid transition-[grid-template-rows,opacity] duration-300 ease-out will-change-[grid-template-rows,opacity]',
             expanded && section.children.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
           ].join(' ')}
         >
