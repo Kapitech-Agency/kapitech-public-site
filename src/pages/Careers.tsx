@@ -36,6 +36,7 @@ import {
   ChevronDown,
   LoaderCircle
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -1038,6 +1039,13 @@ export const Careers = () => {
                 <FolderGit2 size={14} />
                 <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
               </button>
+              <Link
+                to="/about"
+                className="px-5 py-2.5 rounded-full text-[#A7ACB5] hover:text-white text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-300 inline-flex items-center gap-2"
+              >
+                <span>{language === 'id' ? 'Tentang Kapitech' : 'About Kapitech'}</span>
+                <ArrowUpRight size={14} />
+              </Link>
             </div>
           </div>
         </div>

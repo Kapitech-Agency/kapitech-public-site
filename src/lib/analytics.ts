@@ -386,6 +386,14 @@ export function initAnalytics(): void {
     if (initialized) trackPageView(window.location.pathname);
   };
 
-  start();
-  window.addEventListener('kapitech_consent_changed', start);
+  const scheduleStart = () => {
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(() => start(), { timeout: 2000 });
+      return;
+    }
+    window.setTimeout(start, 0);
+  };
+
+  scheduleStart();
+  window.addEventListener('kapitech_consent_changed', scheduleStart);
 }

@@ -430,6 +430,13 @@ export const Work = () => {
               <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
                 {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
               </span>
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-brand-red hover:text-white transition-colors"
+              >
+                <span>{language === 'id' ? 'Lihat layanan' : 'Explore services'}</span>
+                <ArrowUpRight size={13} />
+              </Link>
             </div>
           </motion.div>
         </div>

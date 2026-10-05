@@ -419,13 +419,14 @@ export const Footer = () => {
         <div className="pt-6 border-t border-[#262930] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8A909D]">
           <p>© 2021-2026 Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
           <div className="flex items-center gap-4 sm:gap-6">
-            <Link 
-              to="/admin/login" 
+            <a
+              href="https://ams.kapitech.id/"
               className="text-[#5C626E] hover:text-[#8A909D] transition-colors text-[11px] font-mono"
               title="Kapitech Internal Admin Portal"
+              rel="noreferrer"
             >
               <span>Admin Portal</span>
-            </Link>
+            </a>
             <button 
               onClick={scrollToTop} 
               id="footer-back-to-top"

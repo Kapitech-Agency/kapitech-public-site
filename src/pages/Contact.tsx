@@ -1111,6 +1111,13 @@ export const Contact = () => {
                     ? 'Kirim kebutuhan Anda melalui form di atas dan tim kami akan membantu mengarahkan langkah berikutnya.'
                     : 'Send your project context through the form above and our team will help guide the next step.'}
                 </p>
+                <Link
+                  to="/services"
+                  className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors hover:text-white"
+                >
+                  <span>{language === 'id' ? 'Tinjau layanan Kapitech' : 'Review Kapitech services'}</span>
+                  <ArrowUpRight size={13} />
+                </Link>
               </div>
             </div>
 

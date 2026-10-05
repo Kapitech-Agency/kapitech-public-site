@@ -389,6 +389,14 @@ export const About = () => {
                   : 'We value clear structure, disciplined execution, and accountable quality. From visual identity to digital products, every decision should have a clear reason and a clear purpose.'}
               </motion.p>
 
+              <Link
+                to="/services"
+                className="mt-6 inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors hover:text-white"
+              >
+                <span>{language === 'id' ? 'Lihat layanan Kapitech' : 'Explore Kapitech services'}</span>
+                <ArrowUpRight size={14} />
+              </Link>
+
               <div className="mt-10 border-y border-white/[0.07] py-6 sm:py-7">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-5">
                   <div>

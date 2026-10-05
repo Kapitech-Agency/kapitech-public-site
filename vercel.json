@@ -19,6 +19,76 @@
       "source": "/services/team-extension",
       "destination": "/solutions/team-extension",
       "permanent": true
+    },
+    {
+      "source": "/solutions/pitch-deck",
+      "destination": "/services/pitch-deck",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/brand-identity",
+      "destination": "/services/brand-identity",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/logo-design",
+      "destination": "/services/logo-design",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/graphic-design",
+      "destination": "/services/graphic-design",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/rebranding",
+      "destination": "/services/rebranding",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ui-ux-design",
+      "destination": "/services/ui-ux-design",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/website-design",
+      "destination": "/services/website-design",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/website-redesign",
+      "destination": "/services/website-redesign",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/product-ux-ui-audit",
+      "destination": "/services/product-ux-ui-audit",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/web-development",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/mvp-development",
+      "destination": "/services/mvp-development",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/landing-page",
+      "destination": "/services/landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/corporate-websites",
+      "destination": "/services/corporate-websites",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/wow-websites",
+      "destination": "/services/wow-websites",
+      "permanent": true
     }
   ],
   "rewrites": [
