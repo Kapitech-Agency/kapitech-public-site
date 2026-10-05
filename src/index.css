@@ -1475,3 +1475,34 @@ html.kapi-custom-cursor-enabled select {
   }
 }
 
+
+/* ==========================================================================
+   INSIGHT TOC INTERACTION SCOPE
+   ========================================================================== */
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]) {
+  transform: none !important;
+}
+
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]):active {
+  transform: none !important;
+}
+
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]) > svg,
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]) svg {
+  transform: none !important;
+}
+
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]):hover > svg,
+.kapi-public-shell .kapi-insight-toc :where(button, a, [role="button"]):hover svg {
+  transform: none !important;
+}
+
+.kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron.rotate-180 {
+  transform: rotate(180deg) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron {
+    transition: none !important;
+  }
+}
