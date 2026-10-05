@@ -37,7 +37,7 @@ function inlineMarkdown(value: string): React.ReactNode[] {
   });
 }
 
-export const InsightContentRenderer: React.FC<{ blocks: InsightBlock[] }> = ({ blocks }) => (
+export const InsightContentRenderer: React.FC<{ blocks: InsightBlock[]; headingIds?: string[] }> = ({ blocks, headingIds = [] }) => (
   <div className="kapi-insight-body max-w-none">
     {blocks.map((block, index) => {
       if (block.type === 'paragraph') {
@@ -46,9 +46,11 @@ export const InsightContentRenderer: React.FC<{ blocks: InsightBlock[] }> = ({ b
 
       if (block.type === 'heading') {
         const Heading = block.level === 3 ? 'h3' : 'h2';
+        const headingIndex = blocks.slice(0, index).filter(item => item.type === 'heading').length;
         return (
           <Heading
             key={index}
+            id={headingIds[headingIndex]}
             className={
               block.level === 3
                 ? 'mb-4 mt-10 text-xl font-display font-semibold leading-tight tracking-[-0.02em] text-white'
