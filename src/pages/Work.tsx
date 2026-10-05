@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { 
@@ -33,10 +33,11 @@ import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
 export const Work = () => {
   const { t, language } = useLanguage();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => getCmsProjects());
-  const [activePillar, setActivePillar] = useState<string>('All');
-  const [activeService, setActiveService] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activePillar, setActivePillar] = useState<string>(() => searchParams.get('pillar') || 'All');
+  const [activeService, setActiveService] = useState<string>(() => searchParams.get('service') || 'All');
+  const [searchQuery, setSearchQuery] = useState<string>(() => searchParams.get('q') || '');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
   const [isSpotlightPaused, setIsSpotlightPaused] = useState(false);
@@ -259,44 +260,28 @@ export const Work = () => {
   }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
 
   const serviceOptions = useMemo(() => {
-    if (activePillar === 'Visual Experience') {
-      return [
-        'All',
-        'UI/UX Design',
-        'Video Production',
-        '2D Animation',
-        'Branding & Identity',
-        'Motion & Graphic Design',
-        'Creative Design',
-        '3D Visualization'
-      ];
+    const services = projectsList
+      .filter((project) => activePillar === 'All' || project.pillar === activePillar)
+      .map((project) => project.service?.trim())
+      .filter((service): service is string => Boolean(service));
+
+    return ['All', ...Array.from(new Set(services)).sort((a, b) => a.localeCompare(b))];
+  }, [projectsList, activePillar]);
+
+  useEffect(() => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (activePillar === 'All') nextParams.delete('pillar');
+    else nextParams.set('pillar', activePillar);
+    if (activeService === 'All') nextParams.delete('service');
+    else nextParams.set('service', activeService);
+    if (searchQuery.trim()) nextParams.set('q', searchQuery.trim());
+    else nextParams.delete('q');
+
+    const next = nextParams.toString();
+    if (next !== searchParams.toString()) {
+      setSearchParams(nextParams, { replace: true });
     }
-    if (activePillar === 'Innovation Development') {
-      return [
-        'All',
-        'Company Profile Website',
-        'E-Commerce Website',
-        'Web Application',
-        'ERP / CRM System',
-        'IT Support & Infrastructure'
-      ];
-    }
-    return [
-      'All',
-      'UI/UX Design',
-      'Video Production',
-      '2D Animation',
-      'Branding & Identity',
-      'Motion & Graphic Design',
-      'Creative Design',
-      '3D Visualization',
-      'Company Profile Website',
-      'E-Commerce Website',
-      'Web Application',
-      'ERP / CRM System',
-      'IT Support & Infrastructure'
-    ];
-  }, [activePillar]);
+  }, [activePillar, activeService, searchQuery, searchParams, setSearchParams]);
 
   useEffect(() => {
     const scroller = serviceScrollRef.current;
