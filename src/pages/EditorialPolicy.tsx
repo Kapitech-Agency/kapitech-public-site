@@ -27,7 +27,7 @@ export const EditorialPolicy = () => {
           {language === 'id' ? 'Kebijakan Editorial.' : 'Editorial Policy.'}
         </h1>
         <p className="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-mono font-semibold mb-12">
-          {language === 'id' ? 'Terakhir Diperbarui: Maret 2026' : 'Last Updated: March 2026'}
+          {language === 'id' ? 'Terakhir Diperbarui: 5 Oktober 2026' : 'Last Updated: October 5, 2026'}
         </p>
         
         {language === 'id' ? (
