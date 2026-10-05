@@ -642,7 +642,7 @@ export const Navbar = () => {
                               key={item.slug}
                               to={`/solutions/${item.slug}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white font-medium"
+                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white font-medium"
                             >
                               {item.title}
                             </Link>
@@ -661,7 +661,7 @@ export const Navbar = () => {
                               key={item.slug}
                               to={`/services/${item.slug}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
+                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
                             >
                               {item.title}
                             </Link>
@@ -680,7 +680,7 @@ export const Navbar = () => {
                               key={item.slug}
                               to={`/services/${item.slug}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
+                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
                             >
                               {item.title}
                             </Link>
@@ -699,7 +699,7 @@ export const Navbar = () => {
                               key={item.slug}
                               to={`/services/${item.slug}`}
                               onClick={() => setIsMenuOpen(false)}
-                              className="block py-2 text-sm text-[#8A909D] hover:text-white"
+                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
                             >
                               {item.title}
                             </Link>
@@ -711,7 +711,7 @@ export const Navbar = () => {
                         <Link
                           to="/services"
                           onClick={() => setIsMenuOpen(false)}
-                          className="inline-flex items-center gap-1.5 text-xs text-brand-red font-mono uppercase tracking-wider py-1.5"
+                          className="inline-flex min-h-[44px] items-center gap-1.5 text-xs text-brand-red font-mono uppercase tracking-wider py-1.5"
                         >
                           <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
                           <ArrowUpRight className="w-3.5 h-3.5" />
