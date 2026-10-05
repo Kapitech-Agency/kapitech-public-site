@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+<title id="title">Decision tree memilih Prototype, MVP, atau PoC</title>
+<desc id="desc">Pohon keputusan berdasarkan ketidakpastian terbesar: user experience, product value, technical feasibility, atau beberapa ketidakpastian sekaligus.</desc>
+<rect width="1400" height="1000" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="70" y="78" font-size="18" letter-spacing="4" fill="#E50914">05 / DECISION FRAMEWORK</text>
+<text x="70" y="138" font-size="46" font-weight="700" fill="#F8FAFC">Start with the biggest uncertainty.</text>
+<g fill="#111318" stroke="#2A2D34">
+<rect x="485" y="190" width="430" height="110" rx="26"/><rect x="110" y="405" width="350" height="110" rx="24"/><rect x="525" y="405" width="350" height="110" rx="24"/><rect x="940" y="405" width="350" height="110" rx="24"/><rect x="330" y="675" width="350" height="110" rx="24"/><rect x="720" y="675" width="350" height="110" rx="24"/>
+</g>
+<g font-size="22" font-weight="700" fill="#fff" text-anchor="middle">
+<text x="700" y="235">What are you least certain about?</text>
+<text x="285" y="450">User experience</text><text x="700" y="450">Product value</text><text x="1115" y="450">Technical feasibility</text>
+<text x="505" y="720">PROTOTYPE</text><text x="895" y="720">MVP</text>
+</g>
+<text x="505" y="752" font-family="Inter,Arial,sans-serif" font-size="16" fill="#8A909D" text-anchor="middle">Test flow, usability, hierarchy</text>
+<text x="895" y="752" font-family="Inter,Arial,sans-serif" font-size="16" fill="#8A909D" text-anchor="middle">Test value, adoption, behavior</text>
+<rect x="520" y="850" width="360" height="90" rx="22" fill="#E50914" opacity=".12" stroke="#E50914" stroke-opacity=".45"/>
+<text x="700" y="885" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">Multiple uncertainties?</text>
+<text x="700" y="913" font-family="Inter,Arial,sans-serif" font-size="15" fill="#B8BDC7" text-anchor="middle">Combine methods in a focused sequence.</text>
+<g fill="none" stroke="#E50914" stroke-width="4" stroke-linecap="round">
+<path d="M700 300 V360"/><path d="M700 360 H285 V405"/><path d="M700 360 V405"/><path d="M700 360 H1115 V405"/><path d="M285 515 V620 H505 V675"/><path d="M700 515 V650 H895 V675"/><path d="M1115 515 V850 H880"/><path d="M505 785 V850 H520"/><path d="M895 785 V850 H880"/>
+</g>
+<g fill="#E50914">
+<path d="M279 395 l6 12 6-12z"/><path d="M694 395 l6 12 6-12z"/><path d="M1109 395 l6 12 6-12z"/><path d="M499 665 l6 12 6-12z"/><path d="M889 665 l6 12 6-12z"/>
+</g>
+</g></svg>
