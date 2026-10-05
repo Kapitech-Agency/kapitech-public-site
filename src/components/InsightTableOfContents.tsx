@@ -267,7 +267,7 @@ export const InsightTableOfContents: React.FC<{
               type="button"
               onClick={() => toggleSection(section.heading.id)}
               className={[
-                'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
                   ? 'border-brand-red/25 bg-brand-red/10 text-brand-red'
                   : 'border-white/[0.08] bg-white/[0.025] text-[#737B88] hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
@@ -283,7 +283,7 @@ export const InsightTableOfContents: React.FC<{
               <ChevronDown
                 size={14}
                 strokeWidth={2}
-                className={expanded ? 'rotate-180 transition-transform duration-250' : 'transition-transform duration-250'}
+                className={expanded ? 'rotate-180 transition-transform duration-300' : 'transition-transform duration-300'}
                 aria-hidden="true"
               />
             </button>
