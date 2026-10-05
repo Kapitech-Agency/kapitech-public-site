@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Clock3, Share2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronRight, Clock3 } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
-import { InsightBookACall } from '../components/InsightBookACall';
 import { InsightCard } from '../components/InsightCard';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
 import { InsightLeftRail } from '../components/InsightLeftRail';
