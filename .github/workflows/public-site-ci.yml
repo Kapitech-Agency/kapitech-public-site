@@ -1,4 +1,5 @@
 name: Kapitech public site CI
+# Reproduce the same npm install, lint, and build pipeline for CI verification.
 
 on:
   push:
