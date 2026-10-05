@@ -21,11 +21,6 @@ for (const route of manifest.routes.filter((item) => item.robots?.startsWith('in
   urls.set(loc, { loc });
 }
 
-async function loadPublishedInsights(language) {
-  const response = await fetch(apiBase + '/cms/insights?language=' + language + '&page=1&pageSize=100');
-  if (!response.ok) throw new Error('Insight API returned ' + response.status);
-  return response.json();
-}
 
 for (const language of ['id', 'en']) {
   try {
