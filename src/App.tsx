@@ -16,6 +16,8 @@ import { initAnalytics } from './lib/analytics';
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })));
 const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })));
+const Insights = lazy(() => import('./pages/Insights').then((m) => ({ default: m.Insights })));
+const InsightDetail = lazy(() => import('./pages/InsightDetail').then((m) => ({ default: m.InsightDetail })));
 const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
 const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
 const Careers = lazy(() => import('./pages/Careers').then((m) => ({ default: m.Careers })));
@@ -59,6 +61,8 @@ const AnimatedRoutes = () => {
             <Route path="/" element={<Home />} />
             <Route path="/work" element={<Work />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/insights/:slug" element={<InsightDetail />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/solutions/:slug" element={<ServiceDetail />} />
             <Route path="/about" element={<About />} />
