@@ -759,7 +759,7 @@ export const ServiceDetail = () => {
                           id={`service-faq-panel-${idx}`}
                           role="region"
                           aria-labelledby={`service-faq-trigger-${idx}`}
-                          initial={{ height: 0, opacity: 0 }
+                          initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
