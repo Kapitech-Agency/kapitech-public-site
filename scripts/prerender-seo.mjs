@@ -48,9 +48,9 @@ const buildHeadingIds = (blocks) => {
 const inlineMarkdownToHtml = (value) => {
   const safe = escapeHtml(value);
   return safe
-    .replace(/\\*\\*([^*]+)\\*\\*/g, '<strong>$1</strong>')
-    .replace(/\\*([^*]+)\\*/g, '<em>$1</em>')
-    .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, (_, label, url) => {
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
       try {
         const parsed = new URL(url, manifest.siteUrl);
         if (!['http:', 'https:'].includes(parsed.protocol)) return label;
