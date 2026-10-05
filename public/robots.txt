@@ -7,5 +7,8 @@ Disallow: /admin/
 Disallow: /ams
 Disallow: /inbox
 
+# Keep admin, integration, and internal application paths out of search.
+# Public pages and their assets remain crawlable.
+
 # Sitemap location
 Sitemap: https://kapitech.id/sitemap.xml
