@@ -10,6 +10,8 @@ const requiredFiles = [
   'work/index.html',
   'services/index.html',
   'insights/index.html',
+  'insights/mvp-vs-prototype-vs-proof-of-concept-guide/index.html',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/index.html',
   'about/index.html',
   'careers/index.html',
   'contact/index.html',
@@ -37,4 +39,14 @@ if (!htaccess.includes('RewriteRule ^ /index.html [L]')) {
   throw new Error('[deploy-check] dist/.htaccess is missing the React Router fallback');
 }
 
-console.log('[deploy-check] Hostinger-ready static build verified');
+for (const relativePath of [
+  'insights/mvp-vs-prototype-vs-proof-of-concept-guide/index.html',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/index.html'
+]) {
+  const html = await readFile(join(distDir, relativePath), 'utf8');
+  if (!html.includes('id="kapi-prerendered-insight"') || !html.includes('<h1')) {
+    throw new Error('[deploy-check] prerendered Insight content is missing from ' + relativePath);
+  }
+}
+
+console.log('[deploy-check] Hostinger-ready static build and Insight prerender verified');
