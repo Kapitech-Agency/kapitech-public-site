@@ -20,42 +20,7 @@ function formatDate(value: string | null | undefined, language: 'id' | 'en'): st
   }).format(date);
 }
 
-function buildHeadingIds(blocks: InsightBlock[]): Array<string | undefined> {
-  let headingIndex = 0;
-  return blocks.map(block => {
-    if (block.type !== 'heading') return undefined;
-    const id = 'insight-section-' + headingIndex;
-    headingIndex += 1;
-    return id;
-  });
-}
-
-function buildToc(blocks: InsightBlock[], includeFaq: boolean, faqLabel: string) {
-  const items = blocks.flatMap((block, blockIndex) => {
-    if (block.type !== 'heading' || block.level !== 2) return [];
-    let headingIndex = 0;
-    for (let index = 0; index < blockIndex; index += 1) {
-      if (blocks[index].type === 'heading') headingIndex += 1;
-    }
-    return [{
-      ...block,
-      id: 'insight-section-' + headingIndex
-    }];
-  });
-
-  if (includeFaq) {
-    items.push({
-      type: 'heading' as const,
-      level: 2 as const,
-      text: faqLabel,
-      id: 'faq-title'
-    });
-  }
-
-  return items;
-}
-
-class InsightDetailErrorBoundary extends React.Component<
+ extends React.Component<
   { children: React.ReactNode; language: 'id' | 'en' },
   { hasError: boolean }
 > {
@@ -118,7 +83,6 @@ export const InsightDetail: React.FC = () => {
   const [notFound, setNotFound] = useState(false);
   const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
-  const [activeHeading, setActiveHeading] = useState('');
 
   useEffect(() => {
     languageInitializedRef.current = false;
@@ -188,16 +152,6 @@ export const InsightDetail: React.FC = () => {
     () => (article && Array.isArray(article.content) ? article.content : []),
     [article]
   );
-  const headingIds = useMemo(() => buildHeadingIds(blocks), [blocks]);
-  const toc = useMemo(
-    () => buildToc(
-      blocks,
-      Boolean(article?.faq?.length),
-      article?.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'
-    ),
-    [blocks, article?.faq, article?.language]
-  );
-
   useEffect(() => {
     const updateProgress = () => {
       const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -214,38 +168,6 @@ export const InsightDetail: React.FC = () => {
       window.removeEventListener('resize', updateProgress);
     };
   }, [article]);
-
-  useEffect(() => {
-    if (!toc.length) {
-      setActiveHeading('');
-      return;
-    }
-
-    const headingNodes = toc
-      .map(item => document.getElementById(item.id))
-      .filter((node): node is HTMLElement => Boolean(node));
-
-    if (!headingNodes.length) return;
-
-    const observer = new IntersectionObserver(
-      entries => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
-        if (visible[0]) {
-          setActiveHeading(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: '-18% 0px -68% 0px',
-        threshold: [0, 0.25, 0.75]
-      }
-    );
-
-    headingNodes.forEach(node => observer.observe(node));
-    return () => observer.disconnect();
-  }, [toc]);
 
   const copyLink = async () => {
     try {
@@ -329,8 +251,8 @@ export const InsightDetail: React.FC = () => {
             )}
           </nav>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_270px] lg:items-end lg:gap-16">
-            <div className="max-w-[910px]">
+          <div className="max-w-[980px]">
+            <div className="max-w-[920px]">
               <div className="flex flex-wrap items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.15em]">
                 {category && (
                   <span className="rounded-full border border-brand-red/25 bg-brand-red/[0.08] px-3 py-1.5 text-brand-red">
@@ -387,38 +309,10 @@ export const InsightDetail: React.FC = () => {
               </div>
             </div>
 
-            <aside className="rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]/46 p-5 backdrop-blur-xl sm:p-6">
-              <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
-                {article.language === 'id' ? 'Status bacaan' : 'Reading status'}
-              </p>
-              <div className="mt-5">
-                <div className="flex items-end justify-between gap-3">
-                  <span className="font-display text-4xl font-semibold leading-none tracking-[-0.05em] text-white">
-                    {Math.round(readingProgress)}%
-                  </span>
-                  <span className="pb-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6C7480]">
-                    {article.language === 'id' ? 'dibaca' : 'read'}
-                  </span>
-                </div>
-                <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/[0.06]">
-                  <div className="h-full rounded-full bg-brand-red transition-[width] duration-100" style={{ width: readingProgress + '%' }} />
-                </div>
-              </div>
-              <div className="mt-5 grid grid-cols-2 gap-2">
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
-                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">{article.language === 'id' ? 'Format' : 'Format'}</p>
-                  <p className="mt-1 text-xs font-semibold text-white">{article.language === 'id' ? 'Artikel' : 'Editorial'}</p>
-                </div>
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
-                  <p className="text-[8px] font-mono uppercase tracking-[0.1em] text-[#616976]">{article.language === 'id' ? 'Bahasa' : 'Language'}</p>
-                  <p className="mt-1 text-xs font-semibold text-white">{article.language.toUpperCase()}</p>
-                </div>
-              </div>
-            </aside>
           </div>
 
           {article.coverImage && (
-            <figure className="relative mt-10 overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#0B0C0E] shadow-[0_34px_100px_-62px_rgba(0,0,0,0.95)]">
+            <figure className="relative mt-12 max-w-[1120px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0B0C0E] shadow-[0_30px_90px_-58px_rgba(0,0,0,0.95)]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-white/[0.03] pointer-events-none" />
               <img
                 src={article.coverImage}
@@ -432,22 +326,21 @@ export const InsightDetail: React.FC = () => {
       </header>
 
       {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
-        <section className="mx-auto w-full max-w-[980px] px-5 pt-10 sm:px-8 sm:pt-12" aria-labelledby="key-takeaways-title">
-          <div className="relative overflow-hidden rounded-[24px] border border-brand-red/18 bg-brand-red/[0.035] p-6 sm:p-8">
-            <div className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-brand-red/[0.07] blur-3xl" />
-            <div className="relative grid gap-6 lg:grid-cols-[170px_minmax(0,1fr)] lg:gap-8">
+        <section className="mx-auto w-full max-w-[900px] px-5 pt-10 sm:px-8 sm:pt-14" aria-labelledby="key-takeaways-title">
+          <div className="border-y border-white/[0.08] py-8 sm:py-9">
+            <div className="grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
               <div>
                 <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
                   {article.language === 'id' ? 'Poin utama' : 'Key takeaways'}
                 </p>
-                <p className="mt-2 max-w-[150px] text-xs leading-5 text-[#7D8592]">
+                <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
                   {article.language === 'id' ? 'Hal yang perlu dibawa dari artikel ini.' : 'The ideas worth carrying forward.'}
                 </p>
               </div>
-              <ul className="grid gap-3 sm:grid-cols-2">
+              <ul className="space-y-3">
                 {article.keyTakeaways.map((item, index) => (
-                  <li key={index} className="flex gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.018] px-4 py-4 text-sm leading-6 text-[#CBD0D8]">
-                    <span className="mt-0.5 tabular-nums text-[9px] font-mono text-brand-red/85">{String(index + 1).padStart(2, '0')}</span>
+                  <li key={index} className="flex gap-3 text-sm leading-7 text-[#CBD0D8] sm:text-[15px]">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/75" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -457,48 +350,10 @@ export const InsightDetail: React.FC = () => {
         </section>
       )}
 
-      <div className="mx-auto grid w-full max-w-[1240px] grid-cols-1 gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[210px_minmax(0,1fr)] lg:px-10 lg:py-20">
-        {toc.length > 0 ? (
-          <aside className="lg:sticky lg:top-28 lg:self-start" aria-label={article.language === 'id' ? 'Daftar isi' : 'Table of contents'}>
-            <details className="rounded-[20px] border border-white/[0.08] bg-white/[0.018] p-4 backdrop-blur-xl lg:open:border-white/[0.1]" open>
-              <summary className="cursor-pointer list-none text-[9px] font-mono uppercase tracking-[0.16em] text-[#7A818D]">
-                {article.language === 'id' ? 'Di artikel ini' : 'In this article'}
-              </summary>
-              <nav className="mt-4 space-y-1.5">
-                {toc.map((item, index) => {
-                  const active = activeHeading === item.id;
-                  return (
-                    <a
-                      key={index}
-                      href={'#' + item.id}
-                      className={[
-                        'group flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-xs leading-5 transition-[background-color,color] duration-300',
-                        item.level === 3 ? 'ml-2' : '',
-                        active
-                          ? 'bg-brand-red/[0.08] text-white'
-                          : 'text-[#747C88] hover:bg-white/[0.025] hover:text-white'
-                      ].join(' ')}
-                    >
-                      <span className={[
-                        'mt-2 h-1 w-1 shrink-0 rounded-full transition-colors duration-300',
-                        active ? 'bg-brand-red' : 'bg-white/15 group-hover:bg-white/35'
-                      ].join(' ')} />
-                      <span>{item.text}</span>
-                    </a>
-                  );
-                })}
-              </nav>
-            </details>
-          </aside>
-        ) : (
-          <div className="hidden lg:block" />
-        )}
-
-        <div className="min-w-0">
-          <div className="max-w-[780px]">
+      <div className="mx-auto w-full max-w-[900px] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:pt-20">
+        <div className="max-w-[800px]">
             <InsightContentRenderer
               blocks={blocks}
-              headingIds={headingIds.filter((id): id is string => Boolean(id))}
               language={article.language}
             />
 
@@ -545,7 +400,6 @@ export const InsightDetail: React.FC = () => {
               </section>
             )}
           </div>
-        </div>
       </div>
 
       {Array.isArray(article.relatedInsights) && article.relatedInsights.length > 0 && (
