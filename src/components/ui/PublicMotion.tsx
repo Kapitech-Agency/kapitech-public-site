@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 
 const MOTION_SELECTOR = [
   '.kapi-public-shell main section',
-  '.kapi-public-shell main article',
   '.kapi-public-shell main form',
   '.kapi-public-shell main [role="dialog"]',
   '.kapi-public-shell main .kapi-card',
