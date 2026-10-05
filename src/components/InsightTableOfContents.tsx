@@ -173,7 +173,8 @@ export const InsightTableOfContents: React.FC<{
       scheduleSync();
     };
 
-    const handleUserScrollIntent = () => {
+    const handleUserScrollIntent = (event: Event) => {
+      if (event.target instanceof Node && tocRootRef.current?.contains(event.target)) return;
       cancelPendingNavigation();
     };
 
