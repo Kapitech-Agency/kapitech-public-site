@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
 import { InsightCard } from '../components/InsightCard';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
+import { InsightTableOfContents } from '../components/InsightTableOfContents';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
@@ -75,7 +76,6 @@ export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
-  const articleRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const initialLanguageSyncPendingRef = useRef(false);
@@ -228,7 +228,7 @@ export const InsightDetail: React.FC = () => {
 
   return (
     <InsightDetailErrorBoundary language={article.language}>
-      <article ref={articleRef} className="relative w-full overflow-hidden bg-[#0B0C0E]">
+      <article className="relative w-full overflow-hidden bg-[#0B0C0E]">
       <InsightSeoMeta article={article} />
 
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[1000] h-px bg-white/[0.06]" aria-hidden="true">
@@ -368,37 +368,9 @@ export const InsightDetail: React.FC = () => {
       )}
 
 
-      {toc.length > 0 && (
-        <section className="mx-auto w-full max-w-[900px] px-5 pt-8 sm:px-8 sm:pt-10" aria-labelledby="insight-toc-title">
-          <div className="border-y border-white/[0.08] bg-white/[0.012]">
-            <details open className="group">
-              <summary id="insight-toc-title" className="cursor-pointer list-none px-0 py-4 text-[9px] font-mono uppercase tracking-[0.17em] text-[#747B88] marker:hidden sm:py-5">
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red/80" aria-hidden="true" />
-                  {article.language === 'id' ? 'Di artikel ini' : 'In this article'}
-                </span>
-              </summary>
-              <nav className="grid gap-x-8 gap-y-1 pb-5 sm:grid-cols-2" aria-label={article.language === 'id' ? 'Daftar isi artikel' : 'Article table of contents'}>
-                {toc.map((item, index) => (
-                  <a key={item.id} href={'#' + item.id} className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(index + 1).padStart(2, '0')}</span>
-                    <span>{item.text}</span>
-                  </a>
-                ))}
-                {Array.isArray(article.faq) && article.faq.length > 0 && (
-                  <a href="#faq-title" className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(toc.length + 1).padStart(2, '0')}</span>
-                    <span>{article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}</span>
-                  </a>
-                )}
-              </nav>
-            </details>
-          </div>
-        </section>
-      )}
-
-      <div className="mx-auto w-full max-w-[900px] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:pt-20">
-        <div className="max-w-[800px]">
+      <section className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-10 sm:px-8 sm:pb-16 sm:pt-14 lg:px-10 lg:pt-16">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-14 xl:grid-cols-[minmax(0,820px)_240px] xl:justify-between xl:gap-20">
+          <main className="min-w-0 lg:col-start-1 lg:row-start-1">
             <InsightContentRenderer
               blocks={blocks}
               headingIds={headingIds.map(id => id || '')}
@@ -407,13 +379,13 @@ export const InsightDetail: React.FC = () => {
 
             {Array.isArray(article.faq) && article.faq.length > 0 && (
               <section className="mt-16 border-t border-white/[0.08] pt-10" aria-labelledby="faq-title">
-                <h2 id="faq-title" className="text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+                <h2 id="faq-title" className="scroll-mt-24 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                   {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
                 </h2>
                 <div className="mt-5 space-y-3">
                   {article.faq.map((item, index) => (
                     <details key={index} className="group rounded-2xl border border-white/[0.08] bg-white/[0.018] px-5 py-4 transition-[background-color,border-color] duration-300 open:border-brand-red/20 open:bg-brand-red/[0.025]">
-                      <summary className="cursor-pointer list-none text-sm font-semibold leading-6 text-white">
+                      <summary className="cursor-pointer list-none text-sm font-semibold leading-6 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]">
                         <span className="flex items-center justify-between gap-4">
                           {item.question}
                           <ChevronRight size={15} className="shrink-0 text-[#68707C] transition-transform duration-300 group-open:rotate-90" aria-hidden="true" />
@@ -425,52 +397,17 @@ export const InsightDetail: React.FC = () => {
                 </div>
               </section>
             )}
+          </main>
 
-            {article.author && (
-              <section className="mt-14 border-t border-white/[0.08] pt-8" aria-labelledby="author-title">
-                <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
-                  {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
-                </p>
-                <div className="mt-5 flex items-start gap-4 border-y border-white/[0.07] py-6">
-                  {article.author.avatar ? (
-                    <img src={article.author.avatar} alt="" className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover" />
-                  ) : (
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-sm font-semibold text-white" aria-hidden="true">
-                      {article.author.name.slice(0, 1).toUpperCase()}
-                    </div>
-                  )}
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-white">{article.author.name}</p>
-                    {article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
-                    {article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
-                  </div>
-                </div>
-              </section>
-            )}
-          </div>
-      </div>
+          {toc.length > 0 && (
+            <aside className="order-first lg:sticky lg:top-24 lg:order-none lg:col-start-2 lg:row-start-1">
+              <InsightTableOfContents items={toc} language={article.language} />
+            </aside>
+          )}
+        </div>
+      </section>
 
-      {Array.isArray(article.relatedInsights) && article.relatedInsights.length > 0 && (
-        <section className="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10" aria-labelledby="related-title">
-          <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
-            <div>
-              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">{article.language === 'id' ? 'Perpustakaan' : 'Library'}</p>
-              <h2 id="related-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
-                {article.language === 'id' ? 'Insight terkait' : 'Related insights'}
-              </h2>
-            </div>
-            <Link to="/insights" className="hidden items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#858C99] transition-colors hover:text-white sm:inline-flex">
-              {article.language === 'id' ? 'Lihat semua' : 'View all'}
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-          <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {article.relatedInsights.map(item => <InsightCard key={item.id} insight={item} language={article.language} />)}
-          </div>
-        </section>
-      )}
-
-      <section className="mx-auto w-full max-w-[900px] px-5 pb-18 pt-4 sm:px-8 sm:pb-20">
+      <section className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10">
         <div className="flex flex-col gap-5 border-y border-white/[0.08] py-7 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
           <div className="max-w-2xl">
             <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
@@ -496,6 +433,50 @@ export const InsightDetail: React.FC = () => {
           </Link>
         </div>
       </section>
+
+      {article.author && (
+        <section className="mx-auto w-full max-w-[820px] px-5 pb-10 pt-0 sm:px-8 sm:pb-12" aria-labelledby="author-title">
+          <div className="border-y border-white/[0.07] py-6">
+            <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
+              {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
+            </p>
+            <div className="mt-5 flex items-start gap-4">
+              {article.author.avatar ? (
+                <img src={article.author.avatar} alt="" className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover" />
+              ) : (
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-sm font-semibold text-white" aria-hidden="true">
+                  {article.author.name.slice(0, 1).toUpperCase()}
+                </div>
+              )}
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white">{article.author.name}</p>
+                {article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
+                {article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {Array.isArray(article.relatedInsights) && article.relatedInsights.length > 0 && (
+        <section className="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10" aria-labelledby="related-title">
+          <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
+            <div>
+              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">{article.language === 'id' ? 'Perpustakaan' : 'Library'}</p>
+              <h2 id="related-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
+                {article.language === 'id' ? 'Insight terkait' : 'Related insights'}
+              </h2>
+            </div>
+            <Link to="/insights" className="hidden items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#858C99] transition-colors hover:text-white sm:inline-flex">
+              {article.language === 'id' ? 'Lihat semua' : 'View all'}
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {article.relatedInsights.map(item => <InsightCard key={item.id} insight={item} language={article.language} />)}
+          </div>
+        </section>
+      )}
 
       <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 sm:px-8 lg:px-10">
         <Link
