@@ -46,6 +46,7 @@ export const InsightTableOfContents: React.FC<{
   const mobileListRef = useRef<HTMLElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const suppressTocFollowRef = useRef(false);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -121,7 +122,10 @@ export const InsightTableOfContents: React.FC<{
 
 
   useEffect(() => {
-    if (!activeId) return;
+    if (!activeId || suppressTocFollowRef.current) {
+      suppressTocFollowRef.current = false;
+      return;
+    }
 
     const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
     const container = isDesktop
@@ -168,6 +172,7 @@ export const InsightTableOfContents: React.FC<{
     const sectionId = sectionByItemId.get(item.id);
     if (sectionId) setExpandedSectionId(sectionId);
 
+    suppressTocFollowRef.current = true;
     setActiveId(item.id);
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.history.pushState(null, '', '#' + item.id);
@@ -249,7 +254,12 @@ export const InsightTableOfContents: React.FC<{
           {section.children.length > 0 && (
             <button
               type="button"
-              onClick={() => toggleSection(section.heading.id)}
+              onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleSection(section.heading.id);
+              }}
+              onPointerDown={event => event.stopPropagation()}
               className={[
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
