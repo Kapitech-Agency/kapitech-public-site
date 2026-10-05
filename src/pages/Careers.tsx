@@ -1040,10 +1040,10 @@ export const Careers = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? '12 Talenta Spesialis' : '12 Specialist Talents'}
+                {language === 'id' ? '12 Disiplin Spesialis' : '12 Specialist Disciplines'}
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-[3.5rem] font-display font-semibold text-white tracking-[-0.055em] leading-[1.02]">
-                {language === 'id' ? 'Bergabung Bersama 12 Talenta Terbaik Kami' : 'Join with our 12 great talents'}
+                {language === 'id' ? 'Jelajahi 12 Disiplin Spesialis' : 'Explore 12 Specialist Disciplines'}
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
@@ -1053,6 +1053,11 @@ export const Careers = () => {
               }
             </p>
           </div>
+          <p className="mt-4 max-w-2xl text-[11px] font-mono uppercase tracking-[0.12em] text-white/35">
+            {language === 'id'
+              ? 'Visual di bawah bersifat ilustratif dan bukan direktori profil staf individual.'
+              : 'The visuals below are illustrative and are not individual staff profiles.'}
+          </p>
         </div>
 
         {/* Dynamic & Aesthetic Staggered Photo Wall (Plain Darkened Photos) */}
@@ -1083,13 +1088,13 @@ export const Careers = () => {
                   <button
                     onClick={() => setSelectedTalent(talent)}
                     className="group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/[0.09] bg-white/[0.02] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-[0_18px_40px_-30px_rgba(229,9,20,0.7)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
-                    title={`${talent.name} - ${talent.role}`}
-                    aria-label={`View photo and profile of ${talent.name}`}
+                    title={`Illustrative visual - ${talent.role}`}
+                    aria-label={`View illustrative visual for ${talent.role}`}
                   >
                     {/* Pure Plain Photo with Tasteful Dark Moody Grading */}
                     <img 
                       src={talent.image} 
-                      alt={talent.name}
+                      alt={`Illustrative visual for ${talent.role}`}
                       className="w-full h-full object-cover object-top sm:object-center brightness-[0.66] contrast-[1.08] saturate-[0.82] group-hover:brightness-[0.86] group-hover:saturate-[0.95] group-hover:scale-[1.03] transition-all duration-700 ease-out"
                       loading="lazy"
                     />
@@ -1156,7 +1161,7 @@ export const Careers = () => {
                 <div className="career-modal-scroll min-h-0 flex-1 overflow-y-auto space-y-6 px-5 py-6 text-xs font-light text-white/80 overscroll-contain sm:px-7">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
-                      {language === 'id' ? 'Fokus Keahlian' : 'Core Specialty'}
+                      {language === 'id' ? 'Fokus Kapabilitas' : 'Capability Focus'}
                     </span>
                     <p className="font-mono text-brand-red font-medium text-xs sm:text-sm">
                       {selectedTalent.specialty}
@@ -1475,7 +1480,6 @@ export const Careers = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              ref={careerModalRef}
               ref={careerModalRef}
               className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
