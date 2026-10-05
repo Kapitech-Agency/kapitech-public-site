@@ -4,7 +4,7 @@ RewriteBase /
 
 # Canonicalize legacy solution URLs used before the /solutions/ information architecture.
 RewriteRule ^services/(mvp-design|product-redesign|team-extension)/?$ /solutions/$1 [R=301,L,NE]
-RewriteRule ^solutions/(pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)/?$ /services/$1 [R=301,L,NE]
+RewriteRule ^solutions/(pitch-deck|brand-identity|logo-design|graphic-design|rebranding|logo-design|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)/?$ /services/$1 [R=301,L,NE]
 
 # Canonicalize trailing-slash route variants for real directories.
 RewriteCond %{REQUEST_URI} !^/$
@@ -19,7 +19,11 @@ RewriteRule ^ - [L]
 RewriteCond %{REQUEST_FILENAME}/index.html -f
 RewriteRule ^(.+?)/?$ /$1/index.html [L]
 
-# React Router fallback for client-side routes. This is required on Hostinger
-# when a route does not have a physical prerendered directory, including
-# CMS-backed Insight articles published after the latest build.
-RewriteRule ^ index.html [L]
+# Insight detail routes are CMS-backed and may not have a physical prerendered
+# directory when an article is published after the latest static build.
+# Route them explicitly to the SPA entry before the generic fallback.
+RewriteCond %{REQUEST_URI} ^/insights/[^/]+/?$
+RewriteRule ^ /index.html [L]
+
+# React Router fallback for other client-side routes.
+RewriteRule ^ /index.html [L]
