@@ -8,6 +8,7 @@ import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
+import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -152,6 +153,8 @@ export const InsightDetail: React.FC = () => {
     () => (article && Array.isArray(article.content) ? article.content : []),
     [article]
   );
+  const headingIds = useMemo(() => buildInsightHeadingIds(blocks), [blocks]);
+  const toc = useMemo(() => buildInsightToc(blocks, headingIds), [blocks, headingIds]);
   useEffect(() => {
     const updateProgress = () => {
       const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -260,6 +263,12 @@ export const InsightDetail: React.FC = () => {
                   </span>
                 )}
                 <span className="text-[#68707C]">{article.language.toUpperCase()}</span>
+                {article.editorialMeta?.editorialType && (
+                  <>
+                    <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
+                    <span className="text-[#68707C]">{article.editorialMeta.editorialType}</span>
+                  </>
+                )}
                 {article.readingTime && (
                   <>
                     <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
@@ -284,9 +293,15 @@ export const InsightDetail: React.FC = () => {
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">
                 {article.author?.name && (
                   <span className="font-medium text-white">
-                    {article.author.name}
+                    {article.language === 'id' ? 'Ditulis oleh ' : 'Written by '}{article.author.name}
                     {article.author.role ? <span className="font-normal text-[#737A87]"> · {article.author.role}</span> : null}
                   </span>
+                )}
+                {article.editorialMeta?.reviewedBy && (
+                  <span>{article.language === 'id' ? 'Ditinjau oleh ' : 'Reviewed by '}{article.editorialMeta.reviewedBy}</span>
+                )}
+                {article.editorialMeta?.factCheckedBy && (
+                  <span>{article.language === 'id' ? 'Diperiksa fakta oleh ' : 'Fact checked by '}{article.editorialMeta.factCheckedBy}</span>
                 )}
                 {article.publishedAt && (
                   <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, article.language)}</time>
@@ -350,10 +365,41 @@ export const InsightDetail: React.FC = () => {
         </section>
       )}
 
+
+      {toc.length > 0 && (
+        <section className="mx-auto w-full max-w-[900px] px-5 pt-8 sm:px-8 sm:pt-10" aria-labelledby="insight-toc-title">
+          <div className="border-y border-white/[0.08] bg-white/[0.012]">
+            <details open className="group">
+              <summary id="insight-toc-title" className="cursor-pointer list-none px-0 py-4 text-[9px] font-mono uppercase tracking-[0.17em] text-[#747B88] marker:hidden sm:py-5">
+                <span className="inline-flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red/80" aria-hidden="true" />
+                  {article.language === 'id' ? 'Di artikel ini' : 'In this article'}
+                </span>
+              </summary>
+              <nav className="grid gap-x-8 gap-y-1 pb-5 sm:grid-cols-2" aria-label={article.language === 'id' ? 'Daftar isi artikel' : 'Article table of contents'}>
+                {toc.map((item, index) => (
+                  <a key={item.id} href={'#' + item.id} className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{item.text}</span>
+                  </a>
+                ))}
+                {Array.isArray(article.faq) && article.faq.length > 0 && (
+                  <a href="#faq-title" className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(toc.length + 1).padStart(2, '0')}</span>
+                    <span>{article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}</span>
+                  </a>
+                )}
+              </nav>
+            </details>
+          </div>
+        </section>
+      )}
+
       <div className="mx-auto w-full max-w-[900px] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:pt-20">
         <div className="max-w-[800px]">
             <InsightContentRenderer
               blocks={blocks}
+              headingIds={headingIds.map(id => id || '')}
               language={article.language}
             />
 
