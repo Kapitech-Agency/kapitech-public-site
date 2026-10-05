@@ -405,7 +405,7 @@ export const InsightDetail: React.FC = () => {
             </aside>
           )}
         </div>
-      </section>
+      </div>
 
       <section className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10">
         <div className="flex flex-col gap-5 border-y border-white/[0.08] py-7 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
