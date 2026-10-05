@@ -489,81 +489,116 @@ export const Home = () => {
 
       {/* ENGAGEMENT OPTIONS */}
       <section
-        className="border-b border-[#262930] bg-[#0B0C0E] py-14 sm:py-20 lg:py-24"
+        className="border-b border-[#262930] bg-[#0B0C0E] py-16 sm:py-20 lg:py-24"
         id="engagement"
       >
-        <div className="mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 md:px-10 lg:px-12">
-          <div className="overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
-            <div className="grid min-w-0 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.9fr)]">
-              <div className="min-w-0 border-b border-white/[0.065] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8 xl:p-9">
-                <div className="flex h-full min-h-[230px] min-w-0 flex-col">
-                  <div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                      {language === 'id' ? 'Pilihan Layanan' : 'Engagement Options'}
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12">
+          <div className="mb-10 max-w-3xl sm:mb-12">
+            <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+              {language === 'id' ? 'Pilihan Layanan' : 'Engagement Options'}
+            </span>
+            <h3 className="mt-4 max-w-2xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-4xl lg:text-[2.75rem]">
+              {language === 'id'
+                ? 'Pilih kapabilitas dan solusi yang sesuai dengan kebutuhan Anda.'
+                : 'Choose the capabilities and solutions that fit your needs.'}
+            </h3>
+            <p className="mt-4 max-w-2xl text-sm leading-[1.75] text-[#8A909D] sm:text-base">
+              {language === 'id'
+                ? 'Mulai dari branding, design, dan development. Saat kebutuhan Anda lebih spesifik, lanjutkan dengan solusi produk yang lebih terarah.'
+                : 'Start with branding, design, and development. When the need is more specific, move into a focused product solution.'}
+            </p>
+          </div>
+
+          <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
+            {(['Branding', 'Design', 'Development'] as const).map((category) => {
+              const services = allSolutionsAndServices.filter(
+                (service) => service.type === 'service' && service.category === category,
+              );
+
+              return (
+                <div
+                  key={category}
+                  className="group min-w-0 rounded-2xl border border-white/[0.07] bg-[#0F1013] p-5 transition-[border-color,background-color] duration-300 hover:border-white/[0.13] hover:bg-[#121419] sm:p-6 lg:p-7"
+                >
+                  <div className="flex items-center justify-between gap-4 border-b border-white/[0.065] pb-4">
+                    <div>
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                        {category}
+                      </span>
+                      <span className="mt-1.5 block text-xs text-[#6F757F]">
+                        {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
+                      </span>
+                    </div>
+                    <span className="text-sm font-mono tabular-nums text-[#6F757F]">
+                      {category === 'Branding' ? '01' : category === 'Design' ? '02' : '03'}
                     </span>
+                  </div>
 
-                    <h3 className="mt-4 max-w-sm text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem]">
-                      {language === 'id'
-                        ? 'Pilih layanan yang sesuai dengan kebutuhan bisnis Anda.'
-                        : 'Choose the service that fits your business needs.'}
-                    </h3>
+                  <div className="mt-3">
+                    {services.map((service) => (
+                      <Link
+                        key={service.slug}
+                        to={`/services/${service.slug}`}
+                        className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12 sm:py-3"
+                      >
+                        <span className="min-w-0 pr-2 text-sm font-medium leading-snug text-white/82 transition-colors duration-300 group-hover/item:text-brand-red">
+                          {service.title}
+                        </span>
+                        <ArrowUpRight
+                          size={14}
+                          className="shrink-0 text-[#626872] transition-all duration-300 group-hover/item:-translate-y-0.5 group-hover/item:translate-x-0.5 group-hover/item:text-brand-red"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-                    <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
-                      {language === 'id'
-                        ? 'Mulai dari membangun brand, memperkuat experience, hingga mengembangkan produk digital. Semua service terhubung dalam satu workflow Kapitech.'
-                        : 'From shaping your brand to improving experiences and building digital products, every service connects to one Kapitech workflow.'}
+          <div className="mt-12 border-t border-white/[0.065] pt-10 sm:mt-14 sm:pt-12">
+            <div className="mb-7 flex flex-col gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                  {language === 'id' ? 'Solusi' : 'Solutions'}
+                </span>
+                <h4 className="mt-3 text-2xl font-display font-semibold tracking-[-0.04em] text-white sm:text-3xl">
+                  {language === 'id' ? 'Solusi untuk kebutuhan produk yang lebih spesifik.' : 'Focused solutions for specific product needs.'}
+                </h4>
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                03 {language === 'id' ? 'solusi' : 'solutions'}
+              </span>
+            </div>
+
+            <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
+              {allSolutionsAndServices
+                .filter((item) => item.type === 'solution')
+                .map((solution, index) => (
+                  <Link
+                    key={solution.slug}
+                    to={`/solutions/${solution.slug}`}
+                    className="group min-w-0 rounded-2xl border border-white/[0.07] bg-[#0F1013] p-5 transition-[border-color,background-color] duration-300 hover:border-white/[0.13] hover:bg-[#121419] sm:p-6"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F]">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <ArrowUpRight
+                        size={16}
+                        className="text-[#626872] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <h5 className="mt-8 text-xl font-display font-semibold leading-tight tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
+                      {solution.title}
+                    </h5>
+                    <p className="mt-3 text-xs leading-[1.7] text-[#8A909D] sm:text-sm">
+                      {solution.navSubtitle}
                     </p>
-                  </div>
-
-                  <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-8 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                    <span>{allSolutionsAndServices.filter((service) => service.type === 'service').length} Services</span>
-                    <span className="h-1 w-1 rounded-full bg-[#4C515A]" aria-hidden="true" />
-                    <span>3 Disciplines</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="min-w-0">
-                <div className="grid w-full min-w-0 grid-cols-1 divide-y divide-white/[0.065] md:grid-cols-3 md:divide-x md:divide-y-0">
-                  {(['Branding', 'Design', 'Development'] as const).map((category) => {
-                    const services = allSolutionsAndServices.filter(
-                      (service) => service.type === 'service' && service.category === category,
-                    );
-
-                    return (
-                      <div key={category} className="min-w-0 p-5 sm:p-6 lg:p-7">
-                        <div className="flex items-end justify-between gap-3 border-b border-white/[0.065] pb-3">
-                          <span className="min-w-0 text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                            {category}
-                          </span>
-                          <span className="shrink-0 text-[10px] font-mono tabular-nums text-[#6F757F]">
-                            {String(services.length).padStart(2, '0')}
-                          </span>
-                        </div>
-
-                        <div className="mt-2 min-w-0">
-                          {services.map((service) => (
-                            <Link
-                              key={service.slug}
-                              to={`/services/${service.slug}`}
-                              className="group flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12 sm:py-3"
-                            >
-                              <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
-                                {service.title}
-                              </span>
-                              <ArrowUpRight
-                                size={14}
-                                className="shrink-0 text-[#626872] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
-                                aria-hidden="true"
-                              />
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+                  </Link>
+                ))}
             </div>
           </div>
         </div>
