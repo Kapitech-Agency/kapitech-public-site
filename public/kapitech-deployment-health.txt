@@ -1,0 +1,4 @@
+Kapitech deployment health check
+Commit: c480c0c5cd4db3aecc1836d7708f4c876e16b670
+Build: Hostinger Node.js 22 / npm run build
+Expected deployment root: public_html
