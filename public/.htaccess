@@ -1,8 +1,12 @@
 Options -MultiViews
+DirectorySlash Off
 RewriteEngine On
 RewriteBase /
 
-# Keep real files and directories untouched.
+# Canonicalize legacy solution URLs used before the /solutions/ information architecture.
+RewriteRule ^services/(mvp-design|product-redesign|team-extension)/?$ /solutions/$1 [R=301,L,NE]
+
+# Keep real files and directories accessible without adding a trailing slash.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
