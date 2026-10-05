@@ -489,7 +489,7 @@ export const Home = () => {
 
       {/* ENGAGEMENT OPTIONS */}
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930]" id="engagement">
-        <div className="max-w-7xl mx-auto w-full min-w-0 px-4 sm:px-6 md:px-12">
+        <div className="w-full max-w-7xl mx-auto min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
             <div className="grid min-w-0 lg:grid-cols-[minmax(250px,0.72fr)_minmax(0,1.28fr)]">
               <div className="min-w-0 border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
@@ -506,8 +506,8 @@ export const Home = () => {
                 </p>
               </div>
 
-              <div className="min-w-0">
-                <div className="grid min-w-0 grid-cols-1 divide-y divide-white/[0.065] sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-3">
+              <div className="w-full min-w-0 max-w-full">
+                <div className="grid w-full min-w-0 max-w-full grid-cols-1 divide-y divide-white/[0.065] sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-[repeat(3,minmax(0,1fr))]">
                   {(['Branding', 'Design', 'Development'] as const).map((category) => {
                     const services = allSolutionsAndServices.filter(
                       (service) => service.type === 'service' && service.category === category,
@@ -532,9 +532,9 @@ export const Home = () => {
                             <Link
                               key={service.slug}
                               to={`/services/${service.slug}`}
-                              className="group flex min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-3 text-left last:border-b-0"
+                              className="group flex w-full min-w-0 max-w-full items-center justify-between gap-3 border-b border-white/[0.045] py-3 text-left last:border-b-0"
                             >
-                              <span className="min-w-0 truncate pr-2 text-xs font-medium text-white/85 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
+                              <span className="min-w-0 break-words pr-2 text-xs font-medium text-white/85 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
                                 {service.title}
                               </span>
                               <ArrowUpRight
