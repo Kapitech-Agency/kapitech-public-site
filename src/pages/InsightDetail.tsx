@@ -249,7 +249,7 @@ export const InsightDetail: React.FC = () => {
           </p>
           <Link
             to="/insights"
-            className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
+            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_12px_28px_-24px_rgba(229,9,20,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
