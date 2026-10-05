@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 import type { InsightTocItem } from '../lib/insightHeadingIds';
@@ -20,6 +20,7 @@ export const InsightTableOfContents: React.FC<{
   items: InsightTocItem[];
   language: InsightLanguage;
 }> = ({ items, language }) => {
+  const tocInstanceId = useId().replace(/:/g, '');
   const sections = useMemo<TocSection[]>(() => {
     const result: TocSection[] = [];
 
@@ -176,9 +177,25 @@ export const InsightTableOfContents: React.FC<{
       cancelPendingNavigation();
     };
 
+    const handlePopState = () => {
+      if (!isVisibleTocInstance()) return;
+
+      handleHashChange();
+      const nextHash = getHashId();
+      if (nextHash && items.some(item => item.id === nextHash)) {
+        window.requestAnimationFrame(() => {
+          document.getElementById(nextHash)?.scrollIntoView({
+            behavior: 'auto',
+            block: 'start'
+          });
+        });
+      }
+    };
+
     window.addEventListener('scroll', scheduleSync, { passive: true });
     window.addEventListener('resize', scheduleSync);
     window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
     const handleKeydown = (event: KeyboardEvent) => {
       if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
         cancelPendingNavigation();
@@ -195,6 +212,7 @@ export const InsightTableOfContents: React.FC<{
       window.removeEventListener('scroll', scheduleSync);
       window.removeEventListener('resize', scheduleSync);
       window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('wheel', handleUserScrollIntent);
       window.removeEventListener('touchstart', handleUserScrollIntent);
       window.removeEventListener('keydown', handleKeydown);
@@ -338,7 +356,7 @@ export const InsightTableOfContents: React.FC<{
                     : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
               ].join(' ')}
               aria-expanded={expanded}
-              aria-controls={section.heading.id + '-subsections'}
+              aria-controls={section.heading.id + '-subsections-' + tocInstanceId}
               aria-label={
                 expanded
                   ? (language === 'id' ? 'Tutup subbagian' : 'Collapse subsections')
@@ -360,7 +378,7 @@ export const InsightTableOfContents: React.FC<{
 
         {expanded && section.children.length > 0 && (
           <div
-            id={section.heading.id + '-subsections'}
+            id={section.heading.id + '-subsections-' + tocInstanceId}
             className="border-t border-white/[0.06] px-3 pb-3 pt-2.5"
           >
             <div className="space-y-0.5">
@@ -425,7 +443,7 @@ export const InsightTableOfContents: React.FC<{
           <button
             type="button"
             aria-expanded={mobileOpen}
-            aria-controls="insight-mobile-toc"
+            aria-controls={'insight-mobile-toc-' + tocInstanceId}
             onClick={() => setMobileOpen(open => !open)}
             className={[
               'kapi-insight-toc-control flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
@@ -466,7 +484,7 @@ export const InsightTableOfContents: React.FC<{
 
           {mobileOpen && (
             <nav
-              id="insight-mobile-toc"
+              id={'insight-mobile-toc-' + tocInstanceId}
               aria-label={navigationLabel}
               className="max-h-[min(24rem,58vh)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
             >
