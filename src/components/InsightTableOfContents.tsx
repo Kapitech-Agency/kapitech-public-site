@@ -165,10 +165,10 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow,transform] duration-300',
+          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow] duration-300',
           sectionActive
             ? 'border-brand-red/25 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_44px_-36px_rgba(229,9,20,0.34)]'
-            : 'border-white/[0.075] bg-white/[0.016] hover:-translate-y-px hover:border-white/[0.12] hover:bg-white/[0.024] hover:shadow-[0_14px_32px_-28px_rgba(0,0,0,0.9)]'
+            : 'border-white/[0.075] bg-white/[0.016] hover:border-white/[0.12] hover:bg-white/[0.024] hover:shadow-[0_14px_32px_-28px_rgba(0,0,0,0.9)]'
         ].join(' ')}
       >
         <div className="flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
@@ -343,8 +343,8 @@ export const InsightTableOfContents: React.FC<{
               className={[
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200',
                 mobileOpen
-                  ? 'border-brand-red/25 bg-brand-red/10 text-brand-red'
-                  : 'border-white/[0.08] bg-white/[0.025] text-[#737B88]'
+                  ? 'border-white/[0.14] bg-white/[0.06] text-white'
+                  : 'border-white/[0.08] bg-white/[0.025] text-white/80'
               ].join(' ')}
               aria-hidden="true"
             >
