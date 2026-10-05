@@ -260,8 +260,8 @@ export const InsightTableOfContents: React.FC<{
               className={[
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
-                  ? 'border-brand-red/24 bg-brand-red/10 text-brand-red'
-                  : 'border-white/[0.08] bg-white/[0.025] text-[#717986] hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
+                  ? 'border-white/[0.14] bg-white/[0.06] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
+                  : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
               ].join(' ')}
               aria-expanded={expanded}
               aria-controls={section.heading.id + '-subsections'}
