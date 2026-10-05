@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 import type { InsightTocItem } from '../lib/insightHeadingIds';
@@ -9,6 +9,8 @@ export const InsightTableOfContents: React.FC<{
 }> = ({ items, language }) => {
   const [activeId, setActiveId] = useState(items[0]?.id || '');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const listRef = useRef<HTMLElement | null>(null);
+  const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   useEffect(() => {
     setActiveId(items[0]?.id || '');
@@ -30,7 +32,7 @@ export const InsightTableOfContents: React.FC<{
         }
       },
       {
-        rootMargin: '-88px 0px -58% 0px',
+        rootMargin: '-112px 0px -58% 0px',
         threshold: [0, 0.1, 0.5]
       }
     );
@@ -39,6 +41,28 @@ export const InsightTableOfContents: React.FC<{
 
     return () => observer.disconnect();
   }, [items]);
+
+  useEffect(() => {
+    if (!activeId) return;
+
+    const container = listRef.current;
+    const item = itemRefs.current.get(activeId);
+    if (!container || !item) return;
+
+    const top = item.offsetTop;
+    const bottom = top + item.offsetHeight;
+    const visibleTop = container.scrollTop;
+    const visibleBottom = visibleTop + container.clientHeight;
+
+    if (top < visibleTop) {
+      container.scrollTo({ top: Math.max(0, top - 12), behavior: 'smooth' });
+    } else if (bottom > visibleBottom) {
+      container.scrollTo({
+        top: Math.max(0, bottom - container.clientHeight + 12),
+        behavior: 'smooth'
+      });
+    }
+  }, [activeId]);
 
   if (!items.length) return null;
 
@@ -54,6 +78,10 @@ export const InsightTableOfContents: React.FC<{
         return (
           <a
             key={item.id}
+            ref={node => {
+              if (node) itemRefs.current.set(item.id, node);
+              else itemRefs.current.delete(item.id);
+            }}
             href={'#' + item.id}
             onClick={event => {
               event.preventDefault();
@@ -67,8 +95,8 @@ export const InsightTableOfContents: React.FC<{
             }}
             aria-current={active ? 'location' : undefined}
             className={[
-              'group flex w-full items-start gap-3 border-l-2 py-1.5 text-left text-[12px] leading-5 transition-[border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]',
-              item.level === 3 ? 'pl-6 text-[11px]' : 'pl-3.5',
+              'group flex w-full items-start gap-3 border-l-2 py-1.5 text-left leading-5 transition-[border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]',
+              item.level === 3 ? 'pl-6 text-[11px]' : 'pl-3.5 text-[12px]',
               active
                 ? 'border-brand-red text-white'
                 : 'border-transparent text-[#757D89] hover:border-white/20 hover:text-white'
@@ -86,7 +114,7 @@ export const InsightTableOfContents: React.FC<{
 
   return (
     <>
-      <div className="lg:hidden border-y border-white/[0.08]">
+      <div className="xl:hidden border-y border-white/[0.08]">
         <button
           type="button"
           aria-expanded={mobileOpen}
@@ -102,15 +130,23 @@ export const InsightTableOfContents: React.FC<{
         </button>
 
         {mobileOpen && (
-          <nav id="insight-mobile-toc" aria-label={navigationLabel} className="border-t border-white/[0.07] py-3">
+          <nav
+            id="insight-mobile-toc"
+            aria-label={navigationLabel}
+            className="max-h-[55vh] overflow-y-auto border-t border-white/[0.07] py-3 overscroll-contain"
+          >
             {renderItems()}
           </nav>
         )}
       </div>
 
-      <div className="hidden lg:block">
-        <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#747B88]">{tocLabel}</p>
-        <nav aria-label={navigationLabel} className="mt-4">
+      <div className="hidden h-full min-h-0 xl:flex xl:flex-col">
+        <p className="shrink-0 text-[9px] font-mono uppercase tracking-[0.18em] text-[#747B88]">{tocLabel}</p>
+        <nav
+          ref={listRef}
+          aria-label={navigationLabel}
+          className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-2"
+        >
           {renderItems()}
         </nav>
       </div>
