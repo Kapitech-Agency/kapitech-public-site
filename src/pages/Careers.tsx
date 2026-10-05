@@ -377,247 +377,247 @@ export const Careers = () => {
 
   const twelveTalentsEn = [
     {
-      id: "aditya-pratama",
-      name: "Aditya Pratama",
-      role: "Lead Frontend Engineer",
+      id: "frontend-engineering",
+      name: "Lead Frontend Engineering",
+      role: "Lead Frontend Engineering",
       specialty: "React, Next.js & Web Performance",
       department: "Innovation Development",
-      experience: "6+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=85&w=800",
-      bio: "Specializes in sub-second DOM hydration, micro-frontend architecture, and fluid motion physics."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "nathania-kusuma",
-      name: "Nathania Kusuma",
-      role: "Senior UI/UX & Design Systems Lead",
+      id: "product-design",
+      name: "Product UI & Design Systems",
+      role: "Product UI & Design Systems",
       specialty: "Figma Systems & Design Tokens",
       department: "Visual Experience",
-      experience: "5+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=85&w=800",
-      bio: "Crafts mathematically scaled Figma design systems, accessible WCAG color models, and interactive micro-interactions."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "bagas-wicaksono",
-      name: "Bagas Wicaksono",
-      role: "Senior Motion & 2D Animator",
+      id: "motion-2d",
+      name: "Motion & 2D Animation",
+      role: "Motion & 2D Animation",
       specialty: "Kinetic Typography & After Effects",
       department: "Visual Experience",
-      experience: "4+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=85&w=800",
-      bio: "Brings brand stories to life through high-frame-rate kinetic animation, 2D character explainers, and Lottie assets."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "clarissa-angela",
-      name: "Clarissa Angela",
-      role: "Brand Identity & Editorial Designer",
+      id: "brand-editorial",
+      name: "Brand Identity & Editorial Design",
+      role: "Brand Identity & Editorial Design",
       specialty: "Brand Guidelines & Visual Story",
       department: "Visual Experience",
-      experience: "5+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=85&w=800",
-      bio: "Authors bespoke typography pairings, multi-brand identity kits, and investor presentation collateral."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "dimas-rizky",
-      name: "Dimas Rizky",
-      role: "3D Visualizer & Spline Technologist",
+      id: "3d-webgl",
+      name: "3D Visualization & WebGL",
+      role: "3D Visualization & WebGL",
       specialty: "Blender 3D & WebGL Environments",
       department: "Visual Experience",
-      experience: "4+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=85&w=800",
-      bio: "Builds photorealistic architectural renders, 3D product prototypes, and real-time Spline WebGL canvases."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "evelyn-santoso",
-      name: "Evelyn Santoso",
-      role: "Senior Product UI Designer",
+      id: "product-ui",
+      name: "Product UI Design",
+      role: "Product UI Design",
       specialty: "Responsive Product UI & Prototypes",
       department: "Visual Experience",
-      experience: "5+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Designs responsive product interfaces, thoughtful interaction patterns, and scalable SaaS experiences."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "farhan-ramadhan",
-      name: "Farhan Ramadhan",
-      role: "Cloud Infrastructure & DevOps Specialist",
+      id: "cloud-devops",
+      name: "Cloud Infrastructure & DevOps",
+      role: "Cloud Infrastructure & DevOps",
       specialty: "AWS, GCP & Automated CI/CD",
       department: "Innovation Development",
-      experience: "6+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=85&w=800",
-      bio: "Maintains 99.99% cloud uptime, automated blue-green deployment pipelines, and zero-trust security."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "gabriella-tan",
-      name: "Gabriella Tan",
-      role: "2D Character Artist & Illustrator",
+      id: "illustration",
+      name: "2D Illustration & Character Art",
+      role: "2D Illustration & Character Art",
       specialty: "Vector Assets & Explainer Artworks",
       department: "Visual Experience",
-      experience: "4+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=85&w=800",
-      bio: "Draws distinctive editorial vectors, custom icon sets, and charismatic 2D character sets for brand campaigns."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "haikal-firdaus",
-      name: "Haikal Firdaus",
-      role: "Senior Backend & Database Architect",
+      id: "backend-database",
+      name: "Backend & Database Engineering",
+      role: "Backend & Database Engineering",
       specialty: "Node.js, PostgreSQL & Distributed Cache",
       department: "Innovation Development",
-      experience: "7+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=85&w=800",
-      bio: "Architects scalable microservices, low-latency Redis caching layers, and high-volume relational schemas."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "indah-permata",
-      name: "Indah Permata",
-      role: "Video Producer & Commercial Colorist",
+      id: "video-color",
+      name: "Video Production & Color",
+      role: "Video Production & Color",
       specialty: "TVC Editing, Cinematic LUTs & DaVinci",
       department: "Visual Experience",
-      experience: "5+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=85&w=800",
-      bio: "Directs cinematic commercial shoots, color grades in DaVinci Resolve Studio, and produces TVC broadcast masters."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "julian-mahendra",
-      name: "Julian Mahendra",
-      role: "Full-Stack SaaS & Web App Engineer",
-      specialty: "TypeScript, GraphQL & Realtime Sockets",
+      id: "fullstack",
+      name: "Full-Stack Web Applications",
+      role: "Full-Stack Web Applications",
+      specialty: "TypeScript, GraphQL & Realtime Systems",
       department: "Innovation Development",
-      experience: "5+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=85&w=800",
-      bio: "Develops real-time collaborative SaaS platforms, custom enterprise CRM tooling, and high-security REST APIs."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     },
     {
-      id: "karina-wijaya",
-      name: "Karina Wijaya",
-      role: "Pitch Deck & Publication Strategist",
-      specialty: "Investor Decks & High-Impact Reports",
+      id: "pitch-publication",
+      name: "Pitch Deck & Publication Design",
+      role: "Pitch Deck & Publication Design",
+      specialty: "Investor Decks & Executive Reports",
       department: "Visual Experience",
-      experience: "4+ Years Exp",
+      experience: "Illustrative discipline",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=85&w=800",
-      bio: "Translates complex financial data and corporate roadmaps into crisp, executive-ready presentation decks."
+      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
     }
   ];
 
   const twelveTalentsId = [
     {
-      id: "aditya-pratama",
-      name: "Aditya Pratama",
-      role: "Lead Frontend Engineer",
+      id: "frontend-engineering",
+      name: "Lead Frontend Engineering",
+      role: "Lead Frontend Engineering",
       specialty: "React, Next.js & Web Performance",
       department: "Innovation Development",
-      experience: "Pengalaman 6+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=85&w=800",
-      bio: "Spesialis dalam hidrasi DOM sub-detik, arsitektur micro-frontend, dan fisika animasi berbasis kode modern."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "nathania-kusuma",
-      name: "Nathania Kusuma",
-      role: "Senior UI/UX & Design Systems Lead",
-      specialty: "Sistem Desain Figma & Token UI",
+      id: "product-design",
+      name: "Product UI & Design Systems",
+      role: "Product UI & Design Systems",
+      specialty: "Sistem Figma & Token Desain",
       department: "Visual Experience",
-      experience: "Pengalaman 5+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=85&w=800",
-      bio: "Merancang sistem desain modular Figma, standar aksesibilitas WCAG, dan uji interaksi prototipe pengguna."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "bagas-wicaksono",
-      name: "Bagas Wicaksono",
-      role: "Senior Motion & 2D Animator",
+      id: "motion-2d",
+      name: "Motion & 2D Animation",
+      role: "Motion & 2D Animation",
       specialty: "Tipografi Kinetik & After Effects",
       department: "Visual Experience",
-      experience: "Pengalaman 4+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=85&w=800",
-      bio: "Menghidupkan cerita brand lewat animasi frame-rate tinggi, video explainer komersial, dan aset Lottie."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "clarissa-angela",
-      name: "Clarissa Angela",
-      role: "Brand Identity & Editorial Designer",
+      id: "brand-editorial",
+      name: "Brand Identity & Editorial Design",
+      role: "Brand Identity & Editorial Design",
       specialty: "Pedoman Brand & Identitas Visual",
       department: "Visual Experience",
-      experience: "Pengalaman 5+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=85&w=800",
-      bio: "Merancang identitas korporat, brandbook komprehensif, dan materi publikasi editorial tingkat tinggi."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "dimas-rizky",
-      name: "Dimas Rizky",
-      role: "3D Visualizer & Spline Technologist",
+      id: "3d-webgl",
+      name: "3D Visualization & WebGL",
+      role: "3D Visualization & WebGL",
       specialty: "Blender 3D & Lingkungan WebGL",
       department: "Visual Experience",
-      experience: "Pengalaman 4+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=85&w=800",
-      bio: "Membangun render fotorealistis 3D produk, visualisasi arsitektur, dan aset WebGL real-time interaktif."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "evelyn-santoso",
-      name: "Evelyn Santoso",
-      role: "Senior Product UI Designer",
+      id: "product-ui",
+      name: "Product UI Design",
+      role: "Product UI Design",
       specialty: "UI Produk Responsif & Prototipe",
       department: "Visual Experience",
-      experience: "Pengalaman 5+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Merancang pengalaman produk digital yang responsif, alur onboarding yang mulus, dan interaksi antarmuka yang konsisten."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "farhan-ramadhan",
-      name: "Farhan Ramadhan",
-      role: "Cloud Infrastructure & DevOps Engineer",
-      specialty: "AWS, Docker & Otomasi Pipeline CI/CD",
+      id: "cloud-devops",
+      name: "Cloud Infrastructure & DevOps",
+      role: "Cloud Infrastructure & DevOps",
+      specialty: "AWS, GCP & Otomasi CI/CD",
       department: "Innovation Development",
-      experience: "Pengalaman 6+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=85&w=800",
-      bio: "Menjaga uptime server 99.99%, otomatisasi build pipeline multi-region, dan mitigasi keamanan cloud."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "gabriella-tan",
-      name: "Gabriella Tan",
-      role: "2D Character Artist & Illustrator",
-      specialty: "Aset Vektor & Artwork Video Explainer",
+      id: "illustration",
+      name: "2D Illustration & Character Art",
+      role: "2D Illustration & Character Art",
+      specialty: "Aset Vektor & Artwork Explainer",
       department: "Visual Experience",
-      experience: "Pengalaman 4+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=85&w=800",
-      bio: "Menggambar ilustrasi vektor orisinal, paket ikon kustom, dan karakter visual berkarakter kuat untuk kampanye."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "haikal-firdaus",
-      name: "Haikal Firdaus",
-      role: "Senior Backend & Database Architect",
+      id: "backend-database",
+      name: "Backend & Database Engineering",
+      role: "Backend & Database Engineering",
       specialty: "Node.js, PostgreSQL & Distributed Cache",
       department: "Innovation Development",
-      experience: "Pengalaman 7+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=85&w=800",
-      bio: "Membangun arsitektur microservices terukur, cache berkinerja tinggi, dan relasi database berkeamanan tinggi."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "indah-permata",
-      name: "Indah Permata",
-      role: "Video Producer & Commercial Colorist",
+      id: "video-color",
+      name: "Video Production & Color",
+      role: "Video Production & Color",
       specialty: "Editing TVC, LUT Sinematik & DaVinci",
       department: "Visual Experience",
-      experience: "Pengalaman 5+ Tahun",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=85&w=800",
-      bio: "Memproduksi video komersial brand, grading warna sinematik di DaVinci Studio, dan supervisi audio master."
+      experience: "Disiplin ilustratif",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf028daeb?auto=format&fit=crop&q=85&w=800",
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "julian-mahendra",
-      name: "Julian Mahendra",
-      role: "Full-Stack SaaS & Web App Engineer",
-      specialty: "TypeScript, GraphQL & Realtime Sockets",
+      id: "fullstack",
+      name: "Full-Stack Web Applications",
+      role: "Full-Stack Web Applications",
+      specialty: "TypeScript, GraphQL & Realtime Systems",
       department: "Innovation Development",
-      experience: "Pengalaman 5+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=85&w=800",
-      bio: "Mengembangkan aplikasi SaaS kolaboratif real-time, integrasi sistem CRM bisnis, dan API terenkripsi."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     },
     {
-      id: "karina-wijaya",
-      name: "Karina Wijaya",
-      role: "Pitch Deck & Publication Strategist",
-      specialty: "Investor Pitch Deck & Laporan Finansial",
+      id: "pitch-publication",
+      name: "Pitch Deck & Publication Design",
+      role: "Pitch Deck & Publication Design",
+      specialty: "Investor Pitch Deck & Laporan Eksekutif",
       department: "Visual Experience",
-      experience: "Pengalaman 4+ Tahun",
+      experience: "Disiplin ilustratif",
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=85&w=800",
-      bio: "Mengubah data bisnis dan proyeksi keuangan yang kompleks menjadi deck presentasi investor yang meyakinkan."
+      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
     }
   ];
 
