@@ -160,13 +160,15 @@ export const InsightTableOfContents: React.FC<{
     window.addEventListener('scroll', scheduleSync, { passive: true });
     window.addEventListener('resize', scheduleSync);
     window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
-    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
-    window.addEventListener('keydown', event => {
+    const handleKeydown = (event: KeyboardEvent) => {
       if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
         cancelPendingNavigation();
       }
-    });
+    };
+
+    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
+    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
+    window.addEventListener('keydown', handleKeydown);
 
     window.requestAnimationFrame(syncActiveHeading);
 
@@ -176,6 +178,7 @@ export const InsightTableOfContents: React.FC<{
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('wheel', handleUserScrollIntent);
       window.removeEventListener('touchstart', handleUserScrollIntent);
+      window.removeEventListener('keydown', handleKeydown);
 
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
