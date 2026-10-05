@@ -440,50 +440,117 @@ export const Home = () => {
         </div>
       </section>
       {/* SELECTED CLIENT WORK */}
-      <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 mb-10 sm:mb-12 text-center">
-          <span className="kapi-section-label mb-5">
-            {language === 'id' ? 'PILIHAN KARYA KLIEN' : 'SELECTED CLIENT WORK'}
-          </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.045em] leading-[1.08] text-white">
-            {language === 'id'
-              ? 'Contoh pekerjaan klien yang dipublikasikan Kapitech'
-              : 'Selected client work published by Kapitech'}
-          </h2>
-          <p className="mt-3 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">
-            {language === 'id'
-              ? 'Pilihan nama di bawah merujuk pada proyek yang dipublikasikan di portfolio Kapitech.'
-              : 'The names below refer to client projects published in the Kapitech portfolio.'}
-          </p>
-        </div>
-
-        <div className="relative w-full overflow-hidden py-4">
-          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent z-20 pointer-events-none" />
-
-          <div className="flex w-max">
-            <motion.div
-              className="flex items-center gap-12 sm:gap-20 shrink-0 pr-12 sm:pr-20"
-              animate={{ x: ['0%', '-50%'] }}
-              transition={{
-                duration: 28,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            >
-              {[...selectedClients, ...selectedClients].map((client, idx) => (
-                <div
-                  key={`${client}-${idx}`}
-                  className="flex min-w-[170px] sm:min-w-[220px] lg:min-w-[250px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
-                  aria-label={client}
-                >
-                  <span className="text-center text-sm sm:text-base lg:text-lg font-semibold tracking-[-0.02em] text-[#8A909D] opacity-60 hover:text-white hover:opacity-100 whitespace-nowrap transition-all duration-300">
-                    {client}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
+      <section
+        className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] py-14 sm:py-20"
+        id="clients"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-10 max-w-4xl px-4 text-center sm:mb-12 sm:px-6 md:px-12">
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'KLIEN TERPILIH' : 'SELECTED CLIENT WORK'}
+            </span>
+            <h2 className="mt-4 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+              {language === 'id'
+                ? 'Perusahaan dan organisasi Indonesia yang pernah bekerja bersama Kapitech.'
+                : 'Companies and organizations in Indonesia that have worked with Kapitech.'}
+            </h2>
           </div>
+
+          {(() => {
+            const clientLogos = [
+              {
+                name: 'Pertamina',
+                src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Pertamina_Logo.svg',
+                className: 'h-9 sm:h-10 lg:h-11 max-w-[165px]',
+              },
+              {
+                name: 'Bank BTN',
+                src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/BTN_2024.svg',
+                className: 'h-9 sm:h-10 lg:h-11 max-w-[135px]',
+              },
+              {
+                name: 'Indonesia Investment Authority',
+                src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Logo_Indonesia_Investment_Authority.svg',
+                className: 'h-8 sm:h-9 lg:h-10 max-w-[180px]',
+              },
+              {
+                name: 'Indonesia Healthcare Corporation',
+                src: 'https://www.ihc.id/images/icons/logo-ihc-removebg-preview%201.svg',
+                className: 'h-10 sm:h-11 lg:h-12 max-w-[175px]',
+              },
+              {
+                name: 'BKKBN',
+                src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Logo_Kementerian_Kependudukan_dan_Pembangunan_Keluarga_-_BKKBN_%282024%29.svg',
+                className: 'h-11 sm:h-12 lg:h-14 max-w-[105px]',
+              },
+              {
+                name: 'Navees Gold',
+                src: 'https://naveesgold.id/_assets/logo-footer.De4CENjg_ZJnBAz.webp',
+                className: 'h-10 sm:h-11 lg:h-12 max-w-[135px]',
+              },
+              {
+                name: 'MarkPlus, Inc.',
+                src: 'https://www.markplusinc.com/assets/logo/logo-new.png',
+                className: 'h-10 sm:h-11 lg:h-12 max-w-[185px]',
+              },
+              {
+                name: 'Sababay Winery',
+                src: 'https://sababaywinery.com/cdn/shop/files/Logo-Sababay-Black_300x300.gif?v=1723305632',
+                className: 'h-11 sm:h-12 lg:h-14 max-w-[145px]',
+              },
+            ];
+
+            const rowOne = [...clientLogos, ...clientLogos, ...clientLogos];
+            const rowTwo = [...clientLogos.slice(4), ...clientLogos.slice(0, 4), ...clientLogos.slice(4), ...clientLogos.slice(0, 4)];
+
+            const renderRow = (logos, keyPrefix, reverse = false) => (
+              <div className="relative w-full overflow-hidden py-4 sm:py-5">
+                <div
+                  className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent sm:w-28 lg:w-40"
+                  aria-hidden="true"
+                />
+                <div
+                  className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent sm:w-28 lg:w-40"
+                  aria-hidden="true"
+                />
+
+                <motion.div
+                  className="flex w-max shrink-0 items-center gap-10 pr-10 sm:gap-16 sm:pr-16 lg:gap-20 lg:pr-20"
+                  animate={{ x: reverse ? ['-0%', '-50%'] : ['0%', '-50%'] }}
+                  transition={{
+                    duration: reverse ? 34 : 30,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                >
+                  {logos.map((logo, index) => (
+                    <div
+                      key={`${keyPrefix}-${logo.name}-${index}`}
+                      className="flex h-16 w-[170px] shrink-0 items-center justify-center px-4 sm:h-18 sm:w-[220px] sm:px-6 lg:h-20 lg:w-[250px]"
+                    >
+                      <img
+                        src={logo.src}
+                        alt={logo.name}
+                        loading="lazy"
+                        decoding="async"
+                        className={cn(
+                          'w-auto object-contain opacity-55 grayscale invert transition-[opacity,transform] duration-300 hover:scale-[1.035] hover:opacity-100',
+                          logo.className
+                        )}
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            );
+
+            return (
+              <div className="relative">
+                {renderRow(rowOne, 'row-1')}
+                {renderRow(rowTwo, 'row-2', true)}
+              </div>
+            );
+          })()}
         </div>
       </section>
 
