@@ -52,8 +52,15 @@ export const CookiePolicy = () => {
             <section>
               <h2 className="text-2xl font-display font-bold text-white mb-4">3. Pengendalian & Penolakan Cookie</h2>
               <p>
-                Anda dapat menghapus atau membatasi cookie dan penyimpanan lokal melalui pengaturan browser. Menolak penyimpanan analitik opsional tidak menghalangi fungsi utama website, sedangkan pembatasan penyimpanan esensial dapat membuat preferensi bahasa dan fungsi tertentu tidak tersimpan.
+                Anda dapat menarik persetujuan analitik opsional kapan saja melalui kontrol “Kelola preferensi cookie” di bawah atau melalui pengaturan browser. Saat persetujuan analitik ditarik, Kapitech berhenti mengirim event analitik baru dan menghapus penyimpanan atribusi anonim yang dikelola website sejauh browser mengizinkannya. Menolak penyimpanan analitik opsional tidak menghalangi fungsi utama website, sedangkan pembatasan penyimpanan esensial dapat membuat preferensi bahasa dan fungsi tertentu tidak tersimpan.
               </p>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event('kapitech_open_cookie_preferences'))}
+                className="mt-5 inline-flex min-h-[42px] items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.03] px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#C2C7D1] transition-[background-color,border-color,color] duration-200 hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              >
+                Kelola preferensi cookie
+              </button>
             </section>
 
             <section>
@@ -82,10 +89,17 @@ export const CookiePolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-display font-bold text-white mb-4">3. Managing & Disabling Cookies</h2>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">3. Managing & Withdrawing Consent</h2>
               <p>
-                You can delete or restrict cookies and local storage through your browser settings. Declining optional analytics storage does not prevent the core website from functioning, while restricting essential storage may reset language preferences and some site functionality after refresh.
+                You can withdraw optional analytics consent at any time using the “Manage cookie preferences” control below or through your browser settings. When analytics consent is withdrawn, Kapitech stops sending new analytics events and removes the attribution and anonymous identifiers managed by the website where the browser permits it. Declining optional analytics storage does not prevent the core website from functioning, while restricting essential storage may reset language preferences and some site functionality after refresh.
               </p>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event('kapitech_open_cookie_preferences'))}
+                className="mt-5 inline-flex min-h-[42px] items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.03] px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#C2C7D1] transition-[background-color,border-color,color] duration-200 hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              >
+                Manage cookie preferences
+              </button>
             </section>
 
             <section>
