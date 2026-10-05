@@ -72,7 +72,7 @@ export const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-display font-bold text-white mb-4">6. Hubungi Kami</h2>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">7. Hubungi Kami</h2>
               <p>
                 Jika Anda memiliki pertanyaan, klarifikasi, atau permintaan penghapusan data seputar Kebijakan Privasi ini, silakan hubungi tim legal kami di:
                 <br /><br />
@@ -128,7 +128,21 @@ export const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-display font-bold text-white mb-4">6. Contact Us</h2>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">6. Hak Anda atas Data Pribadi</h2>
+              <p>
+                Sesuai ketentuan pelindungan data pribadi yang berlaku, Anda dapat meminta akses, koreksi, pembaruan, pengakhiran atau pembatasan pemrosesan, penghapusan atau pemusnahan data sesuai dasar dan ketentuan yang berlaku, serta menarik kembali persetujuan untuk pemrosesan yang berbasis persetujuan. Untuk menggunakan hak tersebut atau menanyakan masa retensi dan pemrosesan data Anda, hubungi kami melalui alamat yang tercantum di bawah.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">6. Your Data Protection Rights</h2>
+              <p>
+                Under applicable data protection requirements, you may request access, correction or updating, restriction or termination of processing, deletion or destruction where permitted, and withdrawal of consent where processing is based on consent. To exercise these rights or ask about retention and processing of your data, contact us using the details below.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-display font-bold text-white mb-4">7. Contact Us</h2>
               <p>
                 If you have questions, feedback, or requests regarding this Privacy Policy, please contact our legal and privacy team at:
                 <br /><br />
