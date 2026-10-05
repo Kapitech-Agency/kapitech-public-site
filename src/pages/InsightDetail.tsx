@@ -173,7 +173,19 @@ export const InsightDetail: React.FC = () => {
   );
 
   const headingIds = useMemo(() => buildInsightHeadingIds(editorialBlocks), [editorialBlocks]);
-  const toc = useMemo(() => buildInsightToc(editorialBlocks, headingIds), [editorialBlocks, headingIds]);
+  const toc = useMemo(() => {
+    const items = buildInsightToc(editorialBlocks, headingIds);
+
+    if (Array.isArray(article?.faq) && article.faq.length > 0) {
+      items.push({
+        id: 'faq-title',
+        text: article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions',
+        level: 2
+      });
+    }
+
+    return items;
+  }, [article?.faq, article?.language, editorialBlocks, headingIds]);
 
   useEffect(() => {
     const updateProgress = () => {
