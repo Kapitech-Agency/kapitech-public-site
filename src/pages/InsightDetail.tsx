@@ -35,6 +35,7 @@ export const InsightDetail: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const articleRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
+  const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -44,6 +45,7 @@ export const InsightDetail: React.FC = () => {
 
   useEffect(() => {
     languageInitializedRef.current = false;
+    articleLanguageRef.current = null;
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
@@ -69,16 +71,24 @@ export const InsightDetail: React.FC = () => {
 
   useEffect(() => {
     if (!article || languageInitializedRef.current) return;
+
     languageInitializedRef.current = true;
+    articleLanguageRef.current = article.language;
+
+    // A direct article URL owns the initial language. Apply it once, then
+    // wait for a real language change before navigating to an alternate URL.
     if (article.language !== language) {
       setLanguage(article.language);
     }
   }, [article, language, setLanguage]);
 
   useEffect(() => {
-    if (!article || !languageInitializedRef.current || article.language === language) return;
+    if (!article || !languageInitializedRef.current) return;
+    if (articleLanguageRef.current === language) return;
+
     const alternate = article.alternateLanguages?.find(item => item.language === language);
     if (alternate?.slug && alternate.slug !== slug) {
+      articleLanguageRef.current = language;
       navigate('/insights/' + alternate.slug, { replace: true });
     }
   }, [article, language, navigate, slug]);
