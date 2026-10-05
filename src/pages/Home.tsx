@@ -284,7 +284,7 @@ export const Home = () => {
             color="#dc143c"
             backgroundColor="#170f0f"
             opacity={0.58}
-            fade="bottom"
+            fade="none"
             fadeSize={0.7}
             interactive
             cursorSize={50}
