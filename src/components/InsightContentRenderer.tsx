@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
 import type { InsightBlock } from '../data/insightTypes';
 
-function inlineMarkdown(value: string): React.ReactNode[] {
-  const tokens = value.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^\)]+\))/g).filter(Boolean);
+function inlineMarkdown(value: unknown): React.ReactNode[] {
+  const safeValue = typeof value === 'string' ? value : String(value ?? '');
+  const tokens = safeValue.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^\)]+\))/g).filter(Boolean);
 
   return tokens.map((token, index) => {
     if (token.startsWith('**') && token.endsWith('**')) {
@@ -72,6 +73,7 @@ export const InsightContentRenderer: React.FC<{
   return (
     <div className="kapi-insight-body max-w-none">
       {blocks.map((block, index) => {
+        if (!block || typeof block !== 'object') return null;
         if (block.type === 'paragraph') {
           return (
             <p key={index} className="mb-7 text-[15px] font-light leading-[1.9] text-[#C3C7D0] sm:text-[16px]">
@@ -161,7 +163,7 @@ export const InsightContentRenderer: React.FC<{
                 <table className="w-full min-w-[560px] border-collapse text-left text-sm">
                   <thead>
                     <tr className="bg-white/[0.035]">
-                      {block.headers.map((header, headerIndex) => (
+                      {(Array.isArray(block.headers) ? block.headers : []).map((header, headerIndex) => (
                         <th
                           key={headerIndex}
                           className="border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4]"
@@ -172,9 +174,9 @@ export const InsightContentRenderer: React.FC<{
                     </tr>
                   </thead>
                   <tbody>
-                    {block.rows.map((row, rowIndex) => (
+                    {(Array.isArray(block.rows) ? block.rows : []).map((row, rowIndex) => (
                       <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.015]">
-                        {row.map((cell, cellIndex) => (
+                        {(Array.isArray(row) ? row : []).map((cell, cellIndex) => (
                           <td key={cellIndex} className="px-4 py-3.5 align-top leading-6 text-[#B6BBC5]">
                             {inlineMarkdown(cell)}
                           </td>
