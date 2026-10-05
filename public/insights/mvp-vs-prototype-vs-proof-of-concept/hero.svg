@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Prototype, MVP, dan Proof of Concept dalam satu kerangka validasi produk</title>
+<desc id="desc">Visual editorial yang memperlihatkan tiga jalur validasi: pengalaman pengguna, nilai produk, dan kelayakan teknis.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B0C0E"/><stop offset="1" stop-color="#151114"/></linearGradient>
+  <linearGradient id="red" x1="0" x2="1"><stop stop-color="#E50914"/><stop offset="1" stop-color="#FF1E27"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="16" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1260" cy="220" r="210" fill="#E50914" opacity=".08" filter="url(#glow)"/>
+<path d="M120 690 C430 530 520 310 800 430 S1170 680 1480 430" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="2"/>
+<path d="M120 690 C430 560 560 360 800 430 S1160 610 1480 430" fill="none" stroke="url(#red)" stroke-opacity=".9" stroke-width="5"/>
+<circle cx="430" cy="560" r="14" fill="#E50914"/><circle cx="800" cy="430" r="18" fill="#fff"/><circle cx="1160" cy="610" r="14" fill="#E50914"/>
+<g font-family="Inter,Arial,sans-serif" fill="#fff">
+  <text x="120" y="150" font-size="22" letter-spacing="5" fill="#8A909D">KAPITECH INSIGHT / PRODUCT VALIDATION</text>
+  <text x="120" y="250" font-size="72" font-weight="700" letter-spacing="-3">Jangan mulai dari produk.</text>
+  <text x="120" y="330" font-size="72" font-weight="700" letter-spacing="-3">Mulai dari ketidakpastian.</text>
+  <text x="120" y="760" font-size="28" font-weight="600">PROTOTYPE</text>
+  <text x="120" y="800" font-size="20" fill="#9AA1AE">Can users use it?</text>
+  <text x="710" y="500" font-size="28" font-weight="600">MVP</text>
+  <text x="710" y="535" font-size="20" fill="#9AA1AE">Will users value it?</text>
+  <text x="1080" y="680" font-size="28" font-weight="600">PoC</text>
+  <text x="1080" y="715" font-size="20" fill="#9AA1AE">Can we build it?</text>
+</g>
+<text x="120" y="850" font-family="Inter,Arial,sans-serif" font-size="18" fill="#69717D">Three methods. Three questions. One goal: better evidence before bigger commitment.</text>
+</svg>
