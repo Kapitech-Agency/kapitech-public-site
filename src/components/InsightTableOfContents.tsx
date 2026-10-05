@@ -9,11 +9,14 @@ export const InsightTableOfContents: React.FC<{
 }> = ({ items, language }) => {
   const [activeId, setActiveId] = useState(items[0]?.id || '');
   const [mobileOpen, setMobileOpen] = useState(false);
-  const listRef = useRef<HTMLElement | null>(null);
-  const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const desktopListRef = useRef<HTMLElement | null>(null);
+  const mobileListRef = useRef<HTMLElement | null>(null);
+  const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   useEffect(() => {
-    setActiveId(items[0]?.id || '');
+    const hash = window.location.hash.replace(/^#/, '');
+    setActiveId(items.some(item => item.id === hash) ? hash : (items[0]?.id || ''));
 
     const headings = items
       .map(item => document.getElementById(item.id))
@@ -45,8 +48,10 @@ export const InsightTableOfContents: React.FC<{
   useEffect(() => {
     if (!activeId) return;
 
-    const container = listRef.current;
-    const item = itemRefs.current.get(activeId);
+    const isDesktop = window.matchMedia('(min-width: 1280px)').matches;
+    const container = isDesktop ? desktopListRef.current : (mobileOpen ? mobileListRef.current : null);
+    const itemMap = isDesktop ? desktopItemRefs.current : mobileItemRefs.current;
+    const item = itemMap.get(activeId);
     if (!container || !item) return;
 
     const top = item.offsetTop;
@@ -62,7 +67,7 @@ export const InsightTableOfContents: React.FC<{
         behavior: 'smooth'
       });
     }
-  }, [activeId]);
+  }, [activeId, mobileOpen]);
 
   if (!items.length) return null;
 
@@ -70,7 +75,7 @@ export const InsightTableOfContents: React.FC<{
   const mobileLabel = language === 'id' ? 'Di artikel ini' : 'In this article';
   const navigationLabel = language === 'id' ? 'Navigasi artikel' : 'Article navigation';
 
-  const renderItems = () => (
+  const renderItems = (variant: 'desktop' | 'mobile') => (
     <div className="space-y-0.5">
       {items.map((item, index) => {
         const active = item.id === activeId;
@@ -78,10 +83,7 @@ export const InsightTableOfContents: React.FC<{
         return (
           <a
             key={item.id}
-            ref={node => {
-              if (node) itemRefs.current.set(item.id, node);
-              else itemRefs.current.delete(item.id);
-            }}
+undefined
             href={'#' + item.id}
             onClick={event => {
               event.preventDefault();
@@ -135,7 +137,7 @@ export const InsightTableOfContents: React.FC<{
             aria-label={navigationLabel}
             className="max-h-[55vh] overflow-y-auto border-t border-white/[0.07] py-3 overscroll-contain"
           >
-            {renderItems()}
+            {renderItems('mobile')}
           </nav>
         )}
       </div>
@@ -143,11 +145,11 @@ export const InsightTableOfContents: React.FC<{
       <div className="hidden h-full min-h-0 xl:flex xl:flex-col">
         <p className="shrink-0 text-[9px] font-mono uppercase tracking-[0.18em] text-[#747B88]">{tocLabel}</p>
         <nav
-          ref={listRef}
+          ref={desktopListRef}
           aria-label={navigationLabel}
           className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-2"
         >
-          {renderItems()}
+          {renderItems('desktop')}
         </nav>
       </div>
     </>
