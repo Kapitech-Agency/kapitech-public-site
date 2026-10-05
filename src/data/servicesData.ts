@@ -12,7 +12,7 @@ export interface ServiceItemData {
   badge: string;
   badgeId: string;
   metrics: Array<{ value: string; label: string; labelId: string }>;
-  testimonial: {
+  testimonial?: {
     quote: string;
     quoteId: string;
     highlight: string;
