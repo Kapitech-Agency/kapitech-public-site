@@ -1,5 +1,4 @@
 Options -MultiViews
-DirectorySlash Off
 RewriteEngine On
 RewriteBase /
 
@@ -7,10 +6,18 @@ RewriteBase /
 RewriteRule ^services/(mvp-design|product-redesign|team-extension)/?$ /solutions/$1 [R=301,L,NE]
 RewriteRule ^solutions/(pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)/?$ /services/$1 [R=301,L,NE]
 
-# Keep real files and directories accessible without adding a trailing slash.
-RewriteCond %{REQUEST_FILENAME} -f [OR]
+# Canonicalize trailing-slash route variants.
+RewriteCond %{REQUEST_URI} !^/$
 RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
+
+# Serve prerendered route entry files without exposing directory URLs.
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
+# Keep real assets and files accessible.
+RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# React Router SPA fallback for direct links and browser refreshes.
-RewriteRule ^ index.html [L]
+# Unknown paths should return a real 404 instead of being treated as the homepage.
+RewriteRule ^ - [R=404,L]
