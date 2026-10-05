@@ -31,20 +31,11 @@ const setCanonical = (html, url) => {
 
 const setPageJsonLd = (html, data) => {
   const json = JSON.stringify(data).replaceAll('<', '\\u003c');
-  const pattern = /<script\b[^>]*application\/ld\+json[^>]*>[\s\S]*?<\/script>/gi;
-  const matches = [...html.matchAll(pattern)];
-  const tag = '<script id="kapitech-page-jsonld" type="application/ld+json">' + json + '</script>';
-  if (matches.length >= 2) return html.replace(matches[1][0], tag);
-  return html.replace('</head>', '    ' + tag + '\n  </head>');
-};
-
-const setPageJsonLd = (html, data) => {
-  const json = JSON.stringify(data).replaceAll('<', '\\u003c');
-  const pattern = /<script\\b[^>]*id="kapitech-page-jsonld"[^>]*>[\\s\\S]*?<\\/script>/i;
+  const pattern = /<script\b[^>]*id="kapitech-page-jsonld"[^>]*>[\s\S]*?<\/script>/i;
   const tag = '<script id="kapitech-page-jsonld" type="application/ld+json">' + json + '</script>';
   return pattern.test(html)
     ? html.replace(pattern, tag)
-    : html.replace('</head>', '    ' + tag + '\\n  </head>');
+    : html.replace('</head>', '    ' + tag + '\n  </head>');
 };
 
 const buildBreadcrumbs = (route) => {
