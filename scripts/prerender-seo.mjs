@@ -285,7 +285,7 @@ for (const route of manifest.routes) {
   const html = renderRoute(template, route);
   const outputPath = route.path === '/'
     ? join(distDir, 'index.html')
-    : join(distDir, route.path.replace(/^\\/+/, ''), 'index.html');
+    : join(distDir, route.path.replace(/^\/+/, ''), 'index.html');
 
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, html, 'utf8');
