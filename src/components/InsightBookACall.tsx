@@ -4,24 +4,27 @@ import { Link } from 'react-router-dom';
 import type { InsightLanguage } from '../data/insightTypes';
 
 export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ language }) => (
-  <div className="mt-5 shrink-0 border-t border-white/[0.08] pt-5">
-    <p className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
+  <div className="mt-5 shrink-0 rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_18px_42px_-34px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+    <p className="text-[9px] font-mono font-medium uppercase tracking-[0.17em] text-brand-red">
       {language === 'id' ? 'Langkah berikutnya' : 'Next step'}
     </p>
-    <h2 className="mt-2 text-base font-display font-semibold leading-[1.25] tracking-[-0.02em] text-white">
+
+    <h2 className="mt-2.5 text-[15px] font-display font-semibold leading-[1.3] tracking-[-0.025em] text-white">
       {language === 'id' ? 'Butuh partner untuk memvalidasi produk?' : 'Need a partner to validate your product?'}
     </h2>
-    <p className="mt-2 text-xs leading-5 text-[#737B88]">
+
+    <p className="mt-2 text-[11px] leading-[1.7] text-[#8A919D]">
       {language === 'id'
         ? 'Bicarakan scope, risiko, dan jalur validasi yang paling masuk akal.'
         : 'Talk through scope, risk, and the most sensible validation path.'}
     </p>
+
     <Link
       to="/contact"
-      className="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full bg-brand-red px-4 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+      className="mt-4 inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/70 px-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.11),0_12px_28px_-22px_rgba(229,9,20,0.75)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/55 hover:bg-brand-red/80 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_16px_32px_-22px_rgba(229,9,20,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
     >
       {language === 'id' ? 'Book a Call' : 'Book a Call'}
-      <ArrowUpRight size={13} aria-hidden="true" />
+      <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
     </Link>
   </div>
 );
