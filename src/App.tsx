@@ -37,6 +37,67 @@ const ScrollToTop = () => {
   return null;
 };
 
+class RouteErrorBoundary extends React.Component<
+  { children: React.ReactNode; pathname: string },
+  { error: Error | null }
+> {
+  state: { error: Error | null } = { error: null };
+
+  static getDerivedStateFromError(error: unknown): { error: Error } {
+    return {
+      error: error instanceof Error ? error : new Error(String(error))
+    };
+  }
+
+  componentDidCatch(error: Error): void {
+    console.error('[Kapitech Public Site] route render failed:', {
+      pathname: this.props.pathname,
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children;
+
+    const isInsight = this.props.pathname.startsWith('/insights/');
+    return (
+      <section className="flex min-h-[55vh] w-full items-center justify-center bg-[#0B0C0E] px-5 py-24 sm:px-8">
+        <div className="w-full max-w-2xl">
+          <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
+            {isInsight ? 'Insight / Runtime error' : 'Page / Runtime error'}
+          </p>
+          <h1 className="mt-4 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+            {isInsight ? 'The article could not be rendered.' : 'This page could not be rendered.'}
+          </h1>
+          <p className="mt-4 text-sm leading-7 text-[#8B929F]">
+            A client-side error occurred while rendering this route. Reload the page or return to the Insight library.
+          </p>
+          <pre className="mt-6 max-h-40 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
+            {this.state.error.name + ': ' + this.state.error.message}
+          </pre>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center justify-center rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white"
+            >
+              Reload
+            </button>
+            <a
+              href={isInsight ? '/insights' : '/'}
+              className="inline-flex items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white"
+            >
+              {isInsight ? 'Back to Insights' : 'Back to Home'}
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
+}
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
@@ -50,32 +111,34 @@ const AnimatedRoutes = () => {
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
         className="w-full flex-1 flex flex-col"
       >
-        <Suspense
-          fallback={
-            <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm text-white/60" role="status" aria-live="polite">
-              Loading…
-            </div>
-          }
-        >
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/insights/:slug" element={<InsightDetail />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/solutions/:slug" element={<ServiceDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/ai-instructions" element={<AiInstructions />} />
-            <Route path="/editorial-policy" element={<EditorialPolicy />} />
-            <Route path="/cookie-policy" element={<CookiePolicy />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <RouteErrorBoundary key={location.pathname} pathname={location.pathname}>
+          <Suspense
+            fallback={
+              <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm text-white/60" role="status" aria-live="polite">
+                Loading…
+              </div>
+            }
+          >
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/work" element={<Work />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/insights" element={<Insights />} />
+              <Route path="/insights/:slug" element={<InsightDetail />} />
+              <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/solutions/:slug" element={<ServiceDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/ai-instructions" element={<AiInstructions />} />
+              <Route path="/editorial-policy" element={<EditorialPolicy />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </RouteErrorBoundary>
       </motion.div>
     </AnimatePresence>
   );
