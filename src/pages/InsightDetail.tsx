@@ -36,6 +36,7 @@ export const InsightDetail: React.FC = () => {
   const articleRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
+  const initialLanguageSyncPendingRef = useRef(false);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -46,6 +47,7 @@ export const InsightDetail: React.FC = () => {
   useEffect(() => {
     languageInitializedRef.current = false;
     articleLanguageRef.current = null;
+    initialLanguageSyncPendingRef.current = false;
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
@@ -78,12 +80,24 @@ export const InsightDetail: React.FC = () => {
     // A direct article URL owns the initial language. Apply it once, then
     // wait for a real language change before navigating to an alternate URL.
     if (article.language !== language) {
+      initialLanguageSyncPendingRef.current = true;
       setLanguage(article.language);
     }
   }, [article, language, setLanguage]);
 
   useEffect(() => {
     if (!article || !languageInitializedRef.current) return;
+
+    // The previous effect may have just changed the global language to match
+    // the article. Do not interpret the old render's language as a manual
+    // language switch.
+    if (initialLanguageSyncPendingRef.current) {
+      if (language === article.language) {
+        initialLanguageSyncPendingRef.current = false;
+      }
+      return;
+    }
+
     if (articleLanguageRef.current === language) return;
 
     const alternate = article.alternateLanguages?.find(item => item.language === language);
