@@ -40,6 +40,12 @@
       "kind": "webpage"
     },
     {
+      "path": "/insights",
+      "title": "Insights | Kapitech Agency",
+      "description": "Practical perspectives on design, technology, digital products, and building better digital experiences.",
+      "robots": "index, follow"
+    },
+    {
       "path": "/contact",
       "title": "Contact Kapitech Agency | Start a Creative or IT Development Project",
       "description": "Share your website, branding, UI/UX, custom web application, or digital product needs with Kapitech Agency and start a project discussion.",
