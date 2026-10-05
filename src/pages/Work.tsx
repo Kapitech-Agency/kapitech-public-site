@@ -399,7 +399,7 @@ export const Work = () => {
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D]">
               <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-                <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies Verified'}</span>
+                <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies'}</span>
               </span>
               <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
                 {serviceOptions.filter((item) => item !== 'All').length} {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
