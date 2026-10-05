@@ -94,7 +94,7 @@
   "rewrites": [
     {
       "source": "/insights/:path*",
-      "destination": "/index.html"
+      "destination": "/index"
     },
     {
       "source": "/(work|services|about|careers|contact|privacy|terms|ai-instructions|editorial-policy|cookie-policy)",
