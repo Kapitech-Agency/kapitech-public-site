@@ -29,6 +29,15 @@ const WorkModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
   return createPortal(children, document.body);
 };
+
+const CASE_STUDY_IMAGE_FALLBACK = '/case-study-fallback.svg';
+
+const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+  const image = event.currentTarget;
+  if (image.dataset.fallbackApplied === 'true') return;
+  image.dataset.fallbackApplied = 'true';
+  image.src = CASE_STUDY_IMAGE_FALLBACK;
+};
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 
 export const Work = () => {
@@ -845,12 +854,8 @@ export const Work = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {filteredProjects.slice(0, visibleCount).map((project) => (
-                  <motion.article
+                  <article
                     key={project.id}
-                    layout
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => openCaseStudy(project)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
@@ -872,6 +877,7 @@ export const Work = () => {
                       <img
                         src={project.image}
                         alt={project.title}
+                        onError={handleCaseStudyImageError}
                         className="block h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
                         loading="lazy"
                         decoding="async"
@@ -1023,6 +1029,7 @@ export const Work = () => {
                           <img
                             src={selectedProjectGallery[selectedMediaIndex]}
                             alt={selectedProject.title + ' ' + (language === 'id' ? 'dokumentasi' : 'proof') + ' ' + (selectedMediaIndex + 1)}
+                            onError={handleCaseStudyImageError}
                             className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]"
                             fetchPriority={selectedMediaIndex === 0 ? 'high' : undefined}
                           />
@@ -1065,7 +1072,7 @@ export const Work = () => {
                               aria-pressed={selectedMediaIndex === index}
                               data-cursor-label="View"
                             >
-                              <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                              <img src={image} alt="" onError={handleCaseStudyImageError} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                             </button>
                           ))}
                         </div>
