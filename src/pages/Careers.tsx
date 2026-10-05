@@ -862,6 +862,7 @@ export const Careers = () => {
           ? 'Lamaran belum tersimpan. Periksa koneksi lalu coba lagi.'
           : 'Your application was not saved. Please check your connection and try again.'
       );
+      setIsApplicantSubmitting(false);
       return;
     }
     setIsSubmitted(true);
