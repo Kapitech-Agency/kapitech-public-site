@@ -38,6 +38,35 @@ const setPageJsonLd = (html, data) => {
   return html.replace('</head>', '    ' + tag + '\n  </head>');
 };
 
+const setPageJsonLd = (html, data) => {
+  const json = JSON.stringify(data).replaceAll('<', '\\u003c');
+  const pattern = /<script\\b[^>]*id="kapitech-page-jsonld"[^>]*>[\\s\\S]*?<\\/script>/i;
+  const tag = '<script id="kapitech-page-jsonld" type="application/ld+json">' + json + '</script>';
+  return pattern.test(html)
+    ? html.replace(pattern, tag)
+    : html.replace('</head>', '    ' + tag + '\\n  </head>');
+};
+
+const buildBreadcrumbs = (route) => {
+  if (route.path === '/') return null;
+  const segments = route.path.split('/').filter(Boolean);
+  const items = [
+    { '@type': 'ListItem', position: 1, name: manifest.siteName, item: manifest.siteUrl + '/' }
+  ];
+  if (segments.length === 1) {
+    items.push({ '@type': 'ListItem', position: 2, name: route.title, item: manifest.siteUrl + route.path });
+  } else {
+    const section = segments[0] === 'solutions' ? 'Solutions' : 'Services';
+    items.push({ '@type': 'ListItem', position: 2, name: section, item: manifest.siteUrl + '/' + segments[0] });
+    items.push({ '@type': 'ListItem', position: 3, name: route.title, item: manifest.siteUrl + route.path });
+  }
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': manifest.siteUrl + route.path + '#breadcrumb',
+    itemListElement: items
+  };
+};
+
 const renderRoute = (sourceHtml, route) => {
   const canonicalUrl = manifest.siteUrl + (route.path === '/' ? '/' : route.path);
   let html = sourceHtml;
@@ -50,30 +79,44 @@ const renderRoute = (sourceHtml, route) => {
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
   html = setMeta(html, 'property', 'og:image', manifest.defaultImage);
+  html = setMeta(html, 'property', 'og:image:alt', 'Kapitech Agency - Creative & IT Development Agency in Indonesia');
   html = setMeta(html, 'name', 'twitter:url', canonicalUrl);
   html = setMeta(html, 'name', 'twitter:title', route.title);
   html = setMeta(html, 'name', 'twitter:description', route.description);
   html = setMeta(html, 'name', 'twitter:image', manifest.defaultImage);
+  html = setMeta(html, 'name', 'twitter:site', '@kapitechagency');
+  html = setMeta(html, 'name', 'twitter:creator', '@kapitechagency');
   html = setCanonical(html, canonicalUrl);
 
-  const structuredData = route.kind === 'service'
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'Service',
-        name: route.serviceName,
-        description: route.description,
-        url: canonicalUrl,
-        provider: { '@type': 'Organization', name: manifest.siteName, url: manifest.siteUrl },
-        serviceType: route.serviceType,
-      }
-    : {
-        '@context': 'https://schema.org',
-        '@type': route.path === '/' ? 'WebSite' : 'WebPage',
+  const breadcrumb = buildBreadcrumbs(route);
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': canonicalUrl + '#webpage',
         name: route.title,
         description: route.description,
         url: canonicalUrl,
-        isPartOf: { '@type': 'WebSite', name: manifest.siteName, url: manifest.siteUrl },
-      };
+        isPartOf: { '@id': manifest.siteUrl + '/#website' },
+        about: { '@id': manifest.siteUrl + '/#organization' },
+        ...(breadcrumb ? { breadcrumb: { '@id': canonicalUrl + '#breadcrumb' } } : {})
+      },
+      ...(route.kind === 'service'
+        ? [{
+            '@type': 'Service',
+            '@id': canonicalUrl + '#service',
+            name: route.serviceName,
+            description: route.description,
+            url: canonicalUrl,
+            provider: { '@id': manifest.siteUrl + '/#organization' },
+            serviceType: route.serviceType,
+            mainEntityOfPage: { '@id': canonicalUrl + '#webpage' }
+          }]
+        : []),
+      ...(breadcrumb ? [breadcrumb] : [])
+    ]
+  };
 
   return setPageJsonLd(html, structuredData);
 };
