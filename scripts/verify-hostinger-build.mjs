@@ -30,7 +30,11 @@ if (!indexHtml.includes('<div id="root"></div>')) {
 }
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
-if (!htaccess.includes('RewriteRule ^ index.html [L]')) {
+if (!htaccess.includes('RewriteCond %{REQUEST_URI} ^/insights/[^/]+/?
+)) {
+  throw new Error('[deploy-check] dist/.htaccess is missing the explicit Insight detail fallback');
+}
+if (!htaccess.includes('RewriteRule ^ /index.html [L]')) {
   throw new Error('[deploy-check] dist/.htaccess is missing the React Router fallback');
 }
 
