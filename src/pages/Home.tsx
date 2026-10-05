@@ -490,7 +490,6 @@ export const Home = () => {
                   </div>
                 </div>
               ))}
-            </motion.div>
           </div>
 
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
@@ -572,7 +571,6 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </div>
       </section>
 
       {/* FEATURED CASE STUDIES */}
