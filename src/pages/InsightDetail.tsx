@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Check, ChevronRight, Clock3, Link2, Share2 } fro
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightCard } from '../components/InsightCard';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
+import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightBlock, InsightItem } from '../data/insightTypes';
@@ -118,6 +119,7 @@ export const InsightDetail: React.FC = () => {
 
   return (
     <article className="w-full">
+      <InsightSeoMeta article={article} />
       <header className="mx-auto w-full max-w-[1180px] px-5 pb-10 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pt-40">
         <nav className="mb-7 flex items-center gap-2 overflow-x-auto text-[10px] font-mono uppercase tracking-[0.12em] text-[#6F7682]" aria-label="Breadcrumb">
           <Link to="/" className="shrink-0 transition-colors hover:text-white">{article.language === 'id' ? 'Beranda' : 'Home'}</Link>
