@@ -93,6 +93,14 @@
   ],
   "rewrites": [
     {
+      "source": "/insights/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/insights",
+      "destination": "/insights/index"
+    },
+    {
       "source": "/(work|services|about|careers|contact|privacy|terms|ai-instructions|editorial-policy|cookie-policy)",
       "destination": "/$1/index"
     },
