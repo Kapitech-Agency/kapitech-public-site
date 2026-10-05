@@ -220,7 +220,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
     navSubtitleId: 'Untuk UKM & korporasi berkembang',
     heroHeadline: 'Strategic product redesign & UX overhaul company',
     heroHeadlineId: 'Perusahaan redesain produk digital & modernisasi UX strategis',
-    heroSubtitle: 'Elevate retention, eliminate churn, and modernize legacy software interfaces into high-impact digital experiences that dominate modern markets.',
+    heroSubtitle: 'Modernize legacy software interfaces, clarify complex user journeys, and improve product usability across critical workflows.',
     heroSubtitleId: 'Tingkatkan retensi pengguna, hilangkan friksi alur konversi, dan modernisasi software lama Anda menjadi pengalaman digital superior berstandar global.',
     badge: 'Conversion & Growth Solution',
     badgeId: 'Solusi Pertumbuhan & Konversi',
@@ -358,7 +358,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
     navSubtitleId: 'Untuk perusahaan dengan tim internal',
     heroHeadline: 'Dedicated senior design & engineering team extension',
     heroHeadlineId: 'Ekspansi tim desainer & engineer senior terdedikasi',
-    heroSubtitle: 'Embed battle-tested, high-caliber product designers, motion specialists, and full-stack engineers into your sprints with zero hiring overhead.',
+    heroSubtitle: 'Extend delivery capacity with product designers, motion specialists, and full-stack engineers for defined project engagements.',
     heroSubtitleId: 'Integrasikan desainer produk, spesialis animasi, dan engineer full-stack berpengalaman langsung ke alur kerja sprint tim internal Anda tanpa kerumitan rekrutmen.',
     badge: 'Dedicated Talent Model',
     badgeId: 'Model Talenta Terdedikasi',
@@ -1198,7 +1198,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
       {
         q: 'Can you also develop the website after designing it?',
         qId: 'Bisakah Anda juga mengoding website ini setelah desain selesai?',
-        a: 'Yes, our engineering team builds custom websites with Next.js, TypeScript, and Tailwind CSS with sub-second page load times.',
+        a: 'Yes, our engineering team builds custom websites with Next.js, TypeScript, and Tailwind CSS with performance-focused delivery.',
         aId: 'Ya, tim engineer kami dapat langsung membangunnya dengan Next.js, TypeScript, dan Tailwind CSS dengan kecepatan muat sub-1 detik.'
       }
     ]
@@ -1577,7 +1577,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
     navSubtitleId: 'Landing page berkonversi tinggi dan berkecepatan instan',
     heroHeadline: 'High-speed, conversion-optimized landing page engineering',
     heroHeadlineId: 'Rekayasa landing page berkecepatan tinggi & konversi optimal',
-    heroSubtitle: 'Ultra-fast, mobile-optimized landing pages with fluid micro-animations, lead capture integrations, and sub-second load times engineered to maximize marketing ROI.',
+    heroSubtitle: 'Mobile-optimized landing pages with focused motion, lead capture integrations, and performance-minded implementation for marketing campaigns.',
     heroSubtitleId: 'Landing page berkecepatan ultra-tinggi yang dioptimalkan untuk perangkat mobile, dilengkapi animasi mikro halus, routing prospek, dan waktu muat instan.',
     badge: 'Conversion Engine',
     badgeId: 'Mesin Konversi',
@@ -1753,7 +1753,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
     navSubtitleId: 'Website profesional, terukur, sangat cepat, dan memukau',
     heroHeadline: 'Experiential 3D websites, WebGL canvas & kinetic web engineering',
     heroHeadlineId: 'Website 3D interaktif, kanvas WebGL & rekayasa web kinetik memukau',
-    heroSubtitle: 'Award-winning experiential websites combining 3D interactive canvases, fluid WebGL physics, and kinetic scroll choreography with blistering-fast sub-second performance.',
+    heroSubtitle: 'Experiential websites combining 3D interaction, WebGL motion, and kinetic scroll choreography with performance-focused implementation.',
     heroSubtitleId: 'Website interaktif berstandar internasional yang memadukan kanvas 3D, efek fisika WebGL, dan koreografi scroll kinetik dengan kecepatan muat sub-1 detik.',
     badge: 'Awwwards Caliber',
     badgeId: 'Standar Kelas Dunia',
