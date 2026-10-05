@@ -940,7 +940,7 @@ export const Work = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.article>
+                  </article>
                 ))}
               </div>
 
