@@ -415,13 +415,19 @@ export const InsightTableOfContents: React.FC<{
             </span>
           </div>
 
-          <nav
-            ref={desktopListRef}
-            aria-label={navigationLabel}
-            className="mt-4 h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pr-1"
-          >
-            {renderList('desktop')}
-          </nav>
+          <div className="relative mt-4">
+            <nav
+              ref={desktopListRef}
+              aria-label={navigationLabel}
+              className="h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pr-1"
+            >
+              {renderList('desktop')}
+            </nav>
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12 rounded-b-[14px] bg-gradient-to-t from-[rgba(15,17,22,0.96)] via-[rgba(15,17,22,0.58)] to-transparent"
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </div>
     </>
