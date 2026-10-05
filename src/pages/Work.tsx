@@ -259,9 +259,17 @@ export const Work = () => {
     return () => clearInterval(interval);
   }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
 
+  const normalizeFilterValue = (value: string | null | undefined) =>
+    String(value ?? '').trim().toLocaleLowerCase();
+
   const serviceOptions = useMemo(() => {
+    const activePillarKey = normalizeFilterValue(activePillar);
     const services = projectsList
-      .filter((project) => activePillar === 'All' || project.pillar === activePillar)
+      .filter(
+        (project) =>
+          activePillar === 'All' ||
+          normalizeFilterValue(project.pillar) === activePillarKey,
+      )
       .map((project) => project.service?.trim())
       .filter((service): service is string => Boolean(service));
 
@@ -270,7 +278,10 @@ export const Work = () => {
 
   useEffect(() => {
     if (activePillar !== 'All') {
-      const pillarExists = projectsList.some((project) => project.pillar === activePillar);
+      const activePillarKey = normalizeFilterValue(activePillar);
+      const pillarExists = projectsList.some(
+        (project) => normalizeFilterValue(project.pillar) === activePillarKey,
+      );
       if (!pillarExists) setActivePillar('All');
     }
 
@@ -312,12 +323,19 @@ export const Work = () => {
   const filteredProjects = useMemo(() => {
     let list = projectsList;
 
+    const activePillarKey = normalizeFilterValue(activePillar);
+    const activeServiceKey = normalizeFilterValue(activeService);
+
     if (activePillar !== 'All') {
-      list = list.filter(p => p.pillar === activePillar);
+      list = list.filter(
+        (project) => normalizeFilterValue(project.pillar) === activePillarKey,
+      );
     }
 
     if (activeService !== 'All') {
-      list = list.filter(p => p.service === activeService);
+      list = list.filter(
+        (project) => normalizeFilterValue(project.service) === activeServiceKey,
+      );
     }
 
     if (searchQuery.trim()) {
