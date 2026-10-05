@@ -495,7 +495,7 @@ export const InsightDetail: React.FC = () => {
               </div>
               <Link
                 to="/contact"
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/70 px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.11),0_16px_34px_-24px_rgba(229,9,20,0.72)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/55 hover:bg-brand-red/80 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_18px_38px_-22px_rgba(229,9,20,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 {article.language === 'id' ? 'Book a Discovery Call' : 'Book a Discovery Call'}
                 <ArrowRight size={14} aria-hidden="true" />
