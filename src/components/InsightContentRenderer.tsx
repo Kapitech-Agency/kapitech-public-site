@@ -258,7 +258,6 @@ export const InsightContentRenderer: React.FC<{
             <InsightContextualPromo
               key={index}
               block={block}
-              language={language}
             />
           );
         }
