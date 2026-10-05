@@ -139,6 +139,43 @@ function getConsentChoice(): 'accepted' | 'necessary' | null {
   }
 }
 
+function clearCookie(name: string, domain?: string): void {
+  if (typeof document === 'undefined') return;
+  const domainAttribute = domain ? ` Domain=${domain};` : '';
+  document.cookie = `${name}=; Path=/;${domainAttribute} Max-Age=0; SameSite=Lax`;
+}
+
+function clearOptionalAnalyticsCookies(): void {
+  if (typeof document === 'undefined') return;
+
+  const cookieNames = document.cookie
+    .split(';')
+    .map((part) => part.trim().split('=')[0])
+    .filter((name) => /^_ga(?:_|$)/i.test(name) || /^_gid$/i.test(name));
+
+  for (const name of cookieNames) {
+    clearCookie(name);
+    clearCookie(name, window.location.hostname);
+    clearCookie(name, `.${window.location.hostname}`);
+    clearCookie(name, '.kapitech.id');
+  }
+}
+
+export function revokeOptionalAnalyticsConsent(): void {
+  if (typeof window === 'undefined') return;
+
+  try {
+    window.localStorage.removeItem(ATTRIBUTION_STORAGE_KEY);
+    window.localStorage.removeItem(ANONYMOUS_ID_STORAGE_KEY);
+  } catch {
+    // Privacy controls must still complete if storage access is restricted.
+  }
+
+  clearOptionalAnalyticsCookies();
+  initialized = false;
+  lastTrackedPath = '';
+}
+
 function getGaMeasurementId(): string {
   return String(import.meta.env.VITE_GA_MEASUREMENT_ID || '').trim();
 }
