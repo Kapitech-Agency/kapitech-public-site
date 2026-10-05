@@ -808,9 +808,16 @@ const PatternWaves = ({
     };
 
     const locate = e => {
-      const x = e.clientX - containerRect.left;
-      const y = e.clientY - containerRect.top;
-      return { x, y, inside: x >= 0 && y >= 0 && x <= containerRect.width && y <= containerRect.height };
+      const rect = container.getBoundingClientRect();
+      containerRect = {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height
+      };
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      return { x, y, inside: x >= 0 && y >= 0 && x <= rect.width && y <= rect.height };
     };
 
     const onPointerMove = e => {
@@ -849,6 +856,24 @@ const PatternWaves = ({
       if (e.pointerType === 'touch') onPointerLeave();
     };
 
+    // The canvas is a background layer, so Hero content can sit above it and
+    // still needs to feed pointer coordinates into the same interaction field.
+    const isInsideCanvas = target => target instanceof Node && container.contains(target);
+    const onViewportPointerMove = e => {
+      if (!settingsRef.current?.interactive) return;
+      if (isInsideCanvas(e.target)) return;
+      onPointerMove(e);
+    };
+    const onViewportPointerDown = e => {
+      if (!settingsRef.current?.interactive) return;
+      if (isInsideCanvas(e.target)) return;
+      onPointerDown(e);
+    };
+    const onViewportPointerUp = e => {
+      if (isInsideCanvas(e.target)) return;
+      onPointerUp(e);
+    };
+
     const onVisibility = () => {
       pageVisible = !document.hidden;
       if (pageVisible) {
@@ -863,6 +888,9 @@ const PatternWaves = ({
     container.addEventListener('pointerdown', onPointerDown, { passive: true });
     container.addEventListener('pointerout', onPointerOut, { passive: true });
     container.addEventListener('pointerup', onPointerUp, { passive: true });
+    window.addEventListener('pointermove', onViewportPointerMove, { passive: true });
+    window.addEventListener('pointerdown', onViewportPointerDown, { passive: true });
+    window.addEventListener('pointerup', onViewportPointerUp, { passive: true });
     document.addEventListener('visibilitychange', onVisibility);
 
     const resizeObserver = new ResizeObserver(resize);
@@ -889,6 +917,9 @@ const PatternWaves = ({
       container.removeEventListener('pointerdown', onPointerDown);
       container.removeEventListener('pointerout', onPointerOut);
       container.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointermove', onViewportPointerMove);
+      window.removeEventListener('pointerdown', onViewportPointerDown);
+      window.removeEventListener('pointerup', onViewportPointerUp);
       document.removeEventListener('visibilitychange', onVisibility);
       wakeRef.current = null;
       if (ripple) {
