@@ -153,23 +153,29 @@ export const ServiceDetail = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         
         {/* BREADCRUMB & BACK NAVIGATION */}
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12">
-          <Link 
-            to="/services" 
-            className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="kapi-section-label mb-0">
-            {service.category}
-          </span>
-          <ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" />
-          <span className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
-            {service.title}
-          </span>
-        </div>
+        <nav aria-label={language === 'id' ? 'Breadcrumb' : 'Breadcrumb'}>
+          <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12 list-none p-0 m-0">
+            <li>
+              <Link 
+                to="/services" 
+                className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
+              </Link>
+            </li>
+            <li aria-hidden="true"><ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" /></li>
+            <li>
+              <span className="kapi-section-label mb-0">
+                {service.category}
+              </span>
+            </li>
+            <li aria-hidden="true"><ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" /></li>
+            <li className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
+              {service.title}
+            </li>
+          </ol>
+        </nav>
 
 
         {/* HERO SECTION */}
