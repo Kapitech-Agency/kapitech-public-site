@@ -16,6 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'Services',
     'nav.about': 'About',
     'nav.careers': 'Careers',
+    'nav.insights': 'Insights',
     'nav.contact': 'Contact',
     'nav.startProject': 'Start a Project',
 
@@ -342,6 +343,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.services': 'Layanan',
     'nav.about': 'Tentang Kami',
     'nav.careers': 'Karir',
+    'nav.insights': 'Insight',
     'nav.contact': 'Kontak',
     'nav.startProject': 'Mulai Proyek',
 
