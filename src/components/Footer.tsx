@@ -338,7 +338,7 @@ export const Footer = () => {
               {t('footer.contactsTitle')}
             </h4>
             <div className="space-y-3.5 text-xs text-[#8A909D]">
-              <a href="mailto:hello@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:hello@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Mail size={13} />
                 </div>
@@ -348,7 +348,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="mailto:business@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:business@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Globe size={13} />
                 </div>
@@ -358,7 +358,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="mailto:recruitment@kapitech.id" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="mailto:recruitment@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Briefcase size={13} />
                 </div>
@@ -368,7 +368,7 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="tel:+6287769957062" className="flex items-center gap-2.5 hover:text-brand-red transition-colors group min-h-[36px]">
+              <a href="tel:+6287769957062" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
                 <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Phone size={13} />
                 </div>
