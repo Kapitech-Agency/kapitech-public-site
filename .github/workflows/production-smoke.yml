@@ -19,7 +19,7 @@ jobs:
           set -euo pipefail
           marker="$(curl -fsSL --max-time 20 https://kapitech.id/kapitech-deployment-health.txt)"
           echo "$marker"
-          echo "$marker" | grep -F "Required deployed baseline: e462d195e77916e2f71990751e85c39687b1b88e"
+          printf '%s\n' "$marker" > /tmp/kapitech-production-marker.txt
 
       - name: Check Insight API
         run: |
@@ -29,6 +29,11 @@ jobs:
             https://ams.kapitech.id/api/cms/insights/mvp-vs-prototype-vs-proof-of-concept)"
           echo "$body" | grep -F '"success":true'
           echo "$body" | grep -F '"slug":"mvp-vs-prototype-vs-proof-of-concept"'
+
+      - name: Check deployment baseline
+        run: |
+          set -euo pipefail
+          grep -F "Required deployed baseline: e462d195e77916e2f71990751e85c39687b1b88e" /tmp/kapitech-production-marker.txt
 
       - name: Check Insight route
         run: |
