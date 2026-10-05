@@ -488,58 +488,73 @@ export const Home = () => {
       </section>
 
       {/* ENGAGEMENT OPTIONS */}
-      <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930]" id="engagement">
-        <div className="w-full max-w-7xl mx-auto min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10">
+      <section
+        className="border-b border-[#262930] bg-[#0B0C0E] py-14 sm:py-20 lg:py-24"
+        id="engagement"
+      >
+        <div className="mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 md:px-10 lg:px-12">
           <div className="overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
-            <div className="grid min-w-0 lg:grid-cols-[minmax(250px,0.72fr)_minmax(0,1.28fr)]">
-              <div className="min-w-0 border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                  {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
-                </span>
-                <h3 className="mt-3 max-w-sm text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
-                  {language === 'id' ? 'Pilih service yang paling sesuai dengan kebutuhan Anda.' : 'Choose the service that fits your needs.'}
-                </h3>
-                <p className="mt-3 max-w-sm text-xs leading-[1.7] text-[#8A909D] sm:text-sm">
-                  {language === 'id'
-                    ? 'Mulai dari branding, lanjut ke design, lalu scale dengan development. Semua service tetap berada dalam satu workflow Kapitech.'
-                    : 'Start with branding, move into design, then scale with development. Every service stays within one connected Kapitech workflow.'}
-                </p>
+            <div className="grid min-w-0 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.9fr)]">
+              <div className="min-w-0 border-b border-white/[0.065] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8 xl:p-9">
+                <div className="flex h-full min-h-[230px] min-w-0 flex-col">
+                  <div>
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                      {language === 'id' ? 'Pilihan Layanan' : 'Engagement Options'}
+                    </span>
+
+                    <h3 className="mt-4 max-w-sm text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem]">
+                      {language === 'id'
+                        ? 'Pilih layanan yang sesuai dengan kebutuhan bisnis Anda.'
+                        : 'Choose the service that fits your business needs.'}
+                    </h3>
+
+                    <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
+                      {language === 'id'
+                        ? 'Mulai dari membangun brand, memperkuat experience, hingga mengembangkan produk digital. Semua service terhubung dalam satu workflow Kapitech.'
+                        : 'From shaping your brand to improving experiences and building digital products, every service connects to one Kapitech workflow.'}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-8 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                    <span>14 Services</span>
+                    <span className="h-1 w-1 rounded-full bg-[#4C515A]" aria-hidden="true" />
+                    <span>3 Disciplines</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="w-full min-w-0 max-w-full">
-                <div className="grid w-full min-w-0 max-w-full grid-cols-1 divide-y divide-white/[0.065] sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-[repeat(3,minmax(0,1fr))]">
+              <div className="min-w-0">
+                <div className="grid w-full min-w-0 grid-cols-1 divide-y divide-white/[0.065] md:grid-cols-3 md:divide-x md:divide-y-0">
                   {(['Branding', 'Design', 'Development'] as const).map((category) => {
                     const services = allSolutionsAndServices.filter(
                       (service) => service.type === 'service' && service.category === category,
                     );
 
                     return (
-                      <div
-                        key={category}
-                        className="min-w-0 p-5 sm:p-6 lg:p-7"
-                      >
-                        <div className="flex items-center justify-between gap-4 border-b border-white/[0.065] pb-3">
-                          <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                      <div key={category} className="min-w-0 p-5 sm:p-6 lg:p-7">
+                        <div className="flex items-end justify-between gap-3 border-b border-white/[0.065] pb-3">
+                          <span className="min-w-0 text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
                             {category}
                           </span>
-                          <span className="text-[10px] font-mono tabular-nums text-[#6F757F]">
+                          <span className="shrink-0 text-[10px] font-mono tabular-nums text-[#6F757F]">
                             {String(services.length).padStart(2, '0')}
                           </span>
                         </div>
 
-                        <div className="mt-3 min-w-0">
+                        <div className="mt-2 min-w-0">
                           {services.map((service) => (
                             <Link
                               key={service.slug}
                               to={`/services/${service.slug}`}
-                              className="group flex w-full min-w-0 max-w-full items-center justify-between gap-3 border-b border-white/[0.045] py-3 text-left last:border-b-0"
+                              className="group flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12 sm:py-3"
                             >
-                              <span className="min-w-0 break-words pr-2 text-xs font-medium text-white/85 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
+                              <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover:text-brand-red sm:text-[13px]">
                                 {service.title}
                               </span>
                               <ArrowUpRight
                                 size={14}
-                                className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                                className="shrink-0 text-[#626872] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                                aria-hidden="true"
                               />
                             </Link>
                           ))}
