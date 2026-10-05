@@ -1,0 +1,104 @@
+name: Production language and TOC smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify production language, content, and TOC
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+
+          const tests = [
+            {
+              name: 'English',
+              url: 'https://kapitech.id/insights/mvp-vs-prototype-vs-proof-of-concept-guide',
+              required: ['What is a Prototype?', 'What is an MVP?', 'What is a Proof of Concept?', 'Frequently asked questions', 'In this article', 'Reading status', 'Kapitech Editorial Team'],
+              forbidden: ['Apa itu Prototype?', 'Apa itu MVP?', 'Pertanyaan yang sering diajukan', 'Di artikel ini', 'Status bacaan', 'Tim Editorial Kapitech', 'Bukti yang baik']
+            },
+            {
+              name: 'Indonesian',
+              url: 'https://kapitech.id/insights/mvp-vs-prototype-vs-proof-of-concept',
+              required: ['Apa itu Prototype?', 'Apa itu MVP?', 'Proof of Concept', 'Pertanyaan yang sering diajukan', 'Di artikel ini', 'Status bacaan', 'Tim Editorial Kapitech'],
+              forbidden: ['What is a Prototype?', 'What is an MVP?', 'Frequently asked questions', 'In this article', 'Reading status', 'Kapitech Editorial Team', 'Evidence']
+            }
+          ];
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            try {
+              for (const test of tests) {
+                const context = await browser.newContext({ locale: test.name === 'Indonesian' ? 'id-ID' : 'en-US' });
+                const page = await context.newPage();
+                const consoleErrors = [];
+                const pageErrors = [];
+                const failedRequests = [];
+                page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+                page.on('pageerror', err => pageErrors.push(String(err)));
+                page.on('requestfailed', req => failedRequests.push(req.url() + ' :: ' + (req.failure()?.errorText || 'failed')));
+
+                const response = await page.goto(test.url, { waitUntil: 'networkidle', timeout: 60000 });
+                if (!response || response.status() !== 200) throw new Error(test.name + ': HTTP ' + (response?.status() ?? 'no response'));
+
+                await page.waitForSelector('article h1', { timeout: 30000 });
+                const bodyText = await page.locator('body').innerText();
+
+                for (const phrase of test.required) {
+                  if (!bodyText.includes(phrase)) throw new Error(test.name + ': missing required phrase: ' + phrase);
+                }
+                for (const phrase of test.forbidden) {
+                  if (bodyText.includes(phrase)) throw new Error(test.name + ': forbidden mixed-language phrase found: ' + phrase);
+                }
+
+                const toc = await page.locator('aside[aria-label] nav a').evaluateAll(nodes => nodes.map(n => ({
+                  text: n.textContent?.trim() || '',
+                  href: n.getAttribute('href')
+                })));
+                const targets = await page.locator('h2[id^="insight-section-"], h2#faq-title').evaluateAll(nodes => nodes.map(n => n.id));
+                if (!toc.length) throw new Error(test.name + ': TOC is empty');
+                for (const item of toc) {
+                  if (!item.href || !item.href.startsWith('#')) throw new Error(test.name + ': invalid TOC href for ' + item.text);
+                  const target = item.href.slice(1);
+                  if (!targets.includes(target)) throw new Error(test.name + ': TOC target missing: ' + target);
+                }
+                const duplicateFaq = await page.locator('#faq-title').count();
+                if (duplicateFaq !== 1) throw new Error(test.name + ': expected exactly one FAQ section, found ' + duplicateFaq);
+
+                const author = await page.locator('article').innerText();
+                if (test.name === 'Indonesian' && !author.includes('Tim Editorial Kapitech')) throw new Error('Indonesian author localization missing');
+                if (test.name === 'English' && !author.includes('Kapitech Editorial Team')) throw new Error('English author localization missing');
+
+                if (consoleErrors.length || pageErrors.length || failedRequests.length) {
+                  throw new Error(test.name + ': runtime errors\nconsole=' + JSON.stringify(consoleErrors) + '\npage=' + JSON.stringify(pageErrors) + '\nrequests=' + JSON.stringify(failedRequests));
+                }
+
+                console.log(test.name + ' production smoke passed: ' + toc.length + ' TOC items, ' + targets.length + ' H2/FAQ targets.');
+                await context.close();
+              }
+            } finally {
+              await browser.close();
+            }
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
