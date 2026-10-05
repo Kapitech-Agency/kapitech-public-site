@@ -274,7 +274,7 @@ export const InsightTableOfContents: React.FC<{
               <ChevronDown
                 size={14}
                 strokeWidth={2}
-                className={expanded ? 'rotate-180 transition-transform duration-250' : 'transition-transform duration-250'}
+                className={expanded ? 'rotate-180 transition-transform duration-300' : 'transition-transform duration-300'}
                 aria-hidden="true"
               />
             </button>
@@ -322,9 +322,7 @@ export const InsightTableOfContents: React.FC<{
                         aria-hidden="true"
                       />
                       <span className="min-w-0 flex-1">{child.text}</span>
-                      {active && (
-                        <span className="mt-[4px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/70" aria-hidden="true" />
-                      )}
+
                     </a>
                   );
                 })}
@@ -391,6 +389,7 @@ export const InsightTableOfContents: React.FC<{
 
           {mobileOpen && (
             <nav
+              ref={mobileListRef}
               id="insight-mobile-toc"
               aria-label={navigationLabel}
               className="max-h-[min(24rem,58vh)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
