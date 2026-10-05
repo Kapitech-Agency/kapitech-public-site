@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const MOTION_SELECTOR = [
   '.kapi-public-shell main section',
@@ -34,6 +35,7 @@ const isSpotlightTarget = (element: Element) =>
   );
 
 export const PublicMotion = () => {
+  const { pathname } = useLocation();
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -167,7 +169,9 @@ export const PublicMotion = () => {
       window.removeEventListener('resize', handleViewportChange);
       if (rafId) window.cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [pathname]);
+
+  if (pathname.startsWith('/insights/')) return null;
 
   return <div ref={progressRef} className="kapi-scroll-progress" aria-hidden="true" />;
 };
