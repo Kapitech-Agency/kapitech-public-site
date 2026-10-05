@@ -269,6 +269,17 @@ export const Work = () => {
   }, [projectsList, activePillar]);
 
   useEffect(() => {
+    if (activePillar !== 'All') {
+      const pillarExists = projectsList.some((project) => project.pillar === activePillar);
+      if (!pillarExists) setActivePillar('All');
+    }
+
+    if (activeService !== 'All' && !serviceOptions.includes(activeService)) {
+      setActiveService('All');
+    }
+  }, [activePillar, activeService, projectsList, serviceOptions]);
+
+  useEffect(() => {
     const nextParams = new URLSearchParams(searchParams);
     if (activePillar === 'All') nextParams.delete('pillar');
     else nextParams.set('pillar', activePillar);
