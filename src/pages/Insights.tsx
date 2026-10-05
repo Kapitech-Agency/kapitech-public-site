@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
 import { InsightCard } from '../components/InsightCard';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
@@ -80,43 +81,108 @@ export const Insights: React.FC = () => {
     setPage(1);
   };
 
+  const scrollToLibrary = () => {
+    document.getElementById('insight-library')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   const intro = language === 'id'
     ? 'Perspektif praktis tentang desain, teknologi, produk digital, dan cara membangun pengalaman digital yang lebih baik.'
     : 'Practical perspectives on design, technology, digital products, and how teams build better digital experiences.';
 
+  const eyebrow = language === 'id' ? 'Knowledge / Perspective / Practice' : 'Knowledge / Perspective / Practice';
   const title = language === 'id' ? 'Insight' : 'Insights';
   const latestLabel = language === 'id' ? 'Insight terbaru' : 'Latest insights';
+  const libraryLabel = language === 'id' ? 'Telusuri semua insight' : 'Browse the insight library';
 
   return (
     <>
       <InsightSeoMeta />
-      <div className="w-full">
-        <section className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-36 lg:px-10 lg:pt-40">
-          <div className="max-w-3xl">
-            <div className="mb-5 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
-              <Sparkles size={13} aria-hidden="true" />
-              <span>{language === 'id' ? 'Knowledge & Perspective' : 'Knowledge & Perspective'}</span>
+      <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
+        <section className="relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-5 pb-20 pt-36 sm:min-h-[680px] sm:px-8 sm:pt-40 lg:min-h-[740px] lg:px-10 lg:pt-44">
+          <InsightAmbientBackground intensity="hero" />
+
+          <div className="relative z-10 mx-auto grid w-full max-w-[1240px] gap-12 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:gap-16">
+            <div className="max-w-4xl">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-brand-red/70" />
+                  <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
+                </span>
+                {eyebrow}
+              </div>
+
+              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-white sm:text-7xl lg:text-[6.2rem]">
+                {title}
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#9AA1AE] sm:mt-7 sm:text-base sm:leading-8 lg:text-[1.05rem]">
+                {intro}
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button
+                  type="button"
+                  onClick={scrollToLibrary}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-red px-6 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] active:scale-[0.985]"
+                >
+                  {libraryLabel}
+                  <ArrowDown size={14} aria-hidden="true" />
+                </button>
+                <span className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#676F7C]">
+                  {language === 'id' ? 'Dibuat untuk tim yang ingin berpikir lebih tajam.' : 'Built for teams that want to think sharper.'}
+                </span>
+              </div>
             </div>
-            <h1 className="font-display text-4xl font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
-              {title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-[#9BA1AE] sm:text-base sm:leading-8">
-              {intro}
-            </p>
+
+            <div className="rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]/48 p-5 backdrop-blur-xl sm:p-6">
+              <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] pb-4">
+                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F7682]">
+                  {language === 'id' ? 'Editorial desk' : 'Editorial desk'}
+                </span>
+                <Sparkles size={14} className="text-brand-red" aria-hidden="true" />
+              </div>
+              <div className="pt-5">
+                <p className="text-xs leading-6 text-[#A8AEB9]">
+                  {language === 'id'
+                    ? 'Baca pendekatan, kerangka berpikir, dan pembelajaran yang kami gunakan saat mengerjakan design, product, dan engineering.'
+                    : 'Read the approaches, frameworks, and lessons we use across design, product, and engineering work.'}
+                </p>
+                <div className="mt-6 grid grid-cols-2 gap-2">
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">Language</p>
+                    <p className="mt-1 text-sm font-semibold text-white">{language === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
+                      {language === 'id' ? 'Publikasi' : 'Publishing'}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white">{total || '—'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10" aria-label={language === 'id' ? 'Temukan Insight' : 'Discover Insights'}>
-          <div className="flex flex-col gap-4 border-y border-white/[0.07] py-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 lg:max-w-[72%]">
+        <section
+          id="insight-library"
+          className="relative mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16"
+          aria-label={language === 'id' ? 'Temukan Insight' : 'Discover Insights'}
+        >
+          <div className="flex flex-col gap-4 rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-3 backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between lg:p-3.5">
+            <div className="flex min-w-0 items-center gap-2 overflow-x-auto px-1 pb-1 lg:flex-1 lg:pb-0">
               <button
                 type="button"
                 onClick={() => { setCategoryId(''); setPage(1); }}
-                className={'shrink-0 rounded-full border px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors ' + (
-                  categoryId
-                    ? 'border-white/[0.08] text-[#8A909D] hover:border-white/[0.16] hover:text-white'
-                    : 'border-brand-red/30 bg-brand-red/10 text-white'
-                )}
+                className={[
+                  'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
+                  !categoryId
+                    ? 'border-brand-red/35 bg-brand-red/12 text-white'
+                    : 'border-white/[0.08] bg-transparent text-[#858C99] hover:border-white/[0.16] hover:text-white'
+                ].join(' ')}
               >
                 {language === 'id' ? 'Semua' : 'All'}
               </button>
@@ -129,11 +195,12 @@ export const Insights: React.FC = () => {
                     key={category.id}
                     type="button"
                     onClick={() => { setCategoryId(category.id); setPage(1); }}
-                    className={'shrink-0 rounded-full border px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors ' + (
+                    className={[
+                      'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
                       active
-                        ? 'border-brand-red/30 bg-brand-red/10 text-white'
-                        : 'border-white/[0.08] text-[#8A909D] hover:border-white/[0.16] hover:text-white'
-                    )}
+                        ? 'border-brand-red/35 bg-brand-red/12 text-white'
+                        : 'border-white/[0.08] bg-transparent text-[#858C99] hover:border-white/[0.16] hover:text-white'
+                    ].join(' ')}
                   >
                     {label}
                   </button>
@@ -141,118 +208,181 @@ export const Insights: React.FC = () => {
               })}
             </div>
 
-            <form onSubmit={handleSearch} className="flex w-full max-w-md items-center gap-2 lg:w-auto" role="search">
-              <label htmlFor="insight-search" className="sr-only">{language === 'id' ? 'Cari Insight' : 'Search Insights'}</label>
+            <form onSubmit={handleSearch} className="flex w-full gap-2 lg:w-[330px] lg:shrink-0" role="search">
+              <label htmlFor="insight-search" className="sr-only">
+                {language === 'id' ? 'Cari Insight' : 'Search Insights'}
+              </label>
               <div className="relative min-w-0 flex-1">
-                <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#707684]" aria-hidden="true" />
+                <Search size={15} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#666E7B]" aria-hidden="true" />
                 <input
                   id="insight-search"
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
-                  className="h-10 w-full rounded-full border border-white/[0.08] bg-[#0D0F12]/80 pl-9 pr-4 text-xs text-white outline-none transition-colors placeholder:text-[#5E6470] focus:border-brand-red/35"
+                  className="h-10 w-full rounded-full border border-white/[0.08] bg-[#0B0C0E]/62 pl-9 pr-4 text-xs text-white outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#606774] focus:border-brand-red/40 focus:shadow-[0_0_0_3px_rgba(229,9,20,0.07)]"
                   placeholder={language === 'id' ? 'Cari topik...' : 'Search topics...'}
                 />
               </div>
-              <button type="submit" className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.04] px-4 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-brand-red/35 hover:bg-brand-red/10">
+              <button
+                type="submit"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10"
+              >
                 {language === 'id' ? 'Cari' : 'Search'}
               </button>
             </form>
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[1240px] px-5 py-10 sm:px-8 sm:py-14 lg:px-10">
+        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24 lg:px-10">
           {loading ? (
-            <div className="rounded-[24px] border border-white/[0.07] bg-white/[0.02] p-8 text-sm text-[#7E8592]" role="status">
+            <div className="rounded-[26px] border border-white/[0.07] bg-white/[0.018] p-8 text-sm text-[#7E8592]" role="status">
               {language === 'id' ? 'Memuat Insight...' : 'Loading insights...'}
             </div>
           ) : error ? (
-            <div className="rounded-[24px] border border-brand-red/20 bg-brand-red/5 p-8">
+            <div className="rounded-[26px] border border-brand-red/20 bg-brand-red/[0.045] p-8">
               <p className="text-sm font-semibold text-white">{language === 'id' ? 'Insight tidak tersedia' : 'Insights unavailable'}</p>
-              <p className="mt-2 text-sm leading-6 text-[#858C99]">{error}</p>
-              <button type="button" onClick={() => window.location.reload()} className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-white hover:border-brand-red/35">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[#858C99]">{error}</p>
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-red/35"
+              >
                 {language === 'id' ? 'Coba lagi' : 'Try again'}
               </button>
             </div>
           ) : total === 0 ? (
-            <div className="flex min-h-[360px] flex-col items-center justify-center rounded-[24px] border border-white/[0.07] bg-white/[0.02] px-6 py-16 text-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-[#717885]" aria-hidden="true">
-                <Sparkles size={16} />
+            <div className="relative overflow-hidden rounded-[28px] border border-white/[0.07] bg-white/[0.018] px-6 py-20 text-center backdrop-blur-xl">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(229,9,20,0.08),transparent_44%)]" />
+              <div className="relative">
+                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-[#717885]" aria-hidden="true">
+                  <Sparkles size={16} />
+                </div>
+                <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
+                  {language === 'id' ? 'Editorial queue' : 'Editorial queue'}
+                </p>
+                <h2 className="mt-3 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+                  {search || categoryId
+                    ? (language === 'id' ? 'Belum ada Insight yang cocok' : 'No matching Insights')
+                    : (language === 'id' ? 'Insight sedang disiapkan' : 'Insights are being prepared')}
+                </h2>
+                <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#7E8592]">
+                  {search || categoryId
+                    ? (language === 'id' ? 'Coba kata kunci atau kategori lain.' : 'Try another keyword or category.')
+                    : (language === 'id' ? 'Belum ada artikel yang dipublikasikan. Saat artikel siap, konten akan muncul di sini.' : 'No articles have been published yet. Published editorial content will appear here.')}
+                </p>
               </div>
-              <h2 className="mt-4 text-xl font-display font-semibold text-white">
-                {search || categoryId
-                  ? (language === 'id' ? 'Belum ada Insight yang cocok' : 'No matching Insights')
-                  : (language === 'id' ? 'Insight sedang disiapkan' : 'Insights are being prepared')}
-              </h2>
-              <p className="mt-2 max-w-md text-sm leading-6 text-[#7E8592]">
-                {search || categoryId
-                  ? (language === 'id' ? 'Coba kata kunci atau kategori lain.' : 'Try another keyword or category.')
-                  : (language === 'id' ? 'Belum ada artikel yang dipublikasikan. Saat artikel siap, konten akan muncul di sini.' : 'No articles have been published yet. Published editorial content will appear here.')}
-              </p>
             </div>
           ) : (
-            <div className="space-y-12">
+            <div className="space-y-16">
               {featured && (
                 <section aria-labelledby="featured-insight-title">
-                  <div className="mb-4 flex items-center justify-between gap-3">
-                    <p id="featured-insight-title" className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#747B88]">{language === 'id' ? 'Pilihan editor' : 'Featured Insight'}</p>
+                  <div className="mb-5 flex items-end justify-between gap-4">
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                        {language === 'id' ? 'Pilihan editor' : 'Featured insight'}
+                      </p>
+                      <h2 id="featured-insight-title" className="mt-2 text-2xl font-display font-semibold tracking-[-0.035em] text-white sm:text-3xl">
+                        {language === 'id' ? 'Satu ide untuk dibawa minggu ini.' : 'One idea worth carrying this week.'}
+                      </h2>
+                    </div>
+                    <span className="hidden text-[9px] font-mono uppercase tracking-[0.14em] text-[#656D79] sm:block">
+                      01 / {Math.max(1, total).toString().padStart(2, '0')}
+                    </span>
                   </div>
                   <InsightCard insight={featured} language={language} featured />
                 </section>
               )}
 
               <section aria-labelledby="latest-insights-title">
-                <div className="mb-5 flex items-end justify-between gap-4">
-                  <h2 id="latest-insights-title" className="text-2xl font-display font-semibold tracking-[-0.025em] text-white sm:text-3xl">{latestLabel}</h2>
-                  <span className="text-xs text-[#68707C]">{total} {language === 'id' ? 'artikel' : 'articles'}</span>
+                <div className="mb-6 flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
+                      {language === 'id' ? 'Library' : 'Library'}
+                    </p>
+                    <h2 id="latest-insights-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
+                      {latestLabel}
+                    </h2>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#626A76]">
+                    {total} {language === 'id' ? 'artikel' : 'articles'}
+                  </span>
                 </div>
+
                 {latest.length > 0 ? (
                   <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                    {latest.map(item => <InsightCard key={item.id} insight={item} language={language} />)}
+                    {latest.map(item => (
+                      <InsightCard key={item.id} insight={item} language={language} />
+                    ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-[#7E8592]">{language === 'id' ? 'Tidak ada artikel tambahan pada halaman ini.' : 'There are no additional articles on this page.'}</p>
+                  <p className="text-sm text-[#7E8592]">
+                    {language === 'id' ? 'Tidak ada artikel tambahan pada halaman ini.' : 'There are no additional articles on this page.'}
+                  </p>
                 )}
               </section>
 
               {totalPages > 1 && (
-                <nav className="flex items-center justify-center gap-2 pt-2" aria-label={language === 'id' ? 'Navigasi halaman Insight' : 'Insight pagination'}>
-                  <button
-                    type="button"
-                    disabled={page === 1}
-                    onClick={() => setPage(value => Math.max(1, value - 1))}
-                    className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-xs font-semibold text-white transition-colors hover:border-white/[0.16] disabled:cursor-not-allowed disabled:opacity-35"
-                  >
-                    <ArrowLeft size={14} aria-hidden="true" />
-                    {language === 'id' ? 'Sebelumnya' : 'Previous'}
-                  </button>
-                  <span className="px-2 text-xs text-[#6F7682]" aria-current="page">{page} / {totalPages}</span>
-                  <button
-                    type="button"
-                    disabled={page === totalPages}
-                    onClick={() => setPage(value => Math.min(totalPages, value + 1))}
-                    className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-xs font-semibold text-white transition-colors hover:border-white/[0.16] disabled:cursor-not-allowed disabled:opacity-35"
-                  >
-                    {language === 'id' ? 'Berikutnya' : 'Next'}
-                    <ArrowRight size={14} aria-hidden="true" />
-                  </button>
+                <nav
+                  className="flex flex-col gap-3 border-t border-white/[0.07] pt-5 sm:flex-row sm:items-center sm:justify-between"
+                  aria-label={language === 'id' ? 'Navigasi halaman Insight' : 'Insight pagination'}
+                >
+                  <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]">
+                    {language === 'id' ? 'Halaman' : 'Page'} {String(page).padStart(2, '0')} / {String(totalPages).padStart(2, '0')}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={page === 1}
+                      onClick={() => setPage(value => Math.max(1, value - 1))}
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.03] disabled:cursor-not-allowed disabled:opacity-35"
+                    >
+                      <ArrowLeft size={13} aria-hidden="true" />
+                      {language === 'id' ? 'Sebelumnya' : 'Previous'}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={page === totalPages}
+                      onClick={() => setPage(value => Math.min(totalPages, value + 1))}
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 disabled:cursor-not-allowed disabled:opacity-35"
+                    >
+                      {language === 'id' ? 'Berikutnya' : 'Next'}
+                      <ArrowRight size={13} aria-hidden="true" />
+                    </button>
+                  </div>
                 </nav>
               )}
             </div>
           )}
         </section>
 
-        <section className="mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 lg:px-10">
-          <div className="flex flex-col items-start justify-between gap-5 rounded-[24px] border border-white/[0.07] bg-white/[0.02] p-6 sm:flex-row sm:items-center sm:p-8">
-            <div>
-              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">{language === 'id' ? 'Butuh eksekusi?' : 'Ready to execute?'}</p>
-              <h2 className="mt-2 max-w-xl text-2xl font-display font-semibold tracking-[-0.025em] text-white">
-                {language === 'id' ? 'Ubah insight menjadi project digital yang terukur.' : 'Turn useful insight into a measurable digital project.'}
-              </h2>
+        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-24 sm:px-8 lg:px-10">
+          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
+            <div className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-brand-red/[0.07] blur-3xl" />
+            <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                  {language === 'id' ? 'Dari insight ke eksekusi' : 'From insight to execution'}
+                </p>
+                <h2 className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-4xl">
+                  {language === 'id'
+                    ? 'Temukan ide yang relevan. Lalu bangun sesuatu yang bekerja.'
+                    : 'Find the idea that matters. Then build something that works.'}
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-[#89909D]">
+                  {language === 'id'
+                    ? 'Kalau ada topik yang ingin Anda terapkan ke website, produk, atau sistem digital, kami bisa membantu menerjemahkannya menjadi delivery.'
+                    : 'When an idea needs to become a website, product, or digital system, we can help translate it into delivery.'}
+                </p>
+              </div>
+
+              <Link
+                to="/contact"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
+              >
+                {language === 'id' ? 'Mulai Project' : 'Start a Project'}
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
             </div>
-            <Link to="/contact" className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-xs font-semibold text-white transition-colors hover:border-brand-red/35 hover:bg-brand-red/10">
-              {language === 'id' ? 'Mulai Project' : 'Start a Project'}
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
           </div>
         </section>
       </div>
