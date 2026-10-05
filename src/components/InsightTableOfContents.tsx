@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 import type { InsightTocItem } from '../lib/insightHeadingIds';
 
@@ -22,9 +22,7 @@ export const InsightTableOfContents: React.FC<{
       }
 
       const last = result[result.length - 1];
-      if (last) {
-        last.children.push(item);
-      }
+      if (last) last.children.push(item);
     }
 
     return result;
@@ -42,8 +40,8 @@ export const InsightTableOfContents: React.FC<{
   }, [sections]);
 
   const [activeId, setActiveId] = useState(items[0]?.id || '');
-  const [expandedSectionIds, setExpandedSectionIds] = useState<Set<string>>(
-    () => new Set(items.find(item => item.level === 2)?.id ? [items.find(item => item.level === 2)?.id as string] : [])
+  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(
+    sections[0]?.heading.id || null
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const desktopListRef = useRef<HTMLElement | null>(null);
@@ -56,6 +54,9 @@ export const InsightTableOfContents: React.FC<{
     const hash = window.location.hash.replace(/^#/, '');
     const initialId = items.some(item => item.id === hash) ? hash : (items[0]?.id || '');
     setActiveId(initialId);
+
+    const initialSectionId = sectionByItemId.get(initialId) || sections[0]?.heading.id || null;
+    setExpandedSectionId(initialSectionId);
 
     const syncActiveHeading = () => {
       if (!items.length) return;
@@ -74,7 +75,7 @@ export const InsightTableOfContents: React.FC<{
         }
       }
 
-      setActiveId(prev => prev === current.id ? prev : current.id);
+      setActiveId(prev => (prev === current.id ? prev : current.id));
     };
 
     const scheduleSync = () => {
@@ -93,9 +94,7 @@ export const InsightTableOfContents: React.FC<{
     if (!headings.length) return undefined;
 
     const observer = new IntersectionObserver(
-      () => {
-        scheduleSync();
-      },
+      () => scheduleSync(),
       {
         rootMargin: '-112px 0px -62% 0px',
         threshold: [0, 0.15, 0.5, 1]
@@ -119,19 +118,13 @@ export const InsightTableOfContents: React.FC<{
         rafRef.current = null;
       }
     };
-  }, [items]);
+  }, [items, sectionByItemId, sections]);
 
   useEffect(() => {
-    const sectionId = sectionByItemId.get(activeId);
-    if (!sectionId) return;
+    const nextSectionId = sectionByItemId.get(activeId);
+    if (!nextSectionId) return;
 
-    setExpandedSectionIds(prev => {
-      if (prev.has(sectionId)) return prev;
-
-      const next = new Set(prev);
-      next.add(sectionId);
-      return next;
-    });
+    setExpandedSectionId(prev => (prev === nextSectionId ? prev : nextSectionId));
   }, [activeId, sectionByItemId]);
 
   useEffect(() => {
@@ -148,7 +141,7 @@ export const InsightTableOfContents: React.FC<{
 
     const containerRect = container.getBoundingClientRect();
     const itemRect = item.getBoundingClientRect();
-    const padding = 12;
+    const padding = 14;
 
     if (itemRect.top < containerRect.top + padding) {
       container.scrollBy({
@@ -161,28 +154,18 @@ export const InsightTableOfContents: React.FC<{
         behavior: 'smooth'
       });
     }
-  }, [activeId, expandedSectionIds, mobileOpen]);
+  }, [activeId, expandedSectionId, mobileOpen]);
 
   if (!items.length || !sections.length) return null;
 
   const tocLabel = language === 'id' ? 'Di artikel ini' : 'In this article';
   const navigationLabel = language === 'id' ? 'Navigasi artikel' : 'Article navigation';
   const sectionCountLabel = language === 'id'
-    ? sections.length === 1 ? 'bagian' : 'bagian'
+    ? 'bagian'
     : sections.length === 1 ? 'section' : 'sections';
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSectionIds(prev => {
-      const next = new Set(prev);
-
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
-
-      return next;
-    });
+    setExpandedSectionId(prev => (prev === sectionId ? null : sectionId));
   };
 
   const navigateTo = (item: InsightTocItem, mobile = false) => {
@@ -190,22 +173,13 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     const sectionId = sectionByItemId.get(item.id);
-    if (sectionId) {
-      setExpandedSectionIds(prev => {
-        if (prev.has(sectionId)) return prev;
-        const next = new Set(prev);
-        next.add(sectionId);
-        return next;
-      });
-    }
+    if (sectionId) setExpandedSectionId(sectionId);
 
     setActiveId(item.id);
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.history.pushState(null, '', '#' + item.id);
 
-    if (mobile) {
-      setMobileOpen(false);
-    }
+    if (mobile) setMobileOpen(false);
   };
 
   const renderSection = (
@@ -213,9 +187,9 @@ export const InsightTableOfContents: React.FC<{
     index: number,
     variant: 'desktop' | 'mobile'
   ) => {
-    const expanded = expandedSectionIds.has(section.heading.id);
-    const sectionActive = section.children.some(item => item.id === activeId)
-      || section.heading.id === activeId;
+    const expanded = expandedSectionId === section.heading.id;
+    const sectionActive =
+      section.children.some(item => item.id === activeId) || section.heading.id === activeId;
 
     const itemMap = variant === 'desktop'
       ? desktopItemRefs.current
@@ -225,8 +199,10 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'relative',
-          sectionActive ? 'border-l border-brand-red/45' : 'border-l border-white/[0.06]'
+          'overflow-hidden rounded-2xl border transition-[border-color,background-color,box-shadow] duration-250',
+          sectionActive
+            ? 'border-brand-red/25 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_14px_30px_-24px_rgba(0,0,0,0.9)]'
+            : 'border-white/[0.08] bg-[#111318]/72 hover:border-white/[0.12] hover:bg-[#14161B]'
         ].join(' ')}
       >
         <div className="flex items-stretch">
@@ -241,23 +217,34 @@ export const InsightTableOfContents: React.FC<{
               navigateTo(section.heading, variant === 'mobile');
             }}
             aria-current={activeId === section.heading.id ? 'location' : undefined}
-            className={[
-              'min-w-0 flex-1 py-2.5 pl-4 pr-2 text-left transition-[color,background-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
-              sectionActive ? 'text-white' : 'text-[#7B8390] hover:bg-white/[0.018] hover:text-white'
-            ].join(' ')}
+            className="min-w-0 flex-1 px-3.5 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:px-4"
           >
-            <span className="flex items-start gap-3">
-              <span className={[
-                'pt-0.5 font-mono text-[9px] tabular-nums',
-                sectionActive ? 'text-brand-red' : 'text-[#555D68]'
-              ].join(' ')}>
+            <span className="flex items-start gap-3.5">
+              <span
+                className={[
+                  'mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border font-mono text-[9px] font-semibold tabular-nums',
+                  sectionActive
+                    ? 'border-brand-red/28 bg-brand-red/10 text-brand-red'
+                    : 'border-white/[0.08] bg-white/[0.025] text-[#616A76]'
+                ].join(' ')}
+              >
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <span className={[
-                'min-w-0 text-[12px] leading-[1.45]',
-                sectionActive ? 'font-medium' : 'font-normal'
-              ].join(' ')}>
-                {section.heading.text}
+
+              <span className="min-w-0">
+                <span
+                  className={[
+                    'block text-[12px] leading-[1.5] tracking-[-0.005em]',
+                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#C9CED7] hover:text-white'
+                  ].join(' ')}
+                >
+                  {section.heading.text}
+                </span>
+                {section.children.length > 0 && (
+                  <span className="mt-1 block text-[9px] font-mono uppercase tracking-[0.12em] text-[#616975]">
+                    {section.children.length} {language === 'id' ? 'subbagian' : 'subsections'}
+                  </span>
+                )}
               </span>
             </span>
           </a>
@@ -266,7 +253,7 @@ export const InsightTableOfContents: React.FC<{
             <button
               type="button"
               onClick={() => toggleSection(section.heading.id)}
-              className="flex w-9 shrink-0 items-center justify-center text-[#5E6672] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+              className="flex w-10 shrink-0 items-center justify-center self-stretch border-l border-white/[0.06] text-[#69717D] transition-[background-color,color] duration-200 hover:bg-white/[0.03] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
               aria-expanded={expanded}
               aria-label={
                 expanded
@@ -275,7 +262,7 @@ export const InsightTableOfContents: React.FC<{
               }
             >
               <ChevronDown
-                size={13}
+                size={14}
                 className={expanded ? 'rotate-180 transition-transform duration-200' : 'transition-transform duration-200'}
                 aria-hidden="true"
               />
@@ -284,7 +271,7 @@ export const InsightTableOfContents: React.FC<{
         </div>
 
         {expanded && section.children.length > 0 && (
-          <div className="pb-2 pl-9 pr-2">
+          <div className="mx-3.5 mb-3 rounded-xl border border-white/[0.06] bg-black/10 p-1.5 sm:mx-4">
             {section.children.map(child => {
               const active = child.id === activeId;
 
@@ -302,16 +289,16 @@ export const InsightTableOfContents: React.FC<{
                   }}
                   aria-current={active ? 'location' : undefined}
                   className={[
-                    'relative flex w-full items-start gap-2 py-1.5 text-left text-[11px] leading-[1.45] transition-[color,background-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
+                    'flex w-full items-start gap-2.5 rounded-lg px-2.5 py-2 text-left text-[11px] leading-[1.45] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/55',
                     active
-                      ? 'text-white'
-                      : 'text-[#626B78] hover:bg-white/[0.018] hover:text-[#B8BEC8]'
+                      ? 'bg-brand-red/[0.09] text-white'
+                      : 'text-[#747D89] hover:bg-white/[0.03] hover:text-[#C7CCD5]'
                   ].join(' ')}
                 >
                   <span
                     className={[
-                      'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
-                      active ? 'bg-brand-red' : 'bg-white/[0.13]'
+                      'mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
+                      active ? 'bg-brand-red' : 'bg-white/[0.16]'
                     ].join(' ')}
                     aria-hidden="true"
                   />
@@ -326,71 +313,86 @@ export const InsightTableOfContents: React.FC<{
   };
 
   const renderList = (variant: 'desktop' | 'mobile') => (
-    <div className="space-y-1.5">
+    <div className="space-y-2.5">
       {sections.map((section, index) => renderSection(section, index, variant))}
     </div>
   );
 
+  const currentSectionIndex = Math.max(
+    0,
+    sections.findIndex(section => section.heading.id === sectionByItemId.get(activeId))
+  );
+
+  const currentItem = items.find(item => item.id === activeId) || sections[0].heading;
+
   return (
     <>
-      <div className="xl:hidden border-y border-white/[0.08]">
-        <button
-          type="button"
-          aria-expanded={mobileOpen}
-          aria-controls="insight-mobile-toc"
-          onClick={() => setMobileOpen(open => !open)}
-          className="flex min-h-14 w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
-        >
-          <span className="min-w-0">
-            <span className="flex items-center gap-2">
-              <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">{tocLabel}</span>
-              <span className="h-1 w-1 rounded-full bg-white/[0.16]" aria-hidden="true" />
-              <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#5F6773]">
-                {sections.length} {sectionCountLabel}
+      <div className="xl:hidden">
+        <div className="rounded-2xl border border-white/[0.08] bg-[#111318]/78 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+          <button
+            type="button"
+            aria-expanded={mobileOpen}
+            aria-controls="insight-mobile-toc"
+            onClick={() => setMobileOpen(open => !open)}
+            className="flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+          >
+            <span className="min-w-0">
+              <span className="flex items-center gap-2">
+                <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">{tocLabel}</span>
+                <span className="h-1 w-1 rounded-full bg-white/[0.16]" aria-hidden="true" />
+                <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#656E7A]">
+                  {sections.length} {sectionCountLabel}
+                </span>
+              </span>
+              <span className="mt-1.5 block truncate text-[13px] font-medium leading-5 text-white">
+                {currentItem.text}
               </span>
             </span>
-            <span className="mt-1.5 block truncate text-sm text-white">
-              {items.find(item => item.id === activeId)?.text || sections[0].heading.text}
-            </span>
-          </span>
-          <ChevronDown
-            size={16}
-            className={mobileOpen ? 'rotate-180 text-white transition-transform duration-200' : 'text-[#707986] transition-transform duration-200'}
-            aria-hidden="true"
-          />
-        </button>
 
-        {mobileOpen && (
-          <nav
-            id="insight-mobile-toc"
-            aria-label={navigationLabel}
-            className="max-h-[58vh] overflow-y-auto overscroll-contain border-t border-white/[0.07] py-3 pr-1"
-          >
-            {renderList('mobile')}
-          </nav>
-        )}
+            <ChevronDown
+              size={16}
+              className={mobileOpen
+                ? 'rotate-180 text-white transition-transform duration-200'
+                : 'text-[#707986] transition-transform duration-200'}
+              aria-hidden="true"
+            />
+          </button>
+
+          {mobileOpen && (
+            <nav
+              id="insight-mobile-toc"
+              aria-label={navigationLabel}
+              className="max-h-[min(24rem,58vh)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
+            >
+              {renderList('mobile')}
+            </nav>
+          )}
+        </div>
       </div>
 
-      <div className="hidden h-full min-h-0 xl:flex xl:flex-col">
-        <div className="flex shrink-0 items-end justify-between gap-3">
-          <div>
-            <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#747B88]">{tocLabel}</p>
-            <p className="mt-1 text-[10px] leading-5 text-[#555D68]">
-              {sections.length} {sectionCountLabel}
-            </p>
-          </div>
-          <span className="font-mono text-[9px] tabular-nums text-[#555D68]">
-            {Math.max(0, sections.findIndex(section => section.heading.id === sectionByItemId.get(activeId)) + 1).toString().padStart(2, '0')} / {String(sections.length).padStart(2, '0')}
-          </span>
-        </div>
+      <div className="hidden h-fit xl:flex xl:flex-col">
+        <div className="rounded-2xl border border-white/[0.08] bg-[#111318]/78 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_20px_50px_-36px_rgba(0,0,0,0.8)]">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.16em] text-[#8A909D]">{tocLabel}</p>
+              <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
+                {sections.length} {sectionCountLabel}
+              </p>
+            </div>
 
-        <nav
-          ref={desktopListRef}
-          aria-label={navigationLabel}
-          className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1"
-        >
-          {renderList('desktop')}
-        </nav>
+            <span className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 font-mono text-[9px] font-medium tabular-nums text-[#68717D]">
+              {String(currentSectionIndex + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}
+            </span>
+          </div>
+
+          <nav
+            ref={desktopListRef}
+            aria-label={navigationLabel}
+            className="mt-4 max-h-[min(22rem,calc(100vh-22rem))] overflow-y-auto overscroll-contain pr-1"
+          >
+            {renderList('desktop')}
+          </nav>
+        </div>
       </div>
     </>
   );
