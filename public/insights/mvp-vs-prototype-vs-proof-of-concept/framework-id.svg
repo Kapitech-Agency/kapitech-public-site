@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+<title id="title">Kerangka Kapitech untuk validasi produk</title>
+<desc id="desc">Alur dari risiko bisnis, risiko pengguna, risiko teknis, metode validasi, bukti, dan keputusan berikutnya.</desc>
+<rect width="1400" height="820" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="80" y="84" font-size="18" letter-spacing="4" fill="#E50914">06 / PERSPEKTIF KAPITECH</text>
+<text x="80" y="145" font-size="46" font-weight="700" fill="#F8FAFC">Petakan risiko sebelum menyusun roadmap.</text>
+<g transform="translate(95 245)">
+<g fill="#111318" stroke="#2A2D34">
+<rect x="0" y="0" width="180" height="120" rx="24"/><rect x="210" y="0" width="180" height="120" rx="24"/><rect x="420" y="0" width="180" height="120" rx="24"/><rect x="630" y="0" width="220" height="120" rx="24"/><rect x="880" y="0" width="180" height="120" rx="24"/><rect x="1090" y="0" width="190" height="120" rx="24"/>
+</g>
+<g font-size="17" font-weight="700" fill="#fff" text-anchor="middle">
+<text x="90" y="50">Risiko Bisnis</text><text x="300" y="50">Risiko Pengguna</text><text x="510" y="50">Risiko Teknis</text><text x="740" y="50">Metode Validasi</text><text x="970" y="50">Bukti</text><text x="1185" y="50">Keputusan Berikutnya</text>
+</g>
+<g font-size="14" fill="#8A909D" text-anchor="middle">
+<text x="90" y="78">Apa yang harus benar?</text><text x="300" y="78">Apakah pengguna akan mengadopsi?</text><text x="510" y="78">Apakah ini dapat bekerja?</text><text x="740" y="78">Prototype / PoC / MVP</text><text x="970" y="78">Sinyal yang diamati</text><text x="1185" y="78">Lanjut / ubah / berhenti</text>
+</g>
+<path d="M180 60 H205 M390 60 H415 M600 60 H625 M850 60 H875 M1060 60 H1085" stroke="#E50914" stroke-width="4" fill="none"/>
+<g fill="#E50914"><path d="M198 54 l8 6 -8 6z"/><path d="M408 54 l8 6 -8 6z"/><path d="M618 54 l8 6 -8 6z"/><path d="M868 54 l8 6 -8 6z"/><path d="M1078 54 l8 6 -8 6z"/></g>
+</g>
+<g transform="translate(95 470)">
+<rect width="1190" height="175" rx="28" fill="#E50914" fill-opacity=".07" stroke="#E50914" stroke-opacity=".25"/>
+<text x="35" y="52" font-size="17" letter-spacing="3" fill="#E50914">MENTAL MODEL</text>
+<text x="35" y="98" font-size="29" font-weight="700" fill="#fff">Pilih hal terkecil yang dapat menjawab ketidakpastian terbesar Anda.</text>
+<text x="35" y="135" font-size="17" fill="#A8AFBB">Hasilnya bukan “kita sudah membuatnya”. Hasilnya adalah “kita lebih tahu, dan tahu apa yang harus dilakukan berikutnya”.</text>
+</g>
+<text x="95" y="720" font-size="17" fill="#69717D">Prototype, MVP, dan PoC dapat digabungkan ketika proyek memiliki lebih dari satu risiko kritis.</text>
+</g></svg>
