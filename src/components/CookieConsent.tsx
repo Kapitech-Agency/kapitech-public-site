@@ -3,6 +3,7 @@ import { ArrowUpRight, Cookie, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { AnimatePresence, motion } from 'motion/react';
+import { revokeOptionalAnalyticsConsent } from '../lib/analytics';
 
 const COOKIE_CONSENT_KEY = 'kapitech_cookie_consent';
 
@@ -21,9 +22,17 @@ export const CookieConsent = () => {
     } catch {
       setIsVisible(true);
     }
+
+    const handleOpenPreferences = () => setIsVisible(true);
+    window.addEventListener('kapitech_open_cookie_preferences', handleOpenPreferences);
+    return () => window.removeEventListener('kapitech_open_cookie_preferences', handleOpenPreferences);
   }, []);
 
   const saveConsent = (choice: ConsentChoice) => {
+    if (choice === 'necessary') {
+      revokeOptionalAnalyticsConsent();
+    }
+
     try {
       window.localStorage.setItem(COOKIE_CONSENT_KEY, choice);
     } catch {
