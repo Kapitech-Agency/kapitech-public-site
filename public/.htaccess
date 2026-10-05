@@ -4,7 +4,7 @@ RewriteBase /
 
 # Canonicalize legacy solution URLs used before the /solutions/ information architecture.
 RewriteRule ^services/(mvp-design|product-redesign|team-extension)/?$ /solutions/$1 [R=301,L,NE]
-RewriteRule ^solutions/(pitch-deck|brand-identity|logo-design|graphic-design|rebranding|logo-design|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)/?$ /services/$1 [R=301,L,NE]
+RewriteRule ^solutions/(pitch-deck|brand-identity|logo-design|graphic-design|rebranding|ui-ux-design|website-design|website-redesign|product-ux-ui-audit|web-development|mvp-development|landing-page|corporate-websites|wow-websites)/?$ /services/$1 [R=301,L,NE]
 
 # Canonicalize trailing-slash route variants for real directories.
 RewriteCond %{REQUEST_URI} !^/$
