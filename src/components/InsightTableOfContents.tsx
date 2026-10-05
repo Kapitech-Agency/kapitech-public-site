@@ -195,26 +195,17 @@ export const InsightTableOfContents: React.FC<{
       ? desktopItemRefs.current
       : mobileItemRefs.current;
 
-    const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
-      if (event.pointerType && event.pointerType !== 'mouse') return;
-      const rect = event.currentTarget.getBoundingClientRect();
-      event.currentTarget.style.setProperty('--kapi-spotlight-x', (event.clientX - rect.left) + 'px');
-      event.currentTarget.style.setProperty('--kapi-spotlight-y', (event.clientY - rect.top) + 'px');
-    };
-
     return (
       <div
         key={section.heading.id}
-        data-kapi-spotlight="true"
-        onPointerMove={handlePointerMove}
         className={[
-          'group relative overflow-hidden rounded-[18px] border bg-[rgba(15,17,22,0.72)] backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-300',
+          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow] duration-300',
           sectionActive
-            ? 'border-brand-red/25 bg-[rgba(18,20,26,0.9)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_40px_-32px_rgba(229,9,20,0.38)]'
-            : 'border-white/[0.08] hover:border-white/[0.13] hover:bg-[rgba(20,22,28,0.82)]'
+            ? 'border-brand-red/24 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_18px_44px_-36px_rgba(229,9,20,0.32)]'
+            : 'border-white/[0.08] bg-white/[0.018] hover:border-white/[0.12] hover:bg-white/[0.026]'
         ].join(' ')}
       >
-        <div className="relative z-[1] flex items-start gap-2.5 px-3.5 py-3.5 sm:px-4 sm:py-4">
+        <div className="flex items-center gap-2 px-3 py-3 sm:px-3.5 sm:py-3.5">
           <a
             ref={node => {
               if (node) itemMap.set(section.heading.id, node);
@@ -226,33 +217,33 @@ export const InsightTableOfContents: React.FC<{
               navigateTo(section.heading, variant === 'mobile');
             }}
             aria-current={activeId === section.heading.id ? 'location' : undefined}
-            className="min-w-0 flex-1 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            className="min-w-0 flex-1 rounded-xl px-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           >
-            <span className="flex items-start gap-3">
+            <span className="flex items-center gap-3">
               <span
                 className={[
-                  'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-[10px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-300',
+                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-300',
                   sectionActive
-                    ? 'border-brand-red/30 bg-brand-red/10 text-brand-red'
-                    : 'border-white/[0.08] bg-white/[0.025] text-[#69717D] group-hover:border-white/[0.12] group-hover:text-[#89919E]'
+                    ? 'border-brand-red/28 bg-brand-red/10 text-brand-red'
+                    : 'border-white/[0.08] bg-white/[0.025] text-[#69717D]'
                 ].join(' ')}
               >
                 {String(index + 1).padStart(2, '0')}
               </span>
 
-              <span className="min-w-0 pt-0.5">
+              <span className="min-w-0 flex-1">
                 <span
                   className={[
-                    'block text-[12px] leading-[1.5] tracking-[-0.005em] transition-colors duration-300',
-                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#D1D5DD] group-hover:text-white'
+                    'block text-[12.5px] leading-[1.38] tracking-[-0.008em]',
+                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#D1D5DD]'
                   ].join(' ')}
                 >
                   {section.heading.text}
                 </span>
 
                 {section.children.length > 0 && (
-                  <span className="mt-1.5 flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#68707C]">
-                    <span className={sectionActive ? 'text-brand-red' : 'text-[#4F5662]'}>
+                  <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#656D79]">
+                    <span className={sectionActive ? 'text-brand-red' : 'text-[#555D68]'}>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>{language === 'id' ? 'subbagian' : 'subsections'}</span>
@@ -267,10 +258,10 @@ export const InsightTableOfContents: React.FC<{
               type="button"
               onClick={() => toggleSection(section.heading.id)}
               className={[
-                'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
-                  ? 'border-brand-red/25 bg-brand-red/10 text-brand-red'
-                  : 'border-white/[0.08] bg-white/[0.025] text-[#737B88] hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
+                  ? 'border-brand-red/24 bg-brand-red/10 text-brand-red'
+                  : 'border-white/[0.08] bg-white/[0.025] text-[#717986] hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
               ].join(' ')}
               aria-expanded={expanded}
               aria-controls={section.heading.id + '-subsections'}
@@ -283,62 +274,70 @@ export const InsightTableOfContents: React.FC<{
               <ChevronDown
                 size={14}
                 strokeWidth={2}
-                className={expanded ? 'rotate-180 transition-transform duration-300' : 'transition-transform duration-300'}
+                className={expanded ? 'rotate-180 transition-transform duration-250' : 'transition-transform duration-250'}
                 aria-hidden="true"
               />
             </button>
           )}
         </div>
 
-        {expanded && section.children.length > 0 && (
-          <div
-            id={section.heading.id + '-subsections'}
-            className="relative z-[1] border-t border-white/[0.07] px-3.5 pb-3.5 pt-2 sm:px-4"
-          >
-            <div className="space-y-1">
-              {section.children.map(child => {
-                const active = child.id === activeId;
+        <div
+          id={section.heading.id + '-subsections'}
+          className={[
+            'grid transition-[grid-template-rows,opacity] duration-300',
+            expanded && section.children.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+          ].join(' ')}
+        >
+          <div className="min-h-0 overflow-hidden">
+            {section.children.length > 0 && (
+              <div className="mx-3 border-t border-white/[0.07] pb-2.5 pt-2.5">
+                {section.children.map((child, childIndex) => {
+                  const active = child.id === activeId;
 
-                return (
-                  <a
-                    key={child.id}
-                    ref={node => {
-                      if (node) itemMap.set(child.id, node);
-                      else itemMap.delete(child.id);
-                    }}
-                    href={'#' + child.id}
-                    onClick={event => {
-                      event.preventDefault();
-                      navigateTo(child, variant === 'mobile');
-                    }}
-                    aria-current={active ? 'location' : undefined}
-                    className={[
-                      'flex w-full items-start gap-2.5 rounded-xl px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
-                      active
-                        ? 'bg-brand-red/[0.09] text-white'
-                        : 'text-[#7C8490] hover:bg-white/[0.035] hover:text-[#C9CED7]'
-                    ].join(' ')}
-                  >
-                    <span
+                  return (
+                    <a
+                      key={child.id}
+                      ref={node => {
+                        if (node) itemMap.set(child.id, node);
+                        else itemMap.delete(child.id);
+                      }}
+                      href={'#' + child.id}
+                      onClick={event => {
+                        event.preventDefault();
+                        navigateTo(child, variant === 'mobile');
+                      }}
+                      aria-current={active ? 'location' : undefined}
                       className={[
-                        'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
-                        active ? 'bg-brand-red' : 'bg-white/[0.16]'
+                        'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] px-2.5 py-2 text-left text-[11px] leading-[1.48] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                        active
+                          ? 'bg-brand-red/[0.08] text-white'
+                          : 'text-[#7B8491] hover:bg-white/[0.028] hover:text-[#C9CED7]'
                       ].join(' ')}
-                      aria-hidden="true"
-                    />
-                    <span className="min-w-0">{child.text}</span>
-                  </a>
-                );
-              })}
-            </div>
+                    >
+                      <span
+                        className={[
+                          'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-200',
+                          active ? 'bg-brand-red' : 'bg-white/[0.14]'
+                        ].join(' ')}
+                        aria-hidden="true"
+                      />
+                      <span className="min-w-0 flex-1">{child.text}</span>
+                      {active && (
+                        <span className="mt-[4px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/70" aria-hidden="true" />
+                      )}
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     );
   };
 
   const renderList = (variant: 'desktop' | 'mobile') => (
-    <div className="space-y-2.5">
+    <div className="space-y-2">
       {sections.map((section, index) => renderSection(section, index, variant))}
     </div>
   );
@@ -420,7 +419,7 @@ export const InsightTableOfContents: React.FC<{
           <nav
             ref={desktopListRef}
             aria-label={navigationLabel}
-            className="mt-4 h-[23.5rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pr-1"
+            className="mt-4 h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pr-1"
           >
             {renderList('desktop')}
           </nav>
