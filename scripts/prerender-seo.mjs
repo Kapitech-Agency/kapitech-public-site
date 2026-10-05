@@ -282,15 +282,6 @@ const renderRoute = (sourceHtml, route) => {
 };
 
 for (const route of manifest.routes) {
-  const html = renderRoute(template, route);
-  const outputPath = route.path === '/'
-    ? join(distDir, 'index.html')
-    : join(distDir, route.path.replace(/^\/+/, ''), 'index.html');
-
-  await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, html, 'utf8');
-  console.log('[seo] generated ' + posix.normalize(route.path + '/index.html'));
-}
 
 try {
   const { variants, byGroup } = await fetchPublishedInsights();
