@@ -493,7 +493,7 @@ export const Home = () => {
         id="engagement"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.42fr)] lg:items-end lg:gap-14">
+          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end lg:gap-14">
             <div className="max-w-4xl">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'PILIHAN LAYANAN' : 'ENGAGEMENT OPTIONS'}
@@ -501,15 +501,15 @@ export const Home = () => {
 
               <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id'
-                  ? 'Kapabilitas yang bisa Anda pilih, solusi yang bisa Anda kembangkan.'
-                  : 'Choose the capability you need. Build the solution you need next.'}
+                  ? 'Mulai dari kapabilitas. Lanjutkan dengan solusi.'
+                  : 'Start with the capability. Move into the solution.'}
               </h2>
             </div>
 
             <p className="max-w-md text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm lg:justify-self-end lg:pb-1">
               {language === 'id'
-                ? 'Mulai dari branding, design, atau development. Saat kebutuhan produk semakin spesifik, lanjutkan dengan solusi yang lebih terarah.'
-                : 'Start with branding, design, or development. As your product needs become more specific, move into a focused solution.'}
+                ? 'Pilih area yang ingin Anda bangun atau kembangkan. Semua layanan dan solusi berada dalam satu workflow Kapitech.'
+                : 'Choose the area you need to build or improve. Services and solutions stay within one connected Kapitech workflow.'}
             </p>
           </div>
 
@@ -520,57 +520,59 @@ export const Home = () => {
               );
               const categoryCopy = {
                 Branding: language === 'id'
-                  ? 'Bangun identitas visual yang konsisten dan siap digunakan di setiap touchpoint.'
-                  : 'Build a consistent visual identity that works across every brand touchpoint.',
+                  ? 'Membangun identitas yang konsisten dari visual system hingga brand assets.'
+                  : 'Build a consistent identity from visual systems to brand assets.',
                 Design: language === 'id'
-                  ? 'Rancang experience yang jelas, usable, dan selaras dengan kebutuhan pengguna.'
-                  : 'Create clear, usable experiences aligned with how your users actually work.',
+                  ? 'Merancang interface dan experience yang lebih jelas, usable, dan terarah.'
+                  : 'Design clearer interfaces and experiences built around real user needs.',
                 Development: language === 'id'
-                  ? 'Kembangkan website dan produk digital yang siap dipakai, diukur, dan dikembangkan.'
-                  : 'Build digital products and websites ready to ship, measure, and scale.'
+                  ? 'Mengubah desain dan kebutuhan bisnis menjadi produk digital yang siap digunakan.'
+                  : 'Turn designs and business requirements into production-ready digital products.'
               }[category];
 
               return (
                 <article
                   key={category}
-                  className="group relative flex min-h-[420px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.32)] sm:p-6 lg:p-7"
+                  className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.32)] sm:p-6 lg:p-7"
                 >
                   <span
                     className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
                     aria-hidden="true"
                   />
 
-                  <div className="flex items-start justify-between gap-5 border-b border-white/[0.07] pb-4">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="mt-2 block text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-3">
+                        <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-brand-red">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
+                        <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
+                          {category}
+                        </span>
+                      </div>
+                      <h3 className="mt-6 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.8rem]">
                         {category}
-                      </span>
+                      </h3>
                     </div>
-                    <span className="text-[10px] font-mono tabular-nums text-[#8A909D]/60 transition-colors duration-300 group-hover:text-brand-red">
-                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
+
+                    <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+                      {String(services.length).padStart(2, '0')}
                     </span>
                   </div>
 
-                  <div className="pt-7">
-                    <h3 className="max-w-[18rem] text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-3xl">
-                      {category}
-                    </h3>
-                    <p className="mt-3 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                      {categoryCopy}
-                    </p>
-                  </div>
+                  <p className="mt-3 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                    {categoryCopy}
+                  </p>
 
-                  <div className="mt-7 border-t border-white/[0.065] pt-2">
+                  <div className="mt-6 border-t border-white/[0.065] pt-1">
                     {services.map((service) => (
                       <Link
                         key={service.slug}
                         to={`/services/${service.slug}`}
-                        className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12 sm:py-3"
+                        className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-4 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12"
                       >
-                        <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/82 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
+                        <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
                           {service.title}
                         </span>
                         <ArrowUpRight
@@ -583,8 +585,8 @@ export const Home = () => {
                   </div>
 
                   <div className="mt-auto flex items-center gap-3 pt-6">
-                    <span className="h-px w-8 bg-brand-red/60 transition-all duration-500 group-hover:w-12" />
-                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red/80">
+                    <span className="h-px w-8 bg-brand-red/55 transition-all duration-500 group-hover:w-12 group-hover:bg-brand-red/80" />
+                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
                       {language === 'id' ? 'Jelajahi layanan' : 'Explore services'}
                     </span>
                   </div>
@@ -594,15 +596,15 @@ export const Home = () => {
           </div>
 
           <div className="mt-14 sm:mt-16 lg:mt-20">
-            <div className="mb-7 flex flex-col gap-3 border-t border-white/[0.07] pt-8 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+            <div className="mb-7 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div>
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                  {language === 'id' ? 'SOLUSI' : 'SOLUTIONS'}
+                <span className="kapi-section-label mb-4">
+                  {language === 'id' ? 'SOLUSI PRODUK' : 'PRODUCT SOLUTIONS'}
                 </span>
-                <h3 className="mt-3 max-w-3xl text-2xl font-display font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.25rem]">
+                <h3 className="mt-4 max-w-3xl text-2xl font-display font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.25rem]">
                   {language === 'id'
-                    ? 'Solusi terarah untuk kebutuhan produk yang lebih spesifik.'
-                    : 'Focused solutions for more specific product needs.'}
+                    ? 'Solusi yang lebih terarah untuk kebutuhan produk tertentu.'
+                    : 'More focused solutions for specific product needs.'}
                 </h3>
               </div>
 
@@ -614,44 +616,59 @@ export const Home = () => {
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
               {allSolutionsAndServices
                 .filter((item) => item.type === 'solution')
-                .map((solution, index) => (
-                  <Link
-                    key={solution.slug}
-                    to={`/solutions/${solution.slug}`}
-                    className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6"
-                  >
-                    <span
-                      className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
-                      aria-hidden="true"
-                    />
+                .map((solution, index) => {
+                  const solutionCopy = {
+                    'mvp-design': language === 'id'
+                      ? 'Validasi ide produk lebih cepat dengan UX terarah, prototype interaktif, dan handoff yang siap dibangun.'
+                      : 'Validate a product idea faster with focused UX, interactive prototyping, and build-ready handoff.',
+                    'product-redesign': language === 'id'
+                      ? 'Perbaiki experience produk yang sudah berjalan tanpa menghilangkan logika bisnis dan kebutuhan pengguna.'
+                      : 'Improve an existing product experience without losing the business logic and user needs behind it.',
+                    'team-extension': language === 'id'
+                      ? 'Tambah kapasitas design dan engineering tanpa harus membangun tim baru dari awal.'
+                      : 'Add design and engineering capacity without building an entire new team from scratch.'
+                  }[solution.slug];
 
-                    <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
-                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <ArrowUpRight
-                        size={15}
-                        className="text-[#626872] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                  return (
+                    <Link
+                      key={solution.slug}
+                      to={`/solutions/${solution.slug}`}
+                      className="group relative flex min-h-[250px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
+                    >
+                      <span
+                        className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
                         aria-hidden="true"
                       />
-                    </div>
 
-                    <h4 className="mt-7 text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
-                      {solution.title}
-                    </h4>
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red/75">
+                          {language === 'id' ? 'Solusi' : 'Solution'}
+                        </span>
+                      </div>
 
-                    <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                      {solution.navSubtitle}
-                    </p>
+                      <div className="mt-9">
+                        <h4 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.55rem]">
+                          {solution.title}
+                        </h4>
+                        <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                          {solutionCopy}
+                        </p>
+                      </div>
 
-                    <div className="mt-8 flex items-center gap-3">
-                      <span className="h-px w-8 bg-white/[0.12] transition-all duration-500 group-hover:w-12 group-hover:bg-brand-red/60" />
-                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
-                        {language === 'id' ? 'Lihat solusi' : 'View solution'}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
+                      <div className="mt-auto flex items-center justify-between gap-4 pt-8">
+                        <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
+                          {language === 'id' ? 'Lihat detail' : 'View details'}
+                        </span>
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#7A808A] transition-all duration-300 group-hover:border-brand-red/35 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                          <ArrowUpRight size={14} aria-hidden="true" />
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
             </div>
           </div>
         </div>
