@@ -7,7 +7,7 @@ import { InsightContentRenderer } from '../components/InsightContentRenderer';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
-import type { InsightBlock, InsightItem } from '../data/insightTypes';
+import type { InsightItem } from '../data/insightTypes';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -20,7 +20,7 @@ function formatDate(value: string | null | undefined, language: 'id' | 'en'): st
   }).format(date);
 }
 
- extends React.Component<
+class InsightDetailErrorBoundary extends React.Component<
   { children: React.ReactNode; language: 'id' | 'en' },
   { hasError: boolean }
 > {
