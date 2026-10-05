@@ -27,7 +27,7 @@ export const InsightContextualPromo: React.FC<{
 
       <Link
         to={block.ctaUrl}
-        className="inline-flex min-h-[42px] w-full shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4.5 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_12px_28px_-24px_rgba(229,9,20,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 sm:w-auto"
+        className="inline-flex min-h-[42px] w-full shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_12px_28px_-24px_rgba(229,9,20,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 sm:w-auto"
       >
         {block.ctaLabel}
         <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
