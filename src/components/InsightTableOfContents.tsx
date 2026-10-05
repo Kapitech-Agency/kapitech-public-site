@@ -316,7 +316,7 @@ export const InsightTableOfContents: React.FC<{
               })}
             </div>
           </div>
-        )}>
+        )}
       </div>
     );
   };
