@@ -288,7 +288,7 @@ export const Footer = () => {
           {/* Col 4: Company & Case Studies (2 cols) */}
           <div className="lg:col-span-2">
             <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
-              {language === 'id' ? 'Perusahaan & Portofolio' : 'Company & Portfolio'}
+              {language === 'id' ? 'Perusahaan & Karya' : 'Company & Work'}
             </h4>
             <ul className="space-y-2.5 text-xs">
               {[
@@ -296,8 +296,7 @@ export const Footer = () => {
                 { name: t('nav.services'), href: '/services' },
                 { name: t('nav.about'), href: '/about' },
                 { name: t('nav.careers'), href: '/careers' },
-                { name: t('nav.contact'), href: '/contact' },
-                { name: language === 'id' ? 'Inbox Database' : 'Database Inbox', href: '/inbox' }
+                { name: t('nav.contact'), href: '/contact' }
               ].map((item) => (
                 <li key={item.name}>
                   <Link 
