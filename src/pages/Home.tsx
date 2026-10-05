@@ -139,14 +139,13 @@ export const Home = () => {
     processModalTriggerRef.current = null;
   }, [selectedProcessStep]);
 
-  const selectedClients = [
-    'Pertamina',
-    'Bank BTN',
-    'BKKBN',
-    'IHC / RSPP',
-    'Sababay Winery',
-    'Navees Gold',
-  ];
+  const selectedClients = Array.from(
+    new Set(
+      projectsList
+        .map((project) => String(project.client || '').trim())
+        .filter(Boolean),
+    ),
+  ).slice(0, 8);
 
   const techStack = [
     { name: "React", category: "Frontend", icon: <Layout size={18} /> },
