@@ -83,7 +83,11 @@ export const InsightTableOfContents: React.FC<{
         return (
           <a
             key={item.id}
-undefined
+            ref={node => {
+              const map = variant === 'desktop' ? desktopItemRefs.current : mobileItemRefs.current;
+              if (node) map.set(item.id, node);
+              else map.delete(item.id);
+            }}
             href={'#' + item.id}
             onClick={event => {
               event.preventDefault();
