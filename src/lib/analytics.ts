@@ -172,6 +172,16 @@ export function revokeOptionalAnalyticsConsent(): void {
   }
 
   clearOptionalAnalyticsCookies();
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'update', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+  }
+
   initialized = false;
   lastTrackedPath = '';
 }
