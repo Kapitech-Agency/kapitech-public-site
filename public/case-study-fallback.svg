@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#0B0C0E"/>
+  <rect x="1" y="1" width="1598" height="998" rx="34" stroke="#262930" stroke-opacity=".9" stroke-width="2"/>
+  <path d="M-30 690C250 510 420 770 690 610C960 450 1110 700 1630 390" stroke="#E50914" stroke-opacity=".34" stroke-width="10"/>
+  <path d="M-20 790C290 610 450 850 740 690C1030 530 1180 800 1620 500" stroke="#E50914" stroke-opacity=".16" stroke-width="3"/>
+  <circle cx="1280" cy="250" r="180" fill="#E50914" fill-opacity=".045"/>
+  <circle cx="1280" cy="250" r="120" fill="#E50914" fill-opacity=".035"/>
+  <text x="96" y="900" fill="#8A909D" fill-opacity=".72" font-family="Inter,Arial,sans-serif" font-size="34" letter-spacing="5">KAPITECH</text>
+</svg>
