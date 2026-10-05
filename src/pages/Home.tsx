@@ -489,59 +489,88 @@ export const Home = () => {
 
       {/* ENGAGEMENT OPTIONS */}
       <section
-        className="border-b border-[#262930] bg-[#0B0C0E] py-16 sm:py-20 lg:py-24"
+        className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="engagement"
       >
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12">
-          <div className="mb-10 max-w-3xl sm:mb-12">
-            <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-              {language === 'id' ? 'Pilihan Layanan' : 'Engagement Options'}
-            </span>
-            <h3 className="mt-4 max-w-2xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-4xl lg:text-[2.75rem]">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.42fr)] lg:items-end lg:gap-14">
+            <div className="max-w-4xl">
+              <span className="kapi-section-label mb-5">
+                {language === 'id' ? 'PILIHAN LAYANAN' : 'ENGAGEMENT OPTIONS'}
+              </span>
+
+              <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+                {language === 'id'
+                  ? 'Kapabilitas yang bisa Anda pilih, solusi yang bisa Anda kembangkan.'
+                  : 'Choose the capability you need. Build the solution you need next.'}
+              </h2>
+            </div>
+
+            <p className="max-w-md text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm lg:justify-self-end lg:pb-1">
               {language === 'id'
-                ? 'Pilih kapabilitas dan solusi yang sesuai dengan kebutuhan Anda.'
-                : 'Choose the capabilities and solutions that fit your needs.'}
-            </h3>
-            <p className="mt-4 max-w-2xl text-sm leading-[1.75] text-[#8A909D] sm:text-base">
-              {language === 'id'
-                ? 'Mulai dari branding, design, dan development. Saat kebutuhan Anda lebih spesifik, lanjutkan dengan solusi produk yang lebih terarah.'
-                : 'Start with branding, design, and development. When the need is more specific, move into a focused product solution.'}
+                ? 'Mulai dari branding, design, atau development. Saat kebutuhan produk semakin spesifik, lanjutkan dengan solusi yang lebih terarah.'
+                : 'Start with branding, design, or development. As your product needs become more specific, move into a focused solution.'}
             </p>
           </div>
 
-          <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
-            {(['Branding', 'Design', 'Development'] as const).map((category) => {
+          <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
+            {(['Branding', 'Design', 'Development'] as const).map((category, index) => {
               const services = allSolutionsAndServices.filter(
                 (service) => service.type === 'service' && service.category === category,
               );
+              const categoryCopy = {
+                Branding: language === 'id'
+                  ? 'Bangun identitas visual yang konsisten dan siap digunakan di setiap touchpoint.'
+                  : 'Build a consistent visual identity that works across every brand touchpoint.',
+                Design: language === 'id'
+                  ? 'Rancang experience yang jelas, usable, dan selaras dengan kebutuhan pengguna.'
+                  : 'Create clear, usable experiences aligned with how your users actually work.',
+                Development: language === 'id'
+                  ? 'Kembangkan website dan produk digital yang siap dipakai, diukur, dan dikembangkan.'
+                  : 'Build digital products and websites ready to ship, measure, and scale.'
+              }[category];
 
               return (
-                <div
+                <article
                   key={category}
-                  className="group min-w-0 rounded-2xl border border-white/[0.07] bg-[#0F1013] p-5 transition-[border-color,background-color] duration-300 hover:border-white/[0.13] hover:bg-[#121419] sm:p-6 lg:p-7"
+                  className="group relative flex min-h-[420px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.32)] sm:p-6 lg:p-7"
                 >
-                  <div className="flex items-center justify-between gap-4 border-b border-white/[0.065] pb-4">
+                  <span
+                    className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
+                    aria-hidden="true"
+                  />
+
+                  <div className="flex items-start justify-between gap-5 border-b border-white/[0.07] pb-4">
                     <div>
-                      <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="mt-2 block text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
                         {category}
                       </span>
-                      <span className="mt-1.5 block text-xs text-[#6F757F]">
-                        {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
-                      </span>
                     </div>
-                    <span className="text-sm font-mono tabular-nums text-[#6F757F]">
-                      {category === 'Branding' ? '01' : category === 'Design' ? '02' : '03'}
+                    <span className="text-[10px] font-mono tabular-nums text-[#8A909D]/60 transition-colors duration-300 group-hover:text-brand-red">
+                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'services' : 'services'}
                     </span>
                   </div>
 
-                  <div className="mt-3">
+                  <div className="pt-7">
+                    <h3 className="max-w-[18rem] text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-3xl">
+                      {category}
+                    </h3>
+                    <p className="mt-3 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                      {categoryCopy}
+                    </p>
+                  </div>
+
+                  <div className="mt-7 border-t border-white/[0.065] pt-2">
                     {services.map((service) => (
                       <Link
                         key={service.slug}
                         to={`/services/${service.slug}`}
                         className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12 sm:py-3"
                       >
-                        <span className="min-w-0 pr-2 text-sm font-medium leading-snug text-white/82 transition-colors duration-300 group-hover/item:text-brand-red">
+                        <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/82 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
                           {service.title}
                         </span>
                         <ArrowUpRight
@@ -552,51 +581,75 @@ export const Home = () => {
                       </Link>
                     ))}
                   </div>
-                </div>
+
+                  <div className="mt-auto flex items-center gap-3 pt-6">
+                    <span className="h-px w-8 bg-brand-red/60 transition-all duration-500 group-hover:w-12" />
+                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red/80">
+                      {language === 'id' ? 'Jelajahi layanan' : 'Explore services'}
+                    </span>
+                  </div>
+                </article>
               );
             })}
           </div>
 
-          <div className="mt-12 border-t border-white/[0.065] pt-10 sm:mt-14 sm:pt-12">
-            <div className="mb-7 flex flex-col gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mt-14 sm:mt-16 lg:mt-20">
+            <div className="mb-7 flex flex-col gap-3 border-t border-white/[0.07] pt-8 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div>
                 <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                  {language === 'id' ? 'Solusi' : 'Solutions'}
+                  {language === 'id' ? 'SOLUSI' : 'SOLUTIONS'}
                 </span>
-                <h4 className="mt-3 text-2xl font-display font-semibold tracking-[-0.04em] text-white sm:text-3xl">
-                  {language === 'id' ? 'Solusi untuk kebutuhan produk yang lebih spesifik.' : 'Focused solutions for specific product needs.'}
-                </h4>
+                <h3 className="mt-3 max-w-3xl text-2xl font-display font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.25rem]">
+                  {language === 'id'
+                    ? 'Solusi terarah untuk kebutuhan produk yang lebih spesifik.'
+                    : 'Focused solutions for more specific product needs.'}
+                </h3>
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+
+              <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                 03 {language === 'id' ? 'solusi' : 'solutions'}
               </span>
             </div>
 
-            <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
               {allSolutionsAndServices
                 .filter((item) => item.type === 'solution')
                 .map((solution, index) => (
                   <Link
                     key={solution.slug}
                     to={`/solutions/${solution.slug}`}
-                    className="group min-w-0 rounded-2xl border border-white/[0.07] bg-[#0F1013] p-5 transition-[border-color,background-color] duration-300 hover:border-white/[0.13] hover:bg-[#121419] sm:p-6"
+                    className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6"
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#6F757F]">
+                    <span
+                      className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
+                      aria-hidden="true"
+                    />
+
+                    <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
+                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                       <ArrowUpRight
-                        size={16}
+                        size={15}
                         className="text-[#626872] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
                         aria-hidden="true"
                       />
                     </div>
-                    <h5 className="mt-8 text-xl font-display font-semibold leading-tight tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
+
+                    <h4 className="mt-7 text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
                       {solution.title}
-                    </h5>
-                    <p className="mt-3 text-xs leading-[1.7] text-[#8A909D] sm:text-sm">
+                    </h4>
+
+                    <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
                       {solution.navSubtitle}
                     </p>
+
+                    <div className="mt-8 flex items-center gap-3">
+                      <span className="h-px w-8 bg-white/[0.12] transition-all duration-500 group-hover:w-12 group-hover:bg-brand-red/60" />
+                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
+                        {language === 'id' ? 'Lihat solusi' : 'View solution'}
+                      </span>
+                    </div>
                   </Link>
                 ))}
             </div>
