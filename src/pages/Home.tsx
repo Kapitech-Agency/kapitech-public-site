@@ -276,7 +276,7 @@ export const Home = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden">
+      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
           <PatternWaves
             preset="silk"
@@ -301,7 +301,7 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
-            <div className="kapi-section-label mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
@@ -328,14 +328,14 @@ export const Home = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <Link 
                 to="/contact" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-brand-red/45 bg-brand-red/72 backdrop-blur-xl backdrop-saturate-150 text-white text-xs font-semibold uppercase tracking-wider transition-[background-color,border-color,box-shadow] duration-300 ease-out flex items-center justify-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_28px_rgba(230,57,70,0.16)] hover:bg-brand-red/86 hover:border-brand-red/65 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_34px_rgba(230,57,70,0.22)]"
+                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
                 <ArrowUpRight size={16} />
               </Link>
               <Link 
                 to="/work" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-white/[0.1] bg-[#0B0C0E]/42 backdrop-blur-xl backdrop-saturate-150 text-white transition-[background-color,border-color,box-shadow] duration-300 ease-out text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_10px_28px_rgba(0,0,0,0.14)] hover:bg-[#0B0C0E]/54 hover:border-white/[0.16] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_14px_34px_rgba(0,0,0,0.18)]"
+                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
               >
                 <span>{language === 'id' ? 'Jelajahi Case Studies' : 'Explore Case Studies'}</span>
               </Link>
@@ -365,7 +365,6 @@ export const Home = () => {
           </div>
         </div>
       </section>
-
       {/* STUDIO PROOF / EDITORIAL METRICS */}
       <section
         className="relative overflow-hidden py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
@@ -439,7 +438,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      {/* CLIENTS & PARTNERS SECTION - LOOPING CAROUSEL WITH SIDE SHADOWS */}
+      {/* SELECTED CLIENT WORK */}
       <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930] overflow-hidden relative" id="clients">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 mb-10 sm:mb-12 text-center">
           <span className="kapi-section-label mb-5">
@@ -457,19 +456,13 @@ export const Home = () => {
           </p>
         </div>
 
-        {/* Looping Marquee Track with Left & Right Gradient Shadows */}
         <div className="relative w-full overflow-hidden py-4">
-          
-          {/* Left Gradient Shadow */}
           <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent z-20 pointer-events-none" />
-          
-          {/* Right Gradient Shadow */}
           <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent z-20 pointer-events-none" />
 
-          {/* Marquee Motion Container */}
           <div className="flex w-max">
             <motion.div
-              className="flex items-center gap-4 sm:gap-5 lg:gap-6 shrink-0 pr-4 sm:pr-5 lg:pr-6"
+              className="flex items-center gap-12 sm:gap-20 shrink-0 pr-12 sm:pr-20"
               animate={{ x: ['0%', '-50%'] }}
               transition={{
                 duration: 28,
@@ -480,92 +473,71 @@ export const Home = () => {
               {[...selectedClients, ...selectedClients].map((client, idx) => (
                 <div
                   key={`${client}-${idx}`}
-                  className="flex w-[196px] sm:w-[224px] lg:w-[248px] h-20 sm:h-24 lg:h-28 items-center justify-center shrink-0"
+                  className="flex min-w-[170px] sm:min-w-[220px] lg:min-w-[250px] h-20 sm:h-24 items-center justify-center shrink-0 px-6 sm:px-8"
                   aria-label={client}
                 >
-                  <div className="flex h-10 sm:h-12 lg:h-14 w-[154px] sm:w-[176px] lg:w-[198px] items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.012] px-4">
-                    <span className="text-center text-[11px] sm:text-xs lg:text-sm font-semibold tracking-[-0.01em] text-white/75">
-                      {client}
-                    </span>
-                  </div>
+                  <span className="text-center text-sm sm:text-base lg:text-lg font-semibold tracking-[-0.02em] text-[#8A909D] opacity-60 hover:text-white hover:opacity-100 whitespace-nowrap transition-all duration-300">
+                    {client}
+                  </span>
                 </div>
               ))}
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0F1013]">
-            <div className="grid lg:grid-cols-[0.82fr_2.18fr]">
-              <div className="relative overflow-hidden border-b border-white/[0.07] p-6 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
-                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full border border-brand-red/[0.06]" aria-hidden="true" />
-                <div className="pointer-events-none absolute -right-4 top-2 h-24 w-24 rounded-full border border-white/[0.025]" aria-hidden="true" />
-                <div className="relative">
-                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                    {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
-                  </span>
-                  <h3 className="mt-4 max-w-sm text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-[2rem]">
-                    {language === 'id' ? 'Pilih bentuk engagement yang paling pas.' : 'Choose the engagement that fits.'}
-                  </h3>
-                  <p className="mt-4 max-w-sm text-xs leading-[1.75] text-[#8A909D] sm:text-sm">
-                    {language === 'id'
-                      ? 'Mulai dari kebutuhan yang paling dekat dengan fase bisnis Anda, lalu masuk lebih dalam saat dibutuhkan.'
-                      : 'Start with the need closest to your current business stage, then expand the engagement as the work grows.'}
-                  </p>
-                </div>
+      {/* ENGAGEMENT OPTIONS */}
+      <section className="py-14 sm:py-20 bg-[#0B0C0E] border-b border-[#262930]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+          <div className="overflow-hidden rounded-2xl border border-white/[0.065] bg-white/[0.012]">
+            <div className="grid lg:grid-cols-[1.1fr_1.9fr]">
+              <div className="border-b border-white/[0.065] p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
+                  {language === 'id' ? 'Cara Kami Bekerja' : 'Engagement Options'}
+                </span>
+                <h3 className="mt-3 max-w-sm text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-2xl">
+                  {language === 'id' ? 'Pilih bentuk engagement yang paling pas.' : 'Choose the engagement that fits.'}
+                </h3>
               </div>
 
-              <div className="grid divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              <div className="grid divide-y divide-white/[0.065] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
                 {[
                   {
                     slug: 'mvp-design',
-                    number: '01',
                     title: 'MVP Design',
-                    fit: language === 'id' ? 'Untuk ide & produk baru' : 'Best for new products',
-                    desc: language === 'id' ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan, divalidasi, dan dikembangkan.' : 'Turn an idea into clearer product direction ready for validation, presentation, and build.'
+                    desc: language === 'id'
+                      ? 'Ubah ide menjadi product direction yang lebih siap dipresentasikan, divalidasi, dan dikembangkan.'
+                      : 'Turn an idea into clearer product direction ready for validation, presentation, and build.'
                   },
                   {
                     slug: 'product-redesign',
-                    number: '02',
                     title: 'Product Redesign',
-                    fit: language === 'id' ? 'Untuk produk yang sudah berjalan' : 'Best for existing products',
-                    desc: language === 'id' ? 'Modernisasi experience, perjelas alur, dan tingkatkan kualitas produk tanpa kehilangan logika bisnisnya.' : 'Modernize the experience, clarify the flow, and improve product quality without losing business logic.'
+                    desc: language === 'id'
+                      ? 'Modernisasi experience, perjelas alur, dan tingkatkan kualitas produk tanpa kehilangan logika bisnisnya.'
+                      : 'Modernize the experience, clarify the flow, and improve product quality without losing business logic.'
                   },
                   {
                     slug: 'team-extension',
-                    number: '03',
                     title: 'Team Extension',
-                    fit: language === 'id' ? 'Untuk tim internal yang butuh kapasitas' : 'Best for growing teams',
-                    desc: language === 'id' ? 'Tambah kapasitas desain dan engineering dengan tim yang bisa langsung masuk ke workflow Anda.' : 'Add design and engineering capacity with a team that can plug directly into your workflow.'
+                    desc: language === 'id'
+                      ? 'Tambah kapasitas desain dan engineering dengan tim yang bisa langsung masuk ke workflow Anda.'
+                      : 'Add design and engineering capacity with a team that can plug directly into your workflow.'
                   }
                 ].map((solution) => (
                   <Link
                     key={solution.slug}
                     to={'/solutions/' + solution.slug}
-                    className="group relative flex min-h-[270px] flex-col p-5 transition-[background-color] duration-300 hover:bg-white/[0.022] sm:p-6 lg:p-7"
+                    className="group p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:p-6"
                   >
-                    <span className="absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
-
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]/65 transition-colors duration-300 group-hover:text-brand-red">
-                        {solution.number}
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-display font-semibold text-white transition-colors duration-300 group-hover:text-brand-red">
+                        {solution.title}
                       </span>
                       <ArrowUpRight size={15} className="shrink-0 text-[#6F757F] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red" />
                     </div>
-
-                    <div className="mt-10">
-                      <h4 className="text-xl font-display font-semibold leading-none tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
-                        {solution.title}
-                      </h4>
-                      <span className="mt-3 inline-flex text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
-                        {solution.fit}
-                      </span>
-                      <p className="mt-4 text-xs leading-[1.75] text-[#8A909D] sm:text-[13px]">
-                        {solution.desc}
-                      </p>
-                    </div>
-
-                    <span className="mt-auto pt-7 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
-                      {language === 'id' ? 'Jelajahi Solusi' : 'Explore Solution'}
-                    </span>
+                    <p className="mt-2.5 text-xs leading-[1.65] text-[#8A909D]">
+                      {solution.desc}
+                    </p>
                   </Link>
                 ))}
               </div>
