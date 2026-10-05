@@ -199,7 +199,7 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'overflow-hidden rounded-2xl border transition-[border-color,background-color,box-shadow] duration-250',
+          'overflow-hidden rounded-2xl border transition-[border-color,background-color,box-shadow] duration-300',
           sectionActive
             ? 'border-brand-red/25 bg-[#15171C] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_14px_30px_-24px_rgba(0,0,0,0.9)]'
             : 'border-white/[0.08] bg-[#111318]/72 hover:border-white/[0.12] hover:bg-[#14161B]'
