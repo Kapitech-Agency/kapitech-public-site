@@ -75,9 +75,12 @@ export const InsightTableOfContents: React.FC<{
         cancelPendingNavigation();
       } else {
         const pendingTop = pendingHeading.getBoundingClientRect().top;
+        const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const atDocumentBottom = window.scrollY >= maxScrollTop - 4;
         const settled =
-          pendingTop >= -NAVIGATION_SETTLE_TOLERANCE &&
-          pendingTop <= TOC_SCROLL_OFFSET + NAVIGATION_SETTLE_TOLERANCE;
+          atDocumentBottom ||
+          (pendingTop >= -NAVIGATION_SETTLE_TOLERANCE &&
+            pendingTop <= TOC_SCROLL_OFFSET + NAVIGATION_SETTLE_TOLERANCE);
 
         if (!settled) {
           setActiveId(prev => (prev === pendingId ? prev : pendingId));
@@ -90,14 +93,23 @@ export const InsightTableOfContents: React.FC<{
 
     let current = items[0];
 
-    for (const item of items) {
-      const heading = document.getElementById(item.id);
-      if (!heading) continue;
+    const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const atDocumentBottom = window.scrollY >= maxScrollTop - 4;
 
-      if (heading.getBoundingClientRect().top <= TOC_SCROLL_OFFSET) {
-        current = item;
-      } else {
-        break;
+    if (atDocumentBottom) {
+      current = items[items.length - 1];
+    }
+
+    if (!atDocumentBottom) {
+      for (const item of items) {
+        const heading = document.getElementById(item.id);
+        if (!heading) continue;
+
+        if (heading.getBoundingClientRect().top <= TOC_SCROLL_OFFSET) {
+          current = item;
+        } else {
+          break;
+        }
       }
     }
 
