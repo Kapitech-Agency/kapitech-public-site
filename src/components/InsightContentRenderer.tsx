@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
+import { InsightContextualPromo } from './InsightContextualPromo';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 
@@ -249,6 +250,16 @@ export const InsightContentRenderer: React.FC<{
                 {external ? <ExternalLink size={13} aria-hidden="true" /> : <ArrowRight size={13} aria-hidden="true" />}
               </a>
             </p>
+          );
+        }
+
+        if (block.type === 'promo') {
+          return (
+            <InsightContextualPromo
+              key={index}
+              block={block}
+              language={language}
+            />
           );
         }
 
