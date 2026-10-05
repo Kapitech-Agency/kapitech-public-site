@@ -51,11 +51,16 @@ export const InsightTableOfContents: React.FC<{
   const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const tocRootRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const rafRef = useRef<number | null>(null);
   const navigationTargetRef = useRef<string | null>(null);
   const navigationStartedAtRef = useRef(0);
+
+  const isVisibleTocInstance = () => Boolean(
+    tocRootRef.current && tocRootRef.current.getClientRects().length > 0
+  );
 
   const cancelPendingNavigation = () => {
     navigationTargetRef.current = null;
@@ -63,7 +68,7 @@ export const InsightTableOfContents: React.FC<{
   };
 
   const syncActiveHeading = () => {
-    if (!items.length) return;
+    if (!items.length || !isVisibleTocInstance()) return;
 
     const pendingId = navigationTargetRef.current;
 
@@ -135,7 +140,7 @@ export const InsightTableOfContents: React.FC<{
     setActiveId(initialId);
     setExpandedSectionId(initialSectionId);
 
-    if (hash && initialId === hash) {
+    if (hash && initialId === hash && isVisibleTocInstance()) {
       navigationTargetRef.current = null;
       navigationStartedAtRef.current = 0;
 
@@ -148,6 +153,8 @@ export const InsightTableOfContents: React.FC<{
     }
 
     const handleHashChange = () => {
+      if (!isVisibleTocInstance()) return;
+
       const nextHash = getHashId();
       const nextId = items.some(item => item.id === nextHash) ? nextHash : '';
 
@@ -212,6 +219,8 @@ export const InsightTableOfContents: React.FC<{
   };
 
   const navigateTo = (item: InsightTocItem, mobile = false) => {
+    if (!isVisibleTocInstance()) return;
+
     const target = document.getElementById(item.id);
     if (!target) return;
 
@@ -410,7 +419,7 @@ export const InsightTableOfContents: React.FC<{
   const currentItem = items.find(item => item.id === activeId) || sections[0].heading;
 
   return (
-    <div className="kapi-insight-toc">
+    <div ref={tocRootRef} className="kapi-insight-toc">
       <div className="xl:hidden">
         <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
           <button
