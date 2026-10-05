@@ -103,6 +103,7 @@ export const Navbar = () => {
   const dedicatedServiceCount = branding.length + design.length + development.length;
 
   const isWorkActive = location.pathname === '/work' || location.pathname.startsWith('/work/');
+  const isInsightsActive = location.pathname === '/insights' || location.pathname.startsWith('/insights/');
   const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
   const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
@@ -239,6 +240,15 @@ export const Navbar = () => {
                   </motion.span>
                 </button>
               </div>
+
+              {/* Insights Link */}
+              <Link
+                to="/insights"
+                className={desktopNavItemClass(isInsightsActive)}
+                aria-current={isInsightsActive ? 'page' : undefined}
+              >
+                <span className="relative z-10">{t('nav.insights')}</span>
+              </Link>
 
               {/* About Link */}
               <Link
@@ -721,6 +731,24 @@ export const Navbar = () => {
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* Insights */}
+              <Link
+                to="/insights"
+                onClick={() => setIsMenuOpen(false)}
+                className={cn(
+                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
+                  isInsightsActive
+                    ? "text-white font-bold border-brand-red/60"
+                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-brand-red">03</span>
+                  <span className="text-xl font-display">{t('nav.insights')}</span>
+                </div>
+                <ChevronRight size={18} className="text-[#8A909D]/40" />
+              </Link>
 
               {/* About */}
               <Link

@@ -141,6 +141,25 @@ export const api = {
     }>('/api/cms/public-settings'),
     getServices: () => apiRequest<{ services?: ServiceItemData[] }>('/api/cms/services'),
     getProjects: () => apiRequest<{ projects?: ProjectItem[] }>('/api/cms/projects'),
-    getTestimonials: () => apiRequest<{ testimonials?: import('./cmsStore').TestimonialItem[] }>('/api/cms/testimonials')
+    getTestimonials: () => apiRequest<{ testimonials?: import('./cmsStore').TestimonialItem[] }>('/api/cms/testimonials'),
+    getInsights: (params: Record<string, string | number | boolean | undefined> = {}) => {
+      const query = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== '') query.set(key, String(value));
+      });
+      return apiRequest<{
+        success: boolean;
+        insights: import('../data/insightTypes').InsightItem[];
+        meta?: { total: number; page: number; pageSize: number; totalPages: number };
+      }>('/api/cms/insights' + (query.toString() ? '?' + query.toString() : ''));
+    },
+    getInsightBySlug: (slug: string) =>
+      apiRequest<{ success: boolean; insight: import('../data/insightTypes').InsightItem }>(
+        '/api/cms/insights/' + encodeURIComponent(slug)
+      ),
+    getInsightCategories: (language?: 'id' | 'en') =>
+      apiRequest<{ categories?: import('../data/insightTypes').InsightCategory[] }>(
+        '/api/cms/insight-categories' + (language ? '?language=' + language : '')
+      )
   }
 };

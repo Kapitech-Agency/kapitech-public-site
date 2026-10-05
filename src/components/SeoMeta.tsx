@@ -194,6 +194,8 @@ export const SeoMeta = () => {
   const { language } = useLanguage();
 
   useEffect(() => {
+    if (pathname === '/insights' || pathname.startsWith('/insights/')) return;
+
     const { seo, canonicalPath, structuredData } = getRouteSeo(pathname, language);
     const canonicalUrl = SITE_URL + (canonicalPath === '/' ? '/' : canonicalPath);
 
