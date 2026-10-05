@@ -93,11 +93,7 @@
   ],
   "rewrites": [
     {
-      "source": "/insights",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/insights/(.*)",
+      "source": "/insights/:path*",
       "destination": "/index.html"
     },
     {
