@@ -523,8 +523,8 @@ export const allSolutionsAndServices: ServiceItemData[] = [
       {
         problemTitle: 'Text-Heavy, Boring Slides',
         problemTitleId: 'Slide Penuh Teks & Membosankan',
-        problemDesc: 'Investors review 50+ decks daily. Dense paragraphs and bullet points get skimmed and discarded within 30 seconds.',
-        problemDescId: 'Investor meninjau 50+ deck setiap hari. Paragraf padat dan poin membosankan akan dilewati dalam 30 detik pertama.',
+        problemDesc: 'Investors review many decks in competitive environments, so dense paragraphs and weak hierarchy can quickly lose attention.',
+        problemDescId: 'Investor meninjau banyak deck dalam situasi yang kompetitif, sehingga paragraf padat dan hierarki visual yang lemah mudah kehilangan perhatian.',
         solutionTitle: 'Visual Storytelling & Data Infographics',
         solutionTitleId: 'Storytelling Visual & Infografis Data',
         solutionDesc: 'We turn dense metrics, market data, and tech architecture into crystal-clear, unforgettable visual storylines.',
@@ -717,9 +717,9 @@ export const allSolutionsAndServices: ServiceItemData[] = [
         stageNumber: '04',
         stageName: 'Brand Guidelines Manual Handoff',
         stageNameId: 'Penyerahan Buku Pedoman Brandbook',
-        stageDesc: 'Compiling the 50+ page brand manual and delivering all master vector assets in multiple formats.',
-        stageDescId: 'Menyusun buku pedoman brandbook 50+ halaman dan menyerahkan seluruh aset master vektor siap pakai.',
-        deliverables: ['50+ Page Digital Brand Guidelines', 'Complete Master Asset Archive'],
+        stageDesc: 'Compiling a comprehensive brand manual and delivering master vector assets in multiple formats.',
+        stageDescId: 'Menyusun buku pedoman brand yang komprehensif dan menyerahkan seluruh aset master vektor siap pakai.',
+        deliverables: ['Comprehensive Digital Brand Guidelines', 'Complete Master Asset Archive'],
         deliverablesId: ['Buku Pedoman Brandbook Digital', 'Arsip Lengkap Aset Vektor Master']
       }
     ],
@@ -1301,8 +1301,8 @@ export const allSolutionsAndServices: ServiceItemData[] = [
     navSubtitleId: 'Wawasan mendalam berbasis data untuk hasil nyata',
     heroHeadline: 'Comprehensive UX/UI heuristic audit & conversion bottleneck analysis',
     heroHeadlineId: 'Audit heuristik UX/UI komprehensif & analisis hambatan konversi',
-    heroSubtitle: 'Uncover where users drop off, get confused, or abandon transactions. We deliver a detailed 40+ page diagnostic report with actionable wireframe fixes to maximize ROI.',
-    heroSubtitleId: 'Temukan penyebab pengguna keluar atau membatalkan transaksi. Kami memberikan laporan diagnostik detail 40+ halaman beserta solusi wireframe konkret untuk mendongkrak ROI.',
+    heroSubtitle: 'Uncover where users drop off, get confused, or abandon transactions. We deliver a detailed diagnostic report with prioritized findings and actionable wireframe fixes.',
+    heroSubtitleId: 'Temukan penyebab pengguna keluar atau membatalkan transaksi. Kami memberikan laporan diagnostik detail dengan temuan prioritas dan solusi wireframe konkret.',
     badge: 'Diagnostic Intelligence',
     badgeId: 'Intelijen Diagnostik',
     metrics: [
@@ -1351,10 +1351,10 @@ export const allSolutionsAndServices: ServiceItemData[] = [
         stageNumber: '02',
         stageName: 'Report Delivery & Video Walkthrough',
         stageNameId: 'Penyerahan Laporan & Video Presentasi',
-        stageDesc: 'Delivering the 40+ page audit report with annotated screens, wireframe fixes, and executive presentation.',
-        stageDescId: 'Menyerahkan laporan audit 40+ halaman dengan anotasi layar, rekomendasi wireframe, dan presentasi video.',
-        deliverables: ['40+ Page Diagnostic Audit Report', 'Executive Video Walkthrough'],
-        deliverablesId: ['Laporan Audit Diagnostik 40+ Halaman', 'Video Presentasi Penjelasan Temuan']
+        stageDesc: 'Delivering a detailed audit report with annotated screens, wireframe fixes, and executive presentation.',
+        stageDescId: 'Menyerahkan laporan audit detail dengan anotasi layar, rekomendasi wireframe, dan presentasi video.',
+        deliverables: ['Detailed Diagnostic Audit Report', 'Executive Video Walkthrough'],
+        deliverablesId: ['Laporan Audit Diagnostik Detail', 'Video Presentasi Penjelasan Temuan']
       }
     ],
     businessOutcomes: {
@@ -1603,7 +1603,7 @@ export const allSolutionsAndServices: ServiceItemData[] = [
         problemTitleId: 'Landing Page Lambat Menghanguskan Anggaran Iklan',
         problemDesc: 'Every extra second of load time cuts conversion rates by 20%, wasting valuable ad budget.',
         problemDescId: 'Setiap detik keterlambatan waktu muat memotong angka konversi hingga 20%, membuang anggaran iklan Anda.',
-        solutionTitle: 'Sub-Second Next.js Performance',
+        solutionTitle: 'Performance-Focused Next.js Delivery',
         solutionTitleId: 'Kinerja Sub-Detik Berbasis Next.js',
         solutionDesc: 'Edge caching, compressed media assets, and zero layout shift delivering near-instant page renders.',
         solutionDescId: 'Edge caching, kompresi aset gambar modern, dan zero layout shift untuk tampilan instan.'
