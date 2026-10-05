@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, useLocation, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowUpRight, 
@@ -30,6 +30,7 @@ import { cn } from '../lib/utils';
 
 export const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { pathname } = useLocation();
   const { language } = useLanguage();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [cmsServices, setCmsServices] = useState(() => getCmsServices());
@@ -55,6 +56,15 @@ export const ServiceDetail = () => {
 
   const staticService = slug ? getServiceBySlug(slug) : undefined;
   const isSolutionPage = staticService?.type === 'solution';
+
+  if (staticService && pathname.startsWith('/solutions/') && !isSolutionPage) {
+    return <Navigate to={'/services/' + staticService.slug} replace />;
+  }
+
+  if (staticService && pathname.startsWith('/services/') && isSolutionPage) {
+    return <Navigate to={'/solutions/' + staticService.slug} replace />;
+  }
+
   const baseService = slug
     ? cmsServices.find((item) => item.slug === slug) || staticService
     : undefined;
