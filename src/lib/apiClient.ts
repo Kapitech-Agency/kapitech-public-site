@@ -87,11 +87,12 @@ export async function uploadPublicResume(file: File): Promise<{ success: boolean
   const timeout = window.setTimeout(() => controller.abort(), 30000);
 
   try {
-    const targetUrl = `${resolveApiUrl('/api/leads/resume-upload')}?filename=${encodeURIComponent(file.name)}`;
+    const targetUrl = resolveApiUrl('/api/leads/resume-upload');
     const res = await fetch(targetUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': file.type || 'application/octet-stream'
+        'Content-Type': file.type || 'application/octet-stream',
+        'X-Resume-Filename': encodeURIComponent(file.name)
       },
       credentials: 'omit',
       body: file,
