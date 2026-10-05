@@ -148,6 +148,7 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
       if (cancelled) return;
       document.documentElement.lang = resolvedLanguage;
       document.title = title;
+      setMeta('title', title);
       setMeta('description', description);
       setMeta('robots', robots);
       setProp('og:type', pathname.startsWith('/insights/') ? 'article' : 'website');
