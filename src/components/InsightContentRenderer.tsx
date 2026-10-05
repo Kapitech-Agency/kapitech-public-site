@@ -94,8 +94,8 @@ export const InsightContentRenderer: React.FC<{
               id={headingIds[index] || undefined}
               className={
                 block.level === 3
-                  ? 'group mb-4 mt-10 scroll-mt-24 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
-                  : 'group mb-5 mt-14 scroll-mt-24 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem] lg:text-[2.2rem]'
+                  ? 'group mb-4 mt-10 scroll-mt-32 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
+                  : 'group mb-5 mt-14 scroll-mt-32 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem] lg:text-[2.2rem]'
               }
             >
               {block.text}
