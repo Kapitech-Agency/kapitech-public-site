@@ -815,7 +815,7 @@ export const Services = () => {
               </span>
             </div>
 
-            <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div className="overflow-x-auto touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <div className="flex w-max items-center gap-1 rounded-full border border-white/[0.07] bg-[#0B0C0E] p-1">
                 {[
                   { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
@@ -826,7 +826,7 @@ export const Services = () => {
                   <button
                     key={tab.key}
                     onClick={() => setActiveCategory(tab.key as any)}
-                    className={`min-h-[40px] sm:min-h-[34px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
+                    className={`min-h-[44px] sm:min-h-[40px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
                       activeCategory === tab.key
                         ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
                         : 'text-[#8A909D] hover:text-white hover:bg-white/5'
