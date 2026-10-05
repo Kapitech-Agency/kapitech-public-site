@@ -1,12 +1,11 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import type { InsightLanguage, InsightPromoBlock } from '../data/insightTypes';
+import type { InsightPromoBlock } from '../data/insightTypes';
 
 export const InsightContextualPromo: React.FC<{
   block: InsightPromoBlock;
-  language: InsightLanguage;
-}> = ({ block, language }) => (
+}> = ({ block }) => (
   <aside className="my-14 border-y border-white/[0.08] py-7 sm:my-16 sm:py-8" aria-label={block.title}>
     <div className="grid gap-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-8">
       <div className="max-w-[640px]">
