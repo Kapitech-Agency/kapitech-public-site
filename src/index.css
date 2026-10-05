@@ -1,54 +1,22 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   KAPITECH AGENCY AMS & ENTERPRISE ECOSYSTEM - DESIGN TOKENS & COLOR ARCHITECTURE
+   KAPITECH PUBLIC SITE - CORE DESIGN TOKENS
    ========================================================================== */
 :root {
-  --bg:#f4f4f7; --panel:#ffffff; --line:#e3e3ea; --text:#16161c; --muted:#6c6c7a;
-  --accent:#dc143c; --accent-text:#c40f34;
-  --series-2:#12a672; --series-3:#3b6fe0; --series-4:#8a8a98;
-  --success:#12a672; --warning:#b7791f; --danger:#d92d20; --info:#3b6fe0;
-  --accent-hover:#c40f34; --accent-pressed:#a10c2b;
-}
-:root[data-theme="dark"] {
-  --bg:#09090c; --panel:#0f0f14; --line:#20202a; --text:#f3f3f6; --muted:#8b8b99;
-  --accent:#dc143c; --accent-text:#ff4d6d;
-  --series-2:#34d399; --series-3:#5b8cff; --series-4:#b9b9c6;
-  --success:#34d399; --warning:#f5a524; --danger:#f97066; --info:#5b8cff;
-  --accent-hover:#c40f34; --accent-pressed:#a10c2b;
+  --bg: #0B0C0E;
+  --text: #F8FAFC;
 }
 
 @theme inline {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --color-bg: var(--bg);
-  --color-panel: var(--panel);
-  --color-line: var(--line);
-  --color-fg: var(--text);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-text: var(--accent-text);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-pressed: var(--accent-pressed);
-  --color-series-2: var(--series-2);
-  --color-series-3: var(--series-3);
-  --color-series-4: var(--series-4);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --color-info: var(--info);
-  --radius-badge: 5px;
-  --radius-chip: 6px;
-  --radius-control: 8px;
-  --radius-card: 12px;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  
-  /* Primary Accent: Refined Brand Red */
+
   --color-brand-red: #E50914;
   --color-brand-red-bright: #FF1E27;
   --color-brand-red-hover: #FF1E27;
   --color-brand-red-glow: rgba(229, 9, 20, 0.25);
 
-  /* Surfaces - Strict Solid Dark Palette */
   --color-dark-base: #0B0C0E;
   --color-dark-card: #16181D;
   --color-dark-card-hover: #1B1F26;
@@ -57,7 +25,6 @@
   --color-dark-divider: rgba(255, 255, 255, 0.12);
   --color-charcoal: #16181D;
 
-  /* Typography */
   --color-text-headline: #F8FAFC;
   --color-text-body: #8A94A6;
   --color-text-muted: #64748B;
