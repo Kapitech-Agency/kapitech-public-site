@@ -3,6 +3,35 @@ import { api } from './apiClient';
 
 export type Language = 'en' | 'id';
 
+function isSearchEngineReferrer(): boolean {
+  if (typeof document === 'undefined' || !document.referrer) return false;
+
+  try {
+    const hostname = new URL(document.referrer).hostname.toLowerCase();
+    return (
+      hostname === 'google.com' ||
+      hostname.endsWith('.google.com') ||
+      hostname === 'google.co.id' ||
+      hostname.endsWith('.google.co.id') ||
+      hostname === 'bing.com' ||
+      hostname.endsWith('.bing.com') ||
+      hostname === 'search.yahoo.com' ||
+      hostname === 'duckduckgo.com' ||
+      hostname === 'search.brave.com' ||
+      hostname === 'yandex.com' ||
+      hostname.endsWith('.yandex.com')
+    );
+  } catch {
+    return false;
+  }
+}
+
+function prefersIndonesianLocale(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const languages = [navigator.language, ...(navigator.languages || [])].filter(Boolean);
+  return languages.some(value => /^id(?:-|$)/i.test(value));
+}
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -706,6 +735,19 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     if (localStorage.getItem('kapitech_lang')) return;
     let mounted = true;
+
+    const applySearchLocale = () => {
+      if (isSearchEngineReferrer() && prefersIndonesianLocale()) {
+        setLanguageState('id');
+        return true;
+      }
+      return false;
+    };
+
+    if (applySearchLocale()) {
+      return () => { mounted = false; };
+    }
+
     void api.cms.getPublicSettings().then((res) => {
       if (!mounted || !res.success || !res.data?.settings) return;
       const configuredLanguage = res.data.settings.defaultLanguage;
@@ -713,6 +755,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setLanguageState(configuredLanguage);
       }
     }).catch(() => {});
+
     return () => { mounted = false; };
   }, []);
 
