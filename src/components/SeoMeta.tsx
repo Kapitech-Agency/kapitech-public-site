@@ -8,7 +8,6 @@ type SeoDefinition = {
   title: string;
   description: string;
   robots?: string;
-  type?: 'website' | 'article';
 };
 
 const SITE_NAME = seoRoutes.siteName;
@@ -202,7 +201,7 @@ export const SeoMeta = () => {
     document.title = seo.title;
     setMeta('description', seo.description);
     setMeta('robots', seo.robots || DEFAULT_ROBOTS);
-    setProperty('og:type', seo.type || 'website');
+    setProperty('og:type', 'website');
     setProperty('og:url', canonicalUrl);
     setProperty('og:title', seo.title);
     setProperty('og:description', seo.description);
