@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import type { InsightLanguage } from '../data/insightTypes';
 
 export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ language }) => (
-  <div className="mt-7 shrink-0 border-t border-white/[0.08] pt-6">
+  <div className="mt-5 shrink-0 border-t border-white/[0.08] pt-5">
     <p className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
       {language === 'id' ? 'Langkah berikutnya' : 'Next step'}
     </p>
