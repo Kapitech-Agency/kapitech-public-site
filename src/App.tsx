@@ -91,16 +91,8 @@ function AppShell() {
       const { siteTitle, siteDescription, maintenanceMode: serverMaintenanceMode } = res.data.settings;
       setMaintenanceMode(Boolean(serverMaintenanceMode));
 
-      if (siteTitle) document.title = siteTitle;
-      if (siteDescription) {
-        let description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-        if (!description) {
-          description = document.createElement('meta');
-          description.name = 'description';
-          document.head.appendChild(description);
-        }
-        description.content = siteDescription;
-      }
+      // SeoMeta is the single source of truth for route-specific title and description.
+      // CMS site settings must not overwrite indexable page metadata after navigation.
     }).catch(() => undefined);
 
     return () => {
