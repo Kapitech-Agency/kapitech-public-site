@@ -370,7 +370,22 @@ async function fetchPublishedInsights() {
       const insights = Array.isArray(payload.insights)
         ? payload.insights.filter((item) => item?.status === 'published' && item?.slug)
         : [];
-      variants.push(...insights);
+
+      for (const summaryItem of insights) {
+        const detailResponse = await fetch(
+          apiBase + '/cms/insights/' + encodeURIComponent(summaryItem.slug)
+        );
+        if (!detailResponse.ok) {
+          throw new Error('Insight detail API returned ' + detailResponse.status + ' for ' + summaryItem.slug);
+        }
+        const detailPayload = await detailResponse.json();
+        const detail = detailPayload?.insight;
+        if (!detail || detail.status !== 'published') {
+          throw new Error('Published Insight detail is missing for ' + summaryItem.slug);
+        }
+        variants.push({ ...summaryItem, ...detail });
+      }
+
       totalPages = Number(payload.meta?.totalPages || 1);
       page += 1;
     }
