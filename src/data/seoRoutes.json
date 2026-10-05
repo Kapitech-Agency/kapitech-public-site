@@ -93,7 +93,7 @@
     {
       "path": "/solutions/product-redesign",
       "title": "PRODUCT REDESIGN | Kapitech Agency",
-      "description": "Elevate retention, eliminate churn, and modernize legacy software interfaces into high-impact digital experiences that dominate modern markets.",
+      "description": "Modernize legacy software interfaces, clarify complex user journeys, and improve the product experience across critical workflows.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "PRODUCT REDESIGN",
@@ -102,7 +102,7 @@
     {
       "path": "/solutions/team-extension",
       "title": "TEAM EXTENSION | Kapitech Agency",
-      "description": "Embed battle-tested, high-caliber product designers, motion specialists, and full-stack engineers into your sprints with zero hiring overhead.",
+      "description": "Extend your delivery capacity with product designers, motion specialists, and full-stack engineers who can work alongside your team on defined engagements.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "TEAM EXTENSION",
@@ -111,7 +111,7 @@
     {
       "path": "/services/pitch-deck",
       "title": "Pitch Deck | Kapitech Agency",
-      "description": "Deliver an effective, undeniable presentation of your company to venture capital investors, institutional partners, and enterprise clients with our executive-grade deck design services.",
+      "description": "Create a clear, structured presentation for investors, institutional partners, and enterprise clients with focused deck design and storytelling.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Pitch Deck",
@@ -120,7 +120,7 @@
     {
       "path": "/services/brand-identity",
       "title": "Brand Identity | Kapitech Agency",
-      "description": "Build undeniable authority, market distinction, and lasting customer trust through unified visual guidelines, bespoke typography, and coherent brand ecosystems.",
+      "description": "Build a consistent brand system with clear visual guidelines, bespoke typography, and a coherent identity across key touchpoints.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Brand Identity",
@@ -129,7 +129,7 @@
     {
       "path": "/services/logo-design",
       "title": "Logo Design | Kapitech Agency",
-      "description": "Distinctive, timeless, and mathematically balanced logomarks engineered for seamless scalability across app icons, billboards, and high-contrast digital interfaces.",
+      "description": "Distinctive and scalable logomarks designed to work across app icons, large-format applications, and digital interfaces.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Logo Design",
@@ -138,7 +138,7 @@
     {
       "path": "/services/graphic-design",
       "title": "Graphic Design | Kapitech Agency",
-      "description": "Elevate your marketing campaigns, digital products, and physical branding with custom-crafted vector illustrations, bespoke icon sets, and high-converting marketing visuals.",
+      "description": "Strengthen marketing campaigns, digital products, and physical touchpoints with custom illustrations, icon systems, and campaign-ready visual assets.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Graphic Design",
@@ -147,7 +147,7 @@
     {
       "path": "/services/rebranding",
       "title": "Rebranding | Kapitech Agency",
-      "description": "Revitalize your market position, conquer new enterprise verticals, and shed outdated perception with an end-to-end brand transformation.",
+      "description": "Refresh your market positioning and modernize an outdated brand through an end-to-end identity transformation.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Rebranding",
@@ -156,7 +156,7 @@
     {
       "path": "/services/ui-ux-design",
       "title": "UI/UX Design | Kapitech Agency",
-      "description": "We combine optical precision, strict ergonomics, and user psychology to design intuitive, high-performance interfaces that maximize engagement and user retention.",
+      "description": "We combine interaction design, usability principles, and visual systems to create intuitive interfaces that support stronger engagement and retention.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "UI/UX Design",
@@ -165,7 +165,7 @@
     {
       "path": "/services/website-design",
       "title": "Website Design | Kapitech Agency",
-      "description": "Custom-crafted marketing websites that captivate visitors, establish undeniable authority, and convert traffic into qualified inbound inquiries.",
+      "description": "Custom marketing websites designed to communicate your value clearly, strengthen brand credibility, and turn relevant traffic into qualified inquiries.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Website Design",
@@ -174,7 +174,7 @@
     {
       "path": "/services/website-redesign",
       "title": "Website Redesign | Kapitech Agency",
-      "description": "Upgrade dated corporate websites into high-speed, modern digital flagships that command market leadership and turn passive traffic into qualified sales opportunities.",
+      "description": "Upgrade dated corporate websites into modern, performance-focused experiences that strengthen positioning and support qualified sales opportunities.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Website Redesign",
@@ -183,7 +183,7 @@
     {
       "path": "/services/product-ux-ui-audit",
       "title": "Product UX/UI Audit | Kapitech Agency",
-      "description": "Uncover where users drop off, get confused, or abandon transactions. We deliver a detailed 40+ page diagnostic report with actionable wireframe fixes to maximize ROI.",
+      "description": "Identify where users drop off, get confused, or abandon key tasks. We deliver a detailed diagnostic with prioritized UX findings and actionable interface improvements.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Product UX/UI Audit",
@@ -201,7 +201,7 @@
     {
       "path": "/services/mvp-development",
       "title": "MVP Development | Kapitech Agency",
-      "description": "Launch your functional, production-ready minimum viable product in 3-6 weeks with clean architecture, user auth, database persistence, and payment gateways.",
+      "description": "Target a focused 3-6 week MVP delivery window with clean architecture, authentication, database persistence, and payment gateway integration.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "MVP Development",
@@ -210,7 +210,7 @@
     {
       "path": "/services/landing-page",
       "title": "Landing page | Kapitech Agency",
-      "description": "Ultra-fast, mobile-optimized landing pages with fluid micro-animations, lead capture integrations, and sub-second load times engineered to maximize marketing ROI.",
+      "description": "Mobile-optimized landing pages with focused motion, lead capture integrations, and performance-minded implementation for marketing campaigns.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Landing page",
@@ -219,7 +219,7 @@
     {
       "path": "/services/corporate-websites",
       "title": "Corporate Websites | Kapitech Agency",
-      "description": "Secure, multilingual, and SEO-dominant enterprise web platforms equipped with user-friendly headless CMS for seamless marketing team updates.",
+      "description": "Secure, multilingual, SEO-ready enterprise web platforms with a manageable CMS for ongoing marketing updates.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "Corporate Websites",
@@ -228,7 +228,7 @@
     {
       "path": "/services/wow-websites",
       "title": "WOW Websites | Kapitech Agency",
-      "description": "Award-winning experiential websites combining 3D interactive canvases, fluid WebGL physics, and kinetic scroll choreography with blistering-fast sub-second performance.",
+      "description": "Experiential websites combining 3D interaction, WebGL motion, and kinetic scroll choreography with performance-focused implementation.",
       "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "service",
       "serviceName": "WOW Websites",
