@@ -1,5 +1,6 @@
 import type { ProjectItem } from '../data/projectsData';
-import { allSolutionsAndServices, ServiceItemData } from '../data/servicesData';
+import { allSolutionsAndServices } from '../data/servicesData';
+import type { ServiceItemData } from '../data/servicesData';
 import { api } from './apiClient';
 
 export interface TestimonialItem {
