@@ -516,7 +516,7 @@ export const Home = () => {
 
                 <motion.div
                   className="flex w-max shrink-0 items-center gap-10 pr-10 sm:gap-16 sm:pr-16 lg:gap-20 lg:pr-20"
-                  animate={{ x: reverse ? ['-0%', '-50%'] : ['0%', '-50%'] }}
+                  animate={{ x: reverse ? ['-50%', '0%'] : ['0%', '-50%'] }}
                   transition={{
                     duration: reverse ? 34 : 30,
                     repeat: Infinity,
@@ -534,7 +534,7 @@ export const Home = () => {
                         loading="lazy"
                         decoding="async"
                         className={cn(
-                          'w-auto object-contain opacity-55 grayscale invert transition-[opacity,transform] duration-300 hover:scale-[1.035] hover:opacity-100',
+                          'w-auto object-contain opacity-55 grayscale brightness-0 invert transition-[opacity,transform] duration-300 hover:scale-[1.035] hover:opacity-100',
                           logo.className
                         )}
                       />
