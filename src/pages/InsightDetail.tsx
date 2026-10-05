@@ -363,7 +363,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-8 sm:px-8 sm:pb-16 sm:pt-10 xl:px-10 xl:pt-14">
+        <div className="mx-auto w-full max-w-[1240px] px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-14">
           <div className="xl:hidden">
             <InsightLeftRail
               mobile
@@ -377,7 +377,7 @@ export const InsightDetail: React.FC = () => {
             )}
           </div>
 
-          <div className="grid items-start xl:grid-cols-[72px_minmax(0,800px)_304px] xl:gap-12">
+          <div className="grid items-start xl:grid-cols-[56px_minmax(0,1fr)_304px] xl:gap-7">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
