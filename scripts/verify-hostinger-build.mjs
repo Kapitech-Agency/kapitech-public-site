@@ -39,14 +39,33 @@ if (!htaccess.includes('RewriteRule ^ /index.html [L]')) {
   throw new Error('[deploy-check] dist/.htaccess is missing the React Router fallback');
 }
 
-for (const relativePath of [
-  'insights/mvp-vs-prototype-vs-proof-of-concept-guide/index.html',
-  'insights/mvp-vs-prototype-vs-proof-of-concept/index.html'
-]) {
-  const html = await readFile(join(distDir, relativePath), 'utf8');
-  if (!html.includes('id="kapi-prerendered-insight"') || !html.includes('<h1')) {
-    throw new Error('[deploy-check] prerendered Insight content is missing from ' + relativePath);
+const insightAssertions = [
+  {
+    file: 'insights/mvp-vs-prototype-vs-proof-of-concept-guide/index.html',
+    required: ['<html lang="en"', 'id="kapi-prerendered-insight"', 'Which One Should Your Business Choose?', 'In this article', 'Frequently asked questions', 'What Is a Prototype?'],
+    forbidden: ['Di artikel ini', 'Pertanyaan yang sering diajukan', 'Apa itu Prototype?']
+  },
+  {
+    file: 'insights/mvp-vs-prototype-vs-proof-of-concept/index.html',
+    required: ['<html lang="id"', 'id="kapi-prerendered-insight"', 'Mana yang Tepat untuk Bisnis Anda?', 'Di artikel ini', 'Pertanyaan yang sering diajukan', 'Apa itu Prototype?'],
+    forbidden: ['In this article', 'Frequently asked questions', 'What Is a Prototype?']
+  }
+];
+
+for (const assertion of insightAssertions) {
+  const html = await readFile(join(distDir, assertion.file), 'utf8');
+  if (!html.includes('<h1')) throw new Error('[deploy-check] prerendered Insight has no H1: ' + assertion.file);
+  if ((html.match(/<h2\b/gi) || []).length < 8) throw new Error('[deploy-check] Insight is missing editorial H2 depth: ' + assertion.file);
+  if ((html.match(/<img\b/gi) || []).length < 6) throw new Error('[deploy-check] Insight is missing expected editorial visuals: ' + assertion.file);
+  for (const phrase of assertion.required) {
+    if (!html.includes(phrase)) throw new Error('[deploy-check] Missing required Insight phrase "' + phrase + '" in ' + assertion.file);
+  }
+  for (const phrase of assertion.forbidden) {
+    if (html.includes(phrase)) throw new Error('[deploy-check] Mixed-language Insight phrase "' + phrase + '" found in ' + assertion.file);
+  }
+  if ((html.match(/id="faq-title"/g) || []).length !== 1) {
+    throw new Error('[deploy-check] Insight must contain exactly one FAQ section: ' + assertion.file);
   }
 }
 
-console.log('[deploy-check] Hostinger-ready static build and Insight prerender verified');
+console.log('[deploy-check] Hostinger-ready static build, bilingual Insight prerender, and editorial depth verified');
