@@ -377,7 +377,7 @@ export const InsightDetail: React.FC = () => {
             )}
           </div>
 
-          <div className="grid items-start xl:grid-cols-[72px_minmax(0,820px)_280px] xl:gap-14">
+          <div className="grid items-start xl:grid-cols-[72px_minmax(0,800px)_304px] xl:gap-12">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
