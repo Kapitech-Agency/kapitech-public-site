@@ -34,6 +34,7 @@ export const InsightDetail: React.FC = () => {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const articleRef = useRef<HTMLElement | null>(null);
+  const languageInitializedRef = useRef(false);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -42,6 +43,7 @@ export const InsightDetail: React.FC = () => {
   const [activeHeading, setActiveHeading] = useState('');
 
   useEffect(() => {
+    languageInitializedRef.current = false;
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
@@ -66,9 +68,20 @@ export const InsightDetail: React.FC = () => {
   }, [slug]);
 
   useEffect(() => {
-    if (!article || article.language === language) return;
-    setLanguage(article.language);
+    if (!article || languageInitializedRef.current) return;
+    languageInitializedRef.current = true;
+    if (article.language !== language) {
+      setLanguage(article.language);
+    }
   }, [article, language, setLanguage]);
+
+  useEffect(() => {
+    if (!article || !languageInitializedRef.current || article.language === language) return;
+    const alternate = article.alternateLanguages?.find(item => item.language === language);
+    if (alternate?.slug && alternate.slug !== slug) {
+      navigate('/insights/' + alternate.slug, { replace: true });
+    }
+  }, [article, language, navigate, slug]);
 
   const blocks = article?.content || [];
   const toc = useMemo(() => buildToc(blocks), [blocks]);
@@ -175,8 +188,6 @@ export const InsightDetail: React.FC = () => {
     || article.category?.name?.en
     || article.category?.name?.id
     || article.category?.slug;
-
-  const languageMismatch = false;
 
   return (
     <article ref={articleRef} className="relative w-full overflow-hidden bg-[#0B0C0E]">
@@ -306,16 +317,6 @@ export const InsightDetail: React.FC = () => {
           )}
         </div>
       </header>
-
-      {languageMismatch && (
-        <div className="mx-auto w-full max-w-[900px] px-5 pt-8 sm:px-8">
-          <aside className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-sm leading-6 text-[#9AA1AE]">
-            {language === 'id'
-              ? 'Versi Bahasa Indonesia untuk artikel ini belum tersedia. Anda sedang membaca versi English.'
-              : 'An English version of this article is not available yet. You are viewing the Indonesian version.'}
-          </aside>
-        </div>
-      )}
 
       {article.keyTakeaways && article.keyTakeaways.length > 0 && (
         <section className="mx-auto w-full max-w-[980px] px-5 pt-10 sm:px-8 sm:pt-12" aria-labelledby="key-takeaways-title">
