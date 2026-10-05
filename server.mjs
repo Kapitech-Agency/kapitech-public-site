@@ -38,6 +38,11 @@ async function sendFile(res, filePath) {
   const extension = extname(filePath).toLowerCase();
   res.statusCode = 200;
   res.setHeader('Content-Type', contentTypes[extension] || 'application/octet-stream');
+  if (extension === '.html') {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
   createReadStream(filePath).pipe(res);
 }
 
