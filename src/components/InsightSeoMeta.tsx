@@ -9,6 +9,15 @@ const SITE = seoRoutes.siteUrl;
 const IMAGE = seoRoutes.defaultImage;
 const ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
+const absoluteUrl = (value?: string) => {
+  if (!value) return SITE + '/';
+  try {
+    return new URL(value, SITE + '/').toString();
+  } catch {
+    return SITE + '/';
+  }
+};
+
 const setMeta = (name: string, content: string) => {
   let node = document.head.querySelector<HTMLMetaElement>('meta[name="' + name + '"]');
   if (!node) { node = document.createElement('meta'); node.name = name; document.head.appendChild(node); }
@@ -58,24 +67,17 @@ const setHreflang = (items: Array<{ language: 'id' | 'en'; slug: string }>) => {
 
 function breadcrumb(article: InsightItem, url: string) {
   const language = article.language;
-  const category = article.category?.displayName
-    || article.category?.name?.[language]
-    || article.category?.name?.en
-    || article.category?.name?.id
-    || article.category?.slug;
-
   const items: Array<Record<string, unknown>> = [
     { '@type': 'ListItem', position: 1, name: language === 'id' ? 'Beranda' : 'Home', item: SITE + '/' },
-    { '@type': 'ListItem', position: 2, name: language === 'id' ? 'Insight' : 'Insights', item: SITE + '/insights' }
+    { '@type': 'ListItem', position: 2, name: language === 'id' ? 'Insight' : 'Insights', item: SITE + '/insights' },
+    { '@type': 'ListItem', position: 3, name: article.title, item: url }
   ];
-  if (category) items.push({ '@type': 'ListItem', position: items.length + 1, name: category, item: SITE + '/insights' });
-  items.push({ '@type': 'ListItem', position: items.length + 1, name: article.title, item: url });
 
   return { '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: items };
 }
 
 function articleStructuredData(article: InsightItem, url: string) {
-  const image = article.ogImage || article.coverImage || IMAGE;
+  const image = absoluteUrl(article.ogImage || article.coverImage || IMAGE);
   const graph: Array<Record<string, unknown>> = [
     {
       '@type': 'BlogPosting',
@@ -92,6 +94,8 @@ function articleStructuredData(article: InsightItem, url: string) {
         : { '@type': 'Organization', name: seoRoutes.siteName },
       publisher: { '@id': SITE + '/#organization' },
       inLanguage: article.language,
+      articleSection: article.category?.displayName || article.category?.name?.[article.language] || article.category?.name?.en || article.category?.name?.id || undefined,
+      keywords: Array.isArray(article.tags) && article.tags.length ? article.tags.map(tag => tag.name).join(', ') : undefined,
       mainEntityOfPage: { '@id': url + '#webpage' },
       url
     },
@@ -144,13 +148,15 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
       if (cancelled) return;
       document.documentElement.lang = resolvedLanguage;
       document.title = title;
+      setMeta('title', title);
       setMeta('description', description);
       setMeta('robots', robots);
       setProp('og:type', pathname.startsWith('/insights/') ? 'article' : 'website');
       setProp('og:url', url);
       setProp('og:title', title);
       setProp('og:description', description);
-      setProp('og:image', image);
+      setProp('og:image', absoluteUrl(image));
+      setProp('og:image:alt', title);
       setProp('og:site_name', seoRoutes.siteName);
       setProp('og:locale', resolvedLanguage === 'id' ? 'id_ID' : 'en_US');
       setProp('og:locale:alternate', resolvedLanguage === 'id' ? 'en_US' : 'id_ID');
@@ -158,7 +164,9 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
       setMeta('twitter:url', url);
       setMeta('twitter:title', title);
       setMeta('twitter:description', description);
-      setMeta('twitter:image', image);
+      setMeta('twitter:image', absoluteUrl(image));
+      setMeta('twitter:site', '@kapitechagency');
+      setMeta('twitter:creator', '@kapitechagency');
       setCanonical(url);
       setHreflang(alternates);
       setJsonLd(schema);

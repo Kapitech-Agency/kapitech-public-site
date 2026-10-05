@@ -10,7 +10,8 @@ export type InsightBlock =
   | { type: 'callout'; text: string; tone?: 'info' | 'warning' | 'success' | 'neutral'; title?: string }
   | { type: 'code'; code: string; language?: string }
   | { type: 'link'; url: string; label: string }
-  | { type: 'divider' };
+  | { type: 'divider' }
+  | { type: 'checklist'; title?: string; items: string[] };
 
 export interface InsightCategory {
   id: string;
@@ -54,6 +55,11 @@ export interface InsightItem {
   faq?: Array<{ question: string; answer: string }>;
   relatedInsightIds?: string[];
   relatedInsights?: InsightItem[];
+  editorialMeta?: {
+    reviewedBy?: string;
+    factCheckedBy?: string;
+    editorialType?: string;
+  };
   alternateLanguages?: Array<{ language: InsightLanguage; slug: string }>;
   seoTitle?: string;
   seoDescription?: string;

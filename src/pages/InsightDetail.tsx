@@ -8,6 +8,7 @@ import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
+import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -152,6 +153,8 @@ export const InsightDetail: React.FC = () => {
     () => (article && Array.isArray(article.content) ? article.content : []),
     [article]
   );
+  const headingIds = useMemo(() => buildInsightHeadingIds(blocks), [blocks]);
+  const toc = useMemo(() => buildInsightToc(blocks, headingIds), [blocks, headingIds]);
   useEffect(() => {
     const updateProgress = () => {
       const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -260,6 +263,12 @@ export const InsightDetail: React.FC = () => {
                   </span>
                 )}
                 <span className="text-[#68707C]">{article.language.toUpperCase()}</span>
+                {article.editorialMeta?.editorialType && (
+                  <>
+                    <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
+                    <span className="text-[#68707C]">{article.editorialMeta.editorialType}</span>
+                  </>
+                )}
                 {article.readingTime && (
                   <>
                     <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
@@ -284,9 +293,15 @@ export const InsightDetail: React.FC = () => {
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">
                 {article.author?.name && (
                   <span className="font-medium text-white">
-                    {article.author.name}
+                    {article.language === 'id' ? 'Ditulis oleh ' : 'Written by '}{article.author.name}
                     {article.author.role ? <span className="font-normal text-[#737A87]"> · {article.author.role}</span> : null}
                   </span>
+                )}
+                {article.editorialMeta?.reviewedBy && (
+                  <span>{article.language === 'id' ? 'Ditinjau oleh ' : 'Reviewed by '}{article.editorialMeta.reviewedBy}</span>
+                )}
+                {article.editorialMeta?.factCheckedBy && (
+                  <span>{article.language === 'id' ? 'Diperiksa fakta oleh ' : 'Fact checked by '}{article.editorialMeta.factCheckedBy}</span>
                 )}
                 {article.publishedAt && (
                   <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, article.language)}</time>
@@ -316,7 +331,9 @@ export const InsightDetail: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-white/[0.03] pointer-events-none" />
               <img
                 src={article.coverImage}
-                alt={article.title}
+                alt={article.language === 'id'
+                  ? 'Kerangka visual untuk memilih Prototype, MVP, atau Proof of Concept berdasarkan ketidakpastian terbesar.'
+                  : 'Editorial framework for choosing Prototype, MVP, or Proof of Concept based on the biggest product uncertainty.'}
                 loading="eager"
                 className="block max-h-[720px] w-full object-cover"
               />
@@ -350,10 +367,41 @@ export const InsightDetail: React.FC = () => {
         </section>
       )}
 
+
+      {toc.length > 0 && (
+        <section className="mx-auto w-full max-w-[900px] px-5 pt-8 sm:px-8 sm:pt-10" aria-labelledby="insight-toc-title">
+          <div className="border-y border-white/[0.08] bg-white/[0.012]">
+            <details open className="group">
+              <summary id="insight-toc-title" className="cursor-pointer list-none px-0 py-4 text-[9px] font-mono uppercase tracking-[0.17em] text-[#747B88] marker:hidden sm:py-5">
+                <span className="inline-flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red/80" aria-hidden="true" />
+                  {article.language === 'id' ? 'Di artikel ini' : 'In this article'}
+                </span>
+              </summary>
+              <nav className="grid gap-x-8 gap-y-1 pb-5 sm:grid-cols-2" aria-label={article.language === 'id' ? 'Daftar isi artikel' : 'Article table of contents'}>
+                {toc.map((item, index) => (
+                  <a key={item.id} href={'#' + item.id} className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{item.text}</span>
+                  </a>
+                ))}
+                {Array.isArray(article.faq) && article.faq.length > 0 && (
+                  <a href="#faq-title" className="flex gap-3 rounded-lg py-2 text-[12px] leading-5 text-[#8C93A0] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+                    <span className="shrink-0 font-mono text-[9px] tabular-nums text-[#5F6672]">{String(toc.length + 1).padStart(2, '0')}</span>
+                    <span>{article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}</span>
+                  </a>
+                )}
+              </nav>
+            </details>
+          </div>
+        </section>
+      )}
+
       <div className="mx-auto w-full max-w-[900px] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:pt-20">
         <div className="max-w-[800px]">
             <InsightContentRenderer
               blocks={blocks}
+              headingIds={headingIds.map(id => id || '')}
               language={article.language}
             />
 
@@ -383,7 +431,7 @@ export const InsightDetail: React.FC = () => {
                 <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
                   {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
                 </p>
-                <div className="mt-5 flex items-start gap-4 rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-5 sm:p-6">
+                <div className="mt-5 flex items-start gap-4 border-y border-white/[0.07] py-6">
                   {article.author.avatar ? (
                     <img src={article.author.avatar} alt="" className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover" />
                   ) : (
@@ -422,33 +470,30 @@ export const InsightDetail: React.FC = () => {
         </section>
       )}
 
-      <section className="mx-auto w-full max-w-[1240px] px-5 pb-20 pt-8 sm:px-8 lg:px-10">
-        <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
-          <div className="absolute -right-14 -top-20 h-56 w-56 rounded-full bg-brand-red/[0.07] blur-3xl" />
-          <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                {article.language === 'id' ? 'Diskusi Project' : 'Project discussion'}
-              </p>
-              <h2 className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-4xl">
-                {article.language === 'id'
-                  ? 'Butuh bantuan menerapkan insight ini?'
-                  : 'Need help applying this insight?'}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#89909D]">
-                {article.language === 'id'
-                  ? 'Mari terjemahkan ide ini menjadi website, product experience, atau sistem digital yang benar-benar bisa digunakan.'
-                  : 'Let’s turn the idea into a website, product experience, or digital system that can actually be used.'}
-              </p>
-            </div>
-            <Link
-              to="/contact"
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
-            >
-              {article.language === 'id' ? 'Diskusikan Project' : 'Discuss Your Project'}
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
+      <section className="mx-auto w-full max-w-[900px] px-5 pb-18 pt-4 sm:px-8 sm:pb-20">
+        <div className="flex flex-col gap-5 border-y border-white/[0.08] py-7 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          <div className="max-w-2xl">
+            <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+              {article.language === 'id' ? 'Diskusi Proyek' : 'Project discussion'}
+            </p>
+            <h2 className="mt-3 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-3xl">
+              {article.language === 'id'
+                ? 'Butuh partner untuk langkah berikutnya?'
+                : 'Need a partner for the next step?'}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-[#89909D]">
+              {article.language === 'id'
+                ? 'Mulai dari pertanyaan yang perlu dibuktikan, lalu tentukan ruang lingkup yang masuk akal untuk dibangun.'
+                : 'Start with the question that needs evidence, then define a sensible scope to build.'}
+            </p>
           </div>
+          <Link
+            to="/contact"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
+          >
+            {article.language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
         </div>
       </section>
 

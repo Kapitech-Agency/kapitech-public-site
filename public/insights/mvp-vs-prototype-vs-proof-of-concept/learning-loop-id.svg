@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+<title id="title">MVP sebagai loop pembelajaran yang layak</title>
+<desc id="desc">Diagram siklus dari masalah, solusi inti, MVP, pengguna nyata, masukan, pembelajaran, dan iterasi.</desc>
+<rect width="1400" height="820" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="80" y="90" font-size="18" letter-spacing="4" fill="#E50914">02 / LOOP MVP</text>
+<text x="80" y="150" font-size="46" font-weight="700" fill="#F8FAFC">MVP bukan sekadar produk terkecil.</text>
+<text x="80" y="202" font-size="46" font-weight="700" fill="#F8FAFC">MVP adalah loop pembelajaran terkecil yang layak.</text>
+<g transform="translate(130 300)">
+<g fill="#111318" stroke="#2A2D34">
+<rect x="0" y="0" width="210" height="110" rx="22"/><rect x="260" y="0" width="210" height="110" rx="22"/><rect x="520" y="0" width="210" height="110" rx="22"/>
+<rect x="130" y="220" width="210" height="110" rx="22"/><rect x="390" y="220" width="210" height="110" rx="22"/><rect x="650" y="220" width="210" height="110" rx="22"/>
+<rect x="260" y="440" width="210" height="110" rx="22"/>
+</g>
+<g font-size="17" fill="#fff" font-weight="600" text-anchor="middle">
+<text x="105" y="55">Masalah</text><text x="365" y="55">Solusi Inti</text><text x="625" y="55">MVP</text>
+<text x="235" y="275">Pengguna Nyata</text><text x="495" y="275">Masukan</text><text x="755" y="275">Pembelajaran</text>
+<text x="365" y="495">Iterasi</text>
+</g>
+<g fill="none" stroke="#E50914" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M210 55 H250"/><path d="M470 55 H510"/><path d="M625 110 V205"/><path d="M340 275 H380"/><path d="M600 275 H640"/><path d="M755 330 C755 390 510 390 470 440"/><path d="M260 495 C180 460 120 330 130 160"/>
+</g>
+<g fill="#E50914">
+<path d="M245 49 l10 6 -10 6z"/><path d="M505 49 l10 6 -10 6z"/><path d="M619 195 l6 10 6-10z"/><path d="M375 269 l10 6 -10 6z"/><path d="M635 269 l10 6 -10 6z"/>
+</g>
+</g>
+<text x="80" y="765" font-size="18" fill="#69717D">Tujuannya bukan sekadar merilis lebih sedikit. Tujuannya adalah belajar sebelum keputusan investasi berikutnya.</text>
+</g></svg>

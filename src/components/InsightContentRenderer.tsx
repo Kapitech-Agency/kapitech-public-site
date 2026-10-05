@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
 import type { InsightBlock } from '../data/insightTypes';
+import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 
 function inlineMarkdown(value: unknown): React.ReactNode[] {
   const safeValue = typeof value === 'string' ? value : String(value ?? '');
@@ -60,7 +61,7 @@ export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
   language?: 'id' | 'en';
-}> = ({ blocks, headingIds = [], language = 'en' }) => {
+}> = ({ blocks, headingIds = buildInsightHeadingIds(blocks).map(id => id || ''), language = 'en' }) => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
 
   const copyCode = async (code: string, index: number) => {
@@ -85,12 +86,11 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'heading') {
           const Heading = block.level === 3 ? 'h3' : 'h2';
-          const headingIndex = blocks.slice(0, index).filter(item => item.type === 'heading').length;
 
           return (
             <Heading
               key={index}
-              id={headingIds[headingIndex]}
+              id={headingIds[index] || undefined}
               className={
                 block.level === 3
                   ? 'group mb-4 mt-10 scroll-mt-28 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
@@ -249,6 +249,28 @@ export const InsightContentRenderer: React.FC<{
                 {external ? <ExternalLink size={13} aria-hidden="true" /> : <ArrowRight size={13} aria-hidden="true" />}
               </a>
             </p>
+          );
+        }
+
+        if (block.type === 'checklist') {
+          return (
+            <section key={index} className="my-12 border-y border-white/[0.08] py-8 sm:py-9" aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}>
+              {block.title && (
+                <h3 className="mb-5 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]">
+                  {block.title}
+                </h3>
+              )}
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {(block.items || []).map((item, itemIndex) => (
+                  <li key={itemIndex} className="flex gap-3 rounded-xl border border-white/[0.06] bg-white/[0.018] px-4 py-3.5 text-sm leading-6 text-[#C3C7D0]">
+                    <span className="mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-brand-red/40 bg-brand-red/[0.06]" aria-hidden="true">
+                      <Check size={10} className="text-brand-red" />
+                    </span>
+                    <span>{inlineMarkdown(item)}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           );
         }
 

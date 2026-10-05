@@ -43,8 +43,7 @@ export const InsightAmbientBackground: React.FC<{
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0B0C0E] to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/82 to-transparent" />
 
-      <div className="absolute left-[9%] top-[18%] h-40 w-40 rounded-full bg-brand-red/[0.07] blur-3xl sm:h-56 sm:w-56" />
-      <div className="absolute right-[12%] top-[28%] h-28 w-28 rounded-full bg-white/[0.025] blur-3xl sm:h-40 sm:w-40" />
+
     </div>
   );
 };

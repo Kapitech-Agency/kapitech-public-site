@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<title id="title">Apa yang divalidasi oleh Prototype, MVP, dan PoC</title>
+<desc id="desc">Tiga kolom yang membandingkan fokus validasi pengalaman pengguna, nilai produk, dan kelayakan teknis.</desc>
+<rect width="1400" height="760" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="80" y="90" font-size="18" letter-spacing="4" fill="#E50914">01 / APA YANG DIVALIDASI?</text>
+<text x="80" y="150" font-size="46" font-weight="700" fill="#F8FAFC">Satu keputusan, satu pertanyaan utama.</text>
+<g transform="translate(80 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#E50914"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">PROTOTYPE</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">Pengalaman pengguna</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Apakah pengguna dapat menggunakannya?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Alur, hierarki, kemudahan penggunaan,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">interaksi, dan pemahaman.</text>
+</g>
+<g transform="translate(510 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#FF1E27"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">MVP</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">Nilai produk</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Apakah pengguna menilai ini bernilai?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Nilai inti, adopsi,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">perilaku, dan pembelajaran dari pengguna nyata.</text>
+</g>
+<g transform="translate(940 220)">
+<rect width="380" height="390" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect x="28" y="28" width="324" height="5" rx="2.5" fill="#E50914"/>
+<text x="28" y="90" font-size="30" font-weight="700" fill="#fff">PoC</text>
+<text x="28" y="132" font-size="19" fill="#8A909D">Kelayakan teknis</text>
+<circle cx="62" cy="205" r="22" fill="#E50914" opacity=".14"/><circle cx="62" cy="205" r="7" fill="#E50914"/>
+<text x="95" y="212" font-size="22" font-weight="600" fill="#fff">Apakah kita dapat membangunnya?</text>
+<text x="28" y="280" font-size="17" fill="#A6ACB7">Arsitektur, integrasi,</text>
+<text x="28" y="309" font-size="17" fill="#A6ACB7">performa, data, dan batasan teknis.</text>
+</g>
+<text x="80" y="690" font-size="18" fill="#69717D">Ini bukan tahapan yang saling bersaing. Ini adalah alat berbeda untuk ketidakpastian yang berbeda.</text>
+</g></svg>
