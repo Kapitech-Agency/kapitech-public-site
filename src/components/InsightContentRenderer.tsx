@@ -87,13 +87,6 @@ function isValidationDecisionHeading(value: unknown): boolean {
   return typeof value === 'string' && VALIDATION_DECISION_HEADINGS.has(value);
 }
 
-const calloutStyles: Record<string, string> = {
-  info: 'border-white/[0.09] bg-white/[0.025]',
-  warning: 'border-amber-400/20 bg-amber-400/[0.035]',
-  success: 'border-emerald-400/20 bg-emerald-400/[0.035]',
-  neutral: 'border-white/[0.08] bg-white/[0.018]'
-};
-
 export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
@@ -421,7 +414,7 @@ export const InsightContentRenderer: React.FC<{
               ) : (
                 <Link
                   to={resolved.internalTo}
-                  className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-brand-red/15 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                 >
                   {block.label}
                   <ArrowRight size={13} aria-hidden="true" />
@@ -439,7 +432,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <section
               key={index}
-              className="my-12 border-y border-white/[0.08] py-8 sm:py-9"
+              className="my-12 rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-7"
               aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
             >
               {block.title && (
