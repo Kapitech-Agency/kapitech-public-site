@@ -671,13 +671,13 @@ export const InsightDetail: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mt-7 border-y border-white/[0.08]">
+                  <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">
                     {faq.map((item, index) => (
                       <details
                         key={index}
                         className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200"
                       >
-                        <summary className="list-none cursor-pointer py-5 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60">
+                        <summary className="list-none cursor-pointer px-4 py-4 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:px-5 sm:py-5">
                           <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
                             <span
                               className="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672] transition-colors duration-200 group-open:text-brand-red"
@@ -695,7 +695,7 @@ export const InsightDetail: React.FC = () => {
                             />
                           </span>
                         </summary>
-                        <div className="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 pb-5">
+                        <div className="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 px-4 pb-5 sm:px-5">
                           <span aria-hidden="true" />
                           <p className="text-sm leading-7 text-[#9BA2AF]">
                             {item.answer}
