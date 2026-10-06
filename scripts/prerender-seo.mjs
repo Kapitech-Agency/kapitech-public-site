@@ -315,27 +315,27 @@ const renderInsightBody = (insight) => {
 const setMeta = (html, attribute, key, content) => {
   const pattern = new RegExp('<meta\\b(?=[^>]*\\b' + attribute + '="' + key + '")[^>]*>', 'i');
   const tag = '<meta ' + attribute + '="' + escapeHtml(key) + '" content="' + escapeHtml(content) + '" />';
-  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\\n  </head>');
+  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\n  </head>');
 };
 
 const setTitle = (html, title) =>
-  html.replace(/<title>.*?<\\/title>/is, '<title>' + escapeHtml(title) + '</title>');
+  html.replace(/<title>.*?<\/title>/is, '<title>' + escapeHtml(title) + '</title>');
 
 const setCanonical = (html, url) => {
-  const pattern = /<link\\b[^>]*rel="canonical"[^>]*>/i;
+  const pattern = /<link\b[^>]*rel="canonical"[^>]*>/i;
   const tag = '<link rel="canonical" href="' + escapeHtml(url) + '" />';
-  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\\n  </head>');
+  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\n  </head>');
 };
 
 const setPageJsonLd = (html, data) => {
   const json = JSON.stringify(data).replaceAll('<', '\\u003c');
-  const pattern = /<script\\b[^>]*id="kapitech-page-jsonld"[^>]*>[\\s\\S]*?<\\/script>/i;
-  const tag = '<script id="kapitech-page-jsonld" type="application/ld+json">' + json + '</script>';
-  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\\n  </head>');
+  const pattern = /<script\b[^>]*id="kapitech-insight-jsonld"[^>]*>[\s\S]*?<\/script>/i;
+  const tag = '<script id="kapitech-insight-jsonld" type="application/ld+json">' + json + '</script>';
+  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', '    ' + tag + '\n  </head>');
 };
 
 const setHtmlLang = (html, language) =>
-  html.replace(/<html([^>]*)\\slang="[^"]*"/i, '<html$1 lang="' + escapeHtml(language) + '"');
+  html.replace(/<html([^>]*)\slang="[^"]*"/i, '<html$1 lang="' + escapeHtml(language) + '"');
 
 const setInsightHreflang = (html, variants, xDefault) => {
   let result = html.replace(/<link\\b[^>]*data-kapi-insight-hreflang[^>]*>/gi, '');
@@ -422,7 +422,7 @@ for (const route of manifest.routes) {
 
   const outputPath = route.path === '/'
     ? join(distDir, 'index.html')
-    : join(distDir, route.path.replace(/^\\/+/, ''), 'index.html');
+    : join(distDir, route.path.replace(/^\/+/, ''), 'index.html');
 
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, html, 'utf8');
