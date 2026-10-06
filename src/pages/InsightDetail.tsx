@@ -538,7 +538,7 @@ export const InsightDetail: React.FC = () => {
         <header className="relative isolate overflow-hidden border-b border-white/[0.07]">
           <InsightAmbientBackground intensity="detail" />
 
-          <div className="relative z-10 w-full px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
+          <div className="relative z-10 w-full px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 lg:pb-24 lg:pt-40">
             <div className="mx-auto w-full max-w-7xl">
             <nav className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">
               <Link to="/" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
@@ -551,8 +551,8 @@ export const InsightDetail: React.FC = () => {
 
             </nav>
 
-            <div className="max-w-[980px]">
-              <div className="max-w-[920px]">
+            <div className="max-w-[1040px]">
+              <div className="max-w-[960px]">
                 <div className="flex flex-wrap items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.15em]">
                   {category && (
                     <span className="rounded-full border border-white/[0.09] bg-white/[0.03] px-3 py-1.5 text-[#B0B6C0]">
@@ -577,7 +577,7 @@ export const InsightDetail: React.FC = () => {
                   ) : null}
                 </div>
 
-                <h1 className="mt-6 max-w-[980px] font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5rem]">
+                <h1 className="mt-6 max-w-[960px] font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.85rem]">
                   {article.title}
                 </h1>
 
@@ -612,7 +612,7 @@ export const InsightDetail: React.FC = () => {
             </div>
 
             {article.coverImage && (
-              <figure className="relative mt-12 max-w-[1120px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]">
+              <figure className="relative mx-auto mt-12 w-full max-w-[1120px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]">
                 <img
                   src={article.coverImage}
                   alt={article.coverImageAlt?.trim() || article.title}
@@ -644,7 +644,7 @@ export const InsightDetail: React.FC = () => {
             )}
           </div>
 
-          <div className="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,1fr)_304px]">
+          <div className="grid items-start gap-8 xl:grid-cols-[56px_minmax(0,1fr)_304px]">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
@@ -738,7 +738,7 @@ export const InsightDetail: React.FC = () => {
         </div>
 
         {relatedInsights.length > 0 && (
-          <section className="w-full px-4 pb-12 sm:px-6 md:px-12" aria-labelledby="related-title">
+          <section className="w-full px-4 pb-16 sm:px-6 md:px-12" aria-labelledby="related-title">
             <div className="mx-auto w-full max-w-7xl">
             <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
               <div>
@@ -767,9 +767,9 @@ export const InsightDetail: React.FC = () => {
         )}
 
         {faq.length > 0 && (
-          <section className="w-full px-4 py-8 sm:px-6 sm:py-10 md:px-8" aria-labelledby="faq-title">
+          <section className="w-full px-4 py-10 sm:px-6 sm:py-12 md:px-12" aria-labelledby="faq-title">
             <div className="mx-auto w-full max-w-[820px]">
-              <div className="border-t border-white/[0.08] pt-10">
+              <div className="border-t border-white/[0.08] pt-12 sm:pt-14">
               <h2 id="faq-title" className="scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
               </h2>
@@ -796,7 +796,7 @@ export const InsightDetail: React.FC = () => {
 
         <section
           ref={readingEndRef}
-          className="w-full px-4 py-8 sm:px-6 sm:py-10 md:px-8"
+          className="w-full px-4 py-10 sm:px-6 sm:py-12 md:px-12"
           aria-labelledby="insight-final-cta"
         >
           <div className="mx-auto w-full max-w-[820px]">
