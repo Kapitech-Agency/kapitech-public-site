@@ -505,10 +505,10 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'overflow-hidden rounded-[16px] border transition-[border-color,background-color] duration-250',
+          'relative overflow-hidden rounded-[14px] transition-[background-color,color] duration-250',
           sectionActive
-            ? 'border-white/[0.14] bg-white/[0.04]'
-            : 'border-white/[0.07] bg-white/[0.012] hover:border-white/[0.11] hover:bg-white/[0.018]'
+            ? 'bg-white/[0.04]'
+            : 'bg-transparent hover:bg-white/[0.018]'
         ].join(' ')}
       >
         <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
@@ -530,10 +530,10 @@ export const InsightTableOfContents: React.FC<{
               <span
                 aria-hidden="true"
                 className={[
-                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-250',
+                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] font-mono text-[9px] font-semibold tabular-nums transition-[background-color,color] duration-250',
                   sectionActive
-                    ? 'border-brand-red/35 bg-brand-red/[0.10] text-brand-red'
-                    : 'border-white/[0.07] bg-white/[0.018] text-[#69717D]'
+                    ? 'bg-brand-red/[0.10] text-brand-red'
+                    : 'bg-white/[0.025] text-[#69717D]'
                 ].join(' ')}
               >
                 {String(index + 1).padStart(2, '0')}
@@ -582,10 +582,10 @@ export const InsightTableOfContents: React.FC<{
               }}
               onPointerDown={(event) => event.stopPropagation()}
               className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-white/[0.07] transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded
-                  ? 'border-white/[0.14] bg-white/[0.06] text-white'
-                  : 'border-white/[0.08] bg-white/[0.02] text-[#9AA1AC] hover:border-white/[0.14] hover:bg-white/[0.045] hover:text-white'
+                  ? 'bg-white/[0.06] text-white'
+                  : 'bg-white/[0.02] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.045] hover:text-white'
               ].join(' ')}
             >
               <ChevronDown
@@ -604,7 +604,7 @@ export const InsightTableOfContents: React.FC<{
         {expanded && section.children.length > 0 && (
           <div
             id={section.heading.id + '-subsections-' + instanceId}
-            className="border-t border-white/[0.06] px-3 pb-3 pt-2.5"
+            className="px-3 pb-3 pt-0.5"
           >
             <div className="space-y-0.5">
               {section.children.map((child) => {
@@ -625,10 +625,10 @@ export const InsightTableOfContents: React.FC<{
                     }}
                     aria-current={active ? 'location' : undefined}
                     className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'border-brand-red/25 bg-brand-red/[0.055] text-white'
-                        : 'border-transparent text-[#737C89] hover:border-white/[0.08] hover:bg-white/[0.018] hover:text-[#C9CED7]'
+                        ? 'bg-brand-red/[0.055] text-white'
+                        : 'text-[#737C89] hover:bg-white/[0.018] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
                     <span
