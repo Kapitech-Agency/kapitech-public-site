@@ -624,7 +624,7 @@ export const InsightDetail: React.FC = () => {
           <InsightAmbientBackground intensity="hero" />
 
           <div className="relative z-10 w-full px-4 pb-14 pt-32 sm:px-6 sm:pb-16 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
-            <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.76fr)] lg:gap-14">
+            <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,420px)] lg:gap-16">
               <div className="min-w-0">
                 <nav
                   className="mb-7 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]"
@@ -694,8 +694,17 @@ export const InsightDetail: React.FC = () => {
                 </div>
               </div>
 
-              <figure className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
-                <div className="group/hero-visual relative aspect-[4/3] overflow-hidden">
+              <figure className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#101114] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
+                <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
+                  <span className="kapi-section-label !px-3 !py-1.5 !text-[8px]">
+                    {article.language === 'id' ? 'PETA VALIDASI' : 'VALIDATION MAP'}
+                  </span>
+                  <span className="shrink-0 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#6F7682]">
+                    {article.language === 'id' ? '3 cara melihat risiko' : '3 ways to read risk'}
+                  </span>
+                </div>
+
+                <div className="overflow-hidden bg-[#0B0C0E]">
                   <img
                     src={article.language === 'id'
                       ? '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg'
@@ -706,34 +715,23 @@ export const InsightDetail: React.FC = () => {
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
-                    className="block h-full w-full object-cover transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/hero-visual:scale-[1.012]"
+                    className="block aspect-[16/9] h-auto w-full object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.008]"
                     onError={(event) => {
                       const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg';
                       if (event.currentTarget.src.endsWith(fallback)) return;
                       event.currentTarget.src = fallback;
                     }}
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,8,0.16),transparent_32%,rgba(5,6,8,0.30))]" />
-                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-[11px] border border-white/[0.09] bg-[#0B0C0E]/62 px-2.5 py-1.5 font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-md">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
-                    {article.language === 'id' ? 'Peta validasi' : 'Validation map'}
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
-                    <span className="max-w-[70%] text-[9px] font-mono uppercase tracking-[0.13em] text-white/58">
-                      {article.language === 'id'
-                        ? 'Pengalaman / Nilai / Kelayakan'
-                        : 'Experience / Value / Feasibility'}
-                    </span>
-                    <span className="rounded-[10px] border border-white/[0.08] bg-[#0B0C0E]/58 px-2.5 py-1.5 font-mono text-[8px] font-semibold tracking-[0.12em] text-white/75 backdrop-blur-md">
-                      01 / 03
-                    </span>
-                  </div>
                 </div>
-                <figcaption className="px-5 py-4 sm:px-6">
-                  <span className="text-[10px] leading-5 text-[#747C88]">
+
+                <figcaption className="flex flex-col gap-2 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+                  <span className="max-w-[42ch] text-[10px] leading-5 text-[#747C88]">
                     {article.language === 'id'
                       ? 'Satu pertanyaan utama, satu alat validasi.'
                       : 'One key question, one validation instrument.'}
+                  </span>
+                  <span className="shrink-0 text-[8px] font-mono font-semibold uppercase tracking-[0.12em] text-brand-red/80">
+                    Kapitech Insight
                   </span>
                 </figcaption>
               </figure>
