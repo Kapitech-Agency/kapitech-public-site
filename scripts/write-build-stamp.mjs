@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -36,7 +36,7 @@ for (const input of buildInputs) files.push(...await collectFiles(join(root, inp
 files.sort();
 
 for (const filePath of files) {
-  const data = await import('node:fs/promises').then(({ stat }) => stat(filePath));
+  const data = await stat(filePath);
   signature.push(filePath.slice(root.length) + '|' + String(data.size) + '|' + String(data.mtimeMs));
 }
 
