@@ -10,6 +10,7 @@ export const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { language } = useLanguage();
   const contactTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const contactPanelRef = React.useRef<HTMLDivElement>(null);
   const firstContactOptionRef = React.useRef<HTMLAnchorElement>(null);
   const wasOpenRef = React.useRef(false);
 
@@ -35,7 +36,34 @@ export const FloatingContact = () => {
       document.body.style.overflow = 'hidden';
 
       const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') setIsOpen(false);
+        if (event.key === 'Escape') {
+          setIsOpen(false);
+          return;
+        }
+
+        if (event.key !== 'Tab') return;
+
+        const panel = contactPanelRef.current;
+        if (!panel) return;
+
+        const focusable = Array.from(
+          panel.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        ).filter((element) => element.getClientRects().length > 0);
+
+        if (focusable.length === 0) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       };
 
       document.addEventListener('keydown', handleKeyDown);
@@ -101,6 +129,9 @@ export const FloatingContact = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              ref={contactPanelRef}
+              role="dialog"
+              aria-label={language === 'id' ? 'Kontak cepat Kapitech' : 'Kapitech quick contact'}
               initial={{ opacity: 0, scale: 0.85, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.85, y: 15 }}
