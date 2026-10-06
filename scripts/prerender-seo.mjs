@@ -122,11 +122,11 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
 
   if (block.type === 'callout') {
     const border = block.tone === 'warning'
-      ? 'border-amber-400/45'
+      ? 'border-l-amber-400/55'
       : block.tone === 'success'
-        ? 'border-emerald-400/45'
-        : 'border-brand-red/40';
-    return '<aside class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 ' + border + '">' +
+        ? 'border-l-emerald-400/55'
+        : 'border-l-brand-red/50';
+    return '<aside class="my-7 rounded-2xl border border-white/[0.08] border-l-2 bg-white/[0.018] p-5 ' + border + '">' +
       (safeText(block.title) ? '<p class="mb-1 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
       '<p class="text-sm font-light leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
   }
@@ -252,7 +252,7 @@ const renderInsightBody = (insight) => {
   html += renderBody(bodyBlocks);
 
   if (faq.length) {
-    html += '<section class="mt-12 rounded-2xl border border-white/[0.08] bg-white/[0.012] p-5 sm:mt-14 sm:p-7" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
+    html += '<section class="mt-12 pt-1 sm:mt-14 sm:pt-2" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</h2><p class="mt-3 text-sm leading-7 text-[#8A909D]">' +
       escapeHtml(label('Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.', 'Short answers to the questions readers are most likely to have after this article.')) +
       '</p></div><div class="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">';
