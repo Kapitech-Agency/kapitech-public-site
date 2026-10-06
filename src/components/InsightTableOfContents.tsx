@@ -661,7 +661,7 @@ export const InsightTableOfContents: React.FC<{
       className="kapi-insight-toc h-full min-h-0"
     >
       <div className={variant === 'desktop' ? 'hidden' : 'xl:hidden'}>
-        <div className="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.78)] backdrop-blur-xl">
+        <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
           <button
             type="button"
             aria-expanded={mobileOpen}
@@ -719,12 +719,12 @@ export const InsightTableOfContents: React.FC<{
       </div>
 
       <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
-        <div className="flex h-full min-h-0 flex-1 flex-col rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-4 backdrop-blur-xl">
+        <div className="flex h-full min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.07] bg-white/[0.014] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
           <div className="flex shrink-0 items-end justify-between gap-4">
             <div>
-              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-[#969DA8]">
+              <span className="kapi-section-label !px-3 !py-1.5 !text-[8px]">
                 {tocLabel}
-              </p>
+              </span>
               <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
                 {sections.length} {sectionCountLabel}
               </p>
