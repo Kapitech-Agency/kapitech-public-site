@@ -33,7 +33,12 @@ import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
-import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
+import {
+  fetchServerCmsProjects,
+  getCmsProjects,
+  fetchServerCmsServices,
+  getCmsServices,
+} from '../lib/cmsStore';
 import { cn } from '../lib/utils';
 import { allSolutionsAndServices } from '../data/servicesData';
 
@@ -54,6 +59,7 @@ const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>
 export const Home = () => {
   const { t, language } = useLanguage();
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
+  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
   const processModalRef = React.useRef<HTMLDivElement>(null);
@@ -64,12 +70,20 @@ export const Home = () => {
       setProjectsList(getCmsProjects());
     };
 
-    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    const handleCmsUpdate = () => {
+      setProjectsList(getCmsProjects());
+      setCmsServices(getCmsServices());
+    };
+
+    window.addEventListener('kapitech_cms_updated', handleCmsUpdate);
     void fetchServerCmsProjects().then(() => {
       setProjectsList(getCmsProjects());
     });
+    void fetchServerCmsServices().then(() => {
+      setCmsServices(getCmsServices());
+    });
 
-    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+    return () => window.removeEventListener('kapitech_cms_updated', handleCmsUpdate);
   }, []);
 
   const openProcessStep = (index: number) => {
@@ -600,7 +614,7 @@ export const Home = () => {
 
           <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
             {(['Branding', 'Design', 'Development'] as const).map((category, index) => {
-              const services = allSolutionsAndServices.filter(
+              const services = cmsServices.filter(
                 (service) => service.type === 'service' && service.category === category,
               );
               const categoryMeta = {
