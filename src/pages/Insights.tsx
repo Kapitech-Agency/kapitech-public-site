@@ -220,12 +220,12 @@ export const Insights: React.FC = () => {
                 </p>
                 <div className="mt-6 grid grid-cols-2 gap-2">
                   <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa' : 'Language'}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{language === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa konten' : 'Content language'}</p>
+                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}
                   </div>
                   <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
                     <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
-                      {language === 'id' ? 'Publikasi' : 'Publishing'}
+                      {hasActiveFilters ? (language === 'id' ? 'Hasil' : 'Results') : (language === 'id' ? 'Artikel' : 'Articles')}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-white">{total || '—'}</p>
                   </div>
