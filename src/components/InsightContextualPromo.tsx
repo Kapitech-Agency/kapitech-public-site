@@ -50,7 +50,7 @@ export const InsightContextualPromo: React.FC<{
 
   return (
     <aside
-      className="my-10 border-y border-white/[0.08] border-l-2 border-l-brand-red/55 py-6 pl-5 sm:my-12 sm:pl-6"
+      className="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/55 bg-white/[0.018] p-5 sm:my-10 sm:p-6"
       aria-label={block.title}
       data-kapi-ad="true"
     >
