@@ -74,6 +74,19 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
   });
 }
 
+const VALIDATION_DECISION_HEADINGS = new Set([
+  'When should you build a Prototype?',
+  'When should you build an MVP?',
+  'When should you use a PoC?',
+  'Kapan sebaiknya membuat Prototype?',
+  'Kapan sebaiknya membuat MVP?',
+  'Kapan sebaiknya menggunakan PoC?'
+]);
+
+function isValidationDecisionHeading(value: unknown): boolean {
+  return typeof value === 'string' && VALIDATION_DECISION_HEADINGS.has(value);
+}
+
 const calloutStyles: Record<string, string> = {
   info: 'border-white/[0.09] bg-white/[0.025]',
   warning: 'border-amber-400/20 bg-amber-400/[0.035]',
@@ -116,6 +129,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'heading') {
           const isSection = block.level !== 3;
+          const isValidationDecision = !isSection && isValidationDecisionHeading(block.text);
           const Heading = isSection ? 'h2' : 'h3';
           const currentSectionNumber = isSection ? ++sectionNumber : sectionNumber;
 
@@ -146,15 +160,56 @@ export const InsightContentRenderer: React.FC<{
             <Heading
               key={index}
               id={headingIds[index] || undefined}
-              className="group scroll-mt-28 mb-4 mt-10 border-l border-white/[0.08] pl-4 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]"
+              className={[
+                'group scroll-mt-28 mb-4 mt-10 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]',
+                isValidationDecision
+                  ? 'rounded-r-xl border-y border-r border-white/[0.07] border-l border-l-brand-red/55 bg-white/[0.018] px-4 py-3.5'
+                  : 'border-l border-white/[0.08] pl-4'
+              ].join(' ')}
             >
+              {isValidationDecision && block.text === 'When should you build a Prototype?' && (
+                <span id="insight-when-should-you-build-one" className="sr-only" aria-hidden="true" />
+              )}
+              {isValidationDecision && (
+                <span className="mb-2 block text-[8px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
+                  {language === 'id' ? 'Panduan keputusan' : 'Decision guide'}
+                </span>
+              )}
               {block.text}
             </Heading>
           );
         }
 
         if (block.type === 'list') {
+          const previousBlock = blocks[index - 1];
+          const isDecisionList = Boolean(
+            previousBlock?.type === 'heading' && isValidationDecisionHeading(previousBlock.text)
+          );
           const ListTag = block.ordered ? 'ol' : 'ul';
+
+          if (isDecisionList) {
+            return (
+              <ul
+                key={index}
+                className="mb-9 grid gap-3 sm:grid-cols-2"
+              >
+                {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
+                  <li
+                    key={itemIndex}
+                    className="flex gap-3 rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 text-[13px] leading-6 text-[#C3C7D0] transition-[border-color,background-color] duration-300 hover:border-white/[0.12] hover:bg-white/[0.028] sm:text-sm"
+                  >
+                    <span
+                      className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-brand-red/40 bg-brand-red/[0.06]"
+                      aria-hidden="true"
+                    >
+                      <Check size={10} className="text-brand-red" />
+                    </span>
+                    <span>{inlineMarkdown(item)}</span>
+                  </li>
+                ))}
+              </ul>
+            );
+          }
 
           return (
             <ListTag
