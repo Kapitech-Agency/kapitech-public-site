@@ -2,10 +2,12 @@ import React from 'react';
 import { Check, Share2 } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 
+type ShareState = 'idle' | 'copied' | 'shared';
+
 type InsightLeftRailProps = {
   language: InsightLanguage;
   readingProgress: number;
-  copied: boolean;
+  shareState: ShareState;
   onShare: () => void;
   mobile?: boolean;
 };
@@ -17,13 +19,21 @@ const progressText = (language: InsightLanguage) => (
 export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
   language,
   readingProgress,
-  copied,
+  shareState,
   onShare,
   mobile = false
 }) => {
-  const shareLabel = copied
+  const shareLabel = shareState === 'copied'
     ? (language === 'id' ? 'Tautan disalin' : 'Link copied')
-    : (language === 'id' ? 'Bagikan artikel' : 'Share article');
+    : shareState === 'shared'
+      ? (language === 'id' ? 'Artikel dibagikan' : 'Article shared')
+      : (language === 'id' ? 'Bagikan artikel' : 'Share article');
+
+  const shareButtonLabel = shareState === 'copied'
+    ? (language === 'id' ? 'Disalin' : 'Copied')
+    : shareState === 'shared'
+      ? (language === 'id' ? 'Terkirim' : 'Shared')
+      : (language === 'id' ? 'Bagikan' : 'Share');
 
   if (mobile) {
     return (
@@ -37,8 +47,8 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.08] px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-[#A2A8B3] transition-[border-color,color,background-color] duration-200 hover:border-brand-red/35 hover:bg-brand-red/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           aria-label={shareLabel}
         >
-          {copied ? <Check size={13} aria-hidden="true" /> : <Share2 size={13} aria-hidden="true" />}
-          {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Bagikan' : 'Share')}
+          {shareState !== 'idle' ? <Check size={13} aria-hidden="true" /> : <Share2 size={13} aria-hidden="true" />}
+          {shareButtonLabel}
         </button>
 
         <div
@@ -75,7 +85,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
         aria-label={shareLabel}
         title={shareLabel}
       >
-        {copied ? <Check size={15} aria-hidden="true" /> : <Share2 size={15} aria-hidden="true" />}
+        {shareState !== 'idle' ? <Check size={15} aria-hidden="true" /> : <Share2 size={15} aria-hidden="true" />}
       </button>
 
       <div
