@@ -205,6 +205,7 @@ const relatedItems = (insight) => {
 
 const renderInsightBody = (insight) => {
   const blocks = Array.isArray(insight.content) ? insight.content : [];
+  const language = insight.language;
   const headingIds = buildInsightHeadingIdList(blocks);
   const toc = buildInsightTocList(blocks, headingIds);
   const explicitFaq = Array.isArray(insight.faq)
@@ -213,7 +214,6 @@ const renderInsightBody = (insight) => {
   const faq = explicitFaq.length > 0
     ? explicitFaq
     : deriveInsightFaq(blocks, language);
-  const language = insight.language;
   const label = (idText, enText) => language === 'id' ? idText : enText;
   const category = insight.category?.displayName
     || insight.category?.name?.[language]
