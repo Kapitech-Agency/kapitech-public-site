@@ -365,7 +365,7 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'promo') {
-          return <InsightContextualPromo key={index} block={block} />;
+          return <InsightContextualPromo key={index} block={block} language={language} />;
         }
 
         if (block.type === 'checklist') {
