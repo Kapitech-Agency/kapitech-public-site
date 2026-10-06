@@ -350,12 +350,7 @@ export const InsightDetail: React.FC = () => {
               <Link to="/insights" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
                 {article.language === 'id' ? 'Insight' : 'Insights'}
               </Link>
-              {category && (
-                <>
-                  <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
-                  <span className="shrink-0 text-[#848B97]">{category}</span>
-                </>
-              )}
+
             </nav>
 
             <div className="max-w-[980px]">

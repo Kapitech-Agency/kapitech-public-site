@@ -229,7 +229,7 @@ const renderInsightBody = (insight) => {
   html += '<nav class="mb-8 flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">';
   html += '<a href="/" class="shrink-0">' + escapeHtml(label('Beranda', 'Home')) + '</a><span aria-hidden="true">›</span>';
   html += '<a href="/insights" class="shrink-0">' + escapeHtml(label('Insight', 'Insights')) + '</a>';
-  if (category) html += '<span aria-hidden="true">›</span><span>' + escapeHtml(category) + '</span>';
+
   html += '</nav>';
   html += '<p class="text-[9px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' + escapeHtml(label('Insight', 'Insight')) + '</p>';
   html += '<h1 class="mt-4 max-w-[980px] font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl">' + escapeHtml(insight.title) + '</h1>';

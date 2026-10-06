@@ -154,6 +154,8 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'image') {
+          if (!block.url?.trim()) return null;
+
           const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 

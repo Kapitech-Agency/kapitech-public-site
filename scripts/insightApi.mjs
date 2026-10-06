@@ -48,7 +48,10 @@ async function fetchPublishedLanguage(language) {
       if (item?.status === 'published' && item.slug) results.push(item);
     }
 
-    totalPages = Math.max(1, Number(payload.meta?.totalPages || 1));
+    const reportedTotalPages = Number(payload.meta?.totalPages || 0);
+    totalPages = reportedTotalPages > 0
+      ? reportedTotalPages
+      : (items.length === 100 ? page + 1 : page);
     page += 1;
   }
 
