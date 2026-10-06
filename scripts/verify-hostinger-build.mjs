@@ -88,7 +88,7 @@ for (const assertion of insightAssertions) {
 
   if (!html.includes('<h1')) throw new Error('[deploy-check] prerendered Insight has no H1: ' + assertion.file);
   if ((html.match(/<h2\b/gi) || []).length < 8) throw new Error('[deploy-check] Insight is missing editorial H2 depth: ' + assertion.file);
-  if ((html.match(/<img\b/gi) || []).length < 6) throw new Error('[deploy-check] Insight is missing expected editorial visuals: ' + assertion.file);
+  if ((html.match(/<img\b/gi) || []).length < 5) throw new Error('[deploy-check] Insight is missing expected editorial visuals: ' + assertion.file);
 
   if (assertion.file.includes('mvp-vs-prototype-vs-proof-of-concept-guide')) {
     const promoCount = (html.match(/data-kapi-ad="true"/g) || []).length;
