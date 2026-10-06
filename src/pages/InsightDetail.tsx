@@ -558,17 +558,17 @@ export const InsightDetail: React.FC = () => {
                     to="/"
                     className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                   >
-                    \${article.language === 'id' ? 'Beranda' : 'Home'}
+                    ${article.language === 'id' ? 'Beranda' : 'Home'}
                   </Link>
                   <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
                   <Link
                     to="/insights"
                     className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                   >
-                    \${article.language === 'id' ? 'Insight' : 'Insights'}
+                    ${article.language === 'id' ? 'Insight' : 'Insights'}
                   </Link>
                   <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
-                  <span className="truncate text-[#A2A8B4]">\${category || 'Insight'}</span>
+                  <span className="truncate text-[#A2A8B4]">${category || 'Insight'}</span>
                 </nav>
 
                 <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
@@ -576,49 +576,49 @@ export const InsightDetail: React.FC = () => {
                     <span className="absolute inset-0 rounded-full bg-brand-red/35" />
                     <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
                   </span>
-                  <span className="text-brand-red">\${category || 'Insight'}</span>
+                  <span className="text-brand-red">${category || 'Insight'}</span>
                   <span className="text-[#5E6672]">/</span>
-                  <span>\${article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}</span>
+                  <span>${article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}</span>
                 </div>
 
                 <h1 className="mt-7 max-w-[880px] font-display text-[2.8rem] font-semibold leading-[0.96] tracking-[-0.058em] text-white sm:text-6xl lg:text-[5.3rem]">
-                  \${article.title}
+                  ${article.title}
                 </h1>
 
-                \${article.excerpt && (
+                ${article.excerpt && (
                   <p className="mt-6 max-w-2xl text-[15px] leading-7 text-[#A2A8B4] sm:text-base sm:leading-8 lg:text-[1.03rem]">
-                    \${article.excerpt}
+                    ${article.excerpt}
                   </p>
                 )}
 
                 <div className="mt-8 grid max-w-2xl gap-4 border-t border-white/[0.07] pt-5 sm:grid-cols-[minmax(0,1.35fr)_auto_auto] sm:items-end">
                   <div className="min-w-0">
                     <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
-                      \${article.language === 'id' ? 'Ditulis oleh' : 'Written by'}
+                      ${article.language === 'id' ? 'Ditulis oleh' : 'Written by'}
                     </p>
                     <p className="mt-1 truncate text-sm font-medium text-white">
-                      \${article.author?.name || 'Kapitech Editorial'}
+                      ${article.author?.name || 'Kapitech Editorial'}
                     </p>
-                    \${article.author?.role && (
-                      <p className="mt-0.5 truncate text-[10px] text-[#6E7582]">\${article.author.role}</p>
+                    ${article.author?.role && (
+                      <p className="mt-0.5 truncate text-[10px] text-[#6E7582]">${article.author.role}</p>
                     )}
                   </div>
 
                   <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
                     <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
-                      \${article.language === 'id' ? 'Waktu baca' : 'Reading time'}
+                      ${article.language === 'id' ? 'Waktu baca' : 'Reading time'}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-white">
-                      \${article.readingTime || '—'} \${article.readingTime ? (article.language === 'id' ? 'menit' : 'min') : ''}
+                      ${article.readingTime || '—'} ${article.readingTime ? (article.language === 'id' ? 'menit' : 'min') : ''}
                     </p>
                   </div>
 
                   <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
                     <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
-                      \${article.language === 'id' ? 'Diterbitkan' : 'Published'}
+                      ${article.language === 'id' ? 'Diterbitkan' : 'Published'}
                     </p>
                     <time dateTime={article.publishedAt || undefined} className="mt-1 block text-sm font-semibold text-white">
-                      \${article.publishedAt ? formatDate(article.publishedAt, article.language) : '—'}
+                      ${article.publishedAt ? formatDate(article.publishedAt, article.language) : '—'}
                     </time>
                   </div>
                 </div>
@@ -629,10 +629,10 @@ export const InsightDetail: React.FC = () => {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red">
-                        \${article.language === 'id' ? 'Peta validasi' : 'Validation map'}
+                        ${article.language === 'id' ? 'Peta validasi' : 'Validation map'}
                       </p>
                       <p className="mt-1 text-[10px] text-[#68707C]">
-                        \${article.language === 'id'
+                        ${article.language === 'id'
                           ? 'Pengalaman / Nilai / Kelayakan'
                           : 'Experience / Value / Feasibility'}
                       </p>
@@ -665,7 +665,7 @@ export const InsightDetail: React.FC = () => {
 
                 <figcaption className="flex items-center justify-between gap-4 border-t border-white/[0.07] px-5 py-3.5 sm:px-6">
                   <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">
-                    \${article.language === 'id'
+                    ${article.language === 'id'
                       ? 'Satu pertanyaan utama, satu alat validasi.'
                       : 'One key question, one validation instrument.'}
                   </span>
@@ -691,7 +691,7 @@ export const InsightDetail: React.FC = () => {
                 shareState={shareState}
                 onShare={() => void shareArticle()}
               />
-              \${toc.length > 0 && (
+              ${toc.length > 0 && (
                 <div className="mt-3">
                   <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
                 </div>
@@ -712,13 +712,13 @@ export const InsightDetail: React.FC = () => {
                 ref={articleReadingRef}
                 className="min-w-0 w-full max-w-[820px] justify-self-center px-4 py-10 text-[#C3C7D0] sm:px-6 sm:py-14 xl:px-0 xl:py-16"
               >
-                \${introductionBlocks.length > 0 && (
+                ${introductionBlocks.length > 0 && (
                   <section
                     className="mb-12 border-b border-white/[0.07] pb-10 sm:mb-14 sm:pb-12"
                     aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
                   >
                     <p className="mb-5 text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                      \${article.language === 'id' ? 'Mulai dari sini' : 'Start here'}
+                      ${article.language === 'id' ? 'Mulai dari sini' : 'Start here'}
                     </p>
                     <InsightContentRenderer
                       blocks={introductionBlocks}
@@ -728,7 +728,7 @@ export const InsightDetail: React.FC = () => {
                   </section>
                 )}
 
-                \${Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
+                ${Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
                   <section
                     className="mb-14 border-y border-white/[0.08] py-8 sm:py-10"
                     aria-labelledby="key-takeaways-title"
@@ -736,16 +736,16 @@ export const InsightDetail: React.FC = () => {
                     <div className="grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
                       <div>
                         <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                          \${article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
+                          ${article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
                         </p>
                         <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
-                          \${article.language === 'id'
+                          ${article.language === 'id'
                             ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
                             : 'The ideas worth carrying forward.'}
                         </p>
                       </div>
                       <ul className="space-y-3.5">
-                        \${article.keyTakeaways.map((item, index) => (
+                        ${article.keyTakeaways.map((item, index) => (
                           <li key={index} className="flex gap-3 text-[14px] leading-7 text-[#CBD0D8] sm:text-[15px]">
                             <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
                             <span>{item}</span>
@@ -756,7 +756,7 @@ export const InsightDetail: React.FC = () => {
                   </section>
                 )}
 
-                \${bodyBlocks.length > 0 && (
+                ${bodyBlocks.length > 0 && (
                   <InsightContentRenderer
                     blocks={bodyBlocks}
                     headingIds={headingIds.map((id) => id || '')}
@@ -764,13 +764,13 @@ export const InsightDetail: React.FC = () => {
                   />
                 )}
 
-                \${article.author && (
+                ${article.author && (
                   <section className="mt-14 border-t border-white/[0.07] pt-8" aria-labelledby="author-title">
                     <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
-                      \${article.language === 'id' ? 'Tentang penulis' : 'About the author'}
+                      ${article.language === 'id' ? 'Tentang penulis' : 'About the author'}
                     </p>
                     <div className="mt-5 flex items-start gap-4">
-                      \${article.author.avatar ? (
+                      ${article.author.avatar ? (
                         <img
                           src={article.author.avatar}
                           alt=""
@@ -787,8 +787,8 @@ export const InsightDetail: React.FC = () => {
                       )}
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-white">{article.author.name}</p>
-                        \${article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
-                        \${article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
+                        ${article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
+                        ${article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
                       </div>
                     </div>
                   </section>
