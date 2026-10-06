@@ -171,10 +171,10 @@ export const Insights: React.FC = () => {
     <>
       <InsightSeoMeta />
       <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
-        <section className="relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-5 pb-20 pt-36 sm:min-h-[680px] sm:px-8 sm:pt-40 lg:min-h-[740px] lg:px-10 lg:pt-44">
+        <section className="relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-4 pb-20 pt-36 sm:min-h-[680px] sm:px-6 sm:pt-40 md:px-12 lg:min-h-[740px] lg:pt-44">
           <InsightAmbientBackground intensity="hero" />
 
-          <div className="relative z-10 mx-auto grid w-full max-w-[1240px] gap-12 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:gap-16">
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:gap-16">
             <div className="max-w-4xl">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
                 <span className="relative flex h-1.5 w-1.5">
@@ -239,7 +239,7 @@ export const Insights: React.FC = () => {
 
         <section
           id="insight-library"
-          className="relative mx-auto w-full max-w-[1240px] scroll-mt-24 px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16"
+          className="relative mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-10 sm:px-6 sm:py-14 md:px-12 lg:py-16"
           aria-label={language === 'id' ? 'Temukan Insight' : 'Discover Insights'}
         >
           <div className="flex flex-col gap-4 rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-3 backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between lg:p-3.5">
@@ -304,7 +304,7 @@ export const Insights: React.FC = () => {
           </div>
         </section>
 
-        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24 lg:px-10" aria-busy={loading}>
+        <section className="relative mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 sm:pb-24 md:px-12" aria-busy={loading}>
           {languageFallback === 'id' && (
             <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-6 text-[#858C99]">
               {language === 'en'
@@ -461,7 +461,7 @@ export const Insights: React.FC = () => {
           )}
         </section>
 
-        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-24 sm:px-8 lg:px-10">
+        <section className="relative mx-auto w-full max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
           <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
             <div className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-brand-red/[0.07] blur-3xl" />
             <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
