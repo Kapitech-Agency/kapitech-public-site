@@ -51,30 +51,35 @@ const insightAssertions = [
 ];
 
 for (const assertion of insightAssertions) {
+  let html;
+
   try {
-    const html = await readFile(join(distDir, assertion.file), 'utf8');
-
-    if (!html.includes('<h1')) throw new Error('[deploy-check] prerendered Insight has no H1');
-    if ((html.match(/<h2\b/gi) || []).length < 8) throw new Error('[deploy-check] Insight is missing editorial H2 depth');
-    if ((html.match(/<img\b/gi) || []).length < 6) throw new Error('[deploy-check] Insight is missing expected editorial visuals');
-
-    for (const phrase of assertion.required) {
-      if (!html.includes(phrase)) throw new Error('[deploy-check] missing required Insight phrase "' + phrase + '"');
-    }
-
-    for (const phrase of assertion.forbidden) {
-      if (html.includes(phrase)) throw new Error('[deploy-check] mixed-language Insight phrase "' + phrase + '" found');
-    }
-
-    if ((html.match(/id="faq-title"/g) || []).length !== 1) {
-      throw new Error('[deploy-check] Insight must contain exactly one FAQ section');
-    }
-
-    console.log('[deploy-check] verified prerendered Insight: ' + assertion.file);
+    html = await readFile(join(distDir, assertion.file), 'utf8');
   } catch (error) {
-    console.warn('[deploy-check] optional Insight prerender not available, skipping: ' + assertion.file);
-    console.warn(String(error?.message || error));
+    if (error?.code === 'ENOENT') {
+      console.warn('[deploy-check] optional Insight prerender not available: ' + assertion.file);
+      continue;
+    }
+    throw error;
   }
+
+  if (!html.includes('<h1')) throw new Error('[deploy-check] prerendered Insight has no H1: ' + assertion.file);
+  if ((html.match(/<h2\b/gi) || []).length < 8) throw new Error('[deploy-check] Insight is missing editorial H2 depth: ' + assertion.file);
+  if ((html.match(/<img\b/gi) || []).length < 6) throw new Error('[deploy-check] Insight is missing expected editorial visuals: ' + assertion.file);
+
+  for (const phrase of assertion.required) {
+    if (!html.includes(phrase)) throw new Error('[deploy-check] Missing required Insight phrase "' + phrase + '" in ' + assertion.file);
+  }
+
+  for (const phrase of assertion.forbidden) {
+    if (html.includes(phrase)) throw new Error('[deploy-check] Mixed-language Insight phrase "' + phrase + '" found in ' + assertion.file);
+  }
+
+  if ((html.match(/id="faq-title"/g) || []).length !== 1) {
+    throw new Error('[deploy-check] Insight must contain exactly one FAQ section: ' + assertion.file);
+  }
+
+  console.log('[deploy-check] verified prerendered Insight: ' + assertion.file);
 }
 
 console.log('[deploy-check] Hostinger-ready static build, bilingual Insight prerender, and editorial depth verified');
