@@ -324,9 +324,21 @@ function installInteractionTracking(): void {
       || 'unnamed';
 
     if (customEvent) {
+      const dataset = element instanceof HTMLElement ? element.dataset : undefined;
+      const metadata: AnalyticsParams = {};
+
+      if (dataset) {
+        Object.entries(dataset).forEach(([key, value]) => {
+          if (!key.startsWith('analytics') && key !== 'analyticsEvent') {
+            metadata[key] = value;
+          }
+        });
+      }
+
       trackEvent(customEvent, {
         cta_label: label,
         page_path: window.location.pathname,
+        ...metadata,
       });
       return;
     }
