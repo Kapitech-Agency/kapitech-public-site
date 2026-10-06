@@ -859,7 +859,6 @@ export const InsightDetail: React.FC = () => {
                 ))}
               </div>
             </div>
-            </div>
           </section>
         )}
 
