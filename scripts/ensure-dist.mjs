@@ -5,13 +5,15 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const distEntry = join(root, 'dist', 'index.html');
+const distStamp = join(root, 'dist', '.kapitech-build-source-hash');
 
 try {
   await access(distEntry);
-  console.log('[startup] production build found at dist/index.html');
+  await access(distStamp);
+  console.log('[startup] production build found at dist/index.html with build stamp');
   process.exit(0);
 } catch {
-  console.log('[startup] dist/index.html is missing; running production build before starting server...');
+  console.log('[startup] production dist is missing or unverified; running production build before starting server...');
 }
 
 await new Promise((resolvePromise, rejectPromise) => {
