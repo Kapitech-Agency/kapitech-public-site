@@ -73,17 +73,6 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
   });
 }
 
-function isValidationDecisionHeading(value: unknown): boolean {
-  return typeof value === 'string' && new Set([
-    'When should you build a Prototype?',
-    'When should you build an MVP?',
-    'When should you use a PoC?',
-    'Kapan sebaiknya membuat Prototype?',
-    'Kapan sebaiknya membuat MVP?',
-    'Kapan sebaiknya menggunakan PoC?'
-  ]).has(value);
-}
-
 export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
