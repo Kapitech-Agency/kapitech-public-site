@@ -1,4 +1,5 @@
 import { createReadStream } from 'node:fs';
+import { spawn } from 'node:child_process';
 import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve } from 'node:path';
@@ -62,6 +63,50 @@ async function sendFile(req, res, filePath) {
   stream.pipe(res);
 }
 
+let buildState = 'ready';
+let buildChild = null;
+
+function startBackgroundBuild() {
+  if (buildState !== 'missing' || buildChild) return;
+
+  buildState = 'building';
+  const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  buildChild = spawn(npmCommand, ['run', 'build'], {
+    cwd: root,
+    env: process.env,
+    stdio: 'inherit'
+  });
+
+  buildChild.once('error', (error) => {
+    console.error('[server] background build failed to start:', error);
+    buildState = 'failed';
+    buildChild = null;
+  });
+
+  buildChild.once('exit', (code, signal) => {
+    buildChild = null;
+    if (code === 0) {
+      buildState = 'ready';
+      console.log('[server] background production build completed');
+      return;
+    }
+
+    buildState = 'failed';
+    console.error('[server] background production build failed', { code, signal });
+  });
+}
+
+async function detectDistState() {
+  try {
+    await stat(join(distDir, 'index.html'));
+    buildState = 'ready';
+    return;
+  } catch {
+    buildState = 'missing';
+    console.warn('[server] dist/index.html is missing; starting HTTP server and building in background');
+  }
+}
+
 const server = createServer(async (req, res) => {
   try {
     if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS')) {
@@ -78,6 +123,15 @@ const server = createServer(async (req, res) => {
     }
 
     if (req.url.split('?')[0] === '/__health') {
+      if (buildState === 'building' || buildState === 'missing') {
+        startBackgroundBuild();
+        res.statusCode = 503;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.setHeader('Retry-After', '5');
+        res.end('building');
+        return;
+      }
+
       const healthEntry = join(distDir, 'index.html');
 
       try {
@@ -92,6 +146,15 @@ const server = createServer(async (req, res) => {
         res.setHeader('Retry-After', '5');
         res.end('dist-not-ready');
       }
+      return;
+    }
+
+    if (buildState !== 'ready') {
+      startBackgroundBuild();
+      res.statusCode = 503;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Retry-After', '5');
+      res.end(buildState === 'failed' ? 'service-unavailable' : 'building');
       return;
     }
 
@@ -131,6 +194,9 @@ server.on('error', (error) => {
   console.error('[server] listener failed:', error);
 });
 
+await detectDistState();
+
 server.listen(port, '0.0.0.0', () => {
   console.log('[server] Kapitech public site listening on port ' + port);
+  if (buildState === 'missing') startBackgroundBuild();
 });
