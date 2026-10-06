@@ -45,9 +45,14 @@ function getHeadingTop(id: string): number | null {
 }
 
 function scrollToHeading(id: string, behavior: ScrollBehavior): void {
-  document.getElementById(id)?.scrollIntoView({
-    behavior,
-    block: 'start'
+  const heading = document.getElementById(id);
+  if (!heading || typeof window === 'undefined') return;
+
+  const top = window.scrollY + heading.getBoundingClientRect().top - ARTICLE_SCROLL_OFFSET_PX;
+
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior
   });
 }
 
@@ -175,12 +180,18 @@ export const InsightTableOfContents: React.FC<{
     const maxScrollTop = getDocumentMaxScroll();
 
     if (window.scrollY <= 4) {
-      setActive(validItems[0].id);
+      const firstId = validItems[0].id;
+      const previousSectionId = sectionByItemId.get(activeIdRef.current);
+      setActive(firstId);
+      expandSectionForItem(firstId, previousSectionId);
       return;
     }
 
     if (window.scrollY >= maxScrollTop - 4) {
-      setActive(validItems[validItems.length - 1].id);
+      const lastId = validItems[validItems.length - 1].id;
+      const previousSectionId = sectionByItemId.get(activeIdRef.current);
+      setActive(lastId);
+      expandSectionForItem(lastId, previousSectionId);
       return;
     }
 
@@ -548,8 +559,13 @@ export const InsightTableOfContents: React.FC<{
                 </span>
 
                 {section.children.length > 0 && (
-                  <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A77]">
-                    <span className={sectionActive ? 'text-white/90' : 'text-[#59616D]'}>
+                  <span
+                    className={[
+                      'mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em]',
+                      sectionActive ? 'text-white/90' : 'text-[#626A77]'
+                    ].join(' ')}
+                  >
+                    <span>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>
