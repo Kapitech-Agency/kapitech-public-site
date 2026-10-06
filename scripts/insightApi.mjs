@@ -203,6 +203,12 @@ export async function fetchPublishedInsights() {
     const key = summary.language + ':' + summary.slug;
 
     try {
+      // The migration-seed editorial packs are the canonical source for the
+      // published MVP/Prototype/PoC article. The client already uses the same
+      // fallback as its initial source, so prerender must not drift from it.
+      if (fallbackByKey.has(key)) {
+        return fallbackByKey.get(key);
+      }
       let detail = summary;
 
       if (!Array.isArray(summary.content)) {
