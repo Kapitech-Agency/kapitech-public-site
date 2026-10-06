@@ -1,3 +1,5 @@
+import { validateInsightContent } from '../src/lib/insightContentValidationCore.mjs';
+
 const DEFAULT_API_BASE = 'https://ams.kapitech.id/api';
 const REQUEST_TIMEOUT_MS = 15000;
 const DETAIL_CONCURRENCY = 4;
@@ -82,13 +84,25 @@ async function mapWithConcurrency(items, worker, concurrency = DETAIL_CONCURRENC
 }
 
 export async function fetchPublishedInsightSummaries() {
-  const [id, en] = await Promise.all([
+  const settled = await Promise.allSettled([
     fetchPublishedLanguage('id'),
     fetchPublishedLanguage('en')
   ]);
 
+  const combined = [];
+
+  settled.forEach((result, index) => {
+    if (result.status === 'fulfilled') {
+      combined.push(...result.value);
+      return;
+    }
+
+    const language = index === 0 ? 'id' : 'en';
+    console.warn('[Insight API] unable to load published ' + language + ' summaries:', result.reason);
+  });
+
   const seen = new Set();
-  return [...id, ...en].filter((item) => {
+  return combined.filter((item) => {
     const key = item.language + ':' + item.slug;
     if (seen.has(key)) return false;
     seen.add(key);
@@ -99,20 +113,40 @@ export async function fetchPublishedInsightSummaries() {
 export async function fetchPublishedInsights() {
   const summaries = await fetchPublishedInsightSummaries();
 
-  const variants = await mapWithConcurrency(summaries, async (summary) => {
-    if (Array.isArray(summary.content)) return summary;
+  const results = await mapWithConcurrency(summaries, async (summary) => {
+    try {
+      let detail = summary;
 
-    const url = apiBase() + '/cms/insights/' + encodeURIComponent(summary.slug);
-    const payload = await fetchJson(url);
-    const detail = payload?.insight;
+      if (!Array.isArray(summary.content)) {
+        const url = apiBase() + '/cms/insights/' + encodeURIComponent(summary.slug);
+        const payload = await fetchJson(url);
+        detail = payload?.insight;
+      }
 
-    if (!detail || detail.status !== 'published' || detail.slug !== summary.slug) {
-      throw new Error('Published Insight detail is missing or invalid for ' + summary.slug);
+      if (!detail || detail.status !== 'published' || detail.slug !== summary.slug) {
+        throw new Error('Published Insight detail is missing or invalid.');
+      }
+
+      const validation = validateInsightContent(detail.content);
+
+      if (validation.errors.length > 0) {
+        throw new Error(
+          'Content validation failed: ' + validation.errors.join(' | ')
+        );
+      }
+
+      if (validation.warnings.length > 0) {
+        console.warn('[Insight API] content warnings for ' + summary.language + ':' + summary.slug + ':', validation.warnings);
+      }
+
+      return { ...summary, ...detail };
+    } catch (error) {
+      console.warn('[Insight API] skipping unavailable Insight ' + summary.language + ':' + summary.slug + ':', error);
+      return null;
     }
-
-    return { ...summary, ...detail };
   });
 
+  const variants = results.filter(Boolean);
   const byGroup = new Map();
 
   for (const item of variants) {

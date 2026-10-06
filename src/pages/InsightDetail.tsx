@@ -12,6 +12,7 @@ import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
+import { validateInsightContent } from '../lib/insightContentValidation';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -50,6 +51,24 @@ function getRelatedInsights(article: InsightItem): InsightItem[] {
       return true;
     })
     .slice(0, 3);
+}
+
+function hasPrerenderedInsight(): boolean {
+  return typeof document !== 'undefined'
+    && Boolean(document.getElementById('kapi-prerendered-insight'));
+}
+
+function removePrerenderedInsight(): void {
+  document.getElementById('kapi-prerendered-insight')?.remove();
+}
+
+function enablePrerenderedInsightFallback(): void {
+  const prerender = document.getElementById('kapi-prerendered-insight');
+  if (!prerender) return;
+
+  prerender.classList.remove('pointer-events-none');
+  prerender.classList.add('pointer-events-auto');
+  prerender.setAttribute('data-kapi-prerender-fallback', 'true');
 }
 
 class InsightDetailErrorBoundary extends React.Component<
@@ -109,13 +128,16 @@ export const InsightDetail: React.FC = () => {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const articleReadingRef = useRef<HTMLElement | null>(null);
+  const readingEndRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
   const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [relatedInsights, setRelatedInsights] = useState<InsightItem[]>([]);
 
   useEffect(() => {
     languageInitializedRef.current = false;
@@ -123,7 +145,9 @@ export const InsightDetail: React.FC = () => {
     setArticle(null);
     setLoading(true);
     setNotFound(false);
+    setLoadError(null);
     setReadingProgress(0);
+    setRelatedInsights([]);
 
     let cancelled = false;
 
@@ -132,14 +156,47 @@ export const InsightDetail: React.FC = () => {
         if (cancelled) return;
 
         if (!res.success || !res.data?.insight || res.data.insight.status !== 'published') {
-          setNotFound(true);
+          const isNotFound = /(?:HTTP\s+)?404\b/.test(res.error || '');
+
+          if (isNotFound) {
+            removePrerenderedInsight();
+            setNotFound(true);
+          } else {
+            console.error('[Kapitech Insight] article request failed:', res.error || 'Unknown API error');
+            enablePrerenderedInsightFallback();
+            setLoadError('network');
+          }
           return;
         }
 
-        setArticle(res.data.insight);
+        const nextArticle = res.data.insight;
+        const validation = validateInsightContent(nextArticle.content);
+
+        if (validation.errors.length > 0) {
+          console.error('[Kapitech Insight] published content failed validation:', {
+            slug: nextArticle.slug,
+            errors: validation.errors,
+            warnings: validation.warnings
+          });
+          enablePrerenderedInsightFallback();
+          setLoadError('content');
+          return;
+        }
+
+        if (validation.warnings.length > 0) {
+          console.warn('[Kapitech Insight] published content warnings:', {
+            slug: nextArticle.slug,
+            warnings: validation.warnings
+          });
+        }
+
+        setArticle(nextArticle);
       })
-      .catch(() => {
-        if (!cancelled) setNotFound(true);
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        console.error('[Kapitech Insight] article request failed:', error);
+        enablePrerenderedInsightFallback();
+        setLoadError('network');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -186,9 +243,13 @@ export const InsightDetail: React.FC = () => {
       const articleElement = articleReadingRef.current;
       if (!articleElement) return;
 
-      const rect = articleElement.getBoundingClientRect();
-      const start = window.scrollY + rect.top;
-      const end = start + rect.height;
+      const endElement = readingEndRef.current;
+      if (!endElement) return;
+
+      const startRect = articleElement.getBoundingClientRect();
+      const endRect = endElement.getBoundingClientRect();
+      const start = window.scrollY + startRect.top;
+      const end = window.scrollY + endRect.bottom;
       const travel = Math.max(1, end - start - window.innerHeight);
       setReadingProgress(clamp(((window.scrollY - start) / travel) * 100));
     };
@@ -202,8 +263,9 @@ export const InsightDetail: React.FC = () => {
       ? new ResizeObserver(schedule)
       : null;
 
-    if (resizeObserver && articleReadingRef.current) {
-      resizeObserver.observe(articleReadingRef.current);
+    if (resizeObserver) {
+      if (articleReadingRef.current) resizeObserver.observe(articleReadingRef.current);
+      if (readingEndRef.current) resizeObserver.observe(readingEndRef.current);
     }
 
     update();
@@ -219,9 +281,69 @@ export const InsightDetail: React.FC = () => {
   }, [article]);
 
   useEffect(() => {
-    if (loading) return;
-    document.getElementById('kapi-prerendered-insight')?.remove();
-  }, [loading]);
+    if (!article) return;
+    removePrerenderedInsight();
+  }, [article]);
+
+  useEffect(() => {
+    return () => {
+      removePrerenderedInsight();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!article) return;
+
+    let cancelled = false;
+    const seeded = getRelatedInsights(article);
+
+    if (seeded.length >= 3) {
+      setRelatedInsights(seeded);
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    const loadRelated = async () => {
+      const response = await api.cms.getInsights({
+        language: article.language,
+        categoryId: article.categoryId || article.category?.id || undefined,
+        page: 1,
+        pageSize: 6
+      });
+
+      if (cancelled) return;
+
+      const candidates = response.success
+        ? (response.data?.insights || [])
+        : [];
+
+      const seen = new Set(seeded.map((item) => item.slug));
+      const fallback = candidates.filter((item) => {
+        if (!item || item.status !== 'published' || item.language !== article.language || !item.slug) return false;
+        if (item.id === article.id || item.slug === article.slug || seen.has(item.slug)) return false;
+        seen.add(item.slug);
+        return true;
+      });
+
+      setRelatedInsights([...seeded, ...fallback].slice(0, 3));
+
+      if (!response.success) {
+        console.warn('[Kapitech Insight] related-content fallback unavailable:', response.error || 'Unknown API error');
+      }
+    };
+
+    void loadRelated().catch((error: unknown) => {
+      if (!cancelled) {
+        console.warn('[Kapitech Insight] related-content fallback failed:', error);
+        setRelatedInsights(seeded);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [article]);
 
   const blocks = useMemo(
     () => (article && Array.isArray(article.content) ? article.content : []),
@@ -250,11 +372,6 @@ export const InsightDetail: React.FC = () => {
     [bodyBlocks, headingIds]
   );
 
-  const relatedInsights = useMemo(
-    () => article ? getRelatedInsights(article) : [],
-    [article]
-  );
-
   const faq = useMemo(
     () => article ? validFaq(article) : [],
     [article]
@@ -275,10 +392,59 @@ export const InsightDetail: React.FC = () => {
     } catch {}
   };
 
-  const hasPrerender = typeof document !== 'undefined'
-    && Boolean(document.getElementById('kapi-prerendered-insight'));
+  const hasPrerender = hasPrerenderedInsight();
 
-  if (loading && hasPrerender) return null;
+  if ((loading || loadError) && hasPrerender) return null;
+
+  if (loadError === 'content') {
+    return (
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+        <div className="mx-auto w-full max-w-[980px]">
+          <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Content validation</p>
+          <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
+            {language === 'id' ? 'Konten artikel perlu diperbaiki' : 'This article needs a content fix'}
+          </h1>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[#8B929F]">
+            {language === 'id'
+              ? 'Artikel belum dapat ditampilkan karena struktur kontennya tidak valid.'
+              : 'The article cannot be displayed because its content structure is invalid.'}
+          </p>
+          <Link
+            to="/insights"
+            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  if (loadError === 'network') {
+    return (
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+        <div className="mx-auto w-full max-w-[980px]">
+          <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Network error</p>
+          <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
+            {language === 'id' ? 'Insight belum dapat dimuat' : 'This insight could not be loaded'}
+          </h1>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[#8B929F]">
+            {language === 'id'
+              ? 'Terjadi masalah saat mengambil artikel. Silakan coba lagi.'
+              : 'There was a problem loading this article. Please try again.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+          >
+            {language === 'id' ? 'Muat ulang' : 'Reload'}
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   if (loading) {
     return (
@@ -589,7 +755,11 @@ export const InsightDetail: React.FC = () => {
           </section>
         )}
 
-        <section className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10" aria-labelledby="insight-final-cta">
+        <section
+          ref={readingEndRef}
+          className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10"
+          aria-labelledby="insight-final-cta"
+        >
           <div className="border-y border-white/[0.08] py-8 sm:py-9">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div className="max-w-2xl">
