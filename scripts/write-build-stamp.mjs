@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto';
 import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,5 +40,4 @@ for (const filePath of files) {
 }
 
 await writeFile(distStamp, signature.join('\\n') + '\\n', 'utf8');
-await writeFile(distStamp, hash.digest('hex') + '\\n', 'utf8');
 console.log('[build] wrote source fingerprint to dist/.kapitech-build-source-hash');
