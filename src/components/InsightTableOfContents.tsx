@@ -504,7 +504,7 @@ export const InsightTableOfContents: React.FC<{
           sectionActive ? 'bg-white/[0.012]' : 'bg-transparent hover:bg-white/[0.012]'
         ].join(' ')}
       >
-        <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
+        <div className="relative flex items-center gap-2 px-2 py-2.5 sm:px-2.5 sm:py-2.5">
           <a
             ref={(node) => register(
               mobile ? mobileItemRefs.current : desktopItemRefs.current,
@@ -517,7 +517,10 @@ export const InsightTableOfContents: React.FC<{
               navigateTo(section.heading, mobile);
             }}
             aria-current={activeId === section.heading.id ? 'location' : undefined}
-            className="min-w-0 flex-1 rounded-lg px-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            className={[
+              'min-w-0 flex-1 rounded-[10px] px-2.5 py-2 text-left transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+              sectionActive ? 'bg-brand-red/[0.055]' : 'hover:bg-white/[0.018]'
+            ].join(' ')}
           >
             <span className="flex items-center gap-3">
               <span
@@ -525,7 +528,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-250',
                   sectionActive
-                    ? 'bg-brand-red/[0.08] text-brand-red'
+                    ? 'bg-brand-red/[0.16] text-white'
                     : 'bg-white/[0.02] text-[#69717D]'
                 ].join(' ')}
               >
@@ -537,7 +540,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'block text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     sectionActive
-                      ? 'font-semibold text-brand-red'
+                      ? 'font-semibold text-white'
                       : 'font-medium text-[#C1C6CF]'
                   ].join(' ')}
                 >
@@ -546,7 +549,7 @@ export const InsightTableOfContents: React.FC<{
 
                 {section.children.length > 0 && (
                   <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A77]">
-                    <span className={sectionActive ? 'text-brand-red/85' : 'text-[#59616D]'}>
+                    <span className={sectionActive ? 'text-white/90' : 'text-[#59616D]'}>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>
@@ -575,7 +578,7 @@ export const InsightTableOfContents: React.FC<{
               className={[
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded || sectionActive
-                  ? 'border-brand-red/30 bg-brand-red/[0.06] text-brand-red'
+                  ? 'border-brand-red/30 bg-brand-red/[0.08] text-white'
                   : 'border-white/[0.07] bg-white/[0.018] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.04] hover:text-white'
               ].join(' ')}
               data-state={expanded ? 'open' : 'closed'}
@@ -617,9 +620,9 @@ export const InsightTableOfContents: React.FC<{
                     }}
                     aria-current={active ? 'location' : undefined}
                     className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[10px] px-3 py-2.5 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'bg-brand-red/[0.045] text-brand-red'
+                        ? 'bg-brand-red/[0.06] text-white'
                         : 'text-[#737C89] hover:bg-white/[0.018] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
@@ -627,7 +630,7 @@ export const InsightTableOfContents: React.FC<{
                       aria-hidden="true"
                       className={[
                         'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform] duration-200',
-                        active ? 'scale-100 bg-brand-red' : 'scale-75 bg-white/[0.14] group-hover/subsection:scale-90'
+                        active ? 'scale-100 bg-white' : 'scale-75 bg-white/[0.14] group-hover/subsection:scale-90'
                       ].join(' ')}
                     />
                     <span className="min-w-0 flex-1">{child.text}</span>
