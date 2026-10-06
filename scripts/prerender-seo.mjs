@@ -293,7 +293,8 @@ const renderInsightBody = (insight) => {
   }
 
   html += '</article>';
-  html += '<aside class="hidden xl:block" aria-label="Article navigation"><nav aria-label="Table of contents"><ol>';
+  html += '<aside class="hidden xl:block" aria-label="Article navigation"><p class="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">' +
+    escapeHtml(label('Di artikel ini', 'In this article')) + '</p><nav class="mt-4" aria-label="Table of contents"><ol>';
   for (const item of toc) {
     html += '<li class="' + (item.level === 3 ? 'ml-4' : '') + '"><a href="#' + escapeHtml(item.id) + '">' + escapeHtml(item.text) + '</a></li>';
   }
