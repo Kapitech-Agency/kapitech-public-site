@@ -30,17 +30,16 @@ async function collectFiles(entryPath) {
   return files;
 }
 
-const hash = createHash('sha256');
+const signature = [];
 const files = [];
 for (const input of buildInputs) files.push(...await collectFiles(join(root, input)));
 files.sort();
 
 for (const filePath of files) {
-  hash.update(filePath.slice(root.length));
-  hash.update('\\0');
-  hash.update(await readFile(filePath));
-  hash.update('\\0');
+  const data = await import('node:fs/promises').then(({ stat }) => stat(filePath));
+  signature.push(filePath.slice(root.length) + '|' + String(data.size) + '|' + String(data.mtimeMs));
 }
 
+await writeFile(distStamp, signature.join('\\n') + '\\n', 'utf8');
 await writeFile(distStamp, hash.digest('hex') + '\\n', 'utf8');
 console.log('[build] wrote source fingerprint to dist/.kapitech-build-source-hash');
