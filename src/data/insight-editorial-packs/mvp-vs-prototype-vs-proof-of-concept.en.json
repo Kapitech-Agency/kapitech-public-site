@@ -163,7 +163,7 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "When should you build one?"
+        "text": "When should you build a Prototype?"
       },
       {
         "type": "list",
@@ -239,11 +239,17 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "When should you build one?"
+        "text": "When should you build an MVP?"
       },
       {
-        "type": "paragraph",
-        "text": "Build an MVP when the problem and target user are clear enough that real usage can answer a value question. If the team still does not know whether users can understand the basic workflow, testing that experience first may be more efficient."
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "The problem and target user are clear enough to test with real usage.",
+          "The core workflow is understandable, but the team needs evidence of real value or behavior.",
+          "A measurable value hypothesis can be tested with a focused working product.",
+          "You are ready to learn from actual usage instead of only simulated interactions."
+        ]
       },
       {
         "type": "callout",
@@ -287,11 +293,17 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "When should you build one?"
+        "text": "When should you use a PoC?"
       },
       {
-        "type": "paragraph",
-        "text": "Use a PoC when the technical unknown is both important and expensive to discover late. If the underlying technology is already proven and the bigger uncertainty is user value or usability, a PoC may add little value."
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "A critical technical assumption could change the product plan.",
+          "The integration, architecture, dataset, or performance constraint is still unproven.",
+          "Finding the technical limitation late would create expensive rework.",
+          "The experiment can be isolated to one measurable technical question."
+        ]
       },
       {
         "type": "quote",
