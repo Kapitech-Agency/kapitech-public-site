@@ -647,15 +647,9 @@ export const InsightDetail: React.FC = () => {
                   <span className="truncate text-[#A2A8B4]">{category || 'Insight'}</span>
                 </nav>
 
-                <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
-                  <span className="relative flex h-1.5 w-1.5 shrink-0">
-                    <span className="absolute inset-0 rounded-full bg-brand-red/35" />
-                    <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
-                  </span>
-                  <span className="text-brand-red">{category || 'Insight'}</span>
-                  <span className="text-[#5E6672]">/</span>
-                  <span>{article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}</span>
-                </div>
+                <span className="kapi-section-label">
+                  {category || 'Insight'} / {article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}
+                </span>
 
                 <h1 className="mt-7 max-w-[880px] font-display text-[2.8rem] font-semibold leading-[0.96] tracking-[-0.058em] text-white sm:text-6xl lg:text-[5.3rem]">
                   {article.title}
@@ -700,7 +694,7 @@ export const InsightDetail: React.FC = () => {
                 </div>
               </div>
 
-              <figure className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#0A0B0D] shadow-[0_32px_100px_-60px_rgba(0,0,0,0.95)]">
+              <figure className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
                 <div className="group/hero-visual relative aspect-[4/3] overflow-hidden">
                   <img
                     src={article.language === 'id'
@@ -765,6 +759,15 @@ export const InsightDetail: React.FC = () => {
                   <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
                 </div>
               )}
+              <div className="mt-3 xl:hidden">
+                <Link
+                  to="/contact"
+                  className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.13em] text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform,box-shadow] duration-300 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                >
+                  {article.language === 'id' ? 'Mulai diskusi tentang proyek Anda' : 'Start a discussion about your project'}
+                  <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
+              </div>
             </div>
 
             <div className="xl:grid xl:grid-cols-[56px_minmax(0,1fr)_320px]">
@@ -879,9 +882,9 @@ export const InsightDetail: React.FC = () => {
             <div className="mx-auto w-full max-w-7xl">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                  {article.language === 'id' ? 'Library' : 'Library'}
-                </p>
+                <span className="kapi-section-label">
+                  {article.language === 'id' ? 'INSIGHT LIBRARY' : 'INSIGHT LIBRARY'}
+                </span>
                 <h2 id="related-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
                   {article.language === 'id' ? 'Insight terkait' : 'Related insights'}
                 </h2>
@@ -906,9 +909,9 @@ export const InsightDetail: React.FC = () => {
         {faq.length > 0 && (
           <section className="w-full px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 md:px-12" aria-labelledby="faq-title">
             <div className="mx-auto w-full max-w-[820px]">
-              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                {article.language === 'id' ? 'Pertanyaan' : 'Questions'}
-              </p>
+              <span className="kapi-section-label">
+                {article.language === 'id' ? 'PERTANYAAN' : 'QUESTIONS'}
+              </span>
               <h2 id="faq-title" className="mt-2 scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
               </h2>
@@ -936,7 +939,7 @@ export const InsightDetail: React.FC = () => {
           <div className="mx-auto w-full max-w-7xl">
           <Link
             to="/insights"
-            className="inline-flex min-h-[42px] items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#858C99] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-4 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
