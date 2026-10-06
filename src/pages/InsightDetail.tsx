@@ -615,7 +615,7 @@ export const InsightDetail: React.FC = () => {
 
               {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
                 <section
-                  className="mb-12 border-y border-white/[0.08] py-7 sm:mb-14 sm:py-8"
+                  className="mb-11 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:mb-12 sm:p-7"
                   aria-labelledby="key-takeaways-title"
                 >
                   <div className="grid gap-5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-9">
@@ -651,7 +651,7 @@ export const InsightDetail: React.FC = () => {
 
               {faq.length > 0 && (
                 <section
-                  className="mt-14 border-t border-white/[0.08] pt-10 sm:mt-16 sm:pt-12"
+                  className="mt-12 pt-1 sm:mt-14 sm:pt-2"
                   aria-labelledby="faq-title"
                 >
                   <div className="max-w-2xl">
