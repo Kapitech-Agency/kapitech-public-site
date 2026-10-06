@@ -63,12 +63,6 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     }
 
     return '<h2 id="' + escapeHtml(headingId) + '" class="scroll-mt-28 mb-4 mt-12 first:mt-2 font-display text-[1.85rem] font-semibold leading-[1.12] tracking-[-0.04em] text-white sm:text-[2rem]">' +
-      '<span class="mb-3 flex items-center gap-3 border-t border-white/[0.07] pt-5">' +
-      '<span class="font-mono text-[9px] font-semibold tabular-nums tracking-[0.14em] text-[#E50914]">' +
-      String(sectionNumber).padStart(2, '0') + '</span>' +
-      '<span class="h-px w-8 bg-[#E50914]/45" aria-hidden="true"></span>' +
-      '<span class="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">' +
-      escapeHtml(label('Bagian', 'Section')) + '</span></span>' +
       escapeHtml(block.text) + '</h2>';
   }
 
@@ -83,7 +77,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'quote') {
-    return '<figure class="my-8 border-l-2 border-brand-red/45 pl-5 sm:my-10 sm:pl-6">' +
+    return '<figure class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 sm:my-8 sm:p-6">' +
       '<blockquote class="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' +
       (safeText(block.attribution) ? '<figcaption class="mt-3 text-xs text-[#747C88]">' + escapeHtml(block.attribution) + '</figcaption>' : '') +
@@ -94,7 +88,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     const fallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
     const width = Number.isFinite(block.width) && Number(block.width) > 0 ? ' width="' + String(block.width) + '"' : '';
     const height = Number.isFinite(block.height) && Number(block.height) > 0 ? ' height="' + String(block.height) + '"' : '';
-    return '<figure class="my-9 sm:my-10"><div class="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0F1013] p-px">' +
+    return '<figure class="my-8 sm:my-9"><div class="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">' +
       '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
       ' loading="lazy" decoding="async" class="mx-auto block h-auto w-full max-w-full object-contain" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" />' +
       '</div>' +
@@ -116,10 +110,10 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
         inlineMarkdownToHtml(Array.isArray(row) ? row[index] || '' : '') + '</td>'
       ).join('') + '</tr>'
     ).join('');
-    return '<div class="my-8 overflow-hidden border-y border-white/[0.08]">' +
-      '<div class="border-b border-white/[0.06] px-0 py-2.5 sm:hidden"><p class="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">' +
+    return '<div class="my-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">' +
+      '<div class="border-b border-white/[0.06] px-4 py-2.5 sm:hidden"><p class="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">' +
       escapeHtml(label('Geser untuk melihat perbandingan', 'Swipe to compare')) + '</p></div>' +
-      '<div class="overflow-x-auto rounded-[16px]" tabindex="0" role="region" aria-label="' +
+      '<div class="overflow-x-auto" tabindex="0" role="region" aria-label="' +
       escapeHtml(block.caption || label('Tabel artikel', 'Article table')) + '">' +
       '<table class="w-full min-w-[560px] border-collapse text-left text-sm">' +
       (safeText(block.caption) ? '<caption class="caption-top px-4 py-3 text-left text-xs leading-5 text-[#7A8290]">' + inlineMarkdownToHtml(block.caption) + '</caption>' : '') +
@@ -132,7 +126,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
       : block.tone === 'success'
         ? 'border-emerald-400/45'
         : 'border-brand-red/40';
-    return '<aside class="my-7 border-l-2 pl-5 ' + border + '">' +
+    return '<aside class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 ' + border + '">' +
       (safeText(block.title) ? '<p class="mb-1 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
       '<p class="text-sm font-light leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
   }
@@ -158,7 +152,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'promo') {
-    return '<aside data-kapi-ad="true" class="my-10 border-y border-white/[0.08] border-l-2 border-l-brand-red/55 py-6 pl-5 sm:my-12 sm:pl-6">' +
+    return '<aside data-kapi-ad="true" class="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/55 bg-white/[0.018] p-5 sm:my-10 sm:p-6">' +
       '<div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8"><div class="min-w-0 max-w-[620px]">' +
       '<div class="flex flex-wrap items-center gap-x-3 gap-y-1.5"><p class="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-[#E50914]">' +
       escapeHtml(block.eyebrow) + '</p><span class="text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">' +
@@ -174,7 +168,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     const items = (Array.isArray(block.items) ? block.items : [])
       .map((item) => '<li class="flex gap-3 text-sm leading-6 text-[#C3C7D0]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true"></span><span>' +
         inlineMarkdownToHtml(item) + '</span></li>').join('');
-    return '<section class="my-8" aria-label="' + escapeHtml(block.title || label('Daftar periksa', 'Checklist')) + '">' +
+    return '<section class="my-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-label="' + escapeHtml(block.title || label('Daftar periksa', 'Checklist')) + '">' +
       (safeText(block.title) ? '<h3 class="mb-4 font-display text-xl font-semibold leading-[1.2] text-white sm:text-[1.3rem]">' + escapeHtml(block.title) + '</h3>' : '') +
       '<ul class="space-y-3 border-l border-white/[0.12] pl-5">' + items + '</ul></section>';
   }
@@ -199,11 +193,9 @@ const renderInsightBody = (insight) => {
   const label = (idText, enText) => insight.language === 'id' ? idText : enText;
   const category = insight.category?.displayName || insight.category?.name?.[insight.language] || insight.category?.name?.en || insight.category?.name?.id || insight.category?.slug;
 
-  let sectionNumber = 0;
   const renderBody = (items) => items.map((block) => {
     const index = bodyBlocks.indexOf(block);
-    if (block?.type === 'heading' && block.level === 2) sectionNumber += 1;
-    return renderCanonicalInsightBlock(block, index >= 0 ? headingIds[index] : '', insight, sectionNumber);
+    return renderCanonicalInsightBlock(block, index >= 0 ? headingIds[index] : '', insight);
   }).join('');
 
   let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
@@ -250,7 +242,7 @@ const renderInsightBody = (insight) => {
   }
 
   if (Array.isArray(insight.keyTakeaways) && insight.keyTakeaways.length) {
-    html += '<section class="mb-12 border-y border-white/[0.08] py-7 sm:mb-14 sm:py-8" aria-labelledby="key-takeaways-title"><div class="grid gap-5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-9"><div><p id="key-takeaways-title" class="text-[9px] font-mono uppercase tracking-[0.18em] text-[#E50914]">' +
+    html += '<section class="mb-11 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:mb-12 sm:p-7" aria-labelledby="key-takeaways-title"><div class="grid gap-5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-9"><div><p id="key-takeaways-title" class="text-[9px] font-mono uppercase tracking-[0.18em] text-[#E50914]">' +
       escapeHtml(label('Poin utama', 'Article key takeaways')) + '</p><p class="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">' +
       escapeHtml(label('Gagasan yang paling penting untuk dibawa setelah membaca.', 'The ideas worth carrying forward.')) + '</p></div><ul class="space-y-2.5">' +
       insight.keyTakeaways.map((item) => '<li class="flex gap-3 text-sm leading-7 text-[#CBD0D8] sm:text-[15px]"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E50914]/75" aria-hidden="true"></span><span>' + inlineMarkdownToHtml(item) + '</span></li>').join('') +
@@ -260,12 +252,12 @@ const renderInsightBody = (insight) => {
   html += renderBody(bodyBlocks);
 
   if (faq.length) {
-    html += '<section class="mt-14 border-t border-white/[0.08] pt-10 sm:mt-16 sm:pt-12" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
+    html += '<section class="mt-12 rounded-2xl border border-white/[0.08] bg-white/[0.012] p-5 sm:mt-14 sm:p-7" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</h2><p class="mt-3 text-sm leading-7 text-[#8A909D]">' +
       escapeHtml(label('Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.', 'Short answers to the questions readers are most likely to have after this article.')) +
-      '</p></div><div class="mt-7 border-y border-white/[0.08]">';
+      '</p></div><div class="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">';
     faq.forEach((item, index) => {
-      html += '<details class="group border-b border-white/[0.07] last:border-b-0"><summary class="cursor-pointer list-none py-5 transition-colors duration-200"><span class="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3"><span class="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672]">' +
+      html += '<details class="group border-b border-white/[0.07] last:border-b-0"><summary class="cursor-pointer list-none px-4 py-4 transition-colors duration-200 sm:px-5 sm:py-5"><span class="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3"><span class="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672]">' +
         String(index + 1).padStart(2, '0') + '</span><span class="text-sm font-semibold leading-6 text-white">' + escapeHtml(item.question) +
         '</span><span class="pt-1 text-[#666E7B]" aria-hidden="true">›</span></span></summary><div class="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 pb-5"><span></span><p class="text-sm leading-7 text-[#9BA2AF]">' +
         inlineMarkdownToHtml(item.answer) + '</p><span></span></div></details>';
