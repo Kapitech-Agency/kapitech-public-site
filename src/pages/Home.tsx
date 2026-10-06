@@ -108,8 +108,8 @@ export const Home = () => {
         setSelectedProcessStep((current) => {
           if (current === null) return current;
           const next = event.key === 'ArrowLeft'
-            ? (current - 1 + processSteps.length) % processSteps.length
-            : (current + 1) % processSteps.length;
+            ? Math.max(0, current - 1)
+            : Math.min(processSteps.length - 1, current + 1);
           setActiveProcessStep(next);
           return next;
         });
