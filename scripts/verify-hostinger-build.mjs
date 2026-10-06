@@ -24,6 +24,30 @@ for (const relativePath of requiredFiles) {
   }
 }
 
+const mvpInsightAssets = [
+  'insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/hero-en.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/validate.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/validate-id.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/learning-loop.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/learning-loop-id.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/comparison.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/comparison-id.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/decision-tree.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/decision-tree-id.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/framework.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/framework-id.svg',
+  'insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg'
+];
+
+for (const relativePath of mvpInsightAssets) {
+  try {
+    await access(join(distDir, relativePath));
+  } catch {
+    throw new Error('[deploy-check] missing MVP Insight asset: ' + relativePath);
+  }
+}
+
 const indexHtml = await readFile(join(distDir, 'index.html'), 'utf8');
 if (!indexHtml.includes('<div id="root"></div>')) {
   throw new Error('[deploy-check] dist/index.html is not the expected Vite entry file');
@@ -66,6 +90,16 @@ for (const assertion of insightAssertions) {
   if (!html.includes('<h1')) throw new Error('[deploy-check] prerendered Insight has no H1: ' + assertion.file);
   if ((html.match(/<h2\b/gi) || []).length < 8) throw new Error('[deploy-check] Insight is missing editorial H2 depth: ' + assertion.file);
   if ((html.match(/<img\b/gi) || []).length < 6) throw new Error('[deploy-check] Insight is missing expected editorial visuals: ' + assertion.file);
+
+  if (assertion.file.includes('mvp-vs-prototype-vs-proof-of-concept-guide')) {
+    const promoCount = (html.match(/data-kapi-ad="true"/g) || []).length;
+    if (promoCount !== 1) {
+      throw new Error('[deploy-check] MVP Insight should contain exactly one contextual promo: ' + assertion.file);
+    }
+    if (html.includes('Project discussion') || html.includes('Mulai diskusi')) {
+      throw new Error('[deploy-check] MVP Insight still contains the removed redundant final CTA: ' + assertion.file);
+    }
+  }
 
   for (const phrase of assertion.required) {
     if (!html.includes(phrase)) throw new Error('[deploy-check] Missing required Insight phrase "' + phrase + '" in ' + assertion.file);
