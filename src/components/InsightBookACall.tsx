@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import type { InsightLanguage } from '../data/insightTypes';
 
 export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ language }) => (
-  <div className="shrink-0 border-t border-white/[0.08] pt-4">
-    <p className="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
-      {language === 'id' ? 'Langkah berikutnya' : 'Next step'}
-    </p>
+  <div className="shrink-0 rounded-[16px] bg-white/[0.018] px-4 py-4">
+    <div className="flex items-center justify-between gap-4">
+      <p className="text-[8px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
+        {language === 'id' ? 'Langkah berikutnya' : 'Next step'}
+      </p>
+      <span className="h-1.5 w-1.5 rounded-full bg-brand-red/70" aria-hidden="true" />
+    </div>
 
-    <h2 className="mt-2.5 text-[14px] font-display font-semibold leading-[1.35] tracking-[-0.02em] text-white">
+    <h2 className="mt-3 text-[14px] font-display font-semibold leading-[1.35] tracking-[-0.02em] text-white">
       {language === 'id'
         ? 'Butuh partner untuk menerapkan insight ini?'
         : 'Need a partner to turn this insight into action?'}
@@ -23,7 +26,7 @@ export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ lang
 
     <Link
       to="/contact"
-      className="mt-4 inline-flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:text-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+      className="mt-4 inline-flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#E4E7EC] transition-[color,transform] duration-300 hover:translate-x-0.5 hover:text-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
     >
       {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
       <ArrowUpRight size={13} strokeWidth={2} aria-hidden="true" />
