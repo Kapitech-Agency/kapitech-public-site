@@ -123,7 +123,7 @@
         "alt": "Prototype validates user experience, MVP validates product value, and Proof of Concept validates technical feasibility",
         "caption": "The three approaches are different because the questions are different: experience, product value, and technical feasibility.",
         "width": 1400,
-        "height": 760
+        "height": 740
       },
       {
         "type": "paragraph",
@@ -407,7 +407,7 @@
         "alt": "Comparison of Prototype, MVP, and Proof of Concept across purpose, evidence, UX fidelity, technical depth, and readiness",
         "caption": "Prototype, MVP, and PoC optimize for different evidence. None of them is a universal shortcut to a production-ready product.",
         "width": 1500,
-        "height": 930
+        "height": 900
       },
       {
         "type": "heading",
