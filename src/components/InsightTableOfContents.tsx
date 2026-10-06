@@ -156,14 +156,11 @@ export const InsightTableOfContents: React.FC<{
     setActiveId(id);
   };
 
-  const expandSectionForItem = (id: string) => {
+  const expandSectionForItem = (id: string, previousSectionId?: string) => {
     const sectionId = sectionByItemId.get(id);
     if (!sectionId) return;
 
-    const previousSectionId = sectionByItemId.get(activeIdRef.current);
-    const sectionChanged = previousSectionId !== sectionId;
-
-    if (sectionChanged) {
+    if (previousSectionId !== sectionId) {
       manuallyCollapsedSectionRef.current = null;
     }
 
@@ -201,8 +198,9 @@ export const InsightTableOfContents: React.FC<{
       }
     }
 
+    const previousSectionId = sectionByItemId.get(activeIdRef.current);
     setActive(currentId);
-    expandSectionForItem(currentId);
+    expandSectionForItem(currentId, previousSectionId);
   };
 
   const scheduleScrollSync = () => {
