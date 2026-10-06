@@ -239,9 +239,10 @@ export const Insights: React.FC = () => {
 
         <section
           id="insight-library"
-          className="relative mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-10 sm:px-6 sm:py-14 md:px-12 lg:py-16"
+          className="relative w-full scroll-mt-24 px-4 py-10 sm:px-6 sm:py-14 md:px-12 lg:py-16"
           aria-label={language === 'id' ? 'Temukan Insight' : 'Discover Insights'}
         >
+          <div className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col gap-4 rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-3 backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between lg:p-3.5">
             <div className="flex min-w-0 items-center gap-2 overflow-x-auto px-1 pb-1 lg:flex-1 lg:pb-0">
               <button
@@ -302,9 +303,11 @@ export const Insights: React.FC = () => {
               </button>
             </form>
           </div>
+          </div>
         </section>
 
-        <section className="relative mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 sm:pb-24 md:px-12" aria-busy={loading}>
+        <section className="relative w-full px-4 pb-20 sm:px-6 sm:pb-24 md:px-12" aria-busy={loading}>
+          <div className="mx-auto w-full max-w-7xl">
           {languageFallback === 'id' && (
             <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-6 text-[#858C99]">
               {language === 'en'
@@ -459,9 +462,11 @@ export const Insights: React.FC = () => {
               )}
             </div>
           )}
+          </div>
         </section>
 
-        <section className="relative mx-auto w-full max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
+        <section className="relative w-full px-4 pb-24 sm:px-6 md:px-12">
+          <div className="mx-auto w-full max-w-7xl">
           <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.018] p-6 backdrop-blur-xl sm:p-8 lg:p-10">
             <div className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-brand-red/[0.07] blur-3xl" />
             <div className="relative flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
@@ -489,6 +494,7 @@ export const Insights: React.FC = () => {
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
+          </div>
           </div>
         </section>
       </div>

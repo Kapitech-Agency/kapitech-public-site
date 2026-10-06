@@ -533,7 +533,8 @@ export const InsightDetail: React.FC = () => {
         <header className="relative isolate overflow-hidden border-b border-white/[0.07]">
           <InsightAmbientBackground intensity="detail" />
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
+          <div className="relative z-10 w-full px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
+            <div className="mx-auto w-full max-w-7xl">
             <nav className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">
               <Link to="/" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
                 {article.language === 'id' ? 'Beranda' : 'Home'}
@@ -619,10 +620,12 @@ export const InsightDetail: React.FC = () => {
                 />
               </figure>
             )}
+            </div>
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-7xl scroll-mt-28 px-4 pb-16 pt-8 sm:px-6 sm:pt-10 md:px-12 lg:pb-20 lg:pt-14">
+        <div className="w-full scroll-mt-28 px-4 pb-16 pt-8 sm:px-6 sm:pt-10 md:px-12 lg:pb-20 lg:pt-14">
+          <div className="mx-auto w-full max-w-7xl">
           <div className="mb-5 xl:hidden">
             <InsightLeftRail
               mobile
@@ -725,11 +728,13 @@ export const InsightDetail: React.FC = () => {
             </article>
 
             <InsightRightRail items={toc} language={article.language} />
+            </div>
           </div>
         </div>
 
         {relatedInsights.length > 0 && (
-          <section className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 md:px-12" aria-labelledby="related-title">
+          <section className="w-full px-4 pb-12 sm:px-6 md:px-12" aria-labelledby="related-title">
+            <div className="mx-auto w-full max-w-7xl">
             <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
               <div>
                 <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
@@ -752,12 +757,14 @@ export const InsightDetail: React.FC = () => {
                 <InsightCard key={item.id || item.slug} insight={item} language={article.language} />
               ))}
             </div>
+          </div>
           </section>
         )}
 
         {faq.length > 0 && (
-          <section className="mx-auto w-full max-w-[820px] px-4 py-8 sm:px-6 sm:py-10 md:px-8" aria-labelledby="faq-title">
-            <div className="border-t border-white/[0.08] pt-10">
+          <section className="w-full px-4 py-8 sm:px-6 sm:py-10 md:px-8" aria-labelledby="faq-title">
+            <div className="mx-auto w-full max-w-[820px]">
+              <div className="border-t border-white/[0.08] pt-10">
               <h2 id="faq-title" className="scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
               </h2>
@@ -778,15 +785,17 @@ export const InsightDetail: React.FC = () => {
                 ))}
               </div>
             </div>
+            </div>
           </section>
         )}
 
         <section
           ref={readingEndRef}
-          className="mx-auto w-full max-w-[820px] px-4 py-8 sm:px-6 sm:py-10 md:px-8"
+          className="w-full px-4 py-8 sm:px-6 sm:py-10 md:px-8"
           aria-labelledby="insight-final-cta"
         >
-          <div className="border-y border-white/[0.08] py-8 sm:py-9">
+          <div className="mx-auto w-full max-w-[820px]">
+            <div className="border-y border-white/[0.08] py-8 sm:py-9">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div className="max-w-2xl">
                 <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
@@ -811,10 +820,12 @@ export const InsightDetail: React.FC = () => {
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
+            </div>
           </div>
         </section>
 
-        <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 md:px-12">
+        <div className="w-full px-4 pb-12 sm:px-6 md:px-12">
+          <div className="mx-auto w-full max-w-7xl">
           <Link
             to="/insights"
             className="inline-flex min-h-[42px] items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#858C99] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
@@ -822,6 +833,7 @@ export const InsightDetail: React.FC = () => {
             <ArrowLeft size={14} aria-hidden="true" />
             {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
           </Link>
+          </div>
         </div>
       </>
     </InsightDetailErrorBoundary>
