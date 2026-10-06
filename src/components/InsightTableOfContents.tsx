@@ -562,7 +562,7 @@ export const InsightTableOfContents: React.FC<{
                   <span
                     className={[
                       'mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em]',
-                      sectionActive ? 'text-white/90' : 'text-[#626A77]'
+                      sectionActive ? 'text-white' : 'text-[#626A77]'
                     ].join(' ')}
                   >
                     <span>
