@@ -162,7 +162,9 @@ export const Insights: React.FC = () => {
 
   const eyebrow = language === 'id' ? 'Knowledge / Perspective / Practice' : 'Knowledge / Perspective / Practice';
   const title = language === 'id' ? 'Insight' : 'Insights';
-  const latestLabel = language === 'id' ? 'Insight terbaru' : 'Latest insights';
+  const latestLabel = hasActiveFilters
+    ? (language === 'id' ? 'Hasil Insight' : 'Insight results')
+    : (language === 'id' ? 'Insight terbaru' : 'Latest insights');
   const libraryLabel = language === 'id' ? 'Telusuri semua insight' : 'Browse the insight library';
 
   return (
@@ -221,7 +223,7 @@ export const Insights: React.FC = () => {
                 <div className="mt-6 grid grid-cols-2 gap-2">
                   <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
                     <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa konten' : 'Content language'}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}
+                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
                   </div>
                   <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
                     <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
