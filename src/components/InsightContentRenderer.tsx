@@ -203,8 +203,9 @@ export const InsightContentRenderer: React.FC<{
           return (
             <div key={index} className="my-12 overflow-hidden rounded-[18px] border border-white/[0.08] bg-white/[0.012]">
               <div
-                className="overflow-x-auto"
+                className="overflow-x-auto rounded-[16px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 focus-visible:ring-inset"
                 tabIndex={0}
+                role="region"
                 aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
               >
                 <table className="w-full min-w-[560px] border-collapse text-left text-sm">
