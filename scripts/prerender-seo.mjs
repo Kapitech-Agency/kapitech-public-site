@@ -88,9 +88,10 @@ const renderBlock = (block, headingId, insight) => {
     const caption = safeText(block.caption)
       ? '<figcaption class="mt-3 text-xs leading-5 text-[#707684]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>'
       : '';
+    const visualFallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
     return '<figure class="my-12"><div class="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">' +
       '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) +
-      '"' + width + height + ' loading="lazy" decoding="async" class="block h-auto w-full object-contain" /></div>' +
+      '"' + width + height + ' loading="lazy" decoding="async" class="block h-auto w-full object-contain" onerror="this.onerror=null;this.src=\'' + escapeHtml(visualFallback) + '\';" /></div>' +
       caption + '</figure>';
   }
 
@@ -145,7 +146,15 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'promo') {
-    return '<aside class="my-12 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-5 sm:my-14 sm:p-6">' +
+    const promoLabel = language === 'id' ? 'Rekomendasi Kapitech' : 'Kapitech recommendation';
+    const promoBadge = language === 'id'
+      ? (block.serviceReference ? 'Layanan terkait' : 'Promosi')
+      : (block.serviceReference ? 'Relevant service' : 'Sponsored');
+    return '<aside data-kapi-ad="true" class="relative my-12 overflow-hidden rounded-[22px] border border-[#E50914]/25 bg-[#111318] p-5 sm:my-14 sm:p-6">' +
+      '<div class="absolute inset-x-0 top-0 h-[2px] bg-[#E50914]"></div>' +
+      '<div class="mb-5 flex items-center justify-between gap-4 border-b border-[#E50914]/10 pb-3.5"><span class="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-[#E50914]">' +
+      escapeHtml(promoLabel) + '</span><span class="rounded-full border border-[#E50914]/20 bg-[#E50914]/[0.07] px-2.5 py-1 text-[8px] font-mono font-semibold uppercase tracking-[0.13em] text-[#E50914]">' +
+      escapeHtml(promoBadge) + '</span></div>' +
       '<p class="text-[9px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' + escapeHtml(block.eyebrow) + '</p>' +
       '<h3 class="mt-2.5 text-[20px] font-display font-semibold leading-[1.18] tracking-[-0.03em] text-white sm:text-[22px]">' + escapeHtml(block.title) + '</h3>' +
       '<p class="mt-2.5 max-w-xl text-[13px] leading-6 text-[#9299A6]">' + escapeHtml(block.description) + '</p>' +
@@ -204,8 +213,17 @@ const relatedItems = (insight) => {
 };
 
 const renderInsightBody = (insight) => {
-  const blocks = Array.isArray(insight.content) ? insight.content : [];
+  const rawBlocks = Array.isArray(insight.content) ? insight.content : [];
   const language = insight.language;
+  const isMvpValidationInsight = insight.slug?.startsWith('mvp-vs-prototype-vs-proof-of-concept');
+  let promoSeen = 0;
+  const blocks = isMvpValidationInsight
+    ? rawBlocks.filter((block) => {
+        if (block?.type !== 'promo') return true;
+        promoSeen += 1;
+        return promoSeen === 1;
+      })
+    : rawBlocks;
   const headingIds = buildInsightHeadingIdList(blocks);
   const toc = buildInsightTocList(blocks, headingIds);
   const explicitFaq = Array.isArray(insight.faq)
@@ -303,15 +321,6 @@ const renderInsightBody = (insight) => {
     html += '<li class="' + (item.level === 3 ? 'ml-4' : '') + '"><a href="#' + escapeHtml(item.id) + '">' + escapeHtml(item.text) + '</a></li>';
   }
   html += '</ol></nav><a href="/contact">Book a Call</a></aside></div>';
-
-  html += '<section class="mx-auto max-w-[820px] py-10" aria-labelledby="prerender-final-cta"><h2 id="prerender-final-cta" class="text-2xl font-display font-semibold text-white">' +
-    escapeHtml(label('Sudah tahu apa yang perlu divalidasi berikutnya?', 'Know what you need to validate next?')) +
-    '</h2><p class="mt-3 text-sm leading-7 text-[#89909D]">' +
-    escapeHtml(label(
-      'Bawa pertanyaan utamanya. Kita bisa memetakan jalur dari validasi ke product design dan development.',
-      'Bring the key question. We can map the path from validation to product design and development.'
-    )) + '</p><a href="/contact" class="mt-5 inline-flex rounded-full border border-[#E50914]/35 bg-[#E50914]/70 px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">' +
-    escapeHtml(label('Mulai diskusi', 'Start a discussion')) + '</a></section>';
 
   html += '</main></div>';
   return html;
