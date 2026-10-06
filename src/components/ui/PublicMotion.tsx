@@ -39,6 +39,8 @@ export const PublicMotion = () => {
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (pathname.startsWith('/insights/')) return;
+
     const root = document.querySelector<HTMLElement>('.kapi-public-shell');
     if (!root) return;
 
