@@ -6,6 +6,7 @@ export const InsightAmbientBackground: React.FC<{
   intensity?: 'hero' | 'detail';
 }> = ({ intensity = 'hero' }) => {
   const reducedMotion = useReducedMotion();
+  const hero = intensity === 'hero';
 
   return (
     <div
@@ -16,26 +17,27 @@ export const InsightAmbientBackground: React.FC<{
         <PatternWaves
           preset="silk"
           color="#dc143c"
-          backgroundColor="#170f0f"
-          opacity={intensity === 'hero' ? 0.58 : 0.28}
-          fade="none"
-          fadeSize={0.7}
+          backgroundColor="#0B0C0E"
+          opacity={hero ? 0.23 : 0.11}
+          fade="edges"
+          fadeSize={0.78}
           interactive={!reducedMotion}
-          cursorSize={intensity === 'hero' ? 50 : 42}
-          cursorStrength={reducedMotion ? 0 : intensity === 'hero' ? 0.6 : 0.35}
-          speed={reducedMotion ? 0 : intensity === 'hero' ? 0.28 : 0.18}
-          scale={1.05}
-          depth={intensity === 'hero' ? 0.72 : 0.6}
-          shine={intensity === 'hero' ? 0.7 : 0.52}
-          contrast={intensity === 'hero' ? 1.08 : 1.02}
+          cursorSize={hero ? 50 : 42}
+          cursorStrength={reducedMotion ? 0 : hero ? 0.34 : 0.16}
+          speed={reducedMotion ? 0 : hero ? 0.18 : 0.12}
+          scale={1.08}
+          depth={hero ? 0.58 : 0.46}
+          shine={hero ? 0.46 : 0.34}
+          contrast={hero ? 1.02 : 1}
           intro={!reducedMotion}
         />
       </div>
 
-      <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/70 via-[#0B0C0E]/22 to-transparent" />
-      <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-[#0B0C0E]/70 via-[#0B0C0E]/22 to-transparent" />
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0B0C0E]/72 via-[#0B0C0E]/24 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent via-[#0B0C0E]/68 to-[#0B0C0E]" />
+      <div className="absolute inset-0 bg-[#0B0C0E]/28" />
+      <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-[#0B0C0E]/88 via-[#0B0C0E]/48 to-transparent" />
+      <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-[#0B0C0E]/88 via-[#0B0C0E]/48 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#0B0C0E]/82 via-[#0B0C0E]/35 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/74 to-[#0B0C0E]" />
     </div>
   );
 };
