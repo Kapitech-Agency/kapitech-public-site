@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDown, ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
@@ -21,6 +21,8 @@ export const Insights: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [languageFallback, setLanguageFallback] = useState<'id' | null>(null);
+  const resultsHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const pendingResultsNavigationRef = useRef(false);
 
   useEffect(() => {
     setPage(1);
@@ -106,11 +108,37 @@ export const Insights: React.FC = () => {
     [items, featured]
   );
 
+  const queueResultsNavigation = () => {
+    pendingResultsNavigationRef.current = true;
+  };
+
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
+    queueResultsNavigation();
     setSearch(searchInput.trim());
     setPage(1);
   };
+
+  const clearFilters = () => {
+    queueResultsNavigation();
+    setSearchInput('');
+    setSearch('');
+    setCategoryId('');
+    setPage(1);
+  };
+
+  useEffect(() => {
+    if (loading || !pendingResultsNavigationRef.current) return;
+
+    pendingResultsNavigationRef.current = false;
+    const heading = resultsHeadingRef.current;
+    if (!heading) return;
+
+    window.requestAnimationFrame(() => {
+      heading.focus({ preventScroll: true });
+      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [loading, page, total, error, items]);
 
   const scrollToLibrary = () => {
     document.getElementById('insight-library')?.scrollIntoView({
@@ -118,6 +146,15 @@ export const Insights: React.FC = () => {
       block: 'start'
     });
   };
+
+  const selectedCategory = categories.find(category => category.id === categoryId);
+  const selectedCategoryLabel = selectedCategory?.displayName
+    || selectedCategory?.name?.[language]
+    || selectedCategory?.name?.en
+    || selectedCategory?.name?.id
+    || selectedCategory?.slug;
+  const hasActiveFilters = Boolean(search || categoryId);
+  const effectiveContentLanguage = languageFallback === 'id' ? 'id' : language;
 
   const intro = language === 'id'
     ? 'Perspektif praktis tentang desain, teknologi, produk digital, dan cara membangun pengalaman digital yang lebih baik.'
@@ -207,7 +244,8 @@ export const Insights: React.FC = () => {
             <div className="flex min-w-0 items-center gap-2 overflow-x-auto px-1 pb-1 lg:flex-1 lg:pb-0">
               <button
                 type="button"
-                onClick={() => { setCategoryId(''); setPage(1); }}
+                onClick={() => { queueResultsNavigation(); setCategoryId(''); setPage(1); }}
+                aria-pressed={!categoryId}
                 className={[
                   'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
                   !categoryId
@@ -225,7 +263,8 @@ export const Insights: React.FC = () => {
                   <button
                     key={category.id}
                     type="button"
-                    onClick={() => { setCategoryId(category.id); setPage(1); }}
+                    onClick={() => { queueResultsNavigation(); setCategoryId(category.id); setPage(1); }}
+                    aria-pressed={active}
                     className={[
                       'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
                       active
@@ -263,12 +302,29 @@ export const Insights: React.FC = () => {
           </div>
         </section>
 
-        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24 lg:px-10">
+        <section className="relative mx-auto w-full max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24 lg:px-10" aria-busy={loading}>
           {languageFallback === 'id' && (
             <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-6 text-[#858C99]">
               {language === 'en'
                 ? 'The latest Insight is currently available in Bahasa Indonesia.'
                 : 'Insight terbaru tersedia dalam Bahasa Indonesia.'}
+            </div>
+          )}
+
+          {hasActiveFilters && !loading && (
+            <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 sm:flex-row sm:items-center sm:justify-between" role="status" aria-live="polite">
+              <p className="min-w-0 text-xs leading-6 text-[#858C99]">
+                {language === 'id' ? 'Menampilkan' : 'Showing'} <span className="font-semibold text-white">{total}</span> {language === 'id' ? 'artikel' : 'articles'}
+                {search ? <>{language === 'id' ? ' untuk ' : ' for '}<span className="font-medium text-white">“{search}”</span></> : null}
+                {selectedCategoryLabel ? <>{language === 'id' ? ' dalam ' : ' in '}<span className="font-medium text-white">{selectedCategoryLabel}</span></> : null}.
+              </p>
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex min-h-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-[#A3A9B5] transition-[background-color,border-color,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+              >
+                {language === 'id' ? 'Reset filter' : 'Clear filters'}
+              </button>
             </div>
           )}
 
@@ -305,9 +361,18 @@ export const Insights: React.FC = () => {
                 </h2>
                 <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#7E8592]">
                   {search || categoryId
-                    ? (language === 'id' ? 'Coba kata kunci atau kategori lain.' : 'Try another keyword or category.')
+                    ? (language === 'id' ? 'Coba kata kunci atau kategori lain, atau reset filter untuk melihat semua artikel.' : 'Try another keyword or category, or clear the filters to see all articles.')
                     : (language === 'id' ? 'Belum ada artikel yang dipublikasikan. Saat artikel siap, konten akan muncul di sini.' : 'No articles have been published yet. Published editorial content will appear here.')}
                 </p>
+                {(search || categoryId) && (
+                  <button
+                    type="button"
+                    onClick={clearFilters}
+                    className="relative mt-5 inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.03] px-4 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  >
+                    {language === 'id' ? 'Reset filter' : 'Clear filters'}
+                  </button>
+                )}
               </div>
             </div>
           ) : (
@@ -372,7 +437,7 @@ export const Insights: React.FC = () => {
                     <button
                       type="button"
                       disabled={page === 1}
-                      onClick={() => setPage(value => Math.max(1, value - 1))}
+                      onClick={() => { queueResultsNavigation(); setPage(value => Math.max(1, value - 1)); }}
                       className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.03] disabled:cursor-not-allowed disabled:opacity-35"
                     >
                       <ArrowLeft size={13} aria-hidden="true" />
@@ -381,7 +446,7 @@ export const Insights: React.FC = () => {
                     <button
                       type="button"
                       disabled={page === totalPages}
-                      onClick={() => setPage(value => Math.min(totalPages, value + 1))}
+                      onClick={() => { queueResultsNavigation(); setPage(value => Math.min(totalPages, value + 1)); }}
                       className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 disabled:cursor-not-allowed disabled:opacity-35"
                     >
                       {language === 'id' ? 'Berikutnya' : 'Next'}
