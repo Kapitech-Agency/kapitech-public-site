@@ -106,7 +106,6 @@ export const InsightDetail: React.FC = () => {
   const [loading, setLoading] = useState(() => !initialFallback);
   const [notFound, setNotFound] = useState(false);
   const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
-  const [copied, setCopied] = useState(false);
   const [shareState, setShareState] = useState<InsightShareState>('idle');
   const [readingProgress, setReadingProgress] = useState(0);
 
@@ -119,7 +118,6 @@ export const InsightDetail: React.FC = () => {
     setLoading(!localFallback);
     setNotFound(false);
     setLoadError(null);
-    setCopied(false);
     setShareState('idle');
     setReadingProgress(0);
 
@@ -373,9 +371,7 @@ export const InsightDetail: React.FC = () => {
         await navigator.clipboard.writeText(window.location.href);
         setShareState('copied');
       }
-      setCopied(true);
       window.setTimeout(() => {
-        setCopied(false);
         setShareState('idle');
       }, 1800);
     } catch {
@@ -655,7 +651,82 @@ export const InsightDetail: React.FC = () => {
                 />
               )}
 
-            </>
+              {faq.length > 0 && (
+                <section
+                  className="mt-14 border-t border-white/[0.08] pt-10 sm:mt-16 sm:pt-12"
+                  aria-labelledby="faq-title"
+                >
+                  <div className="max-w-2xl">
+                    <span className="kapi-section-label mb-4">
+                      FAQ
+                    </span>
+                    <h2
+                      id="faq-title"
+                      className="mt-3 scroll-mt-28 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl"
+                    >
+                      {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-[#8A909D]">
+                      {article.language === 'id'
+                        ? 'Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.'
+                        : 'Short answers to the questions readers are most likely to have after this article.'}
+                    </p>
+                  </div>
+
+                  <div className="mt-7 border-y border-white/[0.08]">
+                    {faq.map((item, index) => (
+                      <details
+                        key={index}
+                        className="group border-b border-white/[0.07] last:border-b-0"
+                      >
+                        <summary className="list-none cursor-pointer py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60">
+                          <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
+                            <span
+                              className="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672] transition-colors duration-200 group-open:text-brand-red"
+                              aria-hidden="true"
+                            >
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-sm font-semibold leading-6 text-white transition-colors duration-200 group-open:text-brand-red sm:text-[15px]">
+                              {item.question}
+                            </span>
+                            <ChevronRight
+                              size={15}
+                              className="mt-1 text-[#666E7B] transition-[transform,color] duration-200 group-open:rotate-90 group-open:text-brand-red"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </summary>
+                        <div className="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 pb-5">
+                          <span aria-hidden="true" />
+                          <p className="text-sm leading-7 text-[#9BA2AF]">
+                            {item.answer}
+                          </p>
+                          <span aria-hidden="true" />
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
+
+              <div className="pt-7">
+                <Link
+                  to="/insights"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                >
+                  <ArrowLeft size={14} aria-hidden="true" />
+                  {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
+                </Link>
+              </div>
+            </article>
+
+            <InsightRightRail items={toc} language={article.language} />
+          </div>
+        </div>
+      </>
     </InsightDetailErrorBoundary>
   );
 };
