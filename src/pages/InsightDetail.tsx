@@ -457,7 +457,6 @@ export const InsightDetail: React.FC = () => {
   if (notFound || !article) {
     return (
       <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12">
-        <InsightAmbientBackground intensity="detail" />
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">404 / Insight</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
