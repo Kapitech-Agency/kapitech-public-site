@@ -321,8 +321,15 @@ export const InsightTableOfContents: React.FC<{
       }
     };
 
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+    const handleBreakpointChange = () => {
+      clearNavigationLock();
+      window.requestAnimationFrame(syncActiveFromScroll);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    mediaQuery.addEventListener?.('change', handleBreakpointChange);
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handlePopState);
     window.addEventListener('wheel', cancelOnUserIntent, { passive: true });
@@ -335,12 +342,14 @@ export const InsightTableOfContents: React.FC<{
     if (!isVariantActive()) return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('wheel', cancelOnUserIntent);
       window.removeEventListener('touchstart', cancelOnUserIntent);
       window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
     };
 
     if (initialHash && validItems.some((item) => item.id === initialHash)) {
