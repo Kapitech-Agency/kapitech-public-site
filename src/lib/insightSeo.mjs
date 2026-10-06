@@ -1,3 +1,5 @@
+import { deriveInsightFaq } from './insightFaq.mjs';
+
 function nonEmpty(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : '';
 }
@@ -176,9 +178,12 @@ export function buildInsightStructuredData(article, seo, options) {
     buildInsightBreadcrumbSchema(article, seo, { siteUrl })
   ];
 
-  const faq = Array.isArray(article.faq)
+  const explicitFaq = Array.isArray(article.faq)
     ? article.faq.filter((item) => nonEmpty(item?.question) && nonEmpty(item?.answer))
     : [];
+  const faq = explicitFaq.length > 0
+    ? explicitFaq
+    : deriveInsightFaq(article.content, seo.language);
 
   if (faq.length) {
     graph.push({
