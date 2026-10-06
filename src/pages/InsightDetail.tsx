@@ -640,8 +640,8 @@ export const InsightDetail: React.FC = () => {
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
-              copied={copied}
-              onShare={() => void copyLink()}
+              shareState={shareState}
+              onShare={() => void shareArticle()}
             />
 
             <article
