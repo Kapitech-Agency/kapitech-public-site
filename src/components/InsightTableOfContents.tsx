@@ -8,8 +8,6 @@ type TocVariant = 'all' | 'desktop' | 'mobile';
 const ARTICLE_SCROLL_OFFSET_PX = 112;
 const TOC_ROOT_BOTTOM_GAP = '55%';
 const TOC_NAVIGATION_LOCK_MS = 2600;
-const TOC_SETTLE_TOP_PX = 112;
-const TOC_SETTLE_TOLERANCE_PX = 32;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
