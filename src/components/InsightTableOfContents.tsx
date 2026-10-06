@@ -310,15 +310,15 @@ export const InsightTableOfContents: React.FC<{
               'transition-[color,background-color,border-color] duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
               isH2
-                ? 'min-h-11 gap-3 rounded-r-[10px] border-l-2 px-3 py-2.5'
-                : 'ml-5 min-h-9 gap-2 rounded-r-[8px] border-l px-2.5 py-1.5',
+                ? 'min-h-11 gap-3 border-l-2 px-3 py-2.5'
+                : 'ml-5 min-h-9 gap-2 border-l px-2.5 py-1.5',
               active
                 ? isH2
-                  ? 'border-brand-red bg-white/[0.035] text-white'
-                  : 'border-brand-red/60 bg-white/[0.02] text-white'
+                  ? 'border-brand-red bg-brand-red/[0.045] text-white'
+                  : 'border-brand-red/70 text-white'
                 : isH2
-                  ? 'border-transparent text-[#747C89] hover:bg-white/[0.022] hover:text-[#D3D7DE]'
-                  : 'border-transparent text-[#747C89] hover:bg-white/[0.018] hover:text-[#C8CDD5]'
+                  ? 'border-transparent text-[#747C89] hover:border-white/10 hover:bg-white/[0.012] hover:text-[#D3D7DE]'
+                  : 'border-transparent text-[#747C89] hover:border-white/10 hover:text-[#C8CDD5]'
             ].join(' ')}
           >
             {isH2 ? (
@@ -348,10 +348,10 @@ export const InsightTableOfContents: React.FC<{
                 'min-w-0 text-balance leading-[1.4] transition-[color,font-weight] duration-200',
                 isH2
                   ? active
-                    ? 'text-[12px] font-semibold tracking-[-0.01em]'
+                    ? 'text-[12px] font-semibold tracking-[-0.012em]'
                     : 'text-[12px] font-medium'
                   : active
-                    ? 'text-[11px] font-medium'
+                    ? 'text-[11px] font-medium text-[#F0F1F4]'
                     : 'text-[11px] font-normal'
               ].join(' ')}
             >
