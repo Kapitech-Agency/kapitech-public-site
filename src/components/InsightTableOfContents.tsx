@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 import type { InsightTocItem } from '../lib/insightHeadingIds';
@@ -6,8 +6,8 @@ import type { InsightTocItem } from '../lib/insightHeadingIds';
 type TocVariant = 'all' | 'desktop' | 'mobile';
 
 const ARTICLE_SCROLL_OFFSET_PX = 112;
-const TOC_ROOT_BOTTOM_GAP = '55%';
-const TOC_NAVIGATION_LOCK_MS = 2600;
+const NAVIGATION_TIMEOUT_MS = 2600;
+const NAVIGATION_SETTLE_TOLERANCE_PX = 32;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -24,6 +24,22 @@ function getHash(): string {
   }
 }
 
+function getDocumentMaxScroll(): number {
+  if (typeof document === 'undefined' || typeof window === 'undefined') return 0;
+
+  return Math.max(
+    0,
+    document.documentElement.scrollHeight - window.innerHeight
+  );
+}
+
+function getHeadingTop(id: string): number | null {
+  const heading = document.getElementById(id);
+  if (!heading) return null;
+
+  return heading.getBoundingClientRect().top;
+}
+
 function scrollToHeading(id: string, behavior: ScrollBehavior): void {
   document.getElementById(id)?.scrollIntoView({
     behavior,
@@ -35,9 +51,17 @@ function setHash(id: string): void {
   if (typeof window === 'undefined') return;
 
   const next = '#' + encodeURIComponent(id);
+
   if (window.location.hash !== next) {
     window.history.pushState(null, '', next);
   }
+}
+
+function isNearHeading(id: string): boolean {
+  const top = getHeadingTop(id);
+  if (top === null) return false;
+
+  return Math.abs(top - ARTICLE_SCROLL_OFFSET_PX) <= NAVIGATION_SETTLE_TOLERANCE_PX;
 }
 
 export const InsightTableOfContents: React.FC<{
@@ -46,7 +70,9 @@ export const InsightTableOfContents: React.FC<{
   variant?: TocVariant;
 }> = ({ items, language, variant = 'all' }) => {
   const validItems = useMemo(
-    () => items.filter((item) => Boolean(item?.id) && (item.level === 2 || item.level === 3)),
+    () => items.filter(
+      (item) => Boolean(item?.id) && (item.level === 2 || item.level === 3)
+    ),
     [items]
   );
 
@@ -65,198 +91,248 @@ export const InsightTableOfContents: React.FC<{
     });
   }, [validItems]);
 
+  const instanceId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const mobileNavId = 'insight-mobile-toc-' + instanceId;
+
   const [activeId, setActiveId] = useState(itemMeta[0]?.id || '');
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const visibleHeadingsRef = useRef<Map<string, IntersectionObserverEntry>>(new Map());
-  const pendingNavigationRef = useRef<string>('');
-  const navigationLockTimerRef = useRef<number | null>(null);
-  const tocRootRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
-  const lockActiveTo = (id: string) => {
-    pendingNavigationRef.current = id;
+  const activeIdRef = useRef(activeId);
+  const navigationTargetRef = useRef<string>('');
+  const navigationTimerRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
 
-    if (navigationLockTimerRef.current !== null) {
-      window.clearTimeout(navigationLockTimerRef.current);
+  useEffect(() => {
+    activeIdRef.current = activeId;
+  }, [activeId]);
+
+  const clearNavigationLock = () => {
+    navigationTargetRef.current = '';
+
+    if (navigationTimerRef.current !== null) {
+      window.clearTimeout(navigationTimerRef.current);
+      navigationTimerRef.current = null;
     }
-
-    navigationLockTimerRef.current = window.setTimeout(() => {
-      pendingNavigationRef.current = '';
-      navigationLockTimerRef.current = null;
-    }, TOC_NAVIGATION_LOCK_MS);
   };
 
-  const unlockActiveNavigation = (id: string) => {
-    if (pendingNavigationRef.current !== id) return;
+  const setActive = (id: string) => {
+    if (!id || activeIdRef.current === id) return;
 
-    pendingNavigationRef.current = '';
+    activeIdRef.current = id;
+    setActiveId(id);
+  };
 
-    if (navigationLockTimerRef.current !== null) {
-      window.clearTimeout(navigationLockTimerRef.current);
-      navigationLockTimerRef.current = null;
+  const syncActiveFromScroll = () => {
+    if (!validItems.length) return;
+
+    const maxScrollTop = getDocumentMaxScroll();
+
+    if (window.scrollY <= 4) {
+      setActive(validItems[0].id);
+      return;
     }
+
+    if (window.scrollY >= maxScrollTop - 4) {
+      setActive(validItems[validItems.length - 1].id);
+      return;
+    }
+
+    let currentId = validItems[0].id;
+
+    for (const item of validItems) {
+      const top = getHeadingTop(item.id);
+
+      if (top === null) continue;
+
+      if (top <= ARTICLE_SCROLL_OFFSET_PX) {
+        currentId = item.id;
+      } else {
+        break;
+      }
+    }
+
+    setActive(currentId);
+  };
+
+  const scheduleScrollSync = () => {
+    if (rafRef.current !== null) return;
+
+    rafRef.current = window.requestAnimationFrame(() => {
+      rafRef.current = null;
+
+      const pendingId = navigationTargetRef.current;
+
+      if (pendingId) {
+        const top = getHeadingTop(pendingId);
+        const targetExists = top !== null;
+        const settled = targetExists && isNearHeading(pendingId);
+        const timedOut = navigationTimerRef.current === null;
+
+        if (settled) {
+          clearNavigationLock();
+          setActive(pendingId);
+          return;
+        }
+
+        if (!targetExists || timedOut) {
+          clearNavigationLock();
+          syncActiveFromScroll();
+          return;
+        }
+
+        setActive(pendingId);
+        return;
+      }
+
+      syncActiveFromScroll();
+    });
+  };
+
+  const startNavigation = (id: string) => {
+    navigationTargetRef.current = id;
+
+    if (navigationTimerRef.current !== null) {
+      window.clearTimeout(navigationTimerRef.current);
+    }
+
+    navigationTimerRef.current = window.setTimeout(() => {
+      navigationTimerRef.current = null;
+      scheduleScrollSync();
+    }, NAVIGATION_TIMEOUT_MS);
+
+    setActive(id);
   };
 
   useEffect(() => {
     if (!validItems.length) {
       setActiveId('');
-      return;
-    }
-
-    const headings = validItems
-      .map((item) => document.getElementById(item.id))
-      .filter((node): node is HTMLElement => Boolean(node));
-
-    const visibleHeadings = visibleHeadingsRef.current;
-    visibleHeadings.clear();
-
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const id = entry.target instanceof HTMLElement ? entry.target.id : '';
-        if (!id) continue;
-
-        if (entry.isIntersecting) {
-          visibleHeadings.set(id, entry);
-        } else {
-          visibleHeadings.delete(id);
-        }
-      }
-
-      const pendingId = pendingNavigationRef.current;
-      if (pendingId) {
-        const pendingEntry = visibleHeadings.get(pendingId);
-
-        if (pendingEntry?.isIntersecting) {
-          setActiveId(pendingId);
-          unlockActiveNavigation(pendingId);
-        }
-
-        return;
-      }
-
-      const candidates = [...visibleHeadings.values()]
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
-      const next = candidates[0]?.target;
-
-      if (next instanceof HTMLElement && validItems.some((item) => item.id === next.id)) {
-        setActiveId(next.id);
-      }
-    }, {
-      root: null,
-      rootMargin: '-' + ARTICLE_SCROLL_OFFSET_PX + 'px 0px -' + TOC_ROOT_BOTTOM_GAP + ' 0px',
-      threshold: [0, 0.01, 1]
-    });
-
-    headings.forEach((heading) => observer.observe(heading));
-
-    const endMarker = document.querySelector<HTMLElement>('[data-insight-article-end]');
-    const endObserver = new IntersectionObserver((entries) => {
-      if (pendingNavigationRef.current) return;
-
-      if (entries.some((entry) => entry.isIntersecting)) {
-        setActiveId(validItems[validItems.length - 1].id);
-      }
-    }, {
-      root: null,
-      rootMargin: '0px 0px -28% 0px',
-      threshold: [0, 1]
-    });
-
-    if (endMarker) {
-      endObserver.observe(endMarker);
+      return undefined;
     }
 
     const syncHash = (shouldScroll: boolean) => {
       const hash = getHash();
-      if (!hash || !validItems.some((item) => item.id === hash)) return;
 
-      setActiveId(hash);
-      lockActiveTo(hash);
+      if (!hash || !validItems.some((item) => item.id === hash)) {
+        clearNavigationLock();
+        scheduleScrollSync();
+        return;
+      }
+
+      startNavigation(hash);
 
       if (shouldScroll) {
         window.requestAnimationFrame(() => {
           scrollToHeading(hash, 'auto');
+          scheduleScrollSync();
         });
       }
     };
 
-    const cancelPendingNavigation = () => {
-      pendingNavigationRef.current = '';
-
-      if (navigationLockTimerRef.current !== null) {
-        window.clearTimeout(navigationLockTimerRef.current);
-        navigationLockTimerRef.current = null;
-      }
-    };
-
-    const handleUserScrollIntent = (event: Event) => {
-      const root = tocRootRef.current;
-      if (root && event.target instanceof Node && root.contains(event.target)) return;
-      cancelPendingNavigation();
-    };
-
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
-        cancelPendingNavigation();
-      }
-    };
-
+    const handleScroll = () => scheduleScrollSync();
+    const handleResize = () => scheduleScrollSync();
     const handleHashChange = () => syncHash(true);
     const handlePopState = () => syncHash(true);
 
+    const cancelOnUserIntent = (event: Event) => {
+      if (
+        event.target instanceof Node
+        && rootRef.current?.contains(event.target)
+      ) {
+        return;
+      }
+
+      clearNavigationLock();
+      scheduleScrollSync();
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (
+        event.key === 'ArrowUp'
+        || event.key === 'ArrowDown'
+        || event.key === 'PageUp'
+        || event.key === 'PageDown'
+        || event.key === 'Home'
+        || event.key === 'End'
+        || event.key === ' '
+      ) {
+        clearNavigationLock();
+        scheduleScrollSync();
+      }
+
+      if (event.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handlePopState);
-    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
-    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
+    window.addEventListener('wheel', cancelOnUserIntent, { passive: true });
+    window.addEventListener('touchstart', cancelOnUserIntent, { passive: true });
+    window.addEventListener('pointerdown', cancelOnUserIntent);
     window.addEventListener('keydown', handleKeydown);
 
     const initialHash = getHash();
+
     if (initialHash && validItems.some((item) => item.id === initialHash)) {
       syncHash(true);
+    } else {
+      window.requestAnimationFrame(syncActiveFromScroll);
     }
 
     return () => {
-      observer.disconnect();
-      endObserver.disconnect();
-      visibleHeadings.clear();
-
-      if (navigationLockTimerRef.current !== null) {
-        window.clearTimeout(navigationLockTimerRef.current);
-        navigationLockTimerRef.current = null;
-      }
-
-      pendingNavigationRef.current = '';
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('wheel', handleUserScrollIntent);
-      window.removeEventListener('touchstart', handleUserScrollIntent);
+      window.removeEventListener('wheel', cancelOnUserIntent);
+      window.removeEventListener('touchstart', cancelOnUserIntent);
+      window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
+
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      if (navigationTimerRef.current !== null) {
+        window.clearTimeout(navigationTimerRef.current);
+        navigationTimerRef.current = null;
+      }
+
+      navigationTargetRef.current = '';
     };
-  }, [validItems]);
+  }, [validItems, mobileOpen]);
 
   useEffect(() => {
     if (!activeId) return;
 
     const reveal = (
-      refMap: Map<string, HTMLAnchorElement>,
+      refs: Map<string, HTMLAnchorElement>,
       enabled: boolean
     ) => {
       if (!enabled) return;
 
-      const node = refMap.get(activeId);
+      const node = refs.get(activeId);
       if (!node) return;
 
-      const scrollableList = node.closest('nav');
-      if (!(scrollableList instanceof HTMLElement)) return;
+      const scrollable = node.closest('nav');
+
+      if (!(scrollable instanceof HTMLElement)) return;
 
       const nodeRect = node.getBoundingClientRect();
-      const listRect = scrollableList.getBoundingClientRect();
-      const isVisible = nodeRect.top >= listRect.top && nodeRect.bottom <= listRect.bottom;
+      const scrollRect = scrollable.getBoundingClientRect();
 
-      if (!isVisible) {
+      const outside =
+        nodeRect.top < scrollRect.top
+        || nodeRect.bottom > scrollRect.bottom;
+
+      if (outside) {
         node.scrollIntoView({
           behavior: 'auto',
           block: 'nearest'
@@ -266,7 +342,10 @@ export const InsightTableOfContents: React.FC<{
 
     window.requestAnimationFrame(() => {
       reveal(desktopItemRefs.current, variant !== 'mobile');
-      reveal(mobileItemRefs.current, variant !== 'desktop' && mobileOpen);
+      reveal(
+        mobileItemRefs.current,
+        variant !== 'desktop' && mobileOpen
+      );
     });
   }, [activeId, mobileOpen, variant]);
 
@@ -278,27 +357,33 @@ export const InsightTableOfContents: React.FC<{
     1,
     Number.parseInt(current.sectionNumber, 10) || 1
   );
+
   const label = language === 'id' ? 'Di artikel ini' : 'In this article';
-  const navigationLabel = language === 'id' ? 'Daftar isi artikel' : 'Article table of contents';
+  const navigationLabel = language === 'id'
+    ? 'Daftar isi artikel'
+    : 'Article table of contents';
 
   const register = (
-    map: Map<string, HTMLAnchorElement>,
+    refs: Map<string, HTMLAnchorElement>,
     id: string,
     node: HTMLAnchorElement | null
   ) => {
     if (node) {
-      map.set(id, node);
+      refs.set(id, node);
     } else {
-      map.delete(id);
+      refs.delete(id);
     }
   };
 
-  const navigateTo = (item: InsightTocItem, mobile = false) => {
+  const navigateTo = (
+    item: InsightTocItem,
+    mobile = false
+  ) => {
     const target = document.getElementById(item.id);
+
     if (!target) return;
 
-    setActiveId(item.id);
-    lockActiveTo(item.id);
+    startNavigation(item.id);
     setHash(item.id);
 
     scrollToHeading(
@@ -306,13 +391,15 @@ export const InsightTableOfContents: React.FC<{
       prefersReducedMotion() ? 'auto' : 'smooth'
     );
 
+    window.requestAnimationFrame(scheduleScrollSync);
+
     if (mobile) {
       setMobileOpen(false);
     }
   };
 
   const renderItems = (
-    refMap: Map<string, HTMLAnchorElement>,
+    refs: Map<string, HTMLAnchorElement>,
     mobile = false
   ) => (
     <div className="space-y-0.5">
@@ -323,7 +410,7 @@ export const InsightTableOfContents: React.FC<{
         return (
           <a
             key={item.id}
-            ref={(node) => register(refMap, item.id, node)}
+            ref={(node) => register(refs, item.id, node)}
             href={'#' + encodeURIComponent(item.id)}
             onClick={(event) => {
               event.preventDefault();
@@ -335,12 +422,12 @@ export const InsightTableOfContents: React.FC<{
               'transition-[color,background-color,border-color] duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
               isH2
-                ? 'min-h-10 gap-3 border-l-2 px-3 py-2'
-                : 'ml-4 min-h-9 gap-2 border-l px-3 py-1.5',
+                ? 'min-h-10 gap-3 rounded-r-[7px] border-l-2 px-3 py-2'
+                : 'ml-4 min-h-9 gap-2 rounded-r-[6px] border-l px-3 py-1.5',
               active
                 ? isH2
-                  ? 'border-brand-red text-white'
-                  : 'border-brand-red/65 text-white'
+                  ? 'border-brand-red bg-white/[0.028] text-white'
+                  : 'border-brand-red/70 text-white'
                 : isH2
                   ? 'border-transparent text-[#747C89] hover:bg-white/[0.018] hover:text-[#D3D7DE]'
                   : 'border-transparent text-[#747C89] hover:text-[#C8CDD5]'
@@ -351,7 +438,7 @@ export const InsightTableOfContents: React.FC<{
                 aria-hidden="true"
                 className={[
                   'w-5 shrink-0 pt-0.5 font-mono text-[9px] font-medium tabular-nums transition-colors duration-200',
-                  active ? 'text-white' : 'text-[#59616D] group-hover:text-[#737B88]'
+                  active ? 'text-[#B7BEC8]' : 'text-[#59616D] group-hover:text-[#737B88]'
                 ].join(' ')}
               >
                 {item.sectionNumber}
@@ -376,7 +463,7 @@ export const InsightTableOfContents: React.FC<{
                     ? 'text-[12px] font-semibold'
                     : 'text-[12px] font-medium'
                   : active
-                    ? 'text-[11px] font-medium text-white'
+                    ? 'text-[11px] font-medium'
                     : 'text-[11px] font-normal'
               ].join(' ')}
             >
@@ -394,13 +481,8 @@ export const InsightTableOfContents: React.FC<{
         <button
           type="button"
           aria-expanded={mobileOpen}
-          aria-controls="insight-mobile-toc-list"
+          aria-controls={mobileNavId}
           onClick={() => setMobileOpen((value) => !value)}
-          onKeyDown={(event) => {
-            if (event.key === 'Escape') {
-              setMobileOpen(false);
-            }
-          }}
           className="group flex min-h-[58px] w-full items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-200 hover:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
         >
           <span className="min-w-0">
@@ -413,7 +495,7 @@ export const InsightTableOfContents: React.FC<{
           </span>
 
           <span className="flex shrink-0 items-center gap-3">
-            <span className="font-mono text-[9px] tabular-nums text-[#6B7481]">
+            <span className="font-mono text-[9px] tabular-nums text-[#606873]">
               {current.sectionNumber} / {String(h2Count).padStart(2, '0')}
             </span>
             <ChevronDown
@@ -421,7 +503,9 @@ export const InsightTableOfContents: React.FC<{
               aria-hidden="true"
               className={[
                 'transition-transform duration-200',
-                mobileOpen ? 'rotate-180 text-white' : 'text-[#737C89] group-hover:text-white'
+                mobileOpen
+                  ? 'rotate-180 text-white'
+                  : 'text-[#737C89] group-hover:text-white'
               ].join(' ')}
             />
           </span>
@@ -429,7 +513,7 @@ export const InsightTableOfContents: React.FC<{
 
         {mobileOpen && (
           <nav
-            id="insight-mobile-toc-list"
+            id={mobileNavId}
             aria-label={navigationLabel}
             className="max-h-[min(70vh,34rem)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3 [scrollbar-gutter:stable]"
           >
@@ -443,24 +527,21 @@ export const InsightTableOfContents: React.FC<{
   const desktop = (
     <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
       <div className="flex h-full min-h-0 flex-1 flex-col border-y border-white/[0.08] py-4">
-        <div className="shrink-0 px-1">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">
-                {label}
-              </p>
-              <p className="mt-1 text-[9px] leading-4 text-[#5F6773]">
-                {h2Count} {language === 'id'
-                  ? 'bagian'
-                  : h2Count === 1 ? 'section' : 'sections'}
-              </p>
-            </div>
-
-            <span className="font-mono text-[9px] tabular-nums text-[#606873]">
-              {String(currentSection).padStart(2, '0')} / {String(h2Count).padStart(2, '0')}
-            </span>
+        <div className="flex shrink-0 items-end justify-between gap-4 px-1">
+          <div>
+            <p className="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">
+              {label}
+            </p>
+            <p className="mt-1 text-[9px] leading-4 text-[#5F6773]">
+              {h2Count} {language === 'id'
+                ? 'bagian'
+                : h2Count === 1 ? 'section' : 'sections'}
+            </p>
           </div>
 
+          <span className="font-mono text-[9px] tabular-nums text-[#606873]">
+            {String(currentSection).padStart(2, '0')} / {String(h2Count).padStart(2, '0')}
+          </span>
         </div>
 
         <nav
@@ -474,7 +555,7 @@ export const InsightTableOfContents: React.FC<{
   );
 
   return (
-    <div ref={tocRootRef} className="h-full min-h-0">
+    <div ref={rootRef} className="h-full min-h-0">
       {mobile}
       {desktop}
     </div>
