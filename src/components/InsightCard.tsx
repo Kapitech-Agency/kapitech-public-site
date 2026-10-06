@@ -53,7 +53,7 @@ export const InsightCard: React.FC<{
             to={'/insights/' + insight.slug}
             aria-label={insight.title}
             className={[
-              'group/media relative block overflow-hidden bg-[#0B0C0E]',
+              'group/media relative block overflow-hidden bg-[#0B0C0E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset',
               featured ? 'min-h-[280px] aspect-[16/10] lg:aspect-auto lg:min-h-[430px]' : 'aspect-[16/10]'
             ].join(' ')}
           >
@@ -84,7 +84,7 @@ export const InsightCard: React.FC<{
             to={'/insights/' + insight.slug}
             aria-label={insight.title}
             className={[
-              'relative flex overflow-hidden bg-[radial-gradient(circle_at_70%_30%,rgba(229,9,20,0.16),transparent_38%),linear-gradient(135deg,#111319,#090A0C)]',
+              'relative flex overflow-hidden bg-[radial-gradient(circle_at_70%_30%,rgba(229,9,20,0.16),transparent_38%),linear-gradient(135deg,#111319,#090A0C)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset',
               featured ? 'min-h-[280px] lg:min-h-[430px]' : 'aspect-[16/10]'
             ].join(' ')}
           >
@@ -127,7 +127,7 @@ export const InsightCard: React.FC<{
               )}
             </div>
 
-            <Link to={'/insights/' + insight.slug} className="mt-4 block">
+            <Link to={'/insights/' + insight.slug} className="mt-4 block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F1116]">
               <h2 className={[
                 'font-display font-semibold leading-[1.06] tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red',
                 featured ? 'text-3xl sm:text-4xl lg:text-[2.65rem]' : 'text-[1.32rem] sm:text-[1.4rem]'
@@ -172,7 +172,7 @@ export const InsightCard: React.FC<{
 
               <Link
                 to={'/insights/' + insight.slug}
-                className="inline-flex shrink-0 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 group-hover:text-brand-red"
+                className="inline-flex shrink-0 items-center gap-2 rounded-md text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 group-hover:text-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F1116]"
               >
                 {language === 'id' ? 'Baca Insight' : 'Read insight'}
                 <ArrowUpRight size={14} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5" />
