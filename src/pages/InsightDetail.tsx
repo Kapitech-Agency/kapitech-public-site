@@ -12,6 +12,7 @@ import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
+import { validateInsightContent } from '../lib/insightContentValidation';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
