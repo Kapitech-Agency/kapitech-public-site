@@ -364,10 +364,20 @@ export const InsightDetail: React.FC = () => {
     [blocks, firstHeadingIndex]
   );
 
-  const bodyBlocks = useMemo(
-    () => firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [],
-    [blocks, firstHeadingIndex]
-  );
+  const bodyBlocks = useMemo(() => {
+    const source = firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [];
+
+    if (article?.slug !== 'mvp-vs-prototype-vs-proof-of-concept-guide') {
+      return source;
+    }
+
+    let promoCount = 0;
+    return source.filter((block) => {
+      if (block?.type !== 'promo') return true;
+      promoCount += 1;
+      return promoCount === 1;
+    });
+  }, [article?.slug, blocks, firstHeadingIndex]);
 
   const headingIds = useMemo(() => buildInsightHeadingIds(bodyBlocks), [bodyBlocks]);
 
@@ -535,206 +545,264 @@ export const InsightDetail: React.FC = () => {
         <InsightSeoMeta article={article} />
 
         <header className="relative isolate overflow-hidden border-b border-white/[0.07]">
-          <InsightAmbientBackground intensity="detail" />
+          <InsightAmbientBackground intensity="hero" />
 
-          <div className="relative z-10 w-full px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 lg:pb-24 lg:pt-40">
-            <div className="mx-auto w-full max-w-7xl">
-            <nav className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">
-              <Link to="/" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
-                {article.language === 'id' ? 'Beranda' : 'Home'}
-              </Link>
-              <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
-              <Link to="/insights" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
-                {article.language === 'id' ? 'Insight' : 'Insights'}
-              </Link>
+          <div className="relative z-10 w-full px-4 pb-14 pt-32 sm:px-6 sm:pb-16 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
+            <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.76fr)] lg:gap-14">
+              <div className="min-w-0">
+                <nav
+                  className="mb-7 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]"
+                  aria-label="Breadcrumb"
+                >
+                  <Link
+                    to="/"
+                    className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  >
+                    \${article.language === 'id' ? 'Beranda' : 'Home'}
+                  </Link>
+                  <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
+                  <Link
+                    to="/insights"
+                    className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  >
+                    \${article.language === 'id' ? 'Insight' : 'Insights'}
+                  </Link>
+                  <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
+                  <span className="truncate text-[#A2A8B4]">\${category || 'Insight'}</span>
+                </nav>
 
-            </nav>
-
-            <div className="max-w-[1040px]">
-              <div className="max-w-[960px]">
-                <div className="flex flex-wrap items-center gap-2.5 text-[9px] font-mono uppercase tracking-[0.15em]">
-                  {category && (
-                    <span className="rounded-full border border-white/[0.09] bg-white/[0.03] px-3 py-1.5 text-[#B0B6C0]">
-                      {category}
-                    </span>
-                  )}
-                  <span className="text-[#68707C]">{article.language.toUpperCase()}</span>
-                  {article.editorialMeta?.editorialType && (
-                    <>
-                      <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
-                      <span className="text-[#68707C]">{article.editorialMeta.editorialType}</span>
-                    </>
-                  )}
-                  {article.readingTime ? (
-                    <>
-                      <span className="h-1 w-1 rounded-full bg-white/15" aria-hidden="true" />
-                      <span className="inline-flex items-center gap-1.5 text-[#737A87]">
-                        <Clock3 size={11} aria-hidden="true" />
-                        {article.readingTime} {article.language === 'id' ? 'menit baca' : 'min read'}
-                      </span>
-                    </>
-                  ) : null}
+                <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
+                  <span className="relative flex h-1.5 w-1.5 shrink-0">
+                    <span className="absolute inset-0 rounded-full bg-brand-red/35" />
+                    <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
+                  </span>
+                  <span className="text-brand-red">\${category || 'Insight'}</span>
+                  <span className="text-[#5E6672]">/</span>
+                  <span>\${article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}</span>
                 </div>
 
-                <h1 className="mt-6 max-w-[960px] font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.85rem]">
-                  {article.title}
+                <h1 className="mt-7 max-w-[880px] font-display text-[2.8rem] font-semibold leading-[0.96] tracking-[-0.058em] text-white sm:text-6xl lg:text-[5.3rem]">
+                  \${article.title}
                 </h1>
 
-                {article.excerpt && (
-                  <p className="mt-6 max-w-3xl text-base leading-8 text-[#A3A9B5] sm:text-lg sm:leading-8">
-                    {article.excerpt}
+                \${article.excerpt && (
+                  <p className="mt-6 max-w-2xl text-[15px] leading-7 text-[#A2A8B4] sm:text-base sm:leading-8 lg:text-[1.03rem]">
+                    \${article.excerpt}
                   </p>
                 )}
 
-                <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">
-                  {article.author?.name && (
-                    <span className="font-medium text-white">
-                      {article.language === 'id' ? 'Ditulis oleh ' : 'Written by '}
-                      {article.author.name}
-                      {article.author.role ? <span className="font-normal text-[#737A87]"> · {article.author.role}</span> : null}
-                    </span>
-                  )}
-                  {article.editorialMeta?.reviewedBy && (
-                    <span>{article.language === 'id' ? 'Ditinjau oleh ' : 'Reviewed by '}{article.editorialMeta.reviewedBy}</span>
-                  )}
-                  {article.editorialMeta?.factCheckedBy && (
-                    <span>{article.language === 'id' ? 'Diperiksa fakta oleh ' : 'Fact checked by '}{article.editorialMeta.factCheckedBy}</span>
-                  )}
-                  {article.publishedAt && (
-                    <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, article.language)}</time>
-                  )}
-                  {article.updatedAt && article.updatedAt !== article.publishedAt && (
-                    <span>{article.language === 'id' ? 'Diperbarui ' : 'Updated '}{formatDate(article.updatedAt, article.language)}</span>
-                  )}
+                <div className="mt-8 grid max-w-2xl gap-4 border-t border-white/[0.07] pt-5 sm:grid-cols-[minmax(0,1.35fr)_auto_auto] sm:items-end">
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                      \${article.language === 'id' ? 'Ditulis oleh' : 'Written by'}
+                    </p>
+                    <p className="mt-1 truncate text-sm font-medium text-white">
+                      \${article.author?.name || 'Kapitech Editorial'}
+                    </p>
+                    \${article.author?.role && (
+                      <p className="mt-0.5 truncate text-[10px] text-[#6E7582]">\${article.author.role}</p>
+                    )}
+                  </div>
+
+                  <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                      \${article.language === 'id' ? 'Waktu baca' : 'Reading time'}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white">
+                      \${article.readingTime || '—'} \${article.readingTime ? (article.language === 'id' ? 'menit' : 'min') : ''}
+                    </p>
+                  </div>
+
+                  <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                      \${article.language === 'id' ? 'Diterbitkan' : 'Published'}
+                    </p>
+                    <time dateTime={article.publishedAt || undefined} className="mt-1 block text-sm font-semibold text-white">
+                      \${article.publishedAt ? formatDate(article.publishedAt, article.language) : '—'}
+                    </time>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {article.coverImage && (
-              <figure className="relative mx-auto mt-12 w-full max-w-[1120px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]">
-                <img
-                  src={article.coverImage}
-                  alt={article.coverImageAlt?.trim() || article.title}
-                  width={coverWidth}
-                  height={coverHeight}
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="block h-auto max-h-[720px] w-full object-cover"
-                />
+              <figure className="relative overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0B0C0E]/58 shadow-[0_28px_90px_-58px_rgba(0,0,0,0.95)] backdrop-blur-xl">
+                <div className="border-b border-white/[0.07] px-5 py-3.5 sm:px-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red">
+                        \${article.language === 'id' ? 'Peta validasi' : 'Validation map'}
+                      </p>
+                      <p className="mt-1 text-[10px] text-[#68707C]">
+                        \${article.language === 'id'
+                          ? 'Pengalaman / Nilai / Kelayakan'
+                          : 'Experience / Value / Feasibility'}
+                      </p>
+                    </div>
+                    <span className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2.5 py-1 font-mono text-[8px] font-semibold tracking-[0.12em] text-[#7A8290]">
+                      01 / 03
+                    </span>
+                  </div>
+                </div>
+
+                <div className="aspect-[4/3] bg-[#090A0C]">
+                  <img
+                    src={article.language === 'id'
+                      ? '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg'
+                      : '/insights/mvp-vs-prototype-vs-proof-of-concept/hero-en.svg'}
+                    alt={article.coverImageAlt?.trim() || article.title}
+                    width={coverWidth || 1600}
+                    height={coverHeight || 900}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    className="block h-full w-full object-cover"
+                    onError={(event) => {
+                      const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg';
+                      if (event.currentTarget.src.endsWith(fallback)) return;
+                      event.currentTarget.src = fallback;
+                    }}
+                  />
+                </div>
+
+                <figcaption className="flex items-center justify-between gap-4 border-t border-white/[0.07] px-5 py-3.5 sm:px-6">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">
+                    \${article.language === 'id'
+                      ? 'Satu pertanyaan utama, satu alat validasi.'
+                      : 'One key question, one validation instrument.'}
+                  </span>
+                  <span className="shrink-0 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">
+                    Kapitech
+                  </span>
+                </figcaption>
               </figure>
-            )}
             </div>
           </div>
         </header>
 
-        <div className="w-full scroll-mt-28 px-4 pb-16 pt-8 sm:px-6 sm:pt-10 md:px-12 lg:pb-20 lg:pt-14">
+        <section
+          className="w-full border-b border-white/[0.07]"
+          aria-label={article.language === 'id' ? 'Artikel Insight' : 'Insight article'}
+        >
           <div className="mx-auto w-full max-w-7xl">
-          <div className="mb-5 xl:hidden">
-            <InsightLeftRail
-              mobile
-              language={article.language}
-              readingProgress={readingProgress}
-              shareState={shareState}
-              onShare={() => void shareArticle()}
-            />
-            {toc.length > 0 && (
-              <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
-            )}
-          </div>
+            <div className="border-b border-white/[0.07] px-4 py-4 sm:px-6 md:px-12 xl:hidden">
+              <InsightLeftRail
+                mobile
+                language={article.language}
+                readingProgress={readingProgress}
+                shareState={shareState}
+                onShare={() => void shareArticle()}
+              />
+              \${toc.length > 0 && (
+                <div className="mt-3">
+                  <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
+                </div>
+              )}
+            </div>
 
-          <div className="grid items-start gap-8 xl:grid-cols-[56px_minmax(0,1fr)_304px]">
-            <InsightLeftRail
-              language={article.language}
-              readingProgress={readingProgress}
-              shareState={shareState}
-              onShare={() => void shareArticle()}
-            />
+            <div className="xl:grid xl:grid-cols-[56px_minmax(0,1fr)_320px]">
+              <div className="hidden border-r border-white/[0.07] px-2 py-12 xl:block">
+                <InsightLeftRail
+                  language={article.language}
+                  readingProgress={readingProgress}
+                  shareState={shareState}
+                  onShare={() => void shareArticle()}
+                />
+              </div>
 
-            <article
-              ref={articleReadingRef}
-              className="min-w-0 w-full max-w-[820px] justify-self-center text-[#C3C7D0]"
-            >
-              {introductionBlocks.length > 0 && (
-                <section className="mb-12 sm:mb-14" aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}>
+              <article
+                ref={articleReadingRef}
+                className="min-w-0 w-full max-w-[820px] justify-self-center px-4 py-10 text-[#C3C7D0] sm:px-6 sm:py-14 xl:px-0 xl:py-16"
+              >
+                \${introductionBlocks.length > 0 && (
+                  <section
+                    className="mb-12 border-b border-white/[0.07] pb-10 sm:mb-14 sm:pb-12"
+                    aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
+                  >
+                    <p className="mb-5 text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
+                      \${article.language === 'id' ? 'Mulai dari sini' : 'Start here'}
+                    </p>
+                    <InsightContentRenderer
+                      blocks={introductionBlocks}
+                      headingIds={[]}
+                      language={article.language}
+                    />
+                  </section>
+                )}
+
+                \${Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
+                  <section
+                    className="mb-14 border-y border-white/[0.08] py-8 sm:py-10"
+                    aria-labelledby="key-takeaways-title"
+                  >
+                    <div className="grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
+                      <div>
+                        <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                          \${article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
+                        </p>
+                        <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
+                          \${article.language === 'id'
+                            ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
+                            : 'The ideas worth carrying forward.'}
+                        </p>
+                      </div>
+                      <ul className="space-y-3.5">
+                        \${article.keyTakeaways.map((item, index) => (
+                          <li key={index} className="flex gap-3 text-[14px] leading-7 text-[#CBD0D8] sm:text-[15px]">
+                            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </section>
+                )}
+
+                \${bodyBlocks.length > 0 && (
                   <InsightContentRenderer
-                    blocks={introductionBlocks}
-                    headingIds={[]}
+                    blocks={bodyBlocks}
+                    headingIds={headingIds.map((id) => id || '')}
                     language={article.language}
                   />
-                </section>
-              )}
+                )}
 
-              {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
-                <section className="mb-12 border-y border-white/[0.08] py-8 sm:mb-14 sm:py-9" aria-labelledby="key-takeaways-title">
-                  <div className="grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
-                    <div>
-                      <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                        {article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
-                      </p>
-                      <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
-                        {article.language === 'id'
-                          ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
-                          : 'The ideas worth carrying forward.'}
-                      </p>
-                    </div>
-                    <ul className="space-y-3">
-                      {article.keyTakeaways.map((item, index) => (
-                        <li key={index} className="flex gap-3 text-sm leading-7 text-[#CBD0D8] sm:text-[15px]">
-                          <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/75" aria-hidden="true" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </section>
-              )}
-
-              {bodyBlocks.length > 0 && (
-                <InsightContentRenderer
-                  blocks={bodyBlocks}
-                  headingIds={headingIds.map((id) => id || '')}
-                  language={article.language}
-                />
-              )}
-
-              <div data-insight-article-end aria-hidden="true" className="h-px w-full" />
-
-              {article.author && (
-                <section className="mt-12 border-t border-white/[0.07] pt-8" aria-labelledby="author-title">
-                  <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
-                    {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
-                  </p>
-                  <div className="mt-5 flex items-start gap-4">
-                    {article.author.avatar ? (
-                      <img
-                        src={article.author.avatar}
-                        alt=""
-                        width="48"
-                        height="48"
-                        loading="lazy"
-                        decoding="async"
-                        className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-sm font-semibold text-white" aria-hidden="true">
-                        {article.author.name.slice(0, 1).toUpperCase()}
+                \${article.author && (
+                  <section className="mt-14 border-t border-white/[0.07] pt-8" aria-labelledby="author-title">
+                    <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
+                      \${article.language === 'id' ? 'Tentang penulis' : 'About the author'}
+                    </p>
+                    <div className="mt-5 flex items-start gap-4">
+                      \${article.author.avatar ? (
+                        <img
+                          src={article.author.avatar}
+                          alt=""
+                          width="48"
+                          height="48"
+                          loading="lazy"
+                          decoding="async"
+                          className="h-12 w-12 shrink-0 rounded-full border border-white/[0.08] object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-sm font-semibold text-white" aria-hidden="true">
+                          {article.author.name.slice(0, 1).toUpperCase()}
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-white">{article.author.name}</p>
+                        \${article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
+                        \${article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
                       </div>
-                    )}
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white">{article.author.name}</p>
-                      {article.author.role && <p className="mt-1 text-xs text-[#747B88]">{article.author.role}</p>}
-                      {article.author.bio && <p className="mt-3 max-w-xl text-sm leading-6 text-[#9BA2AF]">{article.author.bio}</p>}
                     </div>
-                  </div>
-                </section>
-              )}
-            </article>
+                  </section>
+                )}
 
-            <InsightRightRail items={toc} language={article.language} />
+                <div ref={readingEndRef} data-insight-article-end aria-hidden="true" className="h-px w-full" />
+              </article>
+
+              <div className="hidden border-l border-white/[0.07] px-5 py-12 xl:block">
+                <InsightRightRail items={toc} language={article.language} />
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {relatedInsights.length > 0 && (
           <section className="w-full px-4 pb-16 sm:px-6 md:px-12" aria-labelledby="related-title">
