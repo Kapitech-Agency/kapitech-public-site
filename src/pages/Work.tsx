@@ -89,6 +89,11 @@ export const Work = () => {
 
   const closeCaseStudy = () => {
     setSelectedProject(null);
+    if (searchParams.get('project')) {
+      const nextParams = new URLSearchParams(searchParams);
+      nextParams.delete('project');
+      setSearchParams(nextParams, { replace: true });
+    }
   };
 
   useEffect(() => {
@@ -155,6 +160,20 @@ export const Work = () => {
       modalTriggerRef.current = null;
     };
   }, [selectedProject, selectedProjectGallery.length]);
+
+  // Open a specific case study when linked from another page (e.g. Homepage Featured Work).
+  useEffect(() => {
+    const requestedProject = searchParams.get('project');
+    if (!requestedProject || selectedProject || projectsList.length === 0) return;
+
+    const project = projectsList.find(
+      (item) => item.id === requestedProject || item.slug === requestedProject,
+    );
+
+    if (project) {
+      openCaseStudy(project);
+    }
+  }, [projectsList, searchParams, selectedProject]);
 
   // Drag-to-scroll refs & state for horizontal filter bars
   const serviceScrollRef = React.useRef<HTMLDivElement>(null);
