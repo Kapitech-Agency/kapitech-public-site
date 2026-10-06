@@ -667,9 +667,9 @@ export const InsightDetail: React.FC = () => {
                   </p>
                 )}
 
-                <div className="mt-8 grid max-w-2xl gap-4 border-t border-white/[0.07] pt-5 sm:grid-cols-[minmax(0,1.35fr)_auto_auto] sm:items-end">
+                <div className="mt-8 flex max-w-3xl flex-wrap items-start gap-x-7 gap-y-4 pt-1">
                   <div className="min-w-0">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                    <p className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
                       {article.language === 'id' ? 'Ditulis oleh' : 'Written by'}
                     </p>
                     <p className="mt-1 truncate text-sm font-medium text-white">
@@ -680,8 +680,8 @@ export const InsightDetail: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                  <div className="min-w-[86px]">
+                    <p className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
                       {article.language === 'id' ? 'Waktu baca' : 'Reading time'}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-white">
@@ -689,8 +689,8 @@ export const InsightDetail: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="sm:border-l sm:border-white/[0.07] sm:pl-5">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
+                  <div className="min-w-[120px]">
+                    <p className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A76]">
                       {article.language === 'id' ? 'Diterbitkan' : 'Published'}
                     </p>
                     <time dateTime={article.publishedAt || undefined} className="mt-1 block text-sm font-semibold text-white">
@@ -755,11 +755,11 @@ export const InsightDetail: React.FC = () => {
         </header>
 
         <section
-          className="w-full border-b border-white/[0.07]"
+          className="relative w-full"
           aria-label={article.language === 'id' ? 'Artikel Insight' : 'Insight article'}
         >
           <div className="mx-auto w-full max-w-7xl">
-            <div className="border-b border-white/[0.07] px-4 py-4 sm:px-6 md:px-12 xl:hidden">
+            <div className="px-4 py-4 sm:px-6 md:px-12 xl:hidden">
               <InsightLeftRail
                 mobile
                 language={article.language}
@@ -775,7 +775,7 @@ export const InsightDetail: React.FC = () => {
             </div>
 
             <div className="xl:grid xl:grid-cols-[56px_minmax(0,1fr)_320px]">
-              <div className="hidden border-r border-white/[0.07] px-2 py-12 xl:block">
+              <div className="hidden px-1.5 py-12 xl:block">
                 <InsightLeftRail
                   language={article.language}
                   readingProgress={readingProgress}
@@ -786,11 +786,11 @@ export const InsightDetail: React.FC = () => {
 
               <article
                 ref={articleReadingRef}
-                className="min-w-0 w-full max-w-[820px] justify-self-center px-4 py-10 text-[#C3C7D0] sm:px-6 sm:py-14 xl:px-0 xl:py-16"
+                className="min-w-0 w-full max-w-[860px] justify-self-center px-4 py-10 text-[#C3C7D0] sm:px-6 sm:py-14 xl:px-0 xl:py-20"
               >
                 {introductionBlocks.length > 0 && (
                   <section
-                    className="mb-12 border-b border-white/[0.07] pb-10 sm:mb-14 sm:pb-12"
+                    className="mb-14 pb-1 sm:mb-16"
                     aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
                   >
                     <p className="mb-5 text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
@@ -806,10 +806,11 @@ export const InsightDetail: React.FC = () => {
 
                 {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
                   <section
-                    className="mb-14 border-y border-white/[0.08] py-8 sm:py-10"
+                    className="relative mb-16 overflow-hidden rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-5 shadow-[0_24px_70px_-54px_rgba(0,0,0,0.9)] sm:p-7"
                     aria-labelledby="key-takeaways-title"
                   >
-                    <div className="grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
+                    <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-full bg-brand-red/[0.045] blur-3xl" aria-hidden="true" />
+                    <div className="relative grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
                       <div>
                         <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
                           {article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
@@ -841,7 +842,7 @@ export const InsightDetail: React.FC = () => {
                 )}
 
                 {article.author && (
-                  <section className="mt-14 border-t border-white/[0.07] pt-8" aria-labelledby="author-title">
+                  <section className="mt-16 rounded-[20px] border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6" aria-labelledby="author-title">
                     <p id="author-title" className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747B88]">
                       {article.language === 'id' ? 'Tentang penulis' : 'About the author'}
                     </p>
@@ -873,7 +874,7 @@ export const InsightDetail: React.FC = () => {
                 <div ref={readingEndRef} data-insight-article-end aria-hidden="true" className="h-px w-full" />
               </article>
 
-              <div className="hidden border-l border-white/[0.07] px-5 py-12 xl:block">
+              <div className="hidden px-5 py-12 xl:block">
                 <InsightRightRail items={toc} language={article.language} />
               </div>
             </div>
@@ -881,7 +882,7 @@ export const InsightDetail: React.FC = () => {
         </section>
 
         {relatedInsights.length > 0 && (
-          <section className="w-full border-t border-white/[0.07] px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="related-title">
+          <section className="w-full px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 md:px-12" aria-labelledby="related-title">
             <div className="mx-auto w-full max-w-7xl">
             <div className="flex items-end justify-between gap-4">
               <div>
@@ -910,7 +911,7 @@ export const InsightDetail: React.FC = () => {
         )}
 
         {faq.length > 0 && (
-          <section className="w-full border-t border-white/[0.07] px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="faq-title">
+          <section className="w-full px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 md:px-12" aria-labelledby="faq-title">
             <div className="mx-auto w-full max-w-[820px]">
               <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
                 {article.language === 'id' ? 'Pertanyaan' : 'Questions'}
