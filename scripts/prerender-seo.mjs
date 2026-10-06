@@ -11,6 +11,7 @@ import {
   buildInsightTocList
 } from '../src/lib/insightHeadingIdsCore.mjs';
 import { fetchPublishedInsights } from './insightApi.mjs';
+import { deriveInsightFaq } from '../src/lib/insightFaq.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = join(root, 'dist');
@@ -206,9 +207,12 @@ const renderInsightBody = (insight) => {
   const blocks = Array.isArray(insight.content) ? insight.content : [];
   const headingIds = buildInsightHeadingIdList(blocks);
   const toc = buildInsightTocList(blocks, headingIds);
-  const faq = Array.isArray(insight.faq)
+  const explicitFaq = Array.isArray(insight.faq)
     ? insight.faq.filter((item) => safeText(item?.question) && safeText(item?.answer))
     : [];
+  const faq = explicitFaq.length > 0
+    ? explicitFaq
+    : deriveInsightFaq(blocks, language);
   const language = insight.language;
   const label = (idText, enText) => language === 'id' ? idText : enText;
   const category = insight.category?.displayName
