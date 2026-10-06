@@ -73,6 +73,17 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
   });
 }
 
+function isValidationDecisionHeading(value: unknown): boolean {
+  return typeof value === 'string' && new Set([
+    'When should you build a Prototype?',
+    'When should you build an MVP?',
+    'When should you use a PoC?',
+    'Kapan sebaiknya membuat Prototype?',
+    'Kapan sebaiknya membuat MVP?',
+    'Kapan sebaiknya menggunakan PoC?'
+  ]).has(value);
+}
+
 export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
@@ -165,9 +176,6 @@ export const InsightContentRenderer: React.FC<{
                 block.ordered ? 'list-decimal' : 'list-disc',
                 'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base        if (block.type === 'list') {
           const ListTag = block.ordered ? 'ol' : 'ul';
-          const isDecisionList = blocks[index - 1]?.type === 'heading'
-            && isValidationDecisionHeading(blocks[index - 1].text);
-
           return (
             <ListTag
               key={index}
