@@ -9,6 +9,9 @@ export const FloatingContact = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { language } = useLanguage();
+  const contactTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const firstContactOptionRef = React.useRef<HTMLAnchorElement>(null);
+  const wasOpenRef = React.useRef(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -25,14 +28,35 @@ export const FloatingContact = () => {
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsOpen(false);
-    };
+    if (isOpen) {
+      wasOpenRef.current = true;
+      document.body.style.overflow = 'hidden';
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') setIsOpen(false);
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+
+      const focusFrame = window.requestAnimationFrame(() => {
+        firstContactOptionRef.current?.focus();
+      });
+
+      return () => {
+        window.cancelAnimationFrame(focusFrame);
+        document.body.style.overflow = previousOverflow;
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+
+    if (wasOpenRef.current) {
+      wasOpenRef.current = false;
+      window.requestAnimationFrame(() => contactTriggerRef.current?.focus());
+    }
+
+    document.body.style.overflow = previousOverflow;
   }, [isOpen]);
 
   const contactOptions = [
@@ -93,6 +117,9 @@ export const FloatingContact = () => {
                     <Link
                       to={option.href}
                       onClick={() => setIsOpen(false)}
+                      ref={i === 0 ? firstContactOptionRef : undefined}
+                      data-analytics-event="floating_contact_click"
+                      data-contact-option={option.label}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
                       <span className="max-w-full px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-normal break-words sm:whitespace-nowrap">
@@ -111,6 +138,9 @@ export const FloatingContact = () => {
                       target={option.isExternal ? "_blank" : undefined}
                       rel={option.isExternal ? "noopener noreferrer" : undefined}
                       onClick={() => setIsOpen(false)}
+                      ref={i === 0 ? firstContactOptionRef : undefined}
+                      data-analytics-event="floating_contact_click"
+                      data-contact-option={option.label}
                       className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
                     >
                       <span className="max-w-full px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-normal break-words sm:whitespace-nowrap">
@@ -139,10 +169,13 @@ export const FloatingContact = () => {
               className="relative group"
             >
               <motion.button
+                ref={contactTriggerRef}
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? "Tutup Kontak Cepat" : "Buka Kontak Cepat"}
+                aria-expanded={isOpen}
+                aria-haspopup="dialog"
                 data-cursor-label={isOpen ? "Close" : "Contact"}
                 className={cn(
                   "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-full sm:rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300",
