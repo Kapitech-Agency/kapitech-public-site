@@ -58,13 +58,20 @@ export const InsightTableOfContents: React.FC<{
     [items]
   );
 
-  const itemMeta = useMemo(
-    () => validItems.map((item, index) => ({
-      ...item,
-      sectionNumber: item.level === 2 ? getSectionNumber(validItems, index) : undefined
-    })),
-    [validItems]
-  );
+  const itemMeta = useMemo(() => {
+    let sectionNumber = 0;
+
+    return validItems.map((item) => {
+      if (item.level === 2) {
+        sectionNumber += 1;
+      }
+
+      return {
+        ...item,
+        sectionNumber: String(sectionNumber).padStart(2, '0')
+      };
+    });
+  }, [validItems]);
 
   const [activeId, setActiveId] = useState(itemMeta[0]?.id || '');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -333,7 +340,7 @@ export const InsightTableOfContents: React.FC<{
 
           <span className="flex shrink-0 items-center gap-3">
             <span className="font-mono text-[9px] tabular-nums text-[#606873]">
-              {String(currentIndex + 1).padStart(2, '0')} / {String(itemMeta.length).padStart(2, '0')}
+              {current.sectionNumber} / {String(h2Count).padStart(2, '0')}
             </span>
             <ChevronDown
               size={16}
