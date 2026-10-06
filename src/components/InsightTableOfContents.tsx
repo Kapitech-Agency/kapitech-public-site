@@ -7,6 +7,7 @@ type TocVariant = 'all' | 'desktop' | 'mobile';
 
 const ARTICLE_SCROLL_OFFSET_PX = 112;
 const TOC_ROOT_BOTTOM_GAP = '55%';
+const TOC_NAVIGATION_LOCK_MS = 1800;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -68,8 +69,34 @@ export const InsightTableOfContents: React.FC<{
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const visibleHeadingsRef = useRef<Map<string, IntersectionObserverEntry>>(new Map());
+  const pendingNavigationRef = useRef<string>('');
+  const navigationLockTimerRef = useRef<number | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+
+  const lockActiveTo = (id: string) => {
+    pendingNavigationRef.current = id;
+
+    if (navigationLockTimerRef.current !== null) {
+      window.clearTimeout(navigationLockTimerRef.current);
+    }
+
+    navigationLockTimerRef.current = window.setTimeout(() => {
+      pendingNavigationRef.current = '';
+      navigationLockTimerRef.current = null;
+    }, TOC_NAVIGATION_LOCK_MS);
+  };
+
+  const unlockActiveNavigation = (id: string) => {
+    if (pendingNavigationRef.current !== id) return;
+
+    pendingNavigationRef.current = '';
+
+    if (navigationLockTimerRef.current !== null) {
+      window.clearTimeout(navigationLockTimerRef.current);
+      navigationLockTimerRef.current = null;
+    }
+  };
 
   useEffect(() => {
     if (!validItems.length) {
@@ -96,6 +123,18 @@ export const InsightTableOfContents: React.FC<{
         }
       }
 
+      const pendingId = pendingNavigationRef.current;
+      if (pendingId) {
+        const pendingEntry = visibleHeadings.get(pendingId);
+
+        if (pendingEntry?.isIntersecting) {
+          setActiveId(pendingId);
+          unlockActiveNavigation(pendingId);
+        }
+
+        return;
+      }
+
       const candidates = [...visibleHeadings.values()]
         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
@@ -114,6 +153,8 @@ export const InsightTableOfContents: React.FC<{
 
     const endMarker = document.querySelector<HTMLElement>('[data-insight-article-end]');
     const endObserver = new IntersectionObserver((entries) => {
+      if (pendingNavigationRef.current) return;
+
       if (entries.some((entry) => entry.isIntersecting)) {
         setActiveId(validItems[validItems.length - 1].id);
       }
@@ -132,6 +173,7 @@ export const InsightTableOfContents: React.FC<{
       if (!hash || !validItems.some((item) => item.id === hash)) return;
 
       setActiveId(hash);
+      lockActiveTo(hash);
 
       if (shouldScroll) {
         window.requestAnimationFrame(() => {
@@ -155,6 +197,13 @@ export const InsightTableOfContents: React.FC<{
       observer.disconnect();
       endObserver.disconnect();
       visibleHeadings.clear();
+
+      if (navigationLockTimerRef.current !== null) {
+        window.clearTimeout(navigationLockTimerRef.current);
+        navigationLockTimerRef.current = null;
+      }
+
+      pendingNavigationRef.current = '';
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
     };
@@ -224,6 +273,7 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     setActiveId(item.id);
+    lockActiveTo(item.id);
     setHash(item.id);
 
     scrollToHeading(
@@ -285,8 +335,10 @@ export const InsightTableOfContents: React.FC<{
               <span
                 aria-hidden="true"
                 className={[
-                  'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform] duration-200',
-                  active ? 'scale-100 bg-brand-red' : 'scale-75 bg-[#424852] group-hover:scale-90 group-hover:bg-[#66707D]'
+                  'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform,box-shadow] duration-200',
+                  active
+                    ? 'scale-100 bg-brand-red shadow-[0_0_0_3px_rgba(220,20,60,0.08)]'
+                    : 'scale-75 bg-[#424852] group-hover:scale-90 group-hover:bg-[#66707D]'
                 ].join(' ')}
               />
             )}
@@ -296,7 +348,7 @@ export const InsightTableOfContents: React.FC<{
                 'min-w-0 text-balance leading-[1.4] transition-[color,font-weight] duration-200',
                 isH2
                   ? active
-                    ? 'text-[12px] font-semibold'
+                    ? 'text-[12px] font-semibold tracking-[-0.01em]'
                     : 'text-[12px] font-medium'
                   : active
                     ? 'text-[11px] font-medium'
