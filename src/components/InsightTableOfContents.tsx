@@ -7,7 +7,9 @@ type TocVariant = 'all' | 'desktop' | 'mobile';
 
 const ARTICLE_SCROLL_OFFSET_PX = 112;
 const TOC_ROOT_BOTTOM_GAP = '55%';
-const TOC_NAVIGATION_LOCK_MS = 1800;
+const TOC_NAVIGATION_LOCK_MS = 2600;
+const TOC_SETTLE_TOP_PX = 112;
+const TOC_SETTLE_TOLERANCE_PX = 32;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -71,6 +73,7 @@ export const InsightTableOfContents: React.FC<{
   const visibleHeadingsRef = useRef<Map<string, IntersectionObserverEntry>>(new Map());
   const pendingNavigationRef = useRef<string>('');
   const navigationLockTimerRef = useRef<number | null>(null);
+  const tocRootRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
@@ -182,11 +185,35 @@ export const InsightTableOfContents: React.FC<{
       }
     };
 
+    const cancelPendingNavigation = () => {
+      pendingNavigationRef.current = '';
+
+      if (navigationLockTimerRef.current !== null) {
+        window.clearTimeout(navigationLockTimerRef.current);
+        navigationLockTimerRef.current = null;
+      }
+    };
+
+    const handleUserScrollIntent = (event: Event) => {
+      const root = tocRootRef.current;
+      if (root && event.target instanceof Node && root.contains(event.target)) return;
+      cancelPendingNavigation();
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
+        cancelPendingNavigation();
+      }
+    };
+
     const handleHashChange = () => syncHash(true);
     const handlePopState = () => syncHash(true);
 
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handlePopState);
+    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
+    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
+    window.addEventListener('keydown', handleKeydown);
 
     const initialHash = getHash();
     if (initialHash && validItems.some((item) => item.id === initialHash)) {
@@ -206,6 +233,9 @@ export const InsightTableOfContents: React.FC<{
       pendingNavigationRef.current = '';
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('wheel', handleUserScrollIntent);
+      window.removeEventListener('touchstart', handleUserScrollIntent);
+      window.removeEventListener('keydown', handleKeydown);
     };
   }, [validItems]);
 
@@ -250,9 +280,6 @@ export const InsightTableOfContents: React.FC<{
     1,
     Number.parseInt(current.sectionNumber, 10) || 1
   );
-  const sectionProgress = h2Count > 0
-    ? Math.min(100, (currentSection / h2Count) * 100)
-    : 0;
   const label = language === 'id' ? 'Di artikel ini' : 'In this article';
   const navigationLabel = language === 'id' ? 'Daftar isi artikel' : 'Article table of contents';
 
@@ -290,7 +317,7 @@ export const InsightTableOfContents: React.FC<{
     refMap: Map<string, HTMLAnchorElement>,
     mobile = false
   ) => (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       {itemMeta.map((item) => {
         const active = activeId === item.id;
         const isH2 = item.level === 2;
@@ -310,15 +337,15 @@ export const InsightTableOfContents: React.FC<{
               'transition-[color,background-color,border-color] duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
               isH2
-                ? 'min-h-11 gap-3 border-l-2 px-3 py-2.5'
-                : 'ml-5 min-h-9 gap-2 border-l px-2.5 py-1.5',
+                ? 'min-h-10 gap-3 border-l-2 px-3 py-2'
+                : 'ml-4 min-h-9 gap-2 border-l px-3 py-1.5',
               active
                 ? isH2
-                  ? 'border-brand-red bg-brand-red/[0.045] text-white'
-                  : 'border-brand-red/70 text-white'
+                  ? 'border-brand-red text-white'
+                  : 'border-brand-red/65 text-white'
                 : isH2
-                  ? 'border-transparent text-[#747C89] hover:border-white/10 hover:bg-white/[0.012] hover:text-[#D3D7DE]'
-                  : 'border-transparent text-[#747C89] hover:border-white/10 hover:text-[#C8CDD5]'
+                  ? 'border-transparent text-[#747C89] hover:bg-white/[0.018] hover:text-[#D3D7DE]'
+                  : 'border-transparent text-[#747C89] hover:text-[#C8CDD5]'
             ].join(' ')}
           >
             {isH2 ? (
@@ -326,7 +353,7 @@ export const InsightTableOfContents: React.FC<{
                 aria-hidden="true"
                 className={[
                   'w-5 shrink-0 pt-0.5 font-mono text-[9px] font-medium tabular-nums transition-colors duration-200',
-                  active ? 'text-brand-red' : 'text-[#59616D] group-hover:text-[#737B88]'
+                  active ? 'text-white' : 'text-[#59616D] group-hover:text-[#737B88]'
                 ].join(' ')}
               >
                 {item.sectionNumber}
@@ -335,9 +362,9 @@ export const InsightTableOfContents: React.FC<{
               <span
                 aria-hidden="true"
                 className={[
-                  'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform,box-shadow] duration-200',
+                  'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform] duration-200',
                   active
-                    ? 'scale-100 bg-brand-red shadow-[0_0_0_3px_rgba(220,20,60,0.08)]'
+                    ? 'scale-100 bg-brand-red'
                     : 'scale-75 bg-[#424852] group-hover:scale-90 group-hover:bg-[#66707D]'
                 ].join(' ')}
               />
@@ -348,10 +375,10 @@ export const InsightTableOfContents: React.FC<{
                 'min-w-0 text-balance leading-[1.4] transition-[color,font-weight] duration-200',
                 isH2
                   ? active
-                    ? 'text-[12px] font-semibold tracking-[-0.012em]'
+                    ? 'text-[12px] font-semibold'
                     : 'text-[12px] font-medium'
                   : active
-                    ? 'text-[11px] font-medium text-[#F0F1F4]'
+                    ? 'text-[11px] font-medium text-white'
                     : 'text-[11px] font-normal'
               ].join(' ')}
             >
@@ -376,11 +403,10 @@ export const InsightTableOfContents: React.FC<{
               setMobileOpen(false);
             }
           }}
-          className="group flex min-h-[60px] w-full items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-200 hover:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+          className="group flex min-h-[58px] w-full items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-200 hover:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
         >
           <span className="min-w-0">
-            <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.17em] text-[#7E8793]">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.17em] text-[#737B87]">
               {label}
             </span>
             <span className="mt-1.5 block truncate text-[13px] font-medium text-white">
@@ -402,13 +428,6 @@ export const InsightTableOfContents: React.FC<{
             />
           </span>
         </button>
-
-        <div className="h-px bg-white/[0.06]" aria-hidden="true">
-          <div
-            className="h-full bg-brand-red/70 transition-[width] duration-300"
-            style={{ width: sectionProgress + '%' }}
-          />
-        </div>
 
         {mobileOpen && (
           <nav
@@ -439,22 +458,16 @@ export const InsightTableOfContents: React.FC<{
               </p>
             </div>
 
-            <span className="font-mono text-[9px] tabular-nums text-[#6B7481]">
+            <span className="font-mono text-[9px] tabular-nums text-[#606873]">
               {String(currentSection).padStart(2, '0')} / {String(h2Count).padStart(2, '0')}
             </span>
           </div>
 
-          <div className="mt-3 h-px w-full bg-white/[0.06]" aria-hidden="true">
-            <div
-              className="h-full bg-brand-red/70 transition-[width] duration-300"
-              style={{ width: sectionProgress + '%' }}
-            />
-          </div>
         </div>
 
         <nav
           aria-label={navigationLabel}
-          className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]"
+          className="mt-3 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]"
         >
           {renderItems(desktopItemRefs.current)}
         </nav>
@@ -463,9 +476,9 @@ export const InsightTableOfContents: React.FC<{
   );
 
   return (
-    <>
+    <div ref={tocRootRef} className="h-full min-h-0">
       {mobile}
       {desktop}
-    </>
+    </div>
   );
 };
