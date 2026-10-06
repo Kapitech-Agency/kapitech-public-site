@@ -11,8 +11,7 @@ type TocSection = {
 };
 
 const ARTICLE_SCROLL_OFFSET_PX = 112;
-const NAVIGATION_TIMEOUT_MS = 2600;
-const NAVIGATION_SETTLE_TOLERANCE_PX = 32;
+const NAVIGATION_SETTLE_TOLERANCE_PX = 36;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -139,7 +138,7 @@ export const InsightTableOfContents: React.FC<{
 
 
   const navigationTargetRef = useRef('');
-  const navigationTimerRef = useRef<number | null>(null);
+  const manuallyCollapsedSectionRef = useRef<string | null>(null);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -148,11 +147,6 @@ export const InsightTableOfContents: React.FC<{
 
   const clearNavigationLock = () => {
     navigationTargetRef.current = '';
-
-    if (navigationTimerRef.current !== null) {
-      window.clearTimeout(navigationTimerRef.current);
-      navigationTimerRef.current = null;
-    }
   };
 
   const setActive = (id: string) => {
@@ -160,9 +154,20 @@ export const InsightTableOfContents: React.FC<{
 
     activeIdRef.current = id;
     setActiveId(id);
+  };
 
+  const expandSectionForItem = (id: string) => {
     const sectionId = sectionByItemId.get(id);
-    if (sectionId) {
+    if (!sectionId) return;
+
+    const previousSectionId = sectionByItemId.get(activeIdRef.current);
+    const sectionChanged = previousSectionId !== sectionId;
+
+    if (sectionChanged) {
+      manuallyCollapsedSectionRef.current = null;
+    }
+
+    if (manuallyCollapsedSectionRef.current !== sectionId) {
       setExpandedSectionId(sectionId);
     }
   };
@@ -197,6 +202,7 @@ export const InsightTableOfContents: React.FC<{
     }
 
     setActive(currentId);
+    expandSectionForItem(currentId);
   };
 
   const scheduleScrollSync = () => {
@@ -209,22 +215,20 @@ export const InsightTableOfContents: React.FC<{
 
       if (pendingId) {
         const targetExists = getHeadingTop(pendingId) !== null;
-        const settled = targetExists && isNearHeading(pendingId);
-        const timedOut = navigationTimerRef.current === null;
 
-        if (settled) {
-          clearNavigationLock();
-          setActive(pendingId);
-          return;
-        }
-
-        if (!targetExists || timedOut) {
+        if (!targetExists) {
           clearNavigationLock();
           syncActiveFromScroll();
           return;
         }
 
         setActive(pendingId);
+
+        if (isNearHeading(pendingId)) {
+          clearNavigationLock();
+          syncActiveFromScroll();
+        }
+
         return;
       }
 
@@ -234,16 +238,7 @@ export const InsightTableOfContents: React.FC<{
 
   const startNavigation = (id: string, sectionId?: string) => {
     navigationTargetRef.current = id;
-
-    if (navigationTimerRef.current !== null) {
-      window.clearTimeout(navigationTimerRef.current);
-    }
-
-    navigationTimerRef.current = window.setTimeout(() => {
-      navigationTimerRef.current = null;
-      scheduleScrollSync();
-    }, NAVIGATION_TIMEOUT_MS);
-
+    manuallyCollapsedSectionRef.current = null;
     setActive(id);
 
     if (sectionId) {
@@ -373,12 +368,8 @@ export const InsightTableOfContents: React.FC<{
         rafRef.current = null;
       }
 
-      if (navigationTimerRef.current !== null) {
-        window.clearTimeout(navigationTimerRef.current);
-        navigationTimerRef.current = null;
-      }
-
       navigationTargetRef.current = '';
+      manuallyCollapsedSectionRef.current = null;
     };
   }, [validItems, sectionByItemId, variant]);
 
@@ -450,9 +441,15 @@ export const InsightTableOfContents: React.FC<{
     : sections.length === 1 ? 'section' : 'sections';
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSectionId((current) => (
-      current === sectionId ? null : sectionId
-    ));
+    setExpandedSectionId((current) => {
+      if (current === sectionId) {
+        manuallyCollapsedSectionRef.current = sectionId;
+        return null;
+      }
+
+      manuallyCollapsedSectionRef.current = null;
+      return sectionId;
+    });
   };
 
   const navigateTo = (
@@ -576,17 +573,16 @@ export const InsightTableOfContents: React.FC<{
                   : (language === 'id' ? 'Buka subbagian' : 'Expand subsections')
               }
               onClick={(event) => {
-                event.preventDefault();
                 event.stopPropagation();
                 toggleSection(section.heading.id);
               }}
-              onPointerDown={(event) => event.stopPropagation()}
               className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-white/[0.07] transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
-                expanded
-                  ? 'bg-white/[0.06] text-white'
-                  : 'bg-white/[0.02] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.045] hover:text-white'
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                expanded || sectionActive
+                  ? 'border-brand-red/30 bg-brand-red/[0.08] text-brand-red'
+                  : 'border-white/[0.07] bg-white/[0.02] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.045] hover:text-white'
               ].join(' ')}
+              data-state={expanded ? 'open' : 'closed'}
             >
               <ChevronDown
                 size={14}
@@ -668,8 +664,8 @@ export const InsightTableOfContents: React.FC<{
             aria-controls={mobileNavId}
             onClick={() => setMobileOpen((open) => !open)}
             className={[
-              'flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
-              mobileOpen ? 'bg-white/[0.018]' : ''
+              'flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
+              mobileOpen ? 'bg-brand-red/[0.025]' : ''
             ].join(' ')}
           >
             <span className="min-w-0">
@@ -689,9 +685,9 @@ export const InsightTableOfContents: React.FC<{
 
             <span
               className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200',
+                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-200',
                 mobileOpen
-                  ? 'border-white/[0.14] bg-white/[0.06] text-white'
+                  ? 'border-brand-red/30 bg-brand-red/[0.08] text-brand-red'
                   : 'border-white/[0.08] bg-white/[0.025] text-white/80'
               ].join(' ')}
               aria-hidden="true"
