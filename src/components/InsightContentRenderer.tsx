@@ -159,7 +159,9 @@ export const InsightContentRenderer: React.FC<{
           return (
             <Heading
               key={index}
-              id={headingIds[index] || undefined}
+              id={isValidationDecision && block.text === 'When should you build a Prototype?'
+                ? 'insight-when-should-you-build-one'
+                : headingIds[index] || undefined}
               className={[
                 'group scroll-mt-28 mb-4 mt-10 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]',
                 isValidationDecision
@@ -167,9 +169,6 @@ export const InsightContentRenderer: React.FC<{
                   : 'border-l border-white/[0.08] pl-4'
               ].join(' ')}
             >
-              {isValidationDecision && block.text === 'When should you build a Prototype?' && (
-                <span id="insight-when-should-you-build-one" className="sr-only" aria-hidden="true" />
-              )}
               {isValidationDecision && (
                 <span className="mb-2 block text-[8px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
                   {language === 'id' ? 'Panduan keputusan' : 'Decision guide'}
