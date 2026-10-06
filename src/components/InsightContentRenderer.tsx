@@ -263,10 +263,10 @@ export const InsightContentRenderer: React.FC<{
         if (block.type === 'callout') {
           const tone = block.tone || 'neutral';
           const toneClass = tone === 'warning'
-            ? 'border-amber-400/45'
+            ? 'border-l-amber-400/55'
             : tone === 'success'
-              ? 'border-emerald-400/45'
-              : 'border-brand-red/40';
+              ? 'border-l-emerald-400/55'
+              : 'border-l-brand-red/50';
 
           return (
             <aside
