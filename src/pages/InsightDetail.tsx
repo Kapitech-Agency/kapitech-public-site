@@ -1,10 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ChevronRight, Clock3 } from 'lucide-react';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
-import { InsightCard } from '../components/InsightCard';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
-import { InsightLeftRail } from '../components/InsightLeftRail';
 import { InsightRightRail } from '../components/InsightRightRail';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { InsightTableOfContents } from '../components/InsightTableOfContents';
@@ -16,46 +13,12 @@ import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
 import { getInsightFallback } from '../data/insightFallbacks';
 
-function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
-  if (!value) return '';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return '';
-  return new Intl.DateTimeFormat(language === 'id' ? 'id-ID' : 'en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(date);
-}
-
-function clamp(value: number): number {
-  return Math.max(0, Math.min(100, value));
-}
-
-function prefersReducedMotion(): boolean {
-  return typeof window !== 'undefined'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
 function validFaq(article: InsightItem): Array<{ question: string; answer: string }> {
   const explicit = normalizeInsightFaq(article.faq);
 
   return explicit.length > 0
     ? explicit
     : deriveInsightFaq(article.content, article.language);
-}
-
-function getRelatedInsights(article: InsightItem): InsightItem[] {
-  const seen = new Set<string>();
-
-  return (Array.isArray(article.relatedInsights) ? article.relatedInsights : [])
-    .filter((item) => {
-      if (!item || item.id === article.id || item.slug === article.slug) return false;
-      if (item.status !== 'published' || item.language !== article.language || !item.slug) return false;
-      if (seen.has(item.slug)) return false;
-      seen.add(item.slug);
-      return true;
-    })
-    .slice(0, 3);
 }
 
 function hasPrerenderedInsight(): boolean {
@@ -132,8 +95,6 @@ export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
-  const articleReadingRef = useRef<HTMLElement | null>(null);
-  const readingEndRef = useRef<HTMLDivElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const initialFallback = getInsightFallback(slug);
@@ -141,9 +102,7 @@ export const InsightDetail: React.FC = () => {
   const [loading, setLoading] = useState(() => !initialFallback);
   const [notFound, setNotFound] = useState(false);
   const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
-  const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared'>('idle');
-  const [readingProgress, setReadingProgress] = useState(0);
-  const [relatedInsights, setRelatedInsights] = useState<InsightItem[]>([]);
+
 
   useEffect(() => {
     languageInitializedRef.current = false;
@@ -153,8 +112,7 @@ export const InsightDetail: React.FC = () => {
     setLoading(!localFallback);
     setNotFound(false);
     setLoadError(null);
-    setReadingProgress(0);
-    setRelatedInsights([]);
+
 
     let cancelled = false;
 
@@ -314,51 +272,6 @@ export const InsightDetail: React.FC = () => {
   }, [article, language, navigate, setLanguage, slug]);
 
   useEffect(() => {
-    let rafId = 0;
-
-    const update = () => {
-      rafId = 0;
-      const articleElement = articleReadingRef.current;
-      if (!articleElement) return;
-
-      const endElement = readingEndRef.current;
-      if (!endElement) return;
-
-      const startRect = articleElement.getBoundingClientRect();
-      const endRect = endElement.getBoundingClientRect();
-      const start = window.scrollY + startRect.top;
-      const end = window.scrollY + endRect.bottom;
-      const travel = Math.max(1, end - start - window.innerHeight);
-      setReadingProgress(clamp(((window.scrollY - start) / travel) * 100));
-    };
-
-    const schedule = () => {
-      if (rafId !== 0) return;
-      rafId = window.requestAnimationFrame(update);
-    };
-
-    const resizeObserver = typeof ResizeObserver !== 'undefined'
-      ? new ResizeObserver(schedule)
-      : null;
-
-    if (resizeObserver) {
-      if (articleReadingRef.current) resizeObserver.observe(articleReadingRef.current);
-      if (readingEndRef.current) resizeObserver.observe(readingEndRef.current);
-    }
-
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      resizeObserver?.disconnect();
-      if (rafId !== 0) window.cancelAnimationFrame(rafId);
-    };
-  }, [article]);
-
-  useEffect(() => {
     if (!article) return;
     removePrerenderedInsight();
   }, [article]);
@@ -368,60 +281,6 @@ export const InsightDetail: React.FC = () => {
       removePrerenderedInsight();
     };
   }, []);
-
-  useEffect(() => {
-    if (!article) return;
-
-    let cancelled = false;
-    const seeded = getRelatedInsights(article);
-
-    if (seeded.length >= 3) {
-      setRelatedInsights(seeded);
-      return () => {
-        cancelled = true;
-      };
-    }
-
-    const loadRelated = async () => {
-      const response = await api.cms.getInsights({
-        language: article.language,
-        categoryId: article.categoryId || article.category?.id || undefined,
-        page: 1,
-        pageSize: 6
-      });
-
-      if (cancelled) return;
-
-      const candidates = response.success
-        ? (response.data?.insights || [])
-        : [];
-
-      const seen = new Set(seeded.map((item) => item.slug));
-      const fallback = candidates.filter((item) => {
-        if (!item || item.status !== 'published' || item.language !== article.language || !item.slug) return false;
-        if (item.id === article.id || item.slug === article.slug || seen.has(item.slug)) return false;
-        seen.add(item.slug);
-        return true;
-      });
-
-      setRelatedInsights([...seeded, ...fallback].slice(0, 3));
-
-      if (!response.success) {
-        console.warn('[Kapitech Insight] related-content fallback unavailable:', response.error || 'Unknown API error');
-      }
-    };
-
-    void loadRelated().catch((error: unknown) => {
-      if (!cancelled) {
-        console.warn('[Kapitech Insight] related-content fallback failed:', error);
-        setRelatedInsights(seeded);
-      }
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [article]);
 
   const blocks = useMemo(
     () => (article && Array.isArray(article.content) ? article.content : []),
@@ -438,22 +297,10 @@ export const InsightDetail: React.FC = () => {
     [blocks, firstHeadingIndex]
   );
 
-  const bodyBlocks = useMemo(() => {
-    const source = firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [];
-
-    const isMvpValidationInsight = article?.slug?.startsWith('mvp-vs-prototype-vs-proof-of-concept');
-
-    if (!isMvpValidationInsight) {
-      return source;
-    }
-
-    let promoCount = 0;
-    return source.filter((block) => {
-      if (block?.type !== 'promo') return true;
-      promoCount += 1;
-      return promoCount === 1;
-    });
-  }, [article?.slug, blocks, firstHeadingIndex]);
+  const bodyBlocks = useMemo(
+    () => firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [],
+    [blocks, firstHeadingIndex]
+  );
 
   const headingIds = useMemo(() => buildInsightHeadingIds(bodyBlocks), [bodyBlocks]);
 
@@ -475,30 +322,6 @@ export const InsightDetail: React.FC = () => {
 
     return items;
   }, [article?.language, bodyBlocks, faq, headingIds]);
-
-  const shareArticle = async () => {
-    try {
-      let nextState: 'copied' | 'shared' = 'copied';
-
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: article?.title || 'Kapitech Insight',
-            url: window.location.href
-          });
-          nextState = 'shared';
-        } catch (error: unknown) {
-          if (error instanceof DOMException && error.name === 'AbortError') return;
-          await navigator.clipboard.writeText(window.location.href);
-        }
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-      }
-
-      setShareState(nextState);
-      window.setTimeout(() => setShareState('idle'), 1800);
-    } catch {}
-  };
 
   const hasPrerender = hasPrerenderedInsight();
 
