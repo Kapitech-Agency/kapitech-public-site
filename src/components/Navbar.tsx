@@ -24,6 +24,8 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const mobileMenuTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const wasMobileMenuOpenRef = useRef(false);
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -65,8 +67,12 @@ export const Navbar = () => {
     };
 
     if (isMenuOpen) {
+      wasMobileMenuOpenRef.current = true;
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleKeyDown);
+    } else if (wasMobileMenuOpenRef.current) {
+      wasMobileMenuOpenRef.current = false;
+      window.requestAnimationFrame(() => mobileMenuTriggerRef.current?.focus());
     }
 
     return () => {
@@ -222,6 +228,7 @@ export const Navbar = () => {
                     "gap-1.5",
                   )}
                   aria-expanded={isServicesDropdownOpen}
+                  aria-controls="desktop-services-dropdown"
                   aria-haspopup="true"
                   aria-current={isServicesActive ? 'page' : undefined}
                 >
@@ -404,6 +411,17 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={handleMouseEnterServices}
               onMouseLeave={handleMouseLeaveServices}
+              id="desktop-services-dropdown"
+              ref={servicesDropdownRef}
+              onBlur={(event) => {
+                const nextTarget = event.relatedTarget;
+                const trigger = event.currentTarget.parentElement?.querySelector<HTMLButtonElement>('button[aria-haspopup="true"]');
+                if (
+                  nextTarget instanceof Node &&
+                  (event.currentTarget.contains(nextTarget) || trigger?.contains(nextTarget))
+                ) return;
+                setIsServicesDropdownOpen(false);
+              }}
               className={cn(
                 "hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12",
                 dropdownGlassMaterial
@@ -617,13 +635,17 @@ export const Navbar = () => {
               </Link>
 
               {/* Services & Solutions (Accordion in Mobile Menu) */}
-              <div className="border-b border-[#262930] overflow-hidden">
+              <div className={cn("border-b border-[#262930] overflow-hidden", isServicesActive && "border-brand-red/60")}>
                 <button
                   type="button"
                   onClick={() => setIsMobileServicesOpen(prev => !prev)}
                   aria-expanded={isMobileServicesOpen}
                   aria-controls="mobile-services-submenu"
-                  className="w-full flex items-center justify-between py-3.5 px-1 text-left text-white font-display text-xl min-h-[52px] cursor-pointer"
+                  aria-current={isServicesActive ? 'page' : undefined}
+                  className={cn(
+                    "w-full flex items-center justify-between py-3.5 px-1 text-left font-display text-xl min-h-[52px] cursor-pointer",
+                    isServicesActive ? "text-white font-bold" : "text-[#8A909D] hover:text-white"
+                  )}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-brand-red">02</span>
