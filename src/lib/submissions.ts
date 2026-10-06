@@ -33,8 +33,14 @@ export const submitToInbox = async (
   const attribution = getAttributionContext();
   const enrichedData = { ...data, attribution };
 
-  trackEvent('contact_submit', {
-    form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+  const formName = data.type === 'career'
+    ? 'careers_form'
+    : data.type === 'newsletter'
+      ? 'newsletter_form'
+      : 'contact_form';
+
+  trackEvent(data.type === 'newsletter' ? 'newsletter_submit' : 'contact_submit', {
+    form_name: formName,
     service_count: data.services?.length || 0,
   });
 
@@ -42,15 +48,15 @@ export const submitToInbox = async (
   const id = (result.data as { id?: string } | undefined)?.id;
 
   if (!result.success || !id) {
-    trackEvent('contact_error', {
-      form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+    trackEvent(data.type === 'newsletter' ? 'newsletter_error' : 'contact_error', {
+      form_name: formName,
       error_type: 'api_rejection',
     });
     throw new Error(result.error || 'Lead submission failed.');
   }
 
-  trackEvent('contact_success', {
-    form_name: data.type === 'career' ? 'careers_form' : 'contact_form',
+  trackEvent(data.type === 'newsletter' ? 'newsletter_success' : 'contact_success', {
+    form_name: formName,
   });
 
   return { success: true, id };

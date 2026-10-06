@@ -9,6 +9,8 @@ export const Footer = () => {
   const [localTime, setLocalTime] = useState('');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscribeError, setSubscribeError] = useState('');
   const { t, language } = useLanguage();
   const { pathname } = useLocation();
   const isContactPage = pathname === '/contact';
@@ -33,22 +35,33 @@ export const Footer = () => {
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      const emailToSubmit = email.trim();
+    const emailToSubmit = email.trim();
+    if (!emailToSubmit || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setIsSubscribed(false);
+    setSubscribeError('');
+
+    try {
+      await submitToInbox({
+        fullName: 'Newsletter Subscriber',
+        email: emailToSubmit,
+        message: `User subscribed to newsletter updates: ${emailToSubmit}`,
+        source: 'Footer Newsletter Form',
+        type: 'newsletter'
+      });
       setIsSubscribed(true);
-      try {
-        await submitToInbox({
-          fullName: 'Newsletter Subscriber',
-          email: emailToSubmit,
-          message: `User subscribed to newsletter updates: ${emailToSubmit}`,
-          source: 'Footer Newsletter Form',
-          type: 'newsletter'
-        });
-      } catch (err) {
-        console.warn('Newsletter submission error:', err);
-      }
-      setTimeout(() => setIsSubscribed(false), 4000);
       setEmail('');
+      window.setTimeout(() => setIsSubscribed(false), 4000);
+    } catch (err) {
+      console.warn('Newsletter submission error:', err);
+      setSubscribeError(
+        language === 'id'
+          ? 'Pendaftaran belum berhasil. Silakan coba lagi.'
+          : 'Subscription could not be completed. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -234,14 +247,24 @@ export const Footer = () => {
                 />
                 <button 
                   type="submit"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-[#E01414] transition-colors min-h-[34px]"
+                  disabled={isSubmitting}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-[#E01414] transition-colors min-h-[34px] disabled:cursor-wait disabled:opacity-60"
                 >
-                  {isSubscribed ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!') : (language === 'id' ? 'Langganan' : 'Subscribe')}
+                  {isSubmitting
+                    ? (language === 'id' ? 'Mengirim…' : 'Sending…')
+                    : isSubscribed
+                      ? (language === 'id' ? 'Terdaftar!' : 'Subscribed!')
+                      : (language === 'id' ? 'Langganan' : 'Subscribe')}
                 </button>
               </form>
               {isSubscribed && (
-                <p className="text-[11px] text-brand-red font-mono mt-2 flex items-center gap-1.5">
+                <p className="text-[11px] text-brand-red font-mono mt-2 flex items-center gap-1.5" role="status" aria-live="polite">
                   <CheckCircle2 size={12} /> {language === 'id' ? 'Terima kasih telah berlangganan info Kapitech Agency.' : 'Thank you for subscribing to Kapitech Agency updates.'}
+                </p>
+              )}
+              {subscribeError && (
+                <p className="text-[11px] text-[#F08A8A] font-mono mt-2" role="alert">
+                  {subscribeError}
                 </p>
               )}
             </div>

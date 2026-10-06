@@ -33,7 +33,12 @@ import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
 import { Testimonials } from '../components/Testimonials';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
-import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
+import {
+  fetchServerCmsProjects,
+  getCmsProjects,
+  fetchServerCmsServices,
+  getCmsServices,
+} from '../lib/cmsStore';
 import { cn } from '../lib/utils';
 import { allSolutionsAndServices } from '../data/servicesData';
 
@@ -42,32 +47,47 @@ const ProcessModalPortal = ({ children }: { children: React.ReactNode }) => {
   return createPortal(children, document.body);
 };
 
+const CASE_STUDY_IMAGE_FALLBACK = '/case-study-fallback.svg';
+
+const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+  const image = event.currentTarget;
+  if (image.dataset.fallbackApplied === 'true') return;
+  image.dataset.fallbackApplied = 'true';
+  image.src = CASE_STUDY_IMAGE_FALLBACK;
+};
+
 export const Home = () => {
   const { t, language } = useLanguage();
-  const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
+  const [cmsServices, setCmsServices] = useState(() => getCmsServices());
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
   const processModalRef = React.useRef<HTMLDivElement>(null);
   const processModalTriggerRef = React.useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleUpdate = () => {
+    const handleCmsUpdate = () => {
       setProjectsList(getCmsProjects());
+      setCmsServices(getCmsServices());
     };
 
-    window.addEventListener('kapitech_cms_updated', handleUpdate);
+    window.addEventListener('kapitech_cms_updated', handleCmsUpdate);
     void fetchServerCmsProjects().then(() => {
       setProjectsList(getCmsProjects());
     });
+    void fetchServerCmsServices().then(() => {
+      setCmsServices(getCmsServices());
+    });
 
-    return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
+    return () => window.removeEventListener('kapitech_cms_updated', handleCmsUpdate);
   }, []);
 
   const openProcessStep = (index: number) => {
-    processModalTriggerRef.current = document.activeElement instanceof HTMLElement
-      ? document.activeElement
-      : null;
+    if (selectedProcessStep === null) {
+      processModalTriggerRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
     setActiveProcessStep(index);
     setSelectedProcessStep(index);
   };
@@ -88,8 +108,8 @@ export const Home = () => {
         setSelectedProcessStep((current) => {
           if (current === null) return current;
           const next = event.key === 'ArrowLeft'
-            ? (current - 1 + processSteps.length) % processSteps.length
-            : (current + 1) % processSteps.length;
+            ? Math.max(0, current - 1)
+            : Math.min(processSteps.length - 1, current + 1);
           setActiveProcessStep(next);
           return next;
         });
@@ -592,7 +612,7 @@ export const Home = () => {
 
           <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
             {(['Branding', 'Design', 'Development'] as const).map((category, index) => {
-              const services = allSolutionsAndServices.filter(
+              const services = cmsServices.filter(
                 (service) => service.type === 'service' && service.category === category,
               );
               const categoryMeta = {
@@ -662,6 +682,8 @@ export const Home = () => {
                       <Link
                         key={service.slug}
                         to={`/services/${service.slug}`}
+                        data-analytics-event="service_click"
+                        data-service-slug={service.slug}
                         className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-4 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12"
                       >
                         <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
@@ -749,6 +771,8 @@ export const Home = () => {
                     <Link
                       key={solution.slug}
                       to={`/solutions/${solution.slug}`}
+                      data-analytics-event="solution_click"
+                      data-solution-slug={solution.slug}
                       className="group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
                     >
                       <span
@@ -848,7 +872,10 @@ export const Home = () => {
               return (
                 <Link
                   key={project.id}
-                  to="/work"
+                  to={`/work?project=${encodeURIComponent(project.id)}`}
+                  aria-label={language === 'id' ? `Buka studi kasus ${project.title}` : `Open case study ${project.title}`}
+                  data-analytics-event="featured_case_click"
+                  data-case-id={project.id}
                   className={cn(
                     "group relative overflow-hidden rounded-2xl border border-white/[0.075] bg-[#101114] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25",
                     isLead ? "lg:row-span-2" : "min-h-[260px] lg:min-h-0"
@@ -863,6 +890,7 @@ export const Home = () => {
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
+                      onError={handleCaseStudyImageError}
                       className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
@@ -1021,6 +1049,8 @@ export const Home = () => {
                       type="button"
                       onClick={() => openProcessStep(index)}
                       onFocus={() => setActiveProcessStep(index)}
+                      data-analytics-event="process_phase_open"
+                      data-process-step={step.step}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
                       className="relative z-10 block w-full cursor-pointer text-left outline-none"
@@ -1090,7 +1120,7 @@ export const Home = () => {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
             >
-              <span>{language === 'id' ? 'Hover untuk preview, klik phase untuk membuka detail' : 'Hover to preview, click a phase for details'}</span>
+              <span>{language === 'id' ? 'Arahkan kursor untuk preview, pilih phase untuk membuka detail' : 'Hover to preview, select a phase for details'}</span>
               <span className="text-brand-red/85 tabular-nums">
                 {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
               </span>
@@ -1105,6 +1135,7 @@ export const Home = () => {
           {selectedProcessStep !== null && (() => {
             const step = processSteps[selectedProcessStep];
             const isFirst = selectedProcessStep === 0;
+            const isLast = selectedProcessStep === processSteps.length - 1;
 
             return (
               <div
@@ -1277,7 +1308,7 @@ export const Home = () => {
                   <div className="flex flex-col gap-3 border-t border-white/[0.08] bg-[#0D0E11] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
                     <button
                       type="button"
-                      onClick={() => openProcessStep((selectedProcessStep - 1 + processSteps.length) % processSteps.length)}
+                      onClick={() => openProcessStep(selectedProcessStep - 1)}
                       className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#D0D4DB] transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
                       disabled={isFirst}
                     >
@@ -1295,8 +1326,9 @@ export const Home = () => {
 
                     <button
                       type="button"
-                      onClick={() => openProcessStep((selectedProcessStep + 1) % processSteps.length)}
-                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:min-w-[160px]"
+                      onClick={() => openProcessStep(selectedProcessStep + 1)}
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
+                      disabled={isLast}
                     >
                       <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
                       <ChevronRight size={14} />
