@@ -441,7 +441,7 @@ export const InsightDetail: React.FC = () => {
 
   if (loadError === 'network') {
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Network error</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
