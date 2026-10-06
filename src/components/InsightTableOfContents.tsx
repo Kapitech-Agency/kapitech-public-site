@@ -262,10 +262,6 @@ export const InsightTableOfContents: React.FC<{
         clearNavigationLock();
         scheduleScrollSync();
       }
-
-      if (event.key === 'Escape' && mobileOpen) {
-        setMobileOpen(false);
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -307,7 +303,20 @@ export const InsightTableOfContents: React.FC<{
 
       navigationTargetRef.current = '';
     };
-  }, [validItems, mobileOpen]);
+  }, [validItems]);
+
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (!activeId) return;
