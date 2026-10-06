@@ -38,7 +38,7 @@ function enablePrerenderedInsightFallback(): void {
   const prerender = document.getElementById('kapi-prerendered-insight');
   if (!prerender) return;
 
-  prerender.classList.remove('pointer-events-none', 'fixed', 'z-0');
+  prerender.classList.remove('pointer-events-none', 'fixed', 'z-0', 'opacity-0');
   prerender.classList.add('pointer-events-auto', 'relative');
   prerender.setAttribute('aria-hidden', 'false');
   prerender.setAttribute('data-kapi-prerender-fallback', 'true');
