@@ -68,9 +68,12 @@ function setHash(id: string): void {
 
 function isNearHeading(id: string): boolean {
   const top = getHeadingTop(id);
-  if (top === null) return false;
+  if (top === null || typeof window === 'undefined') return false;
 
-  return Math.abs(top - ARTICLE_SCROLL_OFFSET_PX) <= NAVIGATION_SETTLE_TOLERANCE_PX;
+  const nearTarget = Math.abs(top - ARTICLE_SCROLL_OFFSET_PX) <= NAVIGATION_SETTLE_TOLERANCE_PX;
+  const atDocumentEnd = window.scrollY >= getDocumentMaxScroll() - 4;
+
+  return nearTarget || atDocumentEnd;
 }
 
 export const InsightTableOfContents: React.FC<{
