@@ -99,6 +99,8 @@ export const InsightContentRenderer: React.FC<{
     } catch {}
   };
 
+  let sectionNumber = 0;
+
   return (
     <div className="kapi-insight-body max-w-none">
       {blocks.map((block, index) => {
@@ -106,25 +108,45 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'paragraph') {
           return (
-            <p key={index} className="mb-7 text-[15px] font-light leading-[1.9] text-[#C3C7D0] sm:text-[16px]">
+            <p key={index} className="mb-6 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
               {inlineMarkdown(block.text)}
             </p>
           );
         }
 
         if (block.type === 'heading') {
-          const Heading = block.level === 3 ? 'h3' : 'h2';
+          const isSection = block.level !== 3;
+          const Heading = isSection ? 'h2' : 'h3';
+          const currentSectionNumber = isSection ? ++sectionNumber : sectionNumber;
+
+          if (isSection) {
+            return (
+              <Heading
+                key={index}
+                id={headingIds[index] || undefined}
+                className="scroll-mt-28 mb-6 mt-16 first:mt-2"
+              >
+                <span className="mb-3 flex items-center gap-3 border-t border-white/[0.07] pt-5">
+                  <span className="font-mono text-[9px] font-semibold tabular-nums tracking-[0.14em] text-brand-red">
+                    {String(currentSectionNumber).padStart(2, '0')}
+                  </span>
+                  <span className="h-px w-8 bg-brand-red/45" aria-hidden="true" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
+                    {language === 'id' ? 'Bagian' : 'Section'}
+                  </span>
+                </span>
+                <span className="block font-display text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2.1rem] lg:text-[2.3rem]">
+                  {block.text}
+                </span>
+              </Heading>
+            );
+          }
 
           return (
             <Heading
               key={index}
               id={headingIds[index] || undefined}
-              className={[
-                'group scroll-mt-28 font-display font-semibold text-white',
-                block.level === 3
-                  ? 'mb-4 mt-9 text-xl leading-[1.12] tracking-[-0.03em] sm:text-[1.35rem]'
-                  : 'mb-5 mt-14 text-2xl leading-[1.08] tracking-[-0.045em] sm:text-[2rem] lg:text-[2.2rem] first:mt-2 sm:first:mt-3'
-              ].join(' ')}
+              className="group scroll-mt-28 mb-4 mt-10 border-l border-white/[0.08] pl-4 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]"
             >
               {block.text}
             </Heading>
@@ -153,9 +175,11 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="relative my-10 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">
-              <div className="absolute left-0 top-0 h-full w-[2px] bg-brand-red/70" />
-              <blockquote className="max-w-2xl font-display text-xl leading-[1.45] tracking-[-0.02em] text-white/92 sm:text-2xl">
+            <figure key={index} className="my-11 border-y border-white/[0.08] py-7 sm:py-8">
+              <p className="mb-3 text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
+                {language === 'id' ? 'Catatan' : 'Editorial note'}
+              </p>
+              <blockquote className="max-w-3xl font-display text-[1.22rem] leading-[1.45] tracking-[-0.02em] text-white sm:text-[1.45rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
               {block.attribution && (
@@ -175,7 +199,7 @@ export const InsightContentRenderer: React.FC<{
 
           return (
             <figure key={index} className="my-12">
-              <div className="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">
+              <div className="relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">
                 <img
                   src={block.url}
                   alt={block.alt || ''}
@@ -184,6 +208,14 @@ export const InsightContentRenderer: React.FC<{
                   loading="lazy"
                   decoding="async"
                   className="block h-auto w-full object-contain"
+                  onError={(event) => {
+                    const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
+                    if (event.currentTarget.src.endsWith(fallback)) return;
+                    event.currentTarget.src = fallback;
+                    event.currentTarget.alt = language === 'id'
+                      ? 'Visual artikel Kapitech'
+                      : 'Kapitech article visual';
+                  }}
                 />
               </div>
               {block.caption && (
@@ -252,12 +284,22 @@ export const InsightContentRenderer: React.FC<{
         if (block.type === 'callout') {
           const tone = block.tone || 'neutral';
 
+          const calloutLabel = tone === 'warning'
+            ? (language === 'id' ? 'Perhatian' : 'Watch')
+            : tone === 'success'
+              ? (language === 'id' ? 'Prinsip' : 'Principle')
+              : tone === 'info'
+                ? (language === 'id' ? 'Catatan' : 'Note')
+                : (language === 'id' ? 'Insight' : 'Insight');
+
           return (
             <aside
               key={index}
-              className={'relative my-9 overflow-hidden rounded-[22px] border p-5 sm:p-6 ' + (calloutStyles[tone] || calloutStyles.neutral)}
+              className={'my-9 rounded-[18px] border p-5 sm:p-6 ' + (calloutStyles[tone] || calloutStyles.neutral)}
             >
-              <div className="absolute left-0 top-0 h-full w-[2px] bg-brand-red/55" />
+              <p className="mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                {calloutLabel}
+              </p>
               {block.title && (
                 <p className="mb-2 text-sm font-semibold tracking-[-0.01em] text-white">{block.title}</p>
               )}
@@ -354,10 +396,10 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'divider') {
           return (
-            <div key={index} className="my-12 flex items-center gap-3" aria-hidden="true">
+            <div key={index} className="my-14 flex items-center gap-4" aria-hidden="true">
               <span className="h-px flex-1 bg-white/[0.07]" />
-              <span className="h-1 w-1 rounded-full bg-brand-red/60" />
-              <span className="h-px w-10 bg-white/[0.07]" />
+              <span className="h-1 w-1 rounded-full bg-brand-red/70" />
+              <span className="h-px flex-[0.18] bg-white/[0.07]" />
             </div>
           );
         }
