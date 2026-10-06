@@ -1,131 +1,118 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { api } from '../lib/apiClient';
-import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
 import type { InsightItem } from '../data/insightTypes';
+import { useLanguage } from '../lib/LanguageContext';
+import {
+  buildInsightStructuredData,
+  normalizeInsightSeo
+} from '../lib/insightSeo.mjs';
 
 const SITE = seoRoutes.siteUrl;
 const IMAGE = seoRoutes.defaultImage;
+const SITE_NAME = seoRoutes.siteName;
 const ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
-const absoluteUrl = (value?: string) => {
-  if (!value) return SITE + '/';
-  try {
-    return new URL(value, SITE + '/').toString();
-  } catch {
-    return SITE + '/';
-  }
-};
-
-const setMeta = (name: string, content: string) => {
+function setMeta(name: string, content: string): void {
   let node = document.head.querySelector<HTMLMetaElement>('meta[name="' + name + '"]');
-  if (!node) { node = document.createElement('meta'); node.name = name; document.head.appendChild(node); }
+  if (!node) {
+    node = document.createElement('meta');
+    node.name = name;
+    document.head.appendChild(node);
+  }
   node.content = content;
-};
+}
 
-const setProp = (name: string, content: string) => {
+function setProp(name: string, content: string): void {
   let node = document.head.querySelector<HTMLMetaElement>('meta[property="' + name + '"]');
-  if (!node) { node = document.createElement('meta'); node.setAttribute('property', name); document.head.appendChild(node); }
+  if (!node) {
+    node = document.createElement('meta');
+    node.setAttribute('property', name);
+    document.head.appendChild(node);
+  }
   node.content = content;
-};
+}
 
-const setCanonical = (url: string) => {
+function setCanonical(url: string): void {
   let node = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (!node) { node = document.createElement('link'); node.rel = 'canonical'; document.head.appendChild(node); }
+  if (!node) {
+    node = document.createElement('link');
+    node.rel = 'canonical';
+    document.head.appendChild(node);
+  }
   node.href = url;
-};
+}
 
-const setJsonLd = (data: Record<string, unknown>) => {
+function setJsonLd(data: Record<string, unknown>): void {
   const id = 'kapitech-insight-jsonld';
   let node = document.head.querySelector<HTMLScriptElement>('#' + id);
-  if (!node) { node = document.createElement('script'); node.id = id; node.type = 'application/ld+json'; document.head.appendChild(node); }
+  if (!node) {
+    node = document.createElement('script');
+    node.id = id;
+    node.type = 'application/ld+json';
+    document.head.appendChild(node);
+  }
   node.textContent = JSON.stringify(data);
-};
+}
 
-const setHreflang = (items: Array<{ language: 'id' | 'en'; slug: string }>) => {
-  document.head.querySelectorAll<HTMLLinkElement>('link[data-kapi-insight-hreflang]').forEach(node => node.remove());
-  items.forEach(item => {
+function setHreflang(items: Array<{ language: 'id' | 'en'; slug: string }>, xDefaultSlug?: string | null): void {
+  document.head
+    .querySelectorAll<HTMLLinkElement>('link[data-kapi-insight-hreflang]')
+    .forEach((node) => node.remove());
+
+  items.forEach((item) => {
     const link = document.createElement('link');
     link.rel = 'alternate';
     link.hreflang = item.language;
-    link.href = SITE + '/insights/' + item.slug;
+    link.href = SITE + '/insights/' + encodeURIComponent(item.slug);
     link.dataset.kapiInsightHreflang = 'true';
     document.head.appendChild(link);
   });
 
-  const globalVariant = items.find(item => item.language === 'en');
-  if (globalVariant) {
+  if (xDefaultSlug) {
     const link = document.createElement('link');
     link.rel = 'alternate';
     link.hreflang = 'x-default';
-    link.href = SITE + '/insights/' + globalVariant.slug;
+    link.href = SITE + '/insights/' + encodeURIComponent(xDefaultSlug);
     link.dataset.kapiInsightHreflang = 'true';
     document.head.appendChild(link);
   }
-};
-
-function breadcrumb(article: InsightItem, url: string) {
-  const language = article.language;
-  const items: Array<Record<string, unknown>> = [
-    { '@type': 'ListItem', position: 1, name: language === 'id' ? 'Beranda' : 'Home', item: SITE + '/' },
-    { '@type': 'ListItem', position: 2, name: language === 'id' ? 'Insight' : 'Insights', item: SITE + '/insights' },
-    { '@type': 'ListItem', position: 3, name: article.title, item: url }
-  ];
-
-  return { '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: items };
 }
 
-function articleStructuredData(article: InsightItem, url: string) {
-  const image = absoluteUrl(article.ogImage || article.coverImage || IMAGE);
-  const graph: Array<Record<string, unknown>> = [
-    {
-      '@type': 'BlogPosting',
-      '@id': url + '#article',
-      headline: article.title,
-      description: article.seoDescription || article.excerpt || article.title,
-      image: [image],
-      datePublished: article.publishedAt || undefined,
-      dateModified: article.updatedAt || article.publishedAt || undefined,
-      author: article.author
-        ? (article.author.slug === 'kapitech-editorial-team'
-          ? { '@type': 'Organization', '@id': SITE + '/#organization', name: article.author.name }
-          : { '@type': 'Person', '@id': SITE + '/insights#author-' + article.author.id, name: article.author.name, jobTitle: article.author.role || undefined })
-        : { '@type': 'Organization', name: seoRoutes.siteName },
-      publisher: { '@id': SITE + '/#organization' },
-      inLanguage: article.language,
-      articleSection: article.category?.displayName || article.category?.name?.[article.language] || article.category?.name?.en || article.category?.name?.id || undefined,
-      keywords: Array.isArray(article.tags) && article.tags.length ? article.tags.map(tag => tag.name).join(', ') : undefined,
-      mainEntityOfPage: { '@id': url + '#webpage' },
-      url
-    },
-    {
-      '@type': 'WebPage',
-      '@id': url + '#webpage',
-      name: article.seoTitle || article.title,
-      description: article.seoDescription || article.excerpt || article.title,
-      url,
-      inLanguage: article.language,
-      isPartOf: { '@id': SITE + '/#website' },
-      about: { '@id': SITE + '/#organization' },
-      breadcrumb: { '@id': url + '#breadcrumb' }
-    },
-    breadcrumb(article, url)
-  ];
+function applyArticleSeo(article: InsightItem): void {
+  const seo = normalizeInsightSeo(article, {
+    siteUrl: SITE,
+    siteName: SITE_NAME,
+    defaultImage: IMAGE
+  });
 
-  if (article.faq?.length) {
-    graph.push({
-      '@type': 'FAQPage',
-      '@id': url + '#faq',
-      mainEntity: article.faq.map(item => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: { '@type': 'Answer', text: item.answer }
-      }))
-    });
-  }
-
-  return { '@context': 'https://schema.org', '@graph': graph };
+  document.documentElement.lang = seo.language;
+  document.title = seo.title;
+  setMeta('title', seo.title);
+  setMeta('description', seo.description);
+  setMeta('robots', seo.robots);
+  setProp('og:type', 'article');
+  setProp('og:url', seo.canonicalUrl);
+  setProp('og:title', seo.title);
+  setProp('og:description', seo.description);
+  setProp('og:image', seo.image);
+  setProp('og:image:alt', seo.title);
+  setProp('og:site_name', SITE_NAME);
+  setProp('og:locale', seo.locale);
+  setProp('og:locale:alternate', seo.alternateLocale);
+  setMeta('twitter:card', 'summary_large_image');
+  setMeta('twitter:url', seo.canonicalUrl);
+  setMeta('twitter:title', seo.title);
+  setMeta('twitter:description', seo.description);
+  setMeta('twitter:image', seo.image);
+  setMeta('twitter:site', '@kapitechagency');
+  setMeta('twitter:creator', '@kapitechagency');
+  setCanonical(seo.canonicalUrl);
+  setHreflang(seo.alternates, seo.xDefault?.slug || null);
+  setJsonLd(buildInsightStructuredData(article, seo, {
+    siteUrl: SITE,
+    siteName: SITE_NAME
+  }));
 }
 
 export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ article }) => {
@@ -133,113 +120,94 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
   const { language } = useLanguage();
 
   useEffect(() => {
-    let cancelled = false;
+    if (pathname === '/insights') {
+      const title = language === 'id' ? 'Insight | Kapitech Agency' : 'Insights | Kapitech Agency';
+      const description = language === 'id'
+        ? 'Wawasan praktis tentang desain, teknologi, produk digital, dan pengembangan website untuk bisnis.'
+        : 'Practical perspectives on design, technology, digital products, and building better digital experiences.';
 
-    const apply = (
-      title: string,
-      description: string,
-      url: string,
-      resolvedLanguage: 'id' | 'en',
-      image: string,
-      robots: string,
-      alternates: Array<{ language: 'id' | 'en'; slug: string }>,
-      schema: Record<string, unknown>
-    ) => {
-      if (cancelled) return;
-      document.documentElement.lang = resolvedLanguage;
+      document.documentElement.lang = language;
       document.title = title;
       setMeta('title', title);
       setMeta('description', description);
-      setMeta('robots', robots);
-      setProp('og:type', pathname.startsWith('/insights/') ? 'article' : 'website');
-      setProp('og:url', url);
+      setMeta('robots', ROBOTS);
+      setProp('og:type', 'website');
+      setProp('og:url', SITE + '/insights');
       setProp('og:title', title);
       setProp('og:description', description);
-      setProp('og:image', absoluteUrl(image));
-      setProp('og:image:alt', title);
-      setProp('og:site_name', seoRoutes.siteName);
-      setProp('og:locale', resolvedLanguage === 'id' ? 'id_ID' : 'en_US');
-      setProp('og:locale:alternate', resolvedLanguage === 'id' ? 'en_US' : 'id_ID');
+      setProp('og:image', IMAGE);
+      setProp('og:image:alt', SITE_NAME + ' Insights');
+      setProp('og:site_name', SITE_NAME);
+      setProp('og:locale', language === 'id' ? 'id_ID' : 'en_US');
+      setProp('og:locale:alternate', language === 'id' ? 'en_US' : 'id_ID');
       setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:url', url);
+      setMeta('twitter:url', SITE + '/insights');
       setMeta('twitter:title', title);
       setMeta('twitter:description', description);
-      setMeta('twitter:image', absoluteUrl(image));
+      setMeta('twitter:image', IMAGE);
       setMeta('twitter:site', '@kapitechagency');
       setMeta('twitter:creator', '@kapitechagency');
-      setCanonical(url);
-      setHreflang(alternates);
-      setJsonLd(schema);
-    };
-
-    const load = async () => {
-      if (pathname === '/insights') {
-        const title = language === 'id' ? 'Insight | Kapitech Agency' : 'Insights | Kapitech Agency';
-        const description = language === 'id'
-          ? 'Wawasan praktis tentang desain, teknologi, produk digital, dan pengembangan website untuk bisnis.'
-          : 'Practical perspectives on design, technology, digital products, and building better digital experiences.';
-        const url = SITE + '/insights';
-        apply(
-          title,
-          description,
-          url,
-          language,
-          IMAGE,
-          ROBOTS,
-          [],
+      setCanonical(SITE + '/insights');
+      setHreflang([], null);
+      setJsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
           {
-            '@context': 'https://schema.org',
-            '@graph': [
-              { '@type': 'CollectionPage', '@id': url + '#webpage', name: title, description, url, inLanguage: language, isPartOf: { '@id': SITE + '/#website' }, about: { '@id': SITE + '/#organization' } },
-              { '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: [
-                { '@type': 'ListItem', position: 1, name: language === 'id' ? 'Beranda' : 'Home', item: SITE + '/' },
-                { '@type': 'ListItem', position: 2, name: language === 'id' ? 'Insight' : 'Insights', item: url }
-              ] }
+            '@type': 'CollectionPage',
+            '@id': SITE + '/insights#webpage',
+            name: title,
+            description,
+            url: SITE + '/insights',
+            inLanguage: language,
+            isPartOf: { '@id': SITE + '/#website' },
+            about: { '@id': SITE + '/#organization' }
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': SITE + '/insights#breadcrumb',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: language === 'id' ? 'Beranda' : 'Home',
+                item: SITE + '/'
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: language === 'id' ? 'Insight' : 'Insights',
+                item: SITE + '/insights'
+              }
             ]
           }
-        );
-        return;
-      }
+        ]
+      });
+      return;
+    }
 
-      if (!pathname.startsWith('/insights/')) return;
+    if (!pathname.startsWith('/insights/')) return;
 
-      let current = article || null;
-      if (!current) {
-        const slug = pathname.split('/').filter(Boolean)[1] || '';
-        try {
-          const response = await api.cms.getInsightBySlug(slug);
-          if (response.success) current = response.data?.insight || null;
-        } catch {}
-      }
+    if (article) {
+      applyArticleSeo(article);
+      return;
+    }
 
-      if (!current) {
-        const url = SITE + pathname;
-        apply('Insight Not Found | Kapitech Agency', 'The requested Kapitech Insight could not be found.', url, language, IMAGE, 'noindex, follow', [], {
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'Insight Not Found | Kapitech Agency',
-          description: 'The requested Kapitech Insight could not be found.',
-          url,
-          inLanguage: language
-        });
-        return;
-      }
-
-      const url = current.canonicalUrl || (SITE + '/insights/' + current.slug);
-      apply(
-        current.seoTitle || current.title + ' | Kapitech Agency',
-        current.seoDescription || current.excerpt || current.title,
-        url,
-        current.language,
-        current.ogImage || current.coverImage || IMAGE,
-        ROBOTS,
-        current.alternateLanguages || [],
-        articleStructuredData(current, url)
-      );
-    };
-
-    void load();
-    return () => { cancelled = true; };
+    document.title = 'Insight Not Found | ' + SITE_NAME;
+    setMeta('title', document.title);
+    setMeta('description', 'The requested Kapitech Insight could not be found.');
+    setMeta('robots', 'noindex, follow');
+    setProp('og:type', 'website');
+    setProp('og:url', SITE + pathname);
+    setCanonical(SITE + pathname);
+    setHreflang([], null);
+    setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: document.title,
+      description: 'The requested Kapitech Insight could not be found.',
+      url: SITE + pathname,
+      inLanguage: language
+    });
   }, [article, language, pathname]);
 
   return null;

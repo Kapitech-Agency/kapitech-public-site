@@ -15,8 +15,15 @@ export type InsightBlock =
   | { type: 'heading'; level: 2 | 3; text: string }
   | { type: 'list'; ordered?: boolean; items: string[] }
   | { type: 'quote'; text: string; attribution?: string }
-  | { type: 'image'; url: string; alt: string; caption?: string }
-  | { type: 'table'; headers: string[]; rows: string[][] }
+  | {
+      type: 'image';
+      url: string;
+      alt: string;
+      caption?: string;
+      width?: number;
+      height?: number;
+    }
+  | { type: 'table'; headers: string[]; rows: string[][]; caption?: string }
   | { type: 'callout'; text: string; tone?: 'info' | 'warning' | 'success' | 'neutral'; title?: string }
   | { type: 'code'; code: string; language?: string }
   | { type: 'link'; url: string; label: string }
@@ -52,6 +59,9 @@ export interface InsightItem {
   excerpt?: string;
   content?: InsightBlock[];
   coverImage?: string;
+  coverImageAlt?: string;
+  coverImageWidth?: number;
+  coverImageHeight?: number;
   categoryId?: string | null;
   category?: InsightCategory | null;
   authorId?: string | null;

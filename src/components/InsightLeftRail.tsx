@@ -10,6 +10,10 @@ type InsightLeftRailProps = {
   mobile?: boolean;
 };
 
+const progressText = (language: InsightLanguage) => (
+  language === 'id' ? 'Kemajuan membaca artikel' : 'Article reading progress'
+);
+
 export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
   language,
   readingProgress,
@@ -23,7 +27,10 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
 
   if (mobile) {
     return (
-      <div className="mb-5 flex items-center justify-between gap-4 border-y border-white/[0.08] py-3 xl:hidden" aria-label={language === 'id' ? 'Utilitas artikel' : 'Article utilities'}>
+      <div
+        className="mb-5 flex items-center justify-between gap-4 border-y border-white/[0.08] py-3 xl:hidden"
+        aria-label={language === 'id' ? 'Utilitas artikel' : 'Article utilities'}
+      >
         <button
           type="button"
           onClick={onShare}
@@ -34,7 +41,14 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Bagikan' : 'Share')}
         </button>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
+        <div
+          className="flex min-w-0 flex-1 items-center justify-end gap-3"
+          role="progressbar"
+          aria-label={progressText(language)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(readingProgress)}
+        >
           <div className="h-px w-full max-w-28 bg-white/[0.08]" aria-hidden="true">
             <div
               className="h-full bg-brand-red transition-[width] duration-200"
@@ -64,7 +78,14 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
         {copied ? <Check size={15} aria-hidden="true" /> : <Share2 size={15} aria-hidden="true" />}
       </button>
 
-      <div className="mt-8 flex w-full flex-col items-center">
+      <div
+        className="mt-8 flex w-full flex-col items-center"
+        role="progressbar"
+        aria-label={progressText(language)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(readingProgress)}
+      >
         <div className="relative h-32 w-px overflow-hidden rounded-full bg-white/[0.08]" aria-hidden="true">
           <div
             className="absolute inset-x-0 bottom-0 rounded-full bg-brand-red transition-[height] duration-200"
