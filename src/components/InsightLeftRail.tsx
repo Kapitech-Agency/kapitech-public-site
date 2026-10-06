@@ -96,13 +96,13 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
         aria-valuemax={100}
         aria-valuenow={Math.round(readingProgress)}
       >
-        <div className="relative h-32 w-px overflow-hidden rounded-full bg-white/[0.08]" aria-hidden="true">
+        <div className="relative h-32 w-px overflow-hidden rounded-full bg-white/[0.11]" aria-hidden="true">
           <div
             className="absolute inset-x-0 bottom-0 rounded-full bg-brand-red transition-[height] duration-200"
             style={{ height: readingProgress + '%' }}
           />
         </div>
-        <span className="mt-3 font-mono text-[9px] tabular-nums text-[#5F6672]">
+        <span className="mt-3 font-mono text-[9px] tabular-nums text-[#707885]">
           {Math.round(readingProgress)}%
         </span>
       </div>

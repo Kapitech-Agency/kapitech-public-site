@@ -689,7 +689,7 @@ export const InsightTableOfContents: React.FC<{
         <div className="flex h-full min-h-0 flex-1 flex-col rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-4 backdrop-blur-xl">
           <div className="flex shrink-0 items-end justify-between gap-4">
             <div>
-              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-[#969DA8]">
+              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-brand-red">
                 {tocLabel}
               </p>
               <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
@@ -697,7 +697,7 @@ export const InsightTableOfContents: React.FC<{
               </p>
             </div>
 
-            <span className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#737C88]">
+            <span className="rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
               {String(currentSectionIndex + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}
             </span>
           </div>

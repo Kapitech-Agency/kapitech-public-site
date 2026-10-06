@@ -122,8 +122,8 @@ export const InsightContentRenderer: React.FC<{
               className={[
                 'group scroll-mt-28 font-display font-semibold text-white',
                 block.level === 3
-                  ? 'mb-4 mt-10 text-xl leading-[1.12] tracking-[-0.03em] sm:text-[1.35rem]'
-                  : 'mb-5 mt-14 text-2xl leading-[1.08] tracking-[-0.045em] sm:text-[2rem] lg:text-[2.2rem]'
+                  ? 'mb-4 mt-9 text-xl leading-[1.12] tracking-[-0.03em] sm:text-[1.35rem]'
+                  : 'mb-5 mt-14 text-2xl leading-[1.08] tracking-[-0.045em] sm:text-[2rem] lg:text-[2.2rem] first:mt-2 sm:first:mt-3'
               ].join(' ')}
             >
               {block.text}

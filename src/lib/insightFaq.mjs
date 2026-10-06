@@ -21,6 +21,28 @@ function isFaqHeading(value, language) {
     || normalized.startsWith('frequently asked questions');
 }
 
+export function normalizeInsightFaq(value) {
+  if (!Array.isArray(value)) return [];
+
+  return value.slice(0, 30).map((item) => {
+    if (Array.isArray(item)) {
+      return {
+        question: text(item[0]),
+        answer: text(item[1])
+      };
+    }
+
+    if (item && typeof item === 'object') {
+      return {
+        question: text(item.question),
+        answer: text(item.answer)
+      };
+    }
+
+    return { question: '', answer: '' };
+  }).filter((item) => item.question && item.answer);
+}
+
 export function deriveInsightFaq(blocks, language = 'en') {
   if (!Array.isArray(blocks)) return [];
 
