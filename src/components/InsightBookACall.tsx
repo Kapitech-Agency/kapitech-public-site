@@ -10,13 +10,13 @@ export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ lang
     </p>
 
     <h2 className="mt-2.5 text-[15px] font-display font-semibold leading-[1.3] tracking-[-0.025em] text-white">
-      {language === 'id' ? 'Butuh partner untuk memvalidasi produk?' : 'Need a partner to validate your product?'}
+      {language === 'id' ? 'Butuh partner untuk mengubah insight menjadi langkah nyata?' : 'Need a partner to turn an insight into a clear next step?'}
     </h2>
 
     <p className="mt-2 text-[11px] leading-[1.7] text-[#8A919D]">
       {language === 'id'
-        ? 'Bicarakan scope, risiko, dan jalur validasi yang paling masuk akal.'
-        : 'Talk through scope, risk, and the most sensible validation path.'}
+        ? 'Bicarakan konteks, scope, dan langkah berikutnya yang paling masuk akal.'
+        : 'Talk through the context, scope, and most sensible next step.'}
     </p>
 
     <Link
