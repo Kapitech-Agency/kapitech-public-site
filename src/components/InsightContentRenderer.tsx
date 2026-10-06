@@ -229,7 +229,10 @@ export const InsightContentRenderer: React.FC<{
                         <th
                           key={headerIndex}
                           scope="col"
-                          className="sticky left-0 z-10 border-b border-white/[0.08] bg-[#0F1013] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4] first:shadow-[1px_0_0_rgba(255,255,255,0.06)]"
+                          className={[
+                            'border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4]',
+                            headerIndex === 0 ? 'sticky left-0 z-10 bg-[#0F1013] shadow-[1px_0_0_rgba(255,255,255,0.06)]' : ''
+                          ].join(' ')}
                         >
                           {inlineMarkdown(header)}
                         </th>
@@ -240,7 +243,10 @@ export const InsightContentRenderer: React.FC<{
                     {rows.map((row, rowIndex) => (
                       <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0">
                         {headers.map((_, cellIndex) => (
-                          <td key={cellIndex} className="sticky left-0 z-[5] bg-[#0F1013] px-4 py-3.5 align-top leading-6 text-[#B6BBC5] first:shadow-[1px_0_0_rgba(255,255,255,0.045)]">
+                          <td key={cellIndex} className={[
+                            'px-4 py-3.5 align-top leading-6 text-[#B6BBC5]',
+                            cellIndex === 0 ? 'sticky left-0 z-[5] bg-[#0F1013] shadow-[1px_0_0_rgba(255,255,255,0.045)]' : ''
+                          ].join(' ')}>
                             {inlineMarkdown(Array.isArray(row) ? row[cellIndex] || '' : '')}
                           </td>
                         ))}
