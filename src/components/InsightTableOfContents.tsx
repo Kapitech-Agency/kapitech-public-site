@@ -39,15 +39,6 @@ function setHash(id: string): void {
   }
 }
 
-function getSectionNumber(items: InsightTocItem[], index: number): string {
-  const number = items
-    .slice(0, index + 1)
-    .filter((item) => item.level === 2)
-    .length;
-
-  return String(number).padStart(2, '0');
-}
-
 export const InsightTableOfContents: React.FC<{
   items: InsightTocItem[];
   language: InsightLanguage;
@@ -204,13 +195,15 @@ export const InsightTableOfContents: React.FC<{
 
   if (!validItems.length) return null;
 
-  const currentIndex = Math.max(
-    0,
-    itemMeta.findIndex((item) => item.id === activeId)
-  );
-
-  const current = itemMeta[currentIndex] || itemMeta[0];
+  const current = itemMeta.find((item) => item.id === activeId) || itemMeta[0];
   const h2Count = itemMeta.filter((item) => item.level === 2).length;
+  const currentSection = Math.max(
+    1,
+    Number.parseInt(current.sectionNumber, 10) || 1
+  );
+  const sectionProgress = h2Count > 0
+    ? Math.min(100, (currentSection / h2Count) * 100)
+    : 0;
   const label = language === 'id' ? 'Di artikel ini' : 'In this article';
   const navigationLabel = language === 'id' ? 'Daftar isi artikel' : 'Article table of contents';
 
@@ -247,7 +240,7 @@ export const InsightTableOfContents: React.FC<{
     refMap: Map<string, HTMLAnchorElement>,
     mobile = false
   ) => (
-    <div className="space-y-0.5">
+    <div className="space-y-1">
       {itemMeta.map((item) => {
         const active = activeId === item.id;
         const isH2 = item.level === 2;
@@ -263,23 +256,27 @@ export const InsightTableOfContents: React.FC<{
             }}
             aria-current={active ? 'location' : undefined}
             className={[
-              'relative flex w-full items-start text-left',
+              'group relative flex w-full items-start text-left',
               'transition-[color,background-color,border-color] duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
               isH2
-                ? 'min-h-10 gap-2.5 border-l-2 px-3 py-2'
-                : 'ml-4 min-h-9 gap-2 border-l-2 px-3 py-1.5',
+                ? 'min-h-11 gap-3 rounded-r-[10px] border-l-2 px-3 py-2.5'
+                : 'ml-5 min-h-9 gap-2 rounded-r-[8px] border-l px-2.5 py-1.5',
               active
-                ? 'border-brand-red bg-white/[0.025] text-white'
-                : 'border-transparent text-[#747C89] hover:bg-white/[0.018] hover:text-[#C8CDD5]'
+                ? isH2
+                  ? 'border-brand-red bg-white/[0.035] text-white'
+                  : 'border-brand-red/60 bg-white/[0.02] text-white'
+                : isH2
+                  ? 'border-transparent text-[#747C89] hover:bg-white/[0.022] hover:text-[#D3D7DE]'
+                  : 'border-transparent text-[#747C89] hover:bg-white/[0.018] hover:text-[#C8CDD5]'
             ].join(' ')}
           >
             {isH2 ? (
               <span
                 aria-hidden="true"
                 className={[
-                  'w-5 shrink-0 pt-0.5 font-mono text-[9px] tabular-nums',
-                  active ? 'text-white' : 'text-[#59616D]'
+                  'w-5 shrink-0 pt-0.5 font-mono text-[9px] font-medium tabular-nums transition-colors duration-200',
+                  active ? 'text-brand-red' : 'text-[#59616D] group-hover:text-[#737B88]'
                 ].join(' ')}
               >
                 {item.sectionNumber}
@@ -288,15 +285,15 @@ export const InsightTableOfContents: React.FC<{
               <span
                 aria-hidden="true"
                 className={[
-                  'mt-[7px] h-1 w-1 shrink-0 rounded-full',
-                  active ? 'bg-[#7E8794]' : 'bg-[#3A4049]'
+                  'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,transform] duration-200',
+                  active ? 'scale-100 bg-brand-red' : 'scale-75 bg-[#424852] group-hover:scale-90 group-hover:bg-[#66707D]'
                 ].join(' ')}
               />
             )}
 
             <span
               className={[
-                'min-w-0 leading-[1.45]',
+                'min-w-0 text-balance leading-[1.4] transition-[color,font-weight] duration-200',
                 isH2
                   ? active
                     ? 'text-[12px] font-semibold'
@@ -327,19 +324,20 @@ export const InsightTableOfContents: React.FC<{
               setMobileOpen(false);
             }
           }}
-          className="flex min-h-[58px] w-full items-center justify-between gap-4 px-4 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+          className="group flex min-h-[60px] w-full items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-200 hover:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
         >
           <span className="min-w-0">
-            <span className="block text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
+            <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.17em] text-[#7E8793]">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
               {label}
             </span>
-            <span className="mt-1 block truncate text-[13px] font-medium text-white">
+            <span className="mt-1.5 block truncate text-[13px] font-medium text-white">
               {current.text}
             </span>
           </span>
 
           <span className="flex shrink-0 items-center gap-3">
-            <span className="font-mono text-[9px] tabular-nums text-[#606873]">
+            <span className="font-mono text-[9px] tabular-nums text-[#6B7481]">
               {current.sectionNumber} / {String(h2Count).padStart(2, '0')}
             </span>
             <ChevronDown
@@ -347,17 +345,24 @@ export const InsightTableOfContents: React.FC<{
               aria-hidden="true"
               className={[
                 'transition-transform duration-200',
-                mobileOpen ? 'rotate-180 text-white' : 'text-[#737C89]'
+                mobileOpen ? 'rotate-180 text-white' : 'text-[#737C89] group-hover:text-white'
               ].join(' ')}
             />
           </span>
         </button>
 
+        <div className="h-px bg-white/[0.06]" aria-hidden="true">
+          <div
+            className="h-full bg-brand-red/70 transition-[width] duration-300"
+            style={{ width: sectionProgress + '%' }}
+          />
+        </div>
+
         {mobileOpen && (
           <nav
             id="insight-mobile-toc-list"
             aria-label={navigationLabel}
-            className="max-h-[min(70vh,34rem)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
+            className="max-h-[min(70vh,34rem)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3 [scrollbar-gutter:stable]"
           >
             {renderItems(mobileItemRefs.current, true)}
           </nav>
@@ -368,27 +373,36 @@ export const InsightTableOfContents: React.FC<{
 
   const desktop = (
     <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
-      <div className="flex h-full min-h-0 flex-1 flex-col border-y border-white/[0.08] py-3">
-        <div className="flex shrink-0 items-end justify-between gap-4 px-1 pb-1">
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">
-              {label}
-            </p>
-            <p className="mt-1 text-[9px] leading-4 text-[#5F6773]">
-              {h2Count} {language === 'id'
-                ? 'bagian'
-                : h2Count === 1 ? 'section' : 'sections'}
-            </p>
+      <div className="flex h-full min-h-0 flex-1 flex-col border-y border-white/[0.08] py-4">
+        <div className="shrink-0 px-1">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">
+                {label}
+              </p>
+              <p className="mt-1 text-[9px] leading-4 text-[#5F6773]">
+                {h2Count} {language === 'id'
+                  ? 'bagian'
+                  : h2Count === 1 ? 'section' : 'sections'}
+              </p>
+            </div>
+
+            <span className="font-mono text-[9px] tabular-nums text-[#6B7481]">
+              {String(currentSection).padStart(2, '0')} / {String(h2Count).padStart(2, '0')}
+            </span>
           </div>
 
-          <span className="font-mono text-[9px] tabular-nums text-[#606873]">
-            {String(currentIndex + 1).padStart(2, '0')} / {String(itemMeta.length).padStart(2, '0')}
-          </span>
+          <div className="mt-3 h-px w-full bg-white/[0.06]" aria-hidden="true">
+            <div
+              className="h-full bg-brand-red/70 transition-[width] duration-300"
+              style={{ width: sectionProgress + '%' }}
+            />
+          </div>
         </div>
 
         <nav
           aria-label={navigationLabel}
-          className="mt-3 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1"
+          className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]"
         >
           {renderItems(desktopItemRefs.current)}
         </nav>
