@@ -565,21 +565,29 @@ export const Home = () => {
           <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end lg:gap-14">
             <div className="max-w-4xl">
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'PILIHAN LAYANAN' : 'ENGAGEMENT OPTIONS'}
+                {language === 'id' ? 'CARA BEKERJA BERSAMA KAMI' : 'ENGAGEMENT OPTIONS'}
               </span>
-
               <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id'
-                  ? 'Mulai dari kapabilitas. Lanjutkan dengan solusi.'
-                  : 'Start with the capability. Move into the solution.'}
+                  ? 'Pilih titik masuk yang paling sesuai dengan kebutuhan Anda.'
+                  : 'Choose the right starting point for your project.'}
               </h2>
             </div>
 
-            <p className="max-w-md text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm lg:justify-self-end lg:pb-1">
-              {language === 'id'
-                ? 'Pilih area yang ingin Anda bangun atau kembangkan. Semua layanan dan solusi berada dalam satu workflow Kapitech.'
-                : 'Choose the area you need to build or improve. Services and solutions stay within one connected Kapitech workflow.'}
-            </p>
+            <div className="max-w-md lg:justify-self-end lg:pb-1">
+              <p className="text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm">
+                {language === 'id'
+                  ? 'Mulai dari brand, product design, atau development. Kami akan membantu menghubungkan kebutuhan Anda ke scope dan tim yang tepat.'
+                  : 'Start with branding, product design, or development. We help turn your need into the right scope, service, and delivery team.'}
+              </p>
+              <Link
+                to="/contact"
+                className="mt-4 inline-flex items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
+              >
+                <span>{language === 'id' ? 'Diskusikan kebutuhan Anda' : 'Discuss your project'}</span>
+                <ArrowUpRight size={13} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
@@ -587,16 +595,28 @@ export const Home = () => {
               const services = allSolutionsAndServices.filter(
                 (service) => service.type === 'service' && service.category === category,
               );
-              const categoryCopy = {
-                Branding: language === 'id'
-                  ? 'Membangun identitas yang konsisten dari visual system hingga brand assets.'
-                  : 'Build a consistent identity from visual systems to brand assets.',
-                Design: language === 'id'
-                  ? 'Merancang interface dan experience yang lebih jelas, usable, dan terarah.'
-                  : 'Design clearer interfaces and experiences built around real user needs.',
-                Development: language === 'id'
-                  ? 'Mengubah desain dan kebutuhan bisnis menjadi produk digital yang siap digunakan.'
-                  : 'Turn designs and business requirements into production-ready digital products.'
+              const categoryMeta = {
+                Branding: {
+                  descriptor: 'Brand & visual communication',
+                  bestFor: language === 'id'
+                    ? 'Untuk bisnis yang perlu tampil lebih konsisten, kredibel, dan mudah dikenali.'
+                    : 'For businesses that need a clearer, more credible, and recognizable brand.',
+                  action: language === 'id' ? 'Mulai dari branding' : 'Start with branding',
+                },
+                Design: {
+                  descriptor: 'Product & digital experience',
+                  bestFor: language === 'id'
+                    ? 'Untuk tim yang ingin memperjelas experience, usability, dan conversion sebelum atau saat build.'
+                    : 'For teams improving product experience, usability, and conversion before or during build.',
+                  action: language === 'id' ? 'Mulai dari design' : 'Start with design',
+                },
+                Development: {
+                  descriptor: 'Web & digital product delivery',
+                  bestFor: language === 'id'
+                    ? 'Untuk bisnis yang siap mengubah kebutuhan dan desain menjadi website atau produk digital yang berjalan.'
+                    : 'For businesses ready to turn requirements and design into working websites or digital products.',
+                  action: language === 'id' ? 'Mulai dari development' : 'Start with development',
+                },
               }[category];
 
               return (
@@ -608,33 +628,36 @@ export const Home = () => {
                     className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
                     aria-hidden="true"
                   />
-
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-3">
+                      <div className="flex flex-wrap items-center gap-2.5">
                         <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-brand-red">
                           {String(index + 1).padStart(2, '0')}
                         </span>
                         <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
                         <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
-                          {category}
+                          {categoryMeta.descriptor}
                         </span>
                       </div>
-                      <h3 className="mt-6 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.8rem]">
+                      <h3 className="mt-5 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.8rem]">
                         {category}
                       </h3>
                     </div>
-
                     <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
-                      {String(services.length).padStart(2, '0')}
+                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
                     </span>
                   </div>
 
-                  <p className="mt-3 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                    {categoryCopy}
-                  </p>
+                  <div className="mt-5 border-t border-white/[0.065] pt-4">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Paling sesuai untuk' : 'Best for'}
+                    </span>
+                    <p className="mt-2 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                      {categoryMeta.bestFor}
+                    </p>
+                  </div>
 
-                  <div className="mt-6 border-t border-white/[0.065] pt-1">
+                  <div className="mt-5 border-t border-white/[0.065] pt-1">
                     {services.map((service) => (
                       <Link
                         key={service.slug}
@@ -653,11 +676,18 @@ export const Home = () => {
                     ))}
                   </div>
 
-                  <div className="mt-auto flex items-center gap-3 pt-6">
-                    <span className="h-px w-8 bg-brand-red/55 transition-all duration-500 group-hover:w-12 group-hover:bg-brand-red/80" />
-                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
-                      {language === 'id' ? 'Jelajahi layanan' : 'Explore services'}
+                  <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+                    <span className="flex min-w-0 items-center gap-3 text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
+                      <span className="h-px w-7 bg-brand-red/55 transition-all duration-500 group-hover:w-11 group-hover:bg-brand-red/80" />
+                      <span>{categoryMeta.action}</span>
                     </span>
+                    <Link
+                      to={services[0] ? `/services/${services[0].slug}` : '/services'}
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#7A808A] transition-all duration-300 hover:border-brand-red/35 hover:bg-brand-red/[0.08] hover:text-brand-red"
+                      aria-label={categoryMeta.action}
+                    >
+                      <ArrowUpRight size={14} aria-hidden="true" />
+                    </Link>
                   </div>
                 </article>
               );
@@ -665,20 +695,24 @@ export const Home = () => {
           </div>
 
           <div className="mt-14 sm:mt-16 lg:mt-20">
-            <div className="mb-7 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <div>
+            <div className="mb-7 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+              <div className="max-w-4xl">
                 <span className="kapi-section-label mb-4">
                   {language === 'id' ? 'SOLUSI PRODUK' : 'PRODUCT SOLUTIONS'}
                 </span>
                 <h3 className="mt-4 max-w-3xl text-2xl font-display font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.25rem]">
                   {language === 'id'
-                    ? 'Solusi yang lebih terarah untuk kebutuhan produk tertentu.'
-                    : 'More focused solutions for specific product needs.'}
+                    ? 'Untuk kebutuhan yang lebih spesifik, masuk lewat solusi yang tepat.'
+                    : 'For more specific needs, start with the solution that fits.'}
                 </h3>
+                <p className="mt-3 max-w-2xl text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm">
+                  {language === 'id'
+                    ? 'Tiga jalur engagement yang dibuat untuk situasi berbeda: memvalidasi produk, memperbaiki produk yang sudah berjalan, atau menambah kapasitas tim.'
+                    : 'Three focused engagement paths for different situations: validate a product, improve an existing one, or add delivery capacity.'}
+                </p>
               </div>
-
               <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                03 {language === 'id' ? 'solusi' : 'solutions'}
+                03 {language === 'id' ? 'jalur' : 'paths'}
               </span>
             </div>
 
@@ -686,50 +720,75 @@ export const Home = () => {
               {allSolutionsAndServices
                 .filter((item) => item.type === 'solution')
                 .map((solution, index) => {
-                  const solutionCopy = {
-                    'mvp-design': language === 'id'
-                      ? 'Validasi ide produk lebih cepat dengan UX terarah, prototype interaktif, dan handoff yang siap dibangun.'
-                      : 'Validate a product idea faster with focused UX, interactive prototyping, and build-ready handoff.',
-                    'product-redesign': language === 'id'
-                      ? 'Perbaiki experience produk yang sudah berjalan tanpa menghilangkan logika bisnis dan kebutuhan pengguna.'
-                      : 'Improve an existing product experience without losing the business logic and user needs behind it.',
-                    'team-extension': language === 'id'
-                      ? 'Tambah kapasitas design dan engineering tanpa harus membangun tim baru dari awal.'
-                      : 'Add design and engineering capacity without building an entire new team from scratch.'
+                  const solutionMeta = {
+                    'mvp-design': {
+                      bestFor: language === 'id'
+                        ? 'Founder atau product team yang perlu memvalidasi konsep sebelum engineering.'
+                        : 'Founders or product teams that need to validate the concept before engineering.',
+                      outcome: language === 'id'
+                        ? 'Output: prototype interaktif, user flow yang fokus, dan handoff siap build.'
+                        : 'Outcome: interactive prototype, focused user flows, and build-ready handoff.',
+                      cta: language === 'id' ? 'Explore MVP Design' : 'Explore MVP Design',
+                    },
+                    'product-redesign': {
+                      bestFor: language === 'id'
+                        ? 'Bisnis dengan product experience yang sudah berjalan tetapi mulai terasa lambat, rumit, atau tidak konsisten.'
+                        : 'Businesses with an existing product that feels slow, complex, or inconsistent.',
+                      outcome: language === 'id'
+                        ? 'Outcome: UX lebih jelas, interface lebih konsisten, dan roadmap perbaikan yang terarah.'
+                        : 'Outcome: clearer UX, a more consistent interface, and a focused improvement roadmap.',
+                      cta: language === 'id' ? 'Explore Product Redesign' : 'Explore Product Redesign',
+                    },
+                    'team-extension': {
+                      bestFor: language === 'id'
+                        ? 'Tim internal yang membutuhkan tambahan design atau engineering tanpa menambah struktur tim permanen.'
+                        : 'Internal teams that need extra design or engineering capacity without building a permanent team.',
+                      outcome: language === 'id'
+                        ? 'Outcome: kapasitas delivery tambahan yang masuk ke workflow dan ritme kerja tim Anda.'
+                        : 'Outcome: added delivery capacity that fits your workflow and delivery rhythm.',
+                      cta: language === 'id' ? 'Explore Team Extension' : 'Explore Team Extension',
+                    },
                   }[solution.slug];
 
                   return (
                     <Link
                       key={solution.slug}
                       to={`/solutions/${solution.slug}`}
-                      className="group relative flex min-h-[250px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
+                      className="group relative flex min-h-[276px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
                     >
                       <span
                         className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
                         aria-hidden="true"
                       />
-
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
                           {String(index + 1).padStart(2, '0')}
                         </span>
                         <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red/75">
-                          {language === 'id' ? 'Solusi' : 'Solution'}
+                          {language === 'id' ? 'Solusi fokus' : 'Focused solution'}
                         </span>
                       </div>
 
-                      <div className="mt-9">
+                      <div className="mt-7">
                         <h4 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.55rem]">
                           {solution.title}
                         </h4>
-                        <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                          {solutionCopy}
+                        <div className="mt-4">
+                          <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                            {language === 'id' ? 'Cocok untuk' : 'Best for'}
+                          </span>
+                          <p className="mt-2 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                            {solutionMeta?.bestFor}
+                          </p>
+                        </div>
+                        <p className="mt-3 text-[11px] font-medium leading-[1.65] text-white/75">
+                          {solutionMeta?.outcome}
                         </p>
                       </div>
 
-                      <div className="mt-auto flex items-center justify-between gap-4 pt-8">
-                        <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
-                          {language === 'id' ? 'Lihat detail' : 'View details'}
+                      <div className="mt-auto flex items-center justify-between gap-4 pt-7">
+                        <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
+                          {solutionMeta?.cta}
                         </span>
                         <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#7A808A] transition-all duration-300 group-hover:border-brand-red/35 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
                           <ArrowUpRight size={14} aria-hidden="true" />
@@ -738,6 +797,21 @@ export const Home = () => {
                     </Link>
                   );
                 })}
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 border-t border-white/[0.065] pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-2xl text-[11px] font-light leading-[1.7] text-[#6F757F]">
+                {language === 'id'
+                  ? 'Belum yakin jalur mana yang paling tepat? Ceritakan konteks proyek Anda dan kami bantu menentukan starting point yang paling masuk akal.'
+                  : 'Not sure which path fits? Share your project context and we will help you choose the most sensible starting point.'}
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex shrink-0 items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
+              >
+                <span>{language === 'id' ? 'Mulai diskusi' : 'Start a discussion'}</span>
+                <ArrowUpRight size={13} aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </div>
