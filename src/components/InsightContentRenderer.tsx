@@ -206,14 +206,14 @@ export const InsightContentRenderer: React.FC<{
           const rows = Array.isArray(block.rows) ? block.rows : [];
 
           return (
-            <div key={index} className="my-8 overflow-hidden border-y border-white/[0.08]">
-              <div className="border-b border-white/[0.06] px-0 py-2.5 sm:hidden">
+            <div key={index} className="my-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">
+              <div className="border-b border-white/[0.06] px-4 py-2.5 sm:hidden">
                 <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
                   {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
                 </p>
               </div>
               <div
-                className="overflow-x-auto rounded-[16px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 focus-visible:ring-inset"
+                className="overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 focus-visible:ring-inset"
                 tabIndex={0}
                 role="region"
                 aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
@@ -271,7 +271,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <aside
               key={index}
-              className={'my-7 border-l-2 pl-5 ' + toneClass}
+              className={'my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 ' + toneClass}
             >
               {block.title && (
                 <p className="mb-1 text-sm font-semibold text-white">{block.title}</p>
