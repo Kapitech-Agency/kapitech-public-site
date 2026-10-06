@@ -132,7 +132,7 @@ export const InsightDetail: React.FC = () => {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const articleReadingRef = useRef<HTMLElement | null>(null);
-  const readingEndRef = useRef<HTMLElement | null>(null);
+  const readingEndRef = useRef<HTMLDivElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
