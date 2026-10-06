@@ -305,13 +305,13 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     const headers = Array.isArray(block.headers) ? block.headers : [];
     const rows = Array.isArray(block.rows) ? block.rows : [];
     const headerHtml = headers.map((header) =>
-      '<th scope="col" class="sticky left-0 z-10 border-b border-white/[0.08] bg-[#0F1013] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4]">' +
+      '<th scope="col" class="border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4] first:sticky first:left-0 first:z-10 first:bg-[#0F1013]">' +
       inlineMarkdownToHtml(header) + '</th>'
     ).join('');
     const rowHtml = rows.map((row) =>
       '<tr class="border-b border-white/[0.06] last:border-b-0">' +
       headers.map((_, index) =>
-        '<td class="sticky left-0 z-[5] bg-[#0F1013] px-4 py-3.5 align-top leading-6 text-[#B6BBC5]">' +
+        '<td class="px-4 py-3.5 align-top leading-6 text-[#B6BBC5] first:sticky first:left-0 first:z-[5] first:bg-[#0F1013]">' +
         inlineMarkdownToHtml(Array.isArray(row) ? row[index] || '' : '') + '</td>'
       ).join('') + '</tr>'
     ).join('');
