@@ -620,7 +620,7 @@ export const InsightDetail: React.FC = () => {
       <>
         <InsightSeoMeta article={article} />
 
-        <header className="relative isolate overflow-hidden border-b border-white/[0.07]">
+        <header className="relative isolate overflow-hidden">
           <InsightAmbientBackground intensity="hero" />
 
           <div className="relative z-10 w-full px-4 pb-14 pt-32 sm:px-6 sm:pb-16 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
