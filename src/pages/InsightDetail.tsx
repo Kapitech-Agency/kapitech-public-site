@@ -89,7 +89,7 @@ class InsightDetailErrorBoundary extends React.Component<
     if (!this.state.hasError) return this.props.children;
 
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
             Insight / Render error
@@ -474,7 +474,7 @@ export const InsightDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="relative flex min-h-[62vh] items-center justify-center overflow-hidden px-5 pt-28" role="status" aria-live="polite">
+      <div className="relative flex min-h-[62vh] items-center justify-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12" role="status" aria-live="polite">
         <InsightAmbientBackground intensity="detail" />
         <div className="relative z-10 text-center">
           <span className="mx-auto mb-4 block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-red" />
@@ -488,9 +488,9 @@ export const InsightDetail: React.FC = () => {
 
   if (notFound || !article) {
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden px-5 pt-28 sm:px-8">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12">
         <InsightAmbientBackground intensity="detail" />
-        <div className="relative z-10 mx-auto w-full max-w-[980px]">
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">404 / Insight</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
             {language === 'id' ? 'Insight tidak ditemukan' : 'Insight not found'}
@@ -533,7 +533,7 @@ export const InsightDetail: React.FC = () => {
         <header className="relative isolate overflow-hidden border-b border-white/[0.07]">
           <InsightAmbientBackground intensity="detail" />
 
-          <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 pb-14 pt-28 sm:px-8 sm:pb-18 sm:pt-36 lg:px-10 lg:pb-20 lg:pt-40">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-36 md:px-12 lg:pb-20 lg:pt-40">
             <nav className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">
               <Link to="/" className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55">
                 {article.language === 'id' ? 'Beranda' : 'Home'}
@@ -622,7 +622,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-14">
+        <div className="mx-auto w-full max-w-7xl scroll-mt-28 px-4 pb-16 pt-8 sm:px-6 sm:pt-10 md:px-12 lg:pb-20 lg:pt-14">
           <div className="mb-5 xl:hidden">
             <InsightLeftRail
               mobile
@@ -729,7 +729,7 @@ export const InsightDetail: React.FC = () => {
         </div>
 
         {relatedInsights.length > 0 && (
-          <section className="mx-auto w-full max-w-[1240px] px-5 pb-12 sm:px-8 lg:px-10" aria-labelledby="related-title">
+          <section className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 md:px-12" aria-labelledby="related-title">
             <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
               <div>
                 <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
@@ -756,7 +756,7 @@ export const InsightDetail: React.FC = () => {
         )}
 
         {faq.length > 0 && (
-          <section className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10" aria-labelledby="faq-title">
+          <section className="mx-auto w-full max-w-[820px] px-4 py-8 sm:px-6 sm:py-10 md:px-8" aria-labelledby="faq-title">
             <div className="border-t border-white/[0.08] pt-10">
               <h2 id="faq-title" className="scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
