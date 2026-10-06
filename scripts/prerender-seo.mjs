@@ -405,7 +405,7 @@ const renderInsightBody = (insight) => {
     return renderCanonicalInsightBlock(block, index >= 0 ? headingIds[index] : '', insight, sectionNumber);
   }).join('');
 
-  let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] pt-24" id="kapi-prerendered-insight" aria-hidden="true">' +
+  let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
     '<main class="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10">';
 
   html += '<header class="border-b border-white/[0.07] bg-[#0B0C0E]"><div class="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">';
@@ -428,7 +428,16 @@ const renderInsightBody = (insight) => {
   html += '</div></div></div></header>';
 
   html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
-  html += '<div class="mb-5 xl:hidden" aria-hidden="true"><div class="mb-5 flex items-center gap-4 border-y border-white/[0.08] py-3"><span class="text-[9px] font-mono font-semibold uppercase tracking-[0.11em] text-[#737A87]">' + escapeHtml(label('Bagikan', 'Share')) + '</span><span class="h-px flex-1 bg-white/[0.08]"></span><span class="font-mono text-[9px] tabular-nums text-[#68707C]">0%</span></div></div>';
+  html += '<div class="mb-5 xl:hidden" aria-hidden="true">' +
+    '<div class="mb-5 flex items-center gap-4 border-y border-white/[0.08] py-3"><span class="text-[9px] font-mono font-semibold uppercase tracking-[0.11em] text-[#737A87]">' +
+    escapeHtml(label('Bagikan', 'Share')) + '</span><span class="h-px flex-1 bg-white/[0.08]"></span><span class="font-mono text-[9px] tabular-nums text-[#68707C]">0%</span></div>' +
+    '<nav class="rounded-2xl border border-white/[0.07] bg-white/[0.014] p-3"><ol class="space-y-1">' +
+    toc.map((item) => '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
+      (item.level === 3 ? 'pl-5 text-[11px] text-[#737C89]' : 'text-[11px] font-medium text-[#C1C6CF]') +
+      '">' + escapeHtml(item.text) + '</a></li>').join('') +
+    (faq.length ? '<li><a href="#faq-title" class="block rounded-[10px] px-2.5 py-2 text-[11px] font-medium text-[#C1C6CF]">' +
+      escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>' : '') +
+    '</ol></nav></div>';
 
   html += '<div class="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,820px)_304px] xl:justify-center">';
   html += '<aside class="hidden xl:flex xl:flex-col xl:items-center" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
