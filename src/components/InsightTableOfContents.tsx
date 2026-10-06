@@ -619,7 +619,7 @@ export const InsightTableOfContents: React.FC<{
                     className={[
                       'group/subsection relative flex w-full items-start gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'bg-brand-red/[0.055] text-white'
+                        ? 'bg-brand-red/[0.045] text-brand-red'
                         : 'text-[#737C89] hover:bg-white/[0.018] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
