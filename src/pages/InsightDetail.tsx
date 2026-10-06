@@ -805,9 +805,9 @@ export const InsightDetail: React.FC = () => {
         </section>
 
         {relatedInsights.length > 0 && (
-          <section className="w-full px-4 pb-16 sm:px-6 md:px-12" aria-labelledby="related-title">
+          <section className="w-full border-t border-white/[0.07] px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="related-title">
             <div className="mx-auto w-full max-w-7xl">
-            <div className="flex items-end justify-between gap-4 border-t border-white/[0.07] pt-10">
+            <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
                   {article.language === 'id' ? 'Library' : 'Library'}
@@ -834,10 +834,12 @@ export const InsightDetail: React.FC = () => {
         )}
 
         {faq.length > 0 && (
-          <section className="w-full px-4 py-10 sm:px-6 sm:py-12 md:px-12" aria-labelledby="faq-title">
+          <section className="w-full border-t border-white/[0.07] px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="faq-title">
             <div className="mx-auto w-full max-w-[820px]">
-              <div className="border-t border-white/[0.08] pt-12 sm:pt-14">
-              <h2 id="faq-title" className="scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+              <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
+                {article.language === 'id' ? 'Pertanyaan' : 'Questions'}
+              </p>
+              <h2 id="faq-title" className="mt-2 scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
               </h2>
               <div className="mt-5 space-y-3">
@@ -860,41 +862,6 @@ export const InsightDetail: React.FC = () => {
             </div>
           </section>
         )}
-
-        <section
-          ref={readingEndRef}
-          className="w-full px-4 py-10 sm:px-6 sm:py-12 md:px-12"
-          aria-labelledby="insight-final-cta"
-        >
-          <div className="mx-auto w-full max-w-[820px]">
-            <div className="border-y border-white/[0.08] py-8 sm:py-9">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <div className="max-w-2xl">
-                <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                  {article.language === 'id' ? 'Diskusi proyek' : 'Project discussion'}
-                </p>
-                <h2 id="insight-final-cta" className="mt-3 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-3xl">
-                  {article.language === 'id'
-                    ? 'Sudah tahu apa yang ingin Anda bangun atau perbaiki berikutnya?'
-                    : 'Know what you want to build or improve next?'}
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-[#89909D]">
-                  {article.language === 'id'
-                    ? 'Bawa konteks, pertanyaan, atau tantangan utamanya. Kami bisa membantu memetakan langkah berikutnya.'
-                    : 'Bring the context, question, or challenge. We can help map the next step.'}
-                </p>
-              </div>
-              <Link
-                to="/contact"
-                className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/70 px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,color] duration-300 hover:border-brand-red/55 hover:bg-brand-red/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
-              >
-                {article.language === 'id' ? 'Mulai diskusi' : 'Start a discussion'}
-                <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
-            </div>
-          </div>
-        </section>
 
         <div className="w-full px-4 pb-12 sm:px-6 md:px-12">
           <div className="mx-auto w-full max-w-7xl">
