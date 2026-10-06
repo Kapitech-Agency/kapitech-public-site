@@ -81,8 +81,7 @@ for (const assertion of insightAssertions) {
     html = await readFile(join(distDir, assertion.file), 'utf8');
   } catch (error) {
     if (error?.code === 'ENOENT') {
-      console.warn('[deploy-check] optional Insight prerender not available: ' + assertion.file);
-      continue;
+      throw new Error('[deploy-check] required Insight prerender is missing: ' + assertion.file);
     }
     throw error;
   }
@@ -114,7 +113,7 @@ for (const assertion of insightAssertions) {
     throw new Error('[deploy-check] Insight contains multiple FAQ sections: ' + assertion.file);
   }
   if (faqSections === 0) {
-    console.warn('[deploy-check] FAQ data is not available in the upstream CMS payload for ' + assertion.file + '; continuing build without a duplicate FAQ section.');
+    console.warn('[deploy-check] FAQ data is not available in the upstream CMS payload for ' + assertion.file + '; continuing without FAQ because the article body itself is verified.');
   }
 
   console.log('[deploy-check] verified prerendered Insight: ' + assertion.file);
