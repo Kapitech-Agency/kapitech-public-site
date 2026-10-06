@@ -10,6 +10,8 @@ const distDir = resolve(join(root, 'dist'));
 const parsedPort = Number(process.env.PORT || 3000);
 const port = Number.isInteger(parsedPort) && parsedPort > 0 ? parsedPort : 3000;
 
+const STARTUP_FALLBACK_HTML = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kapitech Agency</title><style>html,body{margin:0;min-height:100%;background:#0B0C0E;color:#F3F3F6;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{display:grid;place-items:center;padding:32px;box-sizing:border-box}.shell{width:min(680px,100%);text-align:center}.dot{width:10px;height:10px;border-radius:50%;background:#E50914;margin:0 auto 22px;box-shadow:0 0 0 8px rgba(229,9,20,.10)}h1{font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.04em;margin:0 0 14px}p{margin:0;color:#8B919E;line-height:1.7;font-size:15px}</style></head><body><main class="shell"><div class="dot" aria-hidden="true"></div><h1>Kapitech Agency</h1><p>We’re preparing the latest site build. The site will become available automatically once the production bundle is ready.</p></main></body></html>';
+
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -123,38 +125,21 @@ const server = createServer(async (req, res) => {
     }
 
     if (req.url.split('?')[0] === '/__health') {
-      if (buildState === 'building' || buildState === 'missing') {
-        startBackgroundBuild();
-        res.statusCode = 503;
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Retry-After', '5');
-        res.end('building');
-        return;
-      }
-
-      const healthEntry = join(distDir, 'index.html');
-
-      try {
-        await stat(healthEntry);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
-        res.end('ok');
-      } catch {
-        res.statusCode = 503;
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Retry-After', '5');
-        res.end('dist-not-ready');
-      }
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+      res.end(buildState === 'ready' ? 'ok' : 'starting');
+      if (buildState !== 'ready') startBackgroundBuild();
       return;
     }
 
     if (buildState !== 'ready') {
       startBackgroundBuild();
-      res.statusCode = 503;
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
       res.setHeader('Retry-After', '5');
-      res.end(buildState === 'failed' ? 'service-unavailable' : 'building');
+      res.end(STARTUP_FALLBACK_HTML);
       return;
     }
 
