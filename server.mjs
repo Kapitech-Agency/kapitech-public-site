@@ -3,7 +3,6 @@ import { spawn } from 'node:child_process';
 import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve } from 'node:path';
-import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
@@ -41,24 +40,22 @@ async function collectFiles(entryPath) {
 }
 
 async function sourceHash() {
-  const hash = createHash('sha256');
+  const hashParts = [];
   const files = [];
 
   for (const input of BUILD_INPUTS) files.push(...await collectFiles(join(root, input)));
   files.sort();
 
   for (const filePath of files) {
-    hash.update(filePath.slice(root.length));
-    hash.update('\\0');
     try {
-      hash.update(await readFile(filePath));
+      const fileStat = await stat(filePath);
+      hashParts.push(filePath.slice(root.length) + '|' + String(fileStat.size) + '|' + String(fileStat.mtimeMs));
     } catch {
       // Optional inputs may disappear between scans.
     }
-    hash.update('\\0');
   }
 
-  return hash.digest('hex');
+  return hashParts.join('\\n');
 }
 
 async function isDistStale() {
