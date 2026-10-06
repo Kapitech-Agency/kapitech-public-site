@@ -466,19 +466,11 @@ export const InsightTableOfContents: React.FC<{
         className={[
           'overflow-hidden rounded-[16px] border transition-[border-color,background-color] duration-250',
           sectionActive
-            ? 'border-white/[0.12] bg-white/[0.028]'
+            ? 'border-white/[0.14] bg-white/[0.04]'
             : 'border-white/[0.07] bg-white/[0.012] hover:border-white/[0.11] hover:bg-white/[0.018]'
         ].join(' ')}
       >
         <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
-          <span
-            aria-hidden="true"
-            className={[
-              'absolute inset-y-3 left-0 w-[2px] transition-[background-color,opacity] duration-250',
-              sectionActive ? 'bg-brand-red opacity-100' : 'bg-transparent opacity-0'
-            ].join(' ')}
-          />
-
           <a
             ref={(node) => register(
               mobile ? mobileItemRefs.current : desktopItemRefs.current,
@@ -499,7 +491,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-250',
                   sectionActive
-                    ? 'border-white/[0.13] bg-white/[0.045] text-white'
+                    ? 'border-white/[0.16] bg-white/[0.065] text-white'
                     : 'border-white/[0.07] bg-white/[0.018] text-[#69717D]'
                 ].join(' ')}
               >
@@ -520,7 +512,7 @@ export const InsightTableOfContents: React.FC<{
 
                 {section.children.length > 0 && (
                   <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A77]">
-                    <span className={sectionActive ? 'text-[#B9C0CA]' : 'text-[#59616D]'}>
+                    <span className={sectionActive ? 'text-[#D2D6DD]' : 'text-[#59616D]'}>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>
@@ -592,9 +584,9 @@ export const InsightTableOfContents: React.FC<{
                     }}
                     aria-current={active ? 'location' : undefined}
                     className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border-l-2 px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
+                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'border-brand-red bg-white/[0.02] text-white'
+                        ? 'border-white/[0.08] bg-white/[0.03] text-white'
                         : 'border-transparent text-[#737C89] hover:border-white/[0.08] hover:bg-white/[0.018] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >
@@ -689,7 +681,7 @@ export const InsightTableOfContents: React.FC<{
         <div className="flex h-full min-h-0 flex-1 flex-col rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-4 backdrop-blur-xl">
           <div className="flex shrink-0 items-end justify-between gap-4">
             <div>
-              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-brand-red">
+              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-[#969DA8]">
                 {tocLabel}
               </p>
               <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
