@@ -158,6 +158,16 @@ export const InsightDetail: React.FC = () => {
 
     let cancelled = false;
 
+    // This editorial snapshot is the authoritative source for the MVP comparison article.
+    // The CMS remains available to the rest of the Insight library, but an incomplete CMS
+    // payload must never blank this published article.
+    if (localFallback) {
+      setLoading(false);
+      return () => {
+        cancelled = true;
+      };
+    }
+
     void api.cms.getInsightBySlug(slug)
       .then((res) => {
         if (cancelled) return;
