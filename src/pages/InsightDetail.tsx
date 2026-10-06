@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
@@ -13,6 +13,7 @@ import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingId
 import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
 import { getInsightFallback } from '../data/insightFallbacks';
+import { splitInsightBlocks } from '../lib/insightArticlePresentation.mjs';
 
 type InsightShareState = 'idle' | 'copied' | 'shared';
 
@@ -108,7 +109,6 @@ export const InsightDetail: React.FC = () => {
   const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
   const [shareState, setShareState] = useState<InsightShareState>('idle');
   const [readingProgress, setReadingProgress] = useState(0);
-
 
   useEffect(() => {
     languageInitializedRef.current = false;
@@ -278,7 +278,7 @@ export const InsightDetail: React.FC = () => {
     articleLanguageRef.current = article.language;
   }, [article, language, navigate, setLanguage, slug]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!article) return;
     removePrerenderedInsight();
   }, [article]);
@@ -289,25 +289,12 @@ export const InsightDetail: React.FC = () => {
     };
   }, []);
 
-  const blocks = useMemo(
-    () => (article && Array.isArray(article.content) ? article.content : []),
+  const presentation = useMemo(
+    () => splitInsightBlocks(article && Array.isArray(article.content) ? article.content : []),
     [article]
   );
 
-  const firstHeadingIndex = useMemo(
-    () => blocks.findIndex((block) => block?.type === 'heading'),
-    [blocks]
-  );
-
-  const introductionBlocks = useMemo(
-    () => firstHeadingIndex > -1 ? blocks.slice(0, firstHeadingIndex) : blocks,
-    [blocks, firstHeadingIndex]
-  );
-
-  const bodyBlocks = useMemo(
-    () => firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [],
-    [blocks, firstHeadingIndex]
-  );
+  const { introductionBlocks, bodyBlocks } = presentation;
 
   const headingIds = useMemo(() => buildInsightHeadingIds(bodyBlocks), [bodyBlocks]);
 
@@ -331,31 +318,43 @@ export const InsightDetail: React.FC = () => {
   }, [article?.language, bodyBlocks, faq, headingIds]);
 
   useEffect(() => {
-    const updateProgress = () => {
+    let rafId = 0;
+
+    const update = () => {
+      rafId = 0;
       const articleNode = articleReadingRef.current;
+      if (!articleNode) return;
 
-      if (!articleNode) {
-        setReadingProgress(0);
-        return;
-      }
-
-      const rect = articleNode.getBoundingClientRect();
-      const articleTop = rect.top + window.scrollY;
+      const articleTop = window.scrollY + articleNode.getBoundingClientRect().top;
       const articleBottom = articleTop + articleNode.offsetHeight;
-      const start = Math.max(0, articleTop - 120);
-      const end = Math.max(start + 1, articleBottom - window.innerHeight + 120);
-      const progress = ((window.scrollY - start) / (end - start)) * 100;
+      const travel = Math.max(1, articleBottom - articleTop - window.innerHeight);
+      const next = ((window.scrollY - articleTop) / travel) * 100;
 
-      setReadingProgress(Math.max(0, Math.min(100, progress)));
+      setReadingProgress(Math.max(0, Math.min(100, next)));
     };
 
-    updateProgress();
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    window.addEventListener('resize', updateProgress);
+    const schedule = () => {
+      if (rafId !== 0) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    const resizeObserver = typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(schedule)
+      : null;
+
+    if (resizeObserver && articleReadingRef.current) {
+      resizeObserver.observe(articleReadingRef.current);
+    }
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
 
     return () => {
-      window.removeEventListener('scroll', updateProgress);
-      window.removeEventListener('resize', updateProgress);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      resizeObserver?.disconnect();
+      if (rafId !== 0) window.cancelAnimationFrame(rafId);
     };
   }, [article]);
 
@@ -444,7 +443,6 @@ export const InsightDetail: React.FC = () => {
   if (loading) {
     return (
       <div className="relative flex min-h-[62vh] items-center justify-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12" role="status" aria-live="polite">
-        <InsightAmbientBackground intensity="detail" />
         <div className="relative z-10 text-center">
           <span className="mx-auto mb-4 block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-red" />
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#727A87]">
@@ -459,7 +457,7 @@ export const InsightDetail: React.FC = () => {
     return (
       <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12">
         <InsightAmbientBackground intensity="detail" />
-        <div className="relative z-10 mx-auto w-full max-w-[980px]">
+        <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">404 / Insight</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
             {language === 'id' ? 'Insight tidak ditemukan' : 'Insight not found'}
