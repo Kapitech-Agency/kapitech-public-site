@@ -15,7 +15,12 @@ function prefersReducedMotion(): boolean {
 
 function getHash(): string {
   if (typeof window === 'undefined') return '';
-  return decodeURIComponent(window.location.hash.replace(/^#/, ''));
+
+  try {
+    return decodeURIComponent(window.location.hash.replace(/^#/, ''));
+  } catch {
+    return '';
+  }
 }
 
 function scrollToHeading(id: string, behavior: ScrollBehavior): void {
@@ -169,15 +174,14 @@ export const InsightTableOfContents: React.FC<{
       const node = refMap.get(activeId);
       if (!node) return;
 
-      const scrollableList = node.parentElement?.parentElement;
+      const scrollableList = node.closest('nav');
       if (!(scrollableList instanceof HTMLElement)) return;
 
-      const nodeTop = node.offsetTop;
-      const nodeBottom = nodeTop + node.offsetHeight;
-      const viewportTop = scrollableList.scrollTop;
-      const viewportBottom = viewportTop + scrollableList.clientHeight;
+      const nodeRect = node.getBoundingClientRect();
+      const listRect = scrollableList.getBoundingClientRect();
+      const isVisible = nodeRect.top >= listRect.top && nodeRect.bottom <= listRect.bottom;
 
-      if (nodeTop < viewportTop || nodeBottom > viewportBottom) {
+      if (!isVisible) {
         node.scrollIntoView({
           behavior: 'auto',
           block: 'nearest'
@@ -268,7 +272,7 @@ export const InsightTableOfContents: React.FC<{
                 aria-hidden="true"
                 className={[
                   'w-5 shrink-0 pt-0.5 font-mono text-[9px] tabular-nums',
-                  active ? 'text-brand-red' : 'text-[#59616D]'
+                  active ? 'text-white' : 'text-[#59616D]'
                 ].join(' ')}
               >
                 {item.sectionNumber}
@@ -278,7 +282,7 @@ export const InsightTableOfContents: React.FC<{
                 aria-hidden="true"
                 className={[
                   'mt-[7px] h-1 w-1 shrink-0 rounded-full',
-                  active ? 'bg-brand-red' : 'bg-[#3A4049]'
+                  active ? 'bg-[#7E8794]' : 'bg-[#3A4049]'
                 ].join(' ')}
               />
             )}
