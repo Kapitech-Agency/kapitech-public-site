@@ -1,8 +1,87 @@
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { validateInsightContent } from '../src/lib/insightContentValidationCore.mjs';
 
 const DEFAULT_API_BASE = 'https://ams.kapitech.id/api';
 const REQUEST_TIMEOUT_MS = 15000;
 const DETAIL_CONCURRENCY = 4;
+const ROOT = dirname(fileURLToPath(import.meta.url));
+const FALLBACK_DIR = join(ROOT, '..', 'src', 'data', 'insight-editorial-packs');
+const FALLBACK_PACKS = [
+  ['en', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.en.json')],
+  ['id', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.id.json')]
+];
+
+async function loadLocalEditorialFallbacks() {
+  const fallbacks = [];
+
+  for (const [language, path] of FALLBACK_PACKS) {
+    try {
+      const pack = JSON.parse(await readFile(path, 'utf8'));
+      const editorial = pack?.editorial || {};
+      const seo = pack?.seo || {};
+      const content = Array.isArray(editorial.content) ? editorial.content : [];
+
+      if (!seo.slug || content.length === 0) continue;
+
+      const faq = Array.isArray(editorial.faq)
+        ? editorial.faq
+            .filter((item) => Array.isArray(item) && item.length >= 2)
+            .map(([question, answer]) => ({ question: String(question), answer: String(answer) }))
+        : [];
+
+      fallbacks.push({
+        id: 'local-fallback:' + language + ':' + seo.slug,
+        contentGroupId: 'mvp-vs-prototype-vs-proof-of-concept',
+        language,
+        title: String(editorial.title || seo.title || seo.slug),
+        slug: String(seo.slug),
+        excerpt: editorial.excerpt,
+        content,
+        coverImage: editorial.coverImage || seo.ogImage,
+        coverImageAlt: String(editorial.title || seo.title || seo.slug),
+        categoryId: 'product-technology',
+        category: {
+          id: 'product-technology',
+          slug: String(editorial.categorySlug || 'product-technology'),
+          name: { en: 'Product & Technology', id: 'Produk & Teknologi' },
+          displayName: language === 'id' ? 'Produk & Teknologi' : 'Product & Technology'
+        },
+        authorId: 'kapitech-editorial-team',
+        author: {
+          id: 'kapitech-editorial-team',
+          slug: String(editorial.authorSlug || 'kapitech-editorial-team'),
+          name: 'Kapitech Editorial Team',
+          role: 'Editorial'
+        },
+        tags: editorial.tags || [],
+        status: editorial.status === 'draft' || editorial.status === 'archived' ? editorial.status : 'published',
+        isFeatured: Boolean(editorial.isFeatured),
+        readingTime: editorial.readingTime,
+        keyTakeaways: Array.isArray(editorial.keyTakeaways) ? editorial.keyTakeaways : [],
+        faq,
+        relatedInsightIds: [],
+        relatedInsights: [],
+        editorialMeta: { editorialType: editorial.editorialMeta?.editorialType },
+        alternateLanguages: [
+          { language: 'en', slug: 'mvp-vs-prototype-vs-proof-of-concept-guide' },
+          { language: 'id', slug: 'mvp-vs-prototype-vs-proof-of-concept' }
+        ],
+        seoTitle: editorial.seoTitle || seo.title,
+        seoDescription: editorial.seoDescription || seo.description,
+        ogImage: seo.ogImage,
+        canonicalUrl: seo.canonicalUrl
+      });
+    } catch (error) {
+      console.warn('[Insight API] local editorial fallback unavailable:', error);
+    }
+  }
+
+  return fallbacks;
+}
+
+
 
 function apiBase() {
   return String(process.env.VITE_AMS_API_BASE_URL || DEFAULT_API_BASE).replace(/\/+$/, '');
@@ -111,9 +190,18 @@ export async function fetchPublishedInsightSummaries() {
 }
 
 export async function fetchPublishedInsights() {
-  const summaries = await fetchPublishedInsightSummaries();
+  const [summaries, localFallbacks] = await Promise.all([
+    fetchPublishedInsightSummaries(),
+    loadLocalEditorialFallbacks()
+  ]);
+
+  const fallbackByKey = new Map(
+    localFallbacks.map((item) => [item.language + ':' + item.slug, item])
+  );
 
   const results = await mapWithConcurrency(summaries, async (summary) => {
+    const key = summary.language + ':' + summary.slug;
+
     try {
       let detail = summary;
 
@@ -141,12 +229,27 @@ export async function fetchPublishedInsights() {
 
       return { ...summary, ...detail };
     } catch (error) {
+      const fallback = fallbackByKey.get(key);
+
+      if (fallback) {
+        console.warn('[Insight API] using local editorial fallback for ' + key + ':', error);
+        return fallback;
+      }
+
       console.warn('[Insight API] skipping unavailable Insight ' + summary.language + ':' + summary.slug + ':', error);
       return null;
     }
   });
 
-  const variants = results.filter(Boolean);
+  const resolvedKeys = new Set(
+    results.filter(Boolean).map((item) => item.language + ':' + item.slug)
+  );
+
+  const missingFallbacks = localFallbacks.filter(
+    (item) => !resolvedKeys.has(item.language + ':' + item.slug)
+  );
+
+  const variants = [...results.filter(Boolean), ...missingFallbacks];
   const byGroup = new Map();
 
   for (const item of variants) {
