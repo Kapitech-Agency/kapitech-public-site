@@ -1053,8 +1053,6 @@ export const Home = () => {
                       data-process-step={step.step}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
-                      data-analytics-event="process_phase_open"
-                      data-process-step={step.step}
                       className="relative z-10 block w-full cursor-pointer text-left outline-none"
                     >
                       <span
