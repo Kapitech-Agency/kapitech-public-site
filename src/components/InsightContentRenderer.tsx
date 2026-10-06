@@ -202,6 +202,11 @@ export const InsightContentRenderer: React.FC<{
 
           return (
             <div key={index} className="my-12 overflow-hidden rounded-[18px] border border-white/[0.08] bg-white/[0.012]">
+              <div className="border-b border-white/[0.06] px-4 py-2.5 sm:hidden">
+                <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
+                  {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
+                </p>
+              </div>
               <div
                 className="overflow-x-auto rounded-[16px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 focus-visible:ring-inset"
                 tabIndex={0}
