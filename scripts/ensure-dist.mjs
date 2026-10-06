@@ -15,7 +15,8 @@ try {
 }
 
 await new Promise((resolvePromise, rejectPromise) => {
-  const child = spawn(process.execPath, [resolve(root, 'node_modules/vite/bin/vite.js'), 'build'], {
+  const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const child = spawn(npmCommand, ['run', 'build'], {
     cwd: root,
     env: process.env,
     stdio: 'inherit'
