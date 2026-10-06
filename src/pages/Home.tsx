@@ -556,7 +556,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* ENGAGEMENT OPTIONS */}
+      {/* SERVICES & SOLUTIONS */}
       <section
         className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="engagement"
@@ -565,20 +565,20 @@ export const Home = () => {
           <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end lg:gap-14">
             <div className="max-w-4xl">
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'CARA BEKERJA BERSAMA KAMI' : 'ENGAGEMENT OPTIONS'}
+                {language === 'id' ? 'SERVICES & SOLUTIONS' : 'SERVICES & SOLUTIONS'}
               </span>
               <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id'
-                  ? 'Pilih titik masuk yang paling sesuai dengan kebutuhan Anda.'
-                  : 'Choose the right starting point for your project.'}
+                  ? 'Pilih kapabilitas yang Anda butuhkan, lalu lanjut ke solusi yang paling relevan.'
+                  : 'Choose the capability you need, then move into the solution that fits.'}
               </h2>
             </div>
 
             <div className="max-w-md lg:justify-self-end lg:pb-1">
               <p className="text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm">
                 {language === 'id'
-                  ? 'Mulai dari brand, product design, atau development. Kami akan membantu menghubungkan kebutuhan Anda ke scope dan tim yang tepat.'
-                  : 'Start with branding, product design, or development. We help turn your need into the right scope, service, and delivery team.'}
+                  ? 'Mulai dari layanan yang paling dekat dengan kebutuhan Anda. Untuk kebutuhan yang lebih spesifik, pilih jalur solusi yang sesuai dengan situasi proyek.'
+                  : 'Start with the service closest to your need. For a more specific need, choose the solution that fits your project situation.'}
               </p>
               <Link
                 to="/contact"
@@ -694,21 +694,16 @@ export const Home = () => {
             })}
           </div>
 
-          <div className="mt-14 sm:mt-16 lg:mt-20">
-            <div className="mb-7 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <div className="max-w-4xl">
-                <span className="kapi-section-label mb-4">
-                  {language === 'id' ? 'SOLUSI PRODUK' : 'PRODUCT SOLUTIONS'}
+          <div className="mt-10 border-t border-white/[0.065] pt-8 sm:mt-12 sm:pt-10">
+            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red/80">
+                  {language === 'id' ? 'JALUR SOLUSI SPESIFIK' : 'FOCUSED SOLUTION PATHS'}
                 </span>
-                <h3 className="mt-4 max-w-3xl text-2xl font-display font-semibold leading-[1.04] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.25rem]">
+                <p className="mt-2 max-w-3xl text-sm font-light leading-[1.75] text-[#8A909D]">
                   {language === 'id'
-                    ? 'Untuk kebutuhan yang lebih spesifik, masuk lewat solusi yang tepat.'
-                    : 'For more specific needs, start with the solution that fits.'}
-                </h3>
-                <p className="mt-3 max-w-2xl text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm">
-                  {language === 'id'
-                    ? 'Tiga jalur engagement yang dibuat untuk situasi berbeda: memvalidasi produk, memperbaiki produk yang sudah berjalan, atau menambah kapasitas tim.'
-                    : 'Three focused engagement paths for different situations: validate a product, improve an existing one, or add delivery capacity.'}
+                    ? 'Saat kebutuhan Anda lebih spesifik, masuk langsung lewat salah satu dari tiga solusi berikut.'
+                    : 'When your need is more specific, move directly into one of these three focused solutions.'}
                 </p>
               </div>
               <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
@@ -754,7 +749,7 @@ export const Home = () => {
                     <Link
                       key={solution.slug}
                       to={`/solutions/${solution.slug}`}
-                      className="group relative flex min-h-[276px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
+                      className="group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
                     >
                       <span
                         className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
@@ -769,7 +764,7 @@ export const Home = () => {
                         </span>
                       </div>
 
-                      <div className="mt-7">
+                      <div className="mt-6">
                         <h4 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.55rem]">
                           {solution.title}
                         </h4>
@@ -786,7 +781,7 @@ export const Home = () => {
                         </p>
                       </div>
 
-                      <div className="mt-auto flex items-center justify-between gap-4 pt-7">
+                      <div className="mt-auto flex items-center justify-between gap-4 pt-6">
                         <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
                           {solutionMeta?.cta}
                         </span>
