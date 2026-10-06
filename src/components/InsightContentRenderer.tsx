@@ -151,7 +151,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-8 border-l-2 border-brand-red/45 pl-5 sm:my-10 sm:pl-6">
+            <figure key={index} className="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 sm:my-8 sm:p-6">
               <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
@@ -171,8 +171,8 @@ export const InsightContentRenderer: React.FC<{
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
           return (
-            <figure key={index} className="my-9 sm:my-10">
-              <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0F1013] p-px">
+            <figure key={index} className="my-8 sm:my-9">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
                 <img
                   src={block.url}
                   alt={block.alt || ''}
