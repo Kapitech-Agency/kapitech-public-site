@@ -513,10 +513,7 @@ export const InsightTableOfContents: React.FC<{
     return (
       <div
         key={section.heading.id}
-        className={[
-          'relative border-b border-white/[0.06] last:border-b-0 transition-[background-color,color] duration-250',
-          sectionActive ? 'bg-white/[0.012]' : 'bg-transparent hover:bg-white/[0.012]'
-        ].join(' ')}
+        className="relative border-b border-white/[0.06] last:border-b-0"
       >
         <div className="relative flex items-center gap-2 px-2 py-2.5 sm:px-2.5 sm:py-2.5">
           <a
@@ -664,7 +661,7 @@ export const InsightTableOfContents: React.FC<{
   };
 
   const renderList = (mobile = false) => (
-    <div className="space-y-2.5">
+    <div className="space-y-0">
       {sections.map((section, index) => renderSection(section, index, mobile))}
     </div>
   );
