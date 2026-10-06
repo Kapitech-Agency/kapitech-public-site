@@ -416,7 +416,7 @@ export const InsightDetail: React.FC = () => {
 
   if (loadError === 'content') {
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-5 pt-28 sm:px-8">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Content validation</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
@@ -490,7 +490,7 @@ export const InsightDetail: React.FC = () => {
     return (
       <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden px-4 pt-28 sm:px-6 md:px-12">
         <InsightAmbientBackground intensity="detail" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl">
+        <div className="relative z-10 mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">404 / Insight</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
             {language === 'id' ? 'Insight tidak ditemukan' : 'Insight not found'}
@@ -783,7 +783,7 @@ export const InsightDetail: React.FC = () => {
 
         <section
           ref={readingEndRef}
-          className="mx-auto w-full max-w-[820px] px-5 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-[820px] px-4 py-8 sm:px-6 sm:py-10 md:px-8"
           aria-labelledby="insight-final-cta"
         >
           <div className="border-y border-white/[0.08] py-8 sm:py-9">
@@ -814,7 +814,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </section>
 
-        <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 sm:px-8 lg:px-10">
+        <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 md:px-12">
           <Link
             to="/insights"
             className="inline-flex min-h-[42px] items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#858C99] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
