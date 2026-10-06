@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
+import { InsightLeftRail } from '../components/InsightLeftRail';
 import { InsightRightRail } from '../components/InsightRightRail';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { InsightTableOfContents } from '../components/InsightTableOfContents';
@@ -12,6 +13,8 @@ import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingId
 import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
 import { getInsightFallback } from '../data/insightFallbacks';
+
+type InsightShareState = 'idle' | 'copied' | 'shared';
 
 function validFaq(article: InsightItem): Array<{ question: string; answer: string }> {
   const explicit = normalizeInsightFaq(article.faq);
@@ -95,6 +98,7 @@ export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
+  const articleReadingRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const initialFallback = getInsightFallback(slug);
@@ -102,6 +106,9 @@ export const InsightDetail: React.FC = () => {
   const [loading, setLoading] = useState(() => !initialFallback);
   const [notFound, setNotFound] = useState(false);
   const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [shareState, setShareState] = useState<InsightShareState>('idle');
+  const [readingProgress, setReadingProgress] = useState(0);
 
 
   useEffect(() => {
@@ -112,7 +119,9 @@ export const InsightDetail: React.FC = () => {
     setLoading(!localFallback);
     setNotFound(false);
     setLoadError(null);
-
+    setCopied(false);
+    setShareState('idle');
+    setReadingProgress(0);
 
     let cancelled = false;
 
@@ -323,6 +332,57 @@ export const InsightDetail: React.FC = () => {
     return items;
   }, [article?.language, bodyBlocks, faq, headingIds]);
 
+  useEffect(() => {
+    const updateProgress = () => {
+      const articleNode = articleReadingRef.current;
+
+      if (!articleNode) {
+        setReadingProgress(0);
+        return;
+      }
+
+      const rect = articleNode.getBoundingClientRect();
+      const articleTop = rect.top + window.scrollY;
+      const articleBottom = articleTop + articleNode.offsetHeight;
+      const start = Math.max(0, articleTop - 120);
+      const end = Math.max(start + 1, articleBottom - window.innerHeight + 120);
+      const progress = ((window.scrollY - start) / (end - start)) * 100;
+
+      setReadingProgress(Math.max(0, Math.min(100, progress)));
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, [article]);
+
+  const copyLink = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: article?.title || 'Kapitech Insight',
+          url: window.location.href
+        });
+        setShareState('shared');
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareState('copied');
+      }
+      setCopied(true);
+      window.setTimeout(() => {
+        setCopied(false);
+        setShareState('idle');
+      }, 1800);
+    } catch {
+      setShareState('idle');
+    }
+  };
+
   const hasPrerender = hasPrerenderedInsight();
 
   if ((loading || loadError) && hasPrerender) return null;
@@ -431,187 +491,171 @@ export const InsightDetail: React.FC = () => {
     || article.category?.name?.id
     || article.category?.slug;
 
-  const coverWidth = Number.isFinite(article.coverImageWidth) && Number(article.coverImageWidth) > 0
-    ? Number(article.coverImageWidth)
-    : undefined;
-  const coverHeight = Number.isFinite(article.coverImageHeight) && Number(article.coverImageHeight) > 0
-    ? Number(article.coverImageHeight)
-    : undefined;
-
   return (
     <InsightDetailErrorBoundary language={article.language}>
       <>
         <InsightSeoMeta article={article} />
 
-        <header className="bg-[#0B0C0E]">
-          <div className="mx-auto w-full max-w-7xl px-4 pb-12 pt-28 sm:px-6 sm:pb-14 sm:pt-32 md:px-12 lg:pb-16 lg:pt-36">
-            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,500px)] lg:items-center lg:gap-14">
-              <div className="min-w-0">
-                <nav
-                  className="mb-6 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]"
-                  aria-label="Breadcrumb"
-                >
-                  <Link
-                    to="/insights"
-                    className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
-                  >
-                    {article.language === 'id' ? 'Insight' : 'Insights'}
-                  </Link>
+        <header className="border-b border-white/[0.07] bg-[#0B0C0E]">
+          <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">
+            <nav
+              className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]"
+              aria-label="Breadcrumb"
+            >
+              <Link
+                to="/"
+                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+              >
+                {article.language === 'id' ? 'Beranda' : 'Home'}
+              </Link>
+              <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
+              <Link
+                to="/insights"
+                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+              >
+                {article.language === 'id' ? 'Insight' : 'Insights'}
+              </Link>
+              {category && (
+                <>
                   <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
-                  <span className="truncate text-[#A2A8B4]">{category || 'Insight'}</span>
-                </nav>
+                  <span className="truncate text-[#A2A8B4]">{category}</span>
+                </>
+              )}
+            </nav>
 
-                <p className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
-                  {article.editorialMeta?.editorialType || (article.language === 'id' ? 'Panduan' : 'Guide')}
-                </p>
-
-                <h1 className="mt-4 max-w-[860px] font-display text-[2.7rem] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.6rem]">
-                  {article.title}
-                </h1>
-
-                {article.excerpt && (
-                  <p className="mt-5 max-w-2xl text-[15px] leading-7 text-[#9EA5B1] sm:text-base sm:leading-8">
-                    {article.excerpt}
-                  </p>
+            <div className="max-w-[980px]">
+              <div className="flex flex-wrap items-center gap-2.5">
+                {category && (
+                  <span className="kapi-section-label mb-0">
+                    {category}
+                  </span>
                 )}
-
-                <p className="mt-6 text-xs leading-5 text-[#69717D]">
-                  <span className="text-white">{article.author?.name || 'Kapitech Editorial'}</span>
-                  <span className="mx-2 text-[#404651]">·</span>
-                  {article.readingTime || '—'} {article.readingTime ? (article.language === 'id' ? 'menit baca' : 'min read') : ''}
-                </p>
+                {article.editorialMeta?.editorialType && (
+                  <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                    {article.editorialMeta.editorialType}
+                  </span>
+                )}
               </div>
 
-              <figure className="overflow-hidden rounded-xl border border-white/[0.07] bg-[#101114]">
-                <div className="overflow-hidden bg-[#0B0C0E]">
-                  <img
-                    src={article.language === 'id'
-                      ? '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg'
-                      : '/insights/mvp-vs-prototype-vs-proof-of-concept/hero-en.svg'}
-                    alt={article.coverImageAlt?.trim() || article.title}
-                    width={coverWidth || 1600}
-                    height={coverHeight || 900}
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                    className="block aspect-[16/9] h-auto w-full object-contain"
-                    onError={(event) => {
-                      const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg';
-                      if (event.currentTarget.src.endsWith(fallback)) return;
-                      event.currentTarget.src = fallback;
-                    }}
-                  />
-                </div>
-                <figcaption className="px-4 py-3 text-xs leading-5 text-[#737B88]">
-                  {article.language === 'id'
-                    ? 'Gunakan pertanyaan utama untuk memilih alat validasi yang tepat.'
-                    : 'Use the core question to choose the right validation tool.'}
-                </figcaption>
-              </figure>
+              <h1 className="mt-6 max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.5rem]">
+                {article.title}
+              </h1>
+
+              {article.excerpt && (
+                <p className="mt-6 max-w-3xl text-base leading-8 text-[#A3A9B5] sm:text-lg">
+                  {article.excerpt}
+                </p>
+              )}
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">
+                {article.author?.name && (
+                  <span className="font-medium text-white">
+                    {article.language === 'id' ? 'Ditulis oleh ' : 'Written by '}
+                    {article.author.name}
+                    {article.author.role ? <span className="font-normal text-[#737A87]"> · {article.author.role}</span> : null}
+                  </span>
+                )}
+                {article.readingTime ? (
+                  <span>
+                    {article.readingTime} {article.language === 'id' ? 'menit baca' : 'min read'}
+                  </span>
+                ) : null}
+                {article.editorialMeta?.reviewedBy && (
+                  <span>
+                    {article.language === 'id' ? 'Ditinjau oleh ' : 'Reviewed by '}
+                    {article.editorialMeta.reviewedBy}
+                  </span>
+                )}
+                {article.publishedAt && (
+                  <time dateTime={article.publishedAt}>
+                    {new Date(article.publishedAt).toLocaleDateString(article.language === 'id' ? 'id-ID' : 'en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </time>
+                )}
+              </div>
             </div>
           </div>
         </header>
 
-        <section
-          className="w-full bg-[#0B0C0E]"
-          aria-label={article.language === 'id' ? 'Artikel Insight' : 'Insight article'}
-        >
-          <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">
+          <div className="mb-5 xl:hidden">
+            <InsightLeftRail
+              mobile
+              language={article.language}
+              readingProgress={readingProgress}
+              shareState={shareState}
+              onShare={() => void copyLink()}
+            />
             {toc.length > 0 && (
-              <div className="px-4 pt-5 sm:px-6 md:px-12 xl:hidden">
-                <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
-              </div>
+              <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
             )}
+          </div>
 
-            <div className="xl:grid xl:grid-cols-[minmax(0,860px)_300px] xl:justify-center xl:gap-16">
-              <article className="min-w-0 w-full justify-self-center px-4 py-10 text-[#C3C7D0] sm:px-6 sm:py-14 xl:px-0 xl:py-16">
-                {introductionBlocks.length > 0 && (
-                  <section
-                    className="mb-14"
-                    aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
-                  >
-                    <InsightContentRenderer
-                      blocks={introductionBlocks}
-                      headingIds={[]}
-                      language={article.language}
-                    />
-                  </section>
-                )}
+          <div className="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,820px)_304px] xl:justify-center">
+            <InsightLeftRail
+              language={article.language}
+              readingProgress={readingProgress}
+              shareState={shareState}
+              onShare={() => void copyLink()}
+            />
 
-                {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
-                  <section
-                    className="mb-14 border-l-2 border-brand-red/45 pl-5 sm:pl-6"
-                    aria-labelledby="key-takeaways-title"
-                  >
-                    <h2
-                      id="key-takeaways-title"
-                      className="mb-4 font-display text-xl font-semibold tracking-[-0.025em] text-white sm:text-[1.35rem]"
-                    >
-                      {article.language === 'id' ? 'Poin utama' : 'Key takeaways'}
-                    </h2>
-                    <ul className="space-y-3">
+            <article
+              ref={articleReadingRef}
+              className="min-w-0 w-full justify-self-center text-[#C3C7D0]"
+            >
+              {introductionBlocks.length > 0 && (
+                <section
+                  className="mb-12 sm:mb-14"
+                  aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
+                >
+                  <InsightContentRenderer
+                    blocks={introductionBlocks}
+                    headingIds={[]}
+                    language={article.language}
+                  />
+                </section>
+              )}
+
+              {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
+                <section
+                  className="mb-12 border-y border-white/[0.08] py-7 sm:mb-14 sm:py-8"
+                  aria-labelledby="key-takeaways-title"
+                >
+                  <div className="grid gap-5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-9">
+                    <div>
+                      <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
+                        {article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
+                      </p>
+                      <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
+                        {article.language === 'id'
+                          ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
+                          : 'The ideas worth carrying forward.'}
+                      </p>
+                    </div>
+                    <ul className="space-y-2.5">
                       {article.keyTakeaways.map((item, index) => (
-                        <li key={index} className="flex gap-3 text-[14px] leading-7 text-[#CBD0D8] sm:text-[15px]">
-                          <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                        <li key={index} className="flex gap-3 text-sm leading-7 text-[#CBD0D8] sm:text-[15px]">
+                          <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/75" aria-hidden="true" />
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
-                  </section>
-                )}
+                  </div>
+                </section>
+              )}
 
-                {bodyBlocks.length > 0 && (
-                  <InsightContentRenderer
-                    blocks={bodyBlocks}
-                    headingIds={headingIds.map((id) => id || '')}
-                    language={article.language}
-                  />
-                )}
-              </article>
+              {bodyBlocks.length > 0 && (
+                <InsightContentRenderer
+                  blocks={bodyBlocks}
+                  headingIds={headingIds.map((id) => id || '')}
+                  language={article.language}
+                />
+              )}
 
-              <div className="hidden py-16 xl:block">
-                <InsightRightRail items={toc} language={article.language} />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {faq.length > 0 && (
-          <section className="w-full bg-[#0B0C0E] px-4 pb-14 pt-10 sm:px-6 sm:pb-16 md:px-12" aria-labelledby="faq-title">
-            <div className="mx-auto w-full max-w-[860px]">
-              <h2 id="faq-title" className="scroll-mt-28 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">
-                {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
-              </h2>
-              <div className="mt-5 divide-y divide-white/[0.08] border-y border-white/[0.08]">
-                {faq.map((item, index) => (
-                  <details key={index} className="group py-4">
-                    <summary className="cursor-pointer list-none text-sm font-semibold leading-6 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-                      <span className="flex items-center justify-between gap-4">
-                        {item.question}
-                        <ChevronRight size={15} className="shrink-0 text-[#68707C] transition-transform duration-300 group-open:rotate-90" aria-hidden="true" />
-                      </span>
-                    </summary>
-                    <p className="max-w-[72ch] pt-3 text-sm leading-7 text-[#9BA2AF]">{item.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        <div className="w-full bg-[#0B0C0E] px-4 pb-12 sm:px-6 md:px-12">
-          <div className="mx-auto w-full max-w-[860px]">
-            <Link
-              to="/insights"
-              className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
-            >
-              <ArrowLeft size={14} aria-hidden="true" />
-              {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
-            </Link>
-          </div>
-        </div>
-
-      </>
+            </>
     </InsightDetailErrorBoundary>
   );
 };
