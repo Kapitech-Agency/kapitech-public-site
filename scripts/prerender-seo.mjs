@@ -146,8 +146,8 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'promo') {
-    const promoLabel = language === 'id' ? 'Rekomendasi Kapitech' : 'Kapitech recommendation';
-    const promoBadge = language === 'id'
+    const promoLabel = insight.language === 'id' ? 'Rekomendasi Kapitech' : 'Kapitech recommendation';
+    const promoBadge = insight.language === 'id'
       ? (block.serviceReference ? 'Layanan terkait' : 'Promosi')
       : (block.serviceReference ? 'Relevant service' : 'Sponsored');
     return '<aside data-kapi-ad="true" class="relative my-12 overflow-hidden rounded-[22px] border border-[#E50914]/25 bg-[#111318] p-5 sm:my-14 sm:p-6">' +
