@@ -29,13 +29,13 @@ export function buildInsightHeadingIdList(blocks) {
 export function buildInsightTocList(blocks, headingIds) {
   return (Array.isArray(blocks) ? blocks : []).flatMap((block, index) => {
     if (!block || block.type !== 'heading') return [];
-    if (block.level !== 2 && block.level !== 3) return [];
+    if (block.level !== 2) return [];
     if (!headingIds?.[index]) return [];
 
     return [{
       id: headingIds[index],
       text: String(block.text || ''),
-      level: block.level
+      level: 2
     }];
   });
 }
