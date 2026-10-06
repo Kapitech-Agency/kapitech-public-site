@@ -758,6 +758,7 @@ export const InsightDetail: React.FC = () => {
               ))}
             </div>
           </div>
+          </section>
         )}
 
         {faq.length > 0 && (
@@ -783,6 +784,7 @@ export const InsightDetail: React.FC = () => {
                   </details>
                 ))}
               </div>
+            </div>
             </div>
           </section>
         )}
