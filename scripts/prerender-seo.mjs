@@ -45,21 +45,43 @@ const inlineMarkdownToHtml = (value) => {
     });
 };
 
+const blocksBeforeHeadingFallback = (currentBlock, allBlocks) => {
+  const index = allBlocks.indexOf(currentBlock);
+  if (index < 0) return 0;
+
+  return allBlocks
+    .slice(0, index + 1)
+    .filter((item) => item?.type === 'heading' && item.level === 2)
+    .length - 1;
+};
+
 const renderBlock = (block, headingId, insight) => {
   if (!block || typeof block !== 'object') return '';
 
   if (block.type === 'paragraph') {
-    return '<p class="mb-7 text-[15px] font-light leading-[1.9] text-[#C3C7D0] sm:text-[16px]">' +
+    return '<p class="mb-6 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">' +
       inlineMarkdownToHtml(block.text) + '</p>';
   }
 
   if (block.type === 'heading') {
     const tag = block.level === 3 ? 'h3' : 'h2';
-    const cls = block.level === 3
-      ? 'mb-4 mt-10 scroll-mt-28 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
-      : 'mb-5 mt-14 scroll-mt-28 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem]';
-    return '<' + tag + ' id="' + escapeHtml(headingId) + '" class="' + cls + '">' +
-      escapeHtml(block.text) + '</' + tag + '>';
+    if (block.level === 3) {
+      return '<h3 id="' + escapeHtml(headingId) + '" class="group scroll-mt-28 mb-4 mt-10 border-l border-white/[0.08] pl-4 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]">' +
+        escapeHtml(block.text) + '</h3>';
+    }
+
+    const sectionNumber = String(
+      blocksBeforeHeadingFallback(block, insight.content) + 1
+    ).padStart(2, '0');
+
+    return '<h2 id="' + escapeHtml(headingId) + '" class="scroll-mt-28 mb-6 mt-16 first:mt-2">' +
+      '<span class="mb-3 flex items-center gap-3 border-t border-white/[0.07] pt-5">' +
+      '<span class="font-mono text-[9px] font-semibold tabular-nums tracking-[0.14em] text-[#E50914]">' + sectionNumber + '</span>' +
+      '<span class="h-px w-8 bg-[#E50914]/45" aria-hidden="true"></span>' +
+      '<span class="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">' +
+      escapeHtml(insight.language === 'id' ? 'Bagian' : 'Section') + '</span></span>' +
+      '<span class="block font-display text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2.1rem] lg:text-[2.3rem]">' +
+      escapeHtml(block.text) + '</span></h2>';
   }
 
   if (block.type === 'list') {
@@ -76,9 +98,10 @@ const renderBlock = (block, headingId, insight) => {
     const attribution = safeText(block.attribution)
       ? '<figcaption class="mt-5 text-[9px] font-mono uppercase tracking-[0.13em] text-[#7D8492]">' + escapeHtml(block.attribution) + '</figcaption>'
       : '';
-    return '<figure class="relative my-10 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">' +
-      '<div class="absolute left-0 top-0 h-full w-[2px] bg-[#E50914]/70"></div>' +
-      '<blockquote class="max-w-2xl font-display text-xl leading-[1.45] tracking-[-0.02em] text-white/92 sm:text-2xl">' +
+    return '<figure class="my-11 border-y border-white/[0.08] py-7 sm:py-8">' +
+      '<p class="mb-3 text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">' +
+      escapeHtml(insight.language === 'id' ? 'Catatan' : 'Editorial note') + '</p>' +
+      '<blockquote class="max-w-3xl font-display text-[1.22rem] leading-[1.45] tracking-[-0.02em] text-white sm:text-[1.45rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' + attribution + '</figure>';
   }
 
@@ -120,8 +143,16 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'callout') {
-    return '<aside class="relative my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">' +
-      '<div class="absolute left-0 top-0 h-full w-[2px] bg-[#E50914]/55"></div>' +
+    const calloutLabel = block.tone === 'warning'
+      ? (insight.language === 'id' ? 'Perhatian' : 'Watch')
+      : block.tone === 'success'
+        ? (insight.language === 'id' ? 'Prinsip' : 'Principle')
+        : block.tone === 'info'
+          ? (insight.language === 'id' ? 'Catatan' : 'Note')
+          : (insight.language === 'id' ? 'Insight' : 'Insight');
+    return '<aside class="my-9 rounded-[18px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">' +
+      '<p class="mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">' +
+      calloutLabel + '</p>' +
       (safeText(block.title) ? '<p class="mb-2 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
       '<p class="text-sm leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
   }
@@ -175,7 +206,7 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'divider') {
-    return '<hr class="my-12 border-0 border-t border-white/[0.07]" />';
+    return '<div class="my-14 flex items-center gap-4" aria-hidden="true"><span class="h-px flex-1 bg-white/[0.07]"></span><span class="h-1 w-1 rounded-full bg-[#E50914]/70"></span><span class="h-px flex-[0.18] bg-white/[0.07]"></span></div>';
   }
 
   return '';
