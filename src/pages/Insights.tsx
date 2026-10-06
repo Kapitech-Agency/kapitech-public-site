@@ -463,7 +463,7 @@ export const Insights: React.FC = () => {
             </div>
           )}
           </div>
-        </div>
+        </section>
 
         <section className="relative w-full px-4 pb-24 sm:px-6 md:px-12">
           <div className="mx-auto w-full max-w-7xl">
