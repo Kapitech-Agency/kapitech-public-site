@@ -500,10 +500,8 @@ export const InsightTableOfContents: React.FC<{
       <div
         key={section.heading.id}
         className={[
-          'relative overflow-hidden rounded-[14px] transition-[background-color,color] duration-250',
-          sectionActive
-            ? 'bg-white/[0.04]'
-            : 'bg-transparent hover:bg-white/[0.018]'
+          'relative border-b border-white/[0.06] last:border-b-0 transition-[background-color,color] duration-250',
+          sectionActive ? 'bg-white/[0.012]' : 'bg-transparent hover:bg-white/[0.012]'
         ].join(' ')}
       >
         <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
@@ -525,10 +523,10 @@ export const InsightTableOfContents: React.FC<{
               <span
                 aria-hidden="true"
                 className={[
-                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] font-mono text-[9px] font-semibold tabular-nums transition-[background-color,color] duration-250',
+                  'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-250',
                   sectionActive
-                    ? 'bg-brand-red/[0.10] text-brand-red'
-                    : 'bg-white/[0.025] text-[#69717D]'
+                    ? 'bg-brand-red/[0.08] text-brand-red'
+                    : 'bg-white/[0.02] text-[#69717D]'
                 ].join(' ')}
               >
                 {String(index + 1).padStart(2, '0')}
@@ -577,8 +575,8 @@ export const InsightTableOfContents: React.FC<{
               className={[
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                 expanded || sectionActive
-                  ? 'border-brand-red/30 bg-brand-red/[0.08] text-brand-red'
-                  : 'border-white/[0.07] bg-white/[0.02] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.045] hover:text-white'
+                  ? 'border-brand-red/30 bg-brand-red/[0.06] text-brand-red'
+                  : 'border-white/[0.07] bg-white/[0.018] text-[#9AA1AC] hover:border-white/[0.12] hover:bg-white/[0.04] hover:text-white'
               ].join(' ')}
               data-state={expanded ? 'open' : 'closed'}
             >
