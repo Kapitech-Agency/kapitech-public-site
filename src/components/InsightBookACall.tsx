@@ -4,32 +4,29 @@ import { Link } from 'react-router-dom';
 import type { InsightLanguage } from '../data/insightTypes';
 
 export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ language }) => (
-  <div className="shrink-0 rounded-[16px] bg-white/[0.018] px-4 py-4">
-    <div className="flex items-center justify-between gap-4">
-      <p className="text-[8px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
-        {language === 'id' ? 'Langkah berikutnya' : 'Next step'}
-      </p>
-      <span className="h-1.5 w-1.5 rounded-full bg-brand-red/70" aria-hidden="true" />
-    </div>
+  <aside className="rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+    <span className="kapi-section-label">
+      {language === 'id' ? 'LANGKAH BERIKUTNYA' : 'NEXT STEP'}
+    </span>
 
-    <h2 className="mt-3 text-[14px] font-display font-semibold leading-[1.35] tracking-[-0.02em] text-white">
+    <h2 className="mt-5 text-[1.35rem] font-display font-semibold leading-[1.08] tracking-[-0.04em] text-white">
       {language === 'id'
-        ? 'Butuh partner untuk menerapkan insight ini?'
-        : 'Need a partner to turn this insight into action?'}
+        ? 'Siap mengubah insight ini menjadi keputusan yang bisa dijalankan?'
+        : 'Ready to turn this insight into a decision you can act on?'}
     </h2>
 
-    <p className="mt-2 text-[11px] leading-[1.7] text-[#7F8794]">
+    <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D]">
       {language === 'id'
-        ? 'Bicarakan konteks dan langkah berikutnya tanpa menambah scope yang belum perlu.'
-        : 'Talk through the context and next step without adding unnecessary scope.'}
+        ? 'Ceritakan konteks produk, UX, atau engineering Anda. Kami bantu menentukan starting point yang masuk akal.'
+        : 'Share the product, UX, or engineering context. We will help you find the most sensible starting point.'}
     </p>
 
     <Link
       to="/contact"
-      className="mt-4 inline-flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#E4E7EC] transition-[color,transform] duration-300 hover:translate-x-0.5 hover:text-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+      className="group mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.13em] text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
     >
-      {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
-      <ArrowUpRight size={13} strokeWidth={2} aria-hidden="true" />
+      <span>{language === 'id' ? 'Mulai diskusi' : 'Start a discussion'}</span>
+      <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
     </Link>
-  </div>
+  </aside>
 );
