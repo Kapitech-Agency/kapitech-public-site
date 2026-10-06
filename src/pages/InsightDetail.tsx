@@ -135,7 +135,7 @@ export const InsightDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared'>('idle');
   const [readingProgress, setReadingProgress] = useState(0);
   const [relatedInsights, setRelatedInsights] = useState<InsightItem[]>([]);
 
@@ -367,28 +367,46 @@ export const InsightDetail: React.FC = () => {
 
   const headingIds = useMemo(() => buildInsightHeadingIds(bodyBlocks), [bodyBlocks]);
 
-  const toc = useMemo(
-    () => buildInsightToc(bodyBlocks, headingIds),
-    [bodyBlocks, headingIds]
-  );
-
   const faq = useMemo(
     () => article ? validFaq(article) : [],
     [article]
   );
 
-  const copyLink = async () => {
+  const toc = useMemo(() => {
+    const items = buildInsightToc(bodyBlocks, headingIds);
+
+    if (faq.length > 0 && !items.some((item) => item.id === 'faq-title')) {
+      items.push({
+        id: 'faq-title',
+        text: article?.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions',
+        level: 2
+      });
+    }
+
+    return items;
+  }, [article?.language, bodyBlocks, faq, headingIds]);
+
+  const shareArticle = async () => {
     try {
+      let nextState: 'copied' | 'shared' = 'copied';
+
       if (navigator.share) {
-        await navigator.share({
-          title: article?.title || 'Kapitech Insight',
-          url: window.location.href
-        });
+        try {
+          await navigator.share({
+            title: article?.title || 'Kapitech Insight',
+            url: window.location.href
+          });
+          nextState = 'shared';
+        } catch (error: unknown) {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+          await navigator.clipboard.writeText(window.location.href);
+        }
       } else {
         await navigator.clipboard.writeText(window.location.href);
       }
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
+
+      setShareState(nextState);
+      window.setTimeout(() => setShareState('idle'), 1800);
     } catch {}
   };
 
@@ -434,13 +452,21 @@ export const InsightDetail: React.FC = () => {
               ? 'Terjadi masalah saat mengambil artikel. Silakan coba lagi.'
               : 'There was a problem loading this article. Please try again.'}
           </p>
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
-            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
-          >
-            {language === 'id' ? 'Muat ulang' : 'Reload'}
-          </button>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            >
+              {language === 'id' ? 'Muat ulang' : 'Reload'}
+            </button>
+            <Link
+              to="/insights"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            >
+              {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
+            </Link>
+          </div>
         </div>
       </section>
     );
@@ -602,8 +628,8 @@ export const InsightDetail: React.FC = () => {
               mobile
               language={article.language}
               readingProgress={readingProgress}
-              copied={copied}
-              onShare={() => void copyLink()}
+              shareState={shareState}
+              onShare={() => void shareArticle()}
             />
             {toc.length > 0 && (
               <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
@@ -710,7 +736,7 @@ export const InsightDetail: React.FC = () => {
                   {article.language === 'id' ? 'Library' : 'Library'}
                 </p>
                 <h2 id="related-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
-                  {article.language === 'id' ? 'Insight terkait' : 'Top stories & related insights'}
+                  {article.language === 'id' ? 'Insight terkait' : 'Related insights'}
                 </h2>
               </div>
               <Link
@@ -768,13 +794,13 @@ export const InsightDetail: React.FC = () => {
                 </p>
                 <h2 id="insight-final-cta" className="mt-3 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-3xl">
                   {article.language === 'id'
-                    ? 'Sudah tahu apa yang perlu divalidasi berikutnya?'
-                    : 'Know what you need to validate next?'}
+                    ? 'Sudah tahu apa yang ingin Anda bangun atau perbaiki berikutnya?'
+                    : 'Know what you want to build or improve next?'}
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-[#89909D]">
                   {article.language === 'id'
-                    ? 'Bawa pertanyaan utamanya. Kita bisa memetakan jalur dari validasi ke product design dan development.'
-                    : 'Bring the key question. We can map the path from validation to product design and development.'}
+                    ? 'Bawa konteks, pertanyaan, atau tantangan utamanya. Kami bisa membantu memetakan langkah berikutnya.'
+                    : 'Bring the context, question, or challenge. We can help map the next step.'}
                 </p>
               </div>
               <Link
