@@ -146,7 +146,7 @@ export const InsightTableOfContents: React.FC<{
 
 
   const navigationTargetRef = useRef('');
-  const manuallyCollapsedSectionRef = useRef<string | null>(null);
+  const manuallyCollapsedSectionIdsRef = useRef<Set<string>>(new Set());
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -164,15 +164,11 @@ export const InsightTableOfContents: React.FC<{
     setActiveId(id);
   };
 
-  const expandSectionForItem = (id: string, previousSectionId?: string) => {
+  const syncExpandedSection = (id: string, previousSectionId?: string) => {
     const sectionId = sectionByItemId.get(id);
-    if (!sectionId) return;
+    if (!sectionId || sectionId === previousSectionId) return;
 
-    if (previousSectionId !== sectionId) {
-      manuallyCollapsedSectionRef.current = null;
-    }
-
-    if (manuallyCollapsedSectionRef.current !== sectionId) {
+    if (!manuallyCollapsedSectionIdsRef.current.has(sectionId)) {
       setExpandedSectionId(sectionId);
     }
   };
@@ -186,7 +182,7 @@ export const InsightTableOfContents: React.FC<{
       const firstId = validItems[0].id;
       const previousSectionId = sectionByItemId.get(activeIdRef.current);
       setActive(firstId);
-      expandSectionForItem(firstId, previousSectionId);
+      syncExpandedSection(firstId, previousSectionId);
       return;
     }
 
@@ -194,7 +190,7 @@ export const InsightTableOfContents: React.FC<{
       const lastId = validItems[validItems.length - 1].id;
       const previousSectionId = sectionByItemId.get(activeIdRef.current);
       setActive(lastId);
-      expandSectionForItem(lastId, previousSectionId);
+      syncExpandedSection(lastId, previousSectionId);
       return;
     }
 
@@ -214,7 +210,7 @@ export const InsightTableOfContents: React.FC<{
 
     const previousSectionId = sectionByItemId.get(activeIdRef.current);
     setActive(currentId);
-    expandSectionForItem(currentId, previousSectionId);
+    syncExpandedSection(currentId, previousSectionId);
   };
 
   const scheduleScrollSync = () => {
@@ -250,10 +246,10 @@ export const InsightTableOfContents: React.FC<{
 
   const startNavigation = (id: string, sectionId?: string) => {
     navigationTargetRef.current = id;
-    manuallyCollapsedSectionRef.current = null;
     setActive(id);
 
     if (sectionId) {
+      manuallyCollapsedSectionIdsRef.current.delete(sectionId);
       setExpandedSectionId(sectionId);
     }
   };
@@ -331,7 +327,10 @@ export const InsightTableOfContents: React.FC<{
     const mediaQuery = window.matchMedia('(min-width: 1280px)');
     const handleBreakpointChange = () => {
       clearNavigationLock();
-      window.requestAnimationFrame(syncActiveFromScroll);
+
+      if (isVariantActive()) {
+        window.requestAnimationFrame(syncActiveFromScroll);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -381,7 +380,7 @@ export const InsightTableOfContents: React.FC<{
       }
 
       navigationTargetRef.current = '';
-      manuallyCollapsedSectionRef.current = null;
+      manuallyCollapsedSectionIdsRef.current.clear();
     };
   }, [validItems, sectionByItemId, variant]);
 
@@ -409,9 +408,21 @@ export const InsightTableOfContents: React.FC<{
         || nodeRect.bottom > scrollRect.bottom;
 
       if (outside) {
-        node.scrollIntoView({
-          behavior: 'auto',
-          block: 'nearest'
+        const targetTop =
+          nodeRect.top - scrollRect.top + scrollable.scrollTop;
+        const targetBottom =
+          nodeRect.bottom - scrollRect.top + scrollable.scrollTop;
+
+        const nextScrollTop = targetTop < scrollable.scrollTop
+          ? Math.max(0, targetTop - 8)
+          : Math.min(
+              scrollable.scrollHeight - scrollable.clientHeight,
+              targetBottom - scrollable.clientHeight + 8
+            );
+
+        scrollable.scrollTo({
+          top: Math.max(0, nextScrollTop),
+          behavior: 'auto'
         });
       }
     };
@@ -455,11 +466,11 @@ export const InsightTableOfContents: React.FC<{
   const toggleSection = (sectionId: string) => {
     setExpandedSectionId((current) => {
       if (current === sectionId) {
-        manuallyCollapsedSectionRef.current = sectionId;
+        manuallyCollapsedSectionIdsRef.current.add(sectionId);
         return null;
       }
 
-      manuallyCollapsedSectionRef.current = null;
+      manuallyCollapsedSectionIdsRef.current.delete(sectionId);
       return sectionId;
     });
   };
