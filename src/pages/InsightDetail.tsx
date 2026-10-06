@@ -675,7 +675,7 @@ export const InsightDetail: React.FC = () => {
                     {faq.map((item, index) => (
                       <details
                         key={index}
-                        className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200 last:border-b-0"
+                        className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200"
                       >
                         <summary className="list-none cursor-pointer py-5 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60">
                           <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
