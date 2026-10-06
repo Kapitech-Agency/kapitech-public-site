@@ -14,6 +14,7 @@ import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
+import { getInsightFallback } from '../data/insightFallbacks';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -160,6 +161,19 @@ export const InsightDetail: React.FC = () => {
         if (cancelled) return;
 
         if (!res.success || !res.data?.insight || res.data.insight.status !== 'published') {
+          const fallbackArticle = getInsightFallback(slug);
+
+          if (fallbackArticle) {
+            console.warn('[Kapitech Insight] using local editorial fallback:', {
+              slug: fallbackArticle.slug,
+              language: fallbackArticle.language,
+              reason: res.error || 'Published CMS article unavailable'
+            });
+            setArticle(fallbackArticle);
+            setLoadError(null);
+            return;
+          }
+
           const isNotFound = /(?:HTTP\s+)?404\b/.test(res.error || '');
 
           if (isNotFound) {
@@ -182,6 +196,19 @@ export const InsightDetail: React.FC = () => {
             errors: validation.errors,
             warnings: validation.warnings
           });
+
+          const fallbackArticle = getInsightFallback(slug);
+
+          if (fallbackArticle) {
+            console.warn('[Kapitech Insight] using local editorial fallback after validation failure:', {
+              slug: fallbackArticle.slug,
+              language: fallbackArticle.language
+            });
+            setArticle(fallbackArticle);
+            setLoadError(null);
+            return;
+          }
+
           enablePrerenderedInsightFallback();
           setLoadError('content');
           return;
@@ -198,6 +225,19 @@ export const InsightDetail: React.FC = () => {
       })
       .catch((error: unknown) => {
         if (cancelled) return;
+
+        const fallbackArticle = getInsightFallback(slug);
+
+        if (fallbackArticle) {
+          console.warn('[Kapitech Insight] using local editorial fallback after request exception:', {
+            slug: fallbackArticle.slug,
+            language: fallbackArticle.language
+          });
+          setArticle(fallbackArticle);
+          setLoadError(null);
+          return;
+        }
+
         console.error('[Kapitech Insight] article request failed:', error);
         enablePrerenderedInsightFallback();
         setLoadError('network');
