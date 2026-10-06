@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
-<title id="title">Decision tree memilih Prototype, MVP, atau PoC</title>
-<desc id="desc">Pohon keputusan berdasarkan ketidakpastian terbesar: user experience, product value, technical feasibility, atau beberapa ketidakpastian sekaligus.</desc>
+<title id="title">Decision tree for choosing Prototype, MVP, or PoC</title>
+<desc id="desc">A decision tree based on the biggest uncertainty: user experience, product value, technical feasibility, or multiple critical uncertainties.</desc>
 <rect width="1400" height="1000" fill="#0B0C0E"/>
 <g font-family="Inter,Arial,sans-serif">
 <text x="70" y="78" font-size="18" letter-spacing="4" fill="#E50914">05 / DECISION FRAMEWORK</text>

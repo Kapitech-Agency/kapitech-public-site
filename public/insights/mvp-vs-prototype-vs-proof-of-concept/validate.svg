@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
-<title id="title">Apa yang divalidasi oleh Prototype, MVP, dan PoC</title>
-<desc id="desc">Tiga kolom yang membandingkan fokus validasi pengalaman pengguna, nilai produk, dan kelayakan teknis.</desc>
+<title id="title">What Prototype, MVP, and PoC Validate</title>
+<desc id="desc">Three columns comparing validation focus across user experience, product value, and technical feasibility.</desc>
 <rect width="1400" height="760" fill="#0B0C0E"/>
 <g font-family="Inter,Arial,sans-serif">
 <text x="80" y="90" font-size="18" letter-spacing="4" fill="#E50914">01 / WHAT DOES EACH APPROACH VALIDATE?</text>
