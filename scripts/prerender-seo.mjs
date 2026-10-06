@@ -464,7 +464,7 @@ const renderInsightBody = (insight) => {
       escapeHtml(label('Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.', 'Short answers to the questions readers are most likely to have after this article.')) +
       '</p></div><div class="mt-7 border-y border-white/[0.08]">';
     faq.forEach((item, index) => {
-      html += '<details class="group border-b border-white/[0.07] last:border-b-0"><summary class="cursor-pointer list-none py-5"><span class="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3"><span class="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672]">' +
+      html += '<details class="group border-b border-white/[0.07] last:border-b-0"><summary class="cursor-pointer list-none py-5 transition-colors duration-200"><span class="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3"><span class="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672]">' +
         String(index + 1).padStart(2, '0') + '</span><span class="text-sm font-semibold leading-6 text-white">' + escapeHtml(item.question) +
         '</span><span class="pt-1 text-[#666E7B]" aria-hidden="true">›</span></span></summary><div class="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 pb-5"><span></span><p class="text-sm leading-7 text-[#9BA2AF]">' +
         inlineMarkdownToHtml(item.answer) + '</p><span></span></div></details>';
