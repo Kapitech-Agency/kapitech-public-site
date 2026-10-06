@@ -98,7 +98,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'paragraph') {
           return (
-            <p key={index} className="mb-6 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
+            <p key={index} className="mb-5 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
               {inlineMarkdown(block.text)}
             </p>
           );
@@ -115,8 +115,8 @@ export const InsightContentRenderer: React.FC<{
               className={[
                 'scroll-mt-28 font-display font-semibold text-white',
                 isSection
-                  ? 'mb-5 mt-16 first:mt-2 text-[1.95rem] leading-[1.12] tracking-[-0.04em] sm:text-[2.1rem]'
-                  : 'mb-4 mt-10 border-l border-brand-red/35 pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.35rem]'
+                  ? 'mb-4 mt-12 first:mt-2 text-[1.85rem] leading-[1.12] tracking-[-0.04em] sm:text-[2rem]'
+                  : 'mb-3 mt-8 border-l border-brand-red/35 pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.3rem]'
               ].join(' ')}
             >
               {block.text}
@@ -135,7 +135,7 @@ export const InsightContentRenderer: React.FC<{
               key={index}
               className={[
                 block.ordered ? 'list-decimal' : 'list-disc',
-                'mb-8 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base',
+                'mb-6 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base',
                 block.ordered ? 'space-y-3' : 'space-y-2.5'
               ].join(' ')}
             >
@@ -150,7 +150,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-10 border-l-2 border-brand-red/45 pl-5 sm:my-12 sm:pl-6">
+            <figure key={index} className="my-8 border-l-2 border-brand-red/45 pl-5 sm:my-10 sm:pl-6">
               <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
@@ -170,8 +170,8 @@ export const InsightContentRenderer: React.FC<{
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
           return (
-            <figure key={index} className="my-12 sm:my-14">
-              <div className="overflow-hidden rounded-xl border border-white/[0.07] bg-[#0B0C0E]">
+            <figure key={index} className="my-9 sm:my-10">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
                 <img
                   src={block.url}
                   alt={block.alt || ''}
@@ -204,7 +204,7 @@ export const InsightContentRenderer: React.FC<{
           const rows = Array.isArray(block.rows) ? block.rows : [];
 
           return (
-            <div key={index} className="my-10 overflow-hidden border-y border-white/[0.08]">
+            <div key={index} className="my-8 overflow-hidden border-y border-white/[0.08]">
               <div className="border-b border-white/[0.06] px-0 py-2.5 sm:hidden">
                 <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
                   {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
@@ -263,7 +263,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <aside
               key={index}
-              className={'my-9 border-l-2 pl-5 ' + toneClass}
+              className={'my-7 border-l-2 pl-5 ' + toneClass}
             >
               {block.title && (
                 <p className="mb-1 text-sm font-semibold text-white">{block.title}</p>
@@ -279,7 +279,7 @@ export const InsightContentRenderer: React.FC<{
           const copied = copiedCodeIndex === index;
 
           return (
-            <div key={index} className="my-9 overflow-hidden rounded-xl border border-white/[0.08] bg-[#08090B]">
+            <div key={index} className="my-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#08090B]">
               <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] px-4 py-3">
                 <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]">
                   {block.language || (language === 'id' ? 'Kode' : 'Code')}
@@ -305,7 +305,7 @@ export const InsightContentRenderer: React.FC<{
           if (!resolved) return null;
 
           return (
-            <p key={index} className="my-7">
+            <p key={index} className="my-5">
               {resolved.external ? (
                 <a
                   href={resolved.url}
@@ -336,7 +336,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <section
               key={index}
-              className="my-10"
+              className="my-8"
               aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
             >
               {block.title && (
@@ -357,7 +357,7 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'divider') {
-          return <div key={index} className="my-10 h-px bg-white/[0.07]" aria-hidden="true" />;
+          return <div key={index} className="my-8 h-px bg-white/[0.07]" aria-hidden="true" />;
         }
 
         console.error('[Kapitech Insight] Unsupported content block reached the renderer:', {
