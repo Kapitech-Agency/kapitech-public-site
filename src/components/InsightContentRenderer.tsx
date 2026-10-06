@@ -172,7 +172,7 @@ export const InsightContentRenderer: React.FC<{
 
           return (
             <figure key={index} className="my-9 sm:my-10">
-              <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
+              <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0F1013] p-px">
                 <img
                   src={block.url}
                   alt={block.alt || ''}
@@ -180,7 +180,8 @@ export const InsightContentRenderer: React.FC<{
                   height={height}
                   loading="lazy"
                   decoding="async"
-                  className="block h-auto w-full object-contain"
+                  className="mx-auto block h-auto w-full max-w-full object-contain"
+                  sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
                   onError={(event) => {
                     const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
                     if (event.currentTarget.src.endsWith(fallback)) return;
