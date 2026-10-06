@@ -836,11 +836,11 @@ export const Navbar = () => {
                 </a>
                 <div className="grid grid-cols-1 gap-2">
                   <a
-                    href="mailto:hello@kapitech.co.id"
+                    href="mailto:hello@kapitech.id"
                     className="flex min-h-[44px] items-center gap-2.5 border-b border-[#262930] px-1 py-3 text-white transition-colors active:text-brand-red"
                   >
                     <Mail size={15} className="text-brand-red shrink-0" />
-                    <span className="truncate">hello@kapitech.co.id</span>
+                    <span className="truncate">hello@kapitech.id</span>
                   </a>
                 </div>
               </div>
