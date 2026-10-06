@@ -300,7 +300,7 @@ export const InsightContentRenderer: React.FC<{
           const rows = Array.isArray(block.rows) ? block.rows : [];
 
           return (
-            <div key={index} className="my-12 overflow-hidden rounded-[18px] border border-white/[0.08] bg-white/[0.012]">
+            <div key={index} className="my-12 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
               <div className="border-b border-white/[0.06] px-4 py-2.5 sm:hidden">
                 <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
                   {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
@@ -362,7 +362,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <aside
               key={index}
-              className={'my-9 rounded-[18px] border p-5 sm:p-6 ' + (calloutStyles[tone] || calloutStyles.neutral)}
+              className={'my-9 rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6 ' + (tone === 'warning' ? 'border-amber-400/20 bg-amber-400/[0.035]' : tone === 'success' ? 'border-emerald-400/20 bg-emerald-400/[0.035]' : '')}
             >
               <p className="mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
                 {calloutLabel}
@@ -389,7 +389,7 @@ export const InsightContentRenderer: React.FC<{
                 <button
                   type="button"
                   onClick={() => void copyCode(block.code, index)}
-                  className="inline-flex min-h-[34px] items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#9DA4B0] transition-[background-color,border-color,color] duration-300 hover:border-brand-red/30 hover:bg-brand-red/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                 >
                   {copied ? <Check size={12} aria-hidden="true" /> : <Copy size={12} aria-hidden="true" />}
                   {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}
@@ -413,7 +413,7 @@ export const InsightContentRenderer: React.FC<{
                   href={resolved.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-brand-red/15 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                 >
                   {block.label}
                   <ExternalLink size={13} aria-hidden="true" />
