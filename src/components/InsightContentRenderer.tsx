@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
+import { Check, Copy, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { InsightContextualPromo } from './InsightContextualPromo';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 
@@ -74,19 +73,6 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
   });
 }
 
-const VALIDATION_DECISION_HEADINGS = new Set([
-  'When should you build a Prototype?',
-  'When should you build an MVP?',
-  'When should you use a PoC?',
-  'Kapan sebaiknya membuat Prototype?',
-  'Kapan sebaiknya membuat MVP?',
-  'Kapan sebaiknya menggunakan PoC?'
-]);
-
-function isValidationDecisionHeading(value: unknown): boolean {
-  return typeof value === 'string' && VALIDATION_DECISION_HEADINGS.has(value);
-}
-
 export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
@@ -105,9 +91,6 @@ export const InsightContentRenderer: React.FC<{
     } catch {}
   };
 
-  let sectionNumber = 0;
-  let imageNumber = 0;
-
   return (
     <div className="kapi-insight-body max-w-none">
       {blocks.map((block, index) => {
@@ -123,52 +106,23 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'heading') {
           const isSection = block.level !== 3;
-          const isValidationDecision = !isSection && isValidationDecisionHeading(block.text);
           const Heading = isSection ? 'h2' : 'h3';
-          const currentSectionNumber = isSection ? ++sectionNumber : sectionNumber;
-
-          if (isSection) {
-            return (
-              <Heading
-                key={index}
-                id={headingIds[index] || undefined}
-                className="scroll-mt-28 mb-6 mt-16 first:mt-2"
-              >
-                <span className="mb-3 flex items-center gap-2.5">
-                  <span className="flex h-6 min-w-6 items-center justify-center rounded-[7px] border border-brand-red/25 bg-brand-red/[0.07] px-1.5 font-mono text-[8px] font-semibold tabular-nums tracking-[0.12em] text-brand-red">
-                    {String(currentSectionNumber).padStart(2, '0')}
-                  </span>
-                  <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
-                    {language === 'id' ? 'Bagian' : 'Section'}
-                  </span>
-                </span>
-                <span className="block font-display text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2.1rem] lg:text-[2.3rem]">
-                  {block.text}
-                </span>
-              </Heading>
-            );
-          }
 
           return (
             <Heading
               key={index}
               id={headingIds[index] || undefined}
               className={[
-                'group scroll-mt-28 mb-4 mt-10 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]',
-                isValidationDecision
-                  ? 'rounded-r-xl border-y border-r border-white/[0.07] border-l border-l-brand-red/55 bg-white/[0.018] px-4 py-3.5'
-                  : 'border-l border-white/[0.08] pl-4'
+                'scroll-mt-28 font-display font-semibold text-white',
+                isSection
+                  ? 'mb-5 mt-16 first:mt-2 text-[1.95rem] leading-[1.12] tracking-[-0.04em] sm:text-[2.1rem]'
+                  : 'mb-4 mt-10 border-l border-brand-red/35 pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.35rem]'
               ].join(' ')}
             >
-              {isValidationDecision && block.text === 'When should you build a Prototype?' && (
+              {block.text}
+              {block.text === 'When should you build a Prototype?' && (
                 <span id="insight-when-should-you-build-one" className="block h-0 scroll-mt-28" aria-hidden="true" />
               )}
-              {isValidationDecision && (
-                <span className="mb-2 block text-[8px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
-                  {language === 'id' ? 'Panduan keputusan' : 'Decision guide'}
-                </span>
-              )}
-              {block.text}
             </Heading>
           );
         }
@@ -209,30 +163,23 @@ export const InsightContentRenderer: React.FC<{
               key={index}
               className={[
                 block.ordered ? 'list-decimal' : 'list-disc',
-                'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base'
-              ].join(' ')}
-            >
-              {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
-                <li key={itemIndex} className="pl-1 marker:text-brand-red">
-                  {inlineMarkdown(item)}
-                </li>
-              ))}
-            </ListTag>
-          );
-        }
+                'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base        if (block.type === 'list') {
+          const ListTag = block.ordered ? 'ol' : 'ul';
+          const isDecisionList = blocks[index - 1]?.type === 'heading'
+            && isValidationDecisionHeading(blocks[index - 1].text);
 
-        if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-12 rounded-[20px] border border-white/[0.07] bg-white/[0.018] p-5 shadow-[0_20px_60px_-50px_rgba(0,0,0,0.9)] sm:p-7">
-              <p className="mb-4 flex items-center gap-2 text-[8px] font-mono uppercase tracking-[0.17em] text-brand-red">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
-                {language === 'id' ? 'Catatan editorial' : 'Editorial note'}
-              </p>
-              <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.5] tracking-[-0.02em] text-white sm:text-[1.4rem]">
+            <ListTag
+              key={index}
+              className={[
+                    if (block.type === 'quote') {
+          return (
+            <figure key={index} className="my-10 border-l-2 border-brand-red/45 pl-5 sm:my-12 sm:pl-6">
+              <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
               {block.attribution && (
-                <figcaption className="mt-5 text-[9px] font-mono uppercase tracking-[0.13em] text-[#7D8492]">
+                <figcaption className="mt-3 text-xs text-[#747C88]">
                   {block.attribution}
                 </figcaption>
               )}
@@ -246,18 +193,9 @@ export const InsightContentRenderer: React.FC<{
           const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
-          const currentImageNumber = ++imageNumber;
           return (
-            <figure key={index} className="my-14 sm:my-16">
-              <div className="group/visual relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0A0B0D] shadow-[0_26px_80px_-54px_rgba(0,0,0,0.95)]">
-                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_18%_12%,rgba(229,9,20,0.11),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.025),transparent_18%)]" />
-                <div className="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#0B0C0E]/72 px-2.5 py-1.5 font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#A0A7B3] backdrop-blur-md">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
-                  {language === 'id' ? 'Visual' : 'Visual'} {String(currentImageNumber).padStart(2, '0')}
-                </div>
-                <div className="absolute right-4 top-4 z-20 h-8 w-8 rounded-[10px] border border-white/[0.07] bg-black/20 backdrop-blur-md" aria-hidden="true">
-                  <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full border border-white/25" />
-                </div>
+            <figure key={index} className="my-12 sm:my-14">
+              <div className="overflow-hidden rounded-xl border border-white/[0.07] bg-[#0B0C0E]">
                 <img
                   src={block.url}
                   alt={block.alt || ''}
@@ -265,7 +203,7 @@ export const InsightContentRenderer: React.FC<{
                   height={height}
                   loading="lazy"
                   decoding="async"
-                  className="block h-auto w-full object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/visual:scale-[1.012]"
+                  className="block h-auto w-full object-contain"
                   onError={(event) => {
                     const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
                     if (event.currentTarget.src.endsWith(fallback)) return;
@@ -277,10 +215,7 @@ export const InsightContentRenderer: React.FC<{
                 />
               </div>
               {block.caption && (
-                <figcaption className="mt-3 max-w-[70ch] pl-1 text-[11px] leading-5 text-[#737B88]">
-                  <span className="mr-2 font-mono text-[8px] font-semibold uppercase tracking-[0.13em] text-brand-red/80">
-                    {language === 'id' ? 'Catatan visual' : 'Figure note'}
-                  </span>
+                <figcaption className="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">
                   {block.caption}
                 </figcaption>
               )}
@@ -293,8 +228,8 @@ export const InsightContentRenderer: React.FC<{
           const rows = Array.isArray(block.rows) ? block.rows : [];
 
           return (
-            <div key={index} className="my-12 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
-              <div className="border-b border-white/[0.06] px-4 py-2.5 sm:hidden">
+            <div key={index} className="my-10 overflow-hidden border-y border-white/[0.08]">
+              <div className="border-b border-white/[0.06] px-0 py-2.5 sm:hidden">
                 <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
                   {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
                 </p>
@@ -343,25 +278,19 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'callout') {
           const tone = block.tone || 'neutral';
-
-          const calloutLabel = tone === 'warning'
-            ? (language === 'id' ? 'Perhatian' : 'Watch')
+          const toneClass = tone === 'warning'
+            ? 'border-amber-400/45'
             : tone === 'success'
-              ? (language === 'id' ? 'Prinsip' : 'Principle')
-              : tone === 'info'
-                ? (language === 'id' ? 'Catatan' : 'Note')
-                : (language === 'id' ? 'Insight' : 'Insight');
+              ? 'border-emerald-400/45'
+              : 'border-brand-red/40';
 
           return (
             <aside
               key={index}
-              className={'my-9 rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6 ' + (tone === 'warning' ? 'border-amber-400/20 bg-amber-400/[0.035]' : tone === 'success' ? 'border-emerald-400/20 bg-emerald-400/[0.035]' : '')}
+              className={'my-9 border-l-2 pl-5 ' + toneClass}
             >
-              <p className="mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
-                {calloutLabel}
-              </p>
               {block.title && (
-                <p className="mb-2 text-sm font-semibold tracking-[-0.01em] text-white">{block.title}</p>
+                <p className="mb-1 text-sm font-semibold text-white">{block.title}</p>
               )}
               <p className="text-sm font-light leading-7 text-[#B9BEC8]">
                 {inlineMarkdown(block.text)}
@@ -374,15 +303,15 @@ export const InsightContentRenderer: React.FC<{
           const copied = copiedCodeIndex === index;
 
           return (
-            <div key={index} className="my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#08090B]">
-              <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] bg-white/[0.02] px-4 py-3">
+            <div key={index} className="my-9 overflow-hidden rounded-xl border border-white/[0.08] bg-[#08090B]">
+              <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] px-4 py-3">
                 <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]">
                   {block.language || (language === 'id' ? 'Kode' : 'Code')}
                 </span>
                 <button
                   type="button"
                   onClick={() => void copyCode(block.code, index)}
-                  className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  className="inline-flex min-h-8 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-brand-red hover:bg-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                 >
                   {copied ? <Check size={12} aria-hidden="true" /> : <Copy size={12} aria-hidden="true" />}
                   {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}
@@ -400,13 +329,13 @@ export const InsightContentRenderer: React.FC<{
           if (!resolved) return null;
 
           return (
-            <p key={index} className="my-8">
+            <p key={index} className="my-7">
               {resolved.external ? (
                 <a
                   href={resolved.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-brand-red/15 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                 >
                   {block.label}
                   <ExternalLink size={13} aria-hidden="true" />
@@ -414,10 +343,9 @@ export const InsightContentRenderer: React.FC<{
               ) : (
                 <Link
                   to={resolved.internalTo}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-brand-red/15 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                 >
                   {block.label}
-                  <ArrowRight size={13} aria-hidden="true" />
                 </Link>
               )}
             </p>
@@ -432,20 +360,18 @@ export const InsightContentRenderer: React.FC<{
           return (
             <section
               key={index}
-              className="my-12 rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-7"
+              className="my-10"
               aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
             >
               {block.title && (
-                <h3 className="mb-5 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]">
+                <h3 className="mb-4 font-display text-xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-[1.35rem]">
                   {block.title}
                 </h3>
               )}
-              <ul className="grid gap-3 sm:grid-cols-2">
+              <ul className="space-y-3 border-l border-white/[0.12] pl-5">
                 {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex gap-3 rounded-xl border border-white/[0.06] bg-white/[0.018] px-4 py-3.5 text-sm leading-6 text-[#C3C7D0]">
-                    <span className="mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-brand-red/40 bg-brand-red/[0.06]" aria-hidden="true">
-                      <Check size={10} className="text-brand-red" />
-                    </span>
+                  <li key={itemIndex} className="flex gap-3 text-sm leading-6 text-[#C3C7D0]">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
                     <span>{inlineMarkdown(item)}</span>
                   </li>
                 ))}
@@ -455,11 +381,7 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'divider') {
-          return (
-            <div key={index} className="my-16 flex justify-center" aria-hidden="true">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-red/55 shadow-[0_0_0_5px_rgba(220,20,60,0.06)]" />
-            </div>
-          );
+          return <div key={index} className="my-10 h-px bg-white/[0.07]" aria-hidden="true" />;
         }
 
         console.error('[Kapitech Insight] Unsupported content block reached the renderer:', {
