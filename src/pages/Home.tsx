@@ -83,9 +83,11 @@ export const Home = () => {
   }, []);
 
   const openProcessStep = (index: number) => {
-    processModalTriggerRef.current = document.activeElement instanceof HTMLElement
-      ? document.activeElement
-      : null;
+    if (selectedProcessStep === null) {
+      processModalTriggerRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
     setActiveProcessStep(index);
     setSelectedProcessStep(index);
   };
@@ -1051,6 +1053,8 @@ export const Home = () => {
                       data-process-step={step.step}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
+                      data-analytics-event="process_phase_open"
+                      data-process-step={step.step}
                       className="relative z-10 block w-full cursor-pointer text-left outline-none"
                     >
                       <span
@@ -1133,6 +1137,7 @@ export const Home = () => {
           {selectedProcessStep !== null && (() => {
             const step = processSteps[selectedProcessStep];
             const isFirst = selectedProcessStep === 0;
+            const isLast = selectedProcessStep === processSteps.length - 1;
 
             return (
               <div
@@ -1305,7 +1310,7 @@ export const Home = () => {
                   <div className="flex flex-col gap-3 border-t border-white/[0.08] bg-[#0D0E11] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-7">
                     <button
                       type="button"
-                      onClick={() => openProcessStep((selectedProcessStep - 1 + processSteps.length) % processSteps.length)}
+                      onClick={() => openProcessStep(selectedProcessStep - 1)}
                       className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#D0D4DB] transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
                       disabled={isFirst}
                     >
@@ -1323,8 +1328,9 @@ export const Home = () => {
 
                     <button
                       type="button"
-                      onClick={() => openProcessStep((selectedProcessStep + 1) % processSteps.length)}
-                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] sm:min-w-[160px]"
+                      onClick={() => openProcessStep(selectedProcessStep + 1)}
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
+                      disabled={isLast}
                     >
                       <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
                       <ChevronRight size={14} />
