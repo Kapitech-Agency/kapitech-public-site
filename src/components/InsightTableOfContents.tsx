@@ -151,6 +151,11 @@ export const InsightTableOfContents: React.FC<{
 
     activeIdRef.current = id;
     setActiveId(id);
+
+    const sectionId = sectionByItemId.get(id);
+    if (sectionId) {
+      setExpandedSectionId(sectionId);
+    }
   };
 
   const syncActiveFromScroll = () => {
