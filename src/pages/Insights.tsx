@@ -247,7 +247,7 @@ export const Insights: React.FC = () => {
                 onClick={() => { queueResultsNavigation(); setCategoryId(''); setPage(1); }}
                 aria-pressed={!categoryId}
                 className={[
-                  'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
+                  'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                   !categoryId
                     ? 'border-brand-red/35 bg-brand-red/12 text-white'
                     : 'border-white/[0.08] bg-transparent text-[#858C99] hover:border-white/[0.16] hover:text-white'
@@ -339,7 +339,7 @@ export const Insights: React.FC = () => {
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-red/35"
+                className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-red/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 {language === 'id' ? 'Coba lagi' : 'Try again'}
               </button>
@@ -438,7 +438,7 @@ export const Insights: React.FC = () => {
                       type="button"
                       disabled={page === 1}
                       onClick={() => { queueResultsNavigation(); setPage(value => Math.max(1, value - 1)); }}
-                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.03] disabled:cursor-not-allowed disabled:opacity-35"
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 disabled:cursor-not-allowed disabled:opacity-35"
                     >
                       <ArrowLeft size={13} aria-hidden="true" />
                       {language === 'id' ? 'Sebelumnya' : 'Previous'}
@@ -447,7 +447,7 @@ export const Insights: React.FC = () => {
                       type="button"
                       disabled={page === totalPages}
                       onClick={() => { queueResultsNavigation(); setPage(value => Math.min(totalPages, value + 1)); }}
-                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 disabled:cursor-not-allowed disabled:opacity-35"
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 disabled:cursor-not-allowed disabled:opacity-35"
                     >
                       {language === 'id' ? 'Berikutnya' : 'Next'}
                       <ArrowRight size={13} aria-hidden="true" />
