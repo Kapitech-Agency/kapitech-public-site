@@ -367,7 +367,9 @@ export const InsightDetail: React.FC = () => {
   const bodyBlocks = useMemo(() => {
     const source = firstHeadingIndex > -1 ? blocks.slice(firstHeadingIndex) : [];
 
-    if (article?.slug !== 'mvp-vs-prototype-vs-proof-of-concept-guide') {
+    const isMvpValidationInsight = article?.slug?.startsWith('mvp-vs-prototype-vs-proof-of-concept');
+
+    if (!isMvpValidationInsight) {
       return source;
     }
 
