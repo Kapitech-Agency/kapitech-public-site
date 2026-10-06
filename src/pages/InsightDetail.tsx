@@ -108,7 +108,7 @@ export const InsightDetail: React.FC = () => {
   const { slug = '' } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
-  const readingAreaRef = useRef<HTMLDivElement | null>(null);
+  const articleReadingRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
@@ -183,10 +183,10 @@ export const InsightDetail: React.FC = () => {
 
     const update = () => {
       rafId = 0;
-      const area = readingAreaRef.current;
-      if (!area) return;
+      const articleElement = articleReadingRef.current;
+      if (!articleElement) return;
 
-      const rect = area.getBoundingClientRect();
+      const rect = articleElement.getBoundingClientRect();
       const start = window.scrollY + rect.top;
       const end = start + rect.height;
       const travel = Math.max(1, end - start - window.innerHeight);
@@ -202,8 +202,8 @@ export const InsightDetail: React.FC = () => {
       ? new ResizeObserver(schedule)
       : null;
 
-    if (resizeObserver && readingAreaRef.current) {
-      resizeObserver.observe(readingAreaRef.current);
+    if (resizeObserver && articleReadingRef.current) {
+      resizeObserver.observe(articleReadingRef.current);
     }
 
     update();
@@ -245,20 +245,10 @@ export const InsightDetail: React.FC = () => {
 
   const headingIds = useMemo(() => buildInsightHeadingIds(bodyBlocks), [bodyBlocks]);
 
-  const toc = useMemo(() => {
-    const items = buildInsightToc(bodyBlocks, headingIds);
-    if (article) {
-      const faq = validFaq(article);
-      if (faq.length) {
-        items.push({
-          id: 'faq-title',
-          text: article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions',
-          level: 2
-        });
-      }
-    }
-    return items;
-  }, [article, bodyBlocks, headingIds]);
+  const toc = useMemo(
+    () => buildInsightToc(bodyBlocks, headingIds),
+    [bodyBlocks, headingIds]
+  );
 
   const relatedInsights = useMemo(
     () => article ? getRelatedInsights(article) : [],
@@ -445,10 +435,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </header>
 
-        <div
-          ref={readingAreaRef}
-          className="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-14"
-        >
+        <div className="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-14">
           <div className="mb-5 xl:hidden">
             <InsightLeftRail
               mobile
@@ -470,7 +457,10 @@ export const InsightDetail: React.FC = () => {
               onShare={() => void copyLink()}
             />
 
-            <article className="min-w-0 w-full max-w-[820px] justify-self-center text-[#C3C7D0]">
+            <article
+              ref={articleReadingRef}
+              className="min-w-0 w-full max-w-[820px] justify-self-center text-[#C3C7D0]"
+            >
               {introductionBlocks.length > 0 && (
                 <section className="mb-12 sm:mb-14" aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}>
                   <InsightContentRenderer

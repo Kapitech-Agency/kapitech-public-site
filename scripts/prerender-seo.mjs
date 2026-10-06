@@ -375,6 +375,13 @@ const renderInsight = (sourceHtml, insight, variants) => {
   html = setMeta(html, 'property', 'og:site_name', manifest.siteName);
   html = setMeta(html, 'property', 'og:locale', seo.locale);
   html = setMeta(html, 'property', 'og:locale:alternate', seo.alternateLocale);
+  html = setMeta(html, 'name', 'twitter:card', 'summary_large_image');
+  html = setMeta(html, 'name', 'twitter:url', seo.canonicalUrl);
+  html = setMeta(html, 'name', 'twitter:title', seo.title);
+  html = setMeta(html, 'name', 'twitter:description', seo.description);
+  html = setMeta(html, 'name', 'twitter:image', seo.image);
+  html = setMeta(html, 'name', 'twitter:site', '@kapitechagency');
+  html = setMeta(html, 'name', 'twitter:creator', '@kapitechagency');
   html = setCanonical(html, seo.canonicalUrl);
   html = setInsightHreflang(html, variants, seo.xDefault?.slug || null);
   html = setPageJsonLd(html, buildInsightStructuredData(insight, seo, {
