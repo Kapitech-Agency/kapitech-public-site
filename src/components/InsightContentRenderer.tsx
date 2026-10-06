@@ -113,6 +113,7 @@ export const InsightContentRenderer: React.FC<{
   };
 
   let sectionNumber = 0;
+  let imageNumber = 0;
 
   return (
     <div className="kapi-insight-body max-w-none">
@@ -140,11 +141,10 @@ export const InsightContentRenderer: React.FC<{
                 id={headingIds[index] || undefined}
                 className="scroll-mt-28 mb-6 mt-16 first:mt-2"
               >
-                <span className="mb-3 flex items-center gap-3 border-t border-white/[0.07] pt-5">
-                  <span className="font-mono text-[9px] font-semibold tabular-nums tracking-[0.14em] text-brand-red">
+                <span className="mb-3 flex items-center gap-2.5">
+                  <span className="flex h-6 min-w-6 items-center justify-center rounded-[7px] border border-brand-red/25 bg-brand-red/[0.07] px-1.5 font-mono text-[8px] font-semibold tabular-nums tracking-[0.12em] text-brand-red">
                     {String(currentSectionNumber).padStart(2, '0')}
                   </span>
-                  <span className="h-px w-8 bg-brand-red/45" aria-hidden="true" />
                   <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
                     {language === 'id' ? 'Bagian' : 'Section'}
                   </span>
@@ -230,11 +230,12 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-11 border-y border-white/[0.08] py-7 sm:py-8">
-              <p className="mb-3 text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">
-                {language === 'id' ? 'Catatan' : 'Editorial note'}
+            <figure key={index} className="my-12 rounded-[20px] border border-white/[0.07] bg-white/[0.018] p-5 shadow-[0_20px_60px_-50px_rgba(0,0,0,0.9)] sm:p-7">
+              <p className="mb-4 flex items-center gap-2 text-[8px] font-mono uppercase tracking-[0.17em] text-brand-red">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+                {language === 'id' ? 'Catatan editorial' : 'Editorial note'}
               </p>
-              <blockquote className="max-w-3xl font-display text-[1.22rem] leading-[1.45] tracking-[-0.02em] text-white sm:text-[1.45rem]">
+              <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.5] tracking-[-0.02em] text-white sm:text-[1.4rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
               {block.attribution && (
@@ -252,9 +253,18 @@ export const InsightContentRenderer: React.FC<{
           const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
+          const currentImageNumber = ++imageNumber;
           return (
-            <figure key={index} className="my-12">
-              <div className="relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">
+            <figure key={index} className="my-14 sm:my-16">
+              <div className="group/visual relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0A0B0D] shadow-[0_26px_80px_-54px_rgba(0,0,0,0.95)]">
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_18%_12%,rgba(229,9,20,0.11),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.025),transparent_18%)]" />
+                <div className="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#0B0C0E]/72 px-2.5 py-1.5 font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#A0A7B3] backdrop-blur-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+                  {language === 'id' ? 'Visual' : 'Visual'} {String(currentImageNumber).padStart(2, '0')}
+                </div>
+                <div className="absolute right-4 top-4 z-20 h-8 w-8 rounded-[10px] border border-white/[0.07] bg-black/20 backdrop-blur-md" aria-hidden="true">
+                  <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full border border-white/25" />
+                </div>
                 <img
                   src={block.url}
                   alt={block.alt || ''}
@@ -262,7 +272,7 @@ export const InsightContentRenderer: React.FC<{
                   height={height}
                   loading="lazy"
                   decoding="async"
-                  className="block h-auto w-full object-contain"
+                  className="block h-auto w-full object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/visual:scale-[1.012]"
                   onError={(event) => {
                     const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
                     if (event.currentTarget.src.endsWith(fallback)) return;
@@ -274,9 +284,11 @@ export const InsightContentRenderer: React.FC<{
                 />
               </div>
               {block.caption && (
-                <figcaption className="mt-3 flex gap-2 text-xs leading-5 text-[#707684]">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-red/70" aria-hidden="true" />
-                  <span>{block.caption}</span>
+                <figcaption className="mt-3 max-w-[70ch] pl-1 text-[11px] leading-5 text-[#737B88]">
+                  <span className="mr-2 font-mono text-[8px] font-semibold uppercase tracking-[0.13em] text-brand-red/80">
+                    {language === 'id' ? 'Catatan visual' : 'Figure note'}
+                  </span>
+                  {block.caption}
                 </figcaption>
               )}
             </figure>
@@ -451,10 +463,8 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'divider') {
           return (
-            <div key={index} className="my-14 flex items-center gap-4" aria-hidden="true">
-              <span className="h-px flex-1 bg-white/[0.07]" />
-              <span className="h-1 w-1 rounded-full bg-brand-red/70" />
-              <span className="h-px flex-[0.18] bg-white/[0.07]" />
+            <div key={index} className="my-16 flex justify-center" aria-hidden="true">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-red/55 shadow-[0_0_0_5px_rgba(220,20,60,0.06)]" />
             </div>
           );
         }
