@@ -350,7 +350,7 @@ export const InsightContentRenderer: React.FC<{
           return (
             <section
               key={index}
-              className="my-8"
+              className="my-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6"
               aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
             >
               {block.title && (
