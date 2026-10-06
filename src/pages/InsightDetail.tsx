@@ -13,7 +13,7 @@ import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 import { validateInsightContent } from '../lib/insightContentValidation';
-import { deriveInsightFaq } from '../lib/insightFaq.mjs';
+import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
 
 function formatDate(value: string | null | undefined, language: 'id' | 'en'): string {
   if (!value) return '';
@@ -36,8 +36,7 @@ function prefersReducedMotion(): boolean {
 }
 
 function validFaq(article: InsightItem): Array<{ question: string; answer: string }> {
-  const explicit = (Array.isArray(article.faq) ? article.faq : [])
-    .filter((item) => Boolean(item?.question?.trim()) && Boolean(item?.answer?.trim()));
+  const explicit = normalizeInsightFaq(article.faq);
 
   return explicit.length > 0
     ? explicit
