@@ -23,7 +23,7 @@ export const InsightBookACall: React.FC<{ language: InsightLanguage }> = ({ lang
       to="/contact"
       className="mt-4 inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/70 px-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.11),0_12px_28px_-22px_rgba(229,9,20,0.75)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/55 hover:bg-brand-red/80 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_16px_32px_-22px_rgba(229,9,20,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
     >
-      {language === 'id' ? 'Book a Call' : 'Book a Call'}
+      {language === 'id' ? 'Jadwalkan Konsultasi' : 'Book a Call'}
       <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
     </Link>
   </div>
