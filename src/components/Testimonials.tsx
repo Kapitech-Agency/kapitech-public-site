@@ -184,6 +184,8 @@ export const Testimonials = () => {
                     key={item.id}
                     type="button"
                     onClick={() => setCurrentIndex(index)}
+                    data-analytics-event="testimonial_select"
+                    data-testimonial-index={index + 1}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       currentIndex === index ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
                     }`}
@@ -207,6 +209,8 @@ export const Testimonials = () => {
                     key={item.id}
                     type="button"
                     onClick={() => setCurrentIndex(testimonialIndex)}
+                    data-analytics-event="testimonial_select"
+                    data-testimonial-index={testimonialIndex + 1}
                     className={`group w-full rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
                       currentIndex === testimonialIndex
                         ? 'bg-brand-red/[0.07] border border-brand-red/20'
