@@ -134,7 +134,7 @@ export const Testimonials = () => {
               <div className="pointer-events-none absolute -right-6 top-10 h-40 w-40 rounded-full border border-white/[0.025]" aria-hidden="true" />
 
               <div className="relative flex items-center justify-between gap-4">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/[0.06] text-brand-red">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.16] bg-white/[0.05] text-white">
                   <Quote size={18} />
                 </div>
                 <div className="flex items-center gap-1" aria-label={`${current.rating} out of 5 stars`}>
@@ -142,7 +142,7 @@ export const Testimonials = () => {
                     <Star
                       key={starIndex}
                       size={13}
-                      className={starIndex < current.rating ? 'fill-brand-red text-brand-red' : 'text-white/15'}
+                      className={starIndex < current.rating ? 'fill-white text-white' : 'text-white/15'}
                     />
                   ))}
                 </div>
@@ -163,7 +163,7 @@ export const Testimonials = () => {
                     </blockquote>
 
                     <div className="mt-auto pt-10">
-                      <div className="h-px w-10 bg-brand-red/70" aria-hidden="true" />
+                      <div className="h-px w-10 bg-white/70" aria-hidden="true" />
                       <div className="mt-5 flex flex-col gap-1">
                         <span className="text-sm font-semibold text-white">{current.author}</span>
                         <span className="text-xs text-brand-red">
@@ -187,7 +187,7 @@ export const Testimonials = () => {
                     data-analytics-event="testimonial_select"
                     data-testimonial-index={index + 1}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      currentIndex === index ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
+                      currentIndex === index ? 'w-10 bg-white' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
                     }`}
                     aria-label={`${language === 'id' ? 'Pilih testimoni' : 'Select testimonial'} ${index + 1}`}
                     aria-pressed={currentIndex === index}
@@ -213,7 +213,7 @@ export const Testimonials = () => {
                     data-testimonial-index={testimonialIndex + 1}
                     className={`group w-full rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
                       currentIndex === testimonialIndex
-                        ? 'bg-brand-red/[0.07] border border-brand-red/20'
+                        ? 'bg-white/[0.05] border border-white/[0.16]'
                         : 'border border-transparent hover:bg-white/[0.025]'
                     }`}
                   >
@@ -234,7 +234,7 @@ export const Testimonials = () => {
                         size={15}
                         className={`mt-0.5 shrink-0 transition-all duration-300 ${
                           currentIndex === testimonialIndex
-                            ? 'text-brand-red -translate-y-0.5 translate-x-0.5'
+                            ? 'text-white -translate-y-0.5 translate-x-0.5'
                             : 'text-[#555B65] group-hover:text-white'
                         }`}
                       />
@@ -242,7 +242,7 @@ export const Testimonials = () => {
 
                     <span
                       className={`mt-4 block h-px transition-all duration-300 ${
-                        currentIndex === testimonialIndex ? 'w-10 bg-brand-red' : 'w-5 bg-white/[0.12] group-hover:w-8'
+                        currentIndex === testimonialIndex ? 'w-10 bg-white' : 'w-5 bg-white/[0.12] group-hover:w-8'
                       }`}
                     />
                   </button>
