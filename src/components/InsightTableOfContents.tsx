@@ -129,6 +129,15 @@ export const InsightTableOfContents: React.FC<{
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const activeIdRef = useRef(activeId);
+  const isVariantActive = () => {
+    if (typeof window === 'undefined') return false;
+    if (variant === 'all') return true;
+
+    const desktopViewport = window.matchMedia('(min-width: 1280px)').matches;
+    return variant === 'desktop' ? desktopViewport : !desktopViewport;
+  };
+
+
   const navigationTargetRef = useRef('');
   const navigationTimerRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -268,12 +277,22 @@ export const InsightTableOfContents: React.FC<{
       }
     };
 
-    const handleScroll = () => scheduleScrollSync();
-    const handleResize = () => scheduleScrollSync();
-    const handleHashChange = () => syncHash(true);
-    const handlePopState = () => syncHash(true);
+    const handleScroll = () => {
+      if (isVariantActive()) scheduleScrollSync();
+    };
+    const handleResize = () => {
+      if (isVariantActive()) scheduleScrollSync();
+    };
+    const handleHashChange = () => {
+      if (isVariantActive()) syncHash(true);
+    };
+    const handlePopState = () => {
+      if (isVariantActive()) syncHash(true);
+    };
 
     const cancelOnUserIntent = (event: Event) => {
+      if (!isVariantActive()) return;
+
       if (
         event.target instanceof Node
         && rootRef.current?.contains(event.target)
@@ -286,6 +305,8 @@ export const InsightTableOfContents: React.FC<{
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
+      if (!isVariantActive()) return;
+
       if (
         event.key === 'ArrowUp'
         || event.key === 'ArrowDown'
@@ -300,8 +321,15 @@ export const InsightTableOfContents: React.FC<{
       }
     };
 
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+    const handleBreakpointChange = () => {
+      clearNavigationLock();
+      window.requestAnimationFrame(syncActiveFromScroll);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    mediaQuery.addEventListener?.('change', handleBreakpointChange);
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handlePopState);
     window.addEventListener('wheel', cancelOnUserIntent, { passive: true });
@@ -310,6 +338,18 @@ export const InsightTableOfContents: React.FC<{
     window.addEventListener('keydown', handleKeydown);
 
     const initialHash = getHash();
+
+    if (!isVariantActive()) return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('wheel', cancelOnUserIntent);
+      window.removeEventListener('touchstart', cancelOnUserIntent);
+      window.removeEventListener('pointerdown', cancelOnUserIntent);
+      window.removeEventListener('keydown', handleKeydown);
+    };
 
     if (initialHash && validItems.some((item) => item.id === initialHash)) {
       syncHash(true);
@@ -326,6 +366,7 @@ export const InsightTableOfContents: React.FC<{
       window.removeEventListener('touchstart', cancelOnUserIntent);
       window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
 
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
@@ -339,7 +380,7 @@ export const InsightTableOfContents: React.FC<{
 
       navigationTargetRef.current = '';
     };
-  }, [validItems, sectionByItemId]);
+  }, [validItems, sectionByItemId, variant]);
 
   useEffect(() => {
     if (!activeId) return;
@@ -491,7 +532,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-250',
                   sectionActive
-                    ? 'border-white/[0.16] bg-white/[0.065] text-white'
+                    ? 'border-brand-red/35 bg-brand-red/[0.10] text-brand-red'
                     : 'border-white/[0.07] bg-white/[0.018] text-[#69717D]'
                 ].join(' ')}
               >
@@ -503,7 +544,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'block text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     sectionActive
-                      ? 'font-semibold text-white'
+                      ? 'font-semibold text-brand-red'
                       : 'font-medium text-[#C1C6CF]'
                   ].join(' ')}
                 >
@@ -512,7 +553,7 @@ export const InsightTableOfContents: React.FC<{
 
                 {section.children.length > 0 && (
                   <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#626A77]">
-                    <span className={sectionActive ? 'text-[#D2D6DD]' : 'text-[#59616D]'}>
+                    <span className={sectionActive ? 'text-brand-red/85' : 'text-[#59616D]'}>
                       {String(section.children.length).padStart(2, '0')}
                     </span>
                     <span>
@@ -586,7 +627,7 @@ export const InsightTableOfContents: React.FC<{
                     className={[
                       'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
-                        ? 'border-white/[0.08] bg-white/[0.03] text-white'
+                        ? 'border-brand-red/25 bg-brand-red/[0.055] text-white'
                         : 'border-transparent text-[#737C89] hover:border-white/[0.08] hover:bg-white/[0.018] hover:text-[#C9CED7]'
                     ].join(' ')}
                   >

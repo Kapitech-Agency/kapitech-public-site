@@ -45,21 +45,43 @@ const inlineMarkdownToHtml = (value) => {
     });
 };
 
+const blocksBeforeHeadingFallback = (currentBlock, allBlocks) => {
+  const index = allBlocks.indexOf(currentBlock);
+  if (index < 0) return 0;
+
+  return allBlocks
+    .slice(0, index + 1)
+    .filter((item) => item?.type === 'heading' && item.level === 2)
+    .length - 1;
+};
+
 const renderBlock = (block, headingId, insight) => {
   if (!block || typeof block !== 'object') return '';
 
   if (block.type === 'paragraph') {
-    return '<p class="mb-7 text-[15px] font-light leading-[1.9] text-[#C3C7D0] sm:text-[16px]">' +
+    return '<p class="mb-6 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">' +
       inlineMarkdownToHtml(block.text) + '</p>';
   }
 
   if (block.type === 'heading') {
     const tag = block.level === 3 ? 'h3' : 'h2';
-    const cls = block.level === 3
-      ? 'mb-4 mt-10 scroll-mt-28 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
-      : 'mb-5 mt-14 scroll-mt-28 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem]';
-    return '<' + tag + ' id="' + escapeHtml(headingId) + '" class="' + cls + '">' +
-      escapeHtml(block.text) + '</' + tag + '>';
+    if (block.level === 3) {
+      return '<h3 id="' + escapeHtml(headingId) + '" class="group scroll-mt-28 mb-4 mt-10 border-l border-white/[0.08] pl-4 font-display text-xl font-semibold leading-[1.16] tracking-[-0.03em] text-white sm:text-[1.35rem]">' +
+        escapeHtml(block.text) + '</h3>';
+    }
+
+    const sectionNumber = String(
+      blocksBeforeHeadingFallback(block, insight.content) + 1
+    ).padStart(2, '0');
+
+    return '<h2 id="' + escapeHtml(headingId) + '" class="scroll-mt-28 mb-6 mt-16 first:mt-2">' +
+      '<span class="mb-3 flex items-center gap-3 border-t border-white/[0.07] pt-5">' +
+      '<span class="font-mono text-[9px] font-semibold tabular-nums tracking-[0.14em] text-[#E50914]">' + sectionNumber + '</span>' +
+      '<span class="h-px w-8 bg-[#E50914]/45" aria-hidden="true"></span>' +
+      '<span class="text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">' +
+      escapeHtml(insight.language === 'id' ? 'Bagian' : 'Section') + '</span></span>' +
+      '<span class="block font-display text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2.1rem] lg:text-[2.3rem]">' +
+      escapeHtml(block.text) + '</span></h2>';
   }
 
   if (block.type === 'list') {
@@ -76,9 +98,10 @@ const renderBlock = (block, headingId, insight) => {
     const attribution = safeText(block.attribution)
       ? '<figcaption class="mt-5 text-[9px] font-mono uppercase tracking-[0.13em] text-[#7D8492]">' + escapeHtml(block.attribution) + '</figcaption>'
       : '';
-    return '<figure class="relative my-10 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">' +
-      '<div class="absolute left-0 top-0 h-full w-[2px] bg-[#E50914]/70"></div>' +
-      '<blockquote class="max-w-2xl font-display text-xl leading-[1.45] tracking-[-0.02em] text-white/92 sm:text-2xl">' +
+    return '<figure class="my-11 border-y border-white/[0.08] py-7 sm:py-8">' +
+      '<p class="mb-3 text-[9px] font-mono uppercase tracking-[0.16em] text-[#69717D]">' +
+      escapeHtml(insight.language === 'id' ? 'Catatan' : 'Editorial note') + '</p>' +
+      '<blockquote class="max-w-3xl font-display text-[1.22rem] leading-[1.45] tracking-[-0.02em] text-white sm:text-[1.45rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' + attribution + '</figure>';
   }
 
@@ -88,9 +111,10 @@ const renderBlock = (block, headingId, insight) => {
     const caption = safeText(block.caption)
       ? '<figcaption class="mt-3 text-xs leading-5 text-[#707684]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>'
       : '';
+    const visualFallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
     return '<figure class="my-12"><div class="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">' +
       '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) +
-      '"' + width + height + ' loading="lazy" decoding="async" class="block h-auto w-full object-contain" /></div>' +
+      '"' + width + height + ' loading="lazy" decoding="async" class="block h-auto w-full object-contain" onerror="this.onerror=null;this.src=\'' + escapeHtml(visualFallback) + '\';" /></div>' +
       caption + '</figure>';
   }
 
@@ -119,8 +143,16 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'callout') {
-    return '<aside class="relative my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">' +
-      '<div class="absolute left-0 top-0 h-full w-[2px] bg-[#E50914]/55"></div>' +
+    const calloutLabel = block.tone === 'warning'
+      ? (insight.language === 'id' ? 'Perhatian' : 'Watch')
+      : block.tone === 'success'
+        ? (insight.language === 'id' ? 'Prinsip' : 'Principle')
+        : block.tone === 'info'
+          ? (insight.language === 'id' ? 'Catatan' : 'Note')
+          : (insight.language === 'id' ? 'Insight' : 'Insight');
+    return '<aside class="my-9 rounded-[18px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">' +
+      '<p class="mb-2 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">' +
+      calloutLabel + '</p>' +
       (safeText(block.title) ? '<p class="mb-2 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
       '<p class="text-sm leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
   }
@@ -145,7 +177,15 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'promo') {
-    return '<aside class="my-12 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-5 sm:my-14 sm:p-6">' +
+    const promoLabel = insight.language === 'id' ? 'Rekomendasi Kapitech' : 'Kapitech recommendation';
+    const promoBadge = insight.language === 'id'
+      ? (block.serviceReference ? 'Layanan terkait' : 'Promosi')
+      : (block.serviceReference ? 'Relevant service' : 'Sponsored');
+    return '<aside data-kapi-ad="true" class="relative my-12 overflow-hidden rounded-[22px] border border-[#E50914]/25 bg-[#111318] p-5 sm:my-14 sm:p-6">' +
+      '<div class="absolute inset-x-0 top-0 h-[2px] bg-[#E50914]"></div>' +
+      '<div class="mb-5 flex items-center justify-between gap-4 border-b border-[#E50914]/10 pb-3.5"><span class="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-[#E50914]">' +
+      escapeHtml(promoLabel) + '</span><span class="rounded-full border border-[#E50914]/20 bg-[#E50914]/[0.07] px-2.5 py-1 text-[8px] font-mono font-semibold uppercase tracking-[0.13em] text-[#E50914]">' +
+      escapeHtml(promoBadge) + '</span></div>' +
       '<p class="text-[9px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' + escapeHtml(block.eyebrow) + '</p>' +
       '<h3 class="mt-2.5 text-[20px] font-display font-semibold leading-[1.18] tracking-[-0.03em] text-white sm:text-[22px]">' + escapeHtml(block.title) + '</h3>' +
       '<p class="mt-2.5 max-w-xl text-[13px] leading-6 text-[#9299A6]">' + escapeHtml(block.description) + '</p>' +
@@ -166,7 +206,7 @@ const renderBlock = (block, headingId, insight) => {
   }
 
   if (block.type === 'divider') {
-    return '<hr class="my-12 border-0 border-t border-white/[0.07]" />';
+    return '<div class="my-14 flex items-center gap-4" aria-hidden="true"><span class="h-px flex-1 bg-white/[0.07]"></span><span class="h-1 w-1 rounded-full bg-[#E50914]/70"></span><span class="h-px flex-[0.18] bg-white/[0.07]"></span></div>';
   }
 
   return '';
@@ -204,8 +244,17 @@ const relatedItems = (insight) => {
 };
 
 const renderInsightBody = (insight) => {
-  const blocks = Array.isArray(insight.content) ? insight.content : [];
+  const rawBlocks = Array.isArray(insight.content) ? insight.content : [];
   const language = insight.language;
+  const isMvpValidationInsight = insight.slug?.startsWith('mvp-vs-prototype-vs-proof-of-concept');
+  let promoSeen = 0;
+  const blocks = isMvpValidationInsight
+    ? rawBlocks.filter((block) => {
+        if (block?.type !== 'promo') return true;
+        promoSeen += 1;
+        return promoSeen === 1;
+      })
+    : rawBlocks;
   const headingIds = buildInsightHeadingIdList(blocks);
   const toc = buildInsightTocList(blocks, headingIds);
   const explicitFaq = Array.isArray(insight.faq)
@@ -229,30 +278,50 @@ const renderInsightBody = (insight) => {
   let html = '';
   html += '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] pt-24" id="kapi-prerendered-insight">';
   html += '<main class="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10">';
-  html += '<header class="relative border-b border-white/[0.07] pb-14 pt-10">';
-  html += '<nav class="mb-8 flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">';
-  html += '<a href="/" class="shrink-0">' + escapeHtml(label('Beranda', 'Home')) + '</a><span aria-hidden="true">›</span>';
-  html += '<a href="/insights" class="shrink-0">' + escapeHtml(label('Insight', 'Insights')) + '</a>';
+  const heroAsset = language === 'id'
+    ? '/insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg'
+    : '/insights/mvp-vs-prototype-vs-proof-of-concept/hero-en.svg';
+  const heroAlt = language === 'id' ? 'Peta validasi Prototype, MVP, dan PoC' : 'Validation map for Prototype, MVP, and PoC';
 
-  html += '</nav>';
-  html += '<p class="text-[9px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' + escapeHtml(label('Insight', 'Insight')) + '</p>';
-  html += '<h1 class="mt-4 max-w-[980px] font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl">' + escapeHtml(insight.title) + '</h1>';
-  if (insight.excerpt) html += '<p class="mt-6 max-w-3xl text-base leading-8 text-[#A3A9B5] sm:text-lg">' + inlineMarkdownToHtml(insight.excerpt) + '</p>';
-  if (insight.author?.name || insight.publishedAt || insight.readingTime) {
-    html += '<div class="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">';
-    if (insight.author?.name) html += '<span>' + escapeHtml(label('Ditulis oleh ', 'Written by ')) + escapeHtml(insight.author.name) + '</span>';
-    if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '">' +
-      escapeHtml(new Intl.DateTimeFormat(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
-    if (insight.updatedAt && insight.updatedAt !== insight.publishedAt) html += '<span>' + escapeHtml(label('Diperbarui ', 'Updated ')) +
-      escapeHtml(new Intl.DateTimeFormat(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(insight.updatedAt))) + '</span>';
-    if (insight.readingTime) html += '<span>' + escapeHtml(String(insight.readingTime)) + ' ' + escapeHtml(label('menit baca', 'min read')) + '</span>';
-    html += '</div>';
-  }
-  if (insight.coverImage) {
-    html += '<figure class="mt-10 overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]"><img src="' +
-      escapeHtml(absoluteUrl(insight.coverImage)) + '" alt="' + escapeHtml(coverAlt) + '"' + dimensions +
-      ' loading="eager" decoding="async" class="block h-auto w-full object-cover" /></figure>';
-  }
+  html += '<header class="relative overflow-hidden border-b border-white/[0.07]">';
+  html += '<div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_18%,rgba(229,9,20,0.10),transparent_34%),radial-gradient(circle_at_20%_8%,rgba(255,255,255,0.04),transparent_28%)]" aria-hidden="true"></div>';
+  html += '<div class="relative z-10 mx-auto w-full max-w-7xl px-4 pb-14 pt-28 sm:px-6 sm:pb-16 sm:pt-32 md:px-12 lg:pb-20 lg:pt-36">';
+  html += '<div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.76fr)] lg:gap-14">';
+  html += '<div class="min-w-0">';
+  html += '<nav class="mb-7 flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]" aria-label="Breadcrumb">';
+  html += '<a href="/" class="shrink-0">' + escapeHtml(label('Beranda', 'Home')) + '</a><span aria-hidden="true">›</span>';
+  html += '<a href="/insights" class="shrink-0">' + escapeHtml(label('Insight', 'Insights')) + '</a><span aria-hidden="true">›</span>';
+  html += '<span class="truncate text-[#A2A8B4]">' + escapeHtml(category || 'Insight') + '</span></nav>';
+  html += '<div class="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4]">';
+  html += '<span class="h-1.5 w-1.5 rounded-full bg-[#E50914]" aria-hidden="true"></span>';
+  html += '<span class="text-[#E50914]">' + escapeHtml(category || 'Insight') + '</span><span class="text-[#5E6672]">/</span><span>' +
+    escapeHtml(insight.editorialMeta?.editorialType || label('Panduan', 'Guide')) + '</span></div>';
+  html += '<h1 class="mt-7 max-w-[880px] font-display text-[2.8rem] font-semibold leading-[0.96] tracking-[-0.058em] text-white sm:text-6xl lg:text-[5.3rem]">' +
+    escapeHtml(insight.title) + '</h1>';
+  if (insight.excerpt) html += '<p class="mt-6 max-w-2xl text-[15px] leading-7 text-[#A2A8B4] sm:text-base sm:leading-8">' +
+    inlineMarkdownToHtml(insight.excerpt) + '</p>';
+  html += '<div class="mt-8 grid max-w-2xl gap-4 border-t border-white/[0.07] pt-5 sm:grid-cols-[minmax(0,1.35fr)_auto_auto] sm:items-end">';
+  if (insight.author?.name) html += '<div><p class="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">' +
+    escapeHtml(label('Ditulis oleh', 'Written by')) + '</p><p class="mt-1 text-sm font-medium text-white">' +
+    escapeHtml(insight.author.name) + '</p></div>';
+  html += '<div class="sm:border-l sm:border-white/[0.07] sm:pl-5"><p class="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">' +
+    escapeHtml(label('Waktu baca', 'Reading time')) + '</p><p class="mt-1 text-sm font-semibold text-white">' +
+    escapeHtml(insight.readingTime ? String(insight.readingTime) + ' ' + label('menit', 'min') : '—') + '</p></div>';
+  html += '<div class="sm:border-l sm:border-white/[0.07] sm:pl-5"><p class="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626A76]">' +
+    escapeHtml(label('Diterbitkan', 'Published')) + '</p><time class="mt-1 block text-sm font-semibold text-white">' +
+    (insight.publishedAt ? escapeHtml(new Intl.DateTimeFormat(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(insight.publishedAt))) : '—') + '</time></div>';
+  html += '</div></div>';
+
+  html += '<figure class="overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0B0C0E]">';
+  html += '<div class="border-b border-white/[0.07] px-5 py-3.5 sm:px-6"><div class="flex items-center justify-between gap-4"><div>' +
+    '<p class="text-[9px] font-mono uppercase tracking-[0.16em] text-[#E50914]">' + escapeHtml(label('Peta validasi', 'Validation map')) + '</p>' +
+    '<p class="mt-1 text-[10px] text-[#68707C]">' + escapeHtml(label('Pengalaman / Nilai / Kelayakan', 'Experience / Value / Feasibility')) + '</p></div>' +
+    '<span class="rounded-full border border-white/[0.08] px-2.5 py-1 font-mono text-[8px] font-semibold tracking-[0.12em] text-[#7A8290]">01 / 03</span></div></div>';
+  html += '<div class="aspect-[4/3] bg-[#090A0C]"><img src="' + escapeHtml(absoluteUrl(heroAsset)) + '" alt="' + escapeHtml(heroAlt) +
+    '" loading="eager" decoding="async" class="block h-full w-full object-cover" /></div>';
+  html += '<figcaption class="border-t border-white/[0.07] px-5 py-3.5 sm:px-6"><span class="text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">' +
+    escapeHtml(label('Satu pertanyaan utama, satu alat validasi.', 'One key question, one validation instrument.')) + '</span></figcaption>';
+  html += '</figure></div></div>';
   html += '</header>';
 
   html += '<div class="mt-10 grid gap-7 xl:grid-cols-[56px_minmax(0,1fr)_304px]">';
@@ -303,15 +372,6 @@ const renderInsightBody = (insight) => {
     html += '<li class="' + (item.level === 3 ? 'ml-4' : '') + '"><a href="#' + escapeHtml(item.id) + '">' + escapeHtml(item.text) + '</a></li>';
   }
   html += '</ol></nav><a href="/contact">Book a Call</a></aside></div>';
-
-  html += '<section class="mx-auto max-w-[820px] py-10" aria-labelledby="prerender-final-cta"><h2 id="prerender-final-cta" class="text-2xl font-display font-semibold text-white">' +
-    escapeHtml(label('Sudah tahu apa yang perlu divalidasi berikutnya?', 'Know what you need to validate next?')) +
-    '</h2><p class="mt-3 text-sm leading-7 text-[#89909D]">' +
-    escapeHtml(label(
-      'Bawa pertanyaan utamanya. Kita bisa memetakan jalur dari validasi ke product design dan development.',
-      'Bring the key question. We can map the path from validation to product design and development.'
-    )) + '</p><a href="/contact" class="mt-5 inline-flex rounded-full border border-[#E50914]/35 bg-[#E50914]/70 px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">' +
-    escapeHtml(label('Mulai diskusi', 'Start a discussion')) + '</a></section>';
 
   html += '</main></div>';
   return html;

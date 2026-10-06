@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+<title id="title">Kapitech validation visual</title>
+<desc id="desc">A simple validation map connecting risk, evidence, and decision.</desc>
+<rect width="1400" height="760" fill="#0B0C0E"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="90" y="96" font-size="18" letter-spacing="4" fill="#E50914">KAPITECH / VALIDATION</text>
+<text x="90" y="158" font-size="50" font-weight="700" fill="#F8FAFC">Question → evidence → decision</text>
+<g transform="translate(90 250)">
+<rect width="350" height="220" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect width="5" height="220" rx="2.5" fill="#E50914"/>
+<text x="32" y="58" font-size="18" font-weight="700" fill="#fff">01 / QUESTION</text>
+<text x="32" y="103" font-size="24" font-weight="700" fill="#F8FAFC">What could still fail?</text>
+<text x="32" y="145" font-size="16" fill="#8A909D">User risk · value risk ·</text>
+<text x="32" y="170" font-size="16" fill="#8A909D">technical risk.</text>
+</g>
+<g transform="translate(525 250)">
+<rect width="350" height="220" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect width="5" height="220" rx="2.5" fill="#E50914"/>
+<text x="32" y="58" font-size="18" font-weight="700" fill="#fff">02 / EVIDENCE</text>
+<text x="32" y="103" font-size="24" font-weight="700" fill="#F8FAFC">What would prove it?</text>
+<text x="32" y="145" font-size="16" fill="#8A909D">Prototype · MVP · PoC</text>
+<text x="32" y="170" font-size="16" fill="#8A909D">chosen for the question.</text>
+</g>
+<g transform="translate(960 250)">
+<rect width="350" height="220" rx="28" fill="#111318" stroke="#2A2D34"/>
+<rect width="5" height="220" rx="2.5" fill="#E50914"/>
+<text x="32" y="58" font-size="18" font-weight="700" fill="#fff">03 / DECISION</text>
+<text x="32" y="103" font-size="24" font-weight="700" fill="#F8FAFC">What changes next?</text>
+<text x="32" y="145" font-size="16" fill="#8A909D">Continue · change · retest</text>
+<text x="32" y="170" font-size="16" fill="#8A909D">or stop.</text>
+</g>
+<g fill="none" stroke="#E50914" stroke-width="4" stroke-linecap="round">
+<path d="M440 360 H520"/><path d="M875 360 H955"/>
+</g>
+<g fill="#E50914">
+<path d="M508 352 l12 8 -12 8z"/><path d="M943 352 l12 8 -12 8z"/>
+</g>
+<rect x="90" y="555" width="1220" height="96" rx="24" fill="#E50914" fill-opacity=".07" stroke="#E50914" stroke-opacity=".22"/>
+<text x="120" y="600" font-size="17" letter-spacing="2.5" fill="#E50914">MENTAL MODEL</text>
+<text x="120" y="630" font-size="19" fill="#DCE0E8">Choose the smallest credible experiment that answers the most expensive uncertainty.</text>
+</g>
+</svg>
