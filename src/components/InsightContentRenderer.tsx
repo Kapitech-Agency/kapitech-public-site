@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, Copy, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { InsightContextualPromo } from './InsightContextualPromo';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 
-function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean } | null {
+function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean; internalTo: string } | null {
   const value = typeof rawUrl === 'string' ? rawUrl.trim() : '';
   if (!value) return null;
 
@@ -14,7 +15,8 @@ function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean } | n
 
     return {
       url: parsed.toString(),
-      external: parsed.origin !== window.location.origin
+      external: parsed.origin !== window.location.origin,
+      internalTo: parsed.pathname + parsed.search + parsed.hash
     };
   } catch {
     return null;
@@ -43,19 +45,31 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
     const resolved = resolveSafeUrl(rawUrl);
     if (!resolved) return <React.Fragment key={index}>{label}</React.Fragment>;
 
+    const className = "font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55";
+
+    if (resolved.external) {
+      return (
+        <a
+          key={index}
+          href={resolved.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {label}
+          <ExternalLink size={11} className="ml-1 inline-block align-[1px]" aria-hidden="true" />
+        </a>
+      );
+    }
+
     return (
-      <a
+      <Link
         key={index}
-        href={resolved.url}
-        target={resolved.external ? '_blank' : undefined}
-        rel={resolved.external ? 'noopener noreferrer' : undefined}
-        className="font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+        to={resolved.internalTo}
+        className={className}
       >
         {label}
-        {resolved.external && (
-          <ExternalLink size={11} className="ml-1 inline-block align-[1px]" aria-hidden="true" />
-        )}
-      </a>
+      </Link>
     );
   });
 }
@@ -290,13 +304,13 @@ export const InsightContentRenderer: React.FC<{
                   <ExternalLink size={13} aria-hidden="true" />
                 </a>
               ) : (
-                <a
-                  href={resolved.url}
+                <Link
+                  to={resolved.internalTo}
                   className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                 >
                   {block.label}
                   <ArrowRight size={13} aria-hidden="true" />
-                </a>
+                </Link>
               )}
             </p>
           );
@@ -342,6 +356,10 @@ export const InsightContentRenderer: React.FC<{
           );
         }
 
+        console.error('[Kapitech Insight] Unsupported content block reached the renderer:', {
+          index,
+          type: (block as { type?: string }).type || 'unknown'
+        });
         return null;
       })}
     </div>
