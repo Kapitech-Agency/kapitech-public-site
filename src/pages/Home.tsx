@@ -66,10 +66,6 @@ export const Home = () => {
   const processModalTriggerRef = React.useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleUpdate = () => {
-      setProjectsList(getCmsProjects());
-    };
-
     const handleCmsUpdate = () => {
       setProjectsList(getCmsProjects());
       setCmsServices(getCmsServices());
