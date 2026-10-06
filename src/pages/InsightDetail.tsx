@@ -127,13 +127,16 @@ export const InsightDetail: React.FC = () => {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const articleReadingRef = useRef<HTMLElement | null>(null);
+  const readingEndRef = useRef<HTMLElement | null>(null);
   const languageInitializedRef = useRef(false);
   const articleLanguageRef = useRef<InsightItem['language'] | null>(null);
   const [article, setArticle] = useState<InsightItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState<'network' | 'content' | null>(null);
   const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [relatedInsights, setRelatedInsights] = useState<InsightItem[]>([]);
 
   useEffect(() => {
     languageInitializedRef.current = false;
