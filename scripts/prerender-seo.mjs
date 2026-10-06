@@ -94,9 +94,9 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     const fallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
     const width = Number.isFinite(block.width) && Number(block.width) > 0 ? ' width="' + String(block.width) + '"' : '';
     const height = Number.isFinite(block.height) && Number(block.height) > 0 ? ' height="' + String(block.height) + '"' : '';
-    return '<figure class="my-9 sm:my-10"><div class="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">' +
+    return '<figure class="my-9 sm:my-10"><div class="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0F1013] p-px">' +
       '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
-      ' loading="lazy" decoding="async" class="block h-auto w-full object-contain" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" />' +
+      ' loading="lazy" decoding="async" class="mx-auto block h-auto w-full max-w-full object-contain" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" />' +
       '</div>' +
       (safeText(block.caption) ? '<figcaption class="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
       '</figure>';
