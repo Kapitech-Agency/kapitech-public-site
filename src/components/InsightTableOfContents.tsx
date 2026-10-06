@@ -349,7 +349,6 @@ export const InsightTableOfContents: React.FC<{
       window.removeEventListener('touchstart', cancelOnUserIntent);
       window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
-      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
     };
 
     if (initialHash && validItems.some((item) => item.id === initialHash)) {
@@ -367,6 +366,7 @@ export const InsightTableOfContents: React.FC<{
       window.removeEventListener('touchstart', cancelOnUserIntent);
       window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
 
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
@@ -380,7 +380,7 @@ export const InsightTableOfContents: React.FC<{
 
       navigationTargetRef.current = '';
     };
-  }, [validItems, sectionByItemId]);
+  }, [validItems, sectionByItemId, variant]);
 
   useEffect(() => {
     if (!activeId) return;
