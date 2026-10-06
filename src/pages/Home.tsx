@@ -42,9 +42,17 @@ const ProcessModalPortal = ({ children }: { children: React.ReactNode }) => {
   return createPortal(children, document.body);
 };
 
+const CASE_STUDY_IMAGE_FALLBACK = '/case-study-fallback.svg';
+
+const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+  const image = event.currentTarget;
+  if (image.dataset.fallbackApplied === 'true') return;
+  image.dataset.fallbackApplied = 'true';
+  image.src = CASE_STUDY_IMAGE_FALLBACK;
+};
+
 export const Home = () => {
   const { t, language } = useLanguage();
-  const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
@@ -662,6 +670,8 @@ export const Home = () => {
                       <Link
                         key={service.slug}
                         to={`/services/${service.slug}`}
+                        data-analytics-event="service_click"
+                        data-service-slug={service.slug}
                         className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-4 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12"
                       >
                         <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
@@ -749,6 +759,8 @@ export const Home = () => {
                     <Link
                       key={solution.slug}
                       to={`/solutions/${solution.slug}`}
+                      data-analytics-event="solution_click"
+                      data-solution-slug={solution.slug}
                       className="group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
                     >
                       <span
@@ -848,7 +860,10 @@ export const Home = () => {
               return (
                 <Link
                   key={project.id}
-                  to="/work"
+                  to={`/work?project=${encodeURIComponent(project.id)}`}
+                  aria-label={language === 'id' ? `Buka studi kasus ${project.title}` : `Open case study ${project.title}`}
+                  data-analytics-event="featured_case_click"
+                  data-case-id={project.id}
                   className={cn(
                     "group relative overflow-hidden rounded-2xl border border-white/[0.075] bg-[#101114] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25",
                     isLead ? "lg:row-span-2" : "min-h-[260px] lg:min-h-0"
@@ -863,6 +878,7 @@ export const Home = () => {
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
+                      onError={handleCaseStudyImageError}
                       className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
@@ -1021,6 +1037,8 @@ export const Home = () => {
                       type="button"
                       onClick={() => openProcessStep(index)}
                       onFocus={() => setActiveProcessStep(index)}
+                      data-analytics-event="process_phase_open"
+                      data-process-step={step.step}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
                       className="relative z-10 block w-full cursor-pointer text-left outline-none"
@@ -1090,7 +1108,7 @@ export const Home = () => {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
             >
-              <span>{language === 'id' ? 'Hover untuk preview, klik phase untuk membuka detail' : 'Hover to preview, click a phase for details'}</span>
+              <span>{language === 'id' ? 'Arahkan kursor untuk preview, pilih phase untuk membuka detail' : 'Hover to preview, select a phase for details'}</span>
               <span className="text-brand-red/85 tabular-nums">
                 {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
               </span>
