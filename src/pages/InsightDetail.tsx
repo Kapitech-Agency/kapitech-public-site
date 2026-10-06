@@ -52,6 +52,24 @@ function getRelatedInsights(article: InsightItem): InsightItem[] {
     .slice(0, 3);
 }
 
+function hasPrerenderedInsight(): boolean {
+  return typeof document !== 'undefined'
+    && Boolean(document.getElementById('kapi-prerendered-insight'));
+}
+
+function removePrerenderedInsight(): void {
+  document.getElementById('kapi-prerendered-insight')?.remove();
+}
+
+function enablePrerenderedInsightFallback(): void {
+  const prerender = document.getElementById('kapi-prerendered-insight');
+  if (!prerender) return;
+
+  prerender.classList.remove('pointer-events-none');
+  prerender.classList.add('pointer-events-auto');
+  prerender.setAttribute('data-kapi-prerender-fallback', 'true');
+}
+
 class InsightDetailErrorBoundary extends React.Component<
   { children: React.ReactNode; language: 'id' | 'en' },
   { hasError: boolean }
@@ -141,6 +159,7 @@ export const InsightDetail: React.FC = () => {
             setNotFound(true);
           } else {
             console.error('[Kapitech Insight] article request failed:', res.error || 'Unknown API error');
+            enablePrerenderedInsightFallback();
             setLoadError('network');
           }
           return;
@@ -155,6 +174,7 @@ export const InsightDetail: React.FC = () => {
             errors: validation.errors,
             warnings: validation.warnings
           });
+          enablePrerenderedInsightFallback();
           setLoadError('content');
           return;
         }
@@ -171,6 +191,7 @@ export const InsightDetail: React.FC = () => {
       .catch((error: unknown) => {
         if (cancelled) return;
         console.error('[Kapitech Insight] article request failed:', error);
+        enablePrerenderedInsightFallback();
         setLoadError('network');
       })
       .finally(() => {
@@ -259,6 +280,12 @@ export const InsightDetail: React.FC = () => {
     if (!article) return;
     removePrerenderedInsight();
   }, [article]);
+
+  useEffect(() => {
+    return () => {
+      removePrerenderedInsight();
+    };
+  }, []);
 
   useEffect(() => {
     if (!article) return;
