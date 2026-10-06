@@ -123,7 +123,7 @@
         "alt": "Perbandingan fokus validasi Prototype, MVP, dan Proof of Concept berdasarkan pengalaman pengguna, nilai produk, dan kelayakan teknis",
         "caption": "Tiga pendekatan ini berbeda karena pertanyaan validasinya berbeda: pengalaman pengguna, nilai produk, dan kelayakan teknis.",
         "width": 1400,
-        "height": 760
+        "height": 740
       },
       {
         "type": "paragraph",
@@ -395,7 +395,7 @@
         "alt": "Perbandingan Prototype, MVP, dan Proof of Concept berdasarkan tujuan, bukti, fidelitas UX, kedalaman teknis, dan kesiapan",
         "caption": "Prototype, MVP, dan PoC mengoptimalkan jenis bukti yang berbeda. Tidak ada satu pun yang otomatis menjadi jalan pintas menuju produk siap produksi.",
         "width": 1500,
-        "height": 930
+        "height": 900
       },
       {
         "type": "heading",
