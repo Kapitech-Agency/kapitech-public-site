@@ -789,9 +789,9 @@ export const InsightDetail: React.FC = () => {
                     className="mb-14 pb-1 sm:mb-16"
                     aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
                   >
-                    <p className="mb-5 text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                      {article.language === 'id' ? 'Mulai dari sini' : 'Start here'}
-                    </p>
+                    <span className="kapi-section-label">
+                      {article.language === 'id' ? 'MULAI DARI SINI' : 'START HERE'}
+                    </span>
                     <InsightContentRenderer
                       blocks={introductionBlocks}
                       headingIds={[]}
@@ -802,15 +802,15 @@ export const InsightDetail: React.FC = () => {
 
                 {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
                   <section
-                    className="relative mb-16 overflow-hidden rounded-[22px] border border-white/[0.07] bg-white/[0.018] p-5 shadow-[0_24px_70px_-54px_rgba(0,0,0,0.9)] sm:p-7"
+                    className="relative mb-16 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-7"
                     aria-labelledby="key-takeaways-title"
                   >
                     <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-full bg-brand-red/[0.045] blur-3xl" aria-hidden="true" />
                     <div className="relative grid gap-6 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-10">
                       <div>
-                        <p id="key-takeaways-title" className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                          {article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
-                        </p>
+                        <span id="key-takeaways-title" className="kapi-section-label">
+                          {article.language === 'id' ? 'POIN UTAMA' : 'ARTICLE KEY TAKEAWAYS'}
+                        </span>
                         <p className="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">
                           {article.language === 'id'
                             ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
