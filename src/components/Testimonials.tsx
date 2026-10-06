@@ -8,6 +8,7 @@ export const Testimonials = () => {
   const { language } = useLanguage();
   const [cmsTestimonials, setCmsTestimonials] = useState(() => getCmsTestimonials());
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -45,13 +46,13 @@ export const Testimonials = () => {
   }, [currentIndex, testimonials.length]);
 
   useEffect(() => {
-    if (testimonials.length < 2) return;
+    if (testimonials.length < 2 || isInteractionPaused) return;
     const timer = window.setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 8000);
 
     return () => window.clearInterval(timer);
-  }, [testimonials.length]);
+  }, [testimonials.length, isInteractionPaused]);
 
   const current = testimonials[currentIndex] ?? null;
 
@@ -76,6 +77,14 @@ export const Testimonials = () => {
     <section
       className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28"
       id="testimonials"
+      onMouseEnter={() => setIsInteractionPaused(true)}
+      onMouseLeave={() => setIsInteractionPaused(false)}
+      onFocusCapture={() => setIsInteractionPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsInteractionPaused(false);
+        }
+      }}
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
@@ -175,6 +184,8 @@ export const Testimonials = () => {
                     key={item.id}
                     type="button"
                     onClick={() => setCurrentIndex(index)}
+                    data-analytics-event="testimonial_select"
+                    data-testimonial-index={index + 1}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       currentIndex === index ? 'w-10 bg-brand-red' : 'w-3 bg-white/[0.14] hover:bg-white/[0.28]'
                     }`}
@@ -198,6 +209,8 @@ export const Testimonials = () => {
                     key={item.id}
                     type="button"
                     onClick={() => setCurrentIndex(testimonialIndex)}
+                    data-analytics-event="testimonial_select"
+                    data-testimonial-index={testimonialIndex + 1}
                     className={`group w-full rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
                       currentIndex === testimonialIndex
                         ? 'bg-brand-red/[0.07] border border-brand-red/20'
