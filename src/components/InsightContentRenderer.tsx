@@ -4,9 +4,28 @@ import { InsightContextualPromo } from './InsightContextualPromo';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 
+function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean } | null {
+  const value = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+  if (!value) return null;
+
+  try {
+    const parsed = new URL(value, window.location.origin);
+    if (!['http:', 'https:'].includes(parsed.protocol)) return null;
+
+    return {
+      url: parsed.toString(),
+      external: parsed.origin !== window.location.origin
+    };
+  } catch {
+    return null;
+  }
+}
+
 function inlineMarkdown(value: unknown): React.ReactNode[] {
   const safeValue = typeof value === 'string' ? value : String(value ?? '');
-  const tokens = safeValue.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^\)]+\))/g).filter(Boolean);
+  const tokens = safeValue
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^\)]+\))/g)
+    .filter(Boolean);
 
   return tokens.map((token, index) => {
     if (token.startsWith('**') && token.endsWith('**')) {
@@ -18,36 +37,26 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
     }
 
     const match = token.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
-    if (match) {
-      const [, label, rawUrl] = match;
-      let url = '';
+    if (!match) return <React.Fragment key={index}>{token}</React.Fragment>;
 
-      try {
-        const parsed = new URL(rawUrl, window.location.origin);
-        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
-          url = parsed.toString();
-        }
-      } catch {}
+    const [, label, rawUrl] = match;
+    const resolved = resolveSafeUrl(rawUrl);
+    if (!resolved) return <React.Fragment key={index}>{label}</React.Fragment>;
 
-      if (url) {
-        const external = new URL(url).origin !== window.location.origin;
-
-        return (
-          <a
-            key={index}
-            href={url}
-            target={external ? '_blank' : undefined}
-            rel={external ? 'noreferrer' : undefined}
-            className="font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60"
-          >
-            {label}
-            {external ? <ExternalLink size={11} className="ml-1 inline-block align-[1px]" aria-hidden="true" /> : null}
-          </a>
-        );
-      }
-    }
-
-    return <React.Fragment key={index}>{token}</React.Fragment>;
+    return (
+      <a
+        key={index}
+        href={resolved.url}
+        target={resolved.external ? '_blank' : undefined}
+        rel={resolved.external ? 'noopener noreferrer' : undefined}
+        className="font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+      >
+        {label}
+        {resolved.external && (
+          <ExternalLink size={11} className="ml-1 inline-block align-[1px]" aria-hidden="true" />
+        )}
+      </a>
+    );
   });
 }
 
@@ -62,14 +71,17 @@ export const InsightContentRenderer: React.FC<{
   blocks: InsightBlock[];
   headingIds?: string[];
   language?: 'id' | 'en';
-}> = ({ blocks, headingIds = buildInsightHeadingIds(blocks).map(id => id || ''), language = 'en' }) => {
+}> = ({ blocks, headingIds = buildInsightHeadingIds(blocks).map((id) => id || ''), language = 'en' }) => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
 
   const copyCode = async (code: string, index: number) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopiedCodeIndex(index);
-      window.setTimeout(() => setCopiedCodeIndex(current => current === index ? null : current), 1600);
+      window.setTimeout(
+        () => setCopiedCodeIndex((current) => current === index ? null : current),
+        1600
+      );
     } catch {}
   };
 
@@ -77,6 +89,7 @@ export const InsightContentRenderer: React.FC<{
     <div className="kapi-insight-body max-w-none">
       {blocks.map((block, index) => {
         if (!block || typeof block !== 'object') return null;
+
         if (block.type === 'paragraph') {
           return (
             <p key={index} className="mb-7 text-[15px] font-light leading-[1.9] text-[#C3C7D0] sm:text-[16px]">
@@ -92,11 +105,12 @@ export const InsightContentRenderer: React.FC<{
             <Heading
               key={index}
               id={headingIds[index] || undefined}
-              className={
+              className={[
+                'group scroll-mt-28 font-display font-semibold text-white',
                 block.level === 3
-                  ? 'group mb-4 mt-10 scroll-mt-32 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]'
-                  : 'group mb-5 mt-14 scroll-mt-32 text-2xl font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-[2rem] lg:text-[2.2rem]'
-              }
+                  ? 'mb-4 mt-10 text-xl leading-[1.12] tracking-[-0.03em] sm:text-[1.35rem]'
+                  : 'mb-5 mt-14 text-2xl leading-[1.08] tracking-[-0.045em] sm:text-[2rem] lg:text-[2.2rem]'
+              ].join(' ')}
             >
               {block.text}
             </Heading>
@@ -109,9 +123,12 @@ export const InsightContentRenderer: React.FC<{
           return (
             <ListTag
               key={index}
-              className={(block.ordered ? 'list-decimal ' : 'list-disc ') + 'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base'}
+              className={[
+                block.ordered ? 'list-decimal' : 'list-disc',
+                'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base'
+              ].join(' ')}
             >
-              {(block.items || []).map((item, itemIndex) => (
+              {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
                 <li key={itemIndex} className="pl-1 marker:text-brand-red">
                   {inlineMarkdown(item)}
                 </li>
@@ -137,14 +154,20 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'image') {
+          const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
+          const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
+
           return (
             <figure key={index} className="my-12">
-              <div className="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E] shadow-[0_26px_70px_-54px_rgba(0,0,0,0.92)]">
+              <div className="overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#0B0C0E]">
                 <img
                   src={block.url}
-                  alt={block.alt}
+                  alt={block.alt || ''}
+                  width={width}
+                  height={height}
                   loading="lazy"
-                  className="block w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.012]"
+                  decoding="async"
+                  className="block h-auto w-full object-contain"
                 />
               </div>
               {block.caption && (
@@ -158,28 +181,41 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'table') {
+          const headers = Array.isArray(block.headers) ? block.headers : [];
+          const rows = Array.isArray(block.rows) ? block.rows : [];
+
           return (
             <div key={index} className="my-12 overflow-hidden rounded-[18px] border border-white/[0.08] bg-white/[0.012]">
-              <div className="overflow-x-auto">
+              <div
+                className="overflow-x-auto"
+                tabIndex={0}
+                aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
+              >
                 <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                  {block.caption && (
+                    <caption className="caption-top px-4 py-3 text-left text-xs leading-5 text-[#7A8290]">
+                      {block.caption}
+                    </caption>
+                  )}
                   <thead>
                     <tr className="bg-white/[0.035]">
-                      {(Array.isArray(block.headers) ? block.headers : []).map((header, headerIndex) => (
+                      {headers.map((header, headerIndex) => (
                         <th
                           key={headerIndex}
+                          scope="col"
                           className="border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4]"
                         >
-                          {header}
+                          {inlineMarkdown(header)}
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {(Array.isArray(block.rows) ? block.rows : []).map((row, rowIndex) => (
-                      <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.015]">
-                        {(Array.isArray(row) ? row : []).map((cell, cellIndex) => (
+                    {rows.map((row, rowIndex) => (
+                      <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0">
+                        {headers.map((_, cellIndex) => (
                           <td key={cellIndex} className="px-4 py-3.5 align-top leading-6 text-[#B6BBC5]">
-                            {inlineMarkdown(cell)}
+                            {inlineMarkdown(Array.isArray(row) ? row[cellIndex] || '' : '')}
                           </td>
                         ))}
                       </tr>
@@ -214,7 +250,7 @@ export const InsightContentRenderer: React.FC<{
           const copied = copiedCodeIndex === index;
 
           return (
-            <div key={index} className="my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#08090B] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
+            <div key={index} className="my-9 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#08090B]">
               <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] bg-white/[0.02] px-4 py-3">
                 <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#69717D]">
                   {block.language || (language === 'id' ? 'Kode' : 'Code')}
@@ -222,7 +258,7 @@ export const InsightContentRenderer: React.FC<{
                 <button
                   type="button"
                   onClick={() => void copyCode(block.code, index)}
-                  className="inline-flex min-h-[34px] items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#9DA4B0] transition-[background-color,border-color,color] duration-300 hover:border-brand-red/30 hover:bg-brand-red/10 hover:text-white"
+                  className="inline-flex min-h-[34px] items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#9DA4B0] transition-[background-color,border-color,color] duration-300 hover:border-brand-red/30 hover:bg-brand-red/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
                 >
                   {copied ? <Check size={12} aria-hidden="true" /> : <Copy size={12} aria-hidden="true" />}
                   {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}
@@ -236,42 +272,52 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'link') {
-          const external = /^https?:\/\//.test(block.url) && !block.url.startsWith(window.location.origin);
+          const resolved = resolveSafeUrl(block.url);
+          if (!resolved) return null;
 
           return (
             <p key={index} className="my-8">
-              <a
-                href={block.url}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noreferrer' : undefined}
-                className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[background-color,border-color,box-shadow,color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_12px_28px_-24px_rgba(229,9,20,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
-              >
-                {block.label}
-                {external ? <ExternalLink size={13} aria-hidden="true" /> : <ArrowRight size={13} aria-hidden="true" />}
-              </a>
+              {resolved.external ? (
+                <a
+                  href={resolved.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                >
+                  {block.label}
+                  <ExternalLink size={13} aria-hidden="true" />
+                </a>
+              ) : (
+                <a
+                  href={resolved.url}
+                  className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                >
+                  {block.label}
+                  <ArrowRight size={13} aria-hidden="true" />
+                </a>
+              )}
             </p>
           );
         }
 
         if (block.type === 'promo') {
-          return (
-            <InsightContextualPromo
-              key={index}
-              block={block}
-            />
-          );
+          return <InsightContextualPromo key={index} block={block} />;
         }
 
         if (block.type === 'checklist') {
           return (
-            <section key={index} className="my-12 border-y border-white/[0.08] py-8 sm:py-9" aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}>
+            <section
+              key={index}
+              className="my-12 border-y border-white/[0.08] py-8 sm:py-9"
+              aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
+            >
               {block.title && (
                 <h3 className="mb-5 text-xl font-display font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.35rem]">
                   {block.title}
                 </h3>
               )}
               <ul className="grid gap-3 sm:grid-cols-2">
-                {(block.items || []).map((item, itemIndex) => (
+                {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
                   <li key={itemIndex} className="flex gap-3 rounded-xl border border-white/[0.06] bg-white/[0.018] px-4 py-3.5 text-sm leading-6 text-[#C3C7D0]">
                     <span className="mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-brand-red/40 bg-brand-red/[0.06]" aria-hidden="true">
                       <Check size={10} className="text-brand-red" />

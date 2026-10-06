@@ -1,10 +1,12 @@
 import React from 'react';
+import { useReducedMotion } from 'motion/react';
 import PatternWaves from './ui/PatternWaves/PatternWavesTyped';
 
 export const InsightAmbientBackground: React.FC<{
   intensity?: 'hero' | 'detail';
 }> = ({ intensity = 'hero' }) => {
   const detail = intensity === 'detail';
+  const reducedMotion = useReducedMotion();
 
   return (
     <div
@@ -25,15 +27,15 @@ export const InsightAmbientBackground: React.FC<{
             opacity={0.38}
             fade="edges"
             fadeSize={0.72}
-            interactive
+            interactive={!reducedMotion}
             cursorSize={82}
-            cursorStrength={0.58}
-            speed={0.22}
+            cursorStrength={reducedMotion ? 0 : 0.58}
+            speed={reducedMotion ? 0 : 0.22}
             scale={1.08}
             depth={0.62}
             shine={0.58}
             contrast={1.02}
-            intro
+            intro={!reducedMotion}
           />
         )}
       </div>
@@ -42,8 +44,6 @@ export const InsightAmbientBackground: React.FC<{
       <div className="absolute inset-y-0 right-0 w-[24%] bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/65 to-transparent" />
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0B0C0E] to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/82 to-transparent" />
-
-
     </div>
   );
 };

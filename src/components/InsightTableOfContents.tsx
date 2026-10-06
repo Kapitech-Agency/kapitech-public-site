@@ -1,536 +1,279 @@
-import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { InsightLanguage } from '../data/insightTypes';
 import type { InsightTocItem } from '../lib/insightHeadingIds';
 
-type TocSection = {
-  heading: InsightTocItem;
-  children: InsightTocItem[];
-};
+type TocVariant = 'all' | 'desktop' | 'mobile';
 
-const TOC_SCROLL_OFFSET = 128;
-const NAVIGATION_SETTLE_TOLERANCE = 28;
-const NAVIGATION_TIMEOUT = 1800;
+const ANCHOR_OFFSET_PX = 112;
 
-function getHashId(): string {
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function currentHash(): string {
+  if (typeof window === 'undefined') return '';
   return window.location.hash.replace(/^#/, '');
+}
+
+function scrollToHeading(id: string, behavior: ScrollBehavior): void {
+  document.getElementById(id)?.scrollIntoView({
+    behavior,
+    block: 'start'
+  });
+}
+
+function itemText(language: InsightLanguage, item: InsightTocItem): string {
+  return item.level === 3 && language === 'id' ? 'Subbagian: ' + item.text : item.text;
 }
 
 export const InsightTableOfContents: React.FC<{
   items: InsightTocItem[];
   language: InsightLanguage;
-}> = ({ items, language }) => {
-  const tocInstanceId = useId().replace(/:/g, '');
-  const sections = useMemo<TocSection[]>(() => {
-    const result: TocSection[] = [];
-
-    for (const item of items) {
-      if (item.level === 2) {
-        result.push({ heading: item, children: [] });
-        continue;
-      }
-
-      const last = result[result.length - 1];
-      if (last) last.children.push(item);
-    }
-
-    return result;
-  }, [items]);
-
-  const sectionByItemId = useMemo(() => {
-    const map = new Map<string, string>();
-
-    sections.forEach(section => {
-      map.set(section.heading.id, section.heading.id);
-      section.children.forEach(child => map.set(child.id, section.heading.id));
-    });
-
-    return map;
-  }, [sections]);
-
-  const [activeId, setActiveId] = useState(items[0]?.id || '');
-  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null);
+  variant?: TocVariant;
+}> = ({ items, language, variant = 'all' }) => {
+  const validItems = useMemo(
+    () => items.filter((item) => item?.id && (item.level === 2 || item.level === 3)),
+    [items]
+  );
+  const [activeId, setActiveId] = useState(validItems[0]?.id || '');
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const tocRootRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const mobileItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
-  const rafRef = useRef<number | null>(null);
-  const navigationTargetRef = useRef<string | null>(null);
-  const navigationStartedAtRef = useRef(0);
-
-  const isVisibleTocInstance = () => Boolean(
-    tocRootRef.current && tocRootRef.current.getClientRects().length > 0
-  );
-
-  const cancelPendingNavigation = () => {
-    navigationTargetRef.current = null;
-    navigationStartedAtRef.current = 0;
-  };
-
-  const syncActiveHeading = () => {
-    if (!items.length || !isVisibleTocInstance()) return;
-
-    const pendingId = navigationTargetRef.current;
-
-    if (pendingId) {
-      const pendingHeading = document.getElementById(pendingId);
-      const elapsed = performance.now() - navigationStartedAtRef.current;
-
-      if (!pendingHeading || elapsed > NAVIGATION_TIMEOUT) {
-        cancelPendingNavigation();
-      } else {
-        const pendingTop = pendingHeading.getBoundingClientRect().top;
-        const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        const atDocumentBottom = window.scrollY >= maxScrollTop - 4;
-        const settled =
-          atDocumentBottom ||
-          (pendingTop >= -NAVIGATION_SETTLE_TOLERANCE &&
-            pendingTop <= TOC_SCROLL_OFFSET + NAVIGATION_SETTLE_TOLERANCE);
-
-        if (!settled) {
-          setActiveId(prev => (prev === pendingId ? prev : pendingId));
-          return;
-        }
-
-        cancelPendingNavigation();
-      }
-    }
-
-    let current = items[0];
-
-    const maxScrollTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    const atDocumentBottom = window.scrollY >= maxScrollTop - 4;
-
-    if (atDocumentBottom) {
-      current = items[items.length - 1];
-    }
-
-    if (!atDocumentBottom) {
-      for (const item of items) {
-        const heading = document.getElementById(item.id);
-        if (!heading) continue;
-
-        if (heading.getBoundingClientRect().top <= TOC_SCROLL_OFFSET) {
-          current = item;
-        } else {
-          break;
-        }
-      }
-    }
-
-    setActiveId(prev => (prev === current.id ? prev : current.id));
-  };
-
-  const scheduleSync = () => {
-    if (rafRef.current !== null) return;
-
-    rafRef.current = window.requestAnimationFrame(() => {
-      rafRef.current = null;
-      syncActiveHeading();
-    });
-  };
 
   useEffect(() => {
-    if (!items.length) return undefined;
-
-    const hash = getHashId();
-    const initialId = items.some(item => item.id === hash) ? hash : (items[0]?.id || '');
-    const initialSectionId = sectionByItemId.get(initialId) || null;
-
-    setActiveId(initialId);
-    setExpandedSectionId(initialSectionId);
-
-    if (hash && initialId === hash && isVisibleTocInstance()) {
-      navigationTargetRef.current = null;
-      navigationStartedAtRef.current = 0;
-
-      window.requestAnimationFrame(() => {
-        document.getElementById(initialId)?.scrollIntoView({
-          behavior: 'auto',
-          block: 'start'
-        });
-      });
+    if (!validItems.length) {
+      setActiveId('');
+      return;
     }
 
-    const handleHashChange = () => {
-      if (!isVisibleTocInstance()) return;
+    const hash = currentHash();
+    const initial = validItems.some((item) => item.id === hash) ? hash : validItems[0].id;
+    setActiveId(initial);
 
-      const nextHash = getHashId();
-      const nextId = items.some(item => item.id === nextHash) ? nextHash : '';
+    const headings = validItems
+      .map((item) => document.getElementById(item.id))
+      .filter((node): node is HTMLElement => Boolean(node));
 
-      if (!nextId) {
-        cancelPendingNavigation();
-        scheduleSync();
-        return;
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+      if (visible[0]?.target instanceof HTMLElement) {
+        setActiveId(visible[0].target.id);
       }
+    }, {
+      root: null,
+      rootMargin: '-' + ANCHOR_OFFSET_PX + 'px 0px -55% 0px',
+      threshold: [0, 0.01, 1]
+    });
 
-      const nextSectionId = sectionByItemId.get(nextId) || null;
-      navigationTargetRef.current = nextId;
-      navigationStartedAtRef.current = performance.now();
-      setActiveId(nextId);
-      setExpandedSectionId(nextSectionId);
-      scheduleSync();
-    };
+    headings.forEach((heading) => observer.observe(heading));
 
-    const handleUserScrollIntent = (event: Event) => {
-      if (event.target instanceof Node && tocRootRef.current?.contains(event.target)) return;
-      cancelPendingNavigation();
-    };
+    const endMarker = document.querySelector<HTMLElement>('[data-insight-article-end]');
+    const endObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setActiveId(validItems[validItems.length - 1].id);
+      }
+    }, {
+      root: null,
+      rootMargin: '0px 0px -28% 0px',
+      threshold: [0, 1]
+    });
 
-    const handlePopState = () => {
-      if (!isVisibleTocInstance()) return;
+    if (endMarker) endObserver.observe(endMarker);
 
-      handleHashChange();
-      const nextHash = getHashId();
-      if (nextHash && items.some(item => item.id === nextHash)) {
+    const applyHash = (shouldScroll: boolean) => {
+      const hash = currentHash();
+      if (!hash || !validItems.some((item) => item.id === hash)) return;
+
+      setActiveId(hash);
+      if (shouldScroll) {
         window.requestAnimationFrame(() => {
-          document.getElementById(nextHash)?.scrollIntoView({
-            behavior: 'auto',
-            block: 'start'
-          });
+          scrollToHeading(hash, 'auto');
         });
       }
     };
 
-    window.addEventListener('scroll', scheduleSync, { passive: true });
-    window.addEventListener('resize', scheduleSync);
+    const handleHashChange = () => applyHash(true);
+    const handlePopState = () => applyHash(true);
+
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handlePopState);
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) {
-        cancelPendingNavigation();
-      }
-    };
 
-    window.addEventListener('wheel', handleUserScrollIntent, { passive: true });
-    window.addEventListener('touchstart', handleUserScrollIntent, { passive: true });
-    window.addEventListener('keydown', handleKeydown);
-
-    window.requestAnimationFrame(syncActiveHeading);
+    if (hash && initial === hash) {
+      window.requestAnimationFrame(() => scrollToHeading(hash, 'auto'));
+    }
 
     return () => {
-      window.removeEventListener('scroll', scheduleSync);
-      window.removeEventListener('resize', scheduleSync);
+      observer.disconnect();
+      endObserver.disconnect();
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('wheel', handleUserScrollIntent);
-      window.removeEventListener('touchstart', handleUserScrollIntent);
-      window.removeEventListener('keydown', handleKeydown);
-
-      if (rafRef.current !== null) {
-        window.cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
     };
-  }, [items, sectionByItemId]);
+  }, [validItems]);
 
-  if (!items.length || !sections.length) return null;
+  useEffect(() => {
+    if (!activeId) return;
 
-  const tocLabel = language === 'id' ? 'Di artikel ini' : 'In this article';
-  const navigationLabel = language === 'id' ? 'Navigasi artikel' : 'Article navigation';
-  const sectionCountLabel = language === 'id'
-    ? 'bagian'
-    : sections.length === 1 ? 'section' : 'sections';
+    const reveal = (refMap: Map<string, HTMLAnchorElement>) => {
+      const node = refMap.get(activeId);
+      if (!node) return;
+      node.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+    };
 
-  const toggleSection = (sectionId: string) => {
-    setExpandedSectionId(prev => (prev === sectionId ? null : sectionId));
-  };
+    window.requestAnimationFrame(() => {
+      reveal(desktopItemRefs.current);
+      reveal(mobileItemRefs.current);
+    });
+  }, [activeId]);
+
+  if (!validItems.length) return null;
 
   const navigateTo = (item: InsightTocItem, mobile = false) => {
-    if (!isVisibleTocInstance()) return;
-
     const target = document.getElementById(item.id);
     if (!target) return;
 
-    const sectionId = sectionByItemId.get(item.id);
-    const currentHashId = getHashId();
-
-    cancelPendingNavigation();
-    navigationTargetRef.current = item.id;
-    navigationStartedAtRef.current = performance.now();
-
     setActiveId(item.id);
-    if (sectionId) setExpandedSectionId(sectionId);
 
-    if (currentHashId !== item.id) {
+    if (currentHash() !== item.id) {
       window.history.pushState(null, '', '#' + item.id);
     }
 
-    target.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    scrollToHeading(item.id, prefersReducedMotion() ? 'auto' : 'smooth');
 
     if (mobile) setMobileOpen(false);
   };
 
-  const renderSection = (
-    section: TocSection,
-    index: number,
-    variant: 'desktop' | 'mobile'
+  const register = (
+    map: Map<string, HTMLAnchorElement>,
+    id: string,
+    node: HTMLAnchorElement | null
   ) => {
-    const expanded = expandedSectionId === section.heading.id;
-    const sectionActive =
-      section.children.some(item => item.id === activeId) || section.heading.id === activeId;
-
-    const itemMap = variant === 'desktop'
-      ? desktopItemRefs.current
-      : mobileItemRefs.current;
-
-    return (
-      <div
-        key={section.heading.id}
-        className={[
-          'overflow-hidden rounded-[18px] border transition-[border-color,background-color,box-shadow] duration-300',
-          sectionActive
-            ? 'border-white/[0.11] bg-white/[0.028] shadow-[inset_0_1px_0_rgba(255,255,255,0.035),0_18px_44px_-36px_rgba(0,0,0,0.82)]'
-            : 'border-white/[0.075] bg-white/[0.016] hover:border-white/[0.12] hover:bg-white/[0.024] hover:shadow-[0_14px_32px_-28px_rgba(0,0,0,0.9)]'
-        ].join(' ')}
-      >
-        <div className="relative flex items-center gap-2.5 px-3 py-3 sm:px-3.5 sm:py-3.5">
-          <span
-            aria-hidden="true"
-            className={[
-              'absolute left-0 top-3 bottom-3 w-[2px] rounded-full transition-[opacity,background-color] duration-300',
-              sectionActive ? 'bg-brand-red opacity-100' : 'bg-transparent opacity-0'
-            ].join(' ')}
-          />
-          <a
-            ref={node => {
-              if (node) itemMap.set(section.heading.id, node);
-              else itemMap.delete(section.heading.id);
-            }}
-            href={'#' + section.heading.id}
-            onClick={event => {
-              event.preventDefault();
-              navigateTo(section.heading, variant === 'mobile');
-            }}
-            aria-current={activeId === section.heading.id ? 'location' : undefined}
-            className={[
-              'min-w-0 flex-1 rounded-xl px-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
-              sectionActive ? 'active:bg-brand-red/[0.055]' : 'active:bg-white/[0.035]'
-            ].join(' ')}
-          >
-            <span className="flex items-center gap-3">
-              <span
-                className={[
-                  'flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border font-mono text-[9px] font-semibold tabular-nums transition-[border-color,background-color,color] duration-300',
-                  sectionActive
-                    ? 'border-white/[0.13] bg-white/[0.05] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
-                    : 'border-white/[0.08] bg-white/[0.025] text-[#69717D]'
-                ].join(' ')}
-              >
-                {String(index + 1).padStart(2, '0')}
-              </span>
-
-              <span className="min-w-0 flex-1">
-                <span
-                  className={[
-                    'block text-[12.5px] leading-[1.42] tracking-[-0.008em]',
-                    sectionActive ? 'font-semibold text-white' : 'font-medium text-[#C7CCD5]'
-                  ].join(' ')}
-                >
-                  {section.heading.text}
-                </span>
-
-                {section.children.length > 0 && (
-                  <span className="mt-1 flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.15em] text-[#656D79]">
-                    <span className={sectionActive ? 'text-brand-red' : 'text-[#5F6773]'}>
-                      {String(section.children.length).padStart(2, '0')}
-                    </span>
-                    <span>{language === 'id' ? 'subbagian' : 'subsections'}</span>
-                  </span>
-                )}
-              </span>
-            </span>
-          </a>
-
-          {section.children.length > 0 && (
-            <button
-              type="button"
-              onClick={event => {
-                event.preventDefault();
-                event.stopPropagation();
-                toggleSection(section.heading.id);
-              }}
-              onPointerDown={event => event.stopPropagation()}
-              className={[
-                'kapi-insight-toc-control flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
-                expanded
-                  ? 'border-white/[0.14] bg-white/[0.06] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
-                  : sectionActive
-                    ? 'border-white/[0.12] bg-white/[0.04] text-white hover:border-brand-red/30 hover:bg-brand-red/[0.06]'
-                    : 'border-white/[0.08] bg-white/[0.025] text-white/80 hover:border-white/[0.14] hover:bg-white/[0.05] hover:text-white'
-              ].join(' ')}
-              aria-expanded={expanded}
-              aria-controls={section.heading.id + '-subsections-' + tocInstanceId}
-              aria-label={
-                expanded
-                  ? (language === 'id' ? 'Tutup subbagian' : 'Collapse subsections')
-                  : (language === 'id' ? 'Buka subbagian' : 'Expand subsections')
-              }
-            >
-              <ChevronDown
-                size={14}
-                strokeWidth={2}
-                className={[
-                  'kapi-insight-toc-chevron transition-transform duration-300',
-                  expanded ? 'rotate-180' : ''
-                ].join(' ')}
-                aria-hidden="true"
-              />
-            </button>
-          )}
-        </div>
-
-        {expanded && section.children.length > 0 && (
-          <div
-            id={section.heading.id + '-subsections-' + tocInstanceId}
-            className="border-t border-white/[0.06] px-3 pb-3 pt-2.5"
-          >
-            <div className="space-y-0.5">
-              {section.children.map(child => {
-                const active = child.id === activeId;
-
-                return (
-                  <a
-                    key={child.id}
-                    ref={node => {
-                      if (node) itemMap.set(child.id, node);
-                      else itemMap.delete(child.id);
-                    }}
-                    href={'#' + child.id}
-                    onClick={event => {
-                      event.preventDefault();
-                      navigateTo(child, variant === 'mobile');
-                    }}
-                    aria-current={active ? 'location' : undefined}
-                    className={[
-                      'group/subsection relative flex w-full items-start gap-2.5 rounded-[11px] border-l-2 border-transparent px-2.5 py-2 text-left text-[11px] leading-[1.5] transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
-                      active
-                        ? 'border-brand-red bg-brand-red/[0.055] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]'
-                        : 'text-[#737C89] hover:border-white/[0.08] hover:bg-white/[0.024] hover:text-[#C9CED7]'
-                    ].join(' ')}
-                  >
-                    <span
-                      className={[
-                        'mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full transition-[background-color,box-shadow] duration-200',
-                        active ? 'bg-brand-red shadow-[0_0_0_3px_rgba(229,9,20,0.08)]' : 'bg-white/[0.14]'
-                      ].join(' ')}
-                      aria-hidden="true"
-                    />
-                    <span className="min-w-0 flex-1">{child.text}</span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-    );
+    if (node) map.set(id, node);
+    else map.delete(id);
   };
 
-  const renderList = (variant: 'desktop' | 'mobile') => (
-    <div className="space-y-2.5">
-      {sections.map((section, index) => renderSection(section, index, variant))}
-    </div>
-  );
+  const renderItems = (refMap: Map<string, HTMLAnchorElement>, mobile = false) => (
+    <div className="space-y-1">
+      {validItems.map((item, index) => {
+        const active = activeId === item.id;
+        const isH2 = item.level === 2;
 
-  const currentSectionIndex = Math.max(
-    0,
-    sections.findIndex(section => section.heading.id === sectionByItemId.get(activeId))
-  );
-
-  const currentItem = items.find(item => item.id === activeId) || sections[0].heading;
-
-  return (
-    <div ref={tocRootRef} className="kapi-insight-toc">
-      <div className="xl:hidden">
-        <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
-          <button
-            type="button"
-            aria-expanded={mobileOpen}
-            aria-controls={'insight-mobile-toc-' + tocInstanceId}
-            onClick={() => setMobileOpen(open => !open)}
+        return (
+          <a
+            key={item.id}
+            ref={(node) => register(refMap, item.id, node)}
+            href={'#' + item.id}
+            onClick={(event) => {
+              event.preventDefault();
+              navigateTo(item, mobile);
+            }}
+            aria-current={active ? 'location' : undefined}
+            aria-label={itemText(language, item)}
             className={[
-              'kapi-insight-toc-control flex min-h-16 w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60',
-              mobileOpen ? 'bg-white/[0.018]' : ''
+              'relative flex w-full items-start rounded-lg text-left transition-[background-color,color,border-color] duration-200',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+              isH2 ? 'px-3 py-2.5' : 'ml-5 px-3 py-2',
+              active
+                ? 'border-l-2 border-brand-red bg-white/[0.035] text-white'
+                : 'border-l-2 border-transparent text-[#737C89] hover:bg-white/[0.02] hover:text-[#C8CDD5]'
             ].join(' ')}
           >
-            <span className="min-w-0">
-              <span className="flex items-center gap-2">
-                <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">{tocLabel}</span>
-                <span className="h-1 w-1 rounded-full bg-white/[0.16]" aria-hidden="true" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#656E7A]">
-                  {sections.length} {sectionCountLabel}
-                </span>
+            {isH2 && (
+              <span className={[
+                'mr-3 shrink-0 pt-0.5 font-mono text-[9px] tabular-nums',
+                active ? 'text-brand-red' : 'text-[#59616D]'
+              ].join(' ')}>
+                {String(validItems.slice(0, index + 1).filter((entry) => entry.level === 2).length).padStart(2, '0')}
               </span>
-              <span className="mt-1.5 block truncate text-[13px] font-medium leading-5 text-white">
-                {currentItem.text}
-              </span>
+            )}
+
+            <span className={[
+              'min-w-0 leading-[1.45]',
+              isH2 ? 'text-[12px] font-medium' : 'text-[11px] font-normal'
+            ].join(' ')}>
+              {item.text}
             </span>
+          </a>
+        );
+      })}
+    </div>
+  );
 
-            <span
-              className={[
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200',
-                mobileOpen
-                  ? 'border-white/[0.14] bg-white/[0.06] text-white'
-                  : 'border-white/[0.08] bg-white/[0.025] text-white/80'
-              ].join(' ')}
-              aria-hidden="true"
-            >
-              <ChevronDown
-                size={15}
-                className={[
-                  'kapi-insight-toc-chevron transition-transform duration-200',
-                  mobileOpen ? 'rotate-180' : ''
-                ].join(' ')}
-              />
-            </span>
-          </button>
+  const label = language === 'id' ? 'Di artikel ini' : 'In this article';
+  const navigationLabel = language === 'id' ? 'Daftar isi artikel' : 'Article table of contents';
+  const current = validItems.find((item) => item.id === activeId) || validItems[0];
+  const h2Count = validItems.filter((item) => item.level === 2).length;
 
-          {mobileOpen && (
-            <nav
-              id={'insight-mobile-toc-' + tocInstanceId}
-              aria-label={navigationLabel}
-              className="max-h-[min(24rem,58vh)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
-            >
-              {renderList('mobile')}
-            </nav>
-          )}
-        </div>
-      </div>
+  const mobile = (
+    <div className={variant === 'desktop' ? 'hidden' : 'xl:hidden'}>
+      <div className="rounded-[18px] border border-white/[0.08] bg-[rgba(15,17,22,0.74)] backdrop-blur-xl">
+        <button
+          type="button"
+          aria-expanded={mobileOpen}
+          aria-controls="insight-mobile-toc-list"
+          onClick={() => setMobileOpen((value) => !value)}
+          className="flex min-h-[60px] w-full items-center justify-between gap-4 px-4 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+        >
+          <span className="min-w-0">
+            <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">{label}</span>
+            <span className="mt-1 block truncate text-[13px] font-medium text-white">{current.text}</span>
+          </span>
+          <ChevronDown
+            size={16}
+            aria-hidden="true"
+            className={[
+              'shrink-0 transition-transform duration-200',
+              mobileOpen ? 'rotate-180 text-white' : 'text-[#737C89]'
+            ].join(' ')}
+          />
+        </button>
 
-      <div className="hidden h-fit xl:flex xl:flex-col">
-        <div className="rounded-[20px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-4 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_22px_55px_-40px_rgba(0,0,0,0.82)]">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-mono font-medium uppercase tracking-[0.17em] text-[#969DA8]">{tocLabel}</p>
-              <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
-                {sections.length} {sectionCountLabel}
-              </p>
-            </div>
-
-            <span className="rounded-full border border-white/[0.08] bg-white/[0.028] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#737C88]">
-              {String(currentSectionIndex + 1).padStart(2, '0')} / {String(sections.length).padStart(2, '0')}
-            </span>
-          </div>
-
-          <div className="relative mt-4">
-            <nav
-              aria-label={navigationLabel}
-              className="h-[24rem] max-h-[calc(100vh-24rem)] overflow-y-auto overscroll-contain pb-3 pr-1"
-            >
-              {renderList('desktop')}
-            </nav>
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-14 rounded-b-[14px] bg-gradient-to-t from-[rgba(15,17,22,0.98)] via-[rgba(15,17,22,0.64)] to-transparent"
-              aria-hidden="true"
-            />
-          </div>
-        </div>
+        {mobileOpen && (
+          <nav
+            id="insight-mobile-toc-list"
+            aria-label={navigationLabel}
+            className="max-h-[min(70vh,34rem)] overflow-y-auto overscroll-contain border-t border-white/[0.07] p-3"
+          >
+            {renderItems(mobileItemRefs.current, true)}
+          </nav>
+        )}
       </div>
     </div>
+  );
+
+  const desktop = (
+    <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
+      <div className="flex h-full min-h-0 flex-1 flex-col rounded-[18px] border border-white/[0.08] bg-[rgba(15,17,22,0.72)] p-3.5 backdrop-blur-xl">
+        <div className="flex shrink-0 items-end justify-between gap-4 px-1">
+          <div>
+            <p className="text-[10px] font-mono uppercase tracking-[0.17em] text-[#8E96A3]">{label}</p>
+            <p className="mt-1 text-[9px] leading-4 text-[#5F6773]">
+              {h2Count} {language === 'id' ? 'bagian' : h2Count === 1 ? 'section' : 'sections'}
+            </p>
+          </div>
+          <span className="font-mono text-[9px] tabular-nums text-[#606873]">
+            {String(validItems.findIndex((item) => item.id === activeId) + 1).padStart(2, '0')} / {String(validItems.length).padStart(2, '0')}
+          </span>
+        </div>
+
+        <nav
+          aria-label={navigationLabel}
+          className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1"
+        >
+          {renderItems(desktopItemRefs.current)}
+        </nav>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {mobile}
+      {desktop}
+    </>
   );
 };

@@ -1,11 +1,15 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-document.getElementById('kapi-prerendered-insight')?.remove();
+const root = document.getElementById('root');
 
-createRoot(document.getElementById('root')!).render(
+if (!root) {
+  throw new Error('Kapitech root element is missing.');
+}
+
+createRoot(root).render(
   <StrictMode>
     <App />
   </StrictMode>,
