@@ -128,48 +128,27 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'list') {
-          const previousBlock = blocks[index - 1];
-          const isDecisionList = Boolean(
-            previousBlock?.type === 'heading' && isValidationDecisionHeading(previousBlock.text)
-          );
           const ListTag = block.ordered ? 'ol' : 'ul';
-
-          if (isDecisionList) {
-            return (
-              <ul
-                key={index}
-                className="mb-9 grid gap-3 sm:grid-cols-2"
-              >
-                {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
-                  <li
-                    key={itemIndex}
-                    className="flex gap-3 rounded-xl border border-white/[0.07] bg-white/[0.018] px-4 py-3.5 text-[13px] leading-6 text-[#C3C7D0] transition-[border-color,background-color] duration-300 hover:border-white/[0.12] hover:bg-white/[0.028] sm:text-sm"
-                  >
-                    <span
-                      className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-brand-red/40 bg-brand-red/[0.06]"
-                      aria-hidden="true"
-                    >
-                      <Check size={10} className="text-brand-red" />
-                    </span>
-                    <span>{inlineMarkdown(item)}</span>
-                  </li>
-                ))}
-              </ul>
-            );
-          }
 
           return (
             <ListTag
               key={index}
               className={[
                 block.ordered ? 'list-decimal' : 'list-disc',
-                'mb-8 space-y-3 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base        if (block.type === 'list') {
-          const ListTag = block.ordered ? 'ol' : 'ul';
-          return (
-            <ListTag
-              key={index}
-              className={[
-                    if (block.type === 'quote') {
+                'mb-8 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base',
+                block.ordered ? 'space-y-3' : 'space-y-2.5'
+              ].join(' ')}
+            >
+              {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
+                <li key={itemIndex} className="pl-1 marker:text-brand-red">
+                  {inlineMarkdown(item)}
+                </li>
+              ))}
+            </ListTag>
+          );
+        }
+
+        if (block.type === 'quote') {
           return (
             <figure key={index} className="my-10 border-l-2 border-brand-red/45 pl-5 sm:my-12 sm:pl-6">
               <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
@@ -350,7 +329,7 @@ export const InsightContentRenderer: React.FC<{
         }
 
         if (block.type === 'promo') {
-          return <InsightContextualPromo key={index} block={block} language={language} />;
+          return null;
         }
 
         if (block.type === 'checklist') {
