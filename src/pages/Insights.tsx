@@ -449,11 +449,11 @@ export const Insights: React.FC = () => {
                       {language === 'id' ? 'Library' : 'Library'}
                     </p>
                     <h2
-                  ref={resultsHeadingRef}
-                  id="latest-insights-title"
-                  tabIndex={-1}
-                  className="mt-2 scroll-mt-28 text-3xl font-display font-semibold tracking-[-0.04em] text-white outline-none focus-visible:outline-none sm:text-[2.45rem]"
-                >
+                      ref={resultsHeadingRef}
+                      id="latest-insights-title"
+                      tabIndex={-1}
+                      className="mt-2 scroll-mt-28 text-3xl font-display font-semibold tracking-[-0.04em] text-white outline-none focus-visible:outline-none sm:text-[2.45rem]"
+                    >
                       {latestLabel}
                     </h2>
                   </div>
