@@ -524,7 +524,7 @@ export const InsightDetail: React.FC = () => {
         <header className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/insights/article-hero-background.svg')" }}
+            style={{ backgroundImage: "url('/insights/article-hero-background.jpg')" }}
             aria-hidden="true"
           />
           <div
@@ -638,7 +638,7 @@ export const InsightDetail: React.FC = () => {
             )}
           </div>
 
-          <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,920px)_minmax(0,1fr)]">
+          <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1040px)_minmax(0,1fr)]">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
@@ -649,7 +649,7 @@ export const InsightDetail: React.FC = () => {
 
             <article
               ref={articleReadingRef}
-              className="min-w-0 w-full justify-self-center px-0 text-[#C3C7D0] sm:px-2 lg:px-12"
+              className="min-w-0 w-full justify-self-center text-[#C3C7D0]"
             >
               {introductionBlocks.length > 0 && (
                 <section
