@@ -81,6 +81,11 @@
         "text": "SEO is the distribution layer. The educational value is the product."
       },
       {
+        "type": "heading",
+        "level": 2,
+        "text": "People-First SEO Content at a Glance"
+      },
+      {
         "type": "table",
         "headers": [
           "Layer",
@@ -129,64 +134,13 @@
         "caption": "Start with the person and task. Search optimization comes after the page has a useful reason to exist."
       },
       {
-        "type": "heading",
-        "level": 2,
-        "text": "People-first SEO content at a glance"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "A page needs a clear purpose"
-      },
-      {
         "type": "paragraph",
         "text": "Google asks whether an intended audience would find the content useful if they came directly to the site. That is a strong editorial test because it puts the reader back at the center."
       },
       {
         "type": "heading",
-        "level": 3,
-        "text": "Satisfy the task, not a word count"
-      },
-      {
-        "type": "paragraph",
-        "text": "Google explicitly says there is no preferred word count. Length should follow the reader's task, not a target number that makes the article longer without making it better."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Page experience supports learning"
-      },
-      {
-        "type": "paragraph",
-        "text": "Readable hierarchy, stable layout, mobile presentation, and responsive interaction help educational content deliver its intended value."
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Define the audience before the keyword.",
-          "Write the user task the page must satisfy.",
-          "Choose the page type that fits the task.",
-          "Research primary sources.",
-          "Add original analysis, examples, or frameworks.",
-          "Review the finished page as a reader."
-        ]
-      },
-      {
-        "type": "image",
-        "url": "/insights/helpful-seo-content/intent-map.svg",
-        "alt": "Search intent map",
-        "caption": "Translate the search question into a user task, page type, answer depth, and next action."
-      },
-      {
-        "type": "heading",
         "level": 2,
-        "text": "Search intent and page purpose"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Separate the query from the job"
+        "text": "Search Intent and Page Purpose"
       },
       {
         "type": "paragraph",
@@ -195,16 +149,11 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "Match format to the decision"
+        "text": "Separate the query from the job"
       },
       {
         "type": "paragraph",
         "text": "A buyer needs different information from a learner. The page type should reflect the job the reader is trying to complete."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Create a useful next step"
       },
       {
         "type": "paragraph",
@@ -212,73 +161,32 @@
       },
       {
         "type": "heading",
-        "level": 2,
-        "text": "Who, How, and Why"
+        "level": 3,
+        "text": "Match format to the decision"
+      },
+      {
+        "type": "paragraph",
+        "text": "SEO content is easiest to improve when the goal is not 'write more pages' but 'make useful answers easier to discover.' Google says its systems aim to prioritize helpful, reliable information created to benefit people rather than content made primarily to manipulate rankings."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Who created the content?"
+        "text": "Create a useful next step"
       },
       {
-        "type": "paragraph",
-        "text": "Google encourages clear authorship where readers would expect it. Accurate bylines make the origin of the work easier to understand."
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Define audience and task",
+          "Choose the page type",
+          "Set the editorial promise"
+        ]
       },
       {
-        "type": "heading",
-        "level": 3,
-        "text": "How was it produced?"
-      },
-      {
-        "type": "paragraph",
-        "text": "Sources, methodology, examples, and review processes can help readers understand how an answer was constructed."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Why does the page exist?"
-      },
-      {
-        "type": "paragraph",
-        "text": "Google calls the 'why' of content particularly important: the primary reason should be to help people, with SEO supporting discovery."
-      },
-      {
-        "type": "image",
-        "url": "/insights/helpful-seo-content/who-how-why.svg",
-        "alt": "Who How Why framework",
-        "caption": "Clear authorship, transparent process, and a people-first purpose strengthen trust."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Originality and evidence"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Summarize less, explain more"
-      },
-      {
-        "type": "paragraph",
-        "text": "Google asks whether content provides original information, research, reporting, or analysis. A source list alone does not create originality."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Use primary sources as evidence"
-      },
-      {
-        "type": "paragraph",
-        "text": "For technical claims, official documentation and standards are strong anchors. Secondary sources are most useful when they add interpretation or perspective."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Add examples that teach"
-      },
-      {
-        "type": "paragraph",
-        "text": "Clearly labeled scenarios help readers apply an idea without pretending that one example is universal proof."
+        "type": "callout",
+        "tone": "info",
+        "title": "The principle",
+        "text": "SEO is the distribution layer. The educational value is the product."
       },
       {
         "type": "promo",
@@ -292,147 +200,109 @@
       {
         "type": "heading",
         "level": 2,
-        "text": "A practical educational SEO framework"
+        "text": "Who, How, and Why"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google encourages clear authorship where readers would expect it. Accurate bylines make the origin of the work easier to understand."
+      },
+      {
+        "type": "paragraph",
+        "text": "Sources, methodology, examples, and review processes can help readers understand how an answer was constructed."
+      },
+      {
+        "type": "image",
+        "url": "/insights/helpful-seo-content/intent-map.svg",
+        "alt": "Search intent map",
+        "caption": "Translate the search question into a user task, page type, answer depth, and next action."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "1. Define the reader task"
-      },
-      {
-        "type": "paragraph",
-        "text": "Write one sentence describing what the reader should understand or decide after the page. Use it as the editorial boundary that keeps the draft focused."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "2. Research and model the answer"
-      },
-      {
-        "type": "paragraph",
-        "text": "Read primary sources first, then organize the material into definitions, constraints, examples, failure modes, and a practical framework."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "3. Review the result as a reader"
-      },
-      {
-        "type": "paragraph",
-        "text": "Ask whether the page actually solves the intended task or whether the reader would still need to search again."
+        "text": "Who created the content?"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Purpose and audience are clear.",
-          "Primary sources support important factual claims.",
-          "Original value is visible.",
-          "Authorship is accurate.",
-          "The page is easy to navigate and learn from."
+          "Research primary sources",
+          "Record important claims",
+          "Identify evidence gaps"
         ]
       },
       {
-        "type": "image",
-        "url": "/insights/helpful-seo-content/evidence-stack.svg",
-        "alt": "Evidence stack for educational SEO",
-        "caption": "Good educational SEO makes the chain from evidence to explanation visible."
+        "type": "heading",
+        "level": 3,
+        "text": "How was it produced?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google calls the 'why' of content particularly important: the primary reason should be to help people, with SEO supporting discovery."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Why does the page exist?"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Add original analysis",
+          "Use concrete examples",
+          "Explain constraints"
+        ]
+      },
+      {
+        "type": "callout",
+        "tone": "neutral",
+        "title": "Practical rule",
+        "text": "Write the page you would still publish if search traffic did not exist, then make it easier for the intended audience to discover."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "A real scenario: service page vs educational article"
+        "text": "Originality and Evidence"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google asks whether content provides original information, research, reporting, or analysis. A source list alone does not create originality."
+      },
+      {
+        "type": "paragraph",
+        "text": "For technical claims, official documentation and standards are strong anchors. Secondary sources are most useful when they add interpretation or perspective."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Problem: one page tries to do every job"
+        "text": "Summarize less, explain more"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Design hierarchy",
+          "Use useful visuals",
+          "Keep CTAs contextual"
+        ]
       },
       {
         "type": "paragraph",
-        "text": "A service page that also tries to be an encyclopedia, comparison, vendor guide, and tutorial can become difficult to use and difficult to evaluate."
+        "text": "Clearly labeled scenarios help readers apply an idea without pretending that one example is universal proof."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Risk: relevance without satisfaction"
+        "text": "Use primary sources as evidence"
       },
       {
-        "type": "paragraph",
-        "text": "Being relevant to a keyword is not the same as being useful. A page can mention related terms while still leaving the reader without a clear answer."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Evidence: a browseable content system"
-      },
-      {
-        "type": "paragraph",
-        "text": "Separate educational explanations from commercial decisions, then connect them with intentional internal links that support the reader's next step."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Designing articles for learning"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Use hierarchy to reduce cognitive load"
-      },
-      {
-        "type": "paragraph",
-        "text": "Headings, short paragraphs, tables, lists, and diagrams make long technical material easier to scan without reducing substance."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Make visuals explanatory"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong editorial visual clarifies a relationship, comparison, process, or decision rather than simply decorating the article."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Keep CTAs contextual"
-      },
-      {
-        "type": "paragraph",
-        "text": "Promotional moments should appear where the topic naturally transitions from learning to application."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Scaling an Insight library responsibly"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Not every keyword deserves a page"
-      },
-      {
-        "type": "paragraph",
-        "text": "Create a page when the audience has a meaningful task and the site can provide a useful answer."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Avoid near-duplicate pages"
-      },
-      {
-        "type": "paragraph",
-        "text": "Google's spam guidance warns against creating substantially similar pages mainly to capture search traffic."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Prefer depth over publishing volume"
-      },
-      {
-        "type": "paragraph",
-        "text": "A smaller library of distinct, well-researched articles can provide stronger value than dozens of shallow pages."
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Review purpose and intent",
+          "Check author and sources",
+          "Remove low-value repetition"
+        ]
       },
       {
         "type": "quote",
@@ -442,7 +312,166 @@
       {
         "type": "heading",
         "level": 2,
-        "text": "Common mistakes to avoid"
+        "text": "How to Build an Educational SEO Page"
+      },
+      {
+        "type": "paragraph",
+        "text": "Write one sentence describing what the reader should understand or decide after the page. Use it as the editorial boundary that keeps the draft focused."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Question",
+          "Weak approach",
+          "People-first approach"
+        ],
+        "rows": [
+          [
+            "Why does the page exist?",
+            "Because a keyword exists",
+            "Because the audience has a useful task"
+          ],
+          [
+            "What is new here?",
+            "Rewritten summary",
+            "Analysis, examples, or framework"
+          ],
+          [
+            "How can readers verify it?",
+            "Generic source list",
+            "Relevant primary references"
+          ],
+          [
+            "How is success judged?",
+            "Only rankings",
+            "Reader task completion"
+          ]
+        ],
+        "caption": "A practical comparison to support implementation decisions."
+      },
+      {
+        "type": "image",
+        "url": "/insights/helpful-seo-content/who-how-why.svg",
+        "alt": "Who How Why framework",
+        "caption": "Clear authorship, transparent process, and a people-first purpose strengthen trust."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "1. Define the reader task"
+      },
+      {
+        "type": "paragraph",
+        "text": "Read primary sources first, then organize the material into definitions, constraints, examples, failure modes, and a practical framework."
+      },
+      {
+        "type": "paragraph",
+        "text": "Ask whether the page actually solves the intended task or whether the reader would still need to search again."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A Real Business Scenario: Service Page vs Educational Article"
+      },
+      {
+        "type": "paragraph",
+        "text": "A service page that also tries to be an encyclopedia, comparison, vendor guide, and tutorial can become difficult to use and difficult to evaluate."
+      },
+      {
+        "type": "image",
+        "url": "/insights/helpful-seo-content/evidence-stack.svg",
+        "alt": "Evidence stack for educational SEO",
+        "caption": "Good educational SEO makes the chain from evidence to explanation visible."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Problem: one page tries to do every job"
+      },
+      {
+        "type": "paragraph",
+        "text": "Being relevant to a keyword is not the same as being useful. A page can mention related terms while still leaving the reader without a clear answer."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Risk: relevance without satisfaction"
+      },
+      {
+        "type": "paragraph",
+        "text": "Separate educational explanations from commercial decisions, then connect them with intentional internal links that support the reader's next step."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Evidence: a browseable content system"
+      },
+      {
+        "type": "paragraph",
+        "text": "Headings, short paragraphs, tables, lists, and diagrams make long technical material easier to scan without reducing substance."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Use hierarchy to reduce cognitive load"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong editorial visual clarifies a relationship, comparison, process, or decision rather than simply decorating the article."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Make visuals explanatory"
+      },
+      {
+        "type": "paragraph",
+        "text": "Promotional moments should appear where the topic naturally transitions from learning to application."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Designing Articles for Learning"
+      },
+      {
+        "type": "paragraph",
+        "text": "That guidance changes the editorial workflow. The article needs a real audience, a clear job, enough depth to satisfy that job, and useful value beyond stitching together what other pages already said."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Keep CTAs contextual"
+      },
+      {
+        "type": "paragraph",
+        "text": "For Kapitech, educational content is strongest when it teaches a decision, a framework, or a practical workflow that readers can apply. SEO helps the right readers find it; the educational value gives them a reason to stay."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Additional validation checkpoint"
+      },
+      {
+        "type": "paragraph",
+        "text": "This guide turns Google's people-first guidance into a repeatable system: define the task, understand intent, establish who and how, research primary sources, add original analysis, and review whether the reader can act on the answer."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Additional validation checkpoint"
+      },
+      {
+        "type": "paragraph",
+        "text": "**A page needs a clear purpose** — this is a decision point worth testing explicitly."
+      },
+      {
+        "type": "paragraph",
+        "text": "**Satisfy the task, not a word count** — this is a decision point worth testing explicitly."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common People-First SEO Mistakes"
       },
       {
         "type": "heading",
@@ -454,27 +483,17 @@
         "text": "Keyword targeting is useful when it reflects a real audience need, not when search demand is the only reason the topic exists."
       },
       {
-        "type": "heading",
-        "level": 3,
-        "text": "2. Rewriting the common structure"
-      },
-      {
         "type": "paragraph",
         "text": "A familiar outline is not automatically valuable. Add analysis, examples, or a framework that makes the page materially more useful."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "3. Scaling pages without adding value"
+        "text": "2. Rewriting the common structure"
       },
       {
         "type": "paragraph",
         "text": "Google describes scaled content abuse as creating many pages for search manipulation when they provide little original value."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "4. Chasing a word count"
       },
       {
         "type": "paragraph",
@@ -483,16 +502,11 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "5. Hiding source methodology"
+        "text": "3. Scaling pages without adding value"
       },
       {
         "type": "paragraph",
         "text": "Important claims should have a clear evidence trail when verification matters."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "6. Overusing keywords"
       },
       {
         "type": "paragraph",
@@ -501,39 +515,89 @@
       {
         "type": "heading",
         "level": 3,
-        "text": "7. Treating SEO as the final step"
+        "text": "4. Chasing a word count"
       },
       {
         "type": "paragraph",
         "text": "Search architecture should shape page structure and internal links while the content is designed."
       },
       {
+        "type": "paragraph",
+        "text": "Google explicitly says there is no preferred word count. Length should follow the reader's task, not a target number that makes the article longer without making it better."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "5. Hiding source methodology"
+      },
+      {
+        "type": "paragraph",
+        "text": "**Page experience supports learning** — this is a decision point worth testing explicitly."
+      },
+      {
+        "type": "paragraph",
+        "text": "Readable hierarchy, stable layout, mobile presentation, and responsive interaction help educational content deliver its intended value."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "6. Overusing keywords"
+      },
+      {
+        "type": "paragraph",
+        "text": "Define the audience before the keyword."
+      },
+      {
+        "type": "paragraph",
+        "text": "**Add examples that teach** — this is a decision point worth testing explicitly."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "7. Treating SEO as the final step"
+      },
+      {
+        "type": "paragraph",
+        "text": "**2. Research and model the answer** — this is a decision point worth testing explicitly."
+      },
+      {
+        "type": "paragraph",
+        "text": "**3. Review the result as a reader** — this is a decision point worth testing explicitly."
+      },
+      {
         "type": "heading",
         "level": 2,
-        "text": "How Kapitech approaches educational SEO"
+        "text": "How Kapitech Thinks About Educational SEO"
       },
       {
         "type": "paragraph",
         "text": "Kapitech treats an Insight article as a small product. It has an audience, a task, a promise, an information architecture, a visual system, and an outcome."
       },
       {
-        "type": "paragraph",
-        "text": "For technical topics, primary documentation anchors the article. For practical topics, original analysis and clearly labeled examples add useful context without pretending to be universal rules."
+        "type": "image",
+        "url": "/insights/helpful-seo-content/quality-loop.svg",
+        "alt": "Educational SEO quality loop",
+        "caption": "Quality becomes repeatable when research, writing, review, and improvement form one loop."
       },
       {
-        "type": "paragraph",
-        "text": "A repeatable editorial system makes quality easier to maintain: consistent metadata, visible authorship, structured headings, evidence links, intentional visuals, and a review process."
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Review title and structure",
+          "Check internal links",
+          "Test the finished page as a reader"
+        ]
       },
       {
         "type": "callout",
-        "tone": "success",
-        "title": "Kapitech principle",
-        "text": "SEO should help people discover useful content. It should never become the reason the content exists."
+        "tone": "info",
+        "title": "Evidence check",
+        "text": "Important factual claims should be traceable to credible sources or clearly labeled experience and analysis."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Before you publish: people-first SEO checklist"
+        "text": "Before You Publish Anything"
       },
       {
         "type": "paragraph",
@@ -556,44 +620,21 @@
         ]
       },
       {
-        "type": "image",
-        "url": "/insights/helpful-seo-content/quality-loop.svg",
-        "alt": "Educational SEO quality loop",
-        "caption": "Quality becomes repeatable when research, writing, review, and improvement form one loop."
-      },
-      {
         "type": "heading",
         "level": 2,
-        "text": "References and source material"
+        "text": "Conclusion: Build for People, Optimize for Discovery"
       },
       {
         "type": "paragraph",
-        "text": "Primary documentation used for this guide:"
+        "text": "People-first SEO is not an argument against optimization. It is an argument for putting the reader's task ahead of the optimization tactic."
       },
       {
-        "type": "link",
-        "label": "Google Search Central — Creating helpful, reliable, people-first content",
-        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        "type": "paragraph",
+        "text": "A strong educational page has a clear purpose, credible evidence, original explanation, visible authorship, useful structure, and a next step that makes sense. Search signals then help the right readers discover that work."
       },
       {
-        "type": "link",
-        "label": "Google Search Central — Search Essentials",
-        "url": "https://developers.google.com/search/docs/essentials"
-      },
-      {
-        "type": "link",
-        "label": "Google Search Central — Spam policies",
-        "url": "https://developers.google.com/search/docs/essentials/spam-policies"
-      },
-      {
-        "type": "link",
-        "label": "Google Search Central — Influencing title links",
-        "url": "https://developers.google.com/search/docs/appearance/title-link"
-      },
-      {
-        "type": "link",
-        "label": "Google Search Central — Control snippets",
-        "url": "https://developers.google.com/search/docs/appearance/snippet"
+        "type": "paragraph",
+        "text": "Primary references: [helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content), [Search Essentials](https://developers.google.com/search/docs/essentials), [spam policies](https://developers.google.com/search/docs/essentials/spam-policies), and [title links](https://developers.google.com/search/docs/appearance/title-link)."
       }
     ]
   }
