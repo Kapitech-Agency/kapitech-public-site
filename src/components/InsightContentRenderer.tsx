@@ -110,6 +110,7 @@ export const InsightContentRenderer: React.FC<{
 
   const activeVisualCloseRef = useRef<HTMLButtonElement | null>(null);
   const previousBodyOverflowRef = useRef('');
+  const previousVisualTriggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!activeVisual) return;
@@ -132,8 +133,25 @@ export const InsightContentRenderer: React.FC<{
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = previousBodyOverflowRef.current || previousOverflow;
+
+      const trigger = previousVisualTriggerRef.current;
+      previousVisualTriggerRef.current = null;
+      window.requestAnimationFrame(() => {
+        trigger?.focus();
+      });
     };
   }, [activeVisual]);
+
+  const openVisual = (visual: {
+    src: string;
+    alt: string;
+    caption?: string;
+  }) => {
+    previousVisualTriggerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    setActiveVisual(visual);
+  };
 
   const copyCode = async (code: string, index: number) => {
     try {
@@ -253,7 +271,7 @@ export const InsightContentRenderer: React.FC<{
               <div className="relative overflow-hidden rounded-[16px] border border-white/[0.08] bg-[#0B0C0E] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
                 <button
                   type="button"
-                  onClick={() => setActiveVisual({
+                  onClick={() => openVisual({
                     src: resolvedSrc,
                     alt: block.alt || (language === 'id' ? 'Visual artikel Kapitech' : 'Kapitech article visual'),
                     caption: block.caption
