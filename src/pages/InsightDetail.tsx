@@ -770,13 +770,11 @@ export const InsightDetail: React.FC = () => {
               onCopy={() => void copyLink()}
             />
             {toc.length > 0 && (
-              <>
-                <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
-                <div className="mt-3">
-                  <InsightBookingCta language={article.language} mobile />
-                </div>
-              </>
+              <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
             )}
+            <div className="mt-3">
+              <InsightBookingCta language={article.language} mobile />
+            </div>
           </div>
 
           <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
@@ -854,9 +852,7 @@ export const InsightDetail: React.FC = () => {
                 />
               )}
 
-              <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
-
-              <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
+              <div data-insight-article-end aria-hidden="true" className="mt-10 h-px w-full bg-white/[0.07]" />
             </article>
 
             <InsightRightRail items={toc} language={article.language} />
