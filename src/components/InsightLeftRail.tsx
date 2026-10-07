@@ -3,6 +3,7 @@ import {
   Check,
   Copy,
   Facebook,
+  Instagram,
   Linkedin,
   Share2
 } from 'lucide-react';
