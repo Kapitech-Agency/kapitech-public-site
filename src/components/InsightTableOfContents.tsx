@@ -7,8 +7,8 @@ type TocVariant = 'all' | 'desktop' | 'mobile';
 const ARTICLE_SCROLL_OFFSET_PX = 112;
 const ACTIVE_HEADING_TRIGGER_PX = 104;
 const ACTIVE_HEADING_RELEASE_PX = 136;
-const NAVIGATION_SETTLE_TOLERANCE_PX = 44;
-const NAVIGATION_ESCAPE_DISTANCE_PX = 180;
+const NAVIGATION_SETTLE_TOLERANCE_PX = 52;
+const NAVIGATION_TIMEOUT_MS = 1800;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -84,6 +84,7 @@ export const InsightTableOfContents: React.FC<{
   const rootRef = useRef<HTMLDivElement | null>(null);
   const activeIdRef = useRef(activeId);
   const navigationTargetRef = useRef('');
+  const navigationStartedAtRef = useRef(0);
   const lastScrollYRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const revealRafRef = useRef<number | null>(null);
@@ -111,6 +112,7 @@ export const InsightTableOfContents: React.FC<{
 
   const clearNavigationLock = () => {
     navigationTargetRef.current = '';
+    navigationStartedAtRef.current = 0;
   };
 
   const setActive = (id: string) => {
@@ -221,15 +223,15 @@ export const InsightTableOfContents: React.FC<{
 
         setActive(pendingId);
 
+        const reachedDocumentEnd = window.scrollY >= getDocumentMaxScroll() - 4;
         const settled = Math.abs(distance) <= NAVIGATION_SETTLE_TOLERANCE_PX;
-        const escaped = Math.abs(distance) > NAVIGATION_ESCAPE_DISTANCE_PX;
+        const timedOut =
+          navigationStartedAtRef.current > 0
+          && performance.now() - navigationStartedAtRef.current >= NAVIGATION_TIMEOUT_MS;
 
-        if (settled) {
+        if (settled || reachedDocumentEnd || timedOut) {
           clearNavigationLock();
           setActive(pendingId);
-        } else if (escaped) {
-          clearNavigationLock();
-          syncActiveFromScroll();
         }
 
         return;
@@ -276,6 +278,29 @@ export const InsightTableOfContents: React.FC<{
     const handleResize = () => {
       if (isVariantActive()) scheduleScrollSync();
     };
+
+    const handleLayoutSettled = () => {
+      if (!isVariantActive()) return;
+      window.requestAnimationFrame(scheduleScrollSync);
+    };
+
+    const articleBody = document.querySelector('.kapi-insight-body');
+    const resizeObserver = typeof ResizeObserver !== 'undefined' && articleBody
+      ? new ResizeObserver(handleLayoutSettled)
+      : null;
+
+    resizeObserver?.observe(articleBody as Element);
+
+    const articleImages = articleBody
+      ? Array.from(articleBody.querySelectorAll('img'))
+      : [];
+
+    articleImages.forEach((image) => {
+      image.addEventListener('load', handleLayoutSettled);
+      image.addEventListener('error', handleLayoutSettled);
+    });
+
+    void document.fonts?.ready.then(handleLayoutSettled).catch(() => undefined);
 
     const handleHashChange = () => {
       if (isVariantActive()) syncHash(true);
@@ -345,6 +370,11 @@ export const InsightTableOfContents: React.FC<{
         window.removeEventListener('scroll', handleScroll);
         window.removeEventListener('resize', handleResize);
         mediaQuery.removeEventListener?.('change', handleBreakpointChange);
+        resizeObserver?.disconnect();
+        articleImages.forEach((image) => {
+          image.removeEventListener('load', handleLayoutSettled);
+          image.removeEventListener('error', handleLayoutSettled);
+        });
         window.removeEventListener('hashchange', handleHashChange);
         window.removeEventListener('popstate', handlePopState);
         window.removeEventListener('wheel', cancelOnUserIntent);
@@ -382,6 +412,7 @@ export const InsightTableOfContents: React.FC<{
       }
 
       navigationTargetRef.current = '';
+      navigationStartedAtRef.current = 0;
       lastScrollYRef.current = window.scrollY;
     };
   }, [sectionItems, variant]);
@@ -465,7 +496,6 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     startNavigation(item.id);
-    lastScrollYRef.current = window.scrollY;
     setHash(item.id);
 
     window.requestAnimationFrame(() => {
@@ -523,7 +553,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
                   active
-                    ? 'bg-brand-red/[0.09] text-white'
+                    ? 'bg-brand-red/[0.09] text-brand-red'
                     : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
@@ -532,7 +562,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-200',
                     active
-                      ? 'bg-brand-red/[0.22] text-white'
+                      ? 'bg-brand-red/[0.16] text-brand-red'
                       : 'bg-white/[0.025] text-[#69717D]'
                   ].join(' ')}
                 >
@@ -543,7 +573,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'min-w-0 flex-1 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     active
-                      ? 'font-semibold text-white'
+                      ? 'font-semibold text-brand-red'
                       : 'font-medium text-[#C8CDD5]'
                   ].join(' ')}
                 >
@@ -573,7 +603,9 @@ export const InsightTableOfContents: React.FC<{
                 </span>
               </div>
               <span className="mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white">
-                {sectionItems[currentIndex]?.text || sectionItems[0].text}
+                <span className="text-brand-red">
+                  {sectionItems[currentIndex]?.text || sectionItems[0].text}
+                </span>
               </span>
             </div>
 
