@@ -249,7 +249,7 @@ const renderInsightBody = (insight) => {
   let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
     '<main class="mx-auto w-full max-w-[1600px] px-5 pb-16 sm:px-8 lg:px-10">';
 
-  html += '<header class="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image:url(/insights/article-hero-background.jpg)" aria-hidden="true"></div><div class="absolute inset-0 bg-[#0B0C0E]/20" aria-hidden="true"></div><div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]" aria-hidden="true"></div><div class="relative mx-auto w-full max-w-[1120px] px-0 pb-12 pt-28 sm:px-2 sm:pb-14 sm:pt-36 lg:px-12 lg:pb-16 lg:pt-40">';
+  html += '<header class="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image:url(/insights/article-hero-background.jpg)" aria-hidden="true"></div><div class="absolute inset-0 bg-[#0B0C0E]/20" aria-hidden="true"></div><div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]" aria-hidden="true"></div><div class="relative mx-auto w-full max-w-[1600px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40"><div class="grid items-start xl:grid-cols-[64px_minmax(0,1120px)_304px] xl:gap-8"><div class="min-w-0 xl:col-start-2 xl:px-12">';
   html += '<nav class="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">' +
     '<a href="/" class="shrink-0">' + escapeHtml(label('Beranda', 'Home')) + '</a><span aria-hidden="true">›</span>' +
     '<a href="/insights" class="shrink-0">' + escapeHtml(label('Insight', 'Insights')) + '</a>';
@@ -268,7 +268,7 @@ const renderInsightBody = (insight) => {
   if (insight.readingTime) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#A2A9B6]">' + escapeHtml(String(insight.readingTime)) + ' ' + escapeHtml(label('menit baca', 'min read')) + '</span>';
   if (insight.editorialMeta?.reviewedBy) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tracking-[0.08em] text-[#A2A9B6]">' + escapeHtml(label('Ditinjau oleh ', 'Reviewed by ')) + escapeHtml(insight.editorialMeta.reviewedBy) + '</span>';
   if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '" class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#7D8592]">' + escapeHtml(new Intl.DateTimeFormat(insight.language === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
-  html += '</div></div></div></header>';
+  html += '</div></div></div></div></header>';
 
   html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
   html += '<div class="mb-5 xl:hidden" aria-hidden="true">' +
