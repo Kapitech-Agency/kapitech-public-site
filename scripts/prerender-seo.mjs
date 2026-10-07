@@ -284,7 +284,7 @@ const renderInsightBody = (insight) => {
       escapeHtml(label('Poin utama', 'Article key takeaways')) + '</p><p class="mt-1.5 text-xs leading-5 text-[#7D8592]">' +
       escapeHtml(label('Gagasan yang paling penting untuk dibawa setelah membaca.', 'The ideas worth carrying forward.')) + '</p></div><span class="shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">' +
       String(insight.keyTakeaways.length) + '</span></div><ul class="grid gap-px bg-white/[0.045] sm:grid-cols-2">' +
-      insight.keyTakeaways.map((item, index) => '<li class="flex gap-3 bg-[#111216] px-5 py-4.5 text-sm leading-7 text-[#CBD0D8] sm:px-6"><span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E50914]/[0.11] font-mono text-[9px] font-semibold tabular-nums text-[#E50914]" aria-hidden="true">' +
+      insight.keyTakeaways.map((item, index) => '<li class="flex gap-3 bg-[#111216] px-5 py-4 text-sm leading-7 text-[#CBD0D8] sm:px-6"><span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E50914]/[0.11] font-mono text-[9px] font-semibold tabular-nums text-[#E50914]" aria-hidden="true">' +
       String(index + 1).padStart(2, '0') + '</span><span>' + inlineMarkdownToHtml(item) + '</span></li>').join('') +
       '</ul></section>';
   }
