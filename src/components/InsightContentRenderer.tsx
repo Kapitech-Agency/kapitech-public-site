@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Copy, ExternalLink } from 'lucide-react';
+import { AlertTriangle, Check, CheckCircle2, Copy, ExternalLink, Info, Quote } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
@@ -151,15 +151,29 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-8 sm:p-6">
-              <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
-                {inlineMarkdown(block.text)}
-              </blockquote>
-              {block.attribution && (
-                <figcaption className="mt-3 text-xs text-[#747C88]">
-                  {block.attribution}
-                </figcaption>
-              )}
+            <figure
+              key={index}
+              className="my-8 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:my-9"
+            >
+              <div className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-3.5 sm:px-6">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.045] text-[#8E96A4]">
+                  <Quote size={13} aria-hidden="true" />
+                </span>
+                <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">
+                  {language === 'id' ? 'Catatan' : 'Field note'}
+                </span>
+              </div>
+              <div className="px-5 py-6 sm:px-6 sm:py-7">
+                <blockquote className="max-w-3xl font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">
+                  {inlineMarkdown(block.text)}
+                </blockquote>
+                {block.attribution && (
+                  <figcaption className="mt-4 flex items-center gap-2 text-xs text-[#7A8290]">
+                    <span className="h-px w-5 bg-white/[0.12]" aria-hidden="true" />
+                    {block.attribution}
+                  </figcaption>
+                )}
+              </div>
             </figure>
           );
         }
@@ -171,26 +185,36 @@ export const InsightContentRenderer: React.FC<{
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
           return (
-            <figure key={index} className="my-8 sm:my-9">
-              <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
-                <img
-                  src={block.url}
-                  alt={block.alt || ''}
-                  width={width}
-                  height={height}
-                  loading="lazy"
-                  decoding="async"
-                  className="mx-auto block h-auto w-full max-w-full object-contain"
-                  sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
-                  onError={(event) => {
-                    const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
-                    if (event.currentTarget.src.endsWith(fallback)) return;
-                    event.currentTarget.src = fallback;
-                    event.currentTarget.alt = language === 'id'
-                      ? 'Visual artikel Kapitech'
-                      : 'Kapitech article visual';
-                  }}
-                />
+            <figure key={index} className="my-8 sm:my-10">
+              <div className="group overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+                <div className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3">
+                  <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">
+                    {language === 'id' ? 'Visual artikel' : 'Article visual'}
+                  </span>
+                  <span className="text-[8px] font-mono tabular-nums text-[#4F5763]">
+                    {width && height ? width + ' × ' + height : 'Visual'}
+                  </span>
+                </div>
+                <div className="overflow-hidden bg-[#0B0C0E]">
+                  <img
+                    src={block.url}
+                    alt={block.alt || ''}
+                    width={width}
+                    height={height}
+                    loading="lazy"
+                    decoding="async"
+                    className="mx-auto block h-auto w-full max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.006]"
+                    sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
+                    onError={(event) => {
+                      const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
+                      if (event.currentTarget.src.endsWith(fallback)) return;
+                      event.currentTarget.src = fallback;
+                      event.currentTarget.alt = language === 'id'
+                        ? 'Visual artikel Kapitech'
+                        : 'Kapitech article visual';
+                    }}
+                  />
+                </div>
               </div>
               {block.caption && (
                 <figcaption className="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">
@@ -285,23 +309,50 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'callout') {
           const tone = block.tone || 'neutral';
-          const toneClass = tone === 'warning'
-            ? 'border-l-amber-400/55'
+          const toneMeta = tone === 'warning'
+            ? {
+                icon: AlertTriangle,
+                iconClass: 'bg-amber-400/[0.1] text-amber-300',
+                label: language === 'id' ? 'Perhatian' : 'Attention'
+              }
             : tone === 'success'
-              ? 'border-l-emerald-400/55'
-              : 'border-l-white/[0.12]';
+              ? {
+                  icon: CheckCircle2,
+                  iconClass: 'bg-emerald-400/[0.1] text-emerald-300',
+                  label: language === 'id' ? 'Tervalidasi' : 'Validated'
+                }
+              : {
+                  icon: Info,
+                  iconClass: 'bg-white/[0.05] text-[#A2A9B6]',
+                  label: language === 'id' ? 'Catatan' : 'Note'
+                };
+          const ToneIcon = toneMeta.icon;
 
           return (
             <aside
               key={index}
-              className={'my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 ' + toneClass}
+              className="my-8 rounded-[20px] border border-white/[0.08] bg-[#111216] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6"
             >
-              {block.title && (
-                <p className="mb-1 text-sm font-semibold text-white">{block.title}</p>
-              )}
-              <p className="text-sm font-light leading-7 text-[#B9BEC8]">
-                {inlineMarkdown(block.text)}
-              </p>
+              <div className="flex items-start gap-3.5">
+                <span className={'mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full ' + toneMeta.iconClass}>
+                  <ToneIcon size={14} aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                    <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">
+                      {toneMeta.label}
+                    </span>
+                    {block.title && (
+                      <span className="text-sm font-semibold text-white">
+                        {block.title}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2.5 text-[13px] leading-7 text-[#B9BEC8] sm:text-[14px]">
+                    {inlineMarkdown(block.text)}
+                  </p>
+                </div>
+              </div>
             </aside>
           );
         }
@@ -373,18 +424,30 @@ export const InsightContentRenderer: React.FC<{
           return (
             <section
               key={index}
-              className="my-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6"
+              className="my-8 rounded-[20px] border border-white/[0.08] bg-[#111216] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6"
               aria-label={block.title || (language === 'id' ? 'Daftar periksa' : 'Checklist')}
             >
-              {block.title && (
-                <h3 className="mb-4 font-display text-xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-[1.35rem]">
-                  {block.title}
-                </h3>
-              )}
-              <ul className="space-y-3 border-l border-white/[0.12] pl-5">
+              <div className="flex items-end justify-between gap-4">
+                <div className="min-w-0">
+                  <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">
+                    {language === 'id' ? 'Checklist' : 'Checklist'}
+                  </span>
+                  {block.title && (
+                    <h3 className="mt-1.5 font-display text-xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-[1.35rem]">
+                      {block.title}
+                    </h3>
+                  )}
+                </div>
+                <span className="shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">
+                  {Array.isArray(block.items) ? block.items.length : 0}
+                </span>
+              </div>
+              <ul className="mt-5 space-y-2.5">
                 {(Array.isArray(block.items) ? block.items : []).map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex gap-3 text-sm leading-6 text-[#C3C7D0]">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                  <li key={itemIndex} className="flex gap-3 rounded-xl bg-white/[0.022] px-3.5 py-3 text-sm leading-6 text-[#C3C7D0] transition-colors duration-200 hover:bg-white/[0.035]">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-red/[0.12] text-brand-red" aria-hidden="true">
+                      <Check size={11} strokeWidth={2.5} />
+                    </span>
                     <span>{inlineMarkdown(item)}</span>
                   </li>
                 ))}
