@@ -685,7 +685,7 @@ export const InsightDetail: React.FC = () => {
                     {article.keyTakeaways.map((item, index) => (
                       <li
                         key={index}
-                        className="flex gap-3 bg-[#111216] px-5 py-4.5 text-sm leading-7 text-[#CBD0D8] transition-colors duration-200 hover:bg-[#15161A] sm:px-6"
+                        className="flex gap-3 bg-[#111216] px-5 py-4 text-sm leading-7 text-[#CBD0D8] transition-colors duration-200 hover:bg-[#15161A] sm:px-6"
                       >
                         <span
                           className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-red/[0.11] font-mono text-[9px] font-semibold tabular-nums text-brand-red"
@@ -736,7 +736,7 @@ export const InsightDetail: React.FC = () => {
                         key={index}
                         className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200"
                       >
-                        <summary className="list-none cursor-pointer px-4 py-4 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:px-5 sm:py-5">
+                        <summary className="list-none cursor-pointer px-4 py-4 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/35 sm:px-5 sm:py-5">
                           <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
                             <span
                               className="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672] transition-colors duration-200 group-open:text-brand-red"
