@@ -256,7 +256,7 @@ const renderInsightBody = (insight) => {
   if (category) html += '<span aria-hidden="true">›</span><span class="truncate text-[#A2A8B4]">' + escapeHtml(category) + '</span>';
   html += '</nav>';
 
-  html += '<div class="max-w-[980px]"><div class="flex flex-wrap items-center gap-2.5">';
+  html += '<div class="max-w-none"><div class="flex flex-wrap items-center gap-2.5">';
   if (category) html += '<span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">' + escapeHtml(category) + '</span>';
   if (insight.editorialMeta?.editorialType) html += '<span class="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">' + escapeHtml(insight.editorialMeta.editorialType) + '</span>';
   html += '</div><h1 class="mt-6 max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.5rem]">' +
