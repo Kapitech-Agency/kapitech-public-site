@@ -5,7 +5,10 @@ import type { InsightTocItem } from '../lib/insightHeadingIds';
 type TocVariant = 'all' | 'desktop' | 'mobile';
 
 const ARTICLE_SCROLL_OFFSET_PX = 112;
-const NAVIGATION_SETTLE_TOLERANCE_PX = 36;
+const ACTIVE_HEADING_TRIGGER_PX = 104;
+const ACTIVE_HEADING_RELEASE_PX = 136;
+const NAVIGATION_SETTLE_TOLERANCE_PX = 44;
+const NAVIGATION_ESCAPE_DISTANCE_PX = 180;
 
 function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined'
@@ -60,14 +63,11 @@ function setHash(id: string): void {
   }
 }
 
-function isNearHeading(id: string): boolean {
+function getHeadingDistanceFromOffset(id: string): number | null {
   const top = getHeadingTop(id);
-  if (top === null || typeof window === 'undefined') return false;
+  if (top === null) return null;
 
-  const nearTarget = Math.abs(top - ARTICLE_SCROLL_OFFSET_PX) <= NAVIGATION_SETTLE_TOLERANCE_PX;
-  const atDocumentEnd = window.scrollY >= getDocumentMaxScroll() - 4;
-
-  return nearTarget || atDocumentEnd;
+  return top - ARTICLE_SCROLL_OFFSET_PX;
 }
 
 export const InsightTableOfContents: React.FC<{
@@ -84,6 +84,7 @@ export const InsightTableOfContents: React.FC<{
   const rootRef = useRef<HTMLDivElement | null>(null);
   const activeIdRef = useRef(activeId);
   const navigationTargetRef = useRef('');
+  const lastScrollYRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const mobileItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const desktopItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
@@ -121,33 +122,73 @@ export const InsightTableOfContents: React.FC<{
   const syncActiveFromScroll = () => {
     if (!sectionItems.length) return;
 
+    const scrollY = window.scrollY;
     const maxScrollTop = getDocumentMaxScroll();
+    const previousScrollY = lastScrollYRef.current;
+    const direction = scrollY > previousScrollY
+      ? 1
+      : scrollY < previousScrollY
+        ? -1
+        : 0;
 
-    if (window.scrollY <= 4) {
+    lastScrollYRef.current = scrollY;
+
+    if (scrollY <= 4) {
       setActive(sectionItems[0].id);
       return;
     }
 
-    if (window.scrollY >= maxScrollTop - 4) {
+    if (scrollY >= maxScrollTop - 4) {
       setActive(sectionItems[sectionItems.length - 1].id);
       return;
     }
 
-    let currentId = sectionItems[0].id;
+    const currentIndex = sectionItems.findIndex((item) => item.id === activeIdRef.current);
+    const safeCurrentIndex = currentIndex >= 0 ? currentIndex : 0;
 
-    for (const item of sectionItems) {
-      const top = getHeadingTop(item.id);
+    if (direction > 0 && safeCurrentIndex < sectionItems.length - 1) {
+      const nextTop = getHeadingTop(sectionItems[safeCurrentIndex + 1].id);
 
-      if (top === null) continue;
-
-      if (top <= ARTICLE_SCROLL_OFFSET_PX) {
-        currentId = item.id;
-      } else {
-        break;
+      if (nextTop !== null && nextTop > ACTIVE_HEADING_TRIGGER_PX) {
+        return;
       }
     }
 
-    setActive(currentId);
+    if (direction < 0 && safeCurrentIndex > 0) {
+      const currentTop = getHeadingTop(sectionItems[safeCurrentIndex].id);
+
+      if (currentTop !== null && currentTop < ACTIVE_HEADING_RELEASE_PX) {
+        return;
+      }
+    }
+
+    let candidateIndex = safeCurrentIndex;
+
+    if (direction >= 0) {
+      for (let index = safeCurrentIndex + 1; index < sectionItems.length; index += 1) {
+        const top = getHeadingTop(sectionItems[index].id);
+
+        if (top === null || top > ACTIVE_HEADING_TRIGGER_PX) break;
+        candidateIndex = index;
+      }
+    } else {
+      for (let index = safeCurrentIndex - 1; index >= 0; index -= 1) {
+        const top = getHeadingTop(sectionItems[index].id);
+
+        if (top === null) continue;
+
+        if (top <= ACTIVE_HEADING_TRIGGER_PX) {
+          candidateIndex = index;
+          break;
+        }
+
+        if (top > ACTIVE_HEADING_RELEASE_PX) {
+          candidateIndex = index;
+        }
+      }
+    }
+
+    setActive(sectionItems[candidateIndex].id);
   };
 
   const scheduleScrollSync = () => {
@@ -167,9 +208,23 @@ export const InsightTableOfContents: React.FC<{
           return;
         }
 
+        const distance = getHeadingDistanceFromOffset(pendingId);
+
+        if (distance === null) {
+          clearNavigationLock();
+          syncActiveFromScroll();
+          return;
+        }
+
         setActive(pendingId);
 
-        if (isNearHeading(pendingId)) {
+        const settled = Math.abs(distance) <= NAVIGATION_SETTLE_TOLERANCE_PX;
+        const escaped = Math.abs(distance) > NAVIGATION_ESCAPE_DISTANCE_PX;
+
+        if (settled) {
+          clearNavigationLock();
+          setActive(pendingId);
+        } else if (escaped) {
           clearNavigationLock();
           syncActiveFromScroll();
         }
@@ -238,7 +293,10 @@ export const InsightTableOfContents: React.FC<{
       }
 
       clearNavigationLock();
-      scheduleScrollSync();
+      window.requestAnimationFrame(() => {
+        lastScrollYRef.current = window.scrollY;
+        scheduleScrollSync();
+      });
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
@@ -316,6 +374,7 @@ export const InsightTableOfContents: React.FC<{
       }
 
       navigationTargetRef.current = '';
+      lastScrollYRef.current = window.scrollY;
     };
   }, [sectionItems, variant]);
 
@@ -386,14 +445,16 @@ export const InsightTableOfContents: React.FC<{
     if (!target) return;
 
     startNavigation(item.id);
+    lastScrollYRef.current = window.scrollY;
     setHash(item.id);
 
-    scrollToHeading(
-      item.id,
-      prefersReducedMotion() ? 'auto' : 'smooth'
-    );
-
-    window.requestAnimationFrame(scheduleScrollSync);
+    window.requestAnimationFrame(() => {
+      scrollToHeading(
+        item.id,
+        prefersReducedMotion() ? 'auto' : 'smooth'
+      );
+      scheduleScrollSync();
+    });
   };
 
   const register = (
