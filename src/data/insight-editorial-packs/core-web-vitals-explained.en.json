@@ -18,32 +18,28 @@
     },
     "tags": [
       {
-        "slug": "wordpress-vs-custom-website-topic-1",
-        "name": "W3Techs reports WordPress remains the most widely used CMS o"
+        "slug": "wordpress",
+        "name": "WordPress"
       },
       {
-        "slug": "wordpress-vs-custom-website-topic-2",
-        "name": "WordPress is often a strong fit when teams need frequent pub"
+        "slug": "custom-website",
+        "name": "custom-website"
       },
       {
-        "slug": "wordpress-vs-custom-website-topic-3",
-        "name": "Custom development becomes more defensible when the website "
+        "slug": "cms",
+        "name": "CMS"
       },
       {
-        "slug": "wordpress-vs-custom-website-topic-4",
-        "name": "A custom stack still needs content management, security, tes"
+        "slug": "web-development",
+        "name": "web-development"
       },
       {
-        "slug": "wordpress-vs-custom-website-topic-5",
-        "name": "Performance is not determined by the platform label alone; t"
+        "slug": "website-maintenance",
+        "name": "website-maintenance"
       },
       {
-        "slug": "wordpress-vs-custom-website-topic-6",
-        "name": "WordPress documentation emphasizes keeping core, themes, and"
-      },
-      {
-        "slug": "wordpress-vs-custom-website-topic-7",
-        "name": "The useful comparison is total cost of ownership and ability"
+        "slug": "website-architecture",
+        "name": "website-architecture"
       }
     ],
     "title": "WordPress vs Custom Website: Which Is Right for Your Business?",
