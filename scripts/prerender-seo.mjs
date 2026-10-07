@@ -330,7 +330,7 @@ const renderInsightBody = (insight) => {
     escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div></aside>';
 
   if (faq.length) {
-    html += '<section class="mx-auto mt-16 w-full max-w-[820px] border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
+    html += '<section class="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-12 sm:mt-20" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</h2><p class="mt-3 text-sm leading-7 text-[#8A909D]">' +
       escapeHtml(label('Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.', 'Short answers to the questions readers are most likely to have after this article.')) +
       '</p></div><div class="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">';
