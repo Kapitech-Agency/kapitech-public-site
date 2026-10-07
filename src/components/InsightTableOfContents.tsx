@@ -144,52 +144,54 @@ export const InsightTableOfContents: React.FC<{
       return;
     }
 
+    let rawIndex = 0;
+
+    for (let index = 0; index < sectionItems.length; index += 1) {
+      const top = getHeadingTop(sectionItems[index].id);
+
+      if (top === null) continue;
+      if (top <= ARTICLE_SCROLL_OFFSET_PX) {
+        rawIndex = index;
+        continue;
+      }
+
+      break;
+    }
+
     const currentIndex = sectionItems.findIndex((item) => item.id === activeIdRef.current);
     const safeCurrentIndex = currentIndex >= 0 ? currentIndex : 0;
 
-    if (direction > 0 && safeCurrentIndex < sectionItems.length - 1) {
-      const nextTop = getHeadingTop(sectionItems[safeCurrentIndex + 1].id);
+    if (direction > 0 && rawIndex > safeCurrentIndex) {
+      let stableIndex = safeCurrentIndex;
 
-      if (nextTop !== null && nextTop > ACTIVE_HEADING_TRIGGER_PX) {
-        return;
-      }
-    }
-
-    if (direction < 0 && safeCurrentIndex > 0) {
-      const currentTop = getHeadingTop(sectionItems[safeCurrentIndex].id);
-
-      if (currentTop !== null && currentTop < ACTIVE_HEADING_RELEASE_PX) {
-        return;
-      }
-    }
-
-    let candidateIndex = safeCurrentIndex;
-
-    if (direction >= 0) {
-      for (let index = safeCurrentIndex + 1; index < sectionItems.length; index += 1) {
+      for (let index = safeCurrentIndex + 1; index <= rawIndex; index += 1) {
         const top = getHeadingTop(sectionItems[index].id);
 
-        if (top === null || top > ACTIVE_HEADING_TRIGGER_PX) break;
-        candidateIndex = index;
-      }
-    } else {
-      for (let index = safeCurrentIndex - 1; index >= 0; index -= 1) {
-        const top = getHeadingTop(sectionItems[index].id);
-
-        if (top === null) continue;
-
-        if (top <= ACTIVE_HEADING_TRIGGER_PX) {
-          candidateIndex = index;
+        if (top !== null && top <= ACTIVE_HEADING_TRIGGER_PX) {
+          stableIndex = index;
+        } else {
           break;
         }
-
-        if (top > ACTIVE_HEADING_RELEASE_PX) {
-          candidateIndex = index;
-        }
       }
+
+      setActive(sectionItems[stableIndex].id);
+      return;
     }
 
-    setActive(sectionItems[candidateIndex].id);
+    if (direction < 0 && rawIndex < safeCurrentIndex) {
+      const currentTop = getHeadingTop(sectionItems[safeCurrentIndex].id);
+
+      if (currentTop !== null && currentTop <= ACTIVE_HEADING_RELEASE_PX) {
+        return;
+      }
+
+      setActive(sectionItems[rawIndex].id);
+      return;
+    }
+
+    if (direction === 0) {
+      setActive(sectionItems[rawIndex].id);
+    }
   };
 
   const scheduleScrollSync = () => {
