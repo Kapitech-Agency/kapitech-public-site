@@ -287,8 +287,8 @@ const renderInsightBody = (insight) => {
     '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white">' +
     '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
-  html += '<div class="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,820px)_304px] xl:justify-center">';
-  html += '<aside class="hidden xl:flex xl:flex-col xl:items-center" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
+  html += '<div class="grid items-start gap-7 xl:grid-cols-[minmax(0,1fr)_minmax(0,820px)_minmax(0,1fr)]">';
+  html += '<aside class="hidden xl:flex xl:flex-col xl:items-center xl:justify-self-end" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
   html += '<article class="min-w-0 w-full justify-self-center text-[#C3C7D0]">';
 
   if (introductionBlocks.length) {
@@ -314,7 +314,7 @@ const renderInsightBody = (insight) => {
   html += '<div class="mt-12 h-px w-full bg-white/[0.07]" aria-hidden="true"></div><div class="pt-7"><a href="/insights" class="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4">' +
     escapeHtml(label('Kembali ke Insight', 'Back to Insights')) + '</a></div></article>';
 
-  html += '<aside class="hidden py-12 xl:block" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 flex h-[calc(100dvh-7rem)] min-h-0 flex-col gap-3"><div class="min-h-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#101114] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
+  html += '<aside class="hidden w-[304px] py-12 xl:block xl:justify-self-start" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 flex h-[calc(100dvh-7rem)] min-h-0 flex-col gap-3"><div class="min-h-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#101114] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
     escapeHtml(label('Di artikel ini', 'In this article')) + '</span><p class="mt-1 text-[10px] text-[#5E6672]">' +
     String(toc.filter((item) => item.level === 2).length) + ' ' + escapeHtml(label('bagian', 'sections')) + '</p></div><nav class="mt-4 max-h-[14.75rem] min-h-0 overflow-y-auto pr-1" aria-label="' +
     escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><ol class="space-y-1">';
