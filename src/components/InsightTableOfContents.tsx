@@ -521,10 +521,10 @@ export const InsightTableOfContents: React.FC<{
                 }}
                 aria-current={active ? 'location' : undefined}
                 className={[
-                  'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+                  'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
                   active
-                    ? 'border-brand-red/20 bg-brand-red/[0.075] text-white'
-                    : 'text-[#C1C6CF] hover:border-white/[0.06] hover:bg-white/[0.018] hover:text-white'
+                    ? 'bg-brand-red/[0.09] text-white'
+                    : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
                 <span
@@ -532,7 +532,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-200',
                     active
-                      ? 'bg-brand-red/[0.2] text-white'
+                      ? 'bg-brand-red/[0.22] text-white'
                       : 'bg-white/[0.025] text-[#69717D]'
                   ].join(' ')}
                 >
