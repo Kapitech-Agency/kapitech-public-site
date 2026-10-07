@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Structured Data for SEO: JSON-LD, Schema Types & Rich Results | Kapitech",
-    "description": "A practical guide to structured data for SEO: what JSON-LD does, which schema types fit common pages, how validation works, and what structured data can and cannot do.",
-    "slug": "structured-data-for-seo-guide",
-    "canonicalUrl": "https://kapitech.id/insights/structured-data-for-seo-guide",
-    "ogImage": "/insights/structured-data-seo/hero.svg"
+    "title": "Corporate Website vs Landing Page: Which Does Your Business Need? | Kapitech",
+    "description": "Learn the practical difference between a corporate website and a landing page, when to use each, and how to choose based on audience, traffic, conversion, and content needs.",
+    "slug": "corporate-website-vs-landing-page",
+    "canonicalUrl": "https://kapitech.id/insights/corporate-website-vs-landing-page",
+    "ogImage": "/insights/corporate-website-vs-landing-page/hero.svg"
   },
   "editorial": {
     "language": "en",
@@ -12,635 +12,671 @@
     "authorSlug": "kapitech-editorial-team",
     "status": "published",
     "isFeatured": false,
-    "readingTime": 15,
+    "readingTime": 16,
     "editorialMeta": {
       "editorialType": "Guide"
     },
     "tags": [
       {
-        "slug": "structured-data",
-        "name": "Structured Data"
+        "slug": "corporate-website-vs-landing-page-topic-1",
+        "name": "A landing page concentrates attention around a specific offe"
       },
       {
-        "slug": "schema-markup",
-        "name": "Schema Markup"
+        "slug": "corporate-website-vs-landing-page-topic-2",
+        "name": "A corporate website provides a broader information architect"
       },
       {
-        "slug": "json-ld",
-        "name": "JSON-LD"
+        "slug": "corporate-website-vs-landing-page-topic-3",
+        "name": "The right choice depends on where visitors come from and wha"
       },
       {
-        "slug": "technical-seo",
-        "name": "Technical SEO"
+        "slug": "corporate-website-vs-landing-page-topic-4",
+        "name": "A B2B buyer may need services, capabilities, case studies, c"
       },
       {
-        "slug": "rich-results",
-        "name": "Rich Results"
+        "slug": "corporate-website-vs-landing-page-topic-5",
+        "name": "A corporate site can contain landing pages, so the choice do"
       },
       {
-        "slug": "search-appearance",
-        "name": "Search Appearance"
+        "slug": "corporate-website-vs-landing-page-topic-6",
+        "name": "Information architecture should reduce uncertainty"
       },
       {
-        "slug": "seo",
-        "name": "SEO"
+        "slug": "corporate-website-vs-landing-page-topic-7",
+        "name": "A landing page can be highly effective without replacing the"
       }
     ],
-    "title": "Structured Data for SEO: How to Help Google Understand Your Pages",
-    "excerpt": "Structured data gives search engines explicit clues about what a page represents. This guide explains JSON-LD, schema selection, validation, and how to keep machine-readable data aligned with the visible page.",
-    "coverImage": "/insights/structured-data-seo/hero.svg",
+    "title": "Corporate Website vs Landing Page: Which Does Your Business Need?",
+    "excerpt": "Learn the practical difference between a corporate website and a landing page, when to use each, and how to choose based on audience, traffic, conversion, and content needs.",
+    "coverImage": "/insights/corporate-website-vs-landing-page/hero.svg",
     "keyTakeaways": [
-      "Structured data provides explicit clues about page meaning and can make some search features eligible for richer presentation.",
-      "JSON-LD is Google's recommended format when the site setup allows it because it is generally easier to implement and maintain.",
-      "Use schema types that accurately describe visible content; do not invent properties just to chase a search feature.",
-      "Eligibility is different from guaranteed rich-result display.",
-      "Validate syntax, required properties, content consistency, and production output.",
-      "Structured data is a clarity layer on top of useful content and sound technical SEO."
+      "A landing page concentrates attention around a specific offer, audience, campaign, or action.",
+      "A corporate website provides a broader information architecture for people researching the business.",
+      "The right choice depends on where visitors come from and what they need to know before acting.",
+      "A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation.",
+      "A corporate site can contain landing pages, so the choice does not always have to be either-or.",
+      "Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
     ],
     "content": [
       {
         "type": "paragraph",
-        "text": "Structured data gives search engines explicit clues about what a page represents. Instead of asking a crawler to infer every relationship from layout and prose, a site can describe entities and properties in a standardized format such as JSON-LD."
+        "text": "The practical question in corporate website vs landing page at a glance is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. A landing page concentrates attention around a specific offer, audience, campaign, or action."
       },
       {
         "type": "paragraph",
-        "text": "Google explains that structured data can help it understand content and can make certain search features eligible for richer presentation. That distinction matters: markup can create eligibility, but it does not guarantee a rich result for every query."
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A corporate website provides a broader information architecture for people researching the business."
       },
       {
         "type": "paragraph",
-        "text": "The strongest implementations start from the page itself. Decide what the visible page is actually about, choose a schema type that matches that purpose, and make the structured data accurately describe the same content."
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. The right choice depends on where visitors come from and what they need to know before acting."
       },
       {
         "type": "paragraph",
-        "text": "Treat structured data as information design plus engineering: model the page clearly, generate markup from trusted data, validate it, and keep it synchronized."
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
       },
       {
         "type": "callout",
         "tone": "info",
         "title": "The principle",
-        "text": "Structured data should make accurate content easier for machines to understand. It should never claim information the page does not support."
+        "text": "A landing page concentrates attention around a specific offer, audience, campaign, or action."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Structured Data at a Glance"
+        "text": "Corporate Website vs Landing Page at a Glance"
       },
       {
         "type": "table",
         "headers": [
-          "Layer",
-          "Question",
-          "Example",
-          "Risk if wrong"
+          "Decision area",
+          "What to evaluate",
+          "Why it matters"
         ],
         "rows": [
           [
-            "Page purpose",
-            "What is the page about?",
-            "Article, Product, Organization",
-            "Wrong model"
+            "A landing page has one dominant job",
+            "A landing page concentrates attention around a specific offer, audience, campaign, or action.",
+            "Changes the initial decision"
           ],
           [
-            "Schema type",
-            "Which type fits?",
-            "Article, Breadcrumb",
-            "Irrelevant markup"
+            "A corporate website supports exploration",
+            "A corporate website provides a broader information architecture for people researching the business.",
+            "Changes future effort"
           ],
           [
-            "Properties",
-            "Which facts are supported?",
-            "headline, author, date",
-            "Stale values"
+            "Traffic source changes the decision",
+            "The right choice depends on where visitors come from and what they need to know before acting.",
+            "Changes the initial decision"
           ],
           [
-            "Format",
-            "How is it embedded?",
-            "JSON-LD",
-            "Hard to maintain"
+            "Audience complexity matters",
+            "A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation.",
+            "Changes future effort"
           ],
           [
-            "Validation",
-            "Does it match the page?",
-            "Syntax + content",
-            "Eligibility issues"
+            "Information architecture is part of the product",
+            "A corporate site can contain landing pages, so the choice does not always have to be either-or.",
+            "Changes the initial decision"
           ]
         ],
-        "caption": "Think of structured data as a contract between visible content and its machine-readable representation."
+        "caption": "A practical decision model for Corporate Website vs Landing Page: Which Does Your Business Need?."
       },
       {
         "type": "image",
-        "url": "/insights/structured-data-seo/schema-flow.svg",
-        "alt": "Structured data flow",
-        "caption": "Visible content → JSON-LD → search understanding."
+        "url": "/insights/corporate-website-vs-landing-page/hero.svg",
+        "alt": "Editorial visual: Corporate Website vs Landing Page at a Glance",
+        "caption": "A visual model for corporate website vs landing page at a glance."
       },
       {
         "type": "paragraph",
-        "text": "Structured data can help search engines understand page content and can enable richer search features, but it does not replace relevance, content quality, or a useful page."
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. A corporate site can contain landing pages, so the choice does not always have to be either-or."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "JSON-LD as the Implementation Layer"
+        "text": "The Job Each Format Is Designed to Do"
       },
       {
         "type": "paragraph",
-        "text": "JSON-LD keeps the machine-readable representation separate from the visible interface and is Google's recommended format when the site's setup allows it."
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Separate markup from presentation"
+        "text": "A landing page has one dominant job"
       },
       {
         "type": "paragraph",
-        "text": "Each property should come from a field with a known meaning instead of duplicated free text maintained in several templates."
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. A landing page can be highly effective without replacing the company website."
       },
       {
         "type": "paragraph",
-        "text": "The same content type should generate a predictable schema structure so implementation bugs can be traced to a component or data rule."
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A full site can convert well when navigation, evidence, page hierarchy, and calls to action are intentional."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Treat properties as data contracts"
+        "text": "A corporate website supports exploration"
       },
       {
         "type": "paragraph",
-        "text": "Structured data gives search engines explicit clues about what a page represents. Instead of asking a crawler to infer every relationship from layout and prose, a site can describe entities and properties in a standardized format such as JSON-LD."
+        "text": "The practical question in the job each format is designed to do is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. The best structure follows the customer journey rather than a preference for one page count."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Keep output deterministic"
+        "text": "Traffic source changes the decision"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Define page purpose",
-          "Select accurate type",
-          "Identify authoritative fields"
-        ]
-      },
-      {
-        "type": "callout",
-        "tone": "info",
-        "title": "The principle",
-        "text": "Structured data should make accurate content easier for machines to understand. It should never claim information the page does not support."
-      },
-      {
-        "type": "promo",
-        "eyebrow": "TECHNICAL SEO",
-        "title": "Build structured data into the content model",
-        "description": "Kapitech can connect CMS fields, page templates, and JSON-LD so search markup stays synchronized with content.",
-        "ctaLabel": "Discuss SEO Architecture",
-        "ctaUrl": "https://kapitech.id/contact",
-        "serviceReference": "seo-strategy"
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Choosing the Right Schema Type"
-      },
-      {
-        "type": "paragraph",
-        "text": "Educational articles can expose supported properties such as headline, author, publication date, and image information."
-      },
-      {
-        "type": "paragraph",
-        "text": "Breadcrumb and organization-related structured data can describe hierarchy and site identity where they accurately represent the page."
-      },
-      {
-        "type": "image",
-        "url": "/insights/structured-data-seo/jsonld-layers.svg",
-        "alt": "JSON-LD layers",
-        "caption": "JSON-LD is easiest to maintain when context, entities, properties, and values come from a clear content model."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Article and editorial content"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Generate from normalized data",
-          "Keep output deterministic",
-          "Avoid manual duplication"
-        ]
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Breadcrumbs and site identity"
-      },
-      {
-        "type": "paragraph",
-        "text": "A page should not be labeled Product, Review, or Event simply because a richer result would be desirable."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not force a type for a search feature"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Validate syntax",
-          "Check required properties",
-          "Compare with visible content"
+          "The primary audience is defined.",
+          "Main traffic sources are known.",
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned."
         ]
       },
       {
         "type": "callout",
         "tone": "neutral",
         "title": "Practical rule",
-        "text": "Choose schema types from the page's actual meaning, not from the search feature you hope to trigger."
+        "text": "The right choice depends on where visitors come from and what they need to know before acting."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "WEB STRATEGY",
+        "title": "Design the right website structure before you build it",
+        "description": "Kapitech can map audiences, journeys, information architecture, page roles, and conversion paths before design and development begin.",
+        "ctaLabel": "Discuss Website Strategy",
+        "ctaUrl": "https://kapitech.id/contact",
+        "serviceReference": "web-development"
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Validation: Syntax, Requirements, and Truth"
+        "text": "Audience and User Journey"
       },
       {
         "type": "paragraph",
-        "text": "JSON-LD must parse correctly and be attached to the intended page."
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. When an audience has multiple questions, forcing everything into one page usually creates overload or missing information."
       },
       {
         "type": "paragraph",
-        "text": "Search-feature guidelines can require specific properties, so syntax validity alone is not enough."
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. A landing page concentrates attention around a specific offer, audience, campaign, or action."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/decision-map.svg",
+        "alt": "Editorial visual: The Job Each Format Is Designed to Do",
+        "caption": "A visual model for the job each format is designed to do."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Validate the payload"
+        "text": "Audience complexity matters"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Cross-check authors and dates",
-          "Check images and URLs",
-          "Review localization"
+          "Main traffic sources are known.",
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned.",
+          "The primary conversion action is visible."
         ]
       },
       {
+        "type": "heading",
+        "level": 3,
+        "text": "Information architecture is part of the product"
+      },
+      {
         "type": "paragraph",
-        "text": "The core integrity check is whether the structured data tells the same story as the page."
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A corporate website provides a broader information architecture for people researching the business."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Validate required properties"
+        "text": "Content depth supports trust"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Test production output",
-          "Monitor search reports",
-          "Recheck after migrations"
-        ]
-      },
-      {
-        "type": "quote",
-        "text": "The cleanest structured data is not the most complicated. It is the data your architecture can keep true.",
-        "attribution": "Kapitech structured-data principle"
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Structured Data and Page Content"
-      },
-      {
-        "type": "paragraph",
-        "text": "For each page type, decide which fields are authoritative, which are optional, and which should never be synthesized."
-      },
-      {
-        "type": "table",
-        "headers": [
-          "Check",
-          "What to verify",
-          "Failure mode"
-        ],
-        "rows": [
-          [
-            "Type",
-            "Matches page purpose",
-            "Irrelevant markup"
-          ],
-          [
-            "Required fields",
-            "Feature requirements met",
-            "Ineligibility"
-          ],
-          [
-            "Visible content",
-            "Facts are supported",
-            "Misleading markup"
-          ],
-          [
-            "Canonical",
-            "URLs agree",
-            "Conflicting signals"
-          ],
-          [
-            "Localization",
-            "Language and URL are correct",
-            "Stale representation"
-          ]
-        ],
-        "caption": "A practical comparison to support implementation decisions."
-      },
-      {
-        "type": "image",
-        "url": "/insights/structured-data-seo/schema-types.svg",
-        "alt": "Structured data type map",
-        "caption": "Choose schema types from actual page purpose and supported search features."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Define the content contract"
-      },
-      {
-        "type": "paragraph",
-        "text": "Using the same normalized data to render the page and JSON-LD reduces drift and duplicate maintenance."
-      },
-      {
-        "type": "paragraph",
-        "text": "CMS changes and template refactors can break structured data without obvious visual symptoms, so validation belongs in release checks."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "A Real Business Scenario: Insight Article"
-      },
-      {
-        "type": "paragraph",
-        "text": "A long-form article already has title, author, dates, image, and breadcrumbs. Structured data can make those relationships explicit."
-      },
-      {
-        "type": "image",
-        "url": "/insights/structured-data-seo/validation-gates.svg",
-        "alt": "Structured data validation gates",
-        "caption": "Validation should test syntax, feature requirements, and page-level truthfulness."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Problem: clear editorial metadata"
-      },
-      {
-        "type": "paragraph",
-        "text": "If editors change a date or author while JSON-LD comes from another source, the machine-readable layer becomes stale."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Risk: markup drifts from the page"
-      },
-      {
-        "type": "paragraph",
-        "text": "Generate structured metadata from the same normalized article object used by the renderer and test it after migrations and localization changes."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Evidence: one source of truth"
-      },
-      {
-        "type": "paragraph",
-        "text": "Structured data is useful only if search engines can access the page and the page itself is indexable and understandable."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "The page still needs to be crawlable"
-      },
-      {
-        "type": "paragraph",
-        "text": "Markup should follow the site's canonical architecture rather than introducing a competing URL strategy."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Canonical URLs still matter"
-      },
-      {
-        "type": "paragraph",
-        "text": "Even correct markup does not guarantee a rich result. Search presentation depends on Google's systems and the query context."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Structured Data and Technical SEO"
-      },
-      {
-        "type": "paragraph",
-        "text": "Google explains that structured data can help it understand content and can make certain search features eligible for richer presentation. That distinction matters: markup can create eligibility, but it does not guarantee a rich result for every query."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Search appearance remains query-dependent"
-      },
-      {
-        "type": "paragraph",
-        "text": "The strongest implementations start from the page itself. Decide what the visible page is actually about, choose a schema type that matches that purpose, and make the structured data accurately describe the same content."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Additional validation checkpoint"
-      },
-      {
-        "type": "paragraph",
-        "text": "Treat structured data as information design plus engineering: model the page clearly, generate markup from trusted data, validate it, and keep it synchronized."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Additional validation checkpoint"
-      },
-      {
-        "type": "paragraph",
-        "text": "**It describes meaning, not ranking promises** — this is a decision point worth testing explicitly."
-      },
-      {
-        "type": "paragraph",
-        "text": "**Start from page purpose** — this is a decision point worth testing explicitly."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Common Structured Data Mistakes"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "1. Marking up unsupported content"
-      },
-      {
-        "type": "paragraph",
-        "text": "Structured data should describe facts the page actually supports."
-      },
-      {
-        "type": "paragraph",
-        "text": "More markup is not automatically better and can make the model harder to maintain."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "2. Adding unrelated types"
-      },
-      {
-        "type": "paragraph",
-        "text": "A syntactically correct payload can still miss search-feature requirements."
-      },
-      {
-        "type": "paragraph",
-        "text": "A second content source will eventually drift from the page."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "3. Treating validity as eligibility"
-      },
-      {
-        "type": "paragraph",
-        "text": "Localized pages should generate localized structured representations."
-      },
-      {
-        "type": "paragraph",
-        "text": "Structured data should align with canonical URLs and site architecture."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "4. Maintaining JSON-LD separately"
-      },
-      {
-        "type": "paragraph",
-        "text": "Search markup cannot rescue a page that is irrelevant or unhelpful."
-      },
-      {
-        "type": "paragraph",
-        "text": "Choose a schema type because it accurately describes the page, not because the type looks attractive in a search-feature gallery."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "5. Ignoring localization"
-      },
-      {
-        "type": "paragraph",
-        "text": "**Consistency is the quality check** — this is a decision point worth testing explicitly."
-      },
-      {
-        "type": "paragraph",
-        "text": "Author, title, date, image, price, rating, and other declared facts should be supported by the visible page and a reliable data source."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "6. Mixing schema and URL strategies"
-      },
-      {
-        "type": "paragraph",
-        "text": "Define the page purpose first."
-      },
-      {
-        "type": "paragraph",
-        "text": "**Validate against visible content** — this is a decision point worth testing explicitly."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "7. Assuming markup replaces good content"
-      },
-      {
-        "type": "paragraph",
-        "text": "Syntax is valid."
-      },
-      {
-        "type": "paragraph",
-        "text": "**Generate from the same content object** — this is a decision point worth testing explicitly."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "How Kapitech Thinks About Structured Data"
-      },
-      {
-        "type": "paragraph",
-        "text": "Kapitech treats structured data as a bridge between editorial content and technical implementation. Content strategy defines meaning, the CMS stores entities, the frontend renders the experience, and the SEO layer exposes machine-readable relationships."
-      },
-      {
-        "type": "image",
-        "url": "/insights/structured-data-seo/markup-loop.svg",
-        "alt": "Structured data maintenance loop",
-        "caption": "Implement, test, deploy, and monitor as one structured-data loop."
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Document schema ownership",
-          "Version template rules",
-          "Review changes in releases"
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned.",
+          "The primary conversion action is visible.",
+          "Campaign traffic has focused destinations where needed."
         ]
       },
       {
         "type": "callout",
         "tone": "info",
-        "title": "Evidence check",
-        "text": "Validate both the JSON-LD and the content it represents. A valid payload can still be an inaccurate representation."
+        "title": "The principle",
+        "text": "A corporate site can contain landing pages, so the choice does not always have to be either-or."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Before You Ship Anything"
+        "text": "Content Depth and Information Architecture"
       },
       {
         "type": "paragraph",
-        "text": "Use this checklist when introducing a new page type or changing a template."
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. The right choice depends on where visitors come from and what they need to know before acting."
+      },
+      {
+        "type": "paragraph",
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Conversion needs focus"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "The primary audience is defined.",
+          "Main traffic sources are known.",
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. A corporate site can contain landing pages, so the choice does not always have to be either-or."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Trust needs evidence"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Main traffic sources are known.",
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned.",
+          "The primary conversion action is visible."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Make the decision from requirements and evidence, not from the label attached to the solution.",
+        "attribution": "Kapitech editorial principle"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conversion, Trust, and Evidence"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Decision area",
+          "What to evaluate",
+          "Why it matters"
+        ],
+        "rows": [
+          [
+            "A landing page has one dominant job",
+            "A landing page concentrates attention around a specific offer, audience, campaign, or action.",
+            "Changes the initial decision"
+          ],
+          [
+            "A corporate website supports exploration",
+            "A corporate website provides a broader information architecture for people researching the business.",
+            "Changes future effort"
+          ],
+          [
+            "Traffic source changes the decision",
+            "The right choice depends on where visitors come from and what they need to know before acting.",
+            "Changes the initial decision"
+          ],
+          [
+            "Audience complexity matters",
+            "A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation.",
+            "Changes future effort"
+          ],
+          [
+            "Information architecture is part of the product",
+            "A corporate site can contain landing pages, so the choice does not always have to be either-or.",
+            "Changes the initial decision"
+          ]
+        ],
+        "caption": "A practical decision model for Corporate Website vs Landing Page: Which Does Your Business Need?."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/requirements-map.svg",
+        "alt": "Editorial visual: Audience and User Journey",
+        "caption": "A visual model for audience and user journey."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "A hybrid model can be stronger"
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical question in conversion, trust, and evidence is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. A landing page can be highly effective without replacing the company website."
+      },
+      {
+        "type": "paragraph",
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A full site can convert well when navigation, evidence, page hierarchy, and calls to action are intentional."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A Real Scenario: B2B Lead Generation"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. The best structure follows the customer journey rather than a preference for one page count."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/comparison.svg",
+        "alt": "Editorial visual: Content Depth and Information Architecture",
+        "caption": "A visual model for content depth and information architecture."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Define the visitor's starting point"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. When an audience has multiple questions, forcing everything into one page usually creates overload or missing information."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Map the questions before the action"
+      },
+      {
+        "type": "paragraph",
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. A landing page concentrates attention around a specific offer, audience, campaign, or action."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Decide what deserves its own page"
+      },
+      {
+        "type": "paragraph",
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A corporate website provides a broader information architecture for people researching the business."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Keep campaign traffic focused"
+      },
+      {
+        "type": "paragraph",
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The right choice depends on where visitors come from and what they need to know before acting."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Give research-oriented visitors enough context"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common Website Structure Mistakes"
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical question in common website structure mistakes is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. A corporate site can contain landing pages, so the choice does not always have to be either-or."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Connect commercial and educational journeys"
+      },
+      {
+        "type": "paragraph",
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Start with the business stage"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. A landing page can be highly effective without replacing the company website."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not build a full site by default"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A full site can convert well when navigation, evidence, page hierarchy, and calls to action are intentional."
+      },
+      {
+        "type": "paragraph",
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. The best structure follows the customer journey rather than a preference for one page count."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How Kapitech Chooses the Right Format"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not force a company into one page"
+      },
+      {
+        "type": "paragraph",
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. When an audience has multiple questions, forcing everything into one page usually creates overload or missing information."
+      },
+      {
+        "type": "paragraph",
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. A landing page concentrates attention around a specific offer, audience, campaign, or action."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not treat every visitor like an ad click"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A corporate website provides a broader information architecture for people researching the business."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical question in how kapitech chooses the right format is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. The right choice depends on where visitors come from and what they need to know before acting."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Use the simplest structure that supports the journey"
+      },
+      {
+        "type": "paragraph",
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. A corporate site can contain landing pages, so the choice does not always have to be either-or."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not confuse visual simplicity with strategic simplicity"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
+      },
+      {
+        "type": "paragraph",
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. A landing page can be highly effective without replacing the company website."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not bury the conversion path"
+      },
+      {
+        "type": "paragraph",
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A full site can convert well when navigation, evidence, page hierarchy, and calls to action are intentional."
+      },
+      {
+        "type": "paragraph",
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The best structure follows the customer journey rather than a preference for one page count."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not remove evidence to make pages shorter"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. When an audience has multiple questions, forcing everything into one page usually creates overload or missing information."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical question in how kapitech chooses the right format is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. A landing page concentrates attention around a specific offer, audience, campaign, or action."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Make the format serve the audience"
+      },
+      {
+        "type": "paragraph",
+        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A corporate website provides a broader information architecture for people researching the business."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. The right choice depends on where visitors come from and what they need to know before acting."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before You Choose a Format"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/scenario.svg",
+        "alt": "Editorial visual: Conversion, Trust, and Evidence",
+        "caption": "A visual model for conversion, trust, and evidence."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned.",
+          "The primary conversion action is visible.",
+          "Campaign traffic has focused destinations where needed."
+        ]
+      },
+      {
+        "type": "callout",
+        "tone": "neutral",
+        "title": "Practical rule",
+        "text": "A landing page can be highly effective without replacing the company website."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Website Format Checklist"
+      },
+      {
+        "type": "paragraph",
+        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. A corporate site can contain landing pages, so the choice does not always have to be either-or."
       },
       {
         "type": "checklist",
-        "title": "Release checklist",
+        "title": "Decision checklist",
         "items": [
-          "The page purpose and primary entity are defined.",
-          "The schema type matches the visible page.",
-          "JSON-LD is valid and generated predictably.",
-          "Required properties for the intended feature are present.",
-          "Markup values match visible content.",
-          "Key fields come from trusted data.",
-          "Localization uses the correct language and URL.",
-          "Canonical and schema URLs agree.",
-          "Production output is validated after deployment.",
-          "Structured data is monitored as templates evolve."
+          "The primary audience is defined.",
+          "Main traffic sources are known.",
+          "Visitor information needs are mapped.",
+          "Page roles are explicit.",
+          "Evidence and trust content are planned.",
+          "The primary conversion action is visible.",
+          "Campaign traffic has focused destinations where needed.",
+          "Research-oriented visitors can explore the business.",
+          "Internal links connect related journeys.",
+          "The format can evolve as the business grows."
         ]
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Conclusion: Keep Machine-Readable Data True"
+        "text": "Conclusion: Match the Website to the Job"
       },
       {
         "type": "paragraph",
-        "text": "Structured data is most valuable when it is an accurate representation of content the site already knows. Page purpose, entity model, JSON-LD, canonical architecture, and visible information should reinforce one another."
+        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
       },
       {
         "type": "paragraph",
-        "text": "That makes schema implementation a maintainability problem as much as an SEO problem. Generate from trusted data, validate production output, and monitor template changes instead of treating markup as a one-time snippet."
+        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. A landing page can be highly effective without replacing the company website."
       },
       {
         "type": "paragraph",
-        "text": "Primary references: [Google structured data](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data), [Search appearance](https://developers.google.com/search/docs/appearance), and [Schema.org](https://schema.org/docs/gs.html)."
+        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A full site can convert well when navigation, evidence, page hierarchy, and calls to action are intentional."
       }
+    ],
+    "faq": [
+      [
+        "What should I decide first?",
+        "A landing page concentrates attention around a specific offer, audience, campaign, or action."
+      ],
+      [
+        "How should I compare options?",
+        "A corporate website provides a broader information architecture for people researching the business."
+      ],
+      [
+        "What should a good proposal or plan include?",
+        "The right choice depends on where visitors come from and what they need to know before acting."
+      ],
+      [
+        "Can the simplest option be the best one?",
+        "A B2B buyer may need services, capabilities, case studies, company information, proof, and contact options before starting a conversation."
+      ],
+      [
+        "What should happen after launch?",
+        "A corporate site can contain landing pages, so the choice does not always have to be either-or."
+      ],
+      [
+        "How important is design?",
+        "Information architecture should reduce uncertainty: visitors should know what the company does, whether it is credible, and what to do next."
+      ],
+      [
+        "How do I reduce project risk?",
+        "A landing page can be highly effective without replacing the company website."
+      ]
     ]
   }
 }
