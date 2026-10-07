@@ -188,7 +188,7 @@ export const InsightContentRenderer: React.FC<{
                 </span>
               </div>
               <div className="px-5 py-6 sm:px-6 sm:py-7">
-                <blockquote className="max-w-3xl font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">
+                <blockquote className="w-full font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">
                   {inlineMarkdown(block.text)}
                 </blockquote>
                 {block.attribution && (
@@ -259,7 +259,7 @@ export const InsightContentRenderer: React.FC<{
                 </div>
               </div>
               {block.caption && (
-                <figcaption className="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">
+                <figcaption className="mt-3 w-full text-xs leading-5 text-[#737B88]">
                   {block.caption}
                 </figcaption>
               )}
