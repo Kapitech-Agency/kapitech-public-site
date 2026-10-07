@@ -50,7 +50,7 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
 
   return {
     id: 'local-fallback:' + language + ':' + slug,
-    contentGroupId: 'mvp-vs-prototype-vs-proof-of-concept',
+    contentGroupId: 'local-fallback-group:' + slug,
     language,
     title: String(editorial.title || seo.title || slug),
     slug,
@@ -81,10 +81,7 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
     relatedInsightIds: [],
     relatedInsights: [],
     editorialMeta: { editorialType: editorial.editorialMeta?.editorialType },
-    alternateLanguages: [
-      { language: 'en', slug: 'mvp-vs-prototype-vs-proof-of-concept-guide' },
-      { language: 'id', slug: 'mvp-vs-prototype-vs-proof-of-concept' }
-    ],
+    alternateLanguages: [{ language, slug }],
     seoTitle: editorial.seoTitle || seo.title,
     seoDescription: editorial.seoDescription || seo.description,
     ogImage: seo.ogImage,
