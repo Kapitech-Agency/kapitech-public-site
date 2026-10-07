@@ -47,8 +47,10 @@ function scrollToHeading(id: string, behavior: ScrollBehavior): void {
 
   const top = window.scrollY + heading.getBoundingClientRect().top - ARTICLE_SCROLL_OFFSET_PX;
 
+  const maxScrollTop = getDocumentMaxScroll();
+
   window.scrollTo({
-    top: Math.max(0, top),
+    top: Math.min(Math.max(0, top), maxScrollTop),
     behavior
   });
 }
@@ -146,6 +148,14 @@ export const InsightTableOfContents: React.FC<{
       return;
     }
 
+    const lastSection = sectionItems[sectionItems.length - 1];
+    const lastSectionTop = getHeadingTop(lastSection.id);
+
+    if (lastSectionTop !== null && lastSectionTop <= ACTIVE_HEADING_TRIGGER_PX) {
+      setActive(lastSection.id);
+      return;
+    }
+
     let rawIndex = 0;
 
     for (let index = 0; index < sectionItems.length; index += 1) {
@@ -224,12 +234,16 @@ export const InsightTableOfContents: React.FC<{
         setActive(pendingId);
 
         const reachedDocumentEnd = window.scrollY >= getDocumentMaxScroll() - 4;
+        const targetIsLastSection = pendingId === sectionItems[sectionItems.length - 1]?.id;
+        const reachedTargetActivationLine =
+          targetIsLastSection
+          && distance <= ACTIVE_HEADING_TRIGGER_PX - ARTICLE_SCROLL_OFFSET_PX;
         const settled = Math.abs(distance) <= NAVIGATION_SETTLE_TOLERANCE_PX;
         const timedOut =
           navigationStartedAtRef.current > 0
           && performance.now() - navigationStartedAtRef.current >= NAVIGATION_TIMEOUT_MS;
 
-        if (settled || reachedDocumentEnd || timedOut) {
+        if (settled || reachedDocumentEnd || reachedTargetActivationLine || timedOut) {
           clearNavigationLock();
           setActive(pendingId);
         }
@@ -527,8 +541,8 @@ export const InsightTableOfContents: React.FC<{
       className={[
         'min-h-0 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]',
         mobile
-          ? 'max-h-[14.75rem]'
-          : 'max-h-[14.75rem]'
+          ? 'h-[22.5rem] max-h-[calc(100dvh-12rem)]'
+          : 'h-[22.5rem] max-h-[calc(100dvh-10rem)]'
       ].join(' ')}
     >
       <div className="space-y-1">
@@ -558,9 +572,9 @@ export const InsightTableOfContents: React.FC<{
                 aria-current={active ? 'location' : undefined}
                 data-active={active ? 'true' : 'false'}
                 className={[
-                  'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
+                  'flex h-12 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-1.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
                   active
-                    ? 'bg-brand-red/[0.12] text-brand-red'
+                    ? 'bg-brand-red/[0.12] text-white'
                     : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
@@ -580,7 +594,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'min-w-0 flex-1 line-clamp-2 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     active
-                      ? 'font-semibold text-brand-red'
+                      ? 'font-semibold text-white'
                       : 'font-medium text-[#C8CDD5]'
                   ].join(' ')}
                 >
@@ -611,8 +625,7 @@ export const InsightTableOfContents: React.FC<{
                   </span>
                 </div>
                 <span className={[
-                  'mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5',
-                  sectionItems[currentIndex]?.id === activeId ? 'text-brand-red' : 'text-white'
+                  'mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white'
                 ].join(' ')}>
                   {sectionItems[currentIndex]?.text || sectionItems[0].text}
                 </span>
