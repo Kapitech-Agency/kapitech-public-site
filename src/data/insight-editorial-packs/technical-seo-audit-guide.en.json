@@ -1,0 +1,535 @@
+{
+  "seo": {
+    "title": "Technical SEO Audit Guide: Crawling, Indexing, Canonicals & Sitemaps | Kapitech",
+    "description": "A practical technical SEO audit covering crawlability, indexing, canonical URLs, robots.txt, sitemaps, page experience, and the checks to run before scaling content.",
+    "slug": "technical-seo-audit-guide",
+    "canonicalUrl": "https://kapitech.id/insights/technical-seo-audit-guide",
+    "ogImage": "/insights/technical-seo-audit/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 18,
+    "editorialMeta": {
+      "editorialType": "Guide"
+    },
+    "tags": [
+      {
+        "slug": "technical-seo",
+        "name": "Technical SEO"
+      },
+      {
+        "slug": "seo-audit",
+        "name": "SEO Audit"
+      },
+      {
+        "slug": "crawlability",
+        "name": "Crawlability"
+      },
+      {
+        "slug": "indexing",
+        "name": "Indexing"
+      },
+      {
+        "slug": "canonical",
+        "name": "Canonical URLs"
+      },
+      {
+        "slug": "sitemaps",
+        "name": "XML Sitemap"
+      },
+      {
+        "slug": "website-performance",
+        "name": "Website Performance"
+      }
+    ],
+    "title": "Technical SEO Audit: A Practical Guide to Crawling, Indexing, and Site Health",
+    "excerpt": "Technical SEO is the infrastructure that helps search engines discover, understand, and select the right pages. This guide shows how to audit crawlability, indexing, canonicalization, sitemaps, and technical page experience without turning SEO into checklist theater.",
+    "coverImage": "/insights/technical-seo-audit/hero.svg",
+    "keyTakeaways": [
+      "Start with discoverability: important URLs need a crawlable path before other SEO work matters.",
+      "Robots.txt controls crawling, not indexing; use an appropriate indexation control when a page should stay out of Search.",
+      "Canonicalization helps consolidate duplicate or near-duplicate URLs, but it is a signal rather than an absolute command.",
+      "A sitemap helps search engines discover important URLs efficiently, especially on larger or more complex sites.",
+      "Technical SEO includes page experience, mobile presentation, HTTPS, and stable rendering alongside crawl and index controls.",
+      "Fix infrastructure that blocks discovery or understanding before polishing lower-impact metadata."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Technical SEO is easier to manage when you stop treating it as a pile of isolated settings. The real question is whether search engines can discover important pages, access them, understand what they represent, and select the right URL to show users."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google's Search Essentials contain fewer technical requirements than many SEO checklists imply. That shifts the work from chasing warnings toward protecting the fundamentals: crawlability, indexability, understandable URLs, useful content, and a coherent site structure."
+      },
+      {
+        "type": "paragraph",
+        "text": "A good technical audit begins with business-critical URLs and the failure modes that could make those URLs undiscoverable, unindexable, duplicated, or difficult to understand."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical model in this guide is simple: discover → crawl → understand → consolidate → verify."
+      },
+      {
+        "type": "callout",
+        "tone": "info",
+        "title": "The principle",
+        "text": "Technical SEO is infrastructure. Fix the paths that prevent discovery or understanding before spending time on low-impact polish."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Layer",
+          "Question",
+          "Evidence",
+          "Failure mode"
+        ],
+        "rows": [
+          [
+            "Discovery",
+            "Can a crawler reach important URLs?",
+            "Links, sitemap, crawl paths",
+            "Blocked or orphaned"
+          ],
+          [
+            "Crawling",
+            "Can pages be fetched?",
+            "Status codes, redirects",
+            "5xx or redirect chains"
+          ],
+          [
+            "Indexing",
+            "Can pages be eligible?",
+            "Robots directives, rendered page",
+            "noindex or inaccessible"
+          ],
+          [
+            "Consolidation",
+            "Which URL represents the content?",
+            "Canonical, redirects",
+            "Duplicate competition"
+          ],
+          [
+            "Experience",
+            "Is the page usable?",
+            "CWV, mobile, HTTPS",
+            "Slow or unstable"
+          ]
+        ],
+        "caption": "A strong audit maps each technical check to a concrete decision and a source of evidence."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/discovery-map.svg",
+        "alt": "Technical SEO discovery map",
+        "caption": "Important URLs need a crawlable path. Discovery comes before indexing."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Technical SEO at a glance"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Discovery is not indexing"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google needs to find a URL before it can evaluate that URL. A well-written page can still fail its search objective when there is no useful internal link path or crawling is unintentionally restricted."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Crawlability is about access"
+      },
+      {
+        "type": "paragraph",
+        "text": "Robots.txt is primarily a crawler-control mechanism. It can restrict access, but it is not the correct tool when the goal is to keep a page out of Search."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Indexability is about eligibility"
+      },
+      {
+        "type": "paragraph",
+        "text": "A 200 response does not automatically mean that a page is indexable. Robots directives, canonical signals, redirects, and rendered content also matter."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Inventory business-critical URLs and their intended search purpose.",
+          "Confirm important URLs have a crawlable internal link path.",
+          "Review robots.txt for accidental blocks.",
+          "Check indexability directives on key templates.",
+          "Compare sitemap URLs with canonical URLs."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/index-gates.svg",
+        "alt": "Technical SEO indexing gates",
+        "caption": "A healthy URL passes several technical gates before the preferred page can appear in Search."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Canonicalization and duplicate URLs"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Duplicate URLs can be normal"
+      },
+      {
+        "type": "paragraph",
+        "text": "Query parameters, filters, tracking variants, regional routes, and migrations can create multiple URLs that represent the same or very similar content."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Canonical is a signal"
+      },
+      {
+        "type": "paragraph",
+        "text": "The rel=canonical annotation tells Google which URL you prefer as the representative, while Google also considers redirects, sitemap inclusion, and other signals."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Audit consistency"
+      },
+      {
+        "type": "paragraph",
+        "text": "A canonical pointing to a non-indexable URL or materially different page creates ambiguity. High-value templates deserve manual checks in addition to automated crawling."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/canonical-map.svg",
+        "alt": "Canonical URL consolidation map",
+        "caption": "Consolidation works best when redirects, internal links, sitemap entries, and canonical tags agree."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "TECHNICAL SEO",
+        "title": "Turn an audit into a prioritized implementation plan",
+        "description": "Kapitech can connect technical SEO findings to information architecture, frontend work, CMS rules, and measurable verification.",
+        "ctaLabel": "Discuss SEO & Web Architecture",
+        "ctaUrl": "https://kapitech.id/contact",
+        "serviceReference": "seo-strategy"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Sitemaps, robots.txt, and URL structure"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "A sitemap is a discovery aid"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google describes sitemaps as files that provide information about important pages and resources and can improve crawling of larger or more complex sites."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Robots.txt manages crawler access"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use robots.txt to manage crawling pressure or exclude crawler access to spaces that should not be fetched, but do not use it as a substitute for noindex."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Stable URLs reduce ambiguity"
+      },
+      {
+        "type": "paragraph",
+        "text": "A clear URL hierarchy makes site architecture easier to reason about. Avoid fragment-based routing for content that needs independent search visibility."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Keep important pages in a coherent navigation path.",
+          "Use a sitemap for important discoverable URLs.",
+          "Keep URL variants consolidated.",
+          "Test redirects after route changes.",
+          "Verify the production robots.txt file."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/sitemap-stack.svg",
+        "alt": "XML sitemap visual",
+        "caption": "A sitemap should represent important URLs you actually want search engines to discover."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How to run a practical technical SEO audit"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Start with important URLs"
+      },
+      {
+        "type": "paragraph",
+        "text": "Inventory services, case studies, editorial pages, and other routes tied to business or audience goals. Record purpose, language, and canonical target."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Trace the crawl path"
+      },
+      {
+        "type": "paragraph",
+        "text": "Compare navigation, internal links, sitemap entries, and crawler output. Important URLs should not depend on one fragile discovery mechanism."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Verify indexation signals"
+      },
+      {
+        "type": "paragraph",
+        "text": "Inspect status codes, robots directives, canonicals, redirects, and rendered content. Diagnose which stage failed instead of guessing from rankings."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Page experience is part of technical health"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Performance affects usefulness"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google recommends looking at page experience holistically, including Core Web Vitals, HTTPS, mobile presentation, and avoiding intrusive interruptions."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Mobile presentation matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "A page that is technically crawlable but difficult to use on small screens still fails an important part of the user's journey."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Stability matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "Unexpected movement can interfere with reading and interaction. Reserve space for media and dynamic UI so loading behavior does not undermine the page."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A migration scenario"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The URL architecture changes"
+      },
+      {
+        "type": "paragraph",
+        "text": "A redesign can improve the UI while quietly breaking search infrastructure when old routes disappear or new routes lack a coherent link path."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The risk is continuity"
+      },
+      {
+        "type": "paragraph",
+        "text": "A migration needs a source-to-destination map, tested redirects, consistent canonicals, and a production sitemap that reflects the new URL set."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The evidence is post-launch crawling"
+      },
+      {
+        "type": "paragraph",
+        "text": "Do not stop at deployment. Crawl production, test representative redirects, review templates, and compare indexed behavior over time."
+      },
+      {
+        "type": "quote",
+        "text": "The fastest SEO fix is often the one that removes ambiguity before adding more content.",
+        "attribution": "Practical technical SEO principle"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common mistakes to avoid"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "1. Treating robots.txt as noindex"
+      },
+      {
+        "type": "paragraph",
+        "text": "Blocking crawling is not the same as preventing indexing. A blocked URL can still be known to Google through other links."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "2. Publishing pages without an internal link path"
+      },
+      {
+        "type": "paragraph",
+        "text": "A sitemap can assist discovery, but valuable pages should also belong to a coherent browseable architecture."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3. Pointing canonicals at different content"
+      },
+      {
+        "type": "paragraph",
+        "text": "A canonical should describe the representative version of substantially similar content, not a convenient destination."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "4. Keeping obsolete URLs in the sitemap"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sitemaps should represent the URL set you actually want search engines to discover."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "5. Optimizing metadata before infrastructure"
+      },
+      {
+        "type": "paragraph",
+        "text": "A better title cannot compensate for a page that is blocked, redirected incorrectly, or canonicalized away."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "6. Ignoring rendered content"
+      },
+      {
+        "type": "paragraph",
+        "text": "Modern sites can return valid HTML while important content depends on client-side behavior. Audit the final rendered page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "7. Treating the audit as one-time work"
+      },
+      {
+        "type": "paragraph",
+        "text": "Routing, CMS templates, and deployments change. Monitoring turns a successful audit into a durable system."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How Kapitech approaches technical SEO"
+      },
+      {
+        "type": "paragraph",
+        "text": "At Kapitech, technical SEO is treated as a shared concern across UX, content, and engineering. A crawler problem can originate in routing; a duplicate URL problem can originate in filter architecture; a slow page can originate in an asset decision."
+      },
+      {
+        "type": "paragraph",
+        "text": "The useful audit output is therefore not a list of warnings. It is a prioritized map of issue, business impact, implementation owner, evidence, and verification criteria."
+      },
+      {
+        "type": "paragraph",
+        "text": "The working chain is business-critical URL → intended purpose → technical risk → evidence → engineering fix → verification."
+      },
+      {
+        "type": "callout",
+        "tone": "success",
+        "title": "Kapitech principle",
+        "text": "Build technical SEO into the system that publishes the page. The safest audit is the one that prevents the same class of error from returning on the next release."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before you ship: technical SEO checklist"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use this checklist before publishing a new page or releasing a significant route or template change."
+      },
+      {
+        "type": "checklist",
+        "title": "Release checklist",
+        "items": [
+          "Important URLs have a clear internal link path.",
+          "Production pages return the intended status code.",
+          "Robots directives match the intended indexation state.",
+          "Canonical URLs point to the correct representative page.",
+          "Redirects map retired routes correctly.",
+          "The sitemap contains only URLs worth discovering.",
+          "Main content is present and understandable when rendered.",
+          "HTTPS and mobile presentation are healthy.",
+          "Page experience is measured with evidence.",
+          "Post-release crawling verifies intended behavior."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/audit-loop.svg",
+        "alt": "Technical SEO audit loop",
+        "caption": "A technical audit becomes durable when evidence, implementation, verification, and monitoring form one loop."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "References and source material"
+      },
+      {
+        "type": "paragraph",
+        "text": "Primary documentation used for this guide:"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Search Essentials",
+        "url": "https://developers.google.com/search/docs/essentials"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Robots.txt introduction",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Learn about sitemaps",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — What is canonicalization",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — URL structure best practices",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/url-structure"
+      }
+    ]
+  }
+}
