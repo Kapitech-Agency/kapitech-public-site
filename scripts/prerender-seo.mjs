@@ -222,15 +222,24 @@ const renderInsightBody = (insight) => {
 
   html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
   html += '<div class="mb-5 xl:hidden" aria-hidden="true">' +
-    '<div class="mb-5 flex items-center gap-4 border-y border-white/[0.08] py-3"><span class="text-[9px] font-mono font-semibold uppercase tracking-[0.11em] text-[#737A87]">' +
-    escapeHtml(label('Bagikan', 'Share')) + '</span><span class="h-px flex-1 bg-white/[0.08]"></span><span class="font-mono text-[9px] tabular-nums text-[#68707C]">0%</span></div>' +
-    '<nav class="rounded-2xl border border-white/[0.07] bg-white/[0.014] p-3"><ol class="space-y-1">' +
-    toc.map((item) => '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
-      (item.level === 3 ? 'pl-5 text-[11px] text-[#737C89]' : 'text-[11px] font-medium text-[#C1C6CF]') +
-      '">' + escapeHtml(item.text) + '</a></li>').join('') +
-    (faq.length ? '<li><a href="#faq-title" class="block rounded-[10px] px-2.5 py-2 text-[11px] font-medium text-[#C1C6CF]">' +
-      escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>' : '') +
-    '</ol></nav></div>';
+    '<div class="mb-4 flex items-center gap-2 overflow-x-auto rounded-2xl border border-white/[0.07] bg-white/[0.014] p-2.5">' +
+    '<span class="shrink-0 px-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.11em] text-[#E50914]">' +
+    escapeHtml(label('Bagikan', 'Share')) + '</span>' +
+    '<a href="https://instagram.com/kapitech.agency" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]">IG</a>' +
+    '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(manifest.siteUrl + '/insights/' + encodeURIComponent(insight.slug)) + '" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]">f</a>' +
+    '<a href="https://x.com/intent/post?url=' + encodeURIComponent(manifest.siteUrl + '/insights/' + encodeURIComponent(insight.slug)) + '" target="_blank" rel="noopener noreferrer" aria-label="X" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]">X</a>' +
+    '<a href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(manifest.siteUrl + '/insights/' + encodeURIComponent(insight.slug)) + '" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]">in</a>' +
+    '<button type="button" aria-label="' + escapeHtml(label('Salin tautan', 'Copy link')) + '" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.href)" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]" title="' + escapeHtml(label('Salin tautan', 'Copy link')) + '">↗</button>' +
+    '<span class="ml-auto shrink-0 font-mono text-[9px] tabular-nums text-[#68707C]">0%</span></div>' +
+    '<nav class="rounded-2xl border border-white/[0.08] bg-[#101114] p-2.5"><ol class="space-y-1">' +
+    toc.map((item, index) => '<li><a href="#' + escapeHtml(item.id) + '" class="flex min-h-11 items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 ' +
+      'text-[11px] font-medium text-[#C8CDD5]">' +
+      '<span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] bg-white/[0.025] font-mono text-[8px] font-semibold text-[#69717D]">' + String(index + 1).padStart(2, '0') + '</span>' +
+      '<span>' + escapeHtml(item.text) + '</span></a></li>').join('') +
+    (faq.length ? '<li><a href="#faq-title" class="flex min-h-11 items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-[11px] font-medium text-[#C8CDD5]">' +
+      '<span>FAQ</span>' + escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>' : '') +
+    '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-brand-red/25 bg-brand-red px-4 py-3.5 text-white">' +
+    '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
   html += '<div class="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,820px)_304px] xl:justify-center">';
   html += '<aside class="hidden xl:flex xl:flex-col xl:items-center" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
@@ -268,9 +277,9 @@ const renderInsightBody = (insight) => {
   html += '<div class="mt-12 h-px w-full bg-white/[0.07]" aria-hidden="true"></div><div class="pt-7"><a href="/insights" class="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4">' +
     escapeHtml(label('Kembali ke Insight', 'Back to Insights')) + '</a></div></article>';
 
-  html += '<aside class="hidden py-12 xl:block" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 h-[calc(100dvh-7rem)] min-h-0 rounded-2xl border border-white/[0.07] bg-white/[0.014] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
+  html += '<aside class="hidden py-12 xl:block" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 flex h-[calc(100dvh-7rem)] min-h-0 flex-col gap-3"><div class="min-h-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#101114] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
     escapeHtml(label('Di artikel ini', 'In this article')) + '</span><p class="mt-1 text-[10px] text-[#5E6672]">' +
-    String(toc.filter((item) => item.level === 2).length) + ' ' + escapeHtml(label('bagian', 'sections')) + '</p></div><nav class="mt-4 min-h-0 overflow-y-auto pr-1" aria-label="' +
+    String(toc.filter((item) => item.level === 2).length) + ' ' + escapeHtml(label('bagian', 'sections')) + '</p></div><nav class="mt-4 min-h-0 h-[calc(100%-3.5rem)] overflow-y-auto pr-1" aria-label="' +
     escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><ol class="space-y-1">';
   for (const item of toc) {
     html += '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
@@ -281,7 +290,8 @@ const renderInsightBody = (insight) => {
     html += '<li><a href="#faq-title" class="block rounded-[10px] px-2.5 py-2 text-[12.5px] font-medium text-[#C1C6CF]">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>';
   }
-  html += '</ol></nav></div></aside>';
+  html += '</ol></nav></div><a href="/contact" class="group flex min-h-12 shrink-0 items-center justify-between gap-4 rounded-2xl border border-brand-red/25 bg-brand-red px-4 py-3.5 text-white"><span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' +
+    escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div></aside>';
 
   html += '</div></div></main></div>';
   return html;
