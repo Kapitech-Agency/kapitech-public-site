@@ -77,21 +77,25 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'quote') {
-    return '<figure class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-8 sm:p-6">' +
-      '<blockquote class="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">' +
+    return '<figure class="my-8 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:my-9">' +
+      '<div class="flex items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-3.5 sm:px-6"><span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.045] text-[#8E96A4]">“</span><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">' +
+      escapeHtml(label('Catatan', 'Field note')) + '</span></div>' +
+      '<div class="px-5 py-6 sm:px-6 sm:py-7"><blockquote class="max-w-3xl font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' +
-      (safeText(block.attribution) ? '<figcaption class="mt-3 text-xs text-[#747C88]">' + escapeHtml(block.attribution) + '</figcaption>' : '') +
-      '</figure>';
+      (safeText(block.attribution) ? '<figcaption class="mt-4 flex items-center gap-2 text-xs text-[#7A8290]"><span class="h-px w-5 bg-white/[0.12]" aria-hidden="true"></span>' + escapeHtml(block.attribution) + '</figcaption>' : '') +
+      '</div></figure>';
   }
 
   if (block.type === 'image') {
     const fallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
     const width = Number.isFinite(block.width) && Number(block.width) > 0 ? ' width="' + String(block.width) + '"' : '';
     const height = Number.isFinite(block.height) && Number(block.height) > 0 ? ' height="' + String(block.height) + '"' : '';
-    return '<figure class="my-8 sm:my-9"><div class="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">' +
-      '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
-      ' loading="lazy" decoding="async" class="mx-auto block h-auto w-full max-w-full object-contain" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" />' +
-      '</div>' +
+    return '<figure class="my-8 sm:my-10"><div class="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">' +
+      '<div class="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3"><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">' +
+      escapeHtml(label('Visual artikel', 'Article visual')) + '</span><span class="text-[8px] font-mono tabular-nums text-[#4F5763]">' +
+      (width && height ? String(block.width) + ' × ' + String(block.height) : 'Visual') + '</span></div>' +
+      '<div class="overflow-hidden bg-[#0B0C0E]"><img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
+      ' loading="lazy" decoding="async" class="mx-auto block h-auto w-full max-w-full object-contain" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" /></div></div>' +
       (safeText(block.caption) ? '<figcaption class="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
       '</figure>';
   }
@@ -134,14 +138,24 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'callout') {
-    const border = block.tone === 'warning'
-      ? 'border-l-amber-400/55'
-      : block.tone === 'success'
-        ? 'border-l-emerald-400/55'
-        : 'border-l-white/[0.12]';
-    return '<aside class="my-7 rounded-2xl border border-white/[0.08] border-l-2 bg-white/[0.018] p-5 ' + border + '">' +
-      (safeText(block.title) ? '<p class="mb-1 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
-      '<p class="text-sm font-light leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
+    const tone = block.tone || 'neutral';
+    const toneClass = tone === 'warning'
+      ? 'bg-amber-400/[0.1] text-amber-300'
+      : tone === 'success'
+        ? 'bg-emerald-400/[0.1] text-emerald-300'
+        : 'bg-white/[0.05] text-[#A2A9B6]';
+    const toneLabel = tone === 'warning'
+      ? label('Perhatian', 'Attention')
+      : tone === 'success'
+        ? label('Tervalidasi', 'Validated')
+        : label('Catatan', 'Note');
+    return '<aside class="my-8 rounded-[20px] border border-white/[0.08] bg-[#111216] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6">' +
+      '<div class="flex items-start gap-3.5"><span class="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full ' + toneClass + '">' +
+      (tone === 'warning' ? '!' : tone === 'success' ? '✓' : 'i') +
+      '</span><div class="min-w-0 flex-1"><div class="flex flex-wrap items-center gap-x-2.5 gap-y-1"><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">' +
+      escapeHtml(toneLabel) + '</span>' +
+      (safeText(block.title) ? '<span class="text-sm font-semibold text-white">' + escapeHtml(block.title) + '</span>' : '') +
+      '</div><p class="mt-2.5 text-[13px] leading-7 text-[#B9BEC8] sm:text-[14px]">' + inlineMarkdownToHtml(block.text) + '</p></div></div></aside>';
   }
 
   if (block.type === 'code') {
@@ -165,25 +179,26 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'promo') {
-    return '<aside data-kapi-ad="true" class="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/55 bg-white/[0.018] p-5 sm:my-10 sm:p-6">' +
-      '<div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8"><div class="min-w-0 max-w-[620px]">' +
-      '<div class="flex flex-wrap items-center gap-x-3 gap-y-1.5"><p class="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-[#E50914]">' +
+    return '<aside data-kapi-ad="true" class="relative my-9 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:my-10">' +
+      '<div class="absolute right-[-5rem] top-[-5rem] h-40 w-40 rounded-full bg-brand-red/[0.08] blur-3xl" aria-hidden="true"></div>' +
+      '<div class="relative p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5"><p class="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-[#E50914]">' +
       escapeHtml(block.eyebrow) + '</p><span class="text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">' +
-      escapeHtml(block.serviceReference || label('Layanan terkait', 'Related service')) + '</span></div>' +
-      '<h3 class="mt-2.5 font-display text-[1.35rem] font-semibold leading-[1.14] tracking-[-0.03em] text-white sm:text-[1.5rem]">' +
-      escapeHtml(block.title) + '</h3><p class="mt-2.5 text-[13px] leading-6 text-[#8A909D]">' +
-      escapeHtml(block.description) + '</p></div><a href="' + escapeHtml(absoluteUrl(block.ctaUrl)) +
-      '" class="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white sm:w-auto">' +
-      escapeHtml(block.ctaLabel) + ' ↗</a></div></aside>';
+      escapeHtml(block.serviceReference || label('Layanan terkait', 'Related service')) + '</span></div><span class="hidden shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 text-[8px] font-mono font-semibold uppercase tracking-[0.12em] text-[#646C78] sm:inline-flex">Kapitech</span></div>' +
+      '<div class="mt-5 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8"><div class="min-w-0 max-w-[620px]"><h3 class="font-display text-[1.4rem] font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.55rem]">' +
+      escapeHtml(block.title) + '</h3><p class="mt-2.5 text-[13px] leading-6 text-[#8A909D]">' + escapeHtml(block.description) +
+      '</p></div><a href="' + escapeHtml(absoluteUrl(block.ctaUrl)) + '" class="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white sm:w-auto">' +
+      escapeHtml(block.ctaLabel) + ' ↗</a></div></div></aside>';
   }
 
   if (block.type === 'checklist') {
     const items = (Array.isArray(block.items) ? block.items : [])
-      .map((item) => '<li class="flex gap-3 text-sm leading-6 text-[#C3C7D0]"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true"></span><span>' +
+      .map((item, index) => '<li class="flex gap-3 rounded-xl bg-white/[0.022] px-3.5 py-3 text-sm leading-6 text-[#C3C7D0]"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-red/[0.12] font-mono text-[9px] font-semibold text-brand-red" aria-hidden="true">✓</span><span>' +
         inlineMarkdownToHtml(item) + '</span></li>').join('');
-    return '<section class="my-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-label="' + escapeHtml(block.title || label('Daftar periksa', 'Checklist')) + '">' +
-      (safeText(block.title) ? '<h3 class="mb-4 font-display text-xl font-semibold leading-[1.2] text-white sm:text-[1.3rem]">' + escapeHtml(block.title) + '</h3>' : '') +
-      '<ul class="space-y-3 border-l border-white/[0.12] pl-5">' + items + '</ul></section>';
+    return '<section class="my-8 rounded-[20px] border border-white/[0.08] bg-[#111216] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:p-6" aria-label="' + escapeHtml(block.title || label('Daftar periksa', 'Checklist')) + '">' +
+      '<div class="flex items-end justify-between gap-4"><div class="min-w-0"><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">Checklist</span>' +
+      (safeText(block.title) ? '<h3 class="mt-1.5 font-display text-xl font-semibold leading-[1.2] text-white sm:text-[1.35rem]">' + escapeHtml(block.title) + '</h3>' : '') +
+      '</div><span class="shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">' +
+      String(items ? (Array.isArray(block.items) ? block.items.length : 0) : 0) + '</span></div><ul class="mt-5 space-y-2.5">' + items + '</ul></section>';
   }
 
   if (block.type === 'divider') {
@@ -264,11 +279,14 @@ const renderInsightBody = (insight) => {
   }
 
   if (Array.isArray(insight.keyTakeaways) && insight.keyTakeaways.length) {
-    html += '<section class="mb-11 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:mb-12 sm:p-7" aria-labelledby="key-takeaways-title"><div class="grid gap-5 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-9"><div><p id="key-takeaways-title" class="text-[9px] font-mono uppercase tracking-[0.18em] text-[#E50914]">' +
-      escapeHtml(label('Poin utama', 'Article key takeaways')) + '</p><p class="mt-2 max-w-[155px] text-xs leading-5 text-[#7D8592]">' +
-      escapeHtml(label('Gagasan yang paling penting untuk dibawa setelah membaca.', 'The ideas worth carrying forward.')) + '</p></div><ul class="space-y-2.5">' +
-      insight.keyTakeaways.map((item) => '<li class="flex gap-3 text-sm leading-7 text-[#CBD0D8] sm:text-[15px]"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E50914]/75" aria-hidden="true"></span><span>' + inlineMarkdownToHtml(item) + '</span></li>').join('') +
-      '</ul></div></section>';
+    html += '<section class="mb-11 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:mb-12" aria-labelledby="key-takeaways-title">' +
+      '<div class="flex items-center justify-between gap-4 border-b border-white/[0.06] px-5 py-4 sm:px-6"><div class="min-w-0"><p id="key-takeaways-title" class="text-[9px] font-mono font-semibold uppercase tracking-[0.18em] text-[#E50914]">' +
+      escapeHtml(label('Poin utama', 'Article key takeaways')) + '</p><p class="mt-1.5 text-xs leading-5 text-[#7D8592]">' +
+      escapeHtml(label('Gagasan yang paling penting untuk dibawa setelah membaca.', 'The ideas worth carrying forward.')) + '</p></div><span class="shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">' +
+      String(insight.keyTakeaways.length) + '</span></div><ul class="grid gap-px bg-white/[0.045] sm:grid-cols-2">' +
+      insight.keyTakeaways.map((item, index) => '<li class="flex gap-3 bg-[#111216] px-5 py-4.5 text-sm leading-7 text-[#CBD0D8] sm:px-6"><span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E50914]/[0.11] font-mono text-[9px] font-semibold tabular-nums text-[#E50914]" aria-hidden="true">' +
+      String(index + 1).padStart(2, '0') + '</span><span>' + inlineMarkdownToHtml(item) + '</span></li>').join('') +
+      '</ul></section>';
   }
 
   html += renderBody(bodyBlocks);
