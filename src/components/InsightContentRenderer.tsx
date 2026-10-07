@@ -109,6 +109,7 @@ export const InsightContentRenderer: React.FC<{
   } | null>(null);
 
   const activeVisualCloseRef = useRef<HTMLButtonElement | null>(null);
+  const activeVisualScrollRef = useRef<HTMLDivElement | null>(null);
   const previousBodyOverflowRef = useRef('');
   const previousVisualTriggerRef = useRef<HTMLElement | null>(null);
 
@@ -585,8 +586,28 @@ export const InsightContentRenderer: React.FC<{
           }}
           onKeyDown={(event) => {
             if (event.key !== 'Tab') return;
+
+            const closeButton = activeVisualCloseRef.current;
+            const scrollPanel = activeVisualScrollRef.current;
+
+            if (!closeButton || !scrollPanel) return;
+
             event.preventDefault();
-            activeVisualCloseRef.current?.focus();
+
+            if (event.shiftKey) {
+              if (document.activeElement === closeButton) {
+                scrollPanel.focus();
+              } else {
+                closeButton.focus();
+              }
+              return;
+            }
+
+            if (document.activeElement === scrollPanel) {
+              closeButton.focus();
+            } else {
+              scrollPanel.focus();
+            }
           }}
         >
           <div className="relative flex max-h-[94vh] w-full max-w-[1400px] flex-col overflow-hidden rounded-[18px] border border-white/[0.1] bg-[#0B0C0E] shadow-2xl">
@@ -612,6 +633,7 @@ export const InsightContentRenderer: React.FC<{
             </div>
 
             <div
+              ref={activeVisualScrollRef}
               className="min-h-0 overflow-auto p-2 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/35 sm:p-3"
               tabIndex={0}
               aria-label={language === 'id' ? 'Visual artikel, dapat digeser atau diperbesar' : 'Article visual, scrollable'}
