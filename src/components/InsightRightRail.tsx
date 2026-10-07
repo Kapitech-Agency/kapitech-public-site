@@ -13,7 +13,7 @@ export const InsightRightRail: React.FC<{
     aria-label={language === 'id' ? 'Navigasi artikel' : 'Article navigation'}
   >
     <div className="flex h-full min-h-0 flex-col gap-3">
-      <div className="min-h-0 flex-1">
+      <div className="min-h-0">
         <InsightTableOfContents items={items} language={language} variant="desktop" />
       </div>
       <InsightBookingCta language={language} />
