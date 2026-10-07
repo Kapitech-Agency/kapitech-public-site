@@ -126,8 +126,12 @@ export const Insights: React.FC = () => {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
+
+    const nextSearch = searchInput.trim();
+    if (nextSearch === search && page === 1) return;
+
     queueResultsNavigation();
-    setSearch(searchInput.trim());
+    setSearch(nextSearch);
     setPage(1);
   };
 
@@ -241,7 +245,7 @@ export const Insights: React.FC = () => {
                     <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
                       {hasActiveFilters ? (language === 'id' ? 'Hasil' : 'Results') : (language === 'id' ? 'Artikel' : 'Articles')}
                     </p>
-                    <p className="mt-1 text-sm font-semibold text-white">{total || '—'}</p>
+                    <p className="mt-1 text-sm font-semibold text-white">{loading ? '—' : total}</p>
                   </div>
                 </div>
               </div>
@@ -259,7 +263,12 @@ export const Insights: React.FC = () => {
             <div className="flex min-w-0 items-center gap-2 overflow-x-auto px-1 pb-1 lg:flex-1 lg:pb-0">
               <button
                 type="button"
-                onClick={() => { queueResultsNavigation(); setCategoryId(''); setPage(1); }}
+                onClick={() => {
+                  if (!categoryId && page === 1) return;
+                  queueResultsNavigation();
+                  setCategoryId('');
+                  setPage(1);
+                }}
                 aria-pressed={!categoryId}
                 className={[
                   'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
@@ -278,7 +287,12 @@ export const Insights: React.FC = () => {
                   <button
                     key={category.id}
                     type="button"
-                    onClick={() => { queueResultsNavigation(); setCategoryId(category.id); setPage(1); }}
+                    onClick={() => {
+                      if (category.id === categoryId && page === 1) return;
+                      queueResultsNavigation();
+                      setCategoryId(category.id);
+                      setPage(1);
+                    }}
                     aria-pressed={active}
                     className={[
                       'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
@@ -303,13 +317,13 @@ export const Insights: React.FC = () => {
                   id="insight-search"
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
-                  className="h-10 w-full rounded-full border border-white/[0.08] bg-[#0B0C0E]/62 pl-9 pr-4 text-xs text-white outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#606774] focus:border-brand-red/40 focus:shadow-[0_0_0_3px_rgba(229,9,20,0.07)]"
+                  className="h-11 min-h-11 w-full rounded-full border border-white/[0.08] bg-[#0B0C0E]/62 pl-9 pr-4 text-xs text-white outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#606774] focus:border-brand-red/40 focus:shadow-[0_0_0_3px_rgba(229,9,20,0.07)]"
                   placeholder={language === 'id' ? 'Cari topik...' : 'Search topics...'}
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10"
+                className="inline-flex h-11 min-h-11 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.035] px-4 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 {language === 'id' ? 'Cari' : 'Search'}
               </button>
@@ -322,9 +336,13 @@ export const Insights: React.FC = () => {
           <div className="mx-auto w-full max-w-7xl">
           {languageFallback === 'id' && (
             <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 text-xs leading-6 text-[#858C99]">
-              {language === 'en'
-                ? 'The latest Insight is currently available in Bahasa Indonesia.'
-                : 'Insight terbaru tersedia dalam Bahasa Indonesia.'}
+              {hasActiveFilters
+                ? (language === 'en'
+                  ? 'Matching Insights are currently available in Bahasa Indonesia.'
+                  : 'Insight yang sesuai dengan filter saat ini tersedia dalam Bahasa Indonesia.')
+                : (language === 'en'
+                  ? 'The latest Insight is currently available in Bahasa Indonesia.'
+                  : 'Insight terbaru tersedia dalam Bahasa Indonesia.')}
             </div>
           )}
 
