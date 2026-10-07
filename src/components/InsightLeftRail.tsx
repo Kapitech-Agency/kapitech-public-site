@@ -3,7 +3,6 @@ import {
   Check,
   Copy,
   Facebook,
-  Instagram,
   Linkedin,
   Share2
 } from 'lucide-react';
@@ -68,12 +67,6 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
 
   const socialLinks = [
     {
-      key: 'instagram',
-      label: 'Instagram',
-      href: 'https://instagram.com/kapitech.agency',
-      type: 'instagram' as const
-    },
-    {
       key: 'facebook',
       label: 'Facebook',
       href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl,
@@ -109,16 +102,8 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={
-            item.key === 'instagram'
-              ? (language === 'id' ? 'Buka Instagram Kapitech' : 'Open Kapitech on Instagram')
-              : (language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label)
-          }
-          title={
-            item.key === 'instagram'
-              ? (language === 'id' ? 'Instagram Kapitech' : 'Kapitech Instagram')
-              : (language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label)
-          }
+          aria-label={language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label}
+          title={language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label}
           data-analytics-event="insight_social_share"
           data-social-network={item.key}
           className={[
@@ -187,6 +172,25 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           <div className="min-w-0 flex-1 overflow-x-auto">
             {renderSocialButtons(true)}
           </div>
+          <button
+            type="button"
+            onClick={onCopy}
+            className={[
+              'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
+              shareState === 'copied'
+                ? 'border-white/[0.14] bg-brand-red/[0.14] text-white'
+                : 'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-brand-red/60 hover:bg-brand-red hover:text-white'
+            ].join(' ')}
+            aria-label={toolText(language, 'copy')}
+            title={shareState === 'copied'
+              ? (language === 'id' ? 'Tautan disalin' : 'Link copied')
+              : toolText(language, 'copy')}
+            data-analytics-event="insight_copy_link"
+          >
+            {shareState === 'copied'
+              ? <Check size={14} aria-hidden="true" />
+              : <Copy size={14} aria-hidden="true" />}
+          </button>
 
           <div
             className="hidden min-w-[102px] sm:block"
