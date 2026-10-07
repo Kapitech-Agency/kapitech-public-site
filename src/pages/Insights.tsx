@@ -7,6 +7,7 @@ import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightCategory, InsightItem } from '../data/insightTypes';
+import { getAllInsightFallbacks } from '../data/insightFallbacks';
 
 export const Insights: React.FC = () => {
   const { language } = useLanguage();
@@ -86,10 +87,27 @@ export const Insights: React.FC = () => {
       if (cancelled) return;
 
       if (!displayRes.success) {
-        setError(displayRes.error || (language === 'id' ? 'Insight belum dapat dimuat.' : 'Insights could not be loaded.'));
-        setItems([]);
-        setTotal(0);
-        setTotalPages(1);
+        // Keep the editorial library usable when the CMS/API is temporarily unavailable.
+        // The same packs are also used by article-level fallback rendering.
+        const fallbackItems = getAllInsightFallbacks().filter((item) => item.language === language);
+        const filteredFallbacks = fallbackItems.filter((item) => {
+          const matchesCategory = !categoryId || item.categoryId === categoryId || item.category?.id === categoryId;
+          const query = search.trim().toLowerCase();
+          const matchesSearch = !query || [item.title, item.excerpt, ...(item.tags || []).map((tag) => tag.name)].some((value) => String(value || '').toLowerCase().includes(query));
+          return matchesCategory && matchesSearch;
+        });
+        if (filteredFallbacks.length > 0) {
+          setItems(filteredFallbacks.slice((page - 1) * 9, page * 9));
+          setTotal(filteredFallbacks.length);
+          setTotalPages(Math.max(1, Math.ceil(filteredFallbacks.length / 9)));
+          setLanguageFallback(null);
+          setError('');
+        } else {
+          setError(displayRes.error || (language === 'id' ? 'Insight belum dapat dimuat.' : 'Insights could not be loaded.'));
+          setItems([]);
+          setTotal(0);
+          setTotalPages(1);
+        }
       } else {
         setItems(displayRes.data?.insights || []);
         setTotal(displayRes.data?.meta?.total || 0);
