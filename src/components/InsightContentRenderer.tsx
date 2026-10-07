@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AlertTriangle, Check, CheckCircle2, Copy, ExternalLink, Info, Maximize2, Quote, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { InsightBlock } from '../data/insightTypes';
@@ -108,8 +108,14 @@ export const InsightContentRenderer: React.FC<{
     caption?: string;
   } | null>(null);
 
+  const activeVisualCloseRef = useRef<HTMLButtonElement | null>(null);
+  const previousBodyOverflowRef = useRef('');
+
   useEffect(() => {
     if (!activeVisual) return;
+
+    const previousOverflow = document.body.style.overflow;
+    previousBodyOverflowRef.current = previousOverflow;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -119,10 +125,13 @@ export const InsightContentRenderer: React.FC<{
 
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
+    window.requestAnimationFrame(() => {
+      activeVisualCloseRef.current?.focus();
+    });
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousBodyOverflowRef.current || previousOverflow;
     };
   }, [activeVisual]);
 
@@ -283,7 +292,7 @@ export const InsightContentRenderer: React.FC<{
 
               {(block.caption || block.alt) && (
                 <figcaption className="mt-3 flex items-start gap-3 px-1">
-                  <span className="mt-2 h-px w-6 shrink-0 bg-brand-red/70" aria-hidden="true" />
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/70" aria-hidden="true" />
                   <span className="max-w-[74ch] text-xs leading-6 text-[#7A8290]">
                     {block.caption || block.alt}
                   </span>
@@ -551,7 +560,7 @@ export const InsightContentRenderer: React.FC<{
           role="dialog"
           aria-modal="true"
           aria-label={language === 'id' ? 'Visual artikel diperbesar' : 'Expanded article visual'}
-          onMouseDown={(event) => {
+          onPointerDown={(event) => {
             if (event.target === event.currentTarget) {
               setActiveVisual(null);
             }
@@ -570,6 +579,7 @@ export const InsightContentRenderer: React.FC<{
 
               <button
                 type="button"
+                ref={activeVisualCloseRef}
                 onClick={() => setActiveVisual(null)}
                 className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#A2A9B6] transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
                 aria-label={language === 'id' ? 'Tutup visual' : 'Close visual'}
