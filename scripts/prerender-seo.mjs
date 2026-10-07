@@ -28,6 +28,17 @@ const escapeHtml = (value) => String(value ?? '')
 const safeText = (value) => typeof value === 'string' ? value.trim() : '';
 const absoluteUrl = (value) => absoluteInsightUrl(value, manifest.siteUrl);
 
+const resolveInsightVisualUrl = (rawUrl, language) => {
+  const value = safeText(rawUrl);
+  if (!value) return value;
+
+  const match = value.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)$/i);
+  if (!match) return value;
+
+  const [, base, basename, extension] = match;
+  return base + (language === 'id' ? '-id' : '') + extension;
+};
+
 const inlineMarkdownToHtml = (value) => {
   const safe = escapeHtml(value);
   return safe
@@ -88,6 +99,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
 
   if (block.type === 'image') {
     const fallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
+    const visualUrl = resolveInsightVisualUrl(block.url, insight.language);
     const widthValue = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : null;
     const heightValue = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : null;
     const width = widthValue ? ' width="' + String(widthValue) + '"' : '';
@@ -101,7 +113,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
       escapeHtml(label('Visual artikel', 'Article visual')) + '</span><span class="text-[8px] font-mono tabular-nums text-[#4F5763]">' +
       (widthValue && heightValue ? String(widthValue) + ' × ' + String(heightValue) : 'Visual') + '</span></div>' +
       '<div class="relative overflow-hidden bg-[#0B0C0E]"' + aspectRatio + '><div class="flex h-full w-full items-center justify-center p-1 sm:p-1.5">' +
-      '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
+      '<img src="' + escapeHtml(absoluteUrl(visualUrl)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
       ' loading="lazy" decoding="async" class="' + (widthValue && heightValue ? 'block h-full w-full object-contain' : 'block h-auto w-full object-contain') +
       '" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" /></div></div></div>' +
       (safeText(block.caption) ? '<figcaption class="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
