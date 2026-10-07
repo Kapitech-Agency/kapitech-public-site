@@ -3,7 +3,6 @@ import {
   Check,
   Copy,
   Facebook,
-  Instagram,
   Linkedin,
   Share2
 } from 'lucide-react';
@@ -68,12 +67,6 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
 
   const socialLinks = [
     {
-      key: 'instagram',
-      label: 'Instagram',
-      href: 'https://instagram.com/kapitech.agency',
-      type: 'instagram' as const
-    },
-    {
       key: 'facebook',
       label: 'Facebook',
       href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl,
@@ -109,16 +102,8 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={
-            item.key === 'instagram'
-              ? (language === 'id' ? 'Buka Instagram Kapitech' : 'Open Kapitech on Instagram')
-              : (language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label)
-          }
-          title={
-            item.key === 'instagram'
-              ? (language === 'id' ? 'Instagram Kapitech' : 'Kapitech Instagram')
-              : (language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label)
-          }
+          aria-label={language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label}
+          title={language === 'id' ? 'Bagikan ke ' + item.label : 'Share on ' + item.label}
           data-analytics-event="insight_social_share"
           data-social-network={item.key}
           className={[

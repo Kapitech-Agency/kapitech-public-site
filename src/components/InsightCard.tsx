@@ -117,6 +117,12 @@ export const InsightCard: React.FC<{
 
           <Link
             to={'/insights/' + insight.slug}
+            {...(analyticsContext === 'related'
+              ? {
+                  'data-analytics-event': 'insight_related_click',
+                  'data-related-insight-slug': insight.slug
+                }
+              : {})}
             className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           >
             {language === 'id' ? 'Buka' : 'Open'}

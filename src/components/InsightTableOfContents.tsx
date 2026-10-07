@@ -550,7 +550,11 @@ export const InsightTableOfContents: React.FC<{
                 onClick={(event) => {
                   event.preventDefault();
                   navigateTo(item);
+                  const details = event.currentTarget.closest('details');
+                  if (details) details.open = false;
                 }}
+                data-analytics-event="insight_toc_click"
+                data-section-id={item.id}
                 aria-current={active ? 'location' : undefined}
                 className={[
                   'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
@@ -595,31 +599,38 @@ export const InsightTableOfContents: React.FC<{
       className="kapi-insight-toc h-full min-h-0"
     >
       <div className={variant === 'desktop' ? 'hidden' : 'xl:hidden'}>
-        <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101114] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
-          <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3.5">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
-                  {tocLabel}
-                </span>
-              </div>
-              <span className="mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white">
-                <span className="text-brand-red">
+        <details className="group overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101114] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+          <summary className="list-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/35">
+            <div className="flex items-center justify-between gap-4 px-4 py-3.5 transition-colors duration-200 group-open:bg-white/[0.015]">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
+                    {tocLabel}
+                  </span>
+                </div>
+                <span className="mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white">
                   {sectionItems[currentIndex]?.text || sectionItems[0].text}
                 </span>
-              </span>
+              </div>
+
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
+                  {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
+                </span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-[#707884] transition-transform duration-200 group-open:rotate-90" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                    <path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </div>
             </div>
+          </summary>
 
-            <span className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
-              {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
-            </span>
-          </div>
-
-          <div className="p-2.5">
+          <div className="border-t border-white/[0.07] p-2.5">
             {renderList(true)}
           </div>
-        </div>
+        </details>
       </div>
 
       <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
