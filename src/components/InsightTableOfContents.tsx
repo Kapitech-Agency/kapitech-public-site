@@ -243,6 +243,8 @@ export const InsightTableOfContents: React.FC<{
 
   const startNavigation = (id: string) => {
     navigationTargetRef.current = id;
+    navigationStartedAtRef.current = performance.now();
+    lastScrollYRef.current = window.scrollY;
     setActive(id);
   };
 
