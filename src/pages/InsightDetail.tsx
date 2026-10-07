@@ -563,7 +563,7 @@ export const InsightDetail: React.FC = () => {
               )}
             </nav>
 
-            <div className="max-w-[980px]">
+            <div className="max-w-none">
               <div className="flex flex-wrap items-center gap-2.5">
                 {category && (
                   <span className="kapi-section-label mb-0">
