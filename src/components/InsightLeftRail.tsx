@@ -172,25 +172,6 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           <div className="min-w-0 flex-1 overflow-x-auto">
             {renderSocialButtons(true)}
           </div>
-          <button
-            type="button"
-            onClick={onCopy}
-            className={[
-              'inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
-              shareState === 'copied'
-                ? 'border-white/[0.14] bg-brand-red/[0.14] text-white'
-                : 'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-brand-red/60 hover:bg-brand-red hover:text-white'
-            ].join(' ')}
-            aria-label={toolText(language, 'copy')}
-            title={shareState === 'copied'
-              ? (language === 'id' ? 'Tautan disalin' : 'Link copied')
-              : toolText(language, 'copy')}
-            data-analytics-event="insight_copy_link"
-          >
-            {shareState === 'copied'
-              ? <Check size={14} aria-hidden="true" />
-              : <Copy size={14} aria-hidden="true" />}
-          </button>
 
           <div
             className="hidden min-w-[102px] sm:block"
