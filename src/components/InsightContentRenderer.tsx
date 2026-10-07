@@ -564,7 +564,6 @@ export const InsightContentRenderer: React.FC<{
         });
         return null;
       })}
-    </div>
 
       {activeVisual && (
         <div
@@ -609,5 +608,6 @@ export const InsightContentRenderer: React.FC<{
           </div>
         </div>
       )}
+    </div>
   );
 };
