@@ -124,7 +124,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           className={[
             buttonClass,
             compact ? 'h-9 w-9' : 'h-9 w-9',
-            'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-white/[0.16] hover:bg-white/[0.06] hover:text-white'
+            'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-brand-red/60 hover:bg-brand-red hover:text-white'
           ].join(' ')}
         >
           <SocialIcon type={item.type} />
@@ -145,7 +145,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
           compact ? 'h-9 w-9' : 'h-9 w-9',
           shareState === 'copied'
             ? 'border-white/[0.14] bg-brand-red/[0.14] text-white'
-            : 'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-white/[0.16] hover:bg-white/[0.06] hover:text-white'
+            : 'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-brand-red/60 hover:bg-brand-red hover:text-white'
         ].join(' ')}
       >
         {shareState === 'copied'
@@ -174,7 +174,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
               'inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] transition-[background-color,border-color,color,box-shadow,transform] duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
               shareState === 'shared'
                 ? 'border-white/[0.12] bg-brand-red text-white'
-                : 'border-white/[0.08] bg-white/[0.022] text-white hover:border-white/[0.16] hover:bg-white/[0.06]'
+                : 'border-white/[0.08] bg-white/[0.022] text-white hover:border-brand-red/60 hover:bg-brand-red'
             ].join(' ')}
             aria-label={toolText(language, 'share')}
           >
