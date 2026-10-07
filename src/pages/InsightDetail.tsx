@@ -858,7 +858,9 @@ export const InsightDetail: React.FC = () => {
           </div>
 
           {faq.length > 0 && (
-            <section
+            <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
+              <div className="hidden xl:block" aria-hidden="true" />
+              <section
               className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-8 sm:mt-20"
               aria-labelledby="faq-title"
             >
@@ -913,7 +915,9 @@ export const InsightDetail: React.FC = () => {
                   </details>
                 ))}
               </div>
-            </section>
+              </section>
+              <div className="hidden xl:block" aria-hidden="true" />
+            </div>
           )}
 
           {relatedInsights.length > 0 && (
