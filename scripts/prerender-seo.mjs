@@ -58,7 +58,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
 
   if (block.type === 'heading') {
     if (block.level === 3) {
-      return '<h3 id="' + escapeHtml(headingId) + '" class="scroll-mt-28 mb-3 mt-8 border-l border-brand-red/35 pl-4 font-display text-xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-[1.3rem]">' +
+      return '<h3 id="' + escapeHtml(headingId) + '" class="scroll-mt-28 mb-3 mt-8 border-l border-white/[0.12] pl-4 font-display text-xl font-semibold leading-[1.2] tracking-[-0.025em] text-white sm:text-[1.3rem]">' +
         escapeHtml(block.text) + '</h3>';
     }
 
