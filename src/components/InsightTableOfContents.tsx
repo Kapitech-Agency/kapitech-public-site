@@ -86,6 +86,7 @@ export const InsightTableOfContents: React.FC<{
   const navigationTargetRef = useRef('');
   const lastScrollYRef = useRef(0);
   const rafRef = useRef<number | null>(null);
+  const revealRafRef = useRef<number | null>(null);
   const mobileItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const desktopItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
@@ -373,6 +374,11 @@ export const InsightTableOfContents: React.FC<{
         rafRef.current = null;
       }
 
+      if (revealRafRef.current !== null) {
+        window.cancelAnimationFrame(revealRafRef.current);
+        revealRafRef.current = null;
+      }
+
       navigationTargetRef.current = '';
       lastScrollYRef.current = window.scrollY;
     };
@@ -421,10 +427,22 @@ export const InsightTableOfContents: React.FC<{
       }
     };
 
-    window.requestAnimationFrame(() => {
+    if (revealRafRef.current !== null) {
+      window.cancelAnimationFrame(revealRafRef.current);
+    }
+
+    revealRafRef.current = window.requestAnimationFrame(() => {
+      revealRafRef.current = null;
       reveal(desktopItemMap.current, variant !== 'mobile');
       reveal(mobileItemMap.current, variant !== 'desktop');
     });
+
+    return () => {
+      if (revealRafRef.current !== null) {
+        window.cancelAnimationFrame(revealRafRef.current);
+        revealRafRef.current = null;
+      }
+    };
   }, [activeId, variant]);
 
   if (!sectionItems.length) return null;
