@@ -535,7 +535,9 @@ export const InsightDetail: React.FC = () => {
             className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]"
             aria-hidden="true"
           />
-          <div className="relative mx-auto w-full max-w-[1120px] px-0 pb-12 pt-28 sm:px-2 sm:pb-14 sm:pt-36 lg:px-12 lg:pb-16 lg:pt-40">
+          <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">
+            <div className="grid items-start xl:grid-cols-[64px_minmax(0,1120px)_304px] xl:gap-8">
+              <div className="min-w-0 xl:col-start-2 xl:px-12">
             <nav
               className="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]"
               aria-label="Breadcrumb"
@@ -620,6 +622,7 @@ export const InsightDetail: React.FC = () => {
                     })}
                   </time>
                 )}
+              </div>
               </div>
             </div>
           </div>
