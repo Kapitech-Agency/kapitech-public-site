@@ -99,25 +99,38 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   if (block.type === 'table') {
     const headers = Array.isArray(block.headers) ? block.headers : [];
     const rows = Array.isArray(block.rows) ? block.rows : [];
-    const headerHtml = headers.map((header) =>
-      '<th scope="col" class="border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4] first:sticky first:left-0 first:z-10 first:bg-[#0F1013]">' +
+    if (!headers.length) return '';
+
+    const headerHtml = headers.map((header, index) =>
+      '<th scope="col" class="' +
+      'border-b border-white/[0.08] px-4 py-4 text-left text-[10px] font-mono font-semibold uppercase leading-4 tracking-[0.1em] text-[#A2A9B6]' +
+      (index === 0 ? ' sticky left-0 z-10 bg-[#141519] shadow-[1px_0_0_rgba(255,255,255,0.07)]' : '') +
+      '">' +
       inlineMarkdownToHtml(header) + '</th>'
     ).join('');
     const rowHtml = rows.map((row) =>
-      '<tr class="border-b border-white/[0.06] last:border-b-0">' +
+      '<tr class="border-b border-white/[0.055] transition-colors duration-150 last:border-b-0 hover:bg-white/[0.018]">' +
       headers.map((_, index) =>
-        '<td class="px-4 py-3.5 align-top leading-6 text-[#B6BBC5] first:sticky first:left-0 first:z-[5] first:bg-[#0F1013]">' +
+        '<td class="' +
+        'px-4 py-4 align-top text-[13px] leading-[1.65] text-[#B9BEC8] sm:text-[13.5px]' +
+        (index === 0 ? ' sticky left-0 z-[5] bg-[#0F1013] font-medium text-white shadow-[1px_0_0_rgba(255,255,255,0.055)]' : '') +
+        '">' +
         inlineMarkdownToHtml(Array.isArray(row) ? row[index] || '' : '') + '</td>'
       ).join('') + '</tr>'
     ).join('');
-    return '<div class="my-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">' +
-      '<div class="border-b border-white/[0.06] px-4 py-2.5 sm:hidden"><p class="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">' +
-      escapeHtml(label('Geser untuk melihat perbandingan', 'Swipe to compare')) + '</p></div>' +
-      '<div class="overflow-x-auto" tabindex="0" role="region" aria-label="' +
+    const columnBadge = headers.length > 1
+      ? '<span class="shrink-0 rounded-full bg-white/[0.035] px-2 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">' +
+        String(headers.length) + ' ' + escapeHtml(label('kolom', 'columns')) + '</span>'
+      : '';
+
+    return '<div class="my-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">' +
+      '<div class="border-b border-white/[0.06] px-4 py-2.5 sm:hidden"><div class="flex items-center justify-between gap-3"><p class="text-[9px] font-mono uppercase tracking-[0.12em] text-[#737B88]">' +
+      escapeHtml(label('Geser untuk membandingkan', 'Swipe to compare')) + '</p>' + columnBadge + '</div></div>' +
+      '<div class="overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset" tabindex="0" role="region" aria-label="' +
       escapeHtml(block.caption || label('Tabel artikel', 'Article table')) + '">' +
-      '<table class="w-full min-w-[560px] border-collapse text-left text-sm">' +
-      (safeText(block.caption) ? '<caption class="caption-top px-4 py-3 text-left text-xs leading-5 text-[#7A8290]">' + inlineMarkdownToHtml(block.caption) + '</caption>' : '') +
-      '<thead><tr class="bg-white/[0.035]">' + headerHtml + '</tr></thead><tbody>' + rowHtml + '</tbody></table></div></div>';
+      '<table class="w-full min-w-[760px] border-collapse text-left text-sm">' +
+      (safeText(block.caption) ? '<caption class="caption-top border-b border-white/[0.06] px-4 py-3.5 text-left text-xs leading-5 text-[#7A8290]">' + inlineMarkdownToHtml(block.caption) + '</caption>' : '') +
+      '<thead><tr class="bg-[#141519]">' + headerHtml + '</tr></thead><tbody>' + rowHtml + '</tbody></table></div></div>';
   }
 
   if (block.type === 'callout') {
