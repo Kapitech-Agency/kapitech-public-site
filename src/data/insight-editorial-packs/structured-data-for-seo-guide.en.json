@@ -1,0 +1,557 @@
+{
+  "seo": {
+    "title": "Structured Data for SEO: JSON-LD, Schema Types & Rich Results | Kapitech",
+    "description": "A practical guide to structured data for SEO: what JSON-LD does, which schema types fit common pages, how validation works, and what structured data can and cannot do.",
+    "slug": "structured-data-for-seo-guide",
+    "canonicalUrl": "https://kapitech.id/insights/structured-data-for-seo-guide",
+    "ogImage": "/insights/structured-data-seo/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 15,
+    "editorialMeta": {
+      "editorialType": "Guide"
+    },
+    "tags": [
+      {
+        "slug": "structured-data",
+        "name": "Structured Data"
+      },
+      {
+        "slug": "schema-markup",
+        "name": "Schema Markup"
+      },
+      {
+        "slug": "json-ld",
+        "name": "JSON-LD"
+      },
+      {
+        "slug": "technical-seo",
+        "name": "Technical SEO"
+      },
+      {
+        "slug": "rich-results",
+        "name": "Rich Results"
+      },
+      {
+        "slug": "search-appearance",
+        "name": "Search Appearance"
+      },
+      {
+        "slug": "seo",
+        "name": "SEO"
+      }
+    ],
+    "title": "Structured Data for SEO: How to Help Google Understand Your Pages",
+    "excerpt": "Structured data gives search engines explicit clues about what a page represents. This guide explains JSON-LD, schema selection, validation, and how to keep machine-readable data aligned with the visible page.",
+    "coverImage": "/insights/structured-data-seo/hero.svg",
+    "keyTakeaways": [
+      "Structured data provides explicit clues about page meaning and can make some search features eligible for richer presentation.",
+      "JSON-LD is Google's recommended format when the site setup allows it because it is generally easier to implement and maintain.",
+      "Use schema types that accurately describe visible content; do not invent properties just to chase a search feature.",
+      "Eligibility is different from guaranteed rich-result display.",
+      "Validate syntax, required properties, content consistency, and production output.",
+      "Structured data is a clarity layer on top of useful content and sound technical SEO."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Structured data gives search engines explicit clues about what a page represents. Instead of asking a crawler to infer every relationship from layout and prose, a site can describe entities and properties in a standardized format such as JSON-LD."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google explains that structured data can help it understand content and can make certain search features eligible for richer presentation. That distinction matters: markup can create eligibility, but it does not guarantee a rich result for every query."
+      },
+      {
+        "type": "paragraph",
+        "text": "The strongest implementations start from the page itself. Decide what the visible page is actually about, choose a schema type that matches that purpose, and make the structured data accurately describe the same content."
+      },
+      {
+        "type": "paragraph",
+        "text": "Treat structured data as information design plus engineering: model the page clearly, generate markup from trusted data, validate it, and keep it synchronized."
+      },
+      {
+        "type": "callout",
+        "tone": "info",
+        "title": "The principle",
+        "text": "Structured data should make accurate content easier for machines to understand. It should never claim information that the page does not support."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Layer",
+          "Question",
+          "Example",
+          "Risk if wrong"
+        ],
+        "rows": [
+          [
+            "Page purpose",
+            "What is the page about?",
+            "Article, Product, Organization",
+            "Wrong model"
+          ],
+          [
+            "Schema type",
+            "Which type fits?",
+            "Article, Breadcrumb",
+            "Irrelevant markup"
+          ],
+          [
+            "Properties",
+            "Which facts are supported?",
+            "headline, author, date",
+            "Stale values"
+          ],
+          [
+            "Format",
+            "How is it embedded?",
+            "JSON-LD",
+            "Hard to maintain"
+          ],
+          [
+            "Validation",
+            "Does it match the page?",
+            "Syntax + content",
+            "Eligibility issues"
+          ]
+        ],
+        "caption": "Think of structured data as a contract between visible content and its machine-readable representation."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/schema-flow.svg",
+        "alt": "Structured data flow",
+        "caption": "Visible content → JSON-LD → search understanding."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Structured data at a glance"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "It describes meaning, not ranking promises"
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data can help search engines understand page content and can enable richer search features, but it does not replace relevance, content quality, or a useful page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Start from page purpose"
+      },
+      {
+        "type": "paragraph",
+        "text": "Choose a schema type because it accurately describes the page, not because the type looks attractive in a search-feature gallery."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Consistency is the quality check"
+      },
+      {
+        "type": "paragraph",
+        "text": "Author, title, date, image, price, rating, and other declared facts should be supported by the visible page and a reliable data source."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Define the page purpose first.",
+          "Choose an accurate schema type.",
+          "Generate from trusted content data.",
+          "Validate syntax and required properties.",
+          "Cross-check with the rendered page."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/jsonld-layers.svg",
+        "alt": "JSON-LD layers",
+        "caption": "JSON-LD is easiest to maintain when context, entities, properties, and values come from a clear content model."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "JSON-LD as the implementation layer"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Separate markup from presentation"
+      },
+      {
+        "type": "paragraph",
+        "text": "JSON-LD keeps the machine-readable representation separate from the visible interface and is Google's recommended format when the site's setup allows it."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Treat properties as data contracts"
+      },
+      {
+        "type": "paragraph",
+        "text": "Each property should come from a field with a known meaning instead of duplicated free text maintained in several templates."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Keep output deterministic"
+      },
+      {
+        "type": "paragraph",
+        "text": "The same content type should generate a predictable schema structure so implementation bugs can be traced to a component or data rule."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Choosing schema types"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Article and editorial content"
+      },
+      {
+        "type": "paragraph",
+        "text": "Educational articles can expose supported properties such as headline, author, publication date, and image information."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Breadcrumbs and site identity"
+      },
+      {
+        "type": "paragraph",
+        "text": "Breadcrumb and organization-related structured data can describe hierarchy and site identity where they accurately represent the page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not force a type for a search feature"
+      },
+      {
+        "type": "paragraph",
+        "text": "A page should not be labeled Product, Review, or Event simply because a richer result would be desirable."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/schema-types.svg",
+        "alt": "Structured data type map",
+        "caption": "Choose schema types from actual page purpose and supported search features."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "TECHNICAL SEO",
+        "title": "Build structured data into the content model",
+        "description": "Kapitech can connect CMS fields, page templates, and JSON-LD so search markup stays synchronized with content.",
+        "ctaLabel": "Discuss SEO Architecture",
+        "ctaUrl": "https://kapitech.id/contact",
+        "serviceReference": "seo-strategy"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Validation from syntax to eligibility"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Validate the payload"
+      },
+      {
+        "type": "paragraph",
+        "text": "JSON-LD must parse correctly and be attached to the intended page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Validate required properties"
+      },
+      {
+        "type": "paragraph",
+        "text": "Search-feature guidelines can require specific properties, so syntax validity alone is not enough."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Validate against visible content"
+      },
+      {
+        "type": "paragraph",
+        "text": "The core integrity check is whether the structured data tells the same story as the page."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Syntax is valid.",
+          "The schema type fits the page.",
+          "Required properties are present.",
+          "Values match visible content.",
+          "Production output is tested."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/validation-gates.svg",
+        "alt": "Structured data validation gates",
+        "caption": "Validation should test syntax, feature requirements, and page-level truthfulness."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Implementing structured data safely"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Define the content contract"
+      },
+      {
+        "type": "paragraph",
+        "text": "For each page type, decide which fields are authoritative, which are optional, and which should never be synthesized."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Generate from the same content object"
+      },
+      {
+        "type": "paragraph",
+        "text": "Using the same normalized data to render the page and JSON-LD reduces drift and duplicate maintenance."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Monitor after releases"
+      },
+      {
+        "type": "paragraph",
+        "text": "CMS changes and template refactors can break structured data without obvious visual symptoms, so validation belongs in release checks."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A real scenario: an Insight article"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Problem: clear editorial metadata"
+      },
+      {
+        "type": "paragraph",
+        "text": "A long-form article already has title, author, dates, image, and breadcrumbs. Structured data can make those relationships explicit."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Risk: markup drifts from the page"
+      },
+      {
+        "type": "paragraph",
+        "text": "If editors change a date or author while JSON-LD comes from another source, the machine-readable layer becomes stale."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Evidence: one source of truth"
+      },
+      {
+        "type": "paragraph",
+        "text": "Generate structured metadata from the same normalized article object used by the renderer and test it after migrations and localization changes."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Structured data and technical SEO"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The page still needs to be crawlable"
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data is useful only if search engines can access the page and the page itself is indexable and understandable."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Canonical URLs still matter"
+      },
+      {
+        "type": "paragraph",
+        "text": "Markup should follow the site's canonical architecture rather than introducing a competing URL strategy."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Search appearance remains query-dependent"
+      },
+      {
+        "type": "paragraph",
+        "text": "Even correct markup does not guarantee a rich result. Search presentation depends on Google's systems and the query context."
+      },
+      {
+        "type": "quote",
+        "text": "The cleanest structured data is not the most complicated. It is the data your architecture can keep true.",
+        "attribution": "Kapitech structured-data principle"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common mistakes to avoid"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "1. Marking up unsupported content"
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data should describe facts the page actually supports."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "2. Adding unrelated types"
+      },
+      {
+        "type": "paragraph",
+        "text": "More markup is not automatically better and can make the model harder to maintain."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3. Treating validity as eligibility"
+      },
+      {
+        "type": "paragraph",
+        "text": "A syntactically correct payload can still miss search-feature requirements."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "4. Maintaining JSON-LD separately"
+      },
+      {
+        "type": "paragraph",
+        "text": "A second content source will eventually drift from the page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "5. Ignoring localization"
+      },
+      {
+        "type": "paragraph",
+        "text": "Localized pages should generate localized structured representations."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "6. Mixing schema and URL strategies"
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data should align with canonical URLs and site architecture."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "7. Assuming markup replaces good content"
+      },
+      {
+        "type": "paragraph",
+        "text": "Search markup cannot rescue a page that is irrelevant or unhelpful."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How Kapitech approaches structured data"
+      },
+      {
+        "type": "paragraph",
+        "text": "Kapitech treats structured data as a bridge between editorial content and technical implementation. Content strategy defines meaning, the CMS stores entities, the frontend renders the experience, and the SEO layer exposes machine-readable relationships."
+      },
+      {
+        "type": "paragraph",
+        "text": "This separation keeps structured data maintainable. Designers do not need to think in JSON-LD to create a good page, and engineers do not need to invent content facts to satisfy a schema."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical chain is page purpose → data model → visible content → structured data → validation → monitoring."
+      },
+      {
+        "type": "callout",
+        "tone": "success",
+        "title": "Kapitech principle",
+        "text": "Search markup should be generated from truth that already exists in the content system. The cleanest schema is the schema your architecture can keep accurate."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before you ship: structured data checklist"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use this checklist when introducing a new page type or changing a template."
+      },
+      {
+        "type": "checklist",
+        "title": "Release checklist",
+        "items": [
+          "The page purpose and primary entity are defined.",
+          "The schema type matches the visible page.",
+          "JSON-LD is valid and generated predictably.",
+          "Required properties for the intended feature are present.",
+          "Markup values match visible content.",
+          "Key fields come from trusted data.",
+          "Localization uses the correct language and URL.",
+          "Canonical and schema URLs agree.",
+          "Production output is validated after deployment.",
+          "Structured data is monitored as templates evolve."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/markup-loop.svg",
+        "alt": "Structured data maintenance loop",
+        "caption": "Implement, test, deploy, and monitor as one structured-data loop."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "References and source material"
+      },
+      {
+        "type": "paragraph",
+        "text": "Primary documentation used for this guide:"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Introduction to structured data",
+        "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Search appearance",
+        "url": "https://developers.google.com/search/docs/appearance"
+      },
+      {
+        "type": "link",
+        "label": "Schema.org — Getting started",
+        "url": "https://schema.org/docs/gs.html"
+      }
+    ]
+  }
+}
