@@ -556,10 +556,11 @@ export const InsightTableOfContents: React.FC<{
                 data-analytics-event="insight_toc_click"
                 data-section-id={item.id}
                 aria-current={active ? 'location' : undefined}
+                data-active={active ? 'true' : 'false'}
                 className={[
                   'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
                   active
-                    ? 'bg-brand-red/[0.09] text-white'
+                    ? 'bg-brand-red/[0.12] text-brand-red'
                     : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
@@ -609,7 +610,10 @@ export const InsightTableOfContents: React.FC<{
                     {tocLabel}
                   </span>
                 </div>
-                <span className="mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white">
+                <span className={[
+                  'mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5',
+                  sectionItems[currentIndex]?.id === activeId ? 'text-brand-red' : 'text-white'
+                ].join(' ')}>
                   {sectionItems[currentIndex]?.text || sectionItems[0].text}
                 </span>
               </div>
