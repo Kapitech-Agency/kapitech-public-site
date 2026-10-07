@@ -523,12 +523,12 @@ export const InsightDetail: React.FC = () => {
 
         <header className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-95"
             style={{ backgroundImage: "url('/insights/article-hero-background.jpg')" }}
             aria-hidden="true"
           />
           <div
-            className="absolute inset-0 bg-[#0B0C0E]/48"
+            className="absolute inset-0 bg-[#0B0C0E]/20"
             aria-hidden="true"
           />
           <div
@@ -585,27 +585,34 @@ export const InsightDetail: React.FC = () => {
                 </p>
               )}
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">
+              <div className="mt-8 flex flex-wrap items-center gap-2 border-t border-white/[0.07] pt-5">
                 {article.author?.name && (
-                  <span className="font-medium text-white">
+                  <span className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.035] px-3.5 py-1.5 text-[9px] font-mono font-semibold tracking-[0.08em] text-white">
                     {article.language === 'id' ? 'Ditulis oleh ' : 'Written by '}
                     {article.author.name}
-                    {article.author.role ? <span className="font-normal text-[#737A87]"> · {article.author.role}</span> : null}
+                  </span>
+                )}
+                {article.author?.role && (
+                  <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#A2A9B6]">
+                    {article.author.role}
                   </span>
                 )}
                 {article.readingTime ? (
-                  <span>
+                  <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#A2A9B6]">
                     {article.readingTime} {article.language === 'id' ? 'menit baca' : 'min read'}
                   </span>
                 ) : null}
                 {article.editorialMeta?.reviewedBy && (
-                  <span>
+                  <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tracking-[0.08em] text-[#A2A9B6]">
                     {article.language === 'id' ? 'Ditinjau oleh ' : 'Reviewed by '}
                     {article.editorialMeta.reviewedBy}
                   </span>
                 )}
                 {article.publishedAt && (
-                  <time dateTime={article.publishedAt}>
+                  <time
+                    dateTime={article.publishedAt}
+                    className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#7D8592]"
+                  >
                     {new Date(article.publishedAt).toLocaleDateString(article.language === 'id' ? 'id-ID' : 'en-US', {
                       year: 'numeric',
                       month: 'short',
@@ -618,7 +625,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-[1440px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">
+        <div className="mx-auto w-full max-w-[1600px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">
           <div className="mb-5 xl:hidden">
             <InsightLeftRail
               mobile
@@ -638,7 +645,7 @@ export const InsightDetail: React.FC = () => {
             )}
           </div>
 
-          <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1040px)_minmax(0,1fr)]">
+          <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
@@ -649,7 +656,7 @@ export const InsightDetail: React.FC = () => {
 
             <article
               ref={articleReadingRef}
-              className="min-w-0 w-full justify-self-center text-[#C3C7D0]"
+              className="min-w-0 w-full justify-self-center px-0 sm:px-2 lg:px-12 text-[#C3C7D0]"
             >
               {introductionBlocks.length > 0 && (
                 <section
