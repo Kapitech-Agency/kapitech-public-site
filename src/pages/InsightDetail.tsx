@@ -859,7 +859,7 @@ export const InsightDetail: React.FC = () => {
 
           {faq.length > 0 && (
             <section
-              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-12 sm:mt-20"
+              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-8 sm:mt-20"
               aria-labelledby="faq-title"
             >
               <div className="max-w-2xl">
