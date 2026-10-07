@@ -45,7 +45,7 @@ function inlineMarkdown(value: unknown): React.ReactNode[] {
     const resolved = resolveSafeUrl(rawUrl);
     if (!resolved) return <React.Fragment key={index}>{label}</React.Fragment>;
 
-    const className = "font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55";
+    const className = "font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35";
 
     if (resolved.external) {
       return (
@@ -117,7 +117,7 @@ export const InsightContentRenderer: React.FC<{
                 'scroll-mt-28 font-display font-semibold text-white',
                 isSection
                   ? 'mb-4 mt-12 first:mt-2 text-[1.85rem] leading-[1.12] tracking-[-0.04em] sm:text-[2rem]'
-                  : 'mb-3 mt-8 border-l border-brand-red/35 pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.3rem]'
+                  : 'mb-3 mt-8 border-l border-white/[0.12] pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.3rem]'
               ].join(' ')}
             >
               {block.text}
@@ -151,7 +151,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'quote') {
           return (
-            <figure key={index} className="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 sm:my-8 sm:p-6">
+            <figure key={index} className="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-8 sm:p-6">
               <blockquote className="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">
                 {inlineMarkdown(block.text)}
               </blockquote>
@@ -213,7 +213,7 @@ export const InsightContentRenderer: React.FC<{
                 </p>
               </div>
               <div
-                className="overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55 focus-visible:ring-inset"
+                className="overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset"
                 tabIndex={0}
                 role="region"
                 aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
@@ -266,12 +266,12 @@ export const InsightContentRenderer: React.FC<{
             ? 'border-l-amber-400/55'
             : tone === 'success'
               ? 'border-l-emerald-400/55'
-              : 'border-l-brand-red/50';
+              : 'border-l-white/[0.12]';
 
           return (
             <aside
               key={index}
-              className={'my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 ' + toneClass}
+              className={'my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 ' + toneClass}
             >
               {block.title && (
                 <p className="mb-1 text-sm font-semibold text-white">{block.title}</p>
@@ -295,7 +295,7 @@ export const InsightContentRenderer: React.FC<{
                 <button
                   type="button"
                   onClick={() => void copyCode(block.code, index)}
-                  className="inline-flex min-h-8 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-brand-red hover:bg-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  className="inline-flex min-h-8 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3 text-[9px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
                 >
                   {copied ? <Check size={12} aria-hidden="true" /> : <Copy size={12} aria-hidden="true" />}
                   {copied ? (language === 'id' ? 'Disalin' : 'Copied') : (language === 'id' ? 'Salin' : 'Copy')}
@@ -319,7 +319,7 @@ export const InsightContentRenderer: React.FC<{
                   href={resolved.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
                 >
                   {block.label}
                   <ExternalLink size={13} aria-hidden="true" />
@@ -327,7 +327,7 @@ export const InsightContentRenderer: React.FC<{
               ) : (
                 <Link
                   to={resolved.internalTo}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-brand-red hover:decoration-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
                 >
                   {block.label}
                 </Link>
