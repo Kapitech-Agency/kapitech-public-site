@@ -1,0 +1,586 @@
+{
+  "seo": {
+    "title": "Core Web Vitals Explained: LCP, INP, CLS & SEO | Kapitech",
+    "description": "Learn what LCP, INP, and CLS measure, their current good thresholds, common causes of poor scores, and how to prioritize performance work for SEO and UX.",
+    "slug": "core-web-vitals-explained",
+    "canonicalUrl": "https://kapitech.id/insights/core-web-vitals-explained",
+    "ogImage": "/insights/core-web-vitals/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 16,
+    "editorialMeta": {
+      "editorialType": "Guide"
+    },
+    "tags": [
+      {
+        "slug": "core-web-vitals",
+        "name": "Core Web Vitals"
+      },
+      {
+        "slug": "lcp",
+        "name": "LCP"
+      },
+      {
+        "slug": "inp",
+        "name": "INP"
+      },
+      {
+        "slug": "cls",
+        "name": "CLS"
+      },
+      {
+        "slug": "web-performance",
+        "name": "Web Performance"
+      },
+      {
+        "slug": "technical-seo",
+        "name": "Technical SEO"
+      },
+      {
+        "slug": "ux-performance",
+        "name": "UX Performance"
+      }
+    ],
+    "title": "Core Web Vitals Explained: How LCP, INP, and CLS Shape Website Experience",
+    "excerpt": "Core Web Vitals measure loading performance, responsiveness, and visual stability. This guide explains LCP, INP, and CLS in practical terms, then shows how to connect each metric to an engineering and UX decision.",
+    "coverImage": "/insights/core-web-vitals/hero.svg",
+    "keyTakeaways": [
+      "LCP measures loading performance; aim for a good experience within 2.5 seconds.",
+      "INP measures responsiveness across interactions; aim for an INP below 200 milliseconds.",
+      "CLS measures visual stability; aim for a CLS below 0.1.",
+      "Core Web Vitals matter, but a perfect score does not guarantee rankings.",
+      "Prioritize fixes by user impact and root cause rather than by chasing one lab score.",
+      "Performance is a product quality concern spanning design, frontend architecture, and infrastructure."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Core Web Vitals are user-centered measurements of loading performance, responsiveness, and visual stability. They describe what people experience while trying to use a page, not just what a technical report says about the code."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google currently defines three Core Web Vitals: Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS). The current good thresholds are 2.5 seconds for LCP, below 200 milliseconds for INP, and below 0.1 for CLS."
+      },
+      {
+        "type": "paragraph",
+        "text": "These metrics matter for users and Search, but they are not a ranking shortcut. Google explicitly says good Core Web Vitals do not guarantee top rankings and that page experience is broader than one score."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical workflow is: measure the user experience, identify the bottleneck, fix the cause, and verify the change."
+      },
+      {
+        "type": "callout",
+        "tone": "info",
+        "title": "The principle",
+        "text": "Do not optimize a metric in isolation. Optimize the user-facing experience that the metric is measuring."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Metric",
+          "Measures",
+          "Good threshold",
+          "Typical cause"
+        ],
+        "rows": [
+          [
+            "LCP",
+            "Loading performance",
+            "≤ 2.5s",
+            "Slow main content"
+          ],
+          [
+            "INP",
+            "Responsiveness",
+            "< 200ms",
+            "Long main-thread work"
+          ],
+          [
+            "CLS",
+            "Visual stability",
+            "< 0.1",
+            "Late layout changes"
+          ],
+          [
+            "Field data",
+            "Real-user evidence",
+            "75th percentile",
+            "Unrepresentative lab"
+          ],
+          [
+            "Page experience",
+            "Holistic UX",
+            "Multiple signals",
+            "Single-score thinking"
+          ]
+        ],
+        "caption": "Core Web Vitals describe different failure modes, so each metric needs a different diagnosis."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/vitals-triad.svg",
+        "alt": "LCP, INP, and CLS editorial diagram",
+        "caption": "Load, respond, and stay stable are three different performance problems."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Core Web Vitals at a glance"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "LCP asks whether main content arrives quickly"
+      },
+      {
+        "type": "paragraph",
+        "text": "LCP measures when the largest visible content element is rendered. On many pages that means the hero image, headline, or another major content block."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "INP asks whether the interface responds quickly"
+      },
+      {
+        "type": "paragraph",
+        "text": "INP observes interaction latency throughout the page lifecycle and reports a value representing how consistently the page responds to user input."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "CLS asks whether the page stays where users expect"
+      },
+      {
+        "type": "paragraph",
+        "text": "CLS measures unexpected movement of visible content. Images, fonts, embeds, and dynamic UI can shift content when layout space is not reserved."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Measure real user experience where possible.",
+          "Identify the element or interaction behind the metric.",
+          "Separate root causes before assigning implementation work.",
+          "Verify the fix after release."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/lcp-path.svg",
+        "alt": "LCP diagnostic path",
+        "caption": "For LCP, trace the dependency chain that delays the main content."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "LCP: improving loading performance"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Find the LCP element"
+      },
+      {
+        "type": "paragraph",
+        "text": "Start by identifying the element users are waiting to see. That narrows the investigation to the resources and rendering work that affect the main visual content."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Reduce the critical path"
+      },
+      {
+        "type": "paragraph",
+        "text": "Optimize the important resource, remove blocking work, and defer content that does not contribute to the initial experience."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Verify with field data"
+      },
+      {
+        "type": "paragraph",
+        "text": "Lab tools are useful for controlled diagnosis while field data shows how real devices and networks experience the page."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "INP: improving responsiveness"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Find the slow interaction"
+      },
+      {
+        "type": "paragraph",
+        "text": "A filter, modal, mobile navigation, table, or search field can feel slow even when the page loaded quickly. Profile the interaction users actually experience as delayed."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Reduce main-thread contention"
+      },
+      {
+        "type": "paragraph",
+        "text": "Large JavaScript bundles, repeated rendering, expensive calculations, and third-party work can compete with interaction processing."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Give immediate feedback"
+      },
+      {
+        "type": "paragraph",
+        "text": "Technical optimization and interaction design work together. The interface should acknowledge user input while necessary work continues."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/inp-path.svg",
+        "alt": "INP interaction path",
+        "caption": "Responsiveness is an interaction problem, so trace the work triggered by the user's action."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "WEB PERFORMANCE",
+        "title": "Make performance part of the build, not the rescue plan",
+        "description": "Kapitech connects UX, frontend architecture, and measurement so important interactions stay fast as the product grows.",
+        "ctaLabel": "Discuss Performance",
+        "ctaUrl": "https://kapitech.id/contact",
+        "serviceReference": "seo-strategy"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "CLS: improving visual stability"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Reserve space for media"
+      },
+      {
+        "type": "paragraph",
+        "text": "Images and embedded content should have dimensions or an aspect-ratio strategy so later loading does not push visible content around."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Control dynamic UI"
+      },
+      {
+        "type": "paragraph",
+        "text": "Banners, recommendation modules, consent surfaces, and personalized blocks need predictable placement so they do not unexpectedly shift content."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Measure the whole lifecycle"
+      },
+      {
+        "type": "paragraph",
+        "text": "Visual stability can fail after initial load. Test scrolling and interaction states, not only the first viewport."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/cls-path.svg",
+        "alt": "CLS visual stability diagram",
+        "caption": "Reserve space before asynchronous content arrives to prevent surprise movement."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How to prioritize performance work"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Start with user impact"
+      },
+      {
+        "type": "paragraph",
+        "text": "A moderate issue on a conversion-critical page can be more urgent than a severe warning on a low-value utility page."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Separate symptoms from causes"
+      },
+      {
+        "type": "paragraph",
+        "text": "Do not create one giant performance ticket. Split work into server response, assets, JavaScript, layout, and third-party dependencies."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Define evidence before the fix"
+      },
+      {
+        "type": "paragraph",
+        "text": "Choose the affected metric, template, device group, or interaction before implementation so the result can be verified."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Priority",
+          "Example",
+          "Why it matters"
+        ],
+        "rows": [
+          [
+            "P0",
+            "Checkout interaction freezes",
+            "Direct task failure"
+          ],
+          [
+            "P1",
+            "Mobile LCP is consistently poor",
+            "Users wait before seeing primary content"
+          ],
+          [
+            "P1",
+            "Hero media shifts the page",
+            "Reading and click position can move"
+          ],
+          [
+            "P2",
+            "Moderate issue on a low-traffic utility page",
+            "Lower immediate impact"
+          ]
+        ],
+        "caption": "Performance prioritization should connect technical evidence to the user journey."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A media-heavy homepage scenario"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Problem: strong visuals, slow first impression"
+      },
+      {
+        "type": "paragraph",
+        "text": "A rich homepage can spend too much time downloading media and executing client-side work before the primary message becomes useful."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Risk: design hides delivery cost"
+      },
+      {
+        "type": "paragraph",
+        "text": "The experience may be excellent after load while the first interaction remains frustrating. The fix is to protect the critical content path rather than remove design quality blindly."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Evidence: template-level budgets"
+      },
+      {
+        "type": "paragraph",
+        "text": "Budgets for critical assets and interactions make performance measurable during ongoing delivery."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Performance and SEO are related, not identical"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Core Web Vitals are part of page experience"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google recommends good Core Web Vitals while also explaining that page experience is broader than the metrics themselves."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Relevance still matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "A fast page with the wrong answer is still the wrong page. Performance supports useful content rather than replacing it."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Fix the experience, not the score"
+      },
+      {
+        "type": "paragraph",
+        "text": "The durable optimization explains which experience is slow, why it is slow, and what evidence will prove the fix."
+      },
+      {
+        "type": "quote",
+        "text": "A fast page is not merely a low score. It is a page that lets people start, act, and continue without friction.",
+        "attribution": "Kapitech performance principle"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common mistakes to avoid"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "1. Chasing a perfect score"
+      },
+      {
+        "type": "paragraph",
+        "text": "Good Core Web Vitals do not guarantee top rankings. The objective is a better experience, not a perfect dashboard."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "2. Looking only at lab data"
+      },
+      {
+        "type": "paragraph",
+        "text": "Lab tests isolate causes; field data exposes real devices, networks, and interaction behavior."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "3. Optimizing without identifying the bottleneck"
+      },
+      {
+        "type": "paragraph",
+        "text": "A change that does not affect the user-visible slow point may have little value."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "4. Ignoring responsiveness after load"
+      },
+      {
+        "type": "paragraph",
+        "text": "INP highlights interaction quality after the first screen appears."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "5. Allowing late content to move the page"
+      },
+      {
+        "type": "paragraph",
+        "text": "Missing dimensions and injected UI can undermine otherwise strong performance."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "6. Treating performance as one-time cleanup"
+      },
+      {
+        "type": "paragraph",
+        "text": "New content and features can reintroduce bottlenecks."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "7. Making UX worse to improve a metric"
+      },
+      {
+        "type": "paragraph",
+        "text": "A lower number is not a win if users lose clarity, feedback, or useful content."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How Kapitech approaches performance"
+      },
+      {
+        "type": "paragraph",
+        "text": "Performance is treated at Kapitech as product quality. Users do not experience the frontend, CDN, or SEO layer separately; they experience whether the site loads, responds, and stays stable."
+      },
+      {
+        "type": "paragraph",
+        "text": "UX determines what is essential. Design determines hierarchy and asset behavior. Frontend architecture determines execution cost. Infrastructure determines delivery."
+      },
+      {
+        "type": "paragraph",
+        "text": "The most useful optimization plan names the user task, affected metric, root cause, and verification method."
+      },
+      {
+        "type": "callout",
+        "tone": "success",
+        "title": "Kapitech principle",
+        "text": "Do not ask how to make the score perfect. Ask which user experience is slow, why it is slow, and what evidence will prove the fix worked."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before you ship: Core Web Vitals checklist"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use this checklist for important templates, especially landing pages, editorial pages, and conversion-critical flows."
+      },
+      {
+        "type": "checklist",
+        "title": "Release checklist",
+        "items": [
+          "Identify the LCP element and protect its critical path.",
+          "Check LCP against the 2.5-second good threshold.",
+          "Profile important interactions and monitor INP below 200ms.",
+          "Reserve space for images, embeds, and dynamic media.",
+          "Monitor CLS below 0.1 for real user sessions.",
+          "Compare field evidence with lab diagnosis.",
+          "Test mobile devices and slower network conditions.",
+          "Review JavaScript and third-party work on important interactions.",
+          "Re-test after feature and content releases.",
+          "Prioritize work by user and business impact."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/performance-loop.svg",
+        "alt": "Performance optimization loop",
+        "caption": "Measure, trace, improve, and verify as one continuous performance loop."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "References and source material"
+      },
+      {
+        "type": "paragraph",
+        "text": "Primary documentation used for this guide:"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Core Web Vitals and Search",
+        "url": "https://developers.google.com/search/docs/appearance/core-web-vitals"
+      },
+      {
+        "type": "link",
+        "label": "Google Search Central — Page experience",
+        "url": "https://developers.google.com/search/docs/appearance/page-experience"
+      },
+      {
+        "type": "link",
+        "label": "web.dev — Largest Contentful Paint",
+        "url": "https://web.dev/articles/lcp"
+      },
+      {
+        "type": "link",
+        "label": "web.dev — Interaction to Next Paint",
+        "url": "https://web.dev/articles/inp"
+      },
+      {
+        "type": "link",
+        "label": "web.dev — Cumulative Layout Shift",
+        "url": "https://web.dev/articles/cls"
+      }
+    ]
+  }
+}
