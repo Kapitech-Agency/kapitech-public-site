@@ -602,12 +602,32 @@ export const InsightDetail: React.FC = () => {
 
         <header className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-95"
-            style={{ backgroundImage: "url('/insights/article-hero-background.jpg')" }}
+            className="absolute inset-0 overflow-hidden"
             aria-hidden="true"
-          />
+          >
+            <div
+              className="absolute -inset-[12%] opacity-95"
+              style={{
+                backgroundImage: [
+                  'radial-gradient(circle at 18% 18%, rgba(229, 9, 20, 0.16), transparent 30%)',
+                  'radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.07), transparent 24%)',
+                  'radial-gradient(circle at 58% 72%, rgba(229, 9, 20, 0.08), transparent 32%)',
+                  'linear-gradient(135deg, #17191F 0%, #0D0F12 48%, #090A0C 100%)'
+                ].join(', ')
+              }}
+            />
+            <div
+              className="absolute inset-0 opacity-45"
+              style={{
+                backgroundImage: 'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+                backgroundSize: '72px 72px',
+                maskImage: 'linear-gradient(to bottom, black, transparent 82%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black, transparent 82%)'
+              }}
+            />
+          </div>
           <div
-            className="absolute inset-0 bg-[#0B0C0E]/20"
+            className="absolute inset-0 bg-[#0B0C0E]/15"
             aria-hidden="true"
           />
           <div
