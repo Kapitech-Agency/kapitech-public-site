@@ -18,7 +18,8 @@ export const InsightCard: React.FC<{
   insight: InsightItem;
   language: 'id' | 'en';
   featured?: boolean;
-}> = ({ insight, language, featured = false }) => {
+  analyticsContext?: 'related' | 'library' | 'featured';
+}> = ({ insight, language, featured = false, analyticsContext }) => {
   const categoryName = insight.category?.displayName
     || insight.category?.name?.[language]
     || insight.category?.name?.en
