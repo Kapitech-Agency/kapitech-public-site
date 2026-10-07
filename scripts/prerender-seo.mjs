@@ -88,14 +88,22 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
 
   if (block.type === 'image') {
     const fallback = absoluteUrl('/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg');
-    const width = Number.isFinite(block.width) && Number(block.width) > 0 ? ' width="' + String(block.width) + '"' : '';
-    const height = Number.isFinite(block.height) && Number(block.height) > 0 ? ' height="' + String(block.height) + '"' : '';
-    return '<figure class="my-8 sm:my-10"><div class="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">' +
+    const widthValue = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : null;
+    const heightValue = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : null;
+    const width = widthValue ? ' width="' + String(widthValue) + '"' : '';
+    const height = heightValue ? ' height="' + String(heightValue) + '"' : '';
+    const aspectRatio = widthValue && heightValue
+      ? ' style="aspect-ratio:' + String(widthValue) + ' / ' + String(heightValue) + ';"'
+      : '';
+
+    return '<figure class="my-8 sm:my-10" data-kapi-article-visual="true"><div class="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">' +
       '<div class="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3"><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">' +
       escapeHtml(label('Visual artikel', 'Article visual')) + '</span><span class="text-[8px] font-mono tabular-nums text-[#4F5763]">' +
-      (width && height ? String(block.width) + ' × ' + String(block.height) : 'Visual') + '</span></div>' +
-      '<div class="overflow-hidden bg-[#0B0C0E]"><img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
-      ' loading="lazy" decoding="async" class="mx-auto block h-auto w-full max-w-full object-contain" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" /></div></div>' +
+      (widthValue && heightValue ? String(widthValue) + ' × ' + String(heightValue) : 'Visual') + '</span></div>' +
+      '<div class="relative overflow-hidden bg-[#0B0C0E]"' + aspectRatio + '><div class="flex h-full w-full items-center justify-center p-1 sm:p-1.5">' +
+      '<img src="' + escapeHtml(absoluteUrl(block.url)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
+      ' loading="lazy" decoding="async" class="' + (widthValue && heightValue ? 'block h-full w-full object-contain' : 'block h-auto w-full object-contain') +
+      '" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" /></div></div></div>' +
       (safeText(block.caption) ? '<figcaption class="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
       '</figure>';
   }
