@@ -91,7 +91,7 @@ export const Insights: React.FC = () => {
         // The same packs are also used by article-level fallback rendering.
         const fallbackItems = getAllInsightFallbacks().filter((item) => item.language === language);
         const filteredFallbacks = fallbackItems.filter((item) => {
-          const matchesCategory = !categoryId || item.categoryId === categoryId || item.category?.id === categoryId;
+          const matchesCategory = !categoryId || item.categoryId === categoryId || item.category?.id === categoryId || item.category?.slug === categoryId || categoryId === 'seed_category_product_technology' && item.category?.slug === 'product-technology';
           const query = search.trim().toLowerCase();
           const matchesSearch = !query || [item.title, item.excerpt, ...(item.tags || []).map((tag) => tag.name)].some((value) => String(value || '').toLowerCase().includes(query));
           return matchesCategory && matchesSearch;
