@@ -270,7 +270,7 @@ const renderInsightBody = (insight) => {
   if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '" class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#7D8592]">' + escapeHtml(new Intl.DateTimeFormat(insight.language === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
   html += '</div></div></div></div></div></header>';
 
-  html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
+  html += '<div class="mx-auto w-full max-w-[1600px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
   html += '<div class="mb-5 xl:hidden" aria-hidden="true">' +
     '<div class="mb-4 flex items-center gap-2 overflow-x-auto rounded-2xl border border-white/[0.07] bg-white/[0.014] p-2.5">' +
     '<span class="shrink-0 px-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.11em] text-[#E50914]">' +
@@ -291,7 +291,7 @@ const renderInsightBody = (insight) => {
 
   html += '<div class="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">';
   html += '<aside class="hidden xl:flex xl:flex-col xl:items-center xl:justify-self-end" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
-  html += '<article class="min-w-0 w-full justify-self-center px-0 sm:px-2 lg:px-12 text-[#C3C7D0]">';
+  html += '<article class="min-w-0 w-full justify-self-center px-0 sm:px-2 lg:px-8 text-[#C3C7D0]">';
 
   if (introductionBlocks.length) {
     html += '<section class="mb-12 sm:mb-14" aria-label="' + escapeHtml(label('Pendahuluan', 'Introduction')) + '">' +
