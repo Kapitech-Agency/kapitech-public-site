@@ -31,10 +31,12 @@ const INSIGHT_VISUAL_BASENAMES = [
   'framework'
 ] as const;
 
+const INSIGHT_VISUAL_ASSET_VERSION = '4a2c6c27';
+
 function resolveInsightVisualUrl(rawUrl: string, language: 'id' | 'en'): string {
   if (!rawUrl) return rawUrl;
 
-  const match = rawUrl.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)$/i);
+  const match = rawUrl.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)(?:\?.*)?$/i);
   if (!match) return rawUrl;
 
   const [, base, basename, extension] = match;
@@ -42,7 +44,7 @@ function resolveInsightVisualUrl(rawUrl: string, language: 'id' | 'en'): string 
     return rawUrl;
   }
 
-  return base + (language === 'id' ? '-id' : '') + extension;
+  return base + (language === 'id' ? '-id' : '') + extension + '?v=' + INSIGHT_VISUAL_ASSET_VERSION;
 }
 
 function inlineMarkdown(value: unknown): React.ReactNode[] {
