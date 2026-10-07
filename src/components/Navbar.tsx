@@ -55,7 +55,7 @@ export const Navbar = () => {
   }, []);
 
 
-  // Lock background scroll while the mobile navigation drawer is open.
+  // Lock background scroll and expose drawer state for other floating mobile UI.
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -68,15 +68,20 @@ export const Navbar = () => {
 
     if (isMenuOpen) {
       wasMobileMenuOpenRef.current = true;
+      document.body.dataset.kapiMobileMenuOpen = 'true';
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleKeyDown);
     } else if (wasMobileMenuOpenRef.current) {
       wasMobileMenuOpenRef.current = false;
+      delete document.body.dataset.kapiMobileMenuOpen;
       window.requestAnimationFrame(() => mobileMenuTriggerRef.current?.focus());
     }
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      if (!isMenuOpen) {
+        delete document.body.dataset.kapiMobileMenuOpen;
+      }
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isMenuOpen]);
@@ -152,7 +157,7 @@ export const Navbar = () => {
 
       <nav
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
+          "kapi-public-navbar fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b pt-[env(safe-area-inset-top)]",
           isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
@@ -545,7 +550,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               id="mobile-navigation"
               aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-              className="absolute left-0 right-0 top-full z-10 lg:hidden max-h-[calc(100dvh-4.5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
+              className="absolute left-0 right-0 top-full z-10 lg:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
               <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
                 <div className="flex flex-col">
