@@ -238,7 +238,7 @@ const renderInsightBody = (insight) => {
       '<span>' + escapeHtml(item.text) + '</span></a></li>').join('') +
     (faq.length ? '<li><a href="#faq-title" class="flex min-h-11 items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-[11px] font-medium text-[#C8CDD5]">' +
       '<span>FAQ</span>' + escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>' : '') +
-    '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-brand-red/25 bg-brand-red px-4 py-3.5 text-white">' +
+    '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white">' +
     '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
   html += '<div class="grid items-start gap-7 xl:grid-cols-[56px_minmax(0,820px)_304px] xl:justify-center">';
@@ -290,7 +290,7 @@ const renderInsightBody = (insight) => {
     html += '<li><a href="#faq-title" class="block rounded-[10px] px-2.5 py-2 text-[12.5px] font-medium text-[#C1C6CF]">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>';
   }
-  html += '</ol></nav></div><a href="/contact" class="group flex min-h-12 shrink-0 items-center justify-between gap-4 rounded-2xl border border-brand-red/25 bg-brand-red px-4 py-3.5 text-white"><span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' +
+  html += '</ol></nav></div><a href="/contact" class="group flex min-h-12 shrink-0 items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white"><span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' +
     escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div></aside>';
 
   html += '</div></div></main></div>';
