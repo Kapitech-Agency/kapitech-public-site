@@ -219,7 +219,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
       className="sticky top-24 hidden w-12 shrink-0 xl:flex xl:flex-col xl:items-center"
       aria-label={language === 'id' ? 'Bagikan dan progres artikel' : 'Article sharing and progress'}
     >
-      <span className="mb-3 text-[8px] font-mono uppercase tracking-[0.16em] text-[#5E6672] [writing-mode:vertical-rl]">
+      <span className="mb-3 w-full text-center text-[8px] font-mono uppercase tracking-[0.14em] text-[#5E6672]">
         {language === 'id' ? 'Bagikan' : 'Share'}
       </span>
 
