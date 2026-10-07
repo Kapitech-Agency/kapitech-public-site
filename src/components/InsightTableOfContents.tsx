@@ -580,7 +580,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'min-w-0 flex-1 line-clamp-2 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     active
-                      ? 'font-semibold text-white'
+                      ? 'font-semibold text-brand-red'
                       : 'font-medium text-[#C8CDD5]'
                   ].join(' ')}
                 >
