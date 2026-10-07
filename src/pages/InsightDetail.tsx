@@ -788,21 +788,21 @@ export const InsightDetail: React.FC = () => {
 
               {Array.isArray(article.keyTakeaways) && article.keyTakeaways.length > 0 && (
                 <section
-                  className="mb-11 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:mb-12"
+                  className="mb-10 overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:mb-12"
                   aria-labelledby="key-takeaways-title"
                 >
                   <div className="flex items-center justify-between gap-4 border-b border-white/[0.06] px-5 py-4 sm:px-6">
                     <div className="min-w-0">
                       <p id="key-takeaways-title" className="text-[9px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                        {article.language === 'id' ? 'Poin utama' : 'Article key takeaways'}
+                        {article.language === 'id' ? 'Poin utama' : 'Key takeaways'}
                       </p>
                       <p className="mt-1.5 text-xs leading-5 text-[#7D8592]">
                         {article.language === 'id'
-                          ? 'Gagasan yang paling penting untuk dibawa setelah membaca.'
-                          : 'The ideas worth carrying forward.'}
+                          ? 'Enam hal inti sebelum masuk ke detail.'
+                          : 'The core ideas to keep in mind before the detail.'}
                       </p>
                     </div>
-                    <span className="shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">
+                    <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">
                       {article.keyTakeaways.length}
                     </span>
                   </div>
@@ -811,10 +811,10 @@ export const InsightDetail: React.FC = () => {
                     {article.keyTakeaways.map((item, index) => (
                       <li
                         key={index}
-                        className="flex gap-3 bg-[#111216] px-5 py-4 text-sm leading-7 text-[#CBD0D8] transition-colors duration-200 hover:bg-[#15161A] sm:px-6"
+                        className="flex gap-3 bg-[#111216] px-5 py-3.5 text-sm leading-6 text-[#CBD0D8] transition-colors duration-200 hover:bg-[#15161A] sm:px-6"
                       >
                         <span
-                          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-red/[0.11] font-mono text-[9px] font-semibold tabular-nums text-brand-red"
+                          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-red/[0.11] font-mono text-[8px] font-semibold tabular-nums text-brand-red"
                           aria-hidden="true"
                         >
                           {String(index + 1).padStart(2, '0')}
@@ -836,15 +836,7 @@ export const InsightDetail: React.FC = () => {
 
               <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
 
-              <div className="pt-7">
-                <Link
-                  to="/insights"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
-                >
-                  <ArrowLeft size={14} aria-hidden="true" />
-                  {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
-                </Link>
-              </div>
+              <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
             </article>
 
             <InsightRightRail items={toc} language={article.language} />
