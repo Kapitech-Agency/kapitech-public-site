@@ -40,7 +40,7 @@ export const InsightCard: React.FC<{
       data-kapi-spotlight="true"
       onPointerMove={handlePointerMove}
       className={[
-        'group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300',
+        'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300',
         'hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)]'
       ].join(' ')}
     >
@@ -64,7 +64,7 @@ export const InsightCard: React.FC<{
             </span>
           </Link>
         ) : (
-          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className="relative flex aspect-[16/9] overflow-hidden bg-[#101114]">
+          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className="relative flex aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(229,9,20,0.15),transparent_30%),linear-gradient(135deg,#15171D,#090A0C)]" aria-hidden="true" />
             <div className="absolute left-4 top-4">
               <span className="kapi-section-label !border-white/[0.08] !bg-[#0B0C0E]/72 !px-3 !py-1.5 !text-[8px]">
@@ -97,7 +97,7 @@ export const InsightCard: React.FC<{
           </p>
         )}
 
-        <div className="mt-7 flex items-end justify-between gap-4">
+        <div className="mt-auto flex items-end justify-between gap-4 pt-7">
           <div className="min-w-0">
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-x-2.5 gap-y-1">
@@ -119,6 +119,7 @@ export const InsightCard: React.FC<{
                   'data-related-insight-slug': insight.slug
                 }
               : {})}
+            aria-label={(language === 'id' ? 'Buka Insight: ' : 'Open Insight: ') + insight.title}
             className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           >
             {language === 'id' ? 'Buka' : 'Open'}
