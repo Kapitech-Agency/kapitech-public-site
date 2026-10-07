@@ -80,13 +80,13 @@ class InsightDetailErrorBoundary extends React.Component<
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {this.props.language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
             <Link
               to="/insights"
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.04] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {this.props.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
             </Link>
@@ -438,7 +438,7 @@ export const InsightDetail: React.FC = () => {
           </p>
           <Link
             to="/insights"
-            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-white/[0.16] hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
@@ -465,13 +465,13 @@ export const InsightDetail: React.FC = () => {
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
             <Link
               to="/insights"
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
             </Link>
@@ -509,7 +509,7 @@ export const InsightDetail: React.FC = () => {
           </p>
           <Link
             to="/insights"
-            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-brand-red/35 hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+            className="mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.035] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color] duration-300 hover:border-white/[0.16] hover:bg-brand-red/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             {language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
@@ -538,14 +538,14 @@ export const InsightDetail: React.FC = () => {
             >
               <Link
                 to="/"
-                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
               >
                 {article.language === 'id' ? 'Beranda' : 'Home'}
               </Link>
               <ChevronRight size={11} className="shrink-0" aria-hidden="true" />
               <Link
                 to="/insights"
-                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                className="shrink-0 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
               >
                 {article.language === 'id' ? 'Insight' : 'Insights'}
               </Link>
@@ -772,7 +772,7 @@ export const InsightDetail: React.FC = () => {
               <div className="pt-7">
                 <Link
                   to="/insights"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-brand-red/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
                 >
                   <ArrowLeft size={14} aria-hidden="true" />
                   {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
