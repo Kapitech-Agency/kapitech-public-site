@@ -268,7 +268,7 @@ const renderInsightBody = (insight) => {
   if (insight.readingTime) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#A2A9B6]">' + escapeHtml(String(insight.readingTime)) + ' ' + escapeHtml(label('menit baca', 'min read')) + '</span>';
   if (insight.editorialMeta?.reviewedBy) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tracking-[0.08em] text-[#A2A9B6]">' + escapeHtml(label('Ditinjau oleh ', 'Reviewed by ')) + escapeHtml(insight.editorialMeta.reviewedBy) + '</span>';
   if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '" class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#7D8592]">' + escapeHtml(new Intl.DateTimeFormat(insight.language === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
-  html += '</div></div></div></div></header>';
+  html += '</div></div></div></div></div></header>';
 
   html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
   html += '<div class="mb-5 xl:hidden" aria-hidden="true">' +
