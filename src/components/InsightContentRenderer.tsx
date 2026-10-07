@@ -23,6 +23,28 @@ function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean; inte
   }
 }
 
+const INSIGHT_VISUAL_BASENAMES = [
+  'validate',
+  'learning-loop',
+  'comparison',
+  'decision-tree',
+  'framework'
+] as const;
+
+function resolveInsightVisualUrl(rawUrl: string, language: 'id' | 'en'): string {
+  if (!rawUrl) return rawUrl;
+
+  const match = rawUrl.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)$/i);
+  if (!match) return rawUrl;
+
+  const [, base, basename, extension] = match;
+  if (!INSIGHT_VISUAL_BASENAMES.includes(basename as typeof INSIGHT_VISUAL_BASENAMES[number])) {
+    return rawUrl;
+  }
+
+  return base + (language === 'id' ? '-id' : '') + extension;
+}
+
 function inlineMarkdown(value: unknown): React.ReactNode[] {
   const safeValue = typeof value === 'string' ? value : String(value ?? '');
   const tokens = safeValue
@@ -210,7 +232,7 @@ export const InsightContentRenderer: React.FC<{
                 >
                   <div className="flex h-full w-full items-center justify-center p-1 sm:p-1.5">
                     <img
-                      src={block.url}
+                      src={resolveInsightVisualUrl(block.url, language)}
                       alt={block.alt || ''}
                       width={width}
                       height={height}
