@@ -962,7 +962,7 @@ export const InsightDetail: React.FC = () => {
           <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
             <div className="hidden xl:block" aria-hidden="true" />
             <section
-              className="w-full mt-16 sm:mt-20"
+              className="w-full mt-16 px-0 sm:mt-20 sm:px-2 lg:px-8"
               aria-labelledby="article-final-cta-title"
             >
             <div className="overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
