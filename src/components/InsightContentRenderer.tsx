@@ -221,8 +221,8 @@ export const InsightContentRenderer: React.FC<{
                   <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">
                     {language === 'id' ? 'Visual artikel' : 'Article visual'}
                   </span>
-                  <span className="text-[8px] font-mono tabular-nums text-[#4F5763]">
-                    {width && height ? width + ' × ' + height : 'Visual'}
+                  <span className="text-[8px] font-mono uppercase tracking-[0.12em] text-[#4F5763]">
+                    {language === 'id' ? 'Referensi visual' : 'Visual reference'}
                   </span>
                 </div>
 
@@ -289,12 +289,21 @@ export const InsightContentRenderer: React.FC<{
                 </div>
               </div>
 
-              <div
-                className="overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset"
-                tabIndex={0}
-                role="region"
-                aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
-              >
+              <div className="relative">
+                <div
+                  className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden w-6 bg-gradient-to-r from-[#0F1013] to-transparent sm:block"
+                  aria-hidden="true"
+                />
+                <div
+                  className="pointer-events-none absolute inset-y-0 right-0 z-20 w-8 bg-gradient-to-l from-[#0F1013] to-transparent"
+                  aria-hidden="true"
+                />
+                <div
+                  className="overflow-x-auto overscroll-x-contain scroll-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset"
+                  tabIndex={0}
+                  role="region"
+                  aria-label={block.caption || (language === 'id' ? 'Tabel artikel, geser secara horizontal untuk melihat semua kolom' : 'Article table, scroll horizontally to view all columns')}
+                >
                 <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                   {block.caption && (
                     <caption className="caption-top border-b border-white/[0.06] px-4 py-3.5 text-left text-xs leading-5 text-[#7A8290]">
@@ -331,7 +340,7 @@ export const InsightContentRenderer: React.FC<{
                           <td
                             key={cellIndex}
                             className={[
-                              'px-4 py-4 align-top text-[13px] leading-[1.65] text-[#B9BEC8] sm:text-[13.5px]',
+                              'min-w-0 px-4 py-4 align-top text-[13px] leading-[1.65] text-[#B9BEC8] sm:text-[13.5px]',
                               cellIndex === 0
                                 ? 'sticky left-0 z-[5] bg-[#0F1013] font-medium text-white shadow-[1px_0_0_rgba(255,255,255,0.055)]'
                                 : ''
@@ -344,6 +353,7 @@ export const InsightContentRenderer: React.FC<{
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
           );
