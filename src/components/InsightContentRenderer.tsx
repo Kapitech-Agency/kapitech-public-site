@@ -237,7 +237,6 @@ export const InsightContentRenderer: React.FC<{
             : undefined;
           const visualIndex = articleVisualIndex++;
           const resolvedSrc = resolveInsightVisualUrl(block.url, language);
-          const visualLabel = language === 'id' ? 'Visual' : 'Visual';
           const openLabel = language === 'id' ? 'Perbesar visual' : 'Open visual';
 
           return (
@@ -259,16 +258,10 @@ export const InsightContentRenderer: React.FC<{
                   aria-label={openLabel + ': ' + (block.alt || visualLabel + ' ' + String(visualIndex + 1))}
                 >
                   <span
-                    className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/75 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
+                    className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/75 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-100 backdrop-blur-md transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                   >
                     <Maximize2 size={11} aria-hidden="true" />
                     {language === 'id' ? 'Perbesar' : 'Expand'}
-                  </span>
-
-                  <span
-                    className="pointer-events-none absolute right-4 top-4 z-10 rounded-full border border-white/[0.09] bg-[#0B0C0E]/70 px-2.5 py-1.5 text-[8px] font-mono tabular-nums text-[#737B88] backdrop-blur-md"
-                  >
-                    {String(visualIndex + 1).padStart(2, '0')}
                   </span>
 
                   <div
