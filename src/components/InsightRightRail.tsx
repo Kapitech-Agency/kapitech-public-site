@@ -9,7 +9,7 @@ export const InsightRightRail: React.FC<{
   language: InsightLanguage;
 }> = ({ items, language }) => (
   <aside
-    className="sticky top-24 hidden h-[calc(100dvh-7rem)] min-h-0 xl:block"
+    className="sticky top-24 hidden h-[calc(100dvh-7rem)] min-h-0 w-[304px] xl:block xl:justify-self-start"
     aria-label={language === 'id' ? 'Navigasi artikel' : 'Article navigation'}
   >
     <div className="flex h-full min-h-0 flex-col gap-3">
