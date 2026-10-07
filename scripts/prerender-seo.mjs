@@ -283,7 +283,7 @@ const renderInsightBody = (insight) => {
     escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><ol class="space-y-1">';
   for (const item of toc) {
     html += '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
-      (item.level === 3 ? 'pl-7 text-[11px] text-[#737C89]' : 'text-[12.5px] font-medium text-[#C1C6CF]') +
+      'text-[12.5px] font-medium text-[#C8CDD5]' +
       '">' + escapeHtml(item.text) + '</a></li>';
   }
   if (faq.length) {
