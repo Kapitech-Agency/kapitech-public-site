@@ -153,25 +153,13 @@ export const Navbar = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b",
-          isMenuOpen
-            ? "flex flex-col h-fit min-h-0 overflow-hidden py-0 border-transparent shadow-none bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
-            : isScrolled
+          isScrolled
               ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : isServicesDropdownOpen
                 ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
-        {isMenuOpen && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[#0B0C0E]/18 backdrop-blur-3xl backdrop-saturate-150 border-b border-white/[0.08]"
-            style={{
-              backdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
-              WebkitBackdropFilter: 'blur(72px) saturate(1.18) brightness(0.82)',
-            }}
-          />
-        )}
         {/* Scroll Progress Bar */}
         <motion.div 
           className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
@@ -180,7 +168,6 @@ export const Navbar = () => {
         <div
           className={cn(
             "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
-            isMenuOpen && "py-4 sm:py-5"
           )}
         >
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
@@ -391,10 +378,10 @@ export const Navbar = () => {
               aria-expanded={isMenuOpen}
               aria-controls="mobile-navigation"
               className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] flex items-center justify-center text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_22px_rgba(0,0,0,0.14)] active:bg-white/[0.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 shrink-0 cursor-pointer", controlGlassMaterial)}
-              onClick={() => setIsMenuOpen(true)}
-              aria-label="Open Navigation Menu"
+              onClick={() => setIsMenuOpen(prev => !prev)}
+              aria-label={isMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
             >
-              <Menu size={22} />
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -553,315 +540,228 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* Expanded hamburger menu: part of the same navbar glass surface */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            id="mobile-navigation"
-            aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-            className="relative z-20 flex-none min-h-0 w-full overflow-hidden pointer-events-auto bg-transparent">
-            <div
-              className="relative z-10 flex min-h-0 max-h-[calc(100dvh-5rem)] flex-col overflow-y-auto px-5 py-5 sm:px-8 sm:py-7 bg-transparent"
+        {/* Mobile navigation drawer. The main navbar remains the single header; the drawer opens below it. */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              id="mobile-navigation"
+              aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
+              className="absolute left-0 right-0 top-full z-10 lg:hidden max-h-[calc(100dvh-4.5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
-            {/* Header in Mobile Menu */}
-            <div className="flex justify-between items-center pb-4 border-b border-[#262930] shrink-0">
-              <Link 
-                to="/" 
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2.5 group"
-              >
-                <img 
-                  src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
-                  alt="Kapitech" 
-                  className="h-6 sm:h-[22px] w-auto max-h-7 object-contain shrink-0 transition-opacity group-hover:opacity-90 select-none"
-                />
-              </Link>
-              
-              <div className="flex items-center gap-2">
-                <div className={cn("flex items-center gap-0.5 p-1 rounded-full border border-white/[0.1] text-[11px] font-mono font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.08)]", navbarGlassMaterial)}>
-                  <button
-                    onClick={() => setLanguage('en')}
-                    className={cn(
-                      "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                      language === 'en' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                    )}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => setLanguage('id')}
-                    className={cn(
-                      "min-w-[40px] min-h-[40px] py-1 px-2.5 rounded-full transition-colors flex items-center justify-center cursor-pointer",
-                      language === 'id' ? "bg-brand-red text-white font-bold" : "text-[#8A909D]"
-                    )}
-                  >
-                    ID
-                  </button>
-                </div>
-
-                <button 
-                  onClick={() => setIsMenuOpen(false)} 
-                  className={cn("w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-white/[0.1] hover:border-brand-red/45 hover:bg-brand-red/68 hover:text-white active:bg-brand-red/78 transition-[background-color,border-color,color,box-shadow] duration-300 text-white flex items-center justify-center shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_6px_18px_rgba(0,0,0,0.08)]", controlGlassMaterial)}
-                  aria-label="Close menu"
-                >
-                  <X size={22} />
-                </button>
-              </div>
-            </div>
-
-            {/* Nav Links in Mobile */}
-            <div className="flex flex-col my-auto py-8">
-              
-              {/* Work */}
-              <Link
-                to="/work"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
-                  location.pathname === '/work' 
-                    ? "text-white font-bold border-brand-red/60" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">01</span>
-                  <span className="text-xl font-display">{t('nav.work')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              {/* Services & Solutions (Accordion in Mobile Menu) */}
-              <div className={cn("border-b border-[#262930] overflow-hidden", isServicesActive && "border-brand-red/60")}>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileServicesOpen(prev => !prev)}
-                  aria-expanded={isMobileServicesOpen}
-                  aria-controls="mobile-services-submenu"
-                  aria-current={isServicesActive ? 'page' : undefined}
-                  className={cn(
-                    "w-full flex items-center justify-between py-3.5 px-1 text-left font-display text-xl min-h-[52px] cursor-pointer",
-                    isServicesActive ? "text-white font-bold" : "text-[#8A909D] hover:text-white"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono text-brand-red">02</span>
-                    <span>{t('nav.services')}</span>
-                  </div>
-                  <ChevronDown className={cn("w-5 h-5 text-[#8A909D] transition-transform duration-200", isMobileServicesOpen ? "rotate-180 text-brand-red" : "")} />
-                </button>
-
-                <AnimatePresence>
-                  {isMobileServicesOpen && (
-                    <motion.div id="mobile-services-submenu"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-4 pb-4 space-y-4 border-t border-[#262930] pt-3"
+              <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
+                <div className="flex flex-col">
+                  {/* Nav Links in Mobile */}
+                  <div className="flex flex-col">
+                    <Link
+                      to="/work"
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isWorkActive ? 'page' : undefined}
+                      className={cn(
+                        "flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
+                        isWorkActive
+                          ? "bg-brand-red/[0.08] text-white"
+                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                      )}
                     >
-                      {/* Solutions */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          SOLUTIONS
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {solutions.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/solutions/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white font-medium"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 text-xs font-mono text-brand-red">01</span>
+                        <span className="text-xl font-display">{t('nav.work')}</span>
                       </div>
+                      <ChevronRight size={18} className={cn(isWorkActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                    </Link>
 
-                      {/* Branding */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          BRANDING
+                    <div className="mt-1 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => setIsMobileServicesOpen(prev => !prev)}
+                        aria-expanded={isMobileServicesOpen}
+                        aria-controls="mobile-services-submenu"
+                        aria-current={isServicesActive ? 'page' : undefined}
+                        className={cn(
+                          "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
+                          isServicesActive || isMobileServicesOpen
+                            ? "bg-brand-red/[0.08] text-white"
+                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 text-xs font-mono text-brand-red">02</span>
+                          <span>{t('nav.services')}</span>
                         </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {branding.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
+                        <ChevronDown
+                          className={cn(
+                            "w-5 h-5 transition-transform duration-200",
+                            isMobileServicesOpen ? "rotate-180 text-brand-red" : "text-[#8A909D]/60"
+                          )}
+                        />
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {isMobileServicesOpen && (
+                          <motion.div
+                            id="mobile-services-submenu"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-2 space-y-4 rounded-xl bg-white/[0.018] px-4 py-4">
+                              {[
+                                { label: 'SOLUTIONS', items: solutions, base: '/solutions/' },
+                                { label: 'BRANDING', items: branding, base: '/services/' },
+                                { label: 'DESIGN', items: design, base: '/services/' },
+                                { label: 'DEVELOPMENT', items: development, base: '/services/' }
+                              ].map((group) => (
+                                <div key={group.label}>
+                                  <div className="mb-2 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                                    {group.label}
+                                  </div>
+                                  <div className="space-y-1">
+                                    {group.items.map(item => {
+                                      const itemPath = `${group.base}${item.slug}`;
+                                      const itemActive = location.pathname === itemPath;
+                                      return (
+                                        <Link
+                                          key={item.slug}
+                                          to={itemPath}
+                                          onClick={() => setIsMenuOpen(false)}
+                                          aria-current={itemActive ? 'page' : undefined}
+                                          className={cn(
+                                            "flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                                            itemActive
+                                              ? "bg-brand-red/[0.08] text-white"
+                                              : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                                          )}
+                                        >
+                                          <span>{item.title}</span>
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              ))}
+
+                              <Link
+                                to="/services"
+                                onClick={() => setIsMenuOpen(false)}
+                                aria-current={location.pathname === '/services' ? 'page' : undefined}
+                                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-3 text-xs font-mono uppercase tracking-[0.12em] text-brand-red transition-colors hover:bg-brand-red/[0.08]"
+                              >
+                                <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
+                                <ArrowUpRight className="w-3.5 h-3.5" />
+                              </Link>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    <Link
+                      to="/insights"
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isInsightsActive ? 'page' : undefined}
+                      className={cn(
+                        "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
+                        isInsightsActive
+                          ? "bg-brand-red/[0.08] text-white"
+                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 text-xs font-mono text-brand-red">03</span>
+                        <span className="text-xl font-display">{t('nav.insights')}</span>
                       </div>
+                      <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                    </Link>
 
-                      {/* Design */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          DESIGN
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {design.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
+                    <Link
+                      to="/about"
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isAboutActive ? 'page' : undefined}
+                      className={cn(
+                        "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
+                        isAboutActive
+                          ? "bg-brand-red/[0.08] text-white"
+                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 text-xs font-mono text-brand-red">04</span>
+                        <span className="text-xl font-display">{t('nav.about')}</span>
                       </div>
+                      <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                    </Link>
 
-                      {/* Development */}
-                      <div>
-                        <div className="text-[11px] font-mono text-brand-red font-semibold uppercase tracking-wider mb-2">
-                          DEVELOPMENT
-                        </div>
-                        <div className="space-y-2 pl-2 border-l border-[#262930]">
-                          {development.map(item => (
-                            <Link
-                              key={item.slug}
-                              to={`/services/${item.slug}`}
-                              onClick={() => setIsMenuOpen(false)}
-                              className="flex min-h-[44px] items-center py-2 text-sm text-[#8A909D] hover:text-white"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
+                    <Link
+                      to="/careers"
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isCareersActive ? 'page' : undefined}
+                      className={cn(
+                        "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
+                        isCareersActive
+                          ? "bg-brand-red/[0.08] text-white"
+                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 text-xs font-mono text-brand-red">05</span>
+                        <span className="text-xl font-display">{t('nav.careers')}</span>
                       </div>
+                      <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                    </Link>
 
-                      <div className="pt-2">
-                        <Link
-                          to="/services"
-                          onClick={() => setIsMenuOpen(false)}
-                          className="inline-flex min-h-[44px] items-center gap-1.5 text-xs text-brand-red font-mono uppercase tracking-wider py-1.5"
-                        >
-                          <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                    <Link
+                      to="/contact"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] text-xs font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/45 hover:bg-brand-red hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)]"
+                      data-cursor-label="Start"
+                    >
+                      <span>{t('nav.startProject')}</span>
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  </div>
 
-              {/* Insights */}
-              <Link
-                to="/insights"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
-                  isInsightsActive
-                    ? "text-white font-bold border-brand-red/60"
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">03</span>
-                  <span className="text-xl font-display">{t('nav.insights')}</span>
+                  {/* Quick Contact & Footer */}
+                  <div className="mt-5 border-t border-white/[0.07] pt-5 space-y-3">
+                    <a
+                      href="https://wa.me/6287769957062?text=Halo%20Kapitech%20Agency,%20saya%20ingin%20konsultasi%20proyek."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 text-sm text-white transition-colors hover:bg-white/[0.045] active:bg-white/[0.06]"
+                    >
+                      <Phone size={15} className="text-brand-red shrink-0" />
+                      <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
+                    </a>
+                    <a
+                      href="mailto:hello@kapitech.id"
+                      className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 text-sm text-white transition-colors hover:bg-white/[0.045] active:bg-white/[0.06]"
+                    >
+                      <Mail size={15} className="text-brand-red shrink-0" />
+                      <span className="truncate">hello@kapitech.id</span>
+                    </a>
+                    <div className="flex items-center justify-between pt-1 text-xs text-[#8A909D]">
+                      <a
+                        href="https://www.instagram.com/kapitechagency/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Kapitech Agency on Instagram"
+                        className="text-[#8A909D] transition-colors hover:text-white"
+                      >
+                        <Instagram size={16} />
+                      </a>
+                      <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
+                    </div>
+                  </div>
                 </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              {/* About */}
-              <Link
-                to="/about"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
-                  location.pathname === '/about' 
-                    ? "text-white font-bold border-brand-red/60" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">03</span>
-                  <span className="text-xl font-display">{t('nav.about')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              {/* Careers */}
-              <Link
-                to="/careers"
-                onClick={() => setIsMenuOpen(false)}
-                className={cn(
-                  "flex items-center justify-between py-3.5 px-1 border-b border-[#262930] transition-colors min-h-[52px]",
-                  location.pathname === '/careers' 
-                    ? "text-white font-bold border-brand-red/60" 
-                    : "text-[#8A909D] hover:text-white hover:bg-[#16181D] active:bg-[#16181D]"
-                )}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-brand-red">04</span>
-                  <span className="text-xl font-display">{t('nav.careers')}</span>
-                </div>
-                <ChevronRight size={18} className="text-[#8A909D]/40" />
-              </Link>
-
-              <div className="pt-4 mt-1">
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="group relative isolate w-full h-12 rounded-xl border border-white/[0.1] bg-[#16181D] text-[#F3F4F6] flex items-center justify-center text-xs font-semibold uppercase tracking-wider gap-2 transition-[background-color,border-color,color,box-shadow] duration-500 ease-out hover:border-brand-red/45 hover:bg-brand-red hover:text-white hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)] cursor-pointer"
-                  data-cursor-label="Start"
-                >
-
-                  <span className="relative z-10">{t('nav.startProject')}</span>
-                  <ArrowUpRight size={16} className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </Link>
               </div>
-            </div>
-
-            {/* Quick Contact & Footer in Drawer */}
-            <div className="pt-4 border-t border-[#262930] space-y-3 shrink-0">
-              <div className="grid grid-cols-1 gap-2 text-xs">
-                <a
-                  href="https://wa.me/6287769957062?text=Halo%20Kapitech%20Agency,%20saya%20ingin%20konsultasi%20proyek."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-[#16181D] border border-[#262930] flex items-center gap-2.5 text-white active:bg-[#1B1F26] transition-colors min-h-[44px]"
-                >
-                  <Phone size={15} className="text-brand-red shrink-0" />
-                  <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
-                </a>
-                <div className="grid grid-cols-1 gap-2">
-                  <a
-                    href="mailto:hello@kapitech.id"
-                    className="flex min-h-[44px] items-center gap-2.5 border-b border-[#262930] px-1 py-3 text-white transition-colors active:text-brand-red"
-                  >
-                    <Mail size={15} className="text-brand-red shrink-0" />
-                    <span className="truncate">hello@kapitech.id</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs text-[#8A909D] pt-1">
-                <a
-                  href="https://www.instagram.com/kapitechagency/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Kapitech Agency on Instagram"
-                  className="text-[#8A909D] transition-colors hover:text-white"
-                >
-                  <Instagram size={16} />
-                </a>
-                <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
-              </div>
-            </div>
-          </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
 
