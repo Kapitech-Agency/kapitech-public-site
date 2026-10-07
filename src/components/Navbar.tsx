@@ -160,11 +160,6 @@ export const Navbar = () => {
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
       >
-        {/* Scroll Progress Bar */}
-        <motion.div 
-          className="absolute top-0 left-0 right-0 h-[2px] bg-brand-red origin-left"
-          style={{ scaleX }}
-        />
         <div
           className={cn(
             "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
@@ -563,7 +558,7 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isWorkActive
-                          ? "bg-brand-red/[0.08] text-white"
+                          ? "bg-brand-red/[0.08] text-brand-red"
                           : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
@@ -584,7 +579,7 @@ export const Navbar = () => {
                         className={cn(
                           "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
                           isServicesActive || isMobileServicesOpen
-                            ? "bg-brand-red/[0.08] text-white"
+                            ? "bg-brand-red/[0.08] text-brand-red"
                             : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
                         )}
                       >
@@ -668,7 +663,7 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isInsightsActive
-                          ? "bg-brand-red/[0.08] text-white"
+                          ? "bg-brand-red/[0.08] text-brand-red"
                           : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
@@ -686,7 +681,7 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isAboutActive
-                          ? "bg-brand-red/[0.08] text-white"
+                          ? "bg-brand-red/[0.08] text-brand-red"
                           : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
@@ -704,7 +699,7 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isCareersActive
-                          ? "bg-brand-red/[0.08] text-white"
+                          ? "bg-brand-red/[0.08] text-brand-red"
                           : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
