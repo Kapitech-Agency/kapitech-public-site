@@ -77,7 +77,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   }
 
   if (block.type === 'quote') {
-    return '<figure class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/45 bg-white/[0.018] p-5 sm:my-8 sm:p-6">' +
+    return '<figure class="my-7 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-8 sm:p-6">' +
       '<blockquote class="max-w-3xl font-display text-[1.18rem] leading-[1.55] tracking-[-0.015em] text-white sm:text-[1.35rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' +
       (safeText(block.attribution) ? '<figcaption class="mt-3 text-xs text-[#747C88]">' + escapeHtml(block.attribution) + '</figcaption>' : '') +
@@ -138,7 +138,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
       ? 'border-l-amber-400/55'
       : block.tone === 'success'
         ? 'border-l-emerald-400/55'
-        : 'border-l-brand-red/50';
+        : 'border-l-white/[0.12]';
     return '<aside class="my-7 rounded-2xl border border-white/[0.08] border-l-2 bg-white/[0.018] p-5 ' + border + '">' +
       (safeText(block.title) ? '<p class="mb-1 text-sm font-semibold text-white">' + escapeHtml(block.title) + '</p>' : '') +
       '<p class="text-sm font-light leading-7 text-[#B9BEC8]">' + inlineMarkdownToHtml(block.text) + '</p></aside>';
