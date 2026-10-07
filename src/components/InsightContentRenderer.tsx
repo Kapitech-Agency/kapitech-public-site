@@ -123,7 +123,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'paragraph') {
           return (
-            <p key={index} className="mb-5 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
+            <p key={index} className="mb-5 max-w-none text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
               {inlineMarkdown(block.text)}
             </p>
           );
