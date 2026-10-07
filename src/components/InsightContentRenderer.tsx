@@ -184,9 +184,14 @@ export const InsightContentRenderer: React.FC<{
           const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
 
+          const hasIntrinsicDimensions = Boolean(width && height);
+          const visualAspectRatio = hasIntrinsicDimensions
+            ? String(width) + ' / ' + String(height)
+            : undefined;
+
           return (
-            <figure key={index} className="my-8 sm:my-10">
-              <div className="group overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+            <figure key={index} className="my-8 sm:my-10" data-kapi-article-visual="true">
+              <div className="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
                 <div className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3">
                   <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">
                     {language === 'id' ? 'Visual artikel' : 'Article visual'}
@@ -195,25 +200,37 @@ export const InsightContentRenderer: React.FC<{
                     {width && height ? width + ' × ' + height : 'Visual'}
                   </span>
                 </div>
-                <div className="overflow-hidden bg-[#0B0C0E]">
-                  <img
-                    src={block.url}
-                    alt={block.alt || ''}
-                    width={width}
-                    height={height}
-                    loading="lazy"
-                    decoding="async"
-                    className="mx-auto block h-auto w-full max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.006]"
-                    sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
-                    onError={(event) => {
-                      const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
-                      if (event.currentTarget.src.endsWith(fallback)) return;
-                      event.currentTarget.src = fallback;
-                      event.currentTarget.alt = language === 'id'
-                        ? 'Visual artikel Kapitech'
-                        : 'Kapitech article visual';
-                    }}
-                  />
+
+                <div
+                  className="relative overflow-hidden bg-[#0B0C0E]"
+                  style={{ aspectRatio: visualAspectRatio }}
+                >
+                  <div className="flex h-full w-full items-center justify-center p-1 sm:p-1.5">
+                    <img
+                      src={block.url}
+                      alt={block.alt || ''}
+                      width={width}
+                      height={height}
+                      loading={index <= 2 ? 'eager' : 'lazy'}
+                      fetchPriority={index === 2 ? 'high' : 'auto'}
+                      decoding="async"
+                      className={[
+                        'block max-w-full object-contain',
+                        hasIntrinsicDimensions
+                          ? 'h-full w-full'
+                          : 'h-auto w-full'
+                      ].join(' ')}
+                      sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
+                      onError={(event) => {
+                        const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
+                        if (event.currentTarget.src.endsWith(fallback)) return;
+                        event.currentTarget.src = fallback;
+                        event.currentTarget.alt = language === 'id'
+                          ? 'Visual artikel Kapitech'
+                          : 'Kapitech article visual';
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               {block.caption && (
