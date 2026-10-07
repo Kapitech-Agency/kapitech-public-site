@@ -91,7 +91,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
     return '<figure class="my-8 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:my-9">' +
       '<div class="flex items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-3.5 sm:px-6"><span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.045] text-[#8E96A4]">“</span><span class="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#626A76]">' +
       escapeHtml(label('Catatan', 'Field note')) + '</span></div>' +
-      '<div class="px-5 py-6 sm:px-6 sm:py-7"><blockquote class="max-w-3xl font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">' +
+      '<div class="px-5 py-6 sm:px-6 sm:py-7"><blockquote class="w-full font-display text-[1.18rem] font-medium leading-[1.55] tracking-[-0.018em] text-white sm:text-[1.35rem]">' +
       inlineMarkdownToHtml(block.text) + '</blockquote>' +
       (safeText(block.attribution) ? '<figcaption class="mt-4 flex items-center gap-2 text-xs text-[#7A8290]"><span class="h-px w-5 bg-white/[0.12]" aria-hidden="true"></span>' + escapeHtml(block.attribution) + '</figcaption>' : '') +
       '</div></figure>';
@@ -116,7 +116,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
       '<img src="' + escapeHtml(absoluteUrl(visualUrl)) + '" alt="' + escapeHtml(block.alt || insight.title) + '"' + width + height +
       ' loading="lazy" decoding="async" class="' + (widthValue && heightValue ? 'block h-full w-full object-contain' : 'block h-auto w-full object-contain') +
       '" sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)" onerror="this.onerror=null;this.src=\'' + escapeHtml(fallback) + '\';" /></div></div></div>' +
-      (safeText(block.caption) ? '<figcaption class="mt-3 max-w-[70ch] text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
+      (safeText(block.caption) ? '<figcaption class="mt-3 w-full text-xs leading-5 text-[#737B88]">' + inlineMarkdownToHtml(block.caption) + '</figcaption>' : '') +
       '</figure>';
   }
 
