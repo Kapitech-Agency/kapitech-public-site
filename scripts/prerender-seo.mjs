@@ -249,7 +249,7 @@ const renderInsightBody = (insight) => {
   let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
     '<main class="mx-auto w-full max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-10">';
 
-  html += '<header class="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image:url(\'/insights/article-hero-background.svg\')" aria-hidden="true"></div><div class="absolute inset-0 bg-[#0B0C0E]/48" aria-hidden="true"></div><div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]" aria-hidden="true"></div><div class="relative mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">
+  html += '<header class="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image:url(\'/insights/article-hero-background.jpg\')" aria-hidden="true"></div><div class="absolute inset-0 bg-[#0B0C0E]/48" aria-hidden="true"></div><div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]" aria-hidden="true"></div><div class="relative mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">
   html += '<nav class="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">' +
     '<a href="/" class="shrink-0">' + escapeHtml(label('Beranda', 'Home')) + '</a><span aria-hidden="true">›</span>' +
     '<a href="/insights" class="shrink-0">' + escapeHtml(label('Insight', 'Insights')) + '</a>';
@@ -287,9 +287,9 @@ const renderInsightBody = (insight) => {
     '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white">' +
     '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
-  html += '<div class="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,920px)_minmax(0,1fr)]">';
+  html += '<div class="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1040px)_minmax(0,1fr)]">';
   html += '<aside class="hidden xl:flex xl:flex-col xl:items-center xl:justify-self-end" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
-  html += '<article class="min-w-0 w-full justify-self-center px-0 text-[#C3C7D0] sm:px-2 lg:px-12">';
+  html += '<article class="min-w-0 w-full justify-self-center text-[#C3C7D0]">';
 
   if (introductionBlocks.length) {
     html += '<section class="mb-12 sm:mb-14" aria-label="' + escapeHtml(label('Pendahuluan', 'Introduction')) + '">' +
