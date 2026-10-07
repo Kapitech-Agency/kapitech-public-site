@@ -32,9 +32,6 @@ const toolText = (language: InsightLanguage, key: 'share' | 'copy') => {
   return language === 'id' ? 'Bagikan artikel' : 'Share article';
 };
 
-const openExternal = (href: string) => {
-  window.open(href, '_blank', 'noopener,noreferrer');
-};
 
 const getArticleUrl = () => (
   typeof window !== 'undefined' ? window.location.href : ''
