@@ -1543,6 +1543,29 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
   color: #ffffff !important;
 }
 
+.kapi-public-shell .kapi-insight-toc nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.16) transparent;
+}
+
+.kapi-public-shell .kapi-insight-toc nav::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.kapi-public-shell .kapi-insight-toc nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kapi-public-shell .kapi-insight-toc nav::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.16);
+  border-radius: 999px;
+}
+
+.kapi-public-shell .kapi-insight-toc nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.24);
+}
+
 .kapi-public-shell .kapi-insight-toc .kapi-insight-toc-chevron {
   flex-shrink: 0;
   transform: none !important;
