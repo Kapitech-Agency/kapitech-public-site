@@ -861,7 +861,7 @@ export const InsightDetail: React.FC = () => {
             <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
               <div className="hidden xl:block" aria-hidden="true" />
               <section
-              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-12 sm:mt-20"
+              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-8 sm:mt-20"
               aria-labelledby="faq-title"
             >
               <div className="max-w-2xl">
@@ -960,7 +960,7 @@ export const InsightDetail: React.FC = () => {
           )}
 
           <section
-            className="mx-auto mt-16 w-full max-w-[1120px] px-0 sm:px-2 lg:px-12 sm:mt-20"
+            className="mx-auto mt-16 w-full max-w-[1120px] px-0 sm:px-2 lg:px-8 sm:mt-20"
             aria-labelledby="article-final-cta-title"
           >
             <div className="overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
@@ -996,7 +996,7 @@ export const InsightDetail: React.FC = () => {
             </div>
           </section>
 
-          <div className="mx-auto mt-8 w-full max-w-[1120px] px-0 sm:px-2 lg:px-12">
+          <div className="mx-auto mt-8 w-full max-w-[1120px] px-0 sm:px-2 lg:px-8">
             <Link
               to="/insights"
               className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
