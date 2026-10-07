@@ -1,5 +1,9 @@
 import enPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.en.json';
 import idPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.id.json';
+import helpful_seo_contentPack from './insight-editorial-packs/helpful-seo-content-framework.en.json';
+import structured_data_seoPack from './insight-editorial-packs/structured-data-for-seo-guide.en.json';
+import core_web_vitalsPack from './insight-editorial-packs/core-web-vitals-explained.en.json';
+import technical_seo_auditPack from './insight-editorial-packs/technical-seo-audit-guide.en.json';
 import type { InsightItem } from './insightTypes';
 
 type EditorialPack = {
@@ -90,7 +94,11 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
 
 const fallbackInsights = [
   toInsightItem(enPack as EditorialPack, 'en'),
-  toInsightItem(idPack as EditorialPack, 'id')
+  toInsightItem(idPack as EditorialPack, 'id'),
+  toInsightItem(technical_seo_auditPack as EditorialPack, 'en'),
+  toInsightItem(core_web_vitalsPack as EditorialPack, 'en'),
+  toInsightItem(structured_data_seoPack as EditorialPack, 'en'),
+  toInsightItem(helpful_seo_contentPack as EditorialPack, 'en')
 ].filter((item): item is InsightItem => Boolean(item));
 
 export function getInsightFallback(slug: string): InsightItem | null {
