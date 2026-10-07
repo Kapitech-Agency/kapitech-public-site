@@ -11,10 +11,10 @@ const FALLBACK_DIR = join(ROOT, '..', 'src', 'data', 'insight-editorial-packs');
 const FALLBACK_PACKS = [
   ['en', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.en.json')],
   ['id', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.id.json')],
-  ['en', join(FALLBACK_DIR, 'technical-seo-audit-guide.en.json')],
-  ['en', join(FALLBACK_DIR, 'core-web-vitals-explained.en.json')],
-  ['en', join(FALLBACK_DIR, 'structured-data-for-seo-guide.en.json')],
-  ['en', join(FALLBACK_DIR, 'helpful-seo-content-framework.en.json')]
+  ['en', join(FALLBACK_DIR, 'website-cost-indonesia-guide.en.json')],
+  ['en', join(FALLBACK_DIR, 'wordpress-vs-custom-website.en.json')],
+  ['en', join(FALLBACK_DIR, 'corporate-website-vs-landing-page.en.json')],
+  ['en', join(FALLBACK_DIR, 'choose-web-development-agency-indonesia.en.json')]
 ];
 
 async function loadLocalEditorialFallbacks() {
