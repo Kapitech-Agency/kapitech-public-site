@@ -527,8 +527,8 @@ export const InsightTableOfContents: React.FC<{
       className={[
         'min-h-0 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]',
         mobile
-          ? 'max-h-[min(24rem,58vh)]'
-          : 'h-full'
+          ? 'max-h-[14.75rem]'
+          : 'max-h-[14.75rem]'
       ].join(' ')}
     >
       <div className="space-y-1">
@@ -555,7 +555,7 @@ export const InsightTableOfContents: React.FC<{
                 className={[
                   'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35',
                   active
-                    ? 'bg-brand-red/[0.09] text-brand-red'
+                    ? 'bg-brand-red/[0.09] text-white'
                     : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
@@ -564,7 +564,7 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-200',
                     active
-                      ? 'bg-brand-red/[0.16] text-brand-red'
+                      ? 'bg-brand-red/[0.16] text-white'
                       : 'bg-white/[0.025] text-[#69717D]'
                   ].join(' ')}
                 >
@@ -573,9 +573,9 @@ export const InsightTableOfContents: React.FC<{
 
                 <span
                   className={[
-                    'min-w-0 flex-1 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
+                    'min-w-0 flex-1 line-clamp-2 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     active
-                      ? 'font-semibold text-brand-red'
+                      ? 'font-semibold text-white'
                       : 'font-medium text-[#C8CDD5]'
                   ].join(' ')}
                 >
