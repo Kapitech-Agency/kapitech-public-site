@@ -81,13 +81,12 @@ export const InsightTableOfContents: React.FC<{
   );
 
   const [activeId, setActiveId] = useState(sectionItems[0]?.id || '');
-  const [mobileItemMap] = useState(() => new Map<string, HTMLAnchorElement>());
-  const [desktopItemMap] = useState(() => new Map<string, HTMLAnchorElement>());
-
   const rootRef = useRef<HTMLDivElement | null>(null);
   const activeIdRef = useRef(activeId);
   const navigationTargetRef = useRef('');
   const rafRef = useRef<number | null>(null);
+  const mobileItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const desktopItemMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   const isVariantActive = () => {
     if (typeof window === 'undefined') return false;
@@ -364,10 +363,10 @@ export const InsightTableOfContents: React.FC<{
     };
 
     window.requestAnimationFrame(() => {
-      reveal(desktopItemMap, variant !== 'mobile');
-      reveal(mobileItemMap, variant !== 'desktop');
+      reveal(desktopItemMap.current, variant !== 'mobile');
+      reveal(mobileItemMap.current, variant !== 'desktop');
     });
-  }, [activeId, mobileItemMap, desktopItemMap, variant]);
+  }, [activeId, variant]);
 
   if (!sectionItems.length) return null;
 
@@ -426,11 +425,11 @@ export const InsightTableOfContents: React.FC<{
           return (
             <div
               key={item.id}
-              className="relative border-b border-white/[0.06] last:border-b-0"
+              className="relative"
             >
               <a
                 ref={(node) => register(
-                  mobile ? mobileItemMap : desktopItemMap,
+                  mobile ? mobileItemMap.current : desktopItemMap.current,
                   item.id,
                   node
                 )}
@@ -441,10 +440,10 @@ export const InsightTableOfContents: React.FC<{
                 }}
                 aria-current={active ? 'location' : undefined}
                 className={[
-                  'flex w-full items-center gap-3 rounded-[10px] px-2.5 py-2.5 text-left transition-[background-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+                  'flex min-h-11 w-full items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-left transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
                   active
-                    ? 'bg-brand-red/[0.055] text-white'
-                    : 'text-[#C1C6CF] hover:bg-white/[0.018] hover:text-white'
+                    ? 'border-brand-red/20 bg-brand-red/[0.075] text-white'
+                    : 'text-[#C1C6CF] hover:border-white/[0.06] hover:bg-white/[0.018] hover:text-white'
                 ].join(' ')}
               >
                 <span
@@ -452,8 +451,8 @@ export const InsightTableOfContents: React.FC<{
                   className={[
                     'flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] font-mono text-[8px] font-semibold tabular-nums transition-[background-color,color] duration-200',
                     active
-                      ? 'bg-brand-red/[0.16] text-white'
-                      : 'bg-white/[0.02] text-[#69717D]'
+                      ? 'bg-brand-red/[0.2] text-white'
+                      : 'bg-white/[0.025] text-[#69717D]'
                   ].join(' ')}
                 >
                   {String(index + 1).padStart(2, '0')}
@@ -464,7 +463,7 @@ export const InsightTableOfContents: React.FC<{
                     'min-w-0 flex-1 text-[12.5px] leading-[1.42] tracking-[-0.008em]',
                     active
                       ? 'font-semibold text-white'
-                      : 'font-medium text-[#C1C6CF]'
+                      : 'font-medium text-[#C8CDD5]'
                   ].join(' ')}
                 >
                   {item.text}
@@ -483,41 +482,47 @@ export const InsightTableOfContents: React.FC<{
       className="kapi-insight-toc h-full min-h-0"
     >
       <div className={variant === 'desktop' ? 'hidden' : 'xl:hidden'}>
-        <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+        <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101114] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
           <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3.5">
-            <span className="min-w-0">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
-                {tocLabel}
-              </span>
-              <span className="mt-1 block truncate text-[13px] font-medium leading-5 text-white">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                <span className="text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
+                  {tocLabel}
+                </span>
+              </div>
+              <span className="mt-1.5 block line-clamp-2 text-[13px] font-medium leading-5 text-white">
                 {sectionItems[currentIndex]?.text || sectionItems[0].text}
               </span>
-            </span>
+            </div>
 
             <span className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
               {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
             </span>
           </div>
 
-          <div className="p-3">
+          <div className="p-2.5">
             {renderList(true)}
           </div>
         </div>
       </div>
 
       <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
-        <div className="flex h-full min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.07] bg-white/[0.014] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+        <div className="flex h-full min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.08] bg-[#101114] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
           <div className="flex shrink-0 items-end justify-between gap-4">
-            <div>
-              <span className="kapi-section-label !px-3 !py-1.5 !text-[8px]">
-                {tocLabel}
-              </span>
-              <p className="mt-1 text-[10px] leading-4 text-[#5E6672]">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red" aria-hidden="true" />
+                <span className="kapi-section-label !px-3 !py-1.5 !text-[8px]">
+                  {tocLabel}
+                </span>
+              </div>
+              <p className="mt-1.5 text-[10px] leading-4 text-[#5E6672]">
                 {sectionItems.length} {sectionCountLabel}
               </p>
             </div>
 
-            <span className="rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
+            <span className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
               {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
             </span>
           </div>
