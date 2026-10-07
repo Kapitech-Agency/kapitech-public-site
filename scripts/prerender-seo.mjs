@@ -63,7 +63,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
   const label = (idText, enText) => insight.language === 'id' ? idText : enText;
 
   if (block.type === 'paragraph') {
-    return '<p class="mb-5 max-w-[72ch] text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">' +
+    return '<p class="mb-5 max-w-none text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">' +
       inlineMarkdownToHtml(block.text) + '</p>';
   }
 
@@ -247,7 +247,7 @@ const renderInsightBody = (insight) => {
   }).join('');
 
   let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
-    '<main class="mx-auto w-full max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-10">';
+    '<main class="mx-auto w-full max-w-[1600px] px-5 pb-16 sm:px-8 lg:px-10">';
 
   html += '<header class="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]"><div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image:url(/insights/article-hero-background.jpg)" aria-hidden="true"></div><div class="absolute inset-0 bg-[#0B0C0E]/48" aria-hidden="true"></div><div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]" aria-hidden="true"></div><div class="relative mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">';
   html += '<nav class="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">' +
@@ -262,10 +262,12 @@ const renderInsightBody = (insight) => {
   html += '</div><h1 class="mt-6 max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.5rem]">' +
     escapeHtml(insight.title) + '</h1>';
   if (insight.excerpt) html += '<p class="mt-6 max-w-3xl text-base leading-8 text-[#A3A9B5] sm:text-lg">' + inlineMarkdownToHtml(insight.excerpt) + '</p>';
-  html += '<div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.07] pt-5 text-xs text-[#737A87]">';
-  if (insight.author?.name) html += '<span class="font-medium text-white">' + escapeHtml(label('Ditulis oleh ', 'Written by ')) + escapeHtml(insight.author.name) + '</span>';
-  if (insight.readingTime) html += '<span>' + escapeHtml(String(insight.readingTime)) + ' ' + escapeHtml(label('menit baca', 'min read')) + '</span>';
-  if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '">' + escapeHtml(new Intl.DateTimeFormat(insight.language === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
+  html += '<div class="mt-8 flex flex-wrap items-center gap-2 border-t border-white/[0.07] pt-5">';
+  if (insight.author?.name) html += '<span class="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.035] px-3.5 py-1.5 text-[9px] font-mono font-semibold tracking-[0.08em] text-white">' + escapeHtml(label('Ditulis oleh ', 'Written by ')) + escapeHtml(insight.author.name) + '</span>';
+  if (insight.author?.role) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#A2A9B6]">' + escapeHtml(insight.author.role) + '</span>';
+  if (insight.readingTime) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#A2A9B6]">' + escapeHtml(String(insight.readingTime)) + ' ' + escapeHtml(label('menit baca', 'min read')) + '</span>';
+  if (insight.editorialMeta?.reviewedBy) html += '<span class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tracking-[0.08em] text-[#A2A9B6]">' + escapeHtml(label('Ditinjau oleh ', 'Reviewed by ')) + escapeHtml(insight.editorialMeta.reviewedBy) + '</span>';
+  if (insight.publishedAt) html += '<time datetime="' + escapeHtml(insight.publishedAt) + '" class="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono tabular-nums text-[#7D8592]">' + escapeHtml(new Intl.DateTimeFormat(insight.language === 'id' ? 'id-ID' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(insight.publishedAt))) + '</time>';
   html += '</div></div></div></header>';
 
   html += '<div class="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">';
@@ -287,9 +289,9 @@ const renderInsightBody = (insight) => {
     '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white">' +
     '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
-  html += '<div class="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1040px)_minmax(0,1fr)]">';
+  html += '<div class="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">';
   html += '<aside class="hidden xl:flex xl:flex-col xl:items-center xl:justify-self-end" aria-hidden="true"><span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-[#707885]">↗</span><span class="mt-8 font-mono text-[9px] tabular-nums text-[#707885]">0%</span></aside>';
-  html += '<article class="min-w-0 w-full justify-self-center text-[#C3C7D0]">';
+  html += '<article class="min-w-0 w-full justify-self-center px-0 sm:px-2 lg:px-12 text-[#C3C7D0]">';
 
   if (introductionBlocks.length) {
     html += '<section class="mb-12 sm:mb-14" aria-label="' + escapeHtml(label('Pendahuluan', 'Introduction')) + '">' +
