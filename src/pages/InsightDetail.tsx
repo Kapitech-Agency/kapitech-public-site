@@ -625,6 +625,7 @@ export const InsightDetail: React.FC = () => {
               </div>
               </div>
             </div>
+            </div>
           </div>
         </header>
 
