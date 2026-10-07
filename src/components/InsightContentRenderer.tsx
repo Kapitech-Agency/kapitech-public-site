@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AlertTriangle, Check, CheckCircle2, Copy, ExternalLink, Info, Quote } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { AlertTriangle, Check, CheckCircle2, Copy, ExternalLink, Info, Maximize2, Quote, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
@@ -102,6 +102,29 @@ export const InsightContentRenderer: React.FC<{
   language?: 'id' | 'en';
 }> = ({ blocks, headingIds = buildInsightHeadingIds(blocks).map((id) => id || ''), language = 'en' }) => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
+  const [activeVisual, setActiveVisual] = useState<{
+    src: string;
+    alt: string;
+    caption?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!activeVisual) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveVisual(null);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [activeVisual]);
 
   const copyCode = async (code: string, index: number) => {
     try {
@@ -213,26 +236,47 @@ export const InsightContentRenderer: React.FC<{
             ? String(width) + ' / ' + String(height)
             : undefined;
           const visualIndex = articleVisualIndex++;
+          const resolvedSrc = resolveInsightVisualUrl(block.url, language);
+          const visualLabel = language === 'id' ? 'Visual' : 'Visual';
+          const openLabel = language === 'id' ? 'Perbesar visual' : 'Open visual';
 
           return (
-            <figure key={index} className="my-8 sm:my-10" data-kapi-article-visual="true">
-              <div className="overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0F1013] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
-                <div className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3">
-                  <span className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-[#6D7582]">
-                    {language === 'id' ? 'Visual artikel' : 'Article visual'}
-                  </span>
-                  <span className="text-[8px] font-mono uppercase tracking-[0.12em] text-[#4F5763]">
-                    {language === 'id' ? 'Referensi visual' : 'Visual reference'}
-                  </span>
-                </div>
-
-                <div
-                  className="relative overflow-hidden bg-[#0B0C0E]"
-                  style={{ aspectRatio: visualAspectRatio }}
+            <figure
+              key={index}
+              className="my-10 sm:my-12"
+              data-kapi-article-visual="true"
+              data-visual-index={visualIndex + 1}
+            >
+              <div className="group relative overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#0B0C0E] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
+                <button
+                  type="button"
+                  onClick={() => setActiveVisual({
+                    src: resolvedSrc,
+                    alt: block.alt || (language === 'id' ? 'Visual artikel Kapitech' : 'Kapitech article visual'),
+                    caption: block.caption
+                  })}
+                  className="relative block w-full cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40"
+                  aria-label={openLabel + ': ' + (block.alt || visualLabel + ' ' + String(visualIndex + 1))}
                 >
-                  <div className="flex h-full w-full items-center justify-center p-1 sm:p-1.5">
+                  <span
+                    className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/75 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
+                  >
+                    <Maximize2 size={11} aria-hidden="true" />
+                    {language === 'id' ? 'Perbesar' : 'Expand'}
+                  </span>
+
+                  <span
+                    className="pointer-events-none absolute right-4 top-4 z-10 rounded-full border border-white/[0.09] bg-[#0B0C0E]/70 px-2.5 py-1.5 text-[8px] font-mono tabular-nums text-[#737B88] backdrop-blur-md"
+                  >
+                    {String(visualIndex + 1).padStart(2, '0')}
+                  </span>
+
+                  <div
+                    className="relative overflow-hidden bg-[#0B0C0E]"
+                    style={{ aspectRatio: visualAspectRatio }}
+                  >
                     <img
-                      src={resolveInsightVisualUrl(block.url, language)}
+                      src={resolvedSrc}
                       alt={block.alt || ''}
                       width={width}
                       height={height}
@@ -240,10 +284,8 @@ export const InsightContentRenderer: React.FC<{
                       fetchPriority={visualIndex === 0 ? 'high' : 'auto'}
                       decoding="async"
                       className={[
-                        'block max-w-full object-contain',
-                        hasIntrinsicDimensions
-                          ? 'h-full w-full'
-                          : 'h-auto w-full'
+                        'block h-full w-full object-contain transition-transform duration-500 ease-out',
+                        'group-hover:scale-[1.01]'
                       ].join(' ')}
                       sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
                       onError={(event) => {
@@ -256,11 +298,15 @@ export const InsightContentRenderer: React.FC<{
                       }}
                     />
                   </div>
-                </div>
+                </button>
               </div>
-              {block.caption && (
-                <figcaption className="mt-3 w-full text-xs leading-5 text-[#737B88]">
-                  {block.caption}
+
+              {(block.caption || block.alt) && (
+                <figcaption className="mt-3 flex items-start gap-3 px-1">
+                  <span className="mt-2 h-px w-6 shrink-0 bg-brand-red/70" aria-hidden="true" />
+                  <span className="text-xs leading-6 text-[#7A8290]">
+                    {block.caption || block.alt}
+                  </span>
                 </figcaption>
               )}
             </figure>
@@ -519,5 +565,49 @@ export const InsightContentRenderer: React.FC<{
         return null;
       })}
     </div>
+
+      {activeVisual && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050607]/92 p-4 backdrop-blur-md sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={language === 'id' ? 'Visual artikel diperbesar' : 'Expanded article visual'}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setActiveVisual(null);
+            }
+          }}
+        >
+          <div className="relative flex max-h-[94vh] w-full max-w-[1400px] flex-col overflow-hidden rounded-[18px] border border-white/[0.1] bg-[#0B0C0E] shadow-2xl">
+            <div className="flex shrink-0 items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3 sm:px-5">
+              <div className="min-w-0">
+                <p className="text-[8px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                  {language === 'id' ? 'Visual artikel' : 'Article visual'}
+                </p>
+                <p className="mt-1 line-clamp-1 text-xs text-[#A2A9B6]">
+                  {activeVisual.caption || activeVisual.alt}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveVisual(null)}
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#A2A9B6] transition-colors hover:border-white/[0.16] hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+                aria-label={language === 'id' ? 'Tutup visual' : 'Close visual'}
+              >
+                <X size={16} aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="min-h-0 overflow-auto p-2 sm:p-3">
+              <img
+                src={activeVisual.src}
+                alt={activeVisual.alt}
+                className="mx-auto block max-h-[calc(94vh-84px)] w-auto max-w-full object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
   );
 };
