@@ -302,7 +302,7 @@ export const InsightTableOfContents: React.FC<{
       image.addEventListener('error', handleLayoutSettled);
     });
 
-    void document.fonts?.ready.then(handleLayoutSettled).catch(() => undefined);
+    void document.fonts?.ready?.then(handleLayoutSettled).catch(() => undefined);
 
     const handleHashChange = () => {
       if (isVariantActive()) syncHash(true);
