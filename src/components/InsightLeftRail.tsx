@@ -216,7 +216,7 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
 
   return (
     <aside
-      className="sticky top-24 hidden w-12 shrink-0 xl:flex xl:flex-col xl:items-center"
+      className="sticky top-24 hidden w-12 shrink-0 xl:flex xl:flex-col xl:items-center xl:justify-self-end"
       aria-label={language === 'id' ? 'Bagikan dan progres artikel' : 'Article sharing and progress'}
     >
       <span className="mb-3 w-full text-center text-[8px] font-mono uppercase tracking-[0.14em] text-[#5E6672]">
