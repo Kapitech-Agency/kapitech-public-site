@@ -6,6 +6,7 @@ import { InsightLeftRail } from '../components/InsightLeftRail';
 import { InsightRightRail } from '../components/InsightRightRail';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { InsightTableOfContents } from '../components/InsightTableOfContents';
+import { InsightBookingCta } from '../components/InsightBookingCta';
 import { api } from '../lib/apiClient';
 import { useLanguage } from '../lib/LanguageContext';
 import type { InsightItem } from '../data/insightTypes';
@@ -624,7 +625,12 @@ export const InsightDetail: React.FC = () => {
               onCopy={() => void copyLink()}
             />
             {toc.length > 0 && (
-              <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
+              <>
+                <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
+                <div className="mt-3">
+                  <InsightBookingCta language={article.language} mobile />
+                </div>
+              </>
             )}
           </div>
 
