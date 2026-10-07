@@ -305,19 +305,10 @@ export const InsightDetail: React.FC = () => {
     [article]
   );
 
-  const toc = useMemo(() => {
-    const items = buildInsightToc(bodyBlocks, headingIds);
-
-    if (faq.length > 0 && !items.some((item) => item.id === 'faq-title')) {
-      items.push({
-        id: 'faq-title',
-        text: article?.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions',
-        level: 2
-      });
-    }
-
-    return items;
-  }, [article?.language, bodyBlocks, faq, headingIds]);
+  const toc = useMemo(
+    () => buildInsightToc(bodyBlocks, headingIds),
+    [bodyBlocks, headingIds]
+  );
 
   useEffect(() => {
     let rafId = 0;
@@ -614,7 +605,7 @@ export const InsightDetail: React.FC = () => {
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-[1240px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">
+        <div className="mx-auto w-full max-w-[1440px] scroll-mt-28 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pb-20 lg:pt-12">
           <div className="mb-5 xl:hidden">
             <InsightLeftRail
               mobile
@@ -708,65 +699,6 @@ export const InsightDetail: React.FC = () => {
                 />
               )}
 
-              {faq.length > 0 && (
-                <section
-                  className="mt-12 pt-1 sm:mt-14 sm:pt-2"
-                  aria-labelledby="faq-title"
-                >
-                  <div className="max-w-2xl">
-                    <span className="kapi-section-label mb-4">
-                      FAQ
-                    </span>
-                    <h2
-                      id="faq-title"
-                      className="mt-3 scroll-mt-28 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl"
-                    >
-                      {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
-                    </h2>
-                    <p className="mt-3 text-sm leading-7 text-[#8A909D]">
-                      {article.language === 'id'
-                        ? 'Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.'
-                        : 'Short answers to the questions readers are most likely to have after this article.'}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">
-                    {faq.map((item, index) => (
-                      <details
-                        key={index}
-                        className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200"
-                      >
-                        <summary className="list-none cursor-pointer px-4 py-4 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/35 sm:px-5 sm:py-5">
-                          <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
-                            <span
-                              className="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672] transition-colors duration-200 group-open:text-brand-red"
-                              aria-hidden="true"
-                            >
-                              {String(index + 1).padStart(2, '0')}
-                            </span>
-                            <span className="text-sm font-semibold leading-6 text-white transition-colors duration-200 group-open:text-brand-red sm:text-[15px]">
-                              {item.question}
-                            </span>
-                            <ChevronRight
-                              size={15}
-                              className="mt-1 text-[#666E7B] transition-[transform,color] duration-200 group-open:rotate-90 group-open:text-brand-red"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </summary>
-                        <div className="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 px-4 pb-5 sm:px-5">
-                          <span aria-hidden="true" />
-                          <p className="text-sm leading-7 text-[#9BA2AF]">
-                            {item.answer}
-                          </p>
-                          <span aria-hidden="true" />
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                </section>
-              )}
-
               <div data-insight-article-end aria-hidden="true" className="mt-12 h-px w-full bg-white/[0.07]" />
 
               <div className="pt-7">
@@ -782,6 +714,65 @@ export const InsightDetail: React.FC = () => {
 
             <InsightRightRail items={toc} language={article.language} />
           </div>
+
+          {faq.length > 0 && (
+            <section
+              className="mx-auto mt-16 w-full max-w-[820px] border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12"
+              aria-labelledby="faq-title"
+            >
+              <div className="max-w-2xl">
+                <span className="kapi-section-label mb-4">
+                  FAQ
+                </span>
+                <h2
+                  id="faq-title"
+                  className="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl"
+                >
+                  {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-[#8A909D]">
+                  {article.language === 'id'
+                    ? 'Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.'
+                    : 'Short answers to the questions readers are most likely to have after this article.'}
+                </p>
+              </div>
+
+              <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">
+                {faq.map((item, index) => (
+                  <details
+                    key={index}
+                    className="group border-b border-white/[0.07] last:border-b-0 transition-colors duration-200"
+                  >
+                    <summary className="list-none cursor-pointer px-4 py-4 transition-colors duration-200 group-open:bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/35 sm:px-5 sm:py-5">
+                      <span className="grid grid-cols-[28px_minmax(0,1fr)_20px] items-start gap-3">
+                        <span
+                          className="pt-0.5 font-mono text-[9px] font-semibold tabular-nums text-[#5E6672] transition-colors duration-200 group-open:text-brand-red"
+                          aria-hidden="true"
+                        >
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-sm font-semibold leading-6 text-white transition-colors duration-200 group-open:text-brand-red sm:text-[15px]">
+                          {item.question}
+                        </span>
+                        <ChevronRight
+                          size={15}
+                          className="mt-1 text-[#666E7B] transition-[transform,color] duration-200 group-open:rotate-90 group-open:text-brand-red"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </summary>
+                    <div className="grid grid-cols-[28px_minmax(0,1fr)_20px] gap-3 px-4 pb-5 sm:px-5">
+                      <span aria-hidden="true" />
+                      <p className="text-sm leading-7 text-[#9BA2AF]">
+                        {item.answer}
+                      </p>
+                      <span aria-hidden="true" />
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </>
     </InsightDetailErrorBoundary>
