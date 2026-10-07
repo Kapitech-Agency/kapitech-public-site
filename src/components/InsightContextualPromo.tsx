@@ -50,13 +50,14 @@ export const InsightContextualPromo: React.FC<{
 
   return (
     <aside
-      className="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-10 sm:p-6"
+      className="relative my-9 overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] sm:my-10"
       aria-label={block.title}
       data-kapi-ad="true"
     >
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-        <div className="min-w-0 max-w-[620px]">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      <div className="absolute right-[-5rem] top-[-5rem] h-40 w-40 rounded-full bg-brand-red/[0.08] blur-3xl" aria-hidden="true" />
+      <div className="relative p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
             <p className="text-[9px] font-mono font-semibold uppercase tracking-[0.17em] text-brand-red">
               {block.eyebrow}
             </p>
@@ -64,15 +65,23 @@ export const InsightContextualPromo: React.FC<{
               {block.serviceReference || (language === 'id' ? 'Layanan terkait' : 'Related service')}
             </span>
           </div>
-          <h3 className="mt-2.5 font-display text-[1.35rem] font-semibold leading-[1.14] tracking-[-0.03em] text-white sm:text-[1.5rem]">
-            {block.title}
-          </h3>
-          <p className="mt-2.5 text-[13px] leading-6 text-[#8A909D]">
-            {block.description}
-          </p>
+          <span className="hidden shrink-0 rounded-full bg-white/[0.035] px-2.5 py-1 text-[8px] font-mono font-semibold uppercase tracking-[0.12em] text-[#646C78] sm:inline-flex">
+            {language === 'id' ? 'Kapitech' : 'Kapitech'}
+          </span>
         </div>
 
-        <div className="shrink-0">{action}</div>
+        <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          <div className="min-w-0 max-w-[620px]">
+            <h3 className="font-display text-[1.4rem] font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.55rem]">
+              {block.title}
+            </h3>
+            <p className="mt-2.5 text-[13px] leading-6 text-[#8A909D]">
+              {block.description}
+            </p>
+          </div>
+
+          <div className="shrink-0">{action}</div>
+        </div>
       </div>
     </aside>
   );
