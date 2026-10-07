@@ -18,32 +18,28 @@
     },
     "tags": [
       {
-        "slug": "corporate-website-vs-landing-page-topic-1",
-        "name": "A landing page concentrates attention around a specific offe"
+        "slug": "corporate-website",
+        "name": "corporate-website"
       },
       {
-        "slug": "corporate-website-vs-landing-page-topic-2",
-        "name": "A corporate website provides a broader information architect"
+        "slug": "landing-page",
+        "name": "landing-page"
       },
       {
-        "slug": "corporate-website-vs-landing-page-topic-3",
-        "name": "The right choice depends on where visitors come from and wha"
+        "slug": "company-profile",
+        "name": "company-profile"
       },
       {
-        "slug": "corporate-website-vs-landing-page-topic-4",
-        "name": "A B2B buyer may need services, capabilities, case studies, c"
+        "slug": "web-design",
+        "name": "web-design"
       },
       {
-        "slug": "corporate-website-vs-landing-page-topic-5",
-        "name": "A corporate site can contain landing pages, so the choice do"
+        "slug": "conversion",
+        "name": "conversion"
       },
       {
-        "slug": "corporate-website-vs-landing-page-topic-6",
-        "name": "Information architecture should reduce uncertainty"
-      },
-      {
-        "slug": "corporate-website-vs-landing-page-topic-7",
-        "name": "A landing page can be highly effective without replacing the"
+        "slug": "website-strategy",
+        "name": "website-strategy"
       }
     ],
     "title": "Corporate Website vs Landing Page: Which Does Your Business Need?",
