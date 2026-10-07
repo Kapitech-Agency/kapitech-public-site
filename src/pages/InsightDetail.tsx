@@ -934,7 +934,7 @@ export const InsightDetail: React.FC = () => {
 
               <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {relatedInsights.map((item) => (
-                  <InsightCard key={item.id} insight={item} language={article.language} />
+                  <InsightCard key={item.id} insight={item} language={article.language} analyticsContext="related" />
                 ))}
               </div>
             </section>
