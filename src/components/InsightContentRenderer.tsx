@@ -255,7 +255,7 @@ export const InsightContentRenderer: React.FC<{
                     caption: block.caption
                   })}
                   className="relative block w-full cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40"
-                  aria-label={openLabel + ': ' + (block.alt || visualLabel + ' ' + String(visualIndex + 1))}
+                  aria-label={openLabel + ': ' + (block.alt || (language === 'id' ? 'Visual artikel' : 'Article visual'))}
                 >
                   <span
                     className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/75 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-100 backdrop-blur-md transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
