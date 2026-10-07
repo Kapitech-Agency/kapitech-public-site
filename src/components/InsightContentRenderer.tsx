@@ -204,35 +204,49 @@ export const InsightContentRenderer: React.FC<{
         if (block.type === 'table') {
           const headers = Array.isArray(block.headers) ? block.headers : [];
           const rows = Array.isArray(block.rows) ? block.rows : [];
+          const hasMultipleColumns = headers.length > 1;
+
+          if (!headers.length) return null;
 
           return (
-            <div key={index} className="my-7 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">
+            <div key={index} className="my-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1013]">
               <div className="border-b border-white/[0.06] px-4 py-2.5 sm:hidden">
-                <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#666E7B]">
-                  {language === 'id' ? 'Geser untuk melihat perbandingan' : 'Swipe to compare'}
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#737B88]">
+                    {language === 'id' ? 'Geser untuk membandingkan' : 'Swipe to compare'}
+                  </p>
+                  {hasMultipleColumns && (
+                    <span className="shrink-0 rounded-full bg-white/[0.035] px-2 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">
+                      {headers.length} {language === 'id' ? 'kolom' : 'columns'}
+                    </span>
+                  )}
+                </div>
               </div>
+
               <div
-                className="overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset"
+                className="overflow-x-auto overscroll-x-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-inset"
                 tabIndex={0}
                 role="region"
                 aria-label={block.caption || (language === 'id' ? 'Tabel artikel' : 'Article table')}
               >
-                <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                   {block.caption && (
-                    <caption className="caption-top px-4 py-3 text-left text-xs leading-5 text-[#7A8290]">
+                    <caption className="caption-top border-b border-white/[0.06] px-4 py-3.5 text-left text-xs leading-5 text-[#7A8290]">
                       {block.caption}
                     </caption>
                   )}
+
                   <thead>
-                    <tr className="bg-white/[0.035]">
+                    <tr className="bg-[#141519]">
                       {headers.map((header, headerIndex) => (
                         <th
                           key={headerIndex}
                           scope="col"
                           className={[
-                            'border-b border-white/[0.08] px-4 py-3.5 text-[10px] font-mono uppercase tracking-[0.1em] text-[#8E96A4]',
-                            headerIndex === 0 ? 'sticky left-0 z-10 bg-[#0F1013] shadow-[1px_0_0_rgba(255,255,255,0.06)]' : ''
+                            'border-b border-white/[0.08] px-4 py-4 text-left text-[10px] font-mono font-semibold uppercase leading-4 tracking-[0.1em] text-[#A2A9B6]',
+                            headerIndex === 0
+                              ? 'sticky left-0 z-10 bg-[#141519] shadow-[1px_0_0_rgba(255,255,255,0.07)]'
+                              : ''
                           ].join(' ')}
                         >
                           {inlineMarkdown(header)}
@@ -240,14 +254,23 @@ export const InsightContentRenderer: React.FC<{
                       ))}
                     </tr>
                   </thead>
+
                   <tbody>
                     {rows.map((row, rowIndex) => (
-                      <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0">
+                      <tr
+                        key={rowIndex}
+                        className="border-b border-white/[0.055] transition-colors duration-150 last:border-b-0 hover:bg-white/[0.018]"
+                      >
                         {headers.map((_, cellIndex) => (
-                          <td key={cellIndex} className={[
-                            'px-4 py-3.5 align-top leading-6 text-[#B6BBC5]',
-                            cellIndex === 0 ? 'sticky left-0 z-[5] bg-[#0F1013] shadow-[1px_0_0_rgba(255,255,255,0.045)]' : ''
-                          ].join(' ')}>
+                          <td
+                            key={cellIndex}
+                            className={[
+                              'px-4 py-4 align-top text-[13px] leading-[1.65] text-[#B9BEC8] sm:text-[13.5px]',
+                              cellIndex === 0
+                                ? 'sticky left-0 z-[5] bg-[#0F1013] font-medium text-white shadow-[1px_0_0_rgba(255,255,255,0.055)]'
+                                : ''
+                            ].join(' ')}
+                          >
                             {inlineMarkdown(Array.isArray(row) ? row[cellIndex] || '' : '')}
                           </td>
                         ))}
