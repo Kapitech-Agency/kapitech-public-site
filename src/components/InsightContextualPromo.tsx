@@ -29,7 +29,7 @@ export const InsightContextualPromo: React.FC<{
   const target = resolvePromoUrl(block.ctaUrl);
 
   const actionClass =
-    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:w-auto';
+    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:w-auto';
 
   const action = target.internal ? (
     <Link to={target.href} className={actionClass}>
@@ -50,7 +50,7 @@ export const InsightContextualPromo: React.FC<{
 
   return (
     <aside
-      className="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-brand-red/55 bg-white/[0.018] p-5 sm:my-10 sm:p-6"
+      className="my-9 rounded-2xl border border-white/[0.08] border-l-2 border-l-white/[0.12] bg-white/[0.018] p-5 sm:my-10 sm:p-6"
       aria-label={block.title}
       data-kapi-ad="true"
     >
