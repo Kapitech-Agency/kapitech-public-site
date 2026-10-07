@@ -360,6 +360,44 @@ export const InsightDetail: React.FC = () => {
   }, [article]);
 
   const copyLink = async () => {
+    const url = window.location.href;
+    let copied = false;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      }
+    } catch {
+      copied = false;
+    }
+
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        copied = document.execCommand('copy');
+        textarea.remove();
+      } catch {
+        copied = false;
+      }
+    }
+
+    setShareState(copied ? 'copied' : 'idle');
+
+    if (copied) {
+      window.setTimeout(() => {
+        setShareState('idle');
+      }, 1800);
+    }
+  };
+
+  const shareArticle = async () => {
     try {
       if (navigator.share) {
         await navigator.share({
@@ -368,9 +406,10 @@ export const InsightDetail: React.FC = () => {
         });
         setShareState('shared');
       } else {
-        await navigator.clipboard.writeText(window.location.href);
-        setShareState('copied');
+        await copyLink();
+        return;
       }
+
       window.setTimeout(() => {
         setShareState('idle');
       }, 1800);
@@ -581,7 +620,8 @@ export const InsightDetail: React.FC = () => {
               language={article.language}
               readingProgress={readingProgress}
               shareState={shareState}
-              onShare={() => void copyLink()}
+              onShare={() => void shareArticle()}
+              onCopy={() => void copyLink()}
             />
             {toc.length > 0 && (
               <InsightTableOfContents items={toc} language={article.language} variant="mobile" />
@@ -593,7 +633,8 @@ export const InsightDetail: React.FC = () => {
               language={article.language}
               readingProgress={readingProgress}
               shareState={shareState}
-              onShare={() => void copyLink()}
+              onShare={() => void shareArticle()}
+              onCopy={() => void copyLink()}
             />
 
             <article
