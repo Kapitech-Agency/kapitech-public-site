@@ -247,7 +247,7 @@ const renderInsightBody = (insight) => {
   }).join('');
 
   let html = '<div class="pointer-events-none fixed inset-0 z-0 overflow-y-auto bg-[#0B0C0E] opacity-0" id="kapi-prerendered-insight" aria-hidden="true">' +
-    '<main class="mx-auto w-full max-w-[1240px] px-5 pb-16 sm:px-8 lg:px-10">';
+    '<main class="mx-auto w-full max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-10">';
 
   html += '<header class="border-b border-white/[0.07] bg-[#0B0C0E]"><div class="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">';
   html += '<nav class="mb-9 flex items-center gap-2 overflow-x-auto text-[9px] font-mono uppercase tracking-[0.13em] text-[#646C78]" aria-label="Breadcrumb">' +
@@ -279,13 +279,11 @@ const renderInsightBody = (insight) => {
     '<a href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(manifest.siteUrl + '/insights/' + encodeURIComponent(insight.slug)) + '" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]">in</a>' +
     '<button type="button" aria-label="' + escapeHtml(label('Salin tautan', 'Copy link')) + '" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.href)" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#9DA4B0]" title="' + escapeHtml(label('Salin tautan', 'Copy link')) + '">↗</button>' +
     '<span class="ml-auto shrink-0 font-mono text-[9px] tabular-nums text-[#68707C]">0%</span></div>' +
-    '<nav class="rounded-2xl border border-white/[0.08] bg-[#101114] p-2.5"><ol class="space-y-1">' +
+    '<nav class="max-h-[14.75rem] overflow-y-auto rounded-2xl border border-white/[0.08] bg-[#101114] p-2.5"><ol class="space-y-1">' +
     toc.map((item, index) => '<li><a href="#' + escapeHtml(item.id) + '" class="flex min-h-11 items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 ' +
       'text-[11px] font-medium text-[#C8CDD5]">' +
       '<span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] bg-white/[0.025] font-mono text-[8px] font-semibold text-[#69717D]">' + String(index + 1).padStart(2, '0') + '</span>' +
       '<span>' + escapeHtml(item.text) + '</span></a></li>').join('') +
-    (faq.length ? '<li><a href="#faq-title" class="flex min-h-11 items-center gap-3 rounded-[11px] border border-transparent px-2.5 py-2.5 text-[11px] font-medium text-[#C8CDD5]">' +
-      '<span>FAQ</span>' + escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>' : '') +
     '</ol></nav><a href="/contact" class="mt-3 flex min-h-12 items-center justify-between rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white">' +
     '<span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' + escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div>';
 
@@ -311,8 +309,26 @@ const renderInsightBody = (insight) => {
 
   html += renderBody(bodyBlocks);
 
+
+
+  html += '<div class="mt-12 h-px w-full bg-white/[0.07]" aria-hidden="true"></div><div class="pt-7"><a href="/insights" class="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4">' +
+    escapeHtml(label('Kembali ke Insight', 'Back to Insights')) + '</a></div></article>';
+
+  html += '<aside class="hidden py-12 xl:block" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 flex h-[calc(100dvh-7rem)] min-h-0 flex-col gap-3"><div class="min-h-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#101114] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
+    escapeHtml(label('Di artikel ini', 'In this article')) + '</span><p class="mt-1 text-[10px] text-[#5E6672]">' +
+    String(toc.filter((item) => item.level === 2).length) + ' ' + escapeHtml(label('bagian', 'sections')) + '</p></div><nav class="mt-4 max-h-[14.75rem] min-h-0 overflow-y-auto pr-1" aria-label="' +
+    escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><ol class="space-y-1">';
+  for (const item of toc) {
+    html += '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
+      'text-[12.5px] font-medium text-[#C8CDD5]' +
+      '">' + escapeHtml(item.text) + '</a></li>';
+  }
+
+  html += '</ol></nav></div><a href="/contact" class="group flex min-h-12 shrink-0 items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white"><span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' +
+    escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div></aside>';
+
   if (faq.length) {
-    html += '<section class="mt-12 pt-1 sm:mt-14 sm:pt-2" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
+    html += '<section class="mx-auto mt-16 w-full max-w-[820px] border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12" aria-labelledby="faq-title"><div class="max-w-2xl"><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3.5 py-1.5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#E50914]">FAQ</span><h2 id="faq-title" class="mt-3 font-display text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">' +
       escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</h2><p class="mt-3 text-sm leading-7 text-[#8A909D]">' +
       escapeHtml(label('Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.', 'Short answers to the questions readers are most likely to have after this article.')) +
       '</p></div><div class="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.012]">';
@@ -324,25 +340,6 @@ const renderInsightBody = (insight) => {
     });
     html += '</div></section>';
   }
-
-  html += '<div class="mt-12 h-px w-full bg-white/[0.07]" aria-hidden="true"></div><div class="pt-7"><a href="/insights" class="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4">' +
-    escapeHtml(label('Kembali ke Insight', 'Back to Insights')) + '</a></div></article>';
-
-  html += '<aside class="hidden py-12 xl:block" aria-label="' + escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><div class="sticky top-24 flex h-[calc(100dvh-7rem)] min-h-0 flex-col gap-3"><div class="min-h-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#101114] p-4"><div><span class="inline-flex items-center rounded-full border border-white/[0.1] bg-[#0B0C0E] px-3 py-1.5 text-[8px] font-mono uppercase tracking-[0.17em] text-[#E50914]">' +
-    escapeHtml(label('Di artikel ini', 'In this article')) + '</span><p class="mt-1 text-[10px] text-[#5E6672]">' +
-    String(toc.filter((item) => item.level === 2).length) + ' ' + escapeHtml(label('bagian', 'sections')) + '</p></div><nav class="mt-4 min-h-0 h-[calc(100%-3.5rem)] overflow-y-auto pr-1" aria-label="' +
-    escapeHtml(label('Navigasi artikel', 'Article navigation')) + '"><ol class="space-y-1">';
-  for (const item of toc) {
-    html += '<li><a href="#' + escapeHtml(item.id) + '" class="block rounded-[10px] px-2.5 py-2 ' +
-      'text-[12.5px] font-medium text-[#C8CDD5]' +
-      '">' + escapeHtml(item.text) + '</a></li>';
-  }
-  if (faq.length) {
-    html += '<li><a href="#faq-title" class="block rounded-[10px] px-2.5 py-2 text-[12.5px] font-medium text-[#C1C6CF]">' +
-      escapeHtml(label('Pertanyaan yang sering diajukan', 'Frequently asked questions')) + '</a></li>';
-  }
-  html += '</ol></nav></div><a href="/contact" class="group flex min-h-12 shrink-0 items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white"><span><span class="block text-[8px] font-mono uppercase tracking-[0.16em] text-white/70">' +
-    escapeHtml(label('Siap berdiskusi?', 'Ready to discuss?')) + '</span><span class="mt-0.5 block text-[12px] font-semibold">Book a call</span></span><span aria-hidden="true">↗</span></a></div></aside>';
 
   html += '</div></div></main></div>';
   return html;
