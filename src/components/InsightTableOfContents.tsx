@@ -418,7 +418,7 @@ export const InsightTableOfContents: React.FC<{
           : 'h-full'
       ].join(' ')}
     >
-      <div className="space-y-0">
+      <div className="space-y-1">
         {sectionItems.map((item, index) => {
           const active = item.id === activeId;
 
