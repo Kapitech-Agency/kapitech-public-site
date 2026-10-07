@@ -44,11 +44,6 @@ export const InsightCard: React.FC<{
         'hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)]'
       ].join(' ')}
     >
-      <span
-        className="pointer-events-none absolute inset-x-5 top-0 z-20 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
-        aria-hidden="true"
-      />
-
       <div className="relative overflow-hidden">
         {insight.coverImage ? (
           <Link to={'/insights/' + insight.slug} aria-label={insight.title} className="group/media relative block aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset">
