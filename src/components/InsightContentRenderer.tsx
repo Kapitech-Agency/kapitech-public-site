@@ -92,6 +92,8 @@ export const InsightContentRenderer: React.FC<{
     } catch {}
   };
 
+  let articleVisualIndex = 0;
+
   return (
     <div className="kapi-insight-body max-w-none">
       {blocks.map((block, index) => {
@@ -188,6 +190,7 @@ export const InsightContentRenderer: React.FC<{
           const visualAspectRatio = hasIntrinsicDimensions
             ? String(width) + ' / ' + String(height)
             : undefined;
+          const visualIndex = articleVisualIndex++;
 
           return (
             <figure key={index} className="my-8 sm:my-10" data-kapi-article-visual="true">
@@ -211,8 +214,8 @@ export const InsightContentRenderer: React.FC<{
                       alt={block.alt || ''}
                       width={width}
                       height={height}
-                      loading={index <= 2 ? 'eager' : 'lazy'}
-                      fetchPriority={index === 2 ? 'high' : 'auto'}
+                      loading={visualIndex === 0 ? 'eager' : 'lazy'}
+                      fetchPriority={visualIndex === 0 ? 'high' : 'auto'}
                       decoding="async"
                       className={[
                         'block max-w-full object-contain',
