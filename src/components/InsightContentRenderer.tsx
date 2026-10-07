@@ -230,11 +230,6 @@ export const InsightContentRenderer: React.FC<{
 
           const width = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : undefined;
           const height = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : undefined;
-
-          const hasIntrinsicDimensions = Boolean(width && height);
-          const visualAspectRatio = hasIntrinsicDimensions
-            ? String(width) + ' / ' + String(height)
-            : undefined;
           const visualIndex = articleVisualIndex++;
           const resolvedSrc = resolveInsightVisualUrl(block.url, language);
           const openLabel = language === 'id' ? 'Perbesar visual' : 'Open visual';
@@ -246,7 +241,7 @@ export const InsightContentRenderer: React.FC<{
               data-kapi-article-visual="true"
               data-visual-index={visualIndex + 1}
             >
-              <div className="group relative overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#0B0C0E] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
+              <div className="relative overflow-hidden rounded-[16px] border border-white/[0.08] bg-[#0B0C0E] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
                 <button
                   type="button"
                   onClick={() => setActiveVisual({
@@ -254,50 +249,42 @@ export const InsightContentRenderer: React.FC<{
                     alt: block.alt || (language === 'id' ? 'Visual artikel Kapitech' : 'Kapitech article visual'),
                     caption: block.caption
                   })}
-                  className="relative block w-full cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40"
+                  className="group relative block w-full cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40"
                   aria-label={openLabel + ': ' + (block.alt || (language === 'id' ? 'Visual artikel' : 'Article visual'))}
                 >
                   <span
-                    className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/75 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-100 backdrop-blur-md transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
+                    className="pointer-events-none absolute bottom-3 right-3 z-10 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/82 px-2.5 py-1.5 text-[8px] font-mono font-semibold uppercase tracking-[0.14em] text-[#B1B7C2] opacity-100 backdrop-blur-md transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                   >
                     <Maximize2 size={11} aria-hidden="true" />
                     {language === 'id' ? 'Perbesar' : 'Expand'}
                   </span>
 
-                  <div
-                    className="relative overflow-hidden bg-[#0B0C0E]"
-                    style={{ aspectRatio: visualAspectRatio }}
-                  >
-                    <img
-                      src={resolvedSrc}
-                      alt={block.alt || ''}
-                      width={width}
-                      height={height}
-                      loading={visualIndex === 0 ? 'eager' : 'lazy'}
-                      fetchPriority={visualIndex === 0 ? 'high' : 'auto'}
-                      decoding="async"
-                      className={[
-                        'block h-full w-full object-contain transition-transform duration-500 ease-out',
-                        'group-hover:scale-[1.01]'
-                      ].join(' ')}
-                      sizes="(min-width: 1280px) 820px, calc(100vw - 2rem)"
-                      onError={(event) => {
-                        const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
-                        if (event.currentTarget.src.endsWith(fallback)) return;
-                        event.currentTarget.src = fallback;
-                        event.currentTarget.alt = language === 'id'
-                          ? 'Visual artikel Kapitech'
-                          : 'Kapitech article visual';
-                      }}
-                    />
-                  </div>
+                  <img
+                    src={resolvedSrc}
+                    alt={block.alt || ''}
+                    width={width}
+                    height={height}
+                    loading={visualIndex === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={visualIndex === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                    className="block h-auto w-full max-w-full object-contain"
+                    sizes="(min-width: 1280px) 1024px, calc(100vw - 2rem)"
+                    onError={(event) => {
+                      const fallback = '/insights/mvp-vs-prototype-vs-proof-of-concept/visual-fallback.svg';
+                      if (event.currentTarget.src.endsWith(fallback)) return;
+                      event.currentTarget.src = fallback;
+                      event.currentTarget.alt = language === 'id'
+                        ? 'Visual artikel Kapitech'
+                        : 'Kapitech article visual';
+                    }}
+                  />
                 </button>
               </div>
 
               {(block.caption || block.alt) && (
                 <figcaption className="mt-3 flex items-start gap-3 px-1">
                   <span className="mt-2 h-px w-6 shrink-0 bg-brand-red/70" aria-hidden="true" />
-                  <span className="text-xs leading-6 text-[#7A8290]">
+                  <span className="max-w-[74ch] text-xs leading-6 text-[#7A8290]">
                     {block.caption || block.alt}
                   </span>
                 </figcaption>
