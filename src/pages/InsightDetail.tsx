@@ -861,7 +861,7 @@ export const InsightDetail: React.FC = () => {
             <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
               <div className="hidden xl:block" aria-hidden="true" />
               <section
-              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-8 sm:mt-20"
+              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-12 sm:mt-20"
               aria-labelledby="faq-title"
             >
               <div className="max-w-2xl">
