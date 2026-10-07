@@ -21,6 +21,7 @@ export const Insights: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [languageFallback, setLanguageFallback] = useState<'id' | null>(null);
+  const [retryToken, setRetryToken] = useState(0);
   const resultsHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const pendingResultsNavigationRef = useRef(false);
 
@@ -30,20 +31,34 @@ export const Insights: React.FC = () => {
 
   useEffect(() => {
     let cancelled = false;
+
+    void api.cms.getInsightCategories(language)
+      .then((categoryRes) => {
+        if (cancelled || !categoryRes.success) return;
+        setCategories(categoryRes.data?.categories || []);
+      })
+      .catch(() => {
+        if (!cancelled) setCategories([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [language]);
+
+  useEffect(() => {
+    let cancelled = false;
     setLoading(true);
     setError('');
     setLanguageFallback(null);
 
-    void Promise.all([
-      api.cms.getInsights({
-        language,
-        categoryId: categoryId || undefined,
-        search: search || undefined,
-        page,
-        pageSize: 9
-      }),
-      api.cms.getInsightCategories(language)
-    ]).then(async ([insightRes, categoryRes]) => {
+    void api.cms.getInsights({
+      language,
+      categoryId: categoryId || undefined,
+      search: search || undefined,
+      page,
+      pageSize: 9
+    }).then(async (insightRes) => {
       if (cancelled) return;
 
       let displayRes = insightRes;
@@ -82,9 +97,6 @@ export const Insights: React.FC = () => {
         setLanguageFallback(fallbackLanguage);
       }
 
-      if (categoryRes.success) {
-        setCategories(categoryRes.data?.categories || []);
-      }
     }).catch(() => {
       if (cancelled) return;
       setError(language === 'id' ? 'Terjadi masalah saat memuat Insight.' : 'Something went wrong while loading Insights.');
@@ -96,7 +108,7 @@ export const Insights: React.FC = () => {
     });
 
     return () => { cancelled = true; };
-  }, [language, categoryId, search, page]);
+  }, [language, categoryId, search, page, retryToken]);
 
   const featured = useMemo(
     () => page === 1 && !search && !categoryId ? items.find(item => item.isFeatured) || null : null,
@@ -334,8 +346,30 @@ export const Insights: React.FC = () => {
           )}
 
           {loading ? (
-            <div className="rounded-[26px] border border-white/[0.07] bg-white/[0.018] p-8 text-sm text-[#7E8592]" role="status">
-              {language === 'id' ? 'Memuat Insight...' : 'Loading insights...'}
+            <div
+              className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+              role="status"
+              aria-label={language === 'id' ? 'Memuat Insight' : 'Loading insights'}
+            >
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014]"
+                  aria-hidden="true"
+                >
+                  <div className="aspect-[16/9] animate-pulse bg-white/[0.035]" />
+                  <div className="space-y-3 p-5 sm:p-6">
+                    <div className="h-2.5 w-32 animate-pulse rounded-full bg-white/[0.045]" />
+                    <div className="h-5 w-5/6 animate-pulse rounded-full bg-white/[0.05]" />
+                    <div className="h-4 w-full animate-pulse rounded-full bg-white/[0.035]" />
+                    <div className="h-4 w-4/5 animate-pulse rounded-full bg-white/[0.035]" />
+                    <div className="mt-6 flex justify-between gap-4">
+                      <div className="h-3 w-28 animate-pulse rounded-full bg-white/[0.035]" />
+                      <div className="h-9 w-20 animate-pulse rounded-full bg-white/[0.045]" />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : error ? (
             <div className="rounded-[26px] border border-brand-red/20 bg-brand-red/[0.045] p-8">
@@ -343,8 +377,11 @@ export const Insights: React.FC = () => {
               <p className="mt-2 max-w-xl text-sm leading-6 text-[#858C99]">{error}</p>
               <button
                 type="button"
-                onClick={() => window.location.reload()}
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-red/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                onClick={() => {
+                  pendingResultsNavigationRef.current = false;
+                  setRetryToken(value => value + 1);
+                }}
+                className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-red/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 {language === 'id' ? 'Coba lagi' : 'Try again'}
               </button>
@@ -359,7 +396,11 @@ export const Insights: React.FC = () => {
                 <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
                   {language === 'id' ? 'Editorial queue' : 'Editorial queue'}
                 </p>
-                <h2 className="mt-3 text-2xl font-display font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+                <h2
+                  ref={resultsHeadingRef}
+                  tabIndex={-1}
+                  className="mt-3 scroll-mt-28 text-2xl font-display font-semibold tracking-[-0.03em] text-white outline-none focus-visible:outline-none sm:text-3xl"
+                >
                   {search || categoryId
                     ? (language === 'id' ? 'Belum ada Insight yang cocok' : 'No matching Insights')
                     : (language === 'id' ? 'Insight sedang disiapkan' : 'Insights are being prepared')}
@@ -407,7 +448,12 @@ export const Insights: React.FC = () => {
                     <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
                       {language === 'id' ? 'Library' : 'Library'}
                     </p>
-                    <h2 id="latest-insights-title" className="mt-2 text-3xl font-display font-semibold tracking-[-0.04em] text-white sm:text-[2.45rem]">
+                    <h2
+                  ref={resultsHeadingRef}
+                  id="latest-insights-title"
+                  tabIndex={-1}
+                  className="mt-2 scroll-mt-28 text-3xl font-display font-semibold tracking-[-0.04em] text-white outline-none focus-visible:outline-none sm:text-[2.45rem]"
+                >
                       {latestLabel}
                     </h2>
                   </div>
