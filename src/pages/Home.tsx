@@ -297,23 +297,23 @@ export const Home = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-24 sm:py-32 md:py-36 overflow-hidden">
+      <section className="kapi-page-hero relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-24 sm:py-32 md:py-36 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
-            preset="silk"
-            color="#dc143c"
-            backgroundColor="#170f0f"
-            opacity={0.58}
-            fade="none"
-            fadeSize={0.7}
+            preset="lines"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.34}
+            fade="edges"
+            fadeSize={0.72}
             interactive
-            cursorSize={50}
-            cursorStrength={0.6}
-            speed={0.28}
-            scale={1.05}
-            depth={0.72}
-            shine={0.7}
-            contrast={1.08}
+            cursorSize={52}
+            cursorStrength={0.38}
+            speed={0.2}
+            scale={1.06}
+            depth={0.62}
+            shine={0.5}
+            contrast={1.04}
             intro
           />
           <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
