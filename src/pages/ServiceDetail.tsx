@@ -4,9 +4,7 @@ import { useParams, useLocation, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowUpRight, 
-  ChevronRight, 
   CheckCircle2, 
-  ArrowLeft, 
   Sparkles, 
   Layers, 
   Cpu, 
