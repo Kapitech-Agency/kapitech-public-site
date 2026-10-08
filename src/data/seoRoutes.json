@@ -55,36 +55,36 @@
     {
       "path": "/privacy",
       "title": "Privacy Policy | Kapitech Agency",
-      "description": "Read the Kapitech Agency privacy policy and understand how website and inquiry data is handled.",
-      "robots": "noindex, follow",
+      "description": "Read Kapitech Agency’s privacy policy to understand how PT Kapitech Digital Indonesia handles personal data, website forms, recruitment submissions, newsletter subscriptions, analytics, security, rights, and retention.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/terms",
       "title": "Terms of Service | Kapitech Agency",
-      "description": "Read the Kapitech Agency terms of service governing use of this website and related services.",
-      "robots": "noindex, follow",
+      "description": "Read Kapitech Agency’s website Terms of Service covering website use, submissions, content, intellectual property, service information, security, availability, disclaimers, and project agreements.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/cookie-policy",
       "title": "Cookie Policy | Kapitech Agency",
-      "description": "Read the Kapitech Agency cookie policy and understand how cookies and optional tracking are used.",
-      "robots": "noindex, follow",
+      "description": "Read Kapitech Agency’s Cookie Policy covering local storage, cookies, consent, optional analytics, attribution, browser controls, and tracker configuration.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/ai-instructions",
       "title": "AI Instructions | Kapitech Agency",
-      "description": "Kapitech Agency machine-readable guidance and publishing instructions.",
-      "robots": "noindex, follow",
+      "description": "Official AI guidance for accurate, current, source-prioritised descriptions of Kapitech Agency, its services, capabilities, public company facts, and content.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
       "path": "/editorial-policy",
       "title": "Editorial Policy | Kapitech Agency",
-      "description": "Read the editorial and content governance policy for Kapitech Agency.",
-      "robots": "noindex, follow",
+      "description": "Read Kapitech Agency’s Editorial Policy covering research, source standards, AI-assisted production, review, originality, commercial transparency, corrections, updates, and accessibility.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       "kind": "webpage"
     },
     {
