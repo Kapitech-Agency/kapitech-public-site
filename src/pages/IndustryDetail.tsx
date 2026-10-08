@@ -239,6 +239,7 @@ export const IndustryDetail = () => {
               key={id}
               href={'#' + id}
               onClick={() => setActiveSection(id)}
+              aria-current={activeSection === id ? 'location' : undefined}
               className={cn(
                 "shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.16] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70",
                 activeSection === id
