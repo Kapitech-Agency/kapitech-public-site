@@ -162,6 +162,7 @@ export const IndustryDetail = () => {
   const supportingProjects = activeProjects.filter((project) => project.id !== featuredProject?.id).slice(0, 4);
 
   const currentLabel = catalog?.label ?? legacyIndustry ?? 'Industry';
+  const consultationHref = '/book-a-call?industry=' + encodeURIComponent(currentLabel);
 
   const visibleCatalog = catalog
     ? catalog.relatedSlugs
@@ -355,7 +356,7 @@ export const IndustryDetail = () => {
 
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
-            to="/book-a-call"
+            to={consultationHref}
             className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
             {language === 'id' ? 'Diskusikan project Anda' : 'Discuss your project'}
@@ -782,7 +783,7 @@ export const IndustryDetail = () => {
 
               <div className="flex shrink-0 flex-wrap gap-2.5">
                 <Link
-                  to="/book-a-call"
+                  to={consultationHref}
                   className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                 >
                   {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
