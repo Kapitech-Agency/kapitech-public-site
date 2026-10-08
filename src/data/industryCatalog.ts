@@ -36,22 +36,16 @@ export const industryCatalog: IndustryCatalogItem[] = [
     capabilities: ['Product UX/UI', 'Web applications', 'Corporate & product websites', 'ERP / CRM & internal systems', 'Brand and visual systems'],
     solutionTypes: [
       { title: "Banking and finance portals", description: "Clear journeys for high-trust account, advisory, onboarding, and servicing experiences." },
-solutionTypes: [
-      { title: "Payment and merchant dashboards", description: "Operational views that surface transaction state, exceptions, and actions without overwhelming the user." },
-solutionTypes: [
-      { title: "Trading and investment interfaces", description: "Information-dense products structured around monitoring, comparison, decision-making, and confidence." },
-solutionTypes: [
-      { title: "Financial reporting and operational systems", description: "Role-aware workflows for reporting, approvals, reconciliation, and internal visibility." },
       { title: "Payment and merchant dashboards", description: "Operational views that surface transaction state, exceptions, and actions without overwhelming the user." },
       { title: "Trading and investment interfaces", description: "Information-dense products structured around monitoring, comparison, decision-making, and confidence." },
       { title: "Financial reporting and operational systems", description: "Role-aware workflows for reporting, approvals, reconciliation, and internal visibility." },
     ],
     deliveryFocus: [
-    "Map users, permissions, decision points, and high-risk workflow states before interface work.",
-    "Reduce cognitive load in data-heavy screens while keeping critical numbers and states easy to verify.",
-    "Validate product decisions against real operational constraints, integrations, and reporting needs.",
-    "Package the design system and implementation scope so the product can evolve without fragmenting.",
-  ],
+      "Map users, permissions, decision points, and high-risk workflow states before interface work.",
+      "Reduce cognitive load in data-heavy screens while keeping critical numbers and states easy to verify.",
+      "Validate product decisions against real operational constraints, integrations, and reporting needs.",
+      "Package the design system and implementation scope so the product can evolve without fragmenting.",
+    ],
     principles: [
       { title: 'Trust is part of the interface', description: 'Financial products need clear hierarchy, predictable actions, visible system states, and language that reduces uncertainty at important decision points.' },
       { title: 'Complex data needs usable structure', description: 'Dashboards and financial workflows are organised around the tasks users need to complete, not simply around the amount of information available.' },
@@ -77,22 +71,16 @@ solutionTypes: [
     capabilities: ['UX/UI and product design', 'Web applications', 'Corporate and healthcare websites', 'Workflow systems', 'Technical infrastructure'],
     solutionTypes: [
       { title: "Healthcare web platforms", description: "Patient, provider, and organisation-facing experiences built around clarity, trust, and accessible information." },
-solutionTypes: [
-      { title: "Patient-facing digital experiences", description: "Straightforward journeys for discovery, education, enquiry, scheduling, and service access." },
-solutionTypes: [
-      { title: "Operational dashboards", description: "Role-specific views for teams that need to monitor work, status, capacity, and exceptions." },
-solutionTypes: [
-      { title: "Medical information workflows", description: "Structured interfaces that make dense information easier to scan, understand, and act on." },
       { title: "Patient-facing digital experiences", description: "Straightforward journeys for discovery, education, enquiry, scheduling, and service access." },
       { title: "Operational dashboards", description: "Role-specific views for teams that need to monitor work, status, capacity, and exceptions." },
       { title: "Medical information workflows", description: "Structured interfaces that make dense information easier to scan, understand, and act on." },
     ],
     deliveryFocus: [
-    "Start with roles, tasks, accessibility needs, and the moments where users are most likely to hesitate.",
-    "Separate patient-facing clarity from operational density so each audience gets the right level of information.",
-    "Design feedback and system states explicitly so users know what happened, what is pending, and what comes next.",
-    "Keep rollout practical by prioritising high-impact workflows before broader platform changes.",
-  ],
+      "Start with roles, tasks, accessibility needs, and the moments where users are most likely to hesitate.",
+      "Separate patient-facing clarity from operational density so each audience gets the right level of information.",
+      "Design feedback and system states explicitly so users know what happened, what is pending, and what comes next.",
+      "Keep rollout practical by prioritising high-impact workflows before broader platform changes.",
+    ],
     principles: [
       { title: 'Clarity matters at every step', description: 'Healthcare users often arrive with a specific task and limited attention, so information hierarchy and feedback need to be direct.' },
       { title: 'Different roles need different experiences', description: 'Patients, clinicians, administrators, and support teams do not use a system in the same way. We design around the workflow of each role.' },
@@ -118,22 +106,16 @@ solutionTypes: [
     capabilities: ['Product UX/UI', 'MVP design and development', 'Web applications', 'Design systems', 'Web and conversion experiences'],
     solutionTypes: [
       { title: "SaaS platforms", description: "Scalable product experiences that connect onboarding, core workflows, settings, and growth paths." },
-solutionTypes: [
-      { title: "AI-assisted products", description: "Interfaces that make AI output understandable, controllable, reviewable, and useful inside real workflows." },
-solutionTypes: [
-      { title: "MVPs and product prototypes", description: "Focused product experiences that make the core value proposition testable before a larger build." },
-solutionTypes: [
-      { title: "Internal workflow applications", description: "Role-aware tools that simplify repetitive work, approvals, handoffs, and operational visibility." },
       { title: "AI-assisted products", description: "Interfaces that make AI output understandable, controllable, reviewable, and useful inside real workflows." },
       { title: "MVPs and product prototypes", description: "Focused product experiences that make the core value proposition testable before a larger build." },
       { title: "Internal workflow applications", description: "Role-aware tools that simplify repetitive work, approvals, handoffs, and operational visibility." },
     ],
     deliveryFocus: [
-    "Identify the smallest workflow that proves product value before expanding feature scope.",
-    "Keep advanced capabilities discoverable without letting them dominate the primary task.",
-    "Make loading, empty, error, success, and AI-generated states explicit so the product feels predictable.",
-    "Create reusable interaction patterns early so new features do not produce a fragmented SaaS experience.",
-  ],
+      "Identify the smallest workflow that proves product value before expanding feature scope.",
+      "Keep advanced capabilities discoverable without letting them dominate the primary task.",
+      "Make loading, empty, error, success, and AI-generated states explicit so the product feels predictable.",
+      "Create reusable interaction patterns early so new features do not produce a fragmented SaaS experience.",
+    ],
     principles: [
       { title: 'Start with the core workflow', description: 'Products become easier to use when the primary task is clear and the interface is organised around the outcome users need.' },
       { title: 'Complexity should be progressive', description: 'Advanced functionality does not need to appear all at once. We use hierarchy and progressive disclosure to keep interfaces understandable.' },
@@ -159,22 +141,16 @@ solutionTypes: [
     capabilities: ['Brand identity', 'UI/UX design', 'E-commerce development', 'Creative and motion', 'Website development'],
     solutionTypes: [
       { title: "E-commerce storefronts", description: "Product discovery, comparison, trust, and checkout experiences designed to reduce friction to purchase." },
-solutionTypes: [
-      { title: "Consumer websites", description: "Brand-led experiences that help visitors understand the offer quickly and move toward enquiry or conversion." },
-solutionTypes: [
-      { title: "Brand and campaign systems", description: "Reusable visual structures that keep launches, promotions, content, and landing pages coherent." },
-solutionTypes: [
-      { title: "Digital product experiences", description: "Connected journeys for loyalty, membership, content, service, or post-purchase experiences." },
       { title: "Consumer websites", description: "Brand-led experiences that help visitors understand the offer quickly and move toward enquiry or conversion." },
       { title: "Brand and campaign systems", description: "Reusable visual structures that keep launches, promotions, content, and landing pages coherent." },
       { title: "Digital product experiences", description: "Connected journeys for loyalty, membership, content, service, or post-purchase experiences." },
     ],
     deliveryFocus: [
-    "Understand where customers hesitate, compare, abandon, or need more proof before deciding.",
-    "Make product information, imagery, price, trust signals, and calls to action work as one hierarchy.",
-    "Design campaign components so marketing teams can reuse and update them without rebuilding the system.",
-    "Protect the brand experience across mobile, desktop, commerce, and content touchpoints.",
-  ],
+      "Understand where customers hesitate, compare, abandon, or need more proof before deciding.",
+      "Make product information, imagery, price, trust signals, and calls to action work as one hierarchy.",
+      "Design campaign components so marketing teams can reuse and update them without rebuilding the system.",
+      "Protect the brand experience across mobile, desktop, commerce, and content touchpoints.",
+    ],
     principles: [
       { title: 'Brand and product should feel connected', description: 'The visual language should strengthen the product experience rather than sit separately from it.' },
       { title: 'Reduce friction in the buying journey', description: 'Navigation, product discovery, information hierarchy, trust signals, and conversion paths need to work together.' },
@@ -200,22 +176,16 @@ solutionTypes: [
     capabilities: ['Web development', 'Web applications', 'ERP / CRM systems', 'UX/UI for enterprise products', 'IT support & infrastructure'],
     solutionTypes: [
       { title: "Enterprise portals", description: "Structured web experiences for organisations that need clear information, services, and stakeholder access." },
-solutionTypes: [
-      { title: "Operational systems", description: "Interfaces built around daily work, status visibility, permissions, and repeatable operational tasks." },
-solutionTypes: [
-      { title: "ERP / CRM platforms", description: "Role-aware systems that make complex records, workflows, approvals, and business data easier to manage." },
-solutionTypes: [
-      { title: "Cloud and infrastructure delivery", description: "Technical foundations that support deployment, reliability, monitoring, and maintainable operations." },
       { title: "Operational systems", description: "Interfaces built around daily work, status visibility, permissions, and repeatable operational tasks." },
       { title: "ERP / CRM platforms", description: "Role-aware systems that make complex records, workflows, approvals, and business data easier to manage." },
       { title: "Cloud and infrastructure delivery", description: "Technical foundations that support deployment, reliability, monitoring, and maintainable operations." },
     ],
     deliveryFocus: [
-    "Map the actual operating model, user roles, permissions, and handoffs before changing the interface.",
-    "Prioritise the workflows that create the most operational friction or consume the most time.",
-    "Design states, validation, and exception handling carefully because operational users rely on predictable feedback.",
-    "Stage system improvements so the business can adopt change without disrupting critical operations.",
-  ],
+      "Map the actual operating model, user roles, permissions, and handoffs before changing the interface.",
+      "Prioritise the workflows that create the most operational friction or consume the most time.",
+      "Design states, validation, and exception handling carefully because operational users rely on predictable feedback.",
+      "Stage system improvements so the business can adopt change without disrupting critical operations.",
+    ],
     principles: [
       { title: 'Design for the people who run the operation', description: 'Internal systems need to support real tasks, roles, permissions, and information needs rather than only looking polished.' },
       { title: 'Complexity needs hierarchy', description: 'Enterprise products can expose a lot of information without forcing users to process everything at the same time.' },
@@ -241,22 +211,16 @@ solutionTypes: [
     capabilities: ['Product UX/UI', 'Web applications', 'Corporate and operational websites', 'Workflow systems', 'Infrastructure'],
     solutionTypes: [
       { title: "Fleet applications", description: "Mobile and web workflows for drivers, operators, supervisors, and teams managing moving assets." },
-solutionTypes: [
-      { title: "Logistics portals", description: "Shipment, order, partner, and exception workflows that keep operational status visible." },
-solutionTypes: [
-      { title: "Operational dashboards", description: "Focused views for monitoring volume, movement, delays, exceptions, and next actions." },
-solutionTypes: [
-      { title: "Mobility digital experiences", description: "Customer or partner-facing experiences that connect planning, tracking, communication, and service." },
       { title: "Logistics portals", description: "Shipment, order, partner, and exception workflows that keep operational status visible." },
       { title: "Operational dashboards", description: "Focused views for monitoring volume, movement, delays, exceptions, and next actions." },
       { title: "Mobility digital experiences", description: "Customer or partner-facing experiences that connect planning, tracking, communication, and service." },
     ],
     deliveryFocus: [
-    "Design around the moments where operators need to make fast decisions or recover from an exception.",
-    "Keep status, location, ownership, and next action visible without forcing users through unnecessary screens.",
-    "Support different roles without duplicating the entire system or creating conflicting sources of truth.",
-    "Validate the experience against network, device, workflow, and operational constraints before scaling.",
-  ],
+      "Design around the moments where operators need to make fast decisions or recover from an exception.",
+      "Keep status, location, ownership, and next action visible without forcing users through unnecessary screens.",
+      "Support different roles without duplicating the entire system or creating conflicting sources of truth.",
+      "Validate the experience against network, device, workflow, and operational constraints before scaling.",
+    ],
     principles: [
       { title: 'Design for speed and focus', description: 'Operational users often need the right information quickly, so important actions and states should be obvious.' },
       { title: 'Support multiple roles', description: 'Drivers, operators, managers, partners, and customers may interact with different parts of the same system.' },
@@ -282,22 +246,16 @@ solutionTypes: [
     capabilities: ['Brand identity', 'Website design and development', '3D visualisation', 'Creative design', 'Interactive experiences'],
     solutionTypes: [
       { title: "Hospitality websites", description: "Premium digital experiences that balance discovery, storytelling, trust, and enquiry or booking intent." },
-solutionTypes: [
-      { title: "Property digital showcases", description: "Immersive presentations that help users understand spaces, locations, amenities, and value." },
-solutionTypes: [
-      { title: "Luxury brand systems", description: "Connected identity and digital patterns that keep every high-touch brand interaction consistent." },
-solutionTypes: [
-      { title: "3D and interactive experiences", description: "Visual and interactive layers that help audiences experience a place, product, or concept before visiting." },
       { title: "Property digital showcases", description: "Immersive presentations that help users understand spaces, locations, amenities, and value." },
       { title: "Luxury brand systems", description: "Connected identity and digital patterns that keep every high-touch brand interaction consistent." },
       { title: "3D and interactive experiences", description: "Visual and interactive layers that help audiences experience a place, product, or concept before visiting." },
     ],
     deliveryFocus: [
-    "Identify the emotional and practical information users need before they enquire, book, visit, or invest.",
-    "Sequence imagery, content, motion, and proof so the visual experience supports understanding rather than distraction.",
-    "Make premium presentation work on mobile too, especially around navigation, galleries, enquiry, and booking paths.",
-    "Connect brand standards to reusable digital components so future campaigns do not dilute the experience.",
-  ],
+      "Identify the emotional and practical information users need before they enquire, book, visit, or invest.",
+      "Sequence imagery, content, motion, and proof so the visual experience supports understanding rather than distraction.",
+      "Make premium presentation work on mobile too, especially around navigation, galleries, enquiry, and booking paths.",
+      "Connect brand standards to reusable digital components so future campaigns do not dilute the experience.",
+    ],
     principles: [
       { title: 'Presentation shapes perception', description: 'For premium businesses, visual quality and information structure both contribute to confidence and perceived value.' },
       { title: 'Show the experience, not only the service', description: 'Imagery, motion, 3D, and content hierarchy can help users understand what makes a place, property, or brand distinctive.' },
@@ -323,22 +281,16 @@ solutionTypes: [
     capabilities: ['Motion & graphic design', 'Video production', 'Interactive websites', '3D visualisation', 'Creative design'],
     solutionTypes: [
       { title: "Campaign experiences", description: "Digital launches and campaign surfaces designed to attract attention while keeping the message easy to follow." },
-solutionTypes: [
-      { title: "Interactive websites", description: "Editorial, promotional, or brand experiences that use interaction to deepen engagement rather than add noise." },
-solutionTypes: [
-      { title: "Gaming and live content systems", description: "Interfaces and supporting digital experiences built around high-frequency, audience-led interaction." },
-solutionTypes: [
-      { title: "Motion-led brand experiences", description: "Motion, graphics, and visual systems that help brands communicate consistently across channels." },
       { title: "Interactive websites", description: "Editorial, promotional, or brand experiences that use interaction to deepen engagement rather than add noise." },
       { title: "Gaming and live content systems", description: "Interfaces and supporting digital experiences built around high-frequency, audience-led interaction." },
       { title: "Motion-led brand experiences", description: "Motion, graphics, and visual systems that help brands communicate consistently across channels." },
     ],
     deliveryFocus: [
-    "Define the audience action first so motion and interaction support a clear communication goal.",
-    "Use pacing, hierarchy, and progressive disclosure to keep highly visual experiences understandable.",
-    "Design reusable content and motion patterns so campaigns can scale beyond a single hero asset.",
-    "Test the experience across devices because interaction-heavy work can fail when responsiveness is treated too late.",
-  ],
+      "Define the audience action first so motion and interaction support a clear communication goal.",
+      "Use pacing, hierarchy, and progressive disclosure to keep highly visual experiences understandable.",
+      "Design reusable content and motion patterns so campaigns can scale beyond a single hero asset.",
+      "Test the experience across devices because interaction-heavy work can fail when responsiveness is treated too late.",
+    ],
     principles: [
       { title: 'Attention must still have direction', description: 'Strong creative should make the message easier to understand, not simply create more movement.' },
       { title: 'Create systems, not one-off assets', description: 'Reusable visual and motion patterns make campaigns and content easier to scale across channels.' },
