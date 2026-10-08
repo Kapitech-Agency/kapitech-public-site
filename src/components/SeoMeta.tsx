@@ -4,6 +4,7 @@ import { getServiceBySlug } from '../data/servicesData';
 import { allProjects } from '../data/projectsData';
 import { resources } from '../data/resourcesData';
 import { clientSlug, industryBySlug, industrySlug, projectBySlug } from '../lib/publicContent';
+import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
 
@@ -100,6 +101,20 @@ function buildBreadcrumbs(pathname: string, currentName: string) {
 }
 
 function getRouteSeo(pathname: string, language: 'en' | 'id') {
+  if (pathname === '/faq') {
+    const canonicalUrl = SITE_URL + '/faq';
+    return {
+      seo: { title: 'FAQ | Kapitech Agency', description: 'Answers about working with Kapitech, process, services, security, careers, and project inquiries.', robots: DEFAULT_ROBOTS } satisfies SeoDefinition,
+      canonicalPath: '/faq',
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': canonicalUrl + '#faq',
+        mainEntity: faqItems.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } }))
+      }
+    };
+  }
+
   const base = seoRoutes.routes.find((route) => route.path === pathname);
   if (base && base.kind !== 'service') {
     const canonicalPath = pathname || '/';
