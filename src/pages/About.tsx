@@ -285,22 +285,22 @@ export const About = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 overflow-hidden">
+      <section className="kapi-page-hero relative pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
-            preset="ocean"
+            preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.3}
+            opacity={0.34}
             fade="edges"
-            fadeSize={0.74}
+            fadeSize={0.72}
             interactive
-            cursorSize={70}
-            cursorStrength={0.62}
-            speed={0.18}
+            cursorSize={52}
+            cursorStrength={0.38}
+            speed={0.2}
             scale={1.06}
-            depth={0.56}
-            shine={0.52}
+            depth={0.62}
+            shine={0.5}
             contrast={1.04}
             intro
           />
@@ -346,7 +346,7 @@ export const About = () => {
           <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.025] blur-[120px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:gap-24">
             <div>
               <span className="kapi-section-label mb-5">
