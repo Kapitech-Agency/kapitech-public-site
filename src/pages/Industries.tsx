@@ -490,7 +490,115 @@ export const Industries = () => {
         </section>
 
         {featuredIndustry && featuredProject ? (
-          <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="industry-proof-title">
+          <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="industry-proof-title">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="kapi-section-label">
+                  {language === 'id' ? 'Selected proof' : 'Selected proof'}
+                </span>
+                <h2
+                  id="industry-proof-title"
+                  className="mt-3 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
+                >
+                  {featuredIndustry.industry}
+                </h2>
+              </div>
+
+              <Link
+                to={'/industries/' + industrySlug(featuredIndustry.industry)}
+                className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A5ACB6] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              >
+                {language === 'id' ? 'Buka konteks industri' : 'Open industry context'}
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="mt-8 grid overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.018] lg:grid-cols-[1.2fr_0.8fr]">
+              <Link
+                to={'/work/' + (featuredProject.slug || featuredProject.id)}
+                className="group relative min-h-[360px] overflow-hidden bg-[#111317] sm:min-h-[460px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/70"
+              >
+                <img
+                  src={featuredProject.image}
+                  alt={featuredProject.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                  <div className="flex flex-wrap items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-white/75">
+                    <span>{featuredProject.client}</span>
+                    <span className="text-white/25">/</span>
+                    <span>{featuredProject.year}</span>
+                  </div>
+                  <h3 className="mt-2 max-w-2xl text-2xl font-display font-semibold tracking-[-0.035em] text-white sm:text-3xl">
+                    {featuredProject.title}
+                  </h3>
+                </div>
+              </Link>
+
+              <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+                <div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-brand-red">
+                      {featuredProject.service}
+                    </span>
+                    {featuredIndustry.pillars.map((pillar) => (
+                      <span
+                        key={pillar}
+                        className="rounded-full border border-white/[0.07] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-[#737C88]"
+                      >
+                        {pillar}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="mt-7 text-sm leading-7 text-[#8E96A2]">
+                    {language === 'id' ? featuredProject.descId : featuredProject.desc}
+                  </p>
+
+                  <div className="mt-8 grid gap-3 border-t border-white/[0.07] pt-6 sm:grid-cols-2">
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#626B77]">
+                        {language === 'id' ? 'Pekerjaan di industri' : 'Work in industry'}
+                      </span>
+                      <span className="mt-1 block text-xl font-display font-semibold">
+                        {featuredIndustry.projects.length}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#626B77]">
+                        {language === 'id' ? 'Kapabilitas' : 'Capabilities'}
+                      </span>
+                      <span className="mt-1 block text-xl font-display font-semibold">
+                        {featuredIndustry.services.length}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    to={'/work/' + (featuredProject.slug || featuredProject.id)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  >
+                    {language === 'id' ? 'Lihat pekerjaan' : 'View work'}
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                  <Link
+                    to={'/industries/' + industrySlug(featuredIndustry.industry)}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-5 py-3 text-xs font-semibold text-[#C5CAD2] transition-colors hover:border-white/[0.16] hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  >
+                    {language === 'id' ? 'Lihat semua' : 'Explore all'}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="border-b border-white/[0.07] py-12 sm:py-16" aria-labelledby="delivery-across-industries-title">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <span className="kapi-section-label">
@@ -512,9 +620,9 @@ export const Industries = () => {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-8 border-y border-white/[0.07] md:grid-cols-3 md:divide-x md:divide-white/[0.07]">
+          <div className="mt-10 grid gap-8 md:grid-cols-3 md:divide-x md:divide-white/[0.07]">
             {deliveryPillars.map((pillar) => (
-              <article key={pillar.label} className="py-7 md:px-7 md:first:pl-0 md:last:pr-0">
+              <article key={pillar.label} className="py-2 md:px-7 md:first:pl-0 md:last:pr-0">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.018] text-[#8F97A3]">
                   {pillar.label === 'Experience' ? (
                     <Sparkles size={16} aria-hidden="true" />
@@ -537,7 +645,6 @@ export const Industries = () => {
             ))}
           </div>
         </section>
-
       </div>
     </main>
   );
