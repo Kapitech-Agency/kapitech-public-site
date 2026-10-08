@@ -606,16 +606,16 @@ export const InsightDetail: React.FC = () => {
             preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.30}
+            opacity={0.32}
             fade="edges"
             fadeSize={0.72}
             interactive
             cursorSize={52}
-            cursorStrength={0.34}
-            speed={0.18}
+            cursorStrength={0.38}
+            speed={0.2}
             scale={1.06}
-            depth={0.60}
-            shine={0.48}
+            depth={0.62}
+            shine={0.5}
             contrast={1.03}
             intro
           />
