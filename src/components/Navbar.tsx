@@ -25,6 +25,7 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const mobileMenuTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = React.useRef<HTMLDivElement>(null);
   const wasMobileMenuOpenRef = useRef(false);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
@@ -64,6 +65,32 @@ export const Navbar = () => {
         setIsMenuOpen(false);
         setIsServicesDropdownOpen(false);
         setIsMobileServicesOpen(false);
+        return;
+      }
+
+      if (event.key !== 'Tab' || !isMenuOpen) return;
+
+      const menu = mobileMenuRef.current;
+      if (!menu) return;
+
+      const focusable = Array.from(
+        menu.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.getClientRects().length > 0);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && (activeElement === first || !menu.contains(activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
@@ -72,6 +99,12 @@ export const Navbar = () => {
       document.body.dataset.kapiMobileMenuOpen = 'true';
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleKeyDown);
+      window.requestAnimationFrame(() => {
+        const firstFocusable = mobileMenuRef.current?.querySelector<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        firstFocusable?.focus();
+      });
     } else if (wasMobileMenuOpenRef.current) {
       wasMobileMenuOpenRef.current = false;
       delete document.body.dataset.kapiMobileMenuOpen;
@@ -556,6 +589,9 @@ export const Navbar = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               id="mobile-navigation"
+              ref={mobileMenuRef}
+              role="dialog"
+              aria-modal="true"
               aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
               className="absolute left-0 right-0 top-full z-10 xl:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
