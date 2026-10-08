@@ -20,11 +20,15 @@ export const Industries = () => {
   }, []);
 
   const source = projects.length ? projects : allProjects;
+  const publicSource = useMemo(
+    () => source.filter((project) => project.isPublished !== false),
+    [source],
+  );
 
   const industryEntries = useMemo(() => {
-    return uniqueIndustries(source)
+    return uniqueIndustries(publicSource)
       .map((industry) => {
-        const industryProjects = source.filter((item) => item.industry === industry);
+        const industryProjects = publicSource.filter((item) => item.industry === industry);
         const services = Array.from(new Set(industryProjects.map((item) => item.service).filter(Boolean)));
 
         return {
@@ -37,7 +41,7 @@ export const Industries = () => {
         if (b.projects.length !== a.projects.length) return b.projects.length - a.projects.length;
         return a.industry.localeCompare(b.industry);
       });
-  }, [source]);
+  }, [publicSource]);
 
   const totalProjects = useMemo(
     () => source.filter((project) => project.isPublished !== false).length,
@@ -45,8 +49,8 @@ export const Industries = () => {
   );
 
   const totalCapabilities = useMemo(
-    () => new Set(source.flatMap((project) => project.service || []).values()).size,
-    [source],
+    () => new Set(publicSource.map((project) => project.service).filter(Boolean)).size,
+    [publicSource],
   );
 
   return (
@@ -91,7 +95,7 @@ export const Industries = () => {
           <div className="flex items-end justify-between gap-5 border-b border-white/[0.08] pb-5">
             <div>
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">
-                {language === 'id' ? 'Directory' : 'Directory'}
+                {language === 'id' ? 'Direktori' : 'Directory'}
               </p>
               <h2 id="industry-directory-title" className="mt-2 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-3xl">
                 {language === 'id' ? 'Pilih konteks yang paling dekat dengan bisnis Anda.' : 'Choose the context closest to your business.'}
