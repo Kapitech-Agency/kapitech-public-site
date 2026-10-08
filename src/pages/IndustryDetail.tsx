@@ -17,10 +17,10 @@ export const IndustryDetail = () => {
   const projects = useMemo(() => industry ? source.filter((item) => item.industry === industry) : [], [industry, source]);
   const services = useMemo(() => Array.from(new Set(projects.map((item) => item.service))), [projects]);
 
-  if (!industry) return <main className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white"><div className="mx-auto max-w-4xl"><h1 className="text-4xl font-display font-semibold">Industry not found.</h1><Link to="/industries" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3]"><ArrowLeft size={14}/> Back to industries</Link></div></main>;
+  if (!industry) return <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white"><div className="mx-auto max-w-4xl"><h1 className="text-4xl font-display font-semibold">Industry not found.</h1><Link to="/industries" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3]"><ArrowLeft size={14}/> Back to industries</Link></div></main>;
 
   return (
-    <main className="min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32">
+    <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <Link to="/industries" className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#77808C] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] rounded-md"><ArrowLeft size={13}/> All industries</Link>
         <p className="mt-9 text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Industry / {industry}</p>
