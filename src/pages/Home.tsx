@@ -992,9 +992,10 @@ export const Home = () => {
                       onFocus={() => setActiveProcessStep(index)}
                       data-analytics-event="process_phase_open"
                       data-process-step={step.step}
+                      data-active={isActive ? 'true' : 'false'}
                       aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
                       aria-pressed={isActive}
-                      className="relative z-10 block w-full cursor-pointer text-left outline-none"
+                      className="kapi-framework-step relative z-10 block w-full cursor-pointer text-left outline-none"
                     >
                       <span
                         className={cn(
@@ -1009,10 +1010,7 @@ export const Home = () => {
                         <div
                           className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-3 transition-colors duration-500 lg:pr-1"
                         >
-                          <span className={cn(
-                            "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
-                            isActive ? "text-brand-red" : "text-[#8A909D]"
-                          )}>
+                          <span className="kapi-framework-step-label text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300">
                             {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
                           </span>
                           <motion.span
@@ -1025,9 +1023,9 @@ export const Home = () => {
                         </div>
 
                         <motion.h3
-                          animate={{ x: isActive ? 4 : 0, color: isActive ? '#FF1E27' : '#FFFFFF' }}
+                          animate={{ x: isActive ? 4 : 0 }}
                           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                          className="mt-5 max-w-[18rem] text-xl sm:text-2xl lg:text-[1.65rem] font-display font-semibold tracking-[-0.045em] leading-[1.06]"
+                          className="kapi-framework-step-title mt-5 max-w-[18rem] text-xl sm:text-2xl lg:text-[1.65rem] font-display font-semibold tracking-[-0.045em] leading-[1.06]"
                         >
                           {step.title}
                         </motion.h3>
