@@ -46,6 +46,7 @@ export const Work = () => {
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => getCmsProjects());
   const [activePillar, setActivePillar] = useState<string>(() => searchParams.get('pillar') || 'All');
   const [activeService, setActiveService] = useState<string>(() => searchParams.get('service') || 'All');
+  const [activeIndustry, setActiveIndustry] = useState<string>(() => searchParams.get('industry') || 'All');
   const [searchQuery, setSearchQuery] = useState<string>(() => searchParams.get('q') || '');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
@@ -290,6 +291,10 @@ export const Work = () => {
   const normalizeFilterValue = (value: string | null | undefined) =>
     String(value ?? '').trim().toLocaleLowerCase();
 
+  const industryOptions = useMemo(() => {
+    return ['All', ...Array.from(new Set(projectsList.map((project) => project.industry?.trim()).filter((industry): industry is string => Boolean(industry)))).sort((a, b) => a.localeCompare(b))];
+  }, [projectsList]);
+
   const serviceOptions = useMemo(() => {
     const activePillarKey = normalizeFilterValue(activePillar);
     const services = projectsList
@@ -316,7 +321,10 @@ export const Work = () => {
     if (activeService !== 'All' && !serviceOptions.includes(activeService)) {
       setActiveService('All');
     }
-  }, [activePillar, activeService, projectsList, serviceOptions]);
+    if (activeIndustry !== 'All' && !industryOptions.includes(activeIndustry)) {
+      setActiveIndustry('All');
+    }
+  }, [activePillar, activeService, activeIndustry, projectsList, serviceOptions, industryOptions]);
 
   useEffect(() => {
     const nextParams = new URLSearchParams(searchParams);
@@ -324,6 +332,8 @@ export const Work = () => {
     else nextParams.set('pillar', activePillar);
     if (activeService === 'All') nextParams.delete('service');
     else nextParams.set('service', activeService);
+    if (activeIndustry === 'All') nextParams.delete('industry');
+    else nextParams.set('industry', activeIndustry);
     if (searchQuery.trim()) nextParams.set('q', searchQuery.trim());
     else nextParams.delete('q');
 
@@ -331,7 +341,7 @@ export const Work = () => {
     if (next !== searchParams.toString()) {
       setSearchParams(nextParams, { replace: true });
     }
-  }, [activePillar, activeService, searchQuery, searchParams, setSearchParams]);
+  }, [activePillar, activeService, activeIndustry, searchQuery, searchParams, setSearchParams]);
 
   useEffect(() => {
     const scroller = serviceScrollRef.current;
@@ -366,6 +376,12 @@ export const Work = () => {
       );
     }
 
+    if (activeIndustry !== 'All') {
+      list = list.filter(
+        (project) => normalizeFilterValue(project.industry) === normalizeFilterValue(activeIndustry),
+      );
+    }
+
     if (searchQuery.trim()) {
       const fuse = new Fuse(list, {
         keys: ['title', 'client', 'industry', 'service', 'pillar', 'desc', 'descId', 'technologies', 'deliverables'],
@@ -375,7 +391,7 @@ export const Work = () => {
     }
 
     return list;
-  }, [projectsList, activePillar, activeService, searchQuery]);
+  }, [projectsList, activePillar, activeService, activeIndustry, searchQuery]);
 
   const currentFeatured = featuredProjects[featuredIndex] || projectsList[0];
 
@@ -687,11 +703,12 @@ export const Work = () => {
                 >
                   {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
                 </span>
-                {(activePillar !== 'All' || activeService !== 'All' || searchQuery) && (
+                {(activePillar !== 'All' || activeService !== 'All' || activeIndustry !== 'All' || searchQuery) && (
                   <button
                     onClick={() => {
                       setActivePillar('All');
                       setActiveService('All');
+                      setActiveIndustry('All');
                       setSearchQuery('');
                       setVisibleCount(12);
                     }}
@@ -770,6 +787,20 @@ export const Work = () => {
                   </button>
                 )}
               </div>
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto py-0.5" aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'} role="group">
+              {industryOptions.slice(0, 16).map((industry) => (
+                <button
+                  key={industry}
+                  type="button"
+                  onClick={() => { setActiveIndustry(industry); setVisibleCount(12); }}
+                  aria-pressed={activeIndustry === industry}
+                  className={`shrink-0 rounded-full border px-3 py-1.5 text-[10px] font-mono transition-[background-color,border-color,color] duration-200 ${activeIndustry === industry ? 'border-brand-red bg-brand-red text-white' : 'border-white/[0.08] bg-white/[0.018] text-[#818995] hover:border-white/[0.16] hover:text-white'}`}
+                >
+                  {industry === 'All' ? (language === 'id' ? 'Semua Industri' : 'All Industries') : industry}
+                </button>
+              ))}
             </div>
 
             <div
