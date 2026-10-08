@@ -90,7 +90,9 @@ class RouteErrorBoundary extends React.Component<
             {isInsight ? 'The article could not be rendered.' : 'This page could not be rendered.'}
           </h1>
           <p className="mt-4 text-sm leading-7 text-[#8B929F]">
-            A client-side error occurred while rendering this route. Reload the page or return to the Insight library.
+            {isInsight
+              ? 'A client-side error occurred while rendering this article. Reload the page or return to the Insights library.'
+              : 'A client-side error occurred while rendering this page. Reload the page or return to the home page.'}
           </p>
           {import.meta.env.DEV ? (
             <pre className="mt-6 max-h-40 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
