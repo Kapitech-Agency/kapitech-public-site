@@ -14,26 +14,48 @@ import { CookieConsent } from './components/CookieConsent';
 import { SeoMeta } from './components/SeoMeta';
 import { initAnalytics } from './lib/analytics';
 
-const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
-const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })));
-const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })));
-const Insights = lazy(() => import('./pages/Insights').then((m) => ({ default: m.Insights })));
-const InsightDetail = lazy(() => import('./pages/InsightDetail').then((m) => ({ default: m.InsightDetail })));
-const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
-const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
-const Careers = lazy(() => import('./pages/Careers').then((m) => ({ default: m.Careers })));
-const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then((m) => ({ default: m.ServiceDetail })));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then((m) => ({ default: m.PrivacyPolicy })));
-const TermsOfService = lazy(() => import('./pages/TermsOfService').then((m) => ({ default: m.TermsOfService })));
-const AiInstructions = lazy(() => import('./pages/AiInstructions').then((m) => ({ default: m.AiInstructions })));
-const EditorialPolicy = lazy(() => import('./pages/EditorialPolicy').then((m) => ({ default: m.EditorialPolicy })));
-const CookiePolicy = lazy(() => import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy })));
-const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })));
-const IndustryDetail = lazy(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })));
-const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
-const Search = lazy(() => import('./pages/Search').then((m) => ({ default: m.Search })));
-const BookCall = lazy(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })));
-const NotFound = lazy(() => import('./pages/NotFound'));
+function lazyWithChunkRecovery<T extends React.ComponentType<any>>(
+  load: () => Promise<{ default: T }>,
+  key: string
+) {
+  return lazy(async () => {
+    const retryKey = `kapitech_chunk_retry:${key}`;
+    try {
+      const module = await load();
+      sessionStorage.removeItem(retryKey);
+      return module;
+    } catch (error) {
+      const alreadyRetried = sessionStorage.getItem(retryKey) === '1';
+      if (!alreadyRetried) {
+        sessionStorage.setItem(retryKey, '1');
+        window.location.reload();
+      }
+      throw error;
+    }
+  });
+}
+
+const Home = lazyWithChunkRecovery(() => import('./pages/Home').then((m) => ({ default: m.Home })), 'home');
+const Work = lazyWithChunkRecovery(() => import('./pages/Work').then((m) => ({ default: m.Work })), 'work');
+const Services = lazyWithChunkRecovery(() => import('./pages/Services').then((m) => ({ default: m.Services })), 'services');
+const Insights = lazyWithChunkRecovery(() => import('./pages/Insights').then((m) => ({ default: m.Insights })), 'insights');
+const InsightDetail = lazyWithChunkRecovery(() => import('./pages/InsightDetail').then((m) => ({ default: m.InsightDetail })), 'insight-detail');
+const About = lazyWithChunkRecovery(() => import('./pages/About').then((m) => ({ default: m.About })), 'about');
+const Contact = lazyWithChunkRecovery(() => import('./pages/Contact').then((m) => ({ default: m.Contact })), 'contact');
+const Careers = lazyWithChunkRecovery(() => import('./pages/Careers').then((m) => ({ default: m.Careers })), 'careers');
+const ServiceDetail = lazyWithChunkRecovery(() => import('./pages/ServiceDetail').then((m) => ({ default: m.ServiceDetail })), 'service-detail');
+const PrivacyPolicy = lazyWithChunkRecovery(() => import('./pages/PrivacyPolicy').then((m) => ({ default: m.PrivacyPolicy })), 'privacy');
+const TermsOfService = lazyWithChunkRecovery(() => import('./pages/TermsOfService').then((m) => ({ default: m.TermsOfService })), 'terms');
+const AiInstructions = lazyWithChunkRecovery(() => import('./pages/AiInstructions').then((m) => ({ default: m.AiInstructions })), 'ai-instructions');
+const EditorialPolicy = lazyWithChunkRecovery(() => import('./pages/EditorialPolicy').then((m) => ({ default: m.EditorialPolicy })), 'editorial-policy');
+const CookiePolicy = lazyWithChunkRecovery(() => import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy })), 'cookie-policy');
+const CaseStudyDetail = lazyWithChunkRecovery(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })), 'case-study-detail');
+const IndustryDetail = lazyWithChunkRecovery(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })), 'industry-detail');
+const Faq = lazyWithChunkRecovery(() => import('./pages/Faq').then((m) => ({ default: m.Faq })), 'faq');
+const Search = lazyWithChunkRecovery(() => import('./pages/Search').then((m) => ({ default: m.Search })), 'search');
+const BookCall = lazyWithChunkRecovery(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })), 'book-call');
+const Careers = lazyWithChunkRecovery(() => import('./pages/Careers').then((m) => ({ default: m.Careers })), 'careers');
+const NotFound = lazyWithChunkRecovery(() => import('./pages/NotFound'), 'not-found');
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
