@@ -32,6 +32,12 @@ const cmsRetryState: Record<CmsResource, RetryState> = {
   testimonials: { count: 0, timer: null }
 };
 
+const cmsHydrated: Record<CmsResource, boolean> = {
+  services: false,
+  projects: false,
+  testimonials: false
+};
+
 export const CMS_EVENT_KEY = 'kapitech_cms_updated';
 export const defaultTestimonials: TestimonialItem[] = [];
 
@@ -72,6 +78,7 @@ function scheduleCmsHydrationRetry(type: CmsResource, retry: () => void): void {
 }
 
 function markCmsHydrationSuccess(type: CmsResource): void {
+  cmsHydrated[type] = true;
   clearCmsRetry(type);
 }
 
@@ -159,9 +166,9 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
 
 function retryUnhydratedCms(): void {
   if (typeof window === 'undefined') return;
-  if (cmsServicesCache === null && cmsServicesRequest === null) void fetchServerCmsServices();
-  if (cmsProjectsCache === null && cmsProjectsRequest === null) void fetchServerCmsProjects();
-  if (cmsTestimonialsCache === null && cmsTestimonialsRequest === null) void fetchServerCmsTestimonials();
+  if (!cmsHydrated.services && cmsServicesRequest === null) void fetchServerCmsServices();
+  if (!cmsHydrated.projects && cmsProjectsRequest === null) void fetchServerCmsProjects();
+  if (!cmsHydrated.testimonials && cmsTestimonialsRequest === null) void fetchServerCmsTestimonials();
 }
 
 if (typeof window !== 'undefined') {
