@@ -287,7 +287,7 @@ export const ServiceDetail = () => {
                   transition={{ duration: 0.4, delay: 0.12 + idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
                   className="group relative min-h-[132px] p-5 transition-colors duration-300 hover:bg-white/[0.022] sm:min-h-[150px] sm:p-6 lg:p-7"
                 >
-                  <span className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/80 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7" aria-hidden="true" />
+                  
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#555A63]">
                       {language === 'id' ? 'Indikator' : 'Indicator'}
@@ -478,7 +478,7 @@ export const ServiceDetail = () => {
                 transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7 flex flex-col justify-between hover:border-brand-red/25 hover:bg-white/[0.024] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5"
               >
-                <span className="pointer-events-none absolute inset-x-6 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
+                
                 <div>
                   <div className="mb-5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]/65">
                     <span>{language === 'id' ? 'Kasus' : 'Case'}</span>
