@@ -18,7 +18,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - name: Diagnostic install
+        shell: bash
+        run: |
+          set +e
+          node --version
+          npm --version
+          npm install 2>&1 | tee install-output.log
+          echo ${PIPESTATUS[0]} > install-exit-code.txt
+          exit 0
       - name: Diagnostic lint
         shell: bash
         run: |
@@ -49,7 +57,9 @@ jobs:
         run: |
           lint_code=$(cat lint-exit-code.txt)
           build_code=$(cat build-exit-code.txt)
-          if [ "$lint_code" -ne 0 ] || [ "$build_code" -ne 0 ]; then
+          install_code=$(cat install-exit-code.txt)
+          if [ "$install_code" -ne 0 ] || [ "$lint_code" -ne 0 ] || [ "$build_code" -ne 0 ]; then
+            echo "Diagnostic install exit: $install_code"
             echo "Diagnostic lint exit: $lint_code"
             echo "Diagnostic build exit: $build_code"
             exit 1
