@@ -363,6 +363,7 @@ export const Navbar = () => {
                 )} aria-hidden="true" />
                 <span>ID</span>
               </button>
+            </div>
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
