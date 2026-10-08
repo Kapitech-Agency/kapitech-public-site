@@ -1130,7 +1130,7 @@ export const Careers = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150 overflow-y-auto"
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 kapi-modal-overlay overflow-y-auto"
               role="dialog"
               aria-modal="true"
               aria-labelledby="talent-profile-title"
@@ -1480,7 +1480,7 @@ export const Careers = () => {
 <AnimatePresence>
         {selectedPosition && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto kapi-modal-overlay"
             role="dialog"
             aria-modal="true"
             aria-labelledby="career-position-title"
@@ -1776,7 +1776,7 @@ export const Careers = () => {
 <AnimatePresence>
         {isFreelanceModalOpen && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/78 backdrop-blur-2xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto kapi-modal-overlay"
             role="dialog"
             aria-modal="true"
             aria-labelledby="freelance-network-title"
