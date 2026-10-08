@@ -274,7 +274,7 @@ export const IndustryDetail = () => {
 
 
 
-      <div className="mx-auto w-full max-w-7xl px-4 pb-28 sm:px-6 md:px-12 lg:px-12">
+      <div className="mx-auto w-full max-w-7xl px-4 pb-28 sm:px-6 md:px-10 lg:px-12">
         <section
           id="industry-approach"
           className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
