@@ -221,10 +221,17 @@ export const Insights: React.FC = () => {
                     ? 'Baca pendekatan, kerangka berpikir, dan pembelajaran yang kami gunakan saat mengerjakan design, product, dan engineering.'
                     : 'Read the approaches, frameworks, and lessons we use across design, product, and engineering work.'}
                 </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {['Design', 'Product', 'Engineering'].map((item) => (
-                    <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8D95A2]">{item}</span>
-                  ))}
+                <div className="mt-6 grid grid-cols-2 gap-2">
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa konten' : 'Content language'}</p>
+                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
+                      {hasActiveFilters ? (language === 'id' ? 'Hasil' : 'Results') : (language === 'id' ? 'Artikel' : 'Articles')}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-white">{loading ? '—' : total}</p>
+                  </div>
                 </div>
               </div>
             </div>
