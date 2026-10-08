@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import PublicPageHero from '../components/ui/PublicPageHero';
 import { 
   ArrowUpRight, 
   X, 
@@ -405,78 +405,35 @@ export const Work = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/42 to-transparent" />
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            className="max-w-3xl"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      <PublicPageHero
+        eyebrow={language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
+        title={language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
+        description={
+          language === 'id'
+            ? `Jelajahi ${projectsList.length} studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.`
+            : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
+        }
+      >
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 backdrop-blur-xl">
+            <span className="h-2 w-2 rounded-full bg-brand-red" aria-hidden="true" />
+            <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies'}</span>
+          </span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 backdrop-blur-xl">
+            {serviceOptions.filter((item) => item !== 'All').length} {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
+          </span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 backdrop-blur-xl">
+            {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
+          </span>
+          <Link
+            to="/services"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-full px-3 py-1.5 text-brand-red transition-colors hover:bg-white/[0.035] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
-            <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6"
-            >
-              {language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-              className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6"
-            >
-              {language === 'id'
-                ? `Jelajahi ${projectsList.length} studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.`
-                : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
-              }
-            </motion.p>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D]">
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-                <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
-                {serviceOptions.filter((item) => item !== 'All').length} {language === 'id' ? 'Layanan Spesialisasi' : 'Core Disciplines'}
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.025] border border-white/[0.08] backdrop-blur-xl">
-                {language === 'id' ? 'Klien Global & Indonesia' : 'Global & Local Enterprise'}
-              </span>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-brand-red hover:text-white transition-colors"
-              >
-                <span>{language === 'id' ? 'Lihat layanan' : 'Explore services'}</span>
-                <ArrowUpRight size={13} />
-              </Link>
-            </div>
-          </motion.div>
+            <span>{language === 'id' ? 'Lihat layanan' : 'Explore services'}</span>
+            <ArrowUpRight size={13} />
+          </Link>
         </div>
-      </section>
+      </PublicPageHero>
 
       {/* Featured Spotlight Carousel */}
       {currentFeatured && (
