@@ -122,6 +122,31 @@ export async function uploadPublicResume(file: File): Promise<{ success: boolean
   }
 }
 
+export async function uploadProjectBrief(file: File): Promise<{ success: boolean; data?: { documentId: string; briefUrl: string; filename: string; mimeType: string; sizeBytes: number }; error?: string }> {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 30000);
+  try {
+    const targetUrl = resolveApiUrl('/api/leads/brief-upload');
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': file.type || 'application/octet-stream',
+        'X-Project-Brief-Filename': encodeURIComponent(file.name)
+      },
+      credentials: 'omit',
+      body: file,
+      signal: controller.signal
+    });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok) return { success: false, data: json, error: json.error || `HTTP ${res.status}: ${res.statusText}` };
+    return { success: true, data: json.data || json };
+  } catch (err: any) {
+    return { success: false, error: err?.name === 'AbortError' ? 'Project brief upload timed out. Please try again.' : (err?.message || 'Project brief upload failed.') };
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 export const api = {
   leads: {
     submit: (lead: unknown) =>
