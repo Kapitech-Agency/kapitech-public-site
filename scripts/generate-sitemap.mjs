@@ -60,6 +60,42 @@ for (const match of resourcesSource.matchAll(resourcePattern)) {
   urls.set(loc, { loc, lastmod: undefined });
 }
 
+const fetchPublicCmsProjects = async () => {
+  const apiBase = String(process.env.VITE_AMS_API_BASE_URL || 'https://ams.kapitech.id/api').replace(/\/+$/, '');
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(apiBase + '/cms/projects', {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal
+    });
+    if (!response.ok) return [];
+    const payload = await response.json().catch(() => ({}));
+    return Array.isArray(payload.projects) ? payload.projects : [];
+  } catch {
+    return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+const cmsProjects = await fetchPublicCmsProjects();
+for (const project of cmsProjects) {
+  if (project?.isPublished === false) continue;
+  const projectSlug = slugify(project.slug || project.id || project.title);
+  if (!projectSlug) continue;
+  const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
+  urls.set(loc, { loc, lastmod: project.updatedAt || project.createdAt || undefined });
+  if (project.industry) {
+    const industryLoc = manifest.siteUrl + '/industries/' + encodeURIComponent(slugify(project.industry));
+    urls.set(industryLoc, { loc: industryLoc, lastmod: undefined });
+  }
+  if (project.client) {
+    const clientLoc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(project.client));
+    urls.set(clientLoc, { loc: clientLoc, lastmod: undefined });
+  }
+}
+
 const insights = await fetchPublishedInsightSummaries();
 
 for (const insight of insights) {
