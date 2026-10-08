@@ -860,7 +860,6 @@ export const ServiceDetail = () => {
         </section>
 
       </div>
-      </div>
     </main>
   );
 };
