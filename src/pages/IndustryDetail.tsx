@@ -366,7 +366,7 @@ export const IndustryDetail = () => {
             onClick={() => setActiveSection('industry-work')}
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
-            {language === 'id' ? 'Explore relevant work' : 'Explore relevant work'}
+            {language === 'id' ? 'Lihat work relevan' : 'Explore relevant work'}
             <ArrowDown size={14} aria-hidden="true" />
           </a>
         </div>
@@ -394,7 +394,9 @@ export const IndustryDetail = () => {
                   : 'border-white/[0.08] bg-white/[0.025] hover:border-white/[0.16] hover:bg-white/[0.055]',
               )}
             >
-              {language === 'id' && label === 'Approach' ? 'Approach' : language === 'id' && label === 'Solutions' ? 'Solutions' : label}
+              {language === 'id'
+                ? ({ Approach: 'Pendekatan', Work: 'Work', Solutions: 'Solusi', Process: 'Proses', FAQ: 'FAQ' } as const)[label]
+                : label}
             </a>
           ))}
         </div>
@@ -409,7 +411,7 @@ export const IndustryDetail = () => {
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">
-                {language === 'id' ? 'Industry lens' : 'Industry lens'}
+                {language === 'id' ? 'Sudut industri' : 'Industry lens'}
               </span>
               <h2
                 id="industry-approach-title"
@@ -462,7 +464,7 @@ export const IndustryDetail = () => {
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <span className="kapi-section-label">{language === 'id' ? 'Proof of work' : 'Proof of work'}</span>
+              <span className="kapi-section-label">{language === 'id' ? 'Bukti pekerjaan' : 'Proof of work'}</span>
               <h2
                 id="industry-work-title"
                 className="mt-3 text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
@@ -572,7 +574,7 @@ export const IndustryDetail = () => {
               <div className="mt-6 flex flex-wrap justify-center gap-2.5">
                 <Link
                   to="/work"
-                  className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-[#0B0C0E] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                 >
                   {language === 'id' ? 'Lihat semua work' : 'View all work'}
                   <ArrowUpRight size={14} aria-hidden="true" />
@@ -597,7 +599,7 @@ export const IndustryDetail = () => {
           <div className="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">
-                {language === 'id' ? 'Ways we can help' : 'Ways we can help'}
+                {language === 'id' ? 'Bentuk bantuan' : 'Ways we can help'}
               </span>
               <h2
                 id="industry-solutions-title"
@@ -663,7 +665,7 @@ export const IndustryDetail = () => {
                         aria-hidden="true"
                       >
                         <Check size={11} />
-                        {language === 'id' ? 'Relevant' : 'Relevant'}
+                        {language === 'id' ? 'Relevan' : 'Relevant'}
                       </span>
                     </motion.article>
                   );
@@ -700,7 +702,7 @@ export const IndustryDetail = () => {
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'Delivery path' : 'Delivery path'}</span>
+              <span className="kapi-section-label">{language === 'id' ? 'Alur delivery' : 'Delivery path'}</span>
               <h2
                 id="industry-process-title"
                 className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]"
@@ -742,7 +744,7 @@ export const IndustryDetail = () => {
                         <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
                       </div>
                       <span className="shrink-0 text-[8px] font-mono uppercase tracking-[0.12em] text-[#59616D]">
-                        {language === 'id' ? 'Phase' : 'Phase'} {index + 1}
+                        {language === 'id' ? 'Tahap' : 'Phase'} {index + 1}
                       </span>
                     </div>
                   </motion.article>
@@ -761,7 +763,7 @@ export const IndustryDetail = () => {
             <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div className="max-w-3xl">
                 <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red">
-                  {language === 'id' ? 'Need a starting point?' : 'Need a starting point?'}
+                  {language === 'id' ? 'Butuh titik awal?' : 'Need a starting point?'}
                 </span>
                 <h2
                   id="industry-decision-title"
@@ -783,7 +785,7 @@ export const IndustryDetail = () => {
                   to="/book-a-call"
                   className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                 >
-                  {language === 'id' ? 'Book a call' : 'Book a call'}
+                  {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
                   <ArrowUpRight size={14} aria-hidden="true" />
                 </Link>
                 <Link
@@ -853,7 +855,7 @@ export const IndustryDetail = () => {
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <span className="kapi-section-label">
-                {language === 'id' ? 'Related contexts' : 'Related contexts'}
+                {language === 'id' ? 'Konteks terkait' : 'Related contexts'}
               </span>
               <h2
                 id="other-industries-title"
@@ -865,7 +867,7 @@ export const IndustryDetail = () => {
               </h2>
             </div>
             <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-              {visibleCatalog.length} {language === 'id' ? 'related contexts' : 'related contexts'}
+              {visibleCatalog.length} {language === 'id' ? 'konteks terkait' : 'related contexts'}
             </span>
           </div>
 
