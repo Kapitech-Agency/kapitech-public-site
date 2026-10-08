@@ -441,6 +441,99 @@ for (const insight of variants) {
   console.log('[seo] generated /insights/' + insight.slug + '/index.html');
 }
 
+const renderCaseStudyPrerender = (sourceHtml, project) => {
+  const slug = slugify(project.slug || project.id || project.title);
+  const canonicalUrl = manifest.siteUrl + '/work/' + encodeURIComponent(slug);
+  const description = safeText(project.desc) || safeText(project.descId) || 'Kapitech Agency case study.';
+  let html = sourceHtml;
+  html = setHtmlLang(html, 'en');
+  html = setTitle(html, safeText(project.title) + ' | Kapitech Agency');
+  html = setMeta(html, 'name', 'title', safeText(project.title) + ' | Kapitech Agency');
+  html = setMeta(html, 'name', 'description', description);
+  html = setMeta(html, 'name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+  html = setMeta(html, 'property', 'og:type', 'article');
+  html = setMeta(html, 'property', 'og:url', canonicalUrl);
+  html = setMeta(html, 'property', 'og:title', safeText(project.title) + ' | Kapitech Agency');
+  html = setMeta(html, 'property', 'og:description', description);
+  html = setMeta(html, 'property', 'og:image', safeText(project.image) || manifest.defaultImage);
+  html = setMeta(html, 'name', 'twitter:card', 'summary_large_image');
+  html = setMeta(html, 'name', 'twitter:url', canonicalUrl);
+  html = setMeta(html, 'name', 'twitter:title', safeText(project.title) + ' | Kapitech Agency');
+  html = setMeta(html, 'name', 'twitter:description', description);
+  html = setMeta(html, 'name', 'twitter:image', safeText(project.image) || manifest.defaultImage);
+  html = setCanonical(html, canonicalUrl);
+  html = setPageJsonLd(html, {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    '@id': canonicalUrl + '#case-study',
+    name: safeText(project.title),
+    description,
+    url: canonicalUrl,
+    creator: { '@id': manifest.siteUrl + '/#organization' },
+    about: safeText(project.industry),
+    keywords: [project.service, project.industry, project.client].filter(Boolean).join(', ')
+  });
+
+  const impactHtml = Array.isArray(project.impact)
+    ? project.impact.map((metric) => '<div><dt>' + escapeHtml(metric.label) + '</dt><dd>' + escapeHtml(metric.value) + '</dd></div>').join('')
+    : '';
+  const deliverablesHtml = Array.isArray(project.deliverables)
+    ? project.deliverables.map((value) => '<li>' + escapeHtml(value) + '</li>').join('')
+    : '';
+  const technologiesHtml = Array.isArray(project.technologies)
+    ? project.technologies.map((value) => '<li>' + escapeHtml(value) + '</li>').join('')
+    : '';
+
+  const body = '<main style="background:#0B0C0E;color:#F8FAFC;padding:120px 24px 80px;font-family:Inter,system-ui,sans-serif">' +
+    '<article style="max-width:1120px;margin:0 auto">' +
+    '<p style="font:600 10px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#E50914">Case Study</p>' +
+    '<h1 style="font-size:clamp(40px,7vw,84px);line-height:.98;letter-spacing:-.05em;margin:18px 0">' + escapeHtml(project.title) + '</h1>' +
+    '<p style="max-width:780px;font-size:18px;line-height:1.8;color:#A2A8B4">' + escapeHtml(description) + '</p>' +
+    '<dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:32px 0">' +
+    '<div><dt>Client</dt><dd>' + escapeHtml(project.client) + '</dd></div>' +
+    '<div><dt>Industry</dt><dd>' + escapeHtml(project.industry) + '</dd></div>' +
+    '<div><dt>Service</dt><dd>' + escapeHtml(project.service) + '</dd></div>' +
+    '<div><dt>Year</dt><dd>' + escapeHtml(project.year) + '</dd></div>' +
+    '</dl>' +
+    '<img src="' + escapeHtml(project.image || manifest.defaultImage) + '" alt="' + escapeHtml(project.title) + '" style="display:block;width:100%;height:auto;border-radius:24px;margin:32px 0" />' +
+    '<section><h2>Client Challenge</h2><p>' + escapeHtml(project.challenge || project.challengeId || '') + '</p></section>' +
+    '<section><h2>Kapitech Solution</h2><p>' + escapeHtml(project.solution || project.solutionId || '') + '</p></section>' +
+    '<section><h2>Execution & Delivery</h2><p>' + escapeHtml(project.execution || project.executionId || '') + '</p></section>' +
+    '<section><h2>Outcome & Impact</h2><p>' + escapeHtml(project.outcome || project.outcomeId || '') + '</p><dl>' + impactHtml + '</dl></section>' +
+    '<section><h2>Deliverables</h2><ul>' + deliverablesHtml + '</ul></section>' +
+    '<section><h2>Technologies</h2><ul>' + technologiesHtml + '</ul></section>' +
+    '</article></main>';
+  return html.replace('<div id="root"></div>', '<div id="root">' + body + '</div>');
+};
+
+const slugify = (value) => String(value || '')
+  .normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .trim()
+  .replace(/&/g, ' and ')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+const projectSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
+const projectRecords = [];
+const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'/g;
+for (const match of projectSource.matchAll(projectPattern)) {
+  projectRecords.push({ id: match[1], title: match[2], client: match[3], industry: match[4], service: '', year: '', image: '', challenge: '', solution: '', execution: '', outcome: '', deliverables: [], technologies: [], impact: [] });
+}
+
+const loadCmsProjectsForPrerender = async () => {
+  const apiBase = String(process.env.VITE_AMS_API_BASE_URL || 'https://ams.kapitech.id/api').replace(/\/+$/, '');
+  try {
+    const response = await fetch(apiBase + '/cms/projects', { headers: { Accept: 'application/json' } });
+    if (!response.ok) return [];
+    const payload = await response.json().catch(() => ({}));
+    return Array.isArray(payload.projects) ? payload.projects.filter((project) => project?.isPublished !== false) : [];
+  } catch {
+    return [];
+  }
+};
+
 for (const route of manifest.routes) {
   if (route.path.startsWith('/insights/')) continue;
 
@@ -462,4 +555,18 @@ for (const route of manifest.routes) {
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, html, 'utf8');
   console.log('[seo] generated ' + posix.normalize(route.path + '/index.html'));
+}
+
+const cmsProjects = await loadCmsProjectsForPrerender();
+const allPrerenderProjects = [...projectRecords, ...cmsProjects];
+const seenProjectSlugs = new Set();
+for (const project of allPrerenderProjects) {
+  const slug = slugify(project.slug || project.id || project.title);
+  if (!slug || seenProjectSlugs.has(slug)) continue;
+  seenProjectSlugs.add(slug);
+
+  const outputPath = join(distDir, 'work', slug, 'index.html');
+  await mkdir(dirname(outputPath), { recursive: true });
+  await writeFile(outputPath, renderCaseStudyPrerender(template, project), 'utf8');
+  console.log('[seo] generated /work/' + slug + '/index.html');
 }
