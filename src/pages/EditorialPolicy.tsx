@@ -4,13 +4,13 @@ import { PolicyPageShell } from '../components/ui/PolicyPageShell';
 import type { PolicySection } from '../components/ui/PolicyPageShell';
 import { useLanguage } from '../lib/LanguageContext';
 
-type Section = { title: string; body?: string; bullets?: string[] };
+type Section = { title: string; body?: string; paragraphs?: string[] };
 
 const sections: Record<'en' | 'id', Section[]> = {
   en: [
     { title: 'Purpose and scope', body: 'This Editorial Policy explains how Kapitech creates, researches, reviews, publishes, updates, corrects, and governs editorial content on kapitech.id, including Insights articles, practical guides, technical explainers, business education, visual resources, and public case studies.\n\nKapitech is a commercial digital agency, not an independent newsroom. This policy therefore does not claim journalistic independence in the newsroom sense. It does establish internal standards for accuracy, usefulness, originality, transparency, responsible commercial communication, and correction of material factual errors.' },
     { title: 'Editorial mission', body: 'Our editorial content is intended to help readers make better decisions about websites, digital products, design, branding, technology, engineering, and related business questions. We aim to explain practical trade-offs rather than produce content only for traffic.\n\nUseful content should help a reader understand a problem, compare options, identify risks, estimate the work involved, and decide what to investigate next. When evidence is limited or context changes the answer, the article should say so.' },
-    { title: 'Editorial principles', bullets: [
+    { title: 'Editorial principles', paragraphs: [
       'Accuracy: material factual claims should be checked against appropriate evidence.',
       'Clarity: complex subjects should be explained in language a practical reader can follow.',
       'Usefulness: content should answer a real question or support a real decision.',
@@ -21,7 +21,7 @@ const sections: Record<'en' | 'id', Section[]> = {
     ]},
     { title: 'Audience and reader needs', body: 'Kapitech content may serve founders, business owners, marketing teams, product teams, designers, developers, operations teams, students, and general readers who need a practical explanation. A single article does not need to satisfy every reader. The intended audience should influence the vocabulary, examples, depth, and assumptions made in the article.\n\nWhere the subject is technical, the article should still explain essential terms unless the page is explicitly written for an expert audience.' },
     { title: 'Topic selection', body: 'Topics may be selected from recurring reader questions, client problems, technology changes, service expertise, industry developments, search demand, observed knowledge gaps, and opportunities to explain a decision more clearly.\n\nA commercial reason for selecting a topic does not remove the responsibility to make the content useful. Topics should not be created solely to repeat a keyword without answering the underlying question.' },
-    { title: 'Search intent and SEO', bullets: [
+    { title: 'Search intent and SEO', paragraphs: [
       'Search intent can inform what question the article should answer and how the information should be structured.',
       'Keywords may appear in titles, headings, body copy, metadata, and internal links where they help discovery and clarity.',
       'Keyword stuffing, false urgency, misleading headings, hidden text, and unsupported claims are not acceptable editorial techniques.',
@@ -29,7 +29,7 @@ const sections: Record<'en' | 'id', Section[]> = {
       'If a keyword conflicts with a more accurate description, accuracy and reader clarity take priority.'
     ]},
     { title: 'Research and source standards', body: 'Research quality depends on the subject. For technical, legal, regulatory, scientific, security, or product-specific claims, we prefer primary or authoritative sources such as official documentation, regulations, standards, research papers, vendor documentation, and direct data.\n\nSecondary sources can provide context, examples, or interpretation, but material claims should be checked against stronger evidence where practical. An article should not imply that a source says something it does not actually say.' },
-    { title: 'Source hierarchy and source freshness', bullets: [
+    { title: 'Source hierarchy and source freshness', paragraphs: [
       'Primary legal texts and official government or standards sources for laws and regulatory claims.',
       'Official product or vendor documentation for software capabilities and product behaviour.',
       'Original research papers, direct datasets, and reputable technical publications for research claims.',
@@ -49,7 +49,7 @@ const sections: Record<'en' | 'id', Section[]> = {
     { title: 'Comparisons and reviews', body: 'Comparative articles should state the criteria being used and recognise meaningful differences in context. A comparison between tools, platforms, approaches, agencies, or vendors should not selectively omit material information simply to make Kapitech’s preferred option look better.\n\nWhere a conclusion depends on project type, budget, team size, regulatory needs, or technical maturity, that dependency should be visible. “Best” should not be used as an unqualified claim when the answer depends on context.' },
     { title: 'Sponsored, contributed, and third-party content', body: 'Guest contributions, sponsored articles, co-authored pieces, externally supplied research, and other material originating from a third party should go through the same basic quality and rights review as internal content. The relationship should be disclosed when a reader could reasonably misunderstand who produced or funded the material.\n\nThird-party claims are not automatically Kapitech facts merely because they appear in an article hosted on kapitech.id.' },
     { title: 'Visuals, charts, diagrams, and data', body: 'Visual assets should communicate the underlying information honestly. A chart must not use a misleading scale merely to exaggerate a difference. A diagram may simplify a system, but it should not imply completeness when important components have been intentionally omitted.\n\nGenerated or conceptual visuals should be labelled appropriately when they could otherwise be mistaken for documentary evidence. Screenshots should represent the correct product state and should not expose private data.' },
-    { title: 'Accessibility and readability', bullets: [
+    { title: 'Accessibility and readability', paragraphs: [
       'Use meaningful headings and a logical hierarchy.',
       'Keep paragraph structure readable on both desktop and mobile.',
       'Avoid relying on colour alone to communicate critical information.',
@@ -70,7 +70,7 @@ const sections: Record<'en' | 'id', Section[]> = {
   id: [
     { title: 'Tujuan dan ruang lingkup', body: 'Editorial Policy ini menjelaskan bagaimana Kapitech membuat, meneliti, meninjau, menerbitkan, memperbarui, mengoreksi, dan mengatur konten editorial di kapitech.id, termasuk Insights, panduan praktis, technical explainer, edukasi bisnis, visual resource, dan case study publik.\n\nKapitech adalah digital agency komersial, bukan newsroom independen. Kebijakan ini karena itu tidak menyatakan independensi seperti newsroom media. Kebijakan ini menetapkan standar internal untuk accuracy, usefulness, originality, transparency, komunikasi komersial yang bertanggung jawab, dan koreksi atas kesalahan faktual material.' },
     { title: 'Misi editorial', body: 'Konten editorial Kapitech dibuat untuk membantu pembaca mengambil keputusan yang lebih baik tentang website, digital product, design, branding, technology, engineering, dan pertanyaan bisnis yang berkaitan. Kami ingin menjelaskan trade-off praktis, bukan membuat konten hanya untuk traffic.\n\nKonten yang berguna membantu pembaca memahami masalah, membandingkan opsi, melihat risiko, memperkirakan pekerjaan, dan menentukan hal yang perlu diteliti berikutnya. Jika bukti terbatas atau konteks mengubah jawabannya, artikel harus menyatakannya.' },
-    { title: 'Prinsip editorial', bullets: [
+    { title: 'Prinsip editorial', paragraphs: [
       'Akurasi: klaim faktual material harus diperiksa dengan bukti yang sesuai.',
       'Kejelasan: topik kompleks dijelaskan dengan bahasa yang dapat diikuti pembaca praktis.',
       'Kegunaan: konten harus menjawab pertanyaan atau membantu keputusan nyata.',
@@ -81,7 +81,7 @@ const sections: Record<'en' | 'id', Section[]> = {
     ]},
     { title: 'Audiens dan kebutuhan pembaca', body: 'Konten Kapitech dapat ditujukan kepada founder, business owner, marketing team, product team, designer, developer, operations, student, dan pembaca umum yang membutuhkan penjelasan praktis. Satu artikel tidak harus memuaskan semua orang. Audiens yang dituju harus memengaruhi istilah, contoh, kedalaman, dan asumsi.\n\nUntuk topik teknis, istilah penting tetap sebaiknya dijelaskan kecuali artikel memang secara jelas ditujukan untuk pembaca ahli.' },
     { title: 'Pemilihan topik', body: 'Topik dapat dipilih dari pertanyaan pembaca, masalah klien, perubahan teknologi, keahlian layanan, perkembangan industri, search demand, knowledge gap, atau kebutuhan untuk menjelaskan sebuah keputusan dengan lebih baik.\n\nAlasan komersial dalam memilih topik tidak menghilangkan tanggung jawab untuk membuat konten berguna. Topik tidak seharusnya dibuat hanya untuk mengulang keyword tanpa menjawab kebutuhan di balik pencarian tersebut.' },
-    { title: 'Search intent dan SEO', bullets: [
+    { title: 'Search intent dan SEO', paragraphs: [
       'Search intent dapat membantu menentukan pertanyaan yang harus dijawab dan struktur artikel.',
       'Keyword boleh digunakan pada title, heading, body, metadata, dan internal link ketika membantu discovery dan clarity.',
       'Keyword stuffing, false urgency, heading menyesatkan, hidden text, dan klaim tanpa bukti tidak dapat diterima.',
@@ -89,7 +89,7 @@ const sections: Record<'en' | 'id', Section[]> = {
       'Jika keyword bertentangan dengan deskripsi yang lebih akurat, accuracy dan clarity lebih diutamakan.'
     ]},
     { title: 'Riset dan standar sumber', body: 'Kualitas riset bergantung pada topiknya. Untuk klaim teknis, legal, regulasi, scientific, security, atau product-specific, kami mengutamakan sumber primer atau berwenang seperti dokumentasi resmi, regulasi, standar, research paper, vendor documentation, dan data langsung.\n\nSumber sekunder dapat digunakan untuk konteks atau interpretasi, tetapi klaim material sebaiknya diperiksa terhadap bukti yang lebih kuat jika memungkinkan. Artikel tidak boleh membuat sumber seolah-olah mengatakan sesuatu yang sebenarnya tidak dikatakan.' },
-    { title: 'Hierarki dan freshness sumber', bullets: [
+    { title: 'Hierarki dan freshness sumber', paragraphs: [
       'Teks hukum dan sumber resmi pemerintah atau standar untuk klaim hukum dan regulasi.',
       'Dokumentasi resmi produk atau vendor untuk capability dan perilaku software.',
       'Research paper, dataset langsung, dan publikasi teknis kredibel untuk klaim riset.',
@@ -109,7 +109,7 @@ const sections: Record<'en' | 'id', Section[]> = {
     { title: 'Perbandingan dan review', body: 'Artikel perbandingan harus menjelaskan kriteria yang digunakan dan mengakui perbedaan konteks yang penting. Perbandingan tool, platform, approach, agency, atau vendor tidak boleh sengaja menghilangkan fakta material hanya agar pilihan Kapitech terlihat lebih baik.\n\nJika kesimpulan bergantung pada tipe proyek, budget, ukuran team, kebutuhan regulasi, atau technical maturity, ketergantungan tersebut harus terlihat. Kata “terbaik” tidak seharusnya digunakan tanpa konteks jika jawabannya bergantung pada situasi.' },
     { title: 'Sponsored, contributed, dan third-party content', body: 'Guest contribution, sponsored article, co-authored piece, riset eksternal, dan materi yang berasal dari pihak ketiga harus melalui quality dan rights review yang sesuai. Hubungan tersebut perlu dijelaskan jika pembaca mungkin salah memahami siapa yang membuat atau membiayai konten.\n\nKlaim pihak ketiga tidak otomatis menjadi fakta Kapitech hanya karena diterbitkan pada kapitech.id.' },
     { title: 'Visual, chart, diagram, dan data', body: 'Visual harus menyampaikan informasi dasar secara jujur. Chart tidak boleh menggunakan skala yang menyesatkan hanya untuk membuat perbedaan terlihat besar. Diagram dapat menyederhanakan sistem tetapi tidak boleh memberi kesan sebagai arsitektur lengkap jika komponen penting sengaja dihilangkan.\n\nVisual generatif atau konseptual harus diberi penanda yang tepat jika dapat disalahpahami sebagai dokumentasi. Screenshot harus mewakili kondisi produk yang benar dan tidak boleh membocorkan data privat.' },
-    { title: 'Accessibility dan readability', bullets: [
+    { title: 'Accessibility dan readability', paragraphs: [
       'Gunakan heading dengan hierarki yang bermakna.',
       'Buat struktur paragraf yang nyaman dibaca pada desktop dan mobile.',
       'Jangan hanya mengandalkan warna untuk menyampaikan informasi penting.',
