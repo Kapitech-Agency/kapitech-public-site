@@ -333,7 +333,7 @@ export const IndustryDetail = () => {
             <div className="relative">
               <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
                 <span className="text-[8px] font-mono uppercase tracking-[0.16em] text-[#626A76]">
-                  {language === 'id' ? 'Industry signal' : 'Industry signal'}
+                  {language === 'id' ? 'Sinyal industri' : 'Industry signal'}
                 </span>
                 <span className="tabular-nums text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
                   {industryNumber} / {industryTotal}
@@ -820,7 +820,7 @@ export const IndustryDetail = () => {
             </div>
 
             <div className="relative">
-              <div className="absolute left-4 top-6 hidden h-[calc(100%-48px)] w-px bg-white/[0.08] sm:block lg:left-6" />
+
               <div className="overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
                 {resolvedDeliverySteps.map((item, index) => (
                   <motion.article
@@ -841,10 +841,12 @@ export const IndustryDetail = () => {
                       <h3 className="text-xl font-display font-semibold leading-[1.05] tracking-[-0.03em] text-white">{item.title}</h3>
                       <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
                     </div>
-                    <div className="hidden self-stretch items-end justify-end sm:flex">
-                      <span className="h-7 w-7 rounded-full border border-white/[0.08] bg-[#0B0C0E] transition-[border-color,background-color] duration-300 group-hover:border-brand-red/35 group-hover:bg-brand-red/[0.07]" aria-hidden="true" />
+                    <div className="hidden self-end sm:flex">
+                      <span
+                        className="h-1.5 w-1.5 rounded-full bg-white/20 transition-[background-color,transform] duration-300 group-hover:scale-125 group-hover:bg-brand-red"
+                        aria-hidden="true"
+                      />
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brand-red/60 transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
                   </motion.article>
                 ))}
               </div>
