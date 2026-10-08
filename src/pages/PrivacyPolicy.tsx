@@ -3,281 +3,154 @@ import { motion } from 'motion/react';
 import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
 import { useLanguage } from '../lib/LanguageContext';
 
-type Section = {
-  title: string;
-  body?: string;
-  bullets?: string[];
-};
+type Section = { title: string; body?: string; bullets?: string[] };
 
 const sections: Record<'en' | 'id', Section[]> = {
   en: [
-    {
-      title: '1. Purpose and scope',
-      body: 'This Privacy Policy explains how PT Kapitech Digital Indonesia (“Kapitech”, “we”, “us”, or “our”) collects, uses, discloses, stores, and protects Personal Data when you visit kapitech.id, submit a form, contact our team, apply for a role, subscribe to updates, or otherwise interact with our public website. It applies to the website and website-related interactions. Client projects, employee records, and services operated under a separate agreement may be governed by additional privacy, security, or data-processing terms in that agreement.'
-    },
-    {
-      title: '2. Who controls your Personal Data',
-      body: 'For Personal Data processed through this website for Kapitech’s own purposes, the data controller is PT Kapitech Digital Indonesia. Our current contact details are provided in the Contact section below. Where Kapitech processes personal data on behalf of a client as part of a separately contracted service, Kapitech may act as a processor or service provider according to the applicable agreement and the client’s instructions.'
-    },
-    {
-      title: '3. Personal Data we may collect',
-      body: 'The information collected depends on how you use the website and what you choose to submit. Depending on the interaction, it may include:',
-      bullets: [
-        'Identity and contact information, such as your name, business email address, phone or WhatsApp number, company, job title, and other contact details you provide.',
-        'Project and commercial information, such as services of interest, budget range, project requirements, business objectives, timelines, and the contents of your enquiry.',
-        'Recruitment information, such as position applied for, portfolio URL, CV/resume, cover letter, professional experience, skills, specialty, tools or stack, and related contact information.',
-        'Vendor or freelance information, such as specialty, years of experience, rate or project cost information, tools, portfolio, CV/resume, and notes you submit.',
-        'Newsletter or communications information, such as your email address and subscription or communication preferences.',
-        'Technical and usage information that may be generated when you access the website, such as browser and device characteristics, IP address, timestamps, pages visited, referring host, and security or diagnostic information.',
-        'Marketing attribution information, such as UTM parameters and similar campaign identifiers, only where the relevant analytics functionality is enabled in accordance with the Cookie Policy.',
-        'Any other information you voluntarily provide in a message, attachment, consultation request, or other website interaction.'
-      ]
-    },
-    {
-      title: '4. How we receive Personal Data',
-      bullets: [
-        'Directly from you when you complete a contact, career, vendor, newsletter, or other form or communicate with us.',
-        'Automatically or indirectly from your browser or device when the website processes essential technical information.',
-        'From third-party services that support website operations, submissions, analytics, hosting, security, or communications, where those services process information on our behalf or according to your interaction with them.',
-        'From public or professional information you choose to provide or make available, for example a portfolio or professional profile included in an application.'
-      ]
-    },
-    {
-      title: '5. Why we use Personal Data',
-      body: 'We process Personal Data for specific and legitimate purposes, including:',
-      bullets: [
-        'Responding to enquiries, consultation requests, proposals, and business communications.',
-        'Understanding project requirements and preparing scopes, estimates, schedules, or other pre-contract materials.',
-        'Managing contracts, invoices, project administration, client communications, and related business records.',
-        'Receiving and evaluating employment or freelance applications and communicating with candidates.',
-        'Sending newsletters or requested business updates where you have subscribed or otherwise authorised the communication.',
-        'Operating, securing, troubleshooting, monitoring, and improving the website and its infrastructure.',
-        'Measuring optional website analytics and campaign attribution after the applicable consent has been provided.',
-        'Protecting the rights, property, systems, users, clients, and personnel of Kapitech; detecting abuse, fraud, malicious activity, or security incidents.',
-        'Meeting applicable legal, regulatory, accounting, tax, or dispute-resolution obligations.'
-      ]
-    },
-    {
-      title: '6. Legal bases for processing',
-      body: 'We aim to process Personal Data only where a valid legal basis exists under applicable law. Depending on the context, this may include your valid consent, taking steps at your request before entering into a contract, performing a contract, complying with a legal obligation, protecting vital interests, carrying out a public-interest function where applicable, or pursuing a legitimate interest that is balanced against your rights and interests. Where processing depends on consent, you may withdraw that consent, subject to legal and operational limitations.'
-    },
-    {
-      title: '7. Forms, submissions, and communications',
-      body: 'When you submit information through the website, we use it to handle the specific request for which it was submitted. We do not treat a contact form as an automatic subscription to marketing communications. A newsletter or other recurring communication is sent only where you have subscribed or otherwise authorised it. We may retain correspondence and submission records so that we can respond, maintain business records, investigate disputes, and demonstrate how a request was handled.'
-    },
-    {
-      title: '8. Recruitment and vendor applications',
-      body: 'If you apply for a role or join our freelance/vendor pipeline, your information may be reviewed by authorised members of Kapitech’s recruitment, project, design, engineering, operations, or management teams, depending on the opportunity. We use application information to assess suitability, communicate with you, schedule interviews or follow-ups, and manage future opportunities where permitted. Do not submit sensitive Personal Data that is unnecessary for the application.'
-    },
-    {
-      title: '9. Cookies, local storage, analytics, and attribution',
-      body: 'Kapitech uses browser storage and cookies as described in our Cookie Policy. Essential storage may be required for functions such as language preferences and consent management. Optional analytics and attribution are enabled only after the corresponding consent is recorded. The analytics implementation may process aggregate page-view, interaction, and campaign-attribution information through configured providers such as Google Analytics 4 or Google Tag Manager. You can withdraw optional analytics consent through the cookie-preference controls described in the Cookie Policy.'
-    },
-    {
-      title: '10. Service providers and disclosures',
-      body: 'We may share or make Personal Data available to service providers that help us operate the website and business, such as hosting, database, file storage, form or CRM/inbox processing, security, analytics, communication, email, or other infrastructure providers. They should receive only the information reasonably required for the relevant service and are subject to contractual, technical, or organisational controls appropriate to the processing. We may also disclose information when required by law, legal process, court order, regulatory request, or when necessary to protect rights, safety, security, or the integrity of our systems.'
-    },
-    {
-      title: '11. Client and project confidentiality',
-      body: 'Personal Data and confidential business information received as part of a client engagement may be subject to additional confidentiality, NDA, security, or data-processing obligations. Those obligations may be stricter than the general website policy. Kapitech does not intentionally publish client confidential information through the public website unless it has an appropriate contractual basis, permission, or other lawful basis to do so.'
-    },
-    {
-      title: '12. International processing and transfers',
-      body: 'Some service providers used by Kapitech or its infrastructure may process information in countries outside Indonesia. Where Personal Data is transferred or made accessible across jurisdictions, we take reasonable steps to apply appropriate contractual, technical, and organisational safeguards and to comply with applicable requirements for international transfers. The exact location of processing may vary as vendors and infrastructure change.'
-    },
-    {
-      title: '13. Data retention',
-      body: 'We retain Personal Data only for as long as reasonably necessary for the purpose for which it was collected, for the duration of a relevant relationship or application process, to maintain legitimate business records, to comply with legal or accounting requirements, to resolve disputes, or to protect security and legal interests. Different categories may have different retention periods. When Personal Data is no longer required, we seek to delete, destroy, anonymise, or otherwise securely dispose of it, subject to lawful retention requirements.'
-    },
-    {
-      title: '14. Data security',
-      body: 'We use reasonable technical and organisational measures designed to protect Personal Data against unauthorised access, disclosure, alteration, misuse, loss, or destruction. Depending on the system and sensitivity of the information, controls may include encrypted transport, access controls, authentication, restricted privileges, secure file handling, logging, monitoring, backups, and other safeguards. No internet transmission or storage system can be guaranteed to be completely secure.'
-    },
-    {
-      title: '15. Data incidents',
-      body: 'If we become aware of a Personal Data incident that creates obligations to notify affected individuals or authorities, we will assess and respond according to applicable law, the nature of the incident, and the risks involved. We may communicate relevant information through the contact details available to us and take reasonable steps to contain, investigate, remediate, and prevent recurrence.'
-    },
-    {
-      title: '16. Your rights',
-      body: 'Subject to applicable law and its conditions or exceptions, you may have rights to obtain clear information about processing, access and receive a copy of your Personal Data, correct inaccurate or incomplete information, request deletion or destruction where permitted, withdraw consent where consent is the basis of processing, request termination or restriction of processing, object to certain automated decision-making or profiling, and exercise other rights recognised by applicable data-protection law. Requests may require reasonable identity verification.'
-    },
-    {
-      title: '17. How to exercise your rights',
-      body: 'Send a privacy or data-rights request to hello@kapitech.id. Please state the request clearly, identify the information or processing concerned, and provide enough information for us to locate the relevant record. We will handle requests within the time and conditions required by applicable law. If we cannot comply fully, we will explain the applicable limitation where permitted.'
-    },
-    {
-      title: '18. Children',
-      body: 'Our website and professional services are intended primarily for businesses, professionals, clients, candidates, and other adult users. We do not knowingly request unnecessary Personal Data from children. If you believe a child has provided Personal Data to us without an appropriate basis, contact us so that we can assess and take appropriate action.'
-    },
-    {
-      title: '19. Third-party websites and services',
-      body: 'Our website may contain links to third-party websites, platforms, social networks, or services. We do not control their privacy practices and this policy does not govern their processing. Review the relevant third party’s privacy and cookie information before submitting information to them.'
-    },
-    {
-      title: '20. Changes to this Privacy Policy',
-      body: 'We may update this Privacy Policy to reflect changes to our website, services, technology, vendors, legal requirements, or processing practices. The latest version will be posted on this page with an updated effective date. Where applicable, we will provide additional notice when a material change requires it.'
-    },
-    {
-      title: '21. Contact',
-      body: 'PT Kapitech Digital Indonesia\\nLinea Residence, Block G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia\\nEmail: hello@kapitech.id\\nPhone / WhatsApp: +62 877-6995-7062'
-    },
-    {
-      title: '22. Applicable framework',
-      body: 'This policy is intended to operate consistently with applicable Indonesian data-protection and electronic-system requirements, including Law of the Republic of Indonesia No. 27 of 2022 on Personal Data Protection and Government Regulation No. 71 of 2019 on the Operation of Electronic Systems and Transactions, as applicable and as amended, supplemented, or replaced from time to time.'
-    }
+    { title: '1. Purpose and scope', body: 'This Privacy Policy explains how PT Kapitech Digital Indonesia (“Kapitech”, “we”, “us”, or “our”) handles Personal Data in connection with kapitech.id and website-related interactions. It covers information submitted through contact, career, vendor, newsletter, consultation, and similar forms, as well as technical and usage information generated when you browse the website.\n\nThe website is a public-facing business and editorial platform. A client project, employee relationship, freelancer engagement, or other service arrangement may involve additional privacy, security, confidentiality, or data-processing terms. When a written agreement applies to a particular processing activity, that agreement may impose more specific or stricter requirements than this general website policy.' },
+    { title: '2. Definitions', body: 'For this policy, “Personal Data” means information that identifies or can reasonably be associated with an individual, directly or indirectly. “Processing” includes collecting, recording, organising, storing, using, disclosing, transferring, updating, combining, restricting, or deleting information. “Website” refers to kapitech.id and the public website functions operated by Kapitech.\n\n“Controller” refers to the party that determines the purpose and means of processing. “Processor” refers to a party that processes data on behalf of a controller. These roles can vary by context. Kapitech may act as controller for information collected for its own business purposes and may act as processor or service provider when a client contract instructs Kapitech to process data on the client’s behalf.' },
+    { title: '3. Who controls your Personal Data', body: 'For Personal Data collected through the public website for Kapitech’s own purposes, the controller is PT Kapitech Digital Indonesia. This includes information needed to respond to enquiries, manage business communications, review applications, operate the site, maintain security, and perform other legitimate website and business functions.\n\nIn a client engagement, the responsible party may be different. If a client determines the purpose of processing and asks Kapitech to handle data on the client’s behalf, the client may remain the controller while Kapitech acts as a processor. The applicable proposal, SOW, NDA, DPA, or other project agreement should be used to determine the exact role and responsibilities.' },
+    { title: '4. Personal Data we may collect', body: 'We collect only information that is relevant to a particular interaction and that you choose or are required to provide. Depending on the form, relationship, or website feature, this can include:', bullets: [
+      'Identity and contact details, including name, business email, phone or WhatsApp number, company, job title, and contact preferences.',
+      'Project information, including services of interest, objectives, requirements, timelines, preferred technology, budget range, and the content of your enquiry.',
+      'Recruitment information, including role applied for, CV or resume, portfolio URL, cover letter, experience, skills, specialty, tools, references, and related communications.',
+      'Vendor or freelance information, including service specialty, experience, tools, portfolio, rate information, availability, and supporting documents.',
+      'Communication information, including email messages, form submissions, attachments, feedback, meeting notes, and records of our responses.',
+      'Newsletter or marketing preferences, including subscription status and communication preferences.',
+      'Technical and security information, including IP address, browser and device characteristics, timestamps, pages visited, referring host, and diagnostic information that may be generated by the website or its infrastructure.',
+      'Campaign and attribution information such as UTM parameters and similar identifiers when optional analytics is enabled after consent.',
+      'Any other information that you voluntarily provide through an interaction with Kapitech.'
+    ]},
+    { title: '5. Information you should not submit', body: 'Our public website forms are not designed as a secure channel for submitting highly sensitive information unless the relevant form or written agreement specifically requests it. Do not send passwords, private encryption keys, financial account credentials, government secrets, medical records, or other sensitive information that is not necessary for your request.\n\nIf sensitive information is necessary for a contracted project, use the secure method or transfer process agreed with the Kapitech team. We may decline to process information that is excessive, unrelated to the stated purpose, or presents an unreasonable security or legal risk.' },
+    { title: '6. How we receive Personal Data', bullets: [
+      'Directly from you when you fill in a website form, send an email, contact us by phone or WhatsApp, subscribe to updates, or otherwise communicate with our team.',
+      'From your browser or device when essential technical information is generated while using the website.',
+      'From professional or public information you voluntarily make available, such as a portfolio, company website, or professional profile included in an application.',
+      'From service providers that operate infrastructure, communications, submissions, analytics, security, hosting, or other systems used by Kapitech, where they process information in connection with our instructions or your interaction.',
+      'From clients or authorised representatives who provide Personal Data to us for a contracted purpose.'
+    ]},
+    { title: '7. Purposes of processing', body: 'We use Personal Data for defined business, operational, security, and communication purposes. The same information may support more than one closely related purpose, but we do not intend to collect data merely “just in case”. Typical purposes include:', bullets: [
+      'Responding to enquiries, consultation requests, proposals, and business communications.',
+      'Understanding project requirements and preparing scopes, estimates, schedules, specifications, and pre-contract materials.',
+      'Delivering contracted services, managing project communication, administration, approvals, invoices, and records.',
+      'Assessing employment, internship, freelance, or vendor applications and communicating with candidates or partners.',
+      'Sending requested newsletters, updates, or other communications where you have subscribed or otherwise authorised them.',
+      'Operating, maintaining, securing, monitoring, troubleshooting, and improving the website and related infrastructure.',
+      'Understanding website usage and campaign performance through optional analytics and attribution after consent.',
+      'Detecting fraud, abuse, malicious activity, security events, or violations of our terms.',
+      'Complying with legal, regulatory, accounting, tax, dispute-resolution, or record-keeping obligations.'
+    ]},
+    { title: '8. Legal bases for processing', body: 'Kapitech seeks to rely on a valid legal basis for each processing activity as required by applicable law. Depending on the context, the basis may include valid consent; taking steps at an individual’s request before entering into a contract; performing a contract; complying with a legal obligation; protecting vital interests; carrying out a public-interest or public-service function where applicable; or pursuing a legitimate interest after considering the rights and interests of the data subject.\n\nWhere consent is the legal basis, the request for consent should be presented clearly for the relevant purpose and should not be treated as a blanket authorisation for unrelated processing. Withdrawal of consent does not automatically invalidate processing that was lawfully completed before withdrawal and does not prevent processing that has another lawful basis.' },
+    { title: '9. Contact forms and business enquiries', body: 'Information submitted through a contact form is used first to understand and respond to the request. This may include reviewing the services requested, clarifying business requirements, routing the enquiry to the appropriate Kapitech team member, preparing a proposal, and maintaining a record of the communication.\n\nSubmitting a contact form does not automatically subscribe you to a newsletter or general marketing list. A separate subscription or other appropriate authorisation is used for recurring marketing communications. We may contact you in connection with an active enquiry or project without treating that operational communication as marketing.' },
+    { title: '10. Project discovery and pre-contract information', body: 'Before a contract is signed, we may receive business information such as product plans, target audiences, technical constraints, desired functionality, existing systems, budget expectations, timelines, and internal decision-making requirements. We use that information to evaluate whether Kapitech is suitable for the request and to prepare commercially relevant materials.\n\nPre-contract information may be sensitive even when it is not legally classified as special-category data. We therefore seek to limit internal access to people who reasonably need the information for sales, discovery, design, engineering, finance, or management activities related to the request.' },
+    { title: '11. Recruitment, freelance, and vendor applications', body: 'Applications may contain professional histories, work samples, resumes, portfolio links, contact information, compensation expectations, availability, and other information needed to evaluate a candidate or partner. Authorised members of recruitment, project, operations, design, engineering, finance, or management teams may review relevant information depending on the opportunity.\n\nWe may keep application information for future opportunities where permitted and useful, but applicants should not assume that an application creates an employment, vendor, or contractor relationship. Please avoid submitting unnecessary sensitive Personal Data. Where a specific recruitment process provides additional privacy instructions, those instructions apply to that process.' },
+    { title: '12. Newsletter and marketing communications', body: 'Where Kapitech offers a newsletter, project insights, campaign update, or other recurring communication, we use the information necessary to deliver that communication and manage subscription preferences. Marketing messages may contain a mechanism to unsubscribe or update preferences.\n\nAn unsubscribe request should stop the relevant recurring marketing communication, although we may retain a minimal suppression record so that we do not inadvertently re-subscribe an address that has opted out. Operational messages that are necessary to respond to an enquiry, administer a contract, or provide a requested service are not necessarily cancelled by a marketing unsubscribe.' },
+    { title: '13. Technical, security, and usage information', body: 'When you access the website, technical information can be generated automatically by the browser, hosting environment, content delivery layer, security systems, or application itself. Depending on configuration, this may include IP address, browser family and version, operating system, device characteristics, timestamps, requested pages, referring host, HTTP status information, and diagnostic events.\n\nWe use this information primarily for site delivery, security, reliability, troubleshooting, abuse prevention, aggregate analysis, and service improvement. Technical logs may be retained independently from marketing analytics and may remain necessary even when optional analytics consent is not provided.' },
+    { title: '14. Cookies, local storage, and consent data', body: 'Kapitech uses browser storage and cookies in accordance with the Cookie Policy. Essential storage may remember language or consent choices so the site can operate consistently. Optional analytics and attribution are intended to initialise only after an accepted analytics consent choice is recorded.\n\nCurrent site-managed storage includes values such as “kapitech_cookie_consent”, “kapitech_lang”, “kapitech_attribution_v1”, and “kapitech_anonymous_id_v1”. Storage keys, provider integrations, and implementation details may change as the website evolves. The Cookie Policy is the more specific document for cookie and storage behaviour.' },
+    { title: '15. Analytics and attribution', body: 'When optional analytics consent is active, the website may use configured analytics infrastructure such as Google Analytics 4 and/or Google Tag Manager. Depending on configuration, events can include page views, selected interactions, page paths, language, campaign parameters, and referral information. The purpose is to understand website usage and campaign performance, not to use the public website as a commercial data-broker service.\n\nProvider-side processing is also subject to the provider’s current technical configuration and terms. We therefore avoid promising a permanent cookie name, exact retention period, processing country, or provider feature when that detail can change without control by Kapitech.' },
+    { title: '16. Service providers and processors', body: 'Kapitech may use third-party providers for hosting, databases, file storage, email, form processing, CRM or inbox management, analytics, monitoring, security, domain services, communications, payment infrastructure, development operations, or other business functions. Depending on the service, the provider may process Personal Data on our behalf or as an independent provider subject to its own terms.\n\nWe seek to select providers that are appropriate for the service, limit access to information where practical, and use contractual or technical safeguards appropriate to the nature of the processing. The list of providers can change over time as technology and business needs change.' },
+    { title: '17. Disclosure to other parties', body: 'We may disclose Personal Data where necessary to operate the business, fulfil a request, perform a contract, comply with law, or protect legitimate rights and systems. Examples may include authorised team members and contractors, infrastructure providers, professional advisers, auditors, payment or financial-service providers, legal authorities, or parties involved in a lawful corporate transaction.\n\nWe do not intend to disclose more information than is reasonably necessary for the relevant purpose. We do not treat a user’s Personal Data as a public resource merely because the information was submitted through the website.' },
+    { title: '18. Legal requests and protection of rights', body: 'There may be circumstances where Kapitech must disclose information to comply with a subpoena, court order, lawful government request, regulatory requirement, or other legal process. We may also disclose information when reasonably necessary to protect the security, rights, property, or safety of Kapitech, our clients, users, team members, or other persons, subject to applicable law.\n\nWhere legally permitted, we seek to limit the disclosure to the relevant information and preserve confidentiality over information that does not need to be disclosed.' },
+    { title: '19. Client and project confidentiality', body: 'Information received during a client engagement can be subject to a proposal, SOW, NDA, confidentiality clause, data-processing agreement, security schedule, or other written restriction. Those contractual obligations can be more specific or stricter than this general website policy.\n\nKapitech does not intentionally publish confidential client information simply because it is available internally. Client names, logos, screenshots, technical architecture, project metrics, unpublished product plans, credentials, and other sensitive details should only be made public where Kapitech has an appropriate contractual, consent-based, or other lawful basis.' },
+    { title: '20. International processing and transfers', body: 'Kapitech and its providers may use infrastructure located outside Indonesia. As a result, Personal Data may be processed, stored, or accessed in another country or jurisdiction where privacy rules may differ from those in Indonesia.\n\nWhere cross-border processing is relevant, we seek to apply reasonable contractual, technical, and organisational safeguards and to follow applicable requirements. The location of processing may change when a provider changes its infrastructure, so this policy does not promise that all data will permanently remain in one country.' },
+    { title: '21. Data retention', body: 'There is no single retention period that applies to all Personal Data. We consider the original purpose, the type and sensitivity of information, the duration of a business or candidate relationship, legal and accounting requirements, dispute risk, security needs, and operational necessity.\n\nWhen information is no longer required for a legitimate purpose, we seek to delete, destroy, anonymise, de-identify, or otherwise securely dispose of it, subject to lawful retention requirements, backups, audit needs, or other legitimate reasons that may require a controlled retention period.' },
+    { title: '22. Data accuracy and minimisation', body: 'We aim to keep Personal Data reasonably accurate and relevant to the purpose for which it is processed. You can help by providing information that is current and by notifying us when important details change. We may ask for clarification when submitted information appears incomplete, inconsistent, or necessary for a particular request.\n\nWe also seek to avoid collecting information that is irrelevant to the stated purpose. Where a form offers optional fields, you can generally leave them blank unless the field is necessary to evaluate or deliver your request.' },
+    { title: '23. Security measures', body: 'We use reasonable technical and organisational controls appropriate to the system and information involved. Depending on the context, these may include encrypted network connections, authentication, role-based access, restricted administrative privileges, secure credential handling, logging, monitoring, backups, software updates, and controlled access to internal systems.\n\nSecurity is a process rather than a guarantee. No internet transmission, software system, cloud platform, device, or storage method can be promised to be completely secure. Users should avoid sending secrets or credentials through ordinary public website forms.' },
+    { title: '24. Personal Data incidents', body: 'If Kapitech becomes aware of a suspected or confirmed Personal Data incident, we may assess its scope, affected systems, categories of data, likely risks, containment options, and any notification duties that arise under applicable law or contract. Response actions may include restricting access, investigating logs, securing accounts, correcting configuration, restoring systems, contacting affected parties, and documenting remediation.\n\nWhere notification is legally required, we will follow the applicable requirements. A security event does not automatically mean that every user will be affected, so any notification should be based on the facts reasonably established during the incident response.' },
+    { title: '25. Your data-protection rights', body: 'Subject to applicable law, you may have rights relating to your Personal Data, including the right to receive clear information about processing, access your data, obtain a copy where required, correct or update inaccurate data, request deletion or destruction where permitted, withdraw consent where consent is the legal basis, request termination or restriction of processing in applicable circumstances, object to certain processing or profiling, and exercise other rights available under the relevant legal framework.\n\nThe exact scope of a right can depend on the legal basis, purpose, exceptions, third-party obligations, and other circumstances. We do not treat this policy as expanding a statutory right beyond what applicable law provides.' },
+    { title: '26. Requests to exercise your rights', body: 'Send a privacy or data-rights request to hello@kapitech.id. Include your name, contact information, the nature of the request, and enough context for us to locate the relevant record. If the request concerns a specific form, project, application, or communication, identify it where possible.\n\nWe may ask for reasonable information to verify your identity before disclosing, changing, or deleting data. This is intended to reduce the risk of sending Personal Data to the wrong person. We will respond within the timeframe and conditions required by applicable law. If a request cannot be completed in full, we will explain the limitation where permitted.' },
+    { title: '27. Automated decision-making and profiling', body: 'The public website is not intended to make high-impact decisions about people solely through automated processing. Website analytics or attribution may create statistical groupings or behavioural measurements, but these functions are not intended to determine a person’s legal status, employment eligibility, creditworthiness, or access to essential services.\n\nIf a future system introduces a materially different form of automated decision-making or profiling, Kapitech will assess the applicable legal, transparency, security, and governance requirements before relying on that system.' },
+    { title: '28. Children and age-related considerations', body: 'Kapitech is a professional business and digital-services agency, and the website is primarily designed for businesses, professionals, clients, candidates, vendors, and other adult users. We do not intentionally request unnecessary Personal Data from children through ordinary website forms.\n\nIf a parent, guardian, or other person believes that a child has submitted Personal Data to Kapitech in a manner that should not have occurred, contact hello@kapitech.id with the relevant information so we can assess the situation and take reasonable action consistent with applicable law.' },
+    { title: '29. Third-party websites and services', body: 'The website may link to third-party websites, social networks, hosted tools, embedded services, or external platforms. Those services can have different privacy policies, cookie practices, security controls, and terms. Clicking or submitting information on a third-party service may move the processing outside Kapitech’s direct control.\n\nWe recommend reviewing the relevant third party’s privacy notice before submitting personal or confidential information. A link from kapitech.id does not by itself mean that Kapitech controls the third party or guarantees its practices.' },
+    { title: '30. Changes, effective date, and contact', body: 'We may update this Privacy Policy when the website, business operations, technology, processing activities, service providers, or legal requirements change. The current version will be published on this page with an updated effective date. Where a material change requires additional notice under applicable law or contract, we will use a reasonable method to provide that notice.\n\nPT Kapitech Digital Indonesia\nLinea Residence, Block G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia\nEmail: hello@kapitech.id\nPhone / WhatsApp: +62 877-6995-7062' },
+    { title: '31. Applicable legal framework', body: 'This policy is intended to be read together with applicable Indonesian requirements concerning Personal Data and electronic systems, including Law of the Republic of Indonesia No. 27 of 2022 on Personal Data Protection and Government Regulation No. 71 of 2019 on the Operation of Electronic Systems and Transactions, as applicable and as amended, supplemented, or replaced from time to time.\n\nThis policy is a public website privacy notice and is not a substitute for a project-specific data-processing agreement, security schedule, NDA, employment policy, or other contract where a more specific arrangement applies. Nothing in this page is intended to provide legal advice.' }
   ],
   id: [
-    {
-      title: '1. Tujuan dan ruang lingkup',
-      body: 'Kebijakan Privasi ini menjelaskan bagaimana PT Kapitech Digital Indonesia (“Kapitech”, “kami”) mengumpulkan, menggunakan, mengungkapkan, menyimpan, dan melindungi Data Pribadi saat Anda mengunjungi kapitech.id, mengirim formulir, menghubungi tim kami, melamar pekerjaan, berlangganan informasi, atau berinteraksi dengan website. Kebijakan ini berlaku untuk website dan interaksi yang berkaitan dengan website. Proyek klien, data karyawan, dan layanan yang diatur dalam perjanjian terpisah dapat tunduk pada ketentuan privasi, keamanan, atau pemrosesan data tambahan dalam perjanjian tersebut.'
-    },
-    {
-      title: '2. Pihak yang mengendalikan Data Pribadi',
-      body: 'Untuk Data Pribadi yang diproses melalui website untuk kepentingan Kapitech sendiri, pengendali datanya adalah PT Kapitech Digital Indonesia. Kontak kami tercantum di bagian Hubungi Kami. Jika Kapitech memproses data pribadi atas nama klien dalam proyek yang memiliki perjanjian terpisah, Kapitech dapat bertindak sebagai prosesor atau penyedia layanan sesuai perjanjian dan instruksi klien.'
-    },
-    {
-      title: '3. Data Pribadi yang dapat kami kumpulkan',
-      body: 'Data yang diproses bergantung pada cara Anda menggunakan website dan informasi yang Anda pilih untuk kirimkan.',
-      bullets: [
-        'Identitas dan kontak, seperti nama, email bisnis, nomor telepon atau WhatsApp, perusahaan, jabatan, dan informasi kontak lain yang Anda berikan.',
-        'Informasi proyek dan komersial, seperti layanan yang diminati, kisaran anggaran, kebutuhan proyek, tujuan bisnis, jadwal, dan isi pertanyaan atau permintaan Anda.',
-        'Informasi rekrutmen, seperti posisi yang dilamar, URL portfolio, CV/resume, cover letter, pengalaman profesional, keahlian, spesialisasi, tools atau stack, dan informasi kontak.',
-        'Informasi vendor atau freelance, seperti spesialisasi, pengalaman, rate atau estimasi biaya, tools, portfolio, CV/resume, dan catatan yang Anda kirimkan.',
-        'Informasi newsletter atau komunikasi, seperti alamat email dan preferensi komunikasi.',
-        'Informasi teknis dan penggunaan yang dapat dihasilkan saat Anda mengakses website, seperti karakteristik browser dan perangkat, alamat IP, waktu akses, halaman yang dikunjungi, host rujukan, serta informasi keamanan atau diagnostik.',
-        'Informasi atribusi pemasaran seperti parameter UTM dan identifier kampanye serupa, hanya jika fungsi analitik terkait diaktifkan sesuai Kebijakan Cookie.',
-        'Informasi lain yang Anda pilih untuk berikan melalui pesan, lampiran, permintaan konsultasi, atau interaksi website lainnya.'
-      ]
-    },
-    {
-      title: '4. Bagaimana kami memperoleh Data Pribadi',
-      bullets: [
-        'Langsung dari Anda ketika mengisi formulir kontak, karier, vendor, newsletter, atau formulir lainnya atau berkomunikasi dengan kami.',
-        'Secara otomatis atau tidak langsung dari browser atau perangkat ketika website memproses informasi teknis yang diperlukan.',
-        'Dari penyedia layanan yang mendukung operasional website, pengiriman formulir, analitik, hosting, keamanan, atau komunikasi, sepanjang pemrosesan tersebut relevan dengan layanan mereka atau interaksi Anda.',
-        'Dari informasi profesional yang Anda pilih untuk berikan atau publikasikan, misalnya portfolio atau profil profesional dalam proses lamaran.'
-      ]
-    },
-    {
-      title: '5. Untuk apa Data Pribadi digunakan',
-      body: 'Kami memproses Data Pribadi untuk tujuan yang spesifik dan sah, termasuk:',
-      bullets: [
-        'Menjawab pertanyaan, permintaan konsultasi, proposal, dan komunikasi bisnis.',
-        'Memahami kebutuhan proyek dan menyiapkan scope, estimasi, jadwal, atau materi pra-kontrak.',
-        'Mengelola kontrak, invoice, administrasi proyek, komunikasi klien, dan catatan bisnis terkait.',
-        'Menerima dan mengevaluasi lamaran kerja atau freelance serta berkomunikasi dengan kandidat.',
-        'Mengirim newsletter atau informasi bisnis yang diminta ketika Anda berlangganan atau memberi izin yang sesuai.',
-        'Mengoperasikan, mengamankan, memecahkan masalah, memantau, dan meningkatkan website dan infrastrukturnya.',
-        'Mengukur analitik website dan atribusi kampanye yang bersifat opsional setelah persetujuan terkait diberikan.',
-        'Melindungi hak, properti, sistem, pengguna, klien, dan personel Kapitech serta mendeteksi penyalahgunaan, fraud, aktivitas berbahaya, atau insiden keamanan.',
-        'Memenuhi kewajiban hukum, regulasi, akuntansi, perpajakan, atau penyelesaian sengketa yang berlaku.'
-      ]
-    },
-    {
-      title: '6. Dasar pemrosesan',
-      body: 'Kami berupaya memastikan setiap pemrosesan Data Pribadi memiliki dasar pemrosesan yang sah sesuai hukum yang berlaku. Tergantung konteksnya, dasar tersebut dapat berupa persetujuan yang sah, kebutuhan untuk mengambil langkah sebelum kontrak, pelaksanaan kontrak, kewajiban hukum, perlindungan kepentingan vital, pelaksanaan tugas untuk kepentingan umum jika relevan, atau kepentingan sah yang telah diseimbangkan dengan hak dan kepentingan Anda. Jika pemrosesan bergantung pada persetujuan, persetujuan tersebut dapat ditarik sesuai ketentuan yang berlaku.'
-    },
-    {
-      title: '7. Formulir, pengiriman data, dan komunikasi',
-      body: 'Informasi yang Anda kirim melalui website digunakan untuk menangani permintaan yang menjadi tujuan pengiriman data tersebut. Pengisian formulir kontak tidak otomatis berarti Anda berlangganan pemasaran. Newsletter atau komunikasi berkala hanya dikirim ketika Anda mendaftar atau memberikan izin yang sesuai. Kami dapat menyimpan catatan komunikasi dan pengiriman formulir untuk menjawab permintaan, menjaga catatan bisnis, menangani sengketa, dan membuktikan bagaimana suatu permintaan diproses.'
-    },
-    {
-      title: '8. Lamaran kerja dan vendor',
-      body: 'Jika Anda melamar posisi atau mendaftar sebagai freelance/vendor, informasi Anda dapat ditinjau oleh anggota tim rekrutmen, project, desain, engineering, operasional, atau manajemen yang berwenang sesuai kebutuhan. Data digunakan untuk menilai kesesuaian, berkomunikasi, menjadwalkan proses lanjutan, dan mengelola peluang berikutnya jika diperbolehkan. Jangan mengirimkan Data Pribadi yang sensitif dan tidak diperlukan untuk proses tersebut.'
-    },
-    {
-      title: '9. Cookie, local storage, analitik, dan atribusi',
-      body: 'Kapitech menggunakan penyimpanan browser dan cookie sebagaimana dijelaskan dalam Kebijakan Cookie. Penyimpanan esensial dapat diperlukan untuk fungsi seperti preferensi bahasa dan pengelolaan persetujuan. Analitik dan atribusi opsional hanya dijalankan setelah persetujuan terkait tercatat. Implementasi analitik dapat memproses informasi page view, interaksi, dan atribusi kampanye melalui penyedia yang dikonfigurasi seperti Google Analytics 4 atau Google Tag Manager. Anda dapat menarik persetujuan analitik melalui kontrol preferensi cookie.'
-    },
-    {
-      title: '10. Penyedia layanan dan pengungkapan',
-      body: 'Kami dapat memberikan atau menyediakan akses Data Pribadi kepada penyedia layanan yang membantu mengoperasikan website dan bisnis, seperti hosting, database, penyimpanan file, pemrosesan formulir atau inbox/CRM, keamanan, analitik, komunikasi, email, dan infrastruktur lainnya. Informasi yang diberikan seharusnya terbatas pada kebutuhan layanan dan tunduk pada kontrol kontraktual, teknis, atau organisasi yang sesuai. Kami juga dapat mengungkapkan data jika diwajibkan oleh hukum, proses hukum, putusan pengadilan, permintaan regulator, atau bila diperlukan untuk melindungi hak, keamanan, atau integritas sistem.'
-    },
-    {
-      title: '11. Kerahasiaan klien dan proyek',
-      body: 'Data Pribadi dan informasi bisnis rahasia yang kami terima dalam hubungan klien dapat tunduk pada NDA, kewajiban keamanan, atau ketentuan pemrosesan data tambahan. Ketentuan tersebut dapat lebih ketat daripada kebijakan website ini. Kapitech tidak dengan sengaja mempublikasikan informasi rahasia klien melalui website publik kecuali terdapat dasar kontraktual, izin, atau dasar hukum yang sesuai.'
-    },
-    {
-      title: '12. Pemrosesan dan transfer lintas negara',
-      body: 'Sebagian penyedia layanan Kapitech atau infrastrukturnya dapat memproses data di luar Indonesia. Jika Data Pribadi ditransfer atau dapat diakses lintas yurisdiksi, kami mengambil langkah yang wajar untuk menerapkan perlindungan kontraktual, teknis, dan organisasi yang sesuai serta memenuhi persyaratan hukum yang berlaku. Lokasi pemrosesan dapat berubah mengikuti vendor dan infrastruktur yang digunakan.'
-    },
-    {
-      title: '13. Retensi Data',
-      body: 'Kami menyimpan Data Pribadi selama diperlukan secara wajar untuk tujuan pengumpulan, selama hubungan atau proses yang relevan berlangsung, untuk menjaga catatan bisnis yang sah, memenuhi kewajiban hukum atau akuntansi, menyelesaikan sengketa, atau melindungi keamanan dan kepentingan hukum. Setiap kategori data dapat memiliki masa retensi yang berbeda. Setelah tidak diperlukan lagi, kami berupaya menghapus, memusnahkan, menganonimkan, atau membuang data secara aman, dengan tetap memperhatikan kewajiban penyimpanan yang sah.'
-    },
-    {
-      title: '14. Keamanan Data',
-      body: 'Kami menggunakan langkah teknis dan organisasi yang wajar untuk melindungi Data Pribadi dari akses, pengungkapan, perubahan, penyalahgunaan, kehilangan, atau pemusnahan yang tidak sah. Tergantung sistem dan sensitivitas datanya, pengamanan dapat mencakup enkripsi transport, kontrol akses, autentikasi, pembatasan hak akses, penanganan file yang aman, logging, monitoring, backup, dan kontrol lainnya. Tidak ada sistem internet atau penyimpanan yang dapat dijamin 100% aman.'
-    },
-    {
-      title: '15. Insiden pelindungan data',
-      body: 'Jika kami mengetahui adanya insiden Data Pribadi yang menimbulkan kewajiban pemberitahuan berdasarkan hukum yang berlaku, kami akan menilai dan menanganinya sesuai jenis insiden dan risikonya. Kami dapat memberikan pemberitahuan melalui kontak yang tersedia serta mengambil langkah untuk menahan, menyelidiki, memulihkan, dan mencegah kejadian serupa.'
-    },
-    {
-      title: '16. Hak Anda',
-      body: 'Tunduk pada hukum dan pengecualian yang berlaku, Anda dapat memiliki hak untuk memperoleh informasi yang jelas tentang pemrosesan, mengakses dan memperoleh salinan Data Pribadi, memperbaiki data yang tidak akurat, meminta penghapusan atau pemusnahan jika diperbolehkan, menarik persetujuan ketika persetujuan menjadi dasar pemrosesan, meminta penghentian atau pembatasan pemrosesan, mengajukan keberatan terhadap keputusan otomatis tertentu atau pemrofilan, dan menggunakan hak lain yang diberikan oleh peraturan pelindungan data yang berlaku. Kami dapat meminta verifikasi identitas yang wajar.'
-    },
-    {
-      title: '17. Cara menggunakan hak',
-      body: 'Kirimkan permintaan terkait privasi atau Data Pribadi ke hello@kapitech.id. Jelaskan permintaan, data atau proses yang dimaksud, serta informasi yang membantu kami menemukan catatan terkait. Kami akan menangani permintaan sesuai jangka waktu dan ketentuan hukum yang berlaku. Jika permintaan tidak dapat dipenuhi sepenuhnya, kami akan menjelaskan batasan yang berlaku sejauh diperbolehkan.'
-    },
-    {
-      title: '18. Anak',
-      body: 'Website dan layanan Kapitech terutama ditujukan untuk bisnis, profesional, klien, kandidat, dan pengguna dewasa lainnya. Kami tidak dengan sengaja meminta Data Pribadi yang tidak diperlukan dari anak. Jika Anda mengetahui bahwa Data Pribadi anak telah diberikan kepada kami tanpa dasar yang sesuai, silakan hubungi kami.'
-    },
-    {
-      title: '19. Website dan layanan pihak ketiga',
-      body: 'Website dapat memiliki tautan ke website, platform, jejaring sosial, atau layanan pihak ketiga. Kami tidak mengendalikan praktik privasi mereka. Kebijakan ini tidak mengatur pemrosesan oleh pihak ketiga tersebut, sehingga Anda disarankan membaca kebijakan privasi dan cookie mereka sebelum mengirim data.'
-    },
-    {
-      title: '20. Perubahan Kebijakan Privasi',
-      body: 'Kami dapat memperbarui Kebijakan Privasi ini untuk mencerminkan perubahan website, layanan, teknologi, vendor, persyaratan hukum, atau praktik pemrosesan. Versi terbaru akan tersedia di halaman ini dengan tanggal berlaku yang diperbarui. Jika perubahan material memerlukan pemberitahuan tambahan, kami akan melakukan pemberitahuan yang sesuai.'
-    },
-    {
-      title: '21. Hubungi Kami',
-      body: 'PT Kapitech Digital Indonesia\\nLinea Residence, Blok G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia\\nEmail: hello@kapitech.id\\nTelepon / WhatsApp: +62 877-6995-7062'
-    },
-    {
-      title: '22. Kerangka hukum yang berlaku',
-      body: 'Kebijakan ini disusun dengan memperhatikan ketentuan pelindungan data pribadi dan penyelenggaraan sistem elektronik yang berlaku di Indonesia, termasuk Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi dan Peraturan Pemerintah Nomor 71 Tahun 2019 tentang Penyelenggaraan Sistem dan Transaksi Elektronik, sepanjang relevan dan sebagaimana dapat diubah, ditambah, atau diganti dari waktu ke waktu.'
-    }
+    { title: '1. Tujuan dan ruang lingkup', body: 'Kebijakan Privasi ini menjelaskan bagaimana PT Kapitech Digital Indonesia (“Kapitech”, “kami”) menangani Data Pribadi sehubungan dengan kapitech.id dan interaksi yang berkaitan dengan website. Cakupannya meliputi data yang dikirim melalui formulir kontak, karier, vendor, newsletter, konsultasi, dan formulir sejenis, serta informasi teknis dan penggunaan yang dihasilkan saat Anda menjelajahi website.\n\nWebsite merupakan platform publik untuk kebutuhan bisnis dan editorial. Proyek klien, hubungan kerja, engagement freelance, atau layanan lain dapat memiliki ketentuan privasi, keamanan, kerahasiaan, atau pemrosesan data tambahan. Jika ada perjanjian tertulis yang mengatur aktivitas pemrosesan tertentu, perjanjian tersebut dapat memiliki aturan yang lebih spesifik atau lebih ketat daripada kebijakan umum ini.' },
+    { title: '2. Definisi', body: 'Dalam kebijakan ini, “Data Pribadi” berarti informasi yang secara langsung atau tidak langsung dapat mengidentifikasi atau dikaitkan secara wajar dengan seseorang. “Pemrosesan” mencakup pengumpulan, pencatatan, pengorganisasian, penyimpanan, penggunaan, pengungkapan, pemindahan, pembaruan, penggabungan, pembatasan, atau penghapusan data. “Website” berarti kapitech.id dan fungsi publik website yang dioperasikan Kapitech.\n\n“Pengendali” adalah pihak yang menentukan tujuan dan cara pemrosesan. “Prosesor” adalah pihak yang memproses data atas nama pengendali. Peran tersebut dapat berbeda tergantung konteks. Kapitech dapat menjadi pengendali untuk data yang digunakan untuk kepentingan bisnisnya sendiri dan dapat menjadi prosesor atau service provider ketika kontrak klien memerintahkan Kapitech memproses data atas nama klien.' },
+    { title: '3. Siapa yang mengendalikan Data Pribadi Anda', body: 'Untuk Data Pribadi yang dikumpulkan melalui website publik untuk kepentingan Kapitech sendiri, pengendalinya adalah PT Kapitech Digital Indonesia. Ini mencakup data yang diperlukan untuk menjawab pertanyaan, mengelola komunikasi bisnis, menilai lamaran, mengoperasikan website, menjaga keamanan, dan menjalankan fungsi website serta bisnis yang sah.\n\nDalam engagement klien, pihak yang bertanggung jawab dapat berbeda. Jika klien menentukan tujuan pemrosesan dan meminta Kapitech menangani data atas nama klien, klien dapat tetap menjadi pengendali sedangkan Kapitech bertindak sebagai prosesor. Proposal, SOW, NDA, DPA, atau perjanjian proyek lain menjadi acuan untuk menentukan peran dan tanggung jawab secara spesifik.' },
+    { title: '4. Data Pribadi yang dapat kami kumpulkan', body: 'Kami mengumpulkan informasi yang relevan dengan interaksi tertentu dan yang Anda pilih atau memang perlu Anda berikan. Tergantung formulir, hubungan, atau fungsi website, data dapat mencakup:', bullets: [
+      'Identitas dan kontak, termasuk nama, email bisnis, nomor telepon atau WhatsApp, perusahaan, jabatan, dan preferensi komunikasi.',
+      'Informasi proyek, termasuk layanan yang diminati, tujuan, kebutuhan, timeline, teknologi yang diinginkan, kisaran anggaran, dan isi permintaan.',
+      'Informasi rekrutmen, termasuk posisi, CV atau resume, URL portfolio, cover letter, pengalaman, keahlian, spesialisasi, tools, referensi, dan komunikasi terkait.',
+      'Informasi vendor atau freelance, termasuk spesialisasi, pengalaman, tools, portfolio, rate, ketersediaan, dan dokumen pendukung.',
+      'Informasi komunikasi, termasuk email, pengiriman formulir, lampiran, feedback, catatan meeting, dan catatan respons kami.',
+      'Informasi newsletter atau preferensi marketing, termasuk status subscription dan preferensi komunikasi.',
+      'Informasi teknis dan keamanan, termasuk alamat IP, karakteristik browser dan perangkat, timestamp, halaman yang dikunjungi, host rujukan, dan informasi diagnostik yang dapat dihasilkan oleh website atau infrastrukturnya.',
+      'Informasi campaign dan attribution seperti UTM parameter dan identifier serupa ketika analytics opsional aktif setelah consent.',
+      'Informasi lain yang Anda berikan secara sukarela melalui interaksi dengan Kapitech.'
+    ]},
+    { title: '5. Informasi yang sebaiknya tidak dikirim', body: 'Formulir publik kami bukan saluran aman untuk mengirim informasi yang sangat sensitif kecuali formulir atau perjanjian tertulis terkait memang memintanya. Jangan kirim password, private encryption key, credential rekening, rahasia negara, rekam medis, atau informasi sensitif lain yang tidak diperlukan untuk permintaan Anda.\n\nJika informasi sensitif memang dibutuhkan untuk proyek yang telah dikontrak, gunakan metode atau proses transfer aman yang disepakati dengan tim Kapitech. Kami dapat menolak pemrosesan data yang berlebihan, tidak relevan dengan tujuan, atau menimbulkan risiko keamanan atau hukum yang tidak wajar.' },
+    { title: '6. Bagaimana kami memperoleh Data Pribadi', bullets: [
+      'Langsung dari Anda saat mengisi formulir website, mengirim email, menghubungi kami melalui telepon atau WhatsApp, berlangganan informasi, atau berkomunikasi dengan tim kami.',
+      'Dari browser atau perangkat Anda ketika informasi teknis yang diperlukan dihasilkan saat website digunakan.',
+      'Dari informasi profesional atau publik yang Anda pilih untuk tersedia, seperti portfolio, website perusahaan, atau profil profesional dalam lamaran.',
+      'Dari service provider yang menjalankan infrastruktur, komunikasi, pengiriman formulir, analytics, keamanan, hosting, atau sistem bisnis lain yang digunakan Kapitech.',
+      'Dari klien atau perwakilan yang berwenang yang menyerahkan Data Pribadi kepada kami untuk tujuan berdasarkan kontrak.'
+    ]},
+    { title: '7. Tujuan pemrosesan', body: 'Kami menggunakan Data Pribadi untuk tujuan bisnis, operasional, keamanan, dan komunikasi yang jelas. Data yang sama dapat mendukung beberapa tujuan yang saling berkaitan, tetapi kami tidak bermaksud mengumpulkan data sekadar “untuk berjaga-jaga”. Tujuan umum meliputi:', bullets: [
+      'Menjawab pertanyaan, permintaan konsultasi, proposal, dan komunikasi bisnis.',
+      'Memahami kebutuhan proyek dan menyiapkan scope, estimasi, jadwal, spesifikasi, dan materi pra-kontrak.',
+      'Menjalankan layanan yang dikontrak, mengelola komunikasi, administrasi proyek, approval, invoice, dan catatan.',
+      'Menilai lamaran kerja, internship, freelance, atau vendor dan berkomunikasi dengan kandidat atau partner.',
+      'Mengirim newsletter, update, atau komunikasi lain yang diminta setelah Anda berlangganan atau memberikan izin yang sesuai.',
+      'Mengoperasikan, menjaga, mengamankan, memonitor, memperbaiki masalah, dan meningkatkan website serta infrastrukturnya.',
+      'Memahami penggunaan website dan performa campaign melalui analytics serta attribution opsional setelah consent.',
+      'Mendeteksi fraud, abuse, aktivitas berbahaya, insiden keamanan, atau pelanggaran terhadap ketentuan kami.',
+      'Memenuhi kewajiban hukum, regulasi, akuntansi, pajak, penyelesaian sengketa, atau kewajiban pencatatan.'
+    ]},
+    { title: '8. Dasar pemrosesan', body: 'Kapitech berupaya memastikan setiap aktivitas pemrosesan memiliki dasar yang sah sesuai hukum yang berlaku. Tergantung konteksnya, dasar dapat berupa persetujuan yang sah; kebutuhan mengambil langkah atas permintaan seseorang sebelum kontrak; pelaksanaan kontrak; kewajiban hukum; perlindungan kepentingan vital; pelaksanaan fungsi untuk kepentingan umum atau pelayanan publik jika relevan; atau kepentingan sah setelah mempertimbangkan hak dan kepentingan subjek data.\n\nJika consent menjadi dasar, permintaan consent harus dijelaskan secara jelas untuk tujuan yang relevan dan tidak dianggap sebagai izin umum untuk tujuan yang tidak terkait. Penarikan consent tidak otomatis menghapus keabsahan pemrosesan yang telah dilakukan sebelum consent ditarik dan tidak menghalangi pemrosesan yang memiliki dasar hukum lain.' },
+    { title: '9. Formulir kontak dan permintaan bisnis', body: 'Data yang dikirim melalui formulir kontak digunakan terlebih dahulu untuk memahami dan menjawab permintaan. Ini dapat mencakup meninjau layanan yang diminta, meminta klarifikasi kebutuhan bisnis, meneruskan inquiry kepada anggota tim yang relevan, menyiapkan proposal, dan menyimpan catatan komunikasi.\n\nMengirim formulir kontak tidak otomatis berarti Anda berlangganan newsletter atau daftar marketing umum. Untuk komunikasi marketing berulang, digunakan subscription atau izin yang sesuai. Kami tetap dapat menghubungi Anda terkait inquiry atau proyek aktif tanpa menganggap komunikasi operasional tersebut sebagai marketing.' },
+    { title: '10. Informasi discovery dan pra-kontrak', body: 'Sebelum kontrak ditandatangani, kami dapat menerima informasi bisnis seperti rencana produk, target audience, kendala teknis, fungsi yang diinginkan, sistem yang sudah ada, ekspektasi anggaran, timeline, dan kebutuhan pengambilan keputusan internal. Informasi tersebut digunakan untuk menilai kesesuaian Kapitech dan menyiapkan materi yang relevan secara komersial.\n\nInformasi pra-kontrak dapat bersifat sensitif meskipun tidak selalu termasuk kategori Data Pribadi sensitif. Karena itu, kami berupaya membatasi akses internal kepada orang yang memang membutuhkan informasi tersebut untuk kegiatan sales, discovery, design, engineering, finance, atau management terkait.' },
+    { title: '11. Lamaran kerja, freelance, dan vendor', body: 'Lamaran dapat berisi riwayat profesional, hasil kerja, resume, portfolio, kontak, ekspektasi kompensasi, ketersediaan, dan informasi lain yang dibutuhkan untuk menilai kandidat atau partner. Anggota tim recruitment, project, operations, design, engineering, finance, atau management yang berwenang dapat meninjau data sesuai kebutuhan.\n\nKami dapat menyimpan informasi lamaran untuk peluang berikutnya jika diperbolehkan dan relevan, tetapi lamaran tidak berarti otomatis ada hubungan kerja atau vendor. Hindari mengirim Data Pribadi sensitif yang tidak diperlukan. Jika proses recruitment tertentu memiliki informasi privasi tambahan, instruksi tersebut berlaku untuk proses tersebut.' },
+    { title: '12. Newsletter dan komunikasi marketing', body: 'Jika Kapitech menyediakan newsletter, project insights, campaign update, atau komunikasi berkala lainnya, kami menggunakan informasi yang diperlukan untuk mengirimkan komunikasi dan mengelola preferensi subscription. Pesan marketing dapat memiliki cara untuk unsubscribe atau memperbarui preferensi.\n\nPermintaan unsubscribe seharusnya menghentikan komunikasi marketing terkait, tetapi kami dapat menyimpan catatan minimal untuk memastikan alamat yang telah opt-out tidak secara tidak sengaja didaftarkan kembali. Komunikasi operasional yang diperlukan untuk menjawab inquiry, mengelola kontrak, atau menyediakan layanan tidak otomatis berhenti hanya karena Anda berhenti menerima marketing.' },
+    { title: '13. Informasi teknis, keamanan, dan penggunaan', body: 'Saat website digunakan, informasi teknis dapat dihasilkan secara otomatis oleh browser, hosting, content delivery, sistem keamanan, atau aplikasi. Tergantung konfigurasi, data dapat mencakup alamat IP, browser, sistem operasi, karakteristik perangkat, timestamp, halaman yang diminta, host rujukan, status HTTP, dan event diagnostik.\n\nInformasi ini terutama digunakan untuk delivery website, keamanan, reliability, troubleshooting, pencegahan abuse, analisis agregat, dan peningkatan layanan. Technical logs dapat dikelola terpisah dari marketing analytics dan tetap diperlukan walaupun consent analytics opsional tidak diberikan.' },
+    { title: '14. Cookie, local storage, dan consent', body: 'Kapitech menggunakan browser storage dan cookie sesuai Cookie Policy. Storage esensial dapat menyimpan pilihan bahasa atau consent agar website berfungsi secara konsisten. Analytics dan attribution opsional dimaksudkan hanya berjalan setelah pilihan consent yang mengizinkannya tercatat.\n\nStorage yang saat ini dikelola website mencakup nilai seperti “kapitech_cookie_consent”, “kapitech_lang”, “kapitech_attribution_v1”, dan “kapitech_anonymous_id_v1”. Key, provider, dan detail implementasi dapat berubah saat website berkembang. Cookie Policy menjadi dokumen yang lebih spesifik untuk perilaku cookie dan storage.' },
+    { title: '15. Analytics dan attribution', body: 'Jika consent analytics opsional aktif, website dapat menggunakan infrastruktur seperti Google Analytics 4 dan/atau Google Tag Manager yang dikonfigurasi. Tergantung konfigurasi, event dapat mencakup page view, interaksi tertentu, page path, bahasa, parameter campaign, dan informasi referral. Tujuannya adalah memahami penggunaan website dan performa campaign, bukan menjadikan website publik sebagai layanan broker data komersial.\n\nPemrosesan oleh provider juga mengikuti konfigurasi teknis dan ketentuan provider yang berlaku. Karena itu, kami tidak menjanjikan nama cookie, masa simpan, negara pemrosesan, atau fitur provider tertentu akan selalu sama.' },
+    { title: '16. Service provider dan processor', body: 'Kapitech dapat menggunakan provider pihak ketiga untuk hosting, database, file storage, email, form processing, CRM atau inbox, analytics, monitoring, security, domain, communications, payment infrastructure, development operations, atau fungsi bisnis lainnya. Tergantung layanannya, provider dapat memproses Data Pribadi atas nama kami atau bertindak sebagai penyedia independen dengan ketentuannya sendiri.\n\nKami berupaya memilih provider yang sesuai untuk layanan terkait, membatasi akses jika memungkinkan, serta menerapkan kontrol kontraktual atau teknis yang sesuai dengan sifat pemrosesan. Daftar provider dapat berubah seiring perubahan kebutuhan teknologi dan bisnis.' },
+    { title: '17. Pengungkapan kepada pihak lain', body: 'Kami dapat mengungkapkan Data Pribadi jika diperlukan untuk menjalankan bisnis, memenuhi permintaan, melaksanakan kontrak, mematuhi hukum, atau melindungi hak dan sistem yang sah. Contohnya dapat mencakup anggota tim dan kontraktor berwenang, infrastructure provider, penasihat profesional, auditor, provider pembayaran atau keuangan, otoritas hukum, atau pihak dalam transaksi korporasi yang sah.\n\nKami tidak bermaksud mengungkapkan informasi lebih banyak dari yang wajar diperlukan untuk tujuan terkait. Data Pribadi yang dikirim melalui website tidak dianggap sebagai informasi publik hanya karena pernah dikirim melalui website.' },
+    { title: '18. Permintaan hukum dan perlindungan hak', body: 'Dalam keadaan tertentu, Kapitech harus mengungkapkan informasi untuk memenuhi subpoena, perintah pengadilan, permintaan pemerintah yang sah, kewajiban regulator, atau proses hukum lain. Kami juga dapat mengungkapkan informasi jika secara wajar diperlukan untuk melindungi keamanan, hak, properti, atau keselamatan Kapitech, klien, pengguna, anggota tim, atau pihak lain, dengan tetap tunduk pada hukum yang berlaku.\n\nJika secara hukum diperbolehkan, kami berupaya membatasi pengungkapan pada informasi yang relevan dan menjaga kerahasiaan informasi yang tidak perlu diungkap.' },
+    { title: '19. Kerahasiaan klien dan proyek', body: 'Informasi yang diterima dalam engagement klien dapat tunduk pada proposal, SOW, NDA, klausul kerahasiaan, data-processing agreement, security schedule, atau pembatasan tertulis lainnya. Kewajiban kontraktual tersebut dapat lebih spesifik atau lebih ketat daripada kebijakan website ini.\n\nKapitech tidak dengan sengaja mempublikasikan informasi klien yang rahasia hanya karena informasi tersebut tersedia secara internal. Nama klien, logo, screenshot, arsitektur teknis, metric proyek, rencana produk yang belum dipublikasikan, credential, dan informasi sensitif lain hanya boleh dipublikasikan jika ada dasar kontraktual, consent, atau dasar hukum lain yang sesuai.' },
+    { title: '20. Pemrosesan dan transfer lintas negara', body: 'Kapitech dan provider kami dapat menggunakan infrastruktur di luar Indonesia. Karena itu, Data Pribadi dapat diproses, disimpan, atau diakses di negara atau yurisdiksi lain yang memiliki aturan privasi berbeda.\n\nJika pemrosesan lintas negara relevan, kami berupaya menerapkan safeguard kontraktual, teknis, dan organisasional yang wajar serta mengikuti kewajiban yang berlaku. Lokasi pemrosesan dapat berubah ketika provider mengubah infrastruktur sehingga kebijakan ini tidak menjanjikan seluruh data akan selamanya berada di satu negara.' },
+    { title: '21. Retensi Data Pribadi', body: 'Tidak ada satu periode retensi yang berlaku untuk semua Data Pribadi. Kami mempertimbangkan tujuan awal, jenis dan sensitivitas informasi, durasi hubungan bisnis atau proses lamaran, kebutuhan hukum dan akuntansi, risiko sengketa, kebutuhan keamanan, serta kebutuhan operasional.\n\nKetika informasi tidak lagi diperlukan untuk tujuan yang sah, kami berupaya menghapus, menghancurkan, menganonimkan, mende-identifikasi, atau membuangnya secara aman, dengan tetap mempertimbangkan kewajiban retensi hukum, backup, audit, atau kebutuhan sah lain yang membutuhkan penyimpanan terkontrol.' },
+    { title: '22. Akurasi dan minimisasi data', body: 'Kami berupaya menjaga Data Pribadi tetap akurat dan relevan dengan tujuan pemrosesan. Anda dapat membantu dengan memberikan informasi yang terbaru dan memberi tahu kami jika detail penting berubah. Kami dapat meminta klarifikasi jika data yang dikirim tampak tidak lengkap, tidak konsisten, atau dibutuhkan untuk menjalankan permintaan.\n\nKami juga berupaya menghindari pengumpulan informasi yang tidak relevan. Jika sebuah field bersifat opsional, umumnya Anda dapat mengosongkannya kecuali field tersebut memang diperlukan untuk menilai atau menjalankan permintaan.' },
+    { title: '23. Keamanan Data', body: 'Kami menggunakan kontrol teknis dan organisasional yang wajar sesuai sistem dan jenis informasi yang diproses. Tergantung konteks, kontrol dapat mencakup koneksi jaringan terenkripsi, autentikasi, pembatasan akses berdasarkan peran, pembatasan hak administratif, pengelolaan credential yang aman, logging, monitoring, backup, update software, dan pembatasan akses internal.\n\nKeamanan adalah proses, bukan jaminan mutlak. Tidak ada transmisi internet, software, cloud platform, perangkat, atau metode penyimpanan yang dapat dijamin sepenuhnya aman. Pengguna sebaiknya tidak mengirim secret atau credential melalui formulir website biasa.' },
+    { title: '24. Insiden Data Pribadi', body: 'Jika Kapitech mengetahui adanya dugaan atau insiden Data Pribadi yang terkonfirmasi, kami dapat menilai cakupan, sistem terdampak, kategori data, risiko yang mungkin muncul, opsi containment, dan kewajiban notifikasi berdasarkan hukum atau kontrak. Langkah respons dapat mencakup pembatasan akses, pemeriksaan log, pengamanan akun, perubahan konfigurasi, pemulihan sistem, komunikasi kepada pihak terdampak, dan dokumentasi perbaikan.\n\nJika notifikasi diwajibkan hukum, kami mengikuti ketentuan yang berlaku. Insiden keamanan tidak otomatis berarti semua pengguna terdampak, sehingga pemberitahuan sebaiknya didasarkan pada fakta yang telah diverifikasi selama proses respons.' },
+    { title: '25. Hak Anda atas Data Pribadi', body: 'Tunduk pada hukum yang berlaku, Anda dapat memiliki hak terkait Data Pribadi, termasuk memperoleh informasi yang jelas tentang pemrosesan, mengakses data, menerima salinan jika diwajibkan, memperbaiki atau memperbarui data yang tidak akurat, meminta penghapusan atau pemusnahan jika diperbolehkan, menarik consent ketika consent menjadi dasar pemrosesan, meminta penghentian atau pembatasan pemrosesan dalam keadaan tertentu, menolak pemrosesan atau profiling tertentu, dan menggunakan hak lain yang tersedia dalam kerangka hukum terkait.\n\nRuang lingkup setiap hak dapat bergantung pada dasar hukum, tujuan, pengecualian, kewajiban pihak ketiga, dan keadaan lainnya. Kebijakan ini tidak dimaksudkan untuk memperluas hak di luar yang diberikan hukum yang berlaku.' },
+    { title: '26. Cara menggunakan hak Anda', body: 'Kirim permintaan privasi atau permintaan hak Data Pribadi ke hello@kapitech.id. Jelaskan nama, kontak, jenis permintaan, dan konteks yang cukup agar kami dapat menemukan data terkait. Jika permintaan berkaitan dengan formulir, proyek, lamaran, atau komunikasi tertentu, sebutkan detail tersebut jika memungkinkan.\n\nKami dapat meminta informasi yang wajar untuk memverifikasi identitas sebelum mengakses, mengubah, atau menghapus data. Tujuannya untuk mengurangi risiko Data Pribadi diberikan kepada orang yang salah. Kami akan menangani permintaan dalam jangka waktu dan kondisi yang dipersyaratkan hukum. Jika permintaan tidak dapat dipenuhi seluruhnya, kami akan menjelaskan batasannya sejauh diperbolehkan.' },
+    { title: '27. Automated decision-making dan profiling', body: 'Website publik tidak dirancang untuk membuat keputusan berdampak tinggi tentang seseorang hanya berdasarkan automated processing. Analytics atau attribution dapat menghasilkan pengelompokan statistik atau pengukuran perilaku, tetapi fungsi tersebut tidak dimaksudkan untuk menentukan status hukum, kelayakan kerja, creditworthiness, atau akses terhadap layanan esensial seseorang.\n\nJika sistem di masa depan memperkenalkan automated decision-making atau profiling yang secara material berbeda, Kapitech akan menilai kebutuhan hukum, transparansi, keamanan, dan governance sebelum sistem tersebut digunakan untuk tujuan tersebut.' },
+    { title: '28. Anak-anak', body: 'Kapitech adalah digital agency profesional dan website ditujukan terutama bagi bisnis, profesional, klien, kandidat, vendor, dan pengguna dewasa lainnya. Kami tidak sengaja meminta Data Pribadi anak yang tidak diperlukan melalui formulir website biasa.\n\nJika orang tua, wali, atau pihak lain mengetahui bahwa anak telah mengirimkan Data Pribadi kepada Kapitech dalam keadaan yang seharusnya tidak terjadi, hubungi hello@kapitech.id dengan informasi terkait agar kami dapat menilai situasinya dan mengambil tindakan yang wajar sesuai hukum.' },
+    { title: '29. Website dan layanan pihak ketiga', body: 'Website dapat mengandung tautan ke website pihak ketiga, social network, hosted tools, embedded services, atau platform eksternal. Layanan tersebut dapat memiliki kebijakan privasi, penggunaan cookie, kontrol keamanan, dan ketentuan yang berbeda. Ketika Anda mengklik atau mengirim informasi pada layanan pihak ketiga, pemrosesan dapat berada di luar kendali langsung Kapitech.\n\nKami menyarankan Anda membaca privacy notice pihak ketiga sebelum mengirim informasi pribadi atau rahasia. Tautan dari kapitech.id tidak berarti Kapitech mengendalikan atau menjamin praktik pihak ketiga tersebut.' },
+    { title: '30. Perubahan, tanggal berlaku, dan kontak', body: 'Kami dapat memperbarui Kebijakan Privasi ketika website, operasional bisnis, teknologi, aktivitas pemrosesan, provider, atau kebutuhan hukum berubah. Versi terbaru akan dipublikasikan di halaman ini dengan tanggal berlaku yang diperbarui. Jika perubahan material membutuhkan pemberitahuan tambahan berdasarkan hukum atau kontrak, kami akan menggunakan cara pemberitahuan yang wajar.\n\nPT Kapitech Digital Indonesia\nLinea Residence, Blok G No. 5, Jl. Melati Loka, Paku Jaya, Serpong Utara, Kota Tangerang Selatan, Banten 15220, Indonesia\nEmail: hello@kapitech.id\nPhone / WhatsApp: +62 877-6995-7062' },
+    { title: '31. Kerangka hukum yang berlaku', body: 'Kebijakan ini dimaksudkan untuk dibaca bersama ketentuan Indonesia yang berlaku mengenai Data Pribadi dan sistem elektronik, termasuk Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi dan Peraturan Pemerintah Nomor 71 Tahun 2019 tentang Penyelenggaraan Sistem dan Transaksi Elektronik, sepanjang berlaku dan sebagaimana dapat diubah, dilengkapi, atau digantikan dari waktu ke waktu.\n\nKebijakan ini merupakan pemberitahuan privasi untuk website publik dan bukan pengganti data-processing agreement, security schedule, NDA, kebijakan ketenagakerjaan, atau kontrak lain jika pengaturan yang lebih spesifik berlaku. Isi halaman ini juga bukan nasihat hukum.' }
   ]
 };
 
 export const PrivacyPolicy = () => {
   const { language } = useLanguage();
-  const current = sections[language];
+  const current = language === 'id' ? sections.id : sections.en;
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="kapi-policy-page min-h-screen pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] text-[#8A909D] font-light relative selection:bg-brand-red selection:text-white">
       <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.05} disableGrayscale={true} />
       <div className="max-w-4xl mx-auto relative z-10">
         <span className="kapi-section-label mb-5">{language === 'id' ? 'Privasi & Pelindungan Data' : 'Privacy & Data Protection'}</span>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 tracking-tighter">
-          {language === 'id' ? 'Kebijakan Privasi.' : 'Privacy Policy.'}
-        </h1>
-        <p className="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-mono font-semibold mb-12">
-          {language === 'id' ? 'Berlaku sejak: 8 Oktober 2026' : 'Effective: October 8, 2026'}
-        </p>
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 tracking-tighter">{language === 'id' ? 'Kebijakan Privasi.' : 'Privacy Policy.'}</h1>
+        <p className="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-mono font-semibold mb-12">{language === 'id' ? 'Diperbarui: 8 Oktober 2026' : 'Updated: October 8, 2026'}</p>
         <div className="mb-12 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 text-sm leading-7 text-[#9AA1AD]">
           {language === 'id'
-            ? 'Dokumen ini menjelaskan praktik pemrosesan data untuk website publik Kapitech. Untuk proyek klien, dokumen kontrak, SOW, NDA, atau Data Processing Agreement yang berlaku dapat menetapkan ketentuan tambahan atau berbeda.'
-            : 'This document describes processing practices for Kapitech’s public website. Client contracts, SOWs, NDAs, or Data Processing Agreements may impose additional or different requirements for project-specific processing.'}
+            ? 'Kebijakan ini menjelaskan bagaimana Kapitech menangani Data Pribadi pada website publik dan interaksi yang terkait dengan website.'
+            : 'This policy explains how Kapitech handles Personal Data on the public website and website-related interactions.'}
         </div>
-        <div className="space-y-12 text-base md:text-lg leading-relaxed text-[#8A909D]">
+        <div className="space-y-12 text-[15px] md:text-base leading-[1.78] text-[#8A909D]">
           {current.map((section) => (
             <section key={section.title} className="scroll-mt-32">
-              <h2 className="text-2xl font-display font-bold text-white mb-4">{section.title}</h2>
-              {section.body && <p className="whitespace-pre-line">{section.body}</p>}
+              <h2 className="text-[clamp(21px,2.2vw,27px)] leading-[1.18] font-sans font-bold text-white mb-4 tracking-[-0.025em]">{section.title}</h2>
+              {section.body && section.body.split('\n\n').map((paragraph, index) => <p key={index} className={index > 0 ? 'mt-4' : ''}>{paragraph}</p>)}
               {section.bullets && <ul className="mt-4 list-disc pl-6 space-y-2">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
             </section>
           ))}
         </div>
-        <p className="mt-14 text-xs leading-6 text-[#626B78]">
-          {language === 'id'
-            ? 'Catatan: halaman ini adalah kebijakan website dan bukan nasihat hukum. Untuk kebutuhan kepatuhan khusus, lakukan peninjauan dengan penasihat hukum yang memahami kegiatan dan yurisdiksi bisnis Anda.'
-            : 'Note: this page is a website policy and not legal advice. For specific compliance requirements, obtain advice from qualified counsel familiar with your business activities and jurisdictions.'}
-        </p>
       </div>
     </motion.div>
   );
