@@ -1125,7 +1125,7 @@ export const Home = () => {
 
             return (
               <div
-                className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050609]/42 p-4 backdrop-blur-md backdrop-saturate-75 sm:p-4 lg:p-6"
+                className="fixed inset-0 z-[120] flex items-center justify-center kapi-modal-overlay p-4 sm:p-4 lg:p-6"
                 role="presentation"
                 onMouseDown={(event) => {
                   if (event.target === event.currentTarget) setSelectedProcessStep(null);
