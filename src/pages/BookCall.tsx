@@ -27,7 +27,13 @@ export const BookCall = () => {
     message: ''
   });
   const timezoneOptions = useMemo(() => ['Asia/Jakarta', 'Asia/Singapore', 'Asia/Kuala_Lumpur', 'Asia/Bangkok', 'Asia/Tokyo', 'Australia/Perth', 'Europe/London', 'Europe/Berlin', 'America/New_York', 'America/Los_Angeles'], []);
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const today = useMemo(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+  }, []);
   const update = (key: string, value: string | boolean) => setForm((current) => ({ ...current, [key]: value }));
   const handleBriefChange = (file: File | null) => {
     setBriefError('');
