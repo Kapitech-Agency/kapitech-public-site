@@ -163,7 +163,7 @@ export const Navbar = () => {
     cn(
       "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
       active
-        ? "text-brand-red border-brand-red/25 bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(229,9,20,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
+        ? "text-brand-red border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(229,9,20,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
         : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
