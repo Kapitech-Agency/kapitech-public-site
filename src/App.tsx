@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { LanguageProvider, useLanguage } from './lib/LanguageContext';
 import { Navbar } from './components/Navbar';
@@ -31,10 +31,6 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy').then((m) => ({ de
 const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })));
 const Industries = lazy(() => import('./pages/Industries').then((m) => ({ default: m.Industries })));
 const IndustryDetail = lazy(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })));
-const Clients = lazy(() => import('./pages/Clients').then((m) => ({ default: m.Clients })));
-const ClientDetail = lazy(() => import('./pages/ClientDetail').then((m) => ({ default: m.ClientDetail })));
-const Resources = lazy(() => import('./pages/Resources').then((m) => ({ default: m.Resources })));
-const ResourceDetail = lazy(() => import('./pages/ResourceDetail').then((m) => ({ default: m.ResourceDetail })));
 const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
 const Search = lazy(() => import('./pages/Search').then((m) => ({ default: m.Search })));
 const BookCall = lazy(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })));
@@ -154,10 +150,10 @@ const AnimatedRoutes = () => {
               <Route path="/about" element={<About />} />
               <Route path="/industries" element={<Industries />} />
               <Route path="/industries/:slug" element={<IndustryDetail />} />
-              <Route path="/clients" element={<Clients />} />
-              <Route path="/clients/:slug" element={<ClientDetail />} />
-              <Route path="/resources" element={<Resources />} />
-              <Route path="/resources/:slug" element={<ResourceDetail />} />
+              <Route path="/clients" element={<Navigate to="/work" replace />} />
+              <Route path="/clients/:slug" element={<Navigate to="/work" replace />} />
+              <Route path="/resources" element={<Navigate to="/insights" replace />} />
+              <Route path="/resources/:slug" element={<Navigate to="/insights" replace />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/search" element={<Search />} />
               <Route path="/book-a-call" element={<BookCall />} />
