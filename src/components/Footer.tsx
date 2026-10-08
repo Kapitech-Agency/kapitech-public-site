@@ -358,6 +358,13 @@ export const Footer = () => {
                 </li>
               ))}
             </ul>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('kapitech_open_cookie_preferences'))}
+              className="mt-3 text-left text-[11px] text-[#6F7783] transition-colors hover:text-white"
+            >
+              {language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences'}
+            </button>
           </div>
 
           {/* Col 5: Direct Office & Contacts (2 cols) */}
