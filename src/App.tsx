@@ -54,7 +54,6 @@ const IndustryDetail = lazyWithChunkRecovery(() => import('./pages/IndustryDetai
 const Faq = lazyWithChunkRecovery(() => import('./pages/Faq').then((m) => ({ default: m.Faq })), 'faq');
 const Search = lazyWithChunkRecovery(() => import('./pages/Search').then((m) => ({ default: m.Search })), 'search');
 const BookCall = lazyWithChunkRecovery(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })), 'book-call');
-const Careers = lazyWithChunkRecovery(() => import('./pages/Careers').then((m) => ({ default: m.Careers })), 'careers');
 const NotFound = lazyWithChunkRecovery(() => import('./pages/NotFound'), 'not-found');
 
 const ScrollToTop = () => {
