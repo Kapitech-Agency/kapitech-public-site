@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 're
 import { ArrowLeft, ArrowRight, ChevronRight } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { InsightContentRenderer } from '../components/InsightContentRenderer';
-import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { InsightLeftRail } from '../components/InsightLeftRail';
 import { InsightRightRail } from '../components/InsightRightRail';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
@@ -601,8 +601,24 @@ export const InsightDetail: React.FC = () => {
       <>
         <InsightSeoMeta article={article} />
 
-        <header className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
-          <InsightAmbientBackground intensity="detail" />
+        <header className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
+          <PatternWaves
+            preset="lines"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.30}
+            fade="edges"
+            fadeSize={0.72}
+            interactive
+            cursorSize={52}
+            cursorStrength={0.34}
+            speed={0.18}
+            scale={1.06}
+            depth={0.60}
+            shine={0.48}
+            contrast={1.03}
+            intro
+          />
           <div
             className="absolute inset-0 bg-[#0B0C0E]/15"
             aria-hidden="true"
@@ -611,7 +627,7 @@ export const InsightDetail: React.FC = () => {
             className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]"
             aria-hidden="true"
           />
-          <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-12 pt-28 sm:px-8 sm:pb-14 sm:pt-36 lg:px-10 lg:pb-16 lg:pt-40">
+          <div className="relative mx-auto w-full max-w-[1600px] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
             <div className="grid items-start xl:grid-cols-[48px_minmax(0,1120px)_280px] xl:gap-6">
               <div className="min-w-0 xl:col-start-2 xl:px-12">
             <nav
@@ -653,7 +669,7 @@ export const InsightDetail: React.FC = () => {
                 )}
               </div>
 
-              <h1 className="mt-6 max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.5rem]">
+              <h1 className="mt-6 max-w-5xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
                 {article.title}
               </h1>
 
