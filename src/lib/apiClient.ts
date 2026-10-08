@@ -26,60 +26,87 @@ function resolveApiUrl(endpoint: string): string {
   return `${API_BASE_URL}${normalizedEndpoint}`;
 }
 
+const RETRYABLE_READ_STATUSES = new Set([408, 502, 503, 504]);
+const READ_RETRY_DELAYS_MS = [700, 1800];
+
+function sleep(delayMs: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, delayMs));
+}
+
 export async function apiRequest<T = unknown>(
   endpoint: string,
   options: RequestInit = {}
-): Promise<{ success: boolean; data?: T; error?: string }> {
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 15000);
+): Promise<{ success: boolean; data?: T; error?: string; status?: number }> {
+  const method = String(options.method || 'GET').toUpperCase();
+  const headers = new Headers(options.headers);
+  const hasRequestBody = options.body !== undefined && options.body !== null;
 
-  try {
-    const method = String(options.method || 'GET').toUpperCase();
-    const headers = new Headers(options.headers);
-    const hasRequestBody = options.body !== undefined && options.body !== null;
-
-    if (hasRequestBody && !headers.has('Content-Type')) {
-      headers.set('Content-Type', 'application/json');
-    }
-
-    const targetUrl = resolveApiUrl(endpoint);
-    const targetOrigin = new URL(targetUrl, window.location.href).origin;
-    const isCrossOrigin = targetOrigin !== window.location.origin;
-
-    if (MUTATING_METHODS.has(method) && !isCrossOrigin) {
-      const csrfToken = readCookie('kapi_csrf');
-      if (csrfToken && !headers.has('X-CSRF-Token')) {
-        headers.set('X-CSRF-Token', csrfToken);
-      }
-    }
-
-    const res = await fetch(targetUrl, {
-      ...options,
-      method,
-      headers,
-      credentials: isCrossOrigin ? 'omit' : 'same-origin',
-      signal: options.signal || controller.signal
-    });
-
-    const json = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      return {
-        success: false,
-        data: json as T,
-        error: json.error || `HTTP ${res.status}: ${res.statusText}`
-      };
-    }
-
-    return { success: true, data: json };
-  } catch (err: any) {
-    return {
-      success: false,
-      error: err?.name === 'AbortError' ? 'Request timed out. Please try again.' : (err?.message || 'Network request failed')
-    };
-  } finally {
-    window.clearTimeout(timeout);
+  if (hasRequestBody && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
   }
+
+  const targetUrl = resolveApiUrl(endpoint);
+  const targetOrigin = new URL(targetUrl, window.location.href).origin;
+  const isCrossOrigin = targetOrigin !== window.location.origin;
+
+  if (MUTATING_METHODS.has(method) && !isCrossOrigin) {
+    const csrfToken = readCookie('kapi_csrf');
+    if (csrfToken && !headers.has('X-CSRF-Token')) {
+      headers.set('X-CSRF-Token', csrfToken);
+    }
+  }
+
+  const canRetry = method === 'GET' && !options.signal;
+  const maxAttempts = canRetry ? READ_RETRY_DELAYS_MS.length + 1 : 1;
+  let lastError: string | undefined;
+  let lastStatus: number | undefined;
+  let lastData: T | undefined;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    if (attempt > 0) await sleep(READ_RETRY_DELAYS_MS[attempt - 1]);
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15000);
+
+    try {
+      const res = await fetch(targetUrl, {
+        ...options,
+        method,
+        headers,
+        credentials: isCrossOrigin ? 'omit' : 'same-origin',
+        signal: options.signal || controller.signal
+      });
+      const json = await res.json().catch(() => ({}));
+      lastStatus = res.status;
+      lastData = json as T;
+
+      if (!res.ok) {
+        lastError = json.error || `HTTP ${res.status}: ${res.statusText}`;
+        if (!canRetry || !RETRYABLE_READ_STATUSES.has(res.status)) {
+          return { success: false, data: lastData, error: lastError, status: lastStatus };
+        }
+        continue;
+      }
+
+      return { success: true, data: json, status: res.status };
+    } catch (err: any) {
+      lastStatus = undefined;
+      lastError = err?.name === 'AbortError'
+        ? 'Request timed out. Please try again.'
+        : (err?.message || 'Network request failed');
+
+      if (!canRetry) return { success: false, error: lastError };
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  }
+
+  return {
+    success: false,
+    data: lastData,
+    error: lastError || 'Network request failed',
+    status: lastStatus
+  };
 }
 
 export async function uploadPublicResume(file: File): Promise<{ success: boolean; data?: { documentId: string; resumeUrl: string; filename: string; mimeType: string; sizeBytes: number }; error?: string }> {

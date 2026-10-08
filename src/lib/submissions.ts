@@ -32,11 +32,32 @@ export interface ContactSubmission {
   attribution?: AttributionContext;
 }
 
+function createSubmissionId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `web_${crypto.randomUUID()}`;
+  }
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    const bytes = new Uint8Array(18);
+    crypto.getRandomValues(bytes);
+    return `web_${Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('')}`;
+  }
+  return `web_${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+}
+
+function shouldRetryLeadSubmission(result: { success: boolean; status?: number }): boolean {
+  return !result.success && (result.status === undefined || Boolean(result.status && result.status >= 500));
+}
+
+function wait(delayMs: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, delayMs));
+}
+
 export const submitToInbox = async (
   data: Omit<ContactSubmission, 'id' | 'createdAt' | 'status' | 'attribution'>
 ): Promise<{ success: boolean; id: string }> => {
   const attribution = getAttributionContext();
-  const enrichedData = { ...data, attribution };
+  const submissionId = createSubmissionId();
+  const enrichedData = { ...data, attribution, submissionId };
 
   const formName = data.type === 'career'
     ? 'careers_form'
@@ -49,9 +70,13 @@ export const submitToInbox = async (
     service_count: data.services?.length || 0,
   });
 
-  const result = await api.leads.submit(enrichedData);
-  const id = (result.data as { id?: string } | undefined)?.id;
+  let result = await api.leads.submit(enrichedData);
+  for (let attempt = 0; attempt < 2 && shouldRetryLeadSubmission(result); attempt += 1) {
+    await wait(attempt === 0 ? 900 : 2200);
+    result = await api.leads.submit(enrichedData);
+  }
 
+  const id = (result.data as { id?: string } | undefined)?.id;
   if (!result.success || !id) {
     trackEvent(data.type === 'newsletter' ? 'newsletter_error' : 'contact_error', {
       form_name: formName,

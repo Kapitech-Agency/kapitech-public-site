@@ -16,6 +16,9 @@ export interface TestimonialItem {
   isPublished?: boolean;
 }
 
+type CmsResource = 'services' | 'projects' | 'testimonials';
+type RetryState = { count: number; timer: number | null };
+
 let cmsServicesCache: ServiceItemData[] | null = null;
 let cmsProjectsCache: ProjectItem[] | null = null;
 let cmsTestimonialsCache: TestimonialItem[] | null = null;
@@ -23,8 +26,13 @@ let cmsServicesRequest: Promise<ServiceItemData[]> | null = null;
 let cmsProjectsRequest: Promise<ProjectItem[]> | null = null;
 let cmsTestimonialsRequest: Promise<TestimonialItem[]> | null = null;
 
-// Client testimonials are served from AMS CMS. Keep the static fallback empty so the
-// public site never invents client identities, quotes, ratings, or business outcomes.
+const cmsRetryState: Record<CmsResource, RetryState> = {
+  services: { count: 0, timer: null },
+  projects: { count: 0, timer: null },
+  testimonials: { count: 0, timer: null }
+};
+
+export const CMS_EVENT_KEY = 'kapitech_cms_updated';
 export const defaultTestimonials: TestimonialItem[] = [];
 
 function getStaticServiceFallback(): ServiceItemData[] {
@@ -34,6 +42,48 @@ function getStaticServiceFallback(): ServiceItemData[] {
     testimonial: undefined,
     caseStudySlugs: [],
   }));
+}
+
+function notifyCmsUpdate(type: CmsResource): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(CMS_EVENT_KEY, { detail: { type } }));
+  }
+}
+
+function clearCmsRetry(type: CmsResource): void {
+  const state = cmsRetryState[type];
+  state.count = 0;
+  if (state.timer !== null && typeof window !== 'undefined') {
+    window.clearTimeout(state.timer);
+  }
+  state.timer = null;
+}
+
+function scheduleCmsHydrationRetry(type: CmsResource, retry: () => void): void {
+  if (typeof window === 'undefined') return;
+  const state = cmsRetryState[type];
+  if (state.timer !== null || state.count >= 6) return;
+  const delay = Math.min(30000, 2500 * 2 ** state.count);
+  state.count += 1;
+  state.timer = window.setTimeout(() => {
+    state.timer = null;
+    retry();
+  }, delay);
+}
+
+function markCmsHydrationSuccess(type: CmsResource): void {
+  clearCmsRetry(type);
+}
+
+function setCmsCache(
+  type: CmsResource,
+  value: ServiceItemData[] | ProjectItem[] | TestimonialItem[],
+): void {
+  if (type === 'services') cmsServicesCache = value as ServiceItemData[];
+  if (type === 'projects') cmsProjectsCache = value as ProjectItem[];
+  if (type === 'testimonials') cmsTestimonialsCache = value as TestimonialItem[];
+  markCmsHydrationSuccess(type);
+  notifyCmsUpdate(type);
 }
 
 export function getCmsServices(): ServiceItemData[] {
@@ -46,21 +96,19 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
     try {
       const res = await api.cms.getServices();
       if (res.success && Array.isArray(res.data?.services) && res.data.services.length > 0) {
-        cmsServicesCache = res.data.services;
-        return cmsServicesCache;
+        const services = res.data.services;
+        setCmsCache('services', services);
+        return services;
       }
     } catch {
-      // Keep the local curated dataset when the public CMS is unavailable.
+      // Keep the local curated dataset while the server recovers.
     }
+    scheduleCmsHydrationRetry('services', () => { void fetchServerCmsServices(); });
     return getCmsServices();
-  })().finally(() => {
-    cmsServicesRequest = null;
-  });
+  })().finally(() => { cmsServicesRequest = null; });
   return cmsServicesRequest;
 }
 
-// Client case studies are served from AMS CMS. Do not fall back to an
-// unverified static portfolio dataset when the API is unavailable.
 export function getCmsProjects(): ProjectItem[] {
   return cmsProjectsCache || (cmsProjectsCache = []);
 }
@@ -70,17 +118,17 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
   cmsProjectsRequest = (async () => {
     try {
       const res = await api.cms.getProjects();
-      if (res.success && Array.isArray(res.data?.projects) && res.data.projects.length > 0) {
-        cmsProjectsCache = res.data.projects;
-        return cmsProjectsCache;
+      if (res.success && Array.isArray(res.data?.projects)) {
+        const projects = res.data.projects;
+        setCmsCache('projects', projects);
+        return projects;
       }
     } catch {
-      // Keep the local curated dataset when the public CMS is unavailable.
+      // Keep the empty CMS state visible until the server recovers.
     }
+    scheduleCmsHydrationRetry('projects', () => { void fetchServerCmsProjects(); });
     return getCmsProjects();
-  })().finally(() => {
-    cmsProjectsRequest = null;
-  });
+  })().finally(() => { cmsProjectsRequest = null; });
   return cmsProjectsRequest;
 }
 
@@ -93,16 +141,32 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
   cmsTestimonialsRequest = (async () => {
     try {
       const res = await api.cms.getTestimonials();
-      if (res.success && Array.isArray(res.data?.testimonials) && res.data.testimonials.length > 0) {
-        cmsTestimonialsCache = res.data.testimonials;
-        return cmsTestimonialsCache;
+      if (res.success && Array.isArray(res.data?.testimonials)) {
+        const testimonials = res.data.testimonials;
+        cmsTestimonialsCache = testimonials;
+        markCmsHydrationSuccess('testimonials');
+        notifyCmsUpdate('testimonials');
+        return testimonials;
       }
     } catch {
-      // Keep the local curated dataset when the public CMS is unavailable.
+      // Keep the empty CMS state visible until the server recovers.
     }
+    scheduleCmsHydrationRetry('testimonials', () => { void fetchServerCmsTestimonials(); });
     return getCmsTestimonials();
-  })().finally(() => {
-    cmsTestimonialsRequest = null;
-  });
+  })().finally(() => { cmsTestimonialsRequest = null; });
   return cmsTestimonialsRequest;
+}
+
+function retryUnhydratedCms(): void {
+  if (typeof window === 'undefined') return;
+  if (cmsServicesCache === null && cmsServicesRequest === null) void fetchServerCmsServices();
+  if (cmsProjectsCache === null && cmsProjectsRequest === null) void fetchServerCmsProjects();
+  if (cmsTestimonialsCache === null && cmsTestimonialsRequest === null) void fetchServerCmsTestimonials();
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', retryUnhydratedCms);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') retryUnhydratedCms();
+  });
 }
