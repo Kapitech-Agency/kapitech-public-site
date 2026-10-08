@@ -57,7 +57,7 @@ export const CaseStudyDetail = () => {
 
   if (!item) {
     return (
-      <main className="min-h-screen bg-[#0B0C0E] px-5 pb-20 pt-32 text-white sm:px-8">
+      <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-20 pt-32 text-white sm:px-8">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Case Study</p>
           <h1 className="mt-4 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-6xl">Case study not found.</h1>
@@ -71,7 +71,7 @@ export const CaseStudyDetail = () => {
   const copy = language === 'id' ? item.descId : item.desc;
 
   return (
-    <main className="min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32">
+    <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32">
       <header className="border-b border-white/[0.08]">
         <div className="mx-auto max-w-7xl px-5 pb-12 sm:px-8 lg:px-12">
           <Link to="/work" className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#7C8490] hover:text-white"><ArrowLeft size={13} /> Back to Work</Link>
