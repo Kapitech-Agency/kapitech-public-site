@@ -95,7 +95,9 @@ export async function apiRequest<T = unknown>(
         ? 'Request timed out. Please try again.'
         : (err?.message || 'Network request failed');
 
-      if (!canRetry) return { success: false, error: lastError };
+      if (!canRetry || err?.name === 'AbortError') {
+        return { success: false, error: lastError };
+      }
     } finally {
       window.clearTimeout(timeout);
     }
