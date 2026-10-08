@@ -92,9 +92,11 @@ class RouteErrorBoundary extends React.Component<
           <p className="mt-4 text-sm leading-7 text-[#8B929F]">
             A client-side error occurred while rendering this route. Reload the page or return to the Insight library.
           </p>
-          <pre className="mt-6 max-h-40 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
-            {this.state.error.name + ': ' + this.state.error.message}
-          </pre>
+          {import.meta.env.DEV ? (
+            <pre className="mt-6 max-h-40 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
+              {this.state.error.name + ': ' + this.state.error.message}
+            </pre>
+          ) : null}
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               type="button"
