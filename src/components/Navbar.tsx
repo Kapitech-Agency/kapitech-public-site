@@ -928,7 +928,7 @@ export const Navbar = () => {
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 text-xs font-mono text-brand-red">08</span>
+                          <span className="w-6 text-xs font-mono text-brand-red">06</span>
                           <span>{language === 'id' ? 'Cari' : 'Search'}</span>
                         </div>
                         <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red" : "text-[#8A909D]/50"} />
@@ -947,7 +947,7 @@ export const Navbar = () => {
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">09</span>
+                        <span className="w-6 text-xs font-mono text-brand-red">07</span>
                         <span className="text-xl font-display">{t('nav.about')}</span>
                       </div>
                       <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-[#8A909D]/50")} />
@@ -965,7 +965,7 @@ export const Navbar = () => {
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">10</span>
+                        <span className="w-6 text-xs font-mono text-brand-red">08</span>
                         <span className="text-xl font-display">{t('nav.careers')}</span>
                       </div>
                       <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-[#8A909D]/50")} />
