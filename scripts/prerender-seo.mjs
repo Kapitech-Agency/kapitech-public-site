@@ -517,9 +517,25 @@ const slugify = (value) => String(value || '')
 
 const projectSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
 const projectRecords = [];
-const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'/g;
+const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'[\s\S]*?service:\s*'([^']+)'[\s\S]*?featured:\s*(?:true|false),\s*image:\s*'([^']+)'[\s\S]*?desc:\s*'([^']*)'[\s\S]*?year:\s*'([^']+)'/g;
 for (const match of projectSource.matchAll(projectPattern)) {
-  projectRecords.push({ id: match[1], title: match[2], client: match[3], industry: match[4], service: '', year: '', image: '', challenge: '', solution: '', execution: '', outcome: '', deliverables: [], technologies: [], impact: [] });
+  projectRecords.push({
+    id: match[1],
+    title: match[2],
+    client: match[3],
+    industry: match[4],
+    service: match[5],
+    image: match[6],
+    desc: match[7],
+    year: match[8],
+    challenge: '',
+    solution: '',
+    execution: '',
+    outcome: '',
+    deliverables: [],
+    technologies: [],
+    impact: []
+  });
 }
 
 const loadCmsProjectsForPrerender = async () => {
