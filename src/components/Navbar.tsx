@@ -687,11 +687,40 @@ export const Navbar = () => {
                     </Link>
 
                     <div className="grid grid-cols-2 gap-2 pt-1">
-                      <Link to="/industries" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Industries</Link>
-                      <Link to="/clients" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Clients</Link>
-                      <Link to="/resources" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Resources</Link>
-                      <Link to="/faq" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">FAQ</Link>
-                      <Link to="/search" onClick={() => setIsMenuOpen(false)} className="col-span-2 flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white"><SearchIcon size={15}/> Search</Link>
+                      {[
+                        { to: '/industries', label: 'Industries', active: location.pathname.startsWith('/industries') },
+                        { to: '/clients', label: 'Clients', active: location.pathname.startsWith('/clients') },
+                        { to: '/resources', label: 'Resources', active: location.pathname.startsWith('/resources') },
+                        { to: '/faq', label: 'FAQ', active: location.pathname === '/faq' },
+                      ].map((item) => (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          onClick={() => setIsMenuOpen(false)}
+                          aria-current={item.active ? 'page' : undefined}
+                          className={cn(
+                            "rounded-xl border px-3 py-3 text-sm font-medium transition-colors",
+                            item.active
+                              ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
+                              : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                      <Link
+                        to="/search"
+                        onClick={() => setIsMenuOpen(false)}
+                        aria-current={location.pathname === '/search' ? 'page' : undefined}
+                        className={cn(
+                          "col-span-2 flex items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-medium transition-colors",
+                          location.pathname === '/search'
+                            ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
+                            : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
+                        )}
+                      >
+                        <SearchIcon size={15}/> Search
+                      </Link>
                     </div>
 
                     <Link
