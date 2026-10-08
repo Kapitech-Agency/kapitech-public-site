@@ -303,7 +303,7 @@ export const Home = () => {
             preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.34}
+            opacity={0.32}
             fade="edges"
             fadeSize={0.72}
             interactive
