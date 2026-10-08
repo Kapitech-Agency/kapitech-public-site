@@ -29,7 +29,6 @@ const AiInstructions = lazy(() => import('./pages/AiInstructions').then((m) => (
 const EditorialPolicy = lazy(() => import('./pages/EditorialPolicy').then((m) => ({ default: m.EditorialPolicy })));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy })));
 const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })));
-const Industries = lazy(() => import('./pages/Industries').then((m) => ({ default: m.Industries })));
 const IndustryDetail = lazy(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })));
 const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
 const Search = lazy(() => import('./pages/Search').then((m) => ({ default: m.Search })));
@@ -148,7 +147,6 @@ const AnimatedRoutes = () => {
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/solutions/:slug" element={<ServiceDetail />} />
               <Route path="/about" element={<About />} />
-              <Route path="/industries" element={<Industries />} />
               <Route path="/industries/:slug" element={<IndustryDetail />} />
               <Route path="/clients" element={<Navigate to="/work" replace />} />
               <Route path="/clients/:slug" element={<Navigate to="/work" replace />} />
