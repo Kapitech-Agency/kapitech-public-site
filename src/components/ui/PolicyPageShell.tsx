@@ -34,7 +34,7 @@ const DEFAULT_CONTACT = {
 const stripNumberPrefix = (title: string) => title.replace(/^\d+[.)]\s*/, '').trim();
 const getSectionId = (index: number) => 'policy-section-' + String(index + 1);
 
-export const PolicyPageShell = ({ eyebrow, title, updated, summary, sections, manageAction, relatedLinks = DEFAULT_RELATED_LINKS, showContact = true }: PolicyPageShellProps) => {
+export const PolicyPageShell = ({ eyebrow, title, updated, summary, sections, manageAction, relatedLinks = DEFAULT_RELATED_LINKS, showContact = false }: PolicyPageShellProps) => {
   const sectionIds = useMemo(() => sections.map((_, index) => getSectionId(index)), [sections]);
   const [activeSection, setActiveSection] = useState(sectionIds[0] || '');
 
