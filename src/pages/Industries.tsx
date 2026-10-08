@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   ArrowUpRight,
-  BarChart3,
-  Building2,
-  Check,
+  CheckCircle2,
   Compass,
   Layers3,
   Search,
@@ -24,66 +22,84 @@ type FocusGroup = {
   id: string;
   eyebrow: string;
   title: string;
+  shortTitle: string;
   description: string;
   keywords: string[];
+  needs: string[];
 };
 
 const focusGroups: FocusGroup[] = [
   {
+    id: 'ai-saas',
+    eyebrow: 'AI, SaaS & digital products',
+    title: 'AI, SaaS & Digital Products',
+    shortTitle: 'AI & SaaS',
+    description: 'Complex products become easier to understand when product logic, interface design, and delivery stay connected.',
+    keywords: ['ai', 'saas', 'productivity', 'hrtech', 'agritech', 'edtech', 'creative saas', 'digital product'],
+    needs: ['Product UX & UI', 'Web applications', 'MVP development', 'Workflow systems'],
+  },
+  {
     id: 'financial-services',
     eyebrow: 'Financial services',
     title: 'Financial Services',
-    description: 'Digital experiences, financial platforms, dashboards, and enterprise workflows where clarity and trust matter.',
+    shortTitle: 'Fintech',
+    description: 'Financial products need clarity, confidence, and interfaces that make dense information easier to act on.',
     keywords: ['fintech', 'finansial', 'payment', 'bank', 'capital', 'wealth', 'venture', 'sekuritas', 'pasar modal', 'financial advisory'],
+    needs: ['Dashboards & portals', 'UI/UX design', 'Digital platforms', 'Enterprise systems'],
   },
   {
     id: 'healthcare',
-    eyebrow: 'Healthcare',
+    eyebrow: 'Healthcare & healthtech',
     title: 'Healthcare & HealthTech',
-    description: 'Patient-facing products, healthcare systems, and operational tools designed around clarity, access, and workflow.',
+    shortTitle: 'Healthcare',
+    description: 'Healthcare experiences have to balance accessibility, trust, operational workflow, and information density.',
     keywords: ['healthcare', 'healthtech', 'rumah sakit', 'medtech', 'medis', 'farmasi', 'medical'],
-  },
-  {
-    id: 'ai-saas',
-    eyebrow: 'Digital products',
-    title: 'AI, SaaS & Digital Products',
-    description: 'Software products, internal platforms, AI workflows, and complex interfaces that need scalable product thinking.',
-    keywords: ['ai', 'saas', 'productivity', 'hrtech', 'agritech', 'edtech', 'creative saas', 'digital product'],
+    needs: ['Patient experiences', 'Clinical workflows', 'Healthcare systems', 'Digital platforms'],
   },
   {
     id: 'commerce-consumer',
-    eyebrow: 'Commerce',
+    eyebrow: 'Commerce & consumer',
     title: 'Commerce & Consumer',
-    description: 'E-commerce, retail, beauty, fashion, food, and consumer brands that need strong digital experiences.',
+    shortTitle: 'Commerce',
+    description: 'Consumer work needs a strong connection between brand expression, discovery, conversion, and the buying journey.',
     keywords: ['e-commerce', 'ecommerce', 'retail', 'beauty', 'skincare', 'f&b', 'coffee', 'fashion', 'luxury goods', 'haute joaillerie'],
+    needs: ['E-commerce', 'Brand systems', 'Campaign design', 'Conversion-focused websites'],
   },
   {
     id: 'industrial-infrastructure',
-    eyebrow: 'Industrial',
+    eyebrow: 'Industrial & infrastructure',
     title: 'Industrial & Infrastructure',
-    description: 'Industrial, engineering, energy, manufacturing, cloud, and infrastructure work where systems and reliability are central.',
+    shortTitle: 'Industrial',
+    description: 'Operationally complex organisations need digital systems that are clear for users and practical for the teams running them.',
     keywords: ['manufaktur', 'konstruksi', 'infrastruktur', 'energi', 'solar', 'otomasi', 'robotika', 'cloud infrastructure', 'devops', 'telekomunikasi', 'erp'],
+    needs: ['ERP & CRM', 'Operational portals', 'Cloud infrastructure', 'Enterprise workflows'],
   },
   {
     id: 'mobility-logistics',
-    eyebrow: 'Mobility',
+    eyebrow: 'Mobility & logistics',
     title: 'Mobility & Logistics',
-    description: 'Transportation, logistics, fleet, shipping, and mobility experiences built around operational efficiency.',
+    shortTitle: 'Mobility',
+    description: 'Fleet, logistics, transport, and mobility products depend on efficient workflows, reliable information, and fast decisions.',
     keywords: ['logistics', 'logistik', 'transportasi', 'pelayaran', 'ekspedisi', 'otomotif', 'fleet', 'smart city'],
+    needs: ['Fleet experiences', 'Operational portals', 'Web applications', 'System workflows'],
   },
   {
     id: 'hospitality-property',
-    eyebrow: 'Lifestyle',
+    eyebrow: 'Hospitality, property & lifestyle',
     title: 'Hospitality, Property & Lifestyle',
-    description: 'Hospitality, property, architecture, wellness, and premium experiences where brand and experience meet.',
+    shortTitle: 'Lifestyle',
+    description: 'Premium experiences depend on brand, presentation, and digital journeys that make high-value decisions feel easier.',
     keywords: ['hospitality', 'luxury wedding', 'wellness', 'real estate', 'properti', 'arsitektur', 'villa'],
+    needs: ['Digital presence', '3D visualisation', 'Brand identity', 'Experience design'],
   },
   {
     id: 'media-culture',
-    eyebrow: 'Culture & media',
+    eyebrow: 'Media, gaming & culture',
     title: 'Media, Gaming & Culture',
-    description: 'Gaming, live content, motion, tourism, creative campaigns, and cultural experiences that rely on visual impact.',
+    shortTitle: 'Media',
+    description: 'Visual-first industries need strong creative direction without losing clarity, consistency, or product thinking.',
     keywords: ['gaming', 'live streaming', 'tvc', 'tourism', 'pariwisata', 'kebudayaan', 'advertising', 'motion'],
+    needs: ['Motion & campaigns', 'Interactive experiences', '3D visualisation', 'Creative systems'],
   },
 ];
 
@@ -95,7 +111,7 @@ const groupMatchesIndustry = (group: FocusGroup, industry: string) => {
 export const Industries = () => {
   const { language } = useLanguage();
   const [projects, setProjects] = useState<ProjectItem[]>(() => getCmsProjects());
-  const [activeGroupId, setActiveGroupId] = useState('financial-services');
+  const [activeGroupId, setActiveGroupId] = useState('ai-saas');
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -144,6 +160,7 @@ export const Industries = () => {
           ...group,
           projects: matchedProjects,
           industries: matchedIndustries,
+          services: Array.from(new Set(matchedProjects.map((project) => project.service).filter(Boolean))),
         };
       }),
     [publicSource, industryEntries],
@@ -153,7 +170,11 @@ export const Industries = () => {
   const activeProjects = activeGroup?.projects ?? [];
   const activeIndustries = activeGroup?.industries ?? [];
   const activeFeatured = activeProjects.find((project) => project.featured) ?? activeProjects[0];
-  const activeServices = Array.from(new Set(activeProjects.map((project) => project.service).filter(Boolean)));
+
+  const totalCapabilities = useMemo(
+    () => new Set(publicSource.map((project) => project.service).filter(Boolean)).size,
+    [publicSource],
+  );
 
   const normalizedQuery = query.trim().toLowerCase();
 
@@ -176,49 +197,53 @@ export const Industries = () => {
     [industryEntries, normalizedQuery],
   );
 
-  const groupSummaries = useMemo(
-    () =>
-      focusGroupsWithData.map((group) => ({
-        ...group,
-        projectCount: group.projects.length,
-        industryCount: group.industries.length,
-        services: Array.from(new Set(group.projects.map((project) => project.service).filter(Boolean))).slice(0, 4),
-      })),
-    [focusGroupsWithData],
-  );
-
-  const adaptationPrinciples = [
+  const principles = [
     {
       icon: Compass,
-      title: language === 'id' ? 'Mulai dari problem, bukan paket industri' : 'Start with the problem, not a package',
+      title: language === 'id' ? 'Context sebelum output' : 'Context before output',
       description:
         language === 'id'
-          ? 'Konteks industri membantu kami memahami constraint, tetapi scope tetap ditentukan oleh tujuan bisnis dan kebutuhan pengguna.'
-          : 'Industry context helps us understand constraints, while the engagement is still shaped by business goals and user needs.',
+          ? 'Kami mulai dari tujuan, pengguna, constraint, dan tingkat kompleksitas. Bukan dari daftar deliverable.'
+          : 'We start with goals, users, constraints, and complexity. Not with a list of deliverables.',
+    },
+    {
+      icon: Sparkles,
+      title: language === 'id' ? 'Creative + technical' : 'Creative + technical',
+      description:
+        language === 'id'
+          ? 'Design, development, dan technical delivery bisa berjalan dalam satu jalur saat problem memang membutuhkannya.'
+          : 'Design, development, and technical delivery can stay on one path when the problem calls for it.',
     },
     {
       icon: ShieldCheck,
-      title: language === 'id' ? 'Pertimbangkan trust dan operational risk' : 'Account for trust and operational risk',
+      title: language === 'id' ? 'Dibuat untuk penggunaan nyata' : 'Built for real use',
       description:
         language === 'id'
-          ? 'Untuk produk yang sensitif atau kompleks, kami memasukkan clarity, permissions, reliability, dan recovery ke dalam pengalaman.'
-          : 'For sensitive or complex products, we account for clarity, permissions, reliability, and recovery as part of the experience.',
+          ? 'Kami mempertimbangkan usability, maintainability, reliability, dan handoff sejak awal, bukan setelah semuanya selesai.'
+          : 'Usability, maintainability, reliability, and handoff are considered from the start, not after everything is finished.',
+    },
+  ];
+
+  const deliverySteps = [
+    {
+      step: '01',
+      title: language === 'id' ? 'Discovery' : 'Discovery',
+      description: language === 'id' ? 'Pahami business context, audience, workflow, dan masalah utama.' : 'Understand the business context, audience, workflow, and core problem.',
     },
     {
-      icon: Workflow,
-      title: language === 'id' ? 'Hubungkan experience dengan system' : 'Connect experience to the system',
-      description:
-        language === 'id'
-          ? 'Design, application flow, integration, dan infrastructure dipandang sebagai satu delivery path ketika problem memang membutuhkannya.'
-          : 'Design, application flow, integrations, and infrastructure are treated as one delivery path when the problem requires it.',
+      step: '02',
+      title: language === 'id' ? 'Direction' : 'Direction',
+      description: language === 'id' ? 'Tentukan prioritas, struktur pengalaman, scope, dan jalur delivery yang paling masuk akal.' : 'Define priorities, experience structure, scope, and the most sensible delivery path.',
     },
     {
-      icon: BarChart3,
-      title: language === 'id' ? 'Ukur hasil yang relevan' : 'Measure what matters to the work',
-      description:
-        language === 'id'
-          ? 'Kami lebih mengutamakan metric yang berhubungan dengan outcome project daripada sekadar menambah output di portfolio.'
-          : 'We focus on metrics connected to the project outcome rather than adding outputs for the sake of the portfolio.',
+      step: '03',
+      title: language === 'id' ? 'Design & Build' : 'Design & Build',
+      description: language === 'id' ? 'Eksekusi design atau engineering sesuai scope, dengan review dan validasi di titik penting.' : 'Execute design or engineering against the agreed scope, with review and validation at key checkpoints.',
+    },
+    {
+      step: '04',
+      title: language === 'id' ? 'Launch & Support' : 'Launch & Support',
+      description: language === 'id' ? 'Siapkan handoff, launch, improvement, atau technical support sesuai kebutuhan engagement.' : 'Prepare handoff, launch, improvements, or technical support based on the engagement.',
     },
   ];
 
@@ -228,51 +253,59 @@ export const Industries = () => {
         eyebrow={language === 'id' ? 'Industry expertise' : 'Industry expertise'}
         title={
           language === 'id'
-            ? 'Solusi digital yang memahami konteks industrinya.'
-            : 'Digital work that understands the industry context.'
+            ? 'Kami memahami industrinya. Kami mengerjakan masalah digitalnya.'
+            : 'We understand the industry. We solve the digital problem.'
         }
         description={
           language === 'id'
-            ? 'Kapitech menggabungkan design, development, dan technical delivery berdasarkan karakter problem yang kami hadapi di tiap industri.'
-            : 'Kapitech brings design, development, and technical delivery together around the kind of problem each industry presents.'
+            ? 'Kapitech menggabungkan creative, product design, development, dan technical delivery berdasarkan konteks bisnis yang dihadapi tiap industri.'
+            : 'Kapitech combines creative, product design, development, and technical delivery around the business context each industry brings.'
         }
       >
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3">
-          {[
-            { label: language === 'id' ? 'Focus areas' : 'Focus areas', value: focusGroups.length },
-            { label: language === 'id' ? 'Industry contexts' : 'Industry contexts', value: industryEntries.length },
-            { label: language === 'id' ? 'Public work' : 'Public work', value: publicSource.length },
-          ].map((metric) => (
-            <div key={metric.label} className="bg-[#0B0C0E]/92 px-4 py-4 backdrop-blur-sm sm:px-5">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{metric.label}</span>
-              <span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.04em]">{metric.value}</span>
+        <div className="grid gap-3 sm:grid-cols-[1.15fr_0.85fr]">
+          <div className="rounded-[1.5rem] border border-white/[0.08] bg-[#0B0C0E]/86 p-5 backdrop-blur-sm sm:p-6">
+            <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red">
+              {language === 'id' ? 'Yang kami bawa' : 'What we bring'}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['Brand & Experience', 'Product & UI/UX', 'Web & Applications', 'Systems & Infrastructure'].map((item) => (
+                <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-[9px] font-mono uppercase tracking-[0.09em] text-[#ABB1BA]">
+                  {item}
+                </span>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="grid grid-cols-3 gap-px overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.08]">
+            {[
+              { value: industryEntries.length, label: language === 'id' ? 'industry contexts' : 'industry contexts' },
+              { value: publicSource.length, label: language === 'id' ? 'public projects' : 'public projects' },
+              { value: totalCapabilities, label: language === 'id' ? 'capabilities' : 'capabilities' },
+            ].map((item) => (
+              <div key={item.label} className="bg-[#0B0C0E]/92 px-3 py-4 sm:px-4">
+                <span className="block text-xl font-display font-semibold tracking-[-0.04em] sm:text-2xl">{item.value}</span>
+                <span className="mt-1 block text-[8px] font-mono uppercase leading-4 tracking-[0.09em] text-[#69717D]">{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </PublicPageHero>
 
       <div className="mx-auto max-w-[1440px] px-4 pb-24 sm:px-6 md:px-10 lg:px-12">
-        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="industry-focus-title">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <span className="kapi-section-label">{language === 'id' ? 'Explore by industry' : 'Explore by industry'}</span>
-              <h2 id="industry-focus-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.5rem]">
-                {language === 'id' ? 'Pilih konteks yang paling dekat dengan bisnis Anda.' : 'Start with the context closest to your business.'}
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Bukan sekadar daftar kategori. Setiap focus area menghubungkan konteks industri dengan pekerjaan dan kapabilitas yang benar-benar ada di portfolio publik.'
-                  : 'Not just a category list. Each focus area connects the industry context to work and capabilities represented in the public portfolio.'}
-              </p>
-            </div>
-            <Link to="/work" className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A5ACB6] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
-              {language === 'id' ? 'Lihat seluruh work' : 'View all work'}
-              <ArrowUpRight size={14} aria-hidden="true" />
-            </Link>
+        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="experience-title">
+          <div className="max-w-3xl">
+            <span className="kapi-section-label">{language === 'id' ? 'Our experience matches your market' : 'Our experience matches your market'}</span>
+            <h2 id="experience-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.6rem]">
+              {language === 'id' ? 'Pilih industri. Lalu lihat bukti pekerjaannya.' : 'Pick the industry. Then see the work.'}
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
+              {language === 'id'
+                ? 'Kami tidak ingin Anda menebak dari daftar layanan. Pilih konteks yang paling dekat dengan bisnis Anda, lalu lihat jenis pekerjaan yang memang kami representasikan.'
+                : 'We do not want you to guess from a service list. Choose the context closest to your business, then see the work we actually represent.'}
+            </p>
           </div>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {groupSummaries.map((group, index) => {
+          <div className="mt-8 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {focusGroupsWithData.map((group) => {
               const active = group.id === activeGroupId;
 
               return (
@@ -282,207 +315,184 @@ export const Industries = () => {
                   onClick={() => setActiveGroupId(group.id)}
                   aria-pressed={active}
                   className={[
-                    'group relative min-h-[190px] overflow-hidden rounded-[1.5rem] border p-5 text-left transition-[border-color,background-color,transform] duration-300',
+                    'shrink-0 rounded-full border px-4 py-2.5 text-[10px] font-mono uppercase tracking-[0.1em] transition-[background-color,border-color,color,transform] duration-200',
                     active
-                      ? 'border-brand-red/35 bg-brand-red/[0.06] -translate-y-0.5'
-                      : 'border-white/[0.08] bg-white/[0.018] hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.03]',
+                      ? 'border-brand-red/35 bg-brand-red/[0.1] text-brand-red'
+                      : 'border-white/[0.08] bg-white/[0.018] text-[#7A838F] hover:border-white/[0.15] hover:text-white',
                   ].join(' ')}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-[#59616D]">{String(index + 1).padStart(2, '0')}</span>
-                    <span className={[
-                      'flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors',
-                      active ? 'border-brand-red/30 bg-brand-red/[0.1] text-brand-red' : 'border-white/[0.08] text-[#68717D] group-hover:text-white',
-                    ].join(' ')}>
-                      <ArrowUpRight size={15} aria-hidden="true" />
-                    </span>
-                  </div>
-
-                  <p className="mt-8 text-[9px] font-mono uppercase tracking-[0.14em] text-[#68717D]">{group.eyebrow}</p>
-                  <h3 className="mt-2 text-xl font-display font-semibold tracking-[-0.035em]">{group.title}</h3>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#7E8793]">{group.description}</p>
-
-                  <div className="mt-5 flex items-center gap-3 text-[9px] font-mono uppercase tracking-[0.1em]">
-                    <span className="text-[#C3C8D0]">{group.projectCount} {language === 'id' ? 'projects' : 'projects'}</span>
-                    <span className="text-[#3E454F]">/</span>
-                    <span className="text-[#69727E]">{group.industryCount} {language === 'id' ? 'contexts' : 'contexts'}</span>
-                  </div>
+                  {group.shortTitle}
+                  <span className="ml-2 text-[#515A66]">{group.projects.length}</span>
                 </button>
               );
             })}
           </div>
-        </section>
 
-        {activeGroup ? (
-          <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="industry-proof-title">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <span className="kapi-section-label">{activeGroup.eyebrow}</span>
-                <h2 id="industry-proof-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.3rem]">
-                  {language === 'id' ? 'Work yang membuktikan fit-nya.' : 'Work that proves the fit.'}
-                </h2>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {activeIndustries.slice(0, 3).map((entry) => (
-                  <Link
-                    key={entry.industry}
-                    to={'/industries/' + industrySlug(entry.industry)}
-                    className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-[#7D8793] transition-colors hover:border-brand-red/25 hover:text-brand-red"
-                  >
-                    {entry.industry}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          {activeGroup ? (
+            <div className="mt-5 overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#101216]">
+              <div className="grid lg:grid-cols-[0.86fr_1.14fr]">
+                <div className="border-b border-white/[0.07] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+                  <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-brand-red">{activeGroup.eyebrow}</p>
+                  <h3 className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl">{activeGroup.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#8A929E]">{activeGroup.description}</p>
 
-            {activeProjects.length > 0 && activeFeatured ? (
-              <div className="mt-9 grid gap-4 lg:grid-cols-[1.28fr_0.72fr]">
-                <Link
-                  to={'/work/' + projectSlug(activeFeatured)}
-                  className="group relative min-h-[440px] overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#111317] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 sm:min-h-[540px]"
-                >
-                  <img
-                    src={activeFeatured.image}
-                    alt={activeFeatured.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                    <div className="flex flex-wrap items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-white/72">
-                      <span>{activeFeatured.client}</span>
-                      <span className="text-white/25">/</span>
-                      <span>{activeFeatured.year}</span>
-                      <span className="text-white/25">/</span>
-                      <span>{activeFeatured.service}</span>
-                    </div>
-                    <h3 className="mt-2 max-w-3xl text-2xl font-display font-semibold tracking-[-0.04em] sm:text-4xl">{activeFeatured.title}</h3>
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/72">
-                      {language === 'id' ? activeFeatured.descId : activeFeatured.desc}
+                  <div className="mt-7">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
+                      {language === 'id' ? 'Typical needs' : 'Typical needs'}
                     </p>
+                    <div className="mt-3 grid gap-2">
+                      {activeGroup.needs.map((need) => (
+                        <div key={need} className="flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.018] px-3.5 py-3">
+                          <CheckCircle2 size={14} className="text-brand-red" aria-hidden="true" />
+                          <span className="text-xs text-[#C4C9D1]">{need}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </Link>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                  {activeProjects.slice(1, 4).map((project) => (
-                    <Link
-                      key={project.id}
-                      to={'/work/' + projectSlug(project)}
-                      className="group grid min-h-[170px] grid-cols-[120px_minmax(0,1fr)] overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] transition-colors hover:border-white/[0.15] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                    >
-                      <div className="relative overflow-hidden bg-[#111317]">
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {activeGroup.services.slice(0, 5).map((service) => (
+                      <span key={service} className="rounded-full border border-white/[0.07] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-[#747E8A]">
+                        {service}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-5 lg:p-6">
+                  {activeFeatured ? (
+                    <div className="grid gap-3 sm:grid-cols-[1.3fr_0.7fr]">
+                      <Link
+                        to={'/work/' + projectSlug(activeFeatured)}
+                        className="group relative min-h-[360px] overflow-hidden rounded-[1.5rem] bg-[#15171B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                      >
                         <img
-                          src={project.image}
-                          alt={project.title}
-                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                          src={activeFeatured.image}
+                          alt={activeFeatured.title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                           loading="lazy"
                           decoding="async"
                         />
-                      </div>
-                      <div className="flex min-w-0 flex-col justify-between p-4 sm:p-5">
-                        <div>
-                          <span className="text-[8px] font-mono uppercase tracking-[0.12em] text-brand-red">{project.service}</span>
-                          <h3 className="mt-2 line-clamp-2 text-base font-display font-semibold tracking-[-0.025em]">{project.title}</h3>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/15 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                          <div className="flex flex-wrap items-center gap-2 text-[8px] font-mono uppercase tracking-[0.12em] text-white/70">
+                            <span>{activeFeatured.client}</span>
+                            <span className="text-white/25">/</span>
+                            <span>{activeFeatured.service}</span>
+                          </div>
+                          <h4 className="mt-2 text-xl font-display font-semibold tracking-[-0.035em] sm:text-2xl">{activeFeatured.title}</h4>
                         </div>
-                        <span className="mt-4 inline-flex items-center gap-2 text-[10px] font-semibold text-[#7A838F] group-hover:text-white">
-                          {language === 'id' ? 'Buka case' : 'Open case'} <ArrowUpRight size={13} />
-                        </span>
+                      </Link>
+
+                      <div className="grid gap-3">
+                        {activeProjects.slice(1, 3).map((project) => (
+                          <Link
+                            key={project.id}
+                            to={'/work/' + projectSlug(project)}
+                            className="group overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                          >
+                            <div className="relative aspect-[16/8] overflow-hidden bg-[#15171B]">
+                              <img
+                                src={project.image}
+                                alt={project.title}
+                                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                            <div className="p-4">
+                              <span className="text-[8px] font-mono uppercase tracking-[0.1em] text-brand-red">{project.service}</span>
+                              <h4 className="mt-2 line-clamp-2 text-sm font-display font-semibold tracking-[-0.02em]">{project.title}</h4>
+                            </div>
+                          </Link>
+                        ))}
+                        {activeProjects.length === 1 ? (
+                          <Link
+                            to="/work"
+                            className="flex min-h-[100px] items-center justify-between rounded-[1.5rem] border border-dashed border-white/[0.1] bg-white/[0.012] px-5 text-sm text-[#7E8793] transition-colors hover:border-white/[0.18] hover:text-white"
+                          >
+                            <span>{language === 'id' ? 'Lihat seluruh pekerjaan' : 'See all work'}</span>
+                            <ArrowUpRight size={15} />
+                          </Link>
+                        ) : null}
                       </div>
-                    </Link>
-                  ))}
+                    </div>
+                  ) : (
+                    <div className="flex min-h-[360px] items-center justify-center rounded-[1.5rem] border border-dashed border-white/[0.1] p-8 text-center">
+                      <div>
+                        <p className="font-display text-xl font-semibold">{language === 'id' ? 'Belum ada public work di area ini.' : 'No public work is mapped to this area yet.'}</p>
+                        <Link to="/work" className="mt-4 inline-flex items-center gap-2 text-sm text-[#AAB0BA] hover:text-white">{language === 'id' ? 'Lihat semua work' : 'View all work'} <ArrowRight size={14} /></Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            ) : (
-              <div className="mt-9 rounded-[2rem] border border-white/[0.08] bg-white/[0.018] px-6 py-10">
-                <p className="text-lg font-display font-semibold">{language === 'id' ? 'Belum ada work yang dipetakan ke focus area ini.' : 'No public work is mapped to this focus area yet.'}</p>
-                <p className="mt-2 text-sm leading-7 text-[#727B87]">
-                  {language === 'id' ? 'Gunakan directory di bawah untuk menjelajahi konteks industri yang tersedia.' : 'Use the directory below to explore the available industry contexts.'}
-                </p>
-              </div>
-            )}
-
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.07] pt-6">
-              <div className="flex flex-wrap gap-2">
-                {activeServices.map((service) => (
-                  <span key={service} className="rounded-full border border-brand-red/15 bg-brand-red/[0.04] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-brand-red">
-                    {service}
-                  </span>
-                ))}
-              </div>
-              {activeIndustries[0] ? (
-                <Link
-                  to={'/industries/' + industrySlug(activeIndustries[0].industry)}
-                  className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#B3BAC4] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  {language === 'id' ? 'Explore context' : 'Explore context'}
-                  <ArrowRight size={14} />
-                </Link>
-              ) : null}
             </div>
-          </section>
-        ) : null}
+          ) : null}
+        </section>
 
-        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="industry-capabilities-title">
-          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="different-title">
+          <div className="grid gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'Capabilities' : 'Capabilities'}</span>
-              <h2 id="industry-capabilities-title" className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Apa yang biasanya kami bangun.' : 'What we build in these contexts.'}
+              <span className="kapi-section-label">{language === 'id' ? 'Why it matters' : 'Why it matters'}</span>
+              <h2 id="different-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
+                {language === 'id' ? 'Bukan sekadar tahu industrinya.' : 'Knowing the industry is only the start.'}
               </h2>
               <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
                 {language === 'id'
-                  ? 'Industri menentukan konteks. Kapabilitas menentukan bentuk pekerjaan yang benar-benar dikirim.'
-                  : 'Industry defines the context. Capabilities define the work that gets delivered.'}
+                  ? 'Yang penting adalah bagaimana context tersebut memengaruhi keputusan design, product, engineering, dan delivery.'
+                  : 'What matters is how that context changes design, product, engineering, and delivery decisions.'}
               </p>
             </div>
 
-            <div className="grid gap-px overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.07] sm:grid-cols-2">
-              {[
-                {
-                  icon: Sparkles,
-                  title: language === 'id' ? 'Visual experience' : 'Visual experience',
-                  description: language === 'id' ? 'Branding, UI/UX, motion, 3D, creative systems, and content experiences.' : 'Branding, UI/UX, motion, 3D, creative systems, and content experiences.',
-                },
-                {
-                  icon: Workflow,
-                  title: language === 'id' ? 'Digital products' : 'Digital products',
-                  description: language === 'id' ? 'Corporate websites, web applications, e-commerce, MVPs, and custom product interfaces.' : 'Corporate websites, web applications, e-commerce, MVPs, and custom product interfaces.',
-                },
-                {
-                  icon: Layers3,
-                  title: language === 'id' ? 'Business systems' : 'Business systems',
-                  description: language === 'id' ? 'ERP, CRM, internal tools, workflow systems, and operational dashboards.' : 'ERP, CRM, internal tools, workflow systems, and operational dashboards.',
-                },
-                {
-                  icon: ShieldCheck,
-                  title: language === 'id' ? 'Infrastructure' : 'Infrastructure',
-                  description: language === 'id' ? 'Cloud architecture, DevOps, managed environments, monitoring, and technical operations.' : 'Cloud architecture, DevOps, managed environments, monitoring, and technical operations.',
-                },
-              ].map((item) => (
+            <div className="grid gap-px overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.07] md:grid-cols-3">
+              {principles.map((item) => (
                 <article key={item.title} className="bg-[#0E1013] p-6 sm:p-7">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.018] text-[#9098A5]">
-                    <item.icon size={16} aria-hidden="true" />
-                  </span>
-                  <h3 className="mt-5 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#777F8B]">{item.description}</p>
+                  <item.icon size={18} className="text-brand-red" aria-hidden="true" />
+                  <h3 className="mt-5 text-xl font-display font-semibold leading-tight tracking-[-0.03em]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="all-industries-title">
+        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="delivery-title">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label">{language === 'id' ? 'Delivery approach' : 'Delivery approach'}</span>
+              <h2 id="delivery-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
+                {language === 'id' ? 'Konteksnya berbeda. Flow delivery tetap jelas.' : 'Different context. Clear delivery flow.'}
+              </h2>
+            </div>
+            <Link to="/services" className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A8AEB7] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+              {language === 'id' ? 'Lihat semua services' : 'Explore services'}
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+
+          <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {deliverySteps.map((item) => (
+              <article key={item.step} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
+                <h3 className="mt-6 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="directory-title">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <span className="kapi-section-label">{language === 'id' ? 'All industry contexts' : 'All industry contexts'}</span>
-              <h2 id="all-industries-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Cari konteks yang paling spesifik.' : 'Find the most specific context.'}
+            <div className="max-w-3xl">
+              <span className="kapi-section-label">{language === 'id' ? 'Industry directory' : 'Industry directory'}</span>
+              <h2 id="directory-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
+                {language === 'id' ? 'Butuh konteks yang lebih spesifik?' : 'Need a more specific context?'}
               </h2>
               <p className="mt-4 text-sm leading-7 text-[#7E8793]">
                 {language === 'id'
-                  ? 'Focus area memberi gambaran besar. Directory ini memberi jalan langsung ke konteks industri yang tercatat di portfolio.'
-                  : 'The focus areas give you the bigger picture. This directory takes you directly to the industry contexts represented in the portfolio.'}
+                  ? 'Cari industry, client, service, atau judul project untuk masuk langsung ke konteks yang relevan.'
+                  : 'Search by industry, client, service, or project title to jump directly to the relevant context.'}
               </p>
             </div>
 
@@ -493,7 +503,7 @@ export const Industries = () => {
                 onChange={(event) => setQuery(event.target.value)}
                 type="search"
                 placeholder={language === 'id' ? 'Cari industry, client, service...' : 'Search industry, client, service...'}
-                aria-label={language === 'id' ? 'Cari konteks industri' : 'Search industry context'}
+                aria-label={language === 'id' ? 'Cari industry' : 'Search industry'}
                 className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-[#5F6773]"
               />
               {query ? (
@@ -509,72 +519,34 @@ export const Industries = () => {
             </div>
           </div>
 
-          <div className="mt-9 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {filteredIndustryEntries.map((entry) => (
               <Link
                 key={entry.industry}
                 to={'/industries/' + industrySlug(entry.industry)}
-                className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                className="group flex min-h-[128px] flex-col justify-between rounded-2xl border border-white/[0.08] bg-white/[0.015] p-5 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.018] text-[#7E8793] group-hover:text-brand-red">
-                    <Building2 size={14} aria-hidden="true" />
-                  </span>
-                  <ArrowUpRight size={15} className="text-[#505965] transition-colors group-hover:text-white" />
+                  <span className="text-[9px] font-mono uppercase tracking-[0.11em] text-[#626B76]">{entry.projects.length} {entry.projects.length === 1 ? 'case' : 'cases'}</span>
+                  <ArrowUpRight size={14} className="text-[#505965] transition-colors group-hover:text-brand-red" />
                 </div>
-                <div className="mt-6">
-                  <h3 className="text-base font-display font-semibold tracking-[-0.025em]">{entry.industry}</h3>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="text-[9px] font-mono uppercase tracking-[0.1em] text-[#65707C]">
-                      {entry.projects.length} {entry.projects.length === 1 ? 'case' : 'cases'}
-                    </span>
-                    {entry.services[0] ? <span className="text-[9px] font-mono uppercase tracking-[0.1em] text-brand-red">{entry.services[0]}</span> : null}
-                  </div>
+                <div className="mt-5">
+                  <h3 className="text-[15px] font-display font-semibold leading-snug tracking-[-0.02em]">{entry.industry}</h3>
+                  {entry.services[0] ? <p className="mt-2 text-[9px] font-mono uppercase tracking-[0.08em] text-[#626B76]">{entry.services[0]}</p> : null}
                 </div>
               </Link>
             ))}
           </div>
 
           {filteredIndustryEntries.length === 0 ? (
-            <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-6 py-10">
-              <p className="text-lg font-display font-semibold">{language === 'id' ? 'Tidak ada hasil.' : 'No industry context found.'}</p>
-              <p className="mt-2 text-sm leading-7 text-[#737C88]">
-                {language === 'id' ? 'Coba kata kunci yang lebih umum.' : 'Try a broader keyword.'}
-              </p>
+            <div className="mt-3 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-6 py-10 text-center">
+              <p className="font-display text-xl font-semibold">{language === 'id' ? 'Tidak ada konteks yang cocok.' : 'No matching industry context.'}</p>
+              <p className="mt-2 text-sm text-[#747D88]">{language === 'id' ? 'Coba kata kunci yang lebih umum.' : 'Try a broader keyword.'}</p>
+              <button type="button" onClick={() => setQuery('')} className="mt-5 inline-flex min-h-10 items-center rounded-full border border-white/[0.09] px-4 text-xs font-semibold text-[#C7CCD4] hover:border-white/[0.16] hover:text-white">
+                {language === 'id' ? 'Reset pencarian' : 'Reset search'}
+              </button>
             </div>
           ) : null}
-        </section>
-
-        <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="industry-adaptation-title">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <span className="kapi-section-label">{language === 'id' ? 'How we adapt' : 'How we adapt'}</span>
-              <h2 id="industry-adaptation-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Industri berbeda. Cara menyelesaikan problem juga berbeda.' : 'Different industries need different ways of solving the problem.'}
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-[#7E8793] lg:text-right">
-              {language === 'id'
-                ? 'Kami membawa context ke delivery tanpa mengunci pekerjaan pada template industri.'
-                : 'We bring context into delivery without forcing the work into an industry template.'}
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {adaptationPrinciples.map((item) => (
-              <article key={item.title} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.018] text-[#8F97A3]">
-                  <item.icon size={16} aria-hidden="true" />
-                </span>
-                <h3 className="mt-5 text-lg font-display font-semibold leading-tight tracking-[-0.025em]">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#777F8B]">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#5E6672]">
-                  <Check size={12} aria-hidden="true" />
-                  Kapitech approach
-                </span>
-              </article>
-            ))}
-          </div>
         </section>
       </div>
     </main>
