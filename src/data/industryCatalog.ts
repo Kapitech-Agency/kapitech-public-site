@@ -6,6 +6,7 @@ export type IndustryCatalogItem = {
   title: string;
   description: string;
   keywords: string[];
+  relatedSlugs: string[];
   needs: string[];
   capabilities: string[];
   solutionTypes: Array<{
@@ -32,7 +33,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital products for finance that make complexity easier to understand.',
     description: 'Kapitech helps financial teams turn dense information, critical workflows, and high-trust interactions into clearer digital experiences across web, product, and business systems.',
     keywords: ['fintech', 'finansial', 'payment', 'bank', 'capital', 'wealth', 'venture', 'sekuritas', 'pasar modal', 'financial advisory'],
-    needs: ['Banking & financial platforms', 'Payment and transaction experiences', 'Trading, wealth, and reporting interfaces', 'Enterprise financial workflows'],
+        relatedSlugs: ["saas","commerce","industrial","mobility"],
+needs: ['Banking & financial platforms', 'Payment and transaction experiences', 'Trading, wealth, and reporting interfaces', 'Enterprise financial workflows'],
     capabilities: ['Product UX/UI', 'Web applications', 'Corporate & product websites', 'ERP / CRM & internal systems', 'Brand and visual systems'],
     solutionTypes: [
       { title: "Banking and finance portals", description: "Clear journeys for high-trust account, advisory, onboarding, and servicing experiences." },
@@ -67,7 +69,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Clearer digital healthcare experiences for patients, teams, and operators.',
     description: 'Kapitech brings product design, web development, and system thinking together for healthcare experiences where accessibility, trust, and workflow clarity matter.',
     keywords: ['healthcare', 'healthtech', 'rumah sakit', 'medtech', 'medis', 'farmasi', 'medical'],
-    needs: ['Patient and public-facing experiences', 'Clinical and operational workflows', 'Healthcare portals and applications', 'Medical and information-heavy interfaces'],
+        relatedSlugs: ["saas","industrial","mobility","hospitality"],
+needs: ['Patient and public-facing experiences', 'Clinical and operational workflows', 'Healthcare portals and applications', 'Medical and information-heavy interfaces'],
     capabilities: ['UX/UI and product design', 'Web applications', 'Corporate and healthcare websites', 'Workflow systems', 'Technical infrastructure'],
     solutionTypes: [
       { title: "Healthcare web platforms", description: "Patient, provider, and organisation-facing experiences built around clarity, trust, and accessible information." },
@@ -102,7 +105,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital products that make complex workflows feel easier to use.',
     description: 'Kapitech helps product teams shape interfaces, websites, MVPs, and web applications around real user workflows instead of feature lists.',
     keywords: ['ai', 'saas', 'productivity', 'hrtech', 'agritech', 'edtech', 'creative saas', 'digital product'],
-    needs: ['MVP and new product experiences', 'SaaS dashboards and platforms', 'AI product interfaces', 'Multi-role workflows and internal tools'],
+        relatedSlugs: ["fintech","healthcare","commerce","industrial"],
+needs: ['MVP and new product experiences', 'SaaS dashboards and platforms', 'AI product interfaces', 'Multi-role workflows and internal tools'],
     capabilities: ['Product UX/UI', 'MVP design and development', 'Web applications', 'Design systems', 'Web and conversion experiences'],
     solutionTypes: [
       { title: "SaaS platforms", description: "Scalable product experiences that connect onboarding, core workflows, settings, and growth paths." },
@@ -137,7 +141,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital commerce experiences that connect brand, discovery, and conversion.',
     description: 'Kapitech combines brand, UI/UX, content, website, and e-commerce capabilities for consumer businesses that need the experience and the commercial journey to work together.',
     keywords: ['e-commerce', 'ecommerce', 'retail', 'beauty', 'skincare', 'f&b', 'coffee', 'fashion', 'luxury goods', 'haute joaillerie'],
-    needs: ['E-commerce and product discovery', 'Consumer websites', 'Brand and visual systems', 'Campaign and content experiences'],
+        relatedSlugs: ["hospitality","media","saas","fintech"],
+needs: ['E-commerce and product discovery', 'Consumer websites', 'Brand and visual systems', 'Campaign and content experiences'],
     capabilities: ['Brand identity', 'UI/UX design', 'E-commerce development', 'Creative and motion', 'Website development'],
     solutionTypes: [
       { title: "E-commerce storefronts", description: "Product discovery, comparison, trust, and checkout experiences designed to reduce friction to purchase." },
@@ -172,7 +177,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital systems for organisations where operations, reliability, and scale matter.',
     description: 'Kapitech works across corporate websites, enterprise workflows, ERP/CRM interfaces, cloud environments, and operational systems where digital work has to support real teams.',
     keywords: ['manufaktur', 'konstruksi', 'infrastruktur', 'energi', 'solar', 'otomasi', 'robotika', 'cloud infrastructure', 'devops', 'telekomunikasi', 'erp'],
-    needs: ['Enterprise websites and portals', 'ERP and CRM workflows', 'Operational dashboards', 'Cloud and technical infrastructure'],
+        relatedSlugs: ["mobility","saas","fintech","healthcare"],
+needs: ['Enterprise websites and portals', 'ERP and CRM workflows', 'Operational dashboards', 'Cloud and technical infrastructure'],
     capabilities: ['Web development', 'Web applications', 'ERP / CRM systems', 'UX/UI for enterprise products', 'IT support & infrastructure'],
     solutionTypes: [
       { title: "Enterprise portals", description: "Structured web experiences for organisations that need clear information, services, and stakeholder access." },
@@ -207,7 +213,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital experiences built around movement, operations, and fast decisions.',
     description: 'Kapitech helps mobility and logistics teams improve the digital workflows behind fleets, transportation, logistics, shipping, and operational delivery.',
     keywords: ['logistics', 'logistik', 'transportasi', 'pelayaran', 'ekspedisi', 'otomotif', 'fleet', 'smart city'],
-    needs: ['Fleet and driver experiences', 'Logistics portals', 'Operational applications', 'Shipment and workflow visibility'],
+        relatedSlugs: ["industrial","commerce","saas","hospitality"],
+needs: ['Fleet and driver experiences', 'Logistics portals', 'Operational applications', 'Shipment and workflow visibility'],
     capabilities: ['Product UX/UI', 'Web applications', 'Corporate and operational websites', 'Workflow systems', 'Infrastructure'],
     solutionTypes: [
       { title: "Fleet applications", description: "Mobile and web workflows for drivers, operators, supervisors, and teams managing moving assets." },
@@ -242,7 +249,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Digital experiences for brands where presentation, trust, and aspiration shape the decision.',
     description: 'Kapitech combines brand, content, website, UI/UX, 3D, and interactive experiences for hospitality, property, architecture, wellness, and lifestyle businesses.',
     keywords: ['hospitality', 'luxury wedding', 'wellness', 'real estate', 'properti', 'arsitektur', 'villa'],
-    needs: ['Premium websites and digital presence', 'Property and architectural presentation', 'Brand identity', 'Immersive visual experiences'],
+        relatedSlugs: ["commerce","media","mobility","saas"],
+needs: ['Premium websites and digital presence', 'Property and architectural presentation', 'Brand identity', 'Immersive visual experiences'],
     capabilities: ['Brand identity', 'Website design and development', '3D visualisation', 'Creative design', 'Interactive experiences'],
     solutionTypes: [
       { title: "Hospitality websites", description: "Premium digital experiences that balance discovery, storytelling, trust, and enquiry or booking intent." },
@@ -277,7 +285,8 @@ export const industryCatalog: IndustryCatalogItem[] = [
     title: 'Creative digital experiences built to communicate, engage, and stand out.',
     description: 'Kapitech brings motion, creative design, interactive experiences, websites, and product thinking together for media, gaming, tourism, and culture-led brands.',
     keywords: ['gaming', 'live streaming', 'tvc', 'tourism', 'pariwisata', 'kebudayaan', 'advertising', 'motion'],
-    needs: ['Campaign and motion systems', 'Interactive websites', 'Gaming and live content experiences', 'Culture and tourism storytelling'],
+        relatedSlugs: ["commerce","hospitality","saas","mobility"],
+needs: ['Campaign and motion systems', 'Interactive websites', 'Gaming and live content experiences', 'Culture and tourism storytelling'],
     capabilities: ['Motion & graphic design', 'Video production', 'Interactive websites', '3D visualisation', 'Creative design'],
     solutionTypes: [
       { title: "Campaign experiences", description: "Digital launches and campaign surfaces designed to attract attention while keeping the message easy to follow." },
@@ -310,6 +319,22 @@ export const industryCatalogBySlug = (slug: string): IndustryCatalogItem | undef
   industryCatalog.find((item) => item.slug === slug);
 
 export const industryCatalogMatches = (item: IndustryCatalogItem, industry: string): boolean => {
+  const value = industry.toLowerCase().trim();
+
+  return item.keywords.some((keyword) => {
+    const normalizedKeyword = keyword.toLowerCase().trim();
+
+    if (!normalizedKeyword) return false;
+
+    // Short acronyms such as AI, ERP, TVC, and F&B must match as standalone terms.
+    if (normalizedKeyword.length <= 3) {
+      const escaped = normalizedKeyword.replace(/[.*+?^$()[\]{}|\\]/g, '\\export const industryCatalogMatches = (item: IndustryCatalogItem, industry: string): boolean => {
   const value = industry.toLowerCase();
   return item.keywords.some((keyword) => value.includes(keyword));
+};');
+      return new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, 'i').test(value);
+    }
+
+    return value.includes(normalizedKeyword);
+  });
 };
