@@ -1016,7 +1016,7 @@ export const Home = () => {
                           <motion.span
                             animate={{ opacity: isActive ? 1 : 0.45, x: isActive ? 0 : 4 }}
                             transition={{ duration: 0.35 }}
-                            className="text-[10px] font-mono tabular-nums text-[#8A909D]"
+                            className="kapi-framework-step-index text-[10px] font-mono tabular-nums text-[#8A909D]"
                           >
                             {step.step}
                           </motion.span>
@@ -1033,7 +1033,7 @@ export const Home = () => {
                         <motion.p
                           animate={{ opacity: isActive ? 1 : 0.68, y: isActive ? 0 : 2 }}
                           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                          className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
+                          className="kapi-framework-step-description mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
                         >
                           {step.desc}
                         </motion.p>
