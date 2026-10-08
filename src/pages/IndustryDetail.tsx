@@ -345,6 +345,7 @@ export const IndustryDetail = () => {
                 ))}
               </div>
             ) : null}
+            </div>
           </div>
         </section>
 
