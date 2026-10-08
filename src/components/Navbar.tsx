@@ -724,10 +724,10 @@ export const Navbar = () => {
 
                     <div className="mt-1 flex flex-col gap-1">
                       {[
-                        { to: '/industries', label: 'Industries', active: location.pathname.startsWith('/industries') },
-                        { to: '/clients', label: 'Clients', active: location.pathname.startsWith('/clients') },
-                        { to: '/resources', label: 'Resources', active: location.pathname.startsWith('/resources') },
-                        { to: '/faq', label: 'FAQ', active: location.pathname === '/faq' },
+                        { to: '/industries', label: language === 'id' ? 'Industri' : 'Industries', number: '04', active: location.pathname.startsWith('/industries') },
+                        { to: '/clients', label: language === 'id' ? 'Klien' : 'Clients', number: '05', active: location.pathname.startsWith('/clients') },
+                        { to: '/resources', label: language === 'id' ? 'Resource' : 'Resources', number: '06', active: location.pathname.startsWith('/resources') },
+                        { to: '/faq', label: 'FAQ', number: '07', active: location.pathname === '/faq' },
                       ].map((item) => (
                         <Link
                           key={item.to}
@@ -735,13 +735,17 @@ export const Navbar = () => {
                           onClick={() => setIsMenuOpen(false)}
                           aria-current={item.active ? 'page' : undefined}
                           className={cn(
-                            "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-base font-display transition-colors",
+                            "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                             item.active
-                              ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
-                              : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
+                              ? "bg-brand-red/[0.08] text-brand-red"
+                              : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                           )}
                         >
-                          {item.label}
+                          <div className="flex items-center gap-3">
+                            <span className="w-6 text-xs font-mono text-brand-red">{item.number}</span>
+                            <span>{item.label}</span>
+                          </div>
+                          <ChevronRight size={18} className={cn(item.active ? "text-brand-red" : "text-[#8A909D]/50")} />
                         </Link>
                       ))}
                       <Link
@@ -749,13 +753,17 @@ export const Navbar = () => {
                         onClick={() => setIsMenuOpen(false)}
                         aria-current={location.pathname === '/search' ? 'page' : undefined}
                         className={cn(
-                          "mt-1 flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-base font-display transition-colors",
+                          "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                           location.pathname === '/search'
-                            ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
-                            : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
+                            ? "bg-brand-red/[0.08] text-brand-red"
+                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                         )}
                       >
-                        <><span>{language === 'id' ? 'Cari' : 'Search'}</span><SearchIcon size={15}/></>
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 text-xs font-mono text-brand-red">08</span>
+                          <span>{language === 'id' ? 'Cari' : 'Search'}</span>
+                        </div>
+                        <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red" : "text-[#8A909D]/50"} />
                       </Link>
                     </div>
 
@@ -771,7 +779,7 @@ export const Navbar = () => {
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">04</span>
+                        <span className="w-6 text-xs font-mono text-brand-red">09</span>
                         <span className="text-xl font-display">{t('nav.about')}</span>
                       </div>
                       <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-[#8A909D]/50")} />
@@ -789,7 +797,7 @@ export const Navbar = () => {
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">05</span>
+                        <span className="w-6 text-xs font-mono text-brand-red">10</span>
                         <span className="text-xl font-display">{t('nav.careers')}</span>
                       </div>
                       <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-[#8A909D]/50")} />
