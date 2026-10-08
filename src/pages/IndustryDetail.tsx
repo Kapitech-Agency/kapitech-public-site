@@ -16,6 +16,7 @@ import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { industryBySlug, projectSlug } from '../lib/publicContent';
 import { industryCatalog, industryCatalogBySlug, industryCatalogMatches, type IndustryCatalogItem } from '../data/industryCatalog';
 import { useLanguage } from '../lib/LanguageContext';
+import { cn } from '../lib/utils';
 import PublicPageHero from '../components/ui/PublicPageHero';
 
 const deliverySteps = [
@@ -51,9 +52,34 @@ export const IndustryDetail = () => {
   const { slug = '' } = useParams();
   const { language } = useLanguage();
   const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
+  const [activeSection, setActiveSection] = useState('industry-approach');
 
   useEffect(() => {
     void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['industry-approach', 'industry-work', 'industry-solutions', 'industry-process', 'industry-faq'];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((element): element is HTMLElement => Boolean(element));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target instanceof HTMLElement) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-18% 0px -62% 0px', threshold: [0.05, 0.2, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   const source = useMemo(
@@ -196,23 +222,29 @@ export const IndustryDetail = () => {
 
       <nav
         aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
-        className="sticky top-[64px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/76 sm:block"
+        className="sticky top-[72px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/76 sm:block"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
           <span className="shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
             {language === 'id' ? 'Di halaman ini' : 'On this page'}
           </span>
           {[
-            ['#industry-approach-title', language === 'id' ? 'Approach' : 'Approach'],
-            ['#industry-work-title', language === 'id' ? 'Work' : 'Work'],
-            ['#industry-solutions-title', language === 'id' ? 'Solutions' : 'Solutions'],
-            ['#industry-process-title', language === 'id' ? 'Process' : 'Process'],
-            ['#industry-faq-title', 'FAQ'],
-          ].map(([href, label]) => (
+            ['industry-approach', language === 'id' ? 'Approach' : 'Approach'],
+            ['industry-work', language === 'id' ? 'Work' : 'Work'],
+            ['industry-solutions', language === 'id' ? 'Solutions' : 'Solutions'],
+            ['industry-process', language === 'id' ? 'Process' : 'Process'],
+            ['industry-faq', 'FAQ'],
+          ].map(([id, label]) => (
             <a
-              key={href}
-              href={href}
-              className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.16] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              key={id}
+              href={'#' + id}
+              onClick={() => setActiveSection(id)}
+              className={cn(
+                "shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.16] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70",
+                activeSection === id
+                  ? "border-brand-red/35 bg-brand-red/[0.09]"
+                  : "border-white/[0.08] bg-white/[0.025]",
+              )}
             >
               {label}
             </a>
@@ -221,7 +253,7 @@ export const IndustryDetail = () => {
       </nav>
 
       <div className="mx-auto max-w-[1440px] px-4 pb-24 sm:px-6 md:px-10 lg:px-12">
-        <section className="scroll-mt-28 border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-approach-title">
+        <section id="industry-approach" className="scroll-mt-28 border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-approach-title">
           <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">{language === 'id' ? 'What Kapitech brings' : 'What Kapitech brings'}</span>
