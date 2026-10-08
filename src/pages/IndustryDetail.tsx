@@ -1,15 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { allProjects } from '../data/projectsData';
+import { allProjects, type ProjectItem } from '../data/projectsData';
+import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { industryBySlug, projectSlug } from '../lib/publicContent';
 import { useLanguage } from '../lib/LanguageContext';
 
 export const IndustryDetail = () => {
   const { slug = '' } = useParams();
   const { language } = useLanguage();
-  const industry = industryBySlug(allProjects, slug);
-  const projects = useMemo(() => industry ? allProjects.filter((item) => item.industry === industry) : [], [industry]);
+  const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
+  useEffect(() => { void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects())); }, []);
+  const source = cmsProjects.length ? cmsProjects : allProjects;
+  const industry = industryBySlug(source, slug);
+  const projects = useMemo(() => industry ? source.filter((item) => item.industry === industry) : [], [industry, source]);
   const services = useMemo(() => Array.from(new Set(projects.map((item) => item.service))), [projects]);
 
   if (!industry) return <main className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white"><div className="mx-auto max-w-4xl"><h1 className="text-4xl font-display font-semibold">Industry not found.</h1><Link to="/industries" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3]"><ArrowLeft size={14}/> Back to industries</Link></div></main>;
