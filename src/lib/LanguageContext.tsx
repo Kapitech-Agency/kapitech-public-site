@@ -739,6 +739,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = language === 'id' ? 'id-ID' : 'en';
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('kapitech_lang', lang);
