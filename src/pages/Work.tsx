@@ -1024,7 +1024,7 @@ export const Work = () => {
       <WorkModalPortal>
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B0C0E]/90 p-2 sm:p-4 lg:p-6 backdrop-blur-2xl"
+            <div className="fixed inset-0 z-[100] flex items-center justify-center kapi-modal-overlay p-2 sm:p-4 lg:p-6"
               role="dialog"
               aria-modal="true"
               aria-labelledby="case-study-modal-title"
