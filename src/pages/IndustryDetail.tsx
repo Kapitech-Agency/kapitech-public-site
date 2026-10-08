@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { motion } from 'motion/react';
 import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
+  Check,
   ChevronDown,
   Layers3,
   ShieldCheck,
@@ -14,7 +16,12 @@ import { allProjects, type ProjectItem } from '../data/projectsData';
 import { allSolutionsAndServices } from '../data/servicesData';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { industryBySlug, projectSlug } from '../lib/publicContent';
-import { industryCatalog, industryCatalogBySlug, industryCatalogMatches, type IndustryCatalogItem } from '../data/industryCatalog';
+import {
+  industryCatalog,
+  industryCatalogBySlug,
+  industryCatalogMatches,
+  type IndustryCatalogItem,
+} from '../data/industryCatalog';
 import { useLanguage } from '../lib/LanguageContext';
 import { cn } from '../lib/utils';
 import PublicPageHero from '../components/ui/PublicPageHero';
@@ -23,30 +30,47 @@ const deliverySteps = [
   {
     step: '01',
     title: 'Discovery & Planning',
-    description: 'Understand the business context, users, workflows, constraints, and the work that needs to move forward.',
+    description:
+      'Understand the business context, users, workflows, constraints, and the work that needs to move forward.',
   },
   {
     step: '02',
     title: 'Experience Direction',
-    description: 'Turn the findings into information architecture, user flows, visual direction, and a clear delivery scope.',
+    description:
+      'Turn the findings into information architecture, user flows, visual direction, and a clear delivery scope.',
   },
   {
     step: '03',
     title: 'Design & Build',
-    description: 'Execute the agreed design or engineering scope with review points that keep business and technical decisions aligned.',
+    description:
+      'Execute the agreed design or engineering scope with review points that keep business and technical decisions aligned.',
   },
   {
     step: '04',
     title: 'Launch & Support',
-    description: 'Prepare handoff, launch, improvements, maintenance, or technical support based on the engagement.',
+    description:
+      'Prepare handoff, launch, improvements, maintenance, or technical support based on the engagement.',
   },
 ];
 
-const getResolvedIndustry = (source: ProjectItem[], slug: string): { catalog?: IndustryCatalogItem; legacyIndustry?: string } => {
+const sectionLinks = [
+  ['industry-approach', 'Approach'],
+  ['industry-work', 'Work'],
+  ['industry-solutions', 'Solutions'],
+  ['industry-process', 'Process'],
+  ['industry-faq', 'FAQ'],
+] as const;
+
+const getResolvedIndustry = (
+  source: ProjectItem[],
+  slug: string,
+): { catalog?: IndustryCatalogItem; legacyIndustry?: string } => {
   const catalog = industryCatalogBySlug(slug);
   if (catalog) return { catalog };
   return { legacyIndustry: industryBySlug(source, slug) };
 };
+
+const solutionIcons = [Sparkles, Workflow, Layers3, ShieldCheck];
 
 export const IndustryDetail = () => {
   const { slug = '' } = useParams();
@@ -59,9 +83,8 @@ export const IndustryDetail = () => {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['industry-approach', 'industry-work', 'industry-solutions', 'industry-process', 'industry-faq'];
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
+    const sections = sectionLinks
+      .map(([id]) => document.getElementById(id))
       .filter((element): element is HTMLElement => Boolean(element));
 
     if (!sections.length) return;
@@ -71,11 +94,12 @@ export const IndustryDetail = () => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
         if (visible[0]?.target instanceof HTMLElement) {
           setActiveSection(visible[0].target.id);
         }
       },
-      { rootMargin: '-18% 0px -62% 0px', threshold: [0.05, 0.2, 0.5] },
+      { rootMargin: '-16% 0px -66% 0px', threshold: [0.06, 0.18, 0.45] },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -106,18 +130,105 @@ export const IndustryDetail = () => {
   const supportingProjects = activeProjects.filter((project) => project.id !== featuredProject?.id).slice(0, 4);
 
   const currentLabel = catalog?.label ?? legacyIndustry ?? 'Industry';
+
   const visibleCatalog = catalog
     ? catalog.relatedSlugs
         .map((relatedSlug) => industryCatalogBySlug(relatedSlug))
         .filter((item): item is IndustryCatalogItem => Boolean(item))
     : industryCatalog.slice(0, 4);
 
+  const capabilities = catalog?.capabilities ?? services.slice(0, 5);
+
+  const solutionTypes = catalog?.solutionTypes ?? [
+    {
+      title: 'Industry-focused websites',
+      description: 'Web experiences shaped around the business context, audience, and intended action.',
+    },
+    {
+      title: 'Product and application interfaces',
+      description: 'Usable product flows with clear states, roles, and responsive behaviour.',
+    },
+    {
+      title: 'Operational and business systems',
+      description: 'Structured workflows for teams that need reliable information and repeatable actions.',
+    },
+    {
+      title: 'Digital improvement and redesign',
+      description: 'Targeted improvements for existing digital products, websites, and customer journeys.',
+    },
+  ];
+
+  const resolvedDeliverySteps = deliverySteps.map((step, index) => ({
+    ...step,
+    description: catalog?.deliveryFocus?.[index] ?? step.description,
+  }));
+
+  const principles = catalog?.principles ?? [
+    {
+      title: 'Context before output',
+      description: 'We start from the business problem and user workflow before defining the deliverables.',
+    },
+    {
+      title: 'Design connected to delivery',
+      description: 'Experience decisions stay connected to implementation, integration, and operational realities.',
+    },
+    {
+      title: 'Built for real use',
+      description: 'Usability, maintainability, responsive behaviour, and handoff are considered from the start.',
+    },
+    {
+      title: 'Structured for growth',
+      description: 'Reusable patterns make the experience easier to extend as requirements change.',
+    },
+  ];
+
+  const faq = catalog?.faq ?? [
+    {
+      question: 'What can Kapitech do for this industry?',
+      answer:
+        'Kapitech can support design, website, application, and technical delivery depending on the needs of the project.',
+    },
+    {
+      question: 'Can Kapitech work with an existing product?',
+      answer:
+        'Yes. We can start from an audit, redesign, improvement, or defined feature scope rather than requiring a new build.',
+    },
+    {
+      question: 'Can design and development be handled together?',
+      answer:
+        'Yes. The engagement can combine product design, website development, applications, integrations, and technical delivery where appropriate.',
+    },
+    {
+      question: 'How is the right scope defined?',
+      answer:
+        'We use the initial business context, users, workflows, constraints, and desired outcome to determine the most sensible engagement.',
+    },
+  ];
+
+  const serviceLinks = services.flatMap((service) => {
+    const normalized = service.toLowerCase();
+    const matched = allSolutionsAndServices.find((item) => {
+      const title = item.title.toLowerCase();
+      const slugValue = item.slug.toLowerCase();
+      return (
+        title === normalized ||
+        slugValue === normalized ||
+        title.includes(normalized) ||
+        normalized.includes(title)
+      );
+    });
+
+    return matched ? [{ service: matched.title, href: '/services/' + matched.slug }] : [];
+  });
+
   if (!catalog && !legacyIndustry) {
     return (
-      <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white">
+      <main className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Industry</p>
-          <h1 className="mt-3 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-5xl">Industry not found.</h1>
+          <h1 className="mt-3 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-5xl">
+            Industry not found.
+          </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-[#7E8793]">
             {language === 'id'
               ? 'Pilih konteks industri lain dari menu Industries di navigasi.'
@@ -134,94 +245,96 @@ export const IndustryDetail = () => {
       ? 'Kapitech untuk ' + currentLabel
       : 'Kapitech for ' + currentLabel;
 
-  const heroDescription = catalog?.description ??
+  const heroDescription =
+    catalog?.description ??
     (language === 'id'
-      ? 'Kami menyatukan design, development, dan technical delivery untuk kebutuhan digital di ' + currentLabel + '.'
+      ? 'Kami menyatukan design, development, dan technical delivery untuk kebutuhan digital di ' +
+        currentLabel +
+        '.'
       : 'We combine design, development, and technical delivery around digital needs in ' + currentLabel + '.');
 
-  const capabilities = catalog?.capabilities ?? services.slice(0, 5);
-  const solutionTypes = catalog?.solutionTypes ?? [
-    { title: 'Industry-focused websites', description: 'Web experiences shaped around the business context, audience, and intended action.' },
-    { title: 'Product and application interfaces', description: 'Usable product flows with clear states, roles, and responsive behaviour.' },
-    { title: 'Operational and business systems', description: 'Structured workflows for teams that need reliable information and repeatable actions.' },
-    { title: 'Digital improvement and redesign', description: 'Targeted improvements for existing digital products, websites, and customer journeys.' },
-  ];
-
-  const resolvedDeliverySteps = deliverySteps.map((step, index) => ({
-    ...step,
-    description: catalog?.deliveryFocus?.[index] ?? step.description,
-  }));
-
-  const principles = catalog?.principles ?? [
-    { title: 'Context before output', description: 'We start from the business problem and user workflow before defining the deliverables.' },
-    { title: 'Design connected to delivery', description: 'Experience decisions stay connected to implementation, integration, and operational realities.' },
-    { title: 'Built for real use', description: 'Usability, maintainability, responsive behaviour, and handoff are considered from the start.' },
-    { title: 'Structured for growth', description: 'Reusable patterns make the experience easier to extend as requirements change.' },
-  ];
-
-  const faq = catalog?.faq ?? [
-    { question: 'What can Kapitech do for this industry?', answer: 'Kapitech can support design, website, application, and technical delivery depending on the needs of the project.' },
-    { question: 'Can Kapitech work with an existing product?', answer: 'Yes. We can start from an audit, redesign, improvement, or defined feature scope rather than requiring a new build.' },
-    { question: 'Can design and development be handled together?', answer: 'Yes. The engagement can combine product design, web development, applications, integrations, and technical delivery where appropriate.' },
-    { question: 'How is the right scope defined?', answer: 'We use the initial business context, users, workflows, constraints, and desired outcome to determine the most sensible engagement.' },
-  ];
-
-  const serviceLinks = services.flatMap((service) => {
-    const normalized = service.toLowerCase();
-    const matched = allSolutionsAndServices.find((item) => {
-      const title = item.title.toLowerCase();
-      const slugValue = item.slug.toLowerCase();
-      return title === normalized || slugValue === normalized || title.includes(normalized) || normalized.includes(title);
-    });
-    return matched ? [{ service: matched.title, href: '/services/' + matched.slug }] : [];
-  });
-
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
       <PublicPageHero
         eyebrow={currentLabel}
         title={heroTitle}
         description={heroDescription}
+        aside={
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.1] bg-[#0F1013]/88 p-5 backdrop-blur-xl sm:p-6">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(229,9,20,0.16),transparent_38%)]" aria-hidden="true" />
+            <div className="relative">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#69717D]">
+                  {language === 'id' ? 'Industry focus' : 'Industry focus'}
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.06] px-2.5 py-1 text-[8px] font-mono uppercase tracking-[0.12em] text-white">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
+                  {language === 'id' ? 'Active' : 'Active'}
+                </span>
+              </div>
+
+              <div className="mt-8">
+                <span className="text-2xl font-display font-semibold leading-none tracking-[-0.045em] text-white sm:text-3xl">
+                  {currentLabel}
+                </span>
+                <p className="mt-3 text-xs leading-6 text-[#8A929F]">
+                  {language === 'id'
+                    ? 'Halaman ini memetakan konteks, bukti kerja, dan bentuk engagement yang paling relevan untuk industri ini.'
+                    : 'This page maps the context, proof, and engagement shapes most relevant to this industry.'}
+                </p>
+              </div>
+
+              <div className="mt-7 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018]">
+                {[
+                  [language === 'id' ? 'Relevant work' : 'Relevant work', String(activeProjects.length)],
+                  [language === 'id' ? 'Core capabilities' : 'Core capabilities', String(capabilities.length)],
+                  [language === 'id' ? 'Solutions' : 'Solutions', String(solutionTypes.length)],
+                  [language === 'id' ? 'FAQs' : 'FAQs', String(faq.length)],
+                ].map(([label, value]) => (
+                  <div key={label} className="border-b border-r border-white/[0.07] px-3.5 py-3.5 last:border-b-0">
+                    <span className="block text-lg font-display font-semibold tracking-[-0.04em] text-white">
+                      {value}
+                    </span>
+                    <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        }
       >
         <div>
           <p className="mb-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-            {language === 'id' ? 'Kebutuhan yang umum' : 'Typical project needs'}
+            {language === 'id' ? 'Typical project needs' : 'Typical project needs'}
           </p>
           <div className="flex flex-wrap gap-2">
             {catalog?.needs.slice(0, 4).map((item) => (
-              <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-white">
+              <span
+                key={item}
+                className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-white"
+              >
                 {item}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="mt-5 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3">
-          {[
-            [language === 'id' ? 'Project relevan' : 'Relevant projects', String(activeProjects.length)],
-            [language === 'id' ? 'Kapabilitas inti' : 'Core capabilities', String(capabilities.length)],
-            [language === 'id' ? 'Tipe engagement' : 'Engagement types', String(solutionTypes.length)],
-          ].map(([label, value]) => (
-            <div key={label} className="bg-[#0B0C0E]/90 px-4 py-4 sm:px-5">
-              <span className="block text-2xl font-display font-semibold tracking-[-0.04em]">{value}</span>
-              <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.1em] text-[#69717D]">{label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center gap-2.5">
+        <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
             to="/book-a-call"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
             {language === 'id' ? 'Diskusikan project Anda' : 'Discuss your project'}
             <ArrowUpRight size={14} aria-hidden="true" />
           </Link>
           <a
-            href="#industry-work-title"
+            href="#industry-work"
+            onClick={() => setActiveSection('industry-work')}
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
-            {language === 'id' ? 'Lihat work relevan' : 'Explore relevant work'}
+            {language === 'id' ? 'Explore relevant work' : 'Explore relevant work'}
             <ArrowDown size={14} aria-hidden="true" />
           </a>
         </div>
@@ -229,137 +342,182 @@ export const IndustryDetail = () => {
 
       <nav
         aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
-        className="sticky top-[72px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/76 sm:block"
+        className="sticky top-[72px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
-          <span className="shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-            {language === 'id' ? 'Di halaman ini' : 'On this page'}
+          <span className="mr-1 hidden shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D] md:block">
+            {language === 'id' ? 'On this page' : 'On this page'}
           </span>
-          {[
-            ['industry-approach', language === 'id' ? 'Approach' : 'Approach'],
-            ['industry-work', language === 'id' ? 'Work' : 'Work'],
-            ['industry-solutions', language === 'id' ? 'Solutions' : 'Solutions'],
-            ['industry-process', language === 'id' ? 'Process' : 'Process'],
-            ['industry-faq', 'FAQ'],
-          ].map(([id, label]) => (
+          {sectionLinks.map(([id, label]) => (
             <a
               key={id}
               href={'#' + id}
               onClick={() => setActiveSection(id)}
               aria-current={activeSection === id ? 'location' : undefined}
               className={cn(
-                "shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.16] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70",
+                'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70',
                 activeSection === id
-                  ? "border-brand-red/35 bg-brand-red/[0.09]"
-                  : "border-white/[0.08] bg-white/[0.025]",
+                  ? 'border-brand-red/35 bg-brand-red/[0.09]'
+                  : 'border-white/[0.08] bg-white/[0.025] hover:border-white/[0.16] hover:bg-white/[0.055]',
               )}
             >
-              {label}
+              {language === 'id' && label === 'Approach' ? 'Approach' : language === 'id' && label === 'Solutions' ? 'Solutions' : label}
             </a>
           ))}
         </div>
       </nav>
 
-      <div className="mx-auto max-w-[1440px] px-4 pb-24 sm:px-6 md:px-10 lg:px-12">
-        <section id="industry-approach" className="scroll-mt-28 border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-approach-title">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 md:px-10 lg:px-12">
+        <section
+          id="industry-approach"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          aria-labelledby="industry-approach-title"
+        >
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'What Kapitech brings' : 'What Kapitech brings'}</span>
-              <h2 id="industry-approach-title" className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Industry lens' : 'Industry lens'}
+              </span>
+              <h2
+                id="industry-approach-title"
+                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
+              >
                 {language === 'id'
-                  ? 'Bukan sekadar mengenal konteks industrinya. Kami menerjemahkannya menjadi keputusan digital.'
-                  : 'We do more than know the industry context. We turn it into better digital decisions.'}
+                  ? 'Kami mulai dari cara bisnis dan penggunanya benar-benar bekerja.'
+                  : 'We start from how the business and its users actually work.'}
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
                 {language === 'id'
-                  ? 'Dari experience sampai technical delivery, scope disusun berdasarkan problem yang harus diselesaikan.'
-                  : 'From experience to technical delivery, the scope is shaped around the problem that needs to be solved.'}
+                  ? 'Setiap industri datang dengan pola kerja, ekspektasi, dan tingkat kompleksitas yang berbeda. Itu yang membentuk keputusan digital kami.'
+                  : 'Every industry comes with different workflows, expectations, and levels of complexity. That context shapes our digital decisions.'}
               </p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               {principles.map((item, index) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 sm:p-7">
-                  <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{String(index + 1).padStart(2, '0')}</span>
-                  <h3 className="mt-6 text-xl font-display font-semibold leading-tight tracking-[-0.03em]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
-                </article>
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.45, delay: index * 0.04 }}
+                  className="group relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] sm:p-7"
+                >
+                  <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-brand-red/[0.05] blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="relative">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/15 transition-colors group-hover:bg-brand-red" />
+                    </div>
+                    <h3 className="mt-9 text-xl font-display font-semibold leading-tight tracking-[-0.03em] text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
+                  </div>
+                </motion.article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-work-title">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <section
+          id="industry-work"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          aria-labelledby="industry-work-title"
+        >
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <span className="kapi-section-label">{language === 'id' ? 'Relevant work' : 'Relevant work'}</span>
-              <h2 id="industry-work-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]">
-                {language === 'id' ? 'Lihat bukti pekerjaan yang paling dekat dengan konteks ini.' : 'See the work closest to this context.'}
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
+              <span className="kapi-section-label">{language === 'id' ? 'Proof of work' : 'Proof of work'}</span>
+              <h2
+                id="industry-work-title"
+                className="mt-3 text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
+              >
                 {language === 'id'
-                  ? 'Kami menampilkan project publik yang membentuk konteks halaman ini, tanpa menambahkan angka hasil yang tidak terverifikasi.'
-                  : 'We show the public projects that inform this page without adding unverified performance claims.'}
+                  ? 'Pekerjaan yang paling dekat dengan konteks ini.'
+                  : 'The work closest to this context.'}
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Kami menunjukkan project publik yang relevan tanpa mengarang angka hasil atau klaim yang tidak tersedia.'
+                  : 'We show public projects that are relevant without inventing performance numbers or unverified claims.'}
               </p>
             </div>
+
             <Link
               to="/work"
-              className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.03] px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.17] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.03] px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.17] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
             >
-              {language === 'id' ? 'Lihat seluruh work' : 'View all work'}
+              {language === 'id' ? 'Lihat semua work' : 'View all work'}
               <ArrowUpRight size={14} aria-hidden="true" />
             </Link>
           </div>
 
           {featuredProject ? (
-            <div className="mt-9 grid gap-4 lg:grid-cols-[1.18fr_0.82fr]">
+            <div className="mt-9 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
               <Link
                 to={'/work/' + projectSlug(featuredProject)}
-                className="group relative min-h-[430px] overflow-hidden rounded-[2rem] border border-white/[0.08] bg-[#14161A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 sm:min-h-[560px]"
+                className="group relative isolate min-h-[480px] overflow-hidden rounded-[2rem] border border-white/[0.1] bg-[#121419] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 sm:min-h-[580px]"
               >
                 <img
                   src={featuredProject.image}
                   alt={featuredProject.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/15 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                  <div className="flex flex-wrap items-center gap-2 text-[8px] font-mono uppercase tracking-[0.12em] text-white/70">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08090B] via-[#08090B]/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-9">
+                  <div className="flex flex-wrap items-center gap-2 text-[8px] font-mono uppercase tracking-[0.12em] text-white/72">
                     <span>{featuredProject.client}</span>
                     <span className="text-white/25">/</span>
                     <span>{featuredProject.service}</span>
                     <span className="text-white/25">/</span>
                     <span>{featuredProject.year}</span>
                   </div>
-                  <h3 className="mt-2 max-w-3xl text-2xl font-display font-semibold tracking-[-0.04em] sm:text-4xl">{featuredProject.title}</h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/72">{language === 'id' ? featuredProject.descId : featuredProject.desc}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-black/20 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.11em] text-white backdrop-blur-sm">
+                  <h3 className="mt-2 max-w-3xl text-3xl font-display font-semibold tracking-[-0.045em] sm:text-4xl">
+                    {featuredProject.title}
+                  </h3>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
+                    {language === 'id' ? featuredProject.descId : featuredProject.desc}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/20 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.11em] text-white backdrop-blur-md">
                     {language === 'id' ? 'Buka case study' : 'Open case study'}
                     <ArrowUpRight size={12} aria-hidden="true" />
                   </span>
                 </div>
               </Link>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 {supportingProjects.map((project) => (
                   <Link
                     key={project.id}
                     to={'/work/' + projectSlug(project)}
-                    className="group grid min-h-[164px] grid-cols-[120px_minmax(0,1fr)] overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                    className="group grid min-h-[170px] grid-cols-[112px_minmax(0,1fr)] overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                   >
                     <div className="relative overflow-hidden bg-[#15171B]">
-                      <img src={project.image} alt={project.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" decoding="async" />
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.045]"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </div>
                     <div className="flex min-w-0 flex-col justify-between p-4 sm:p-5">
                       <div>
-                        <span className="text-[8px] font-mono uppercase tracking-[0.11em] text-brand-red">{project.service}</span>
-                        <h3 className="mt-2 line-clamp-2 text-base font-display font-semibold tracking-[-0.025em]">{project.title}</h3>
-                        <p className="mt-1 text-xs text-[#65707C]">{project.client}</p>
+                        <span className="text-[8px] font-mono uppercase tracking-[0.11em] text-brand-red">
+                          {project.service}
+                        </span>
+                        <h3 className="mt-2 line-clamp-2 text-base font-display font-semibold leading-5 tracking-[-0.025em]">
+                          {project.title}
+                        </h3>
+                        <p className="mt-1 text-xs text-[#66707C]">{project.client}</p>
                       </div>
-                      <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-white group-hover:bg-white/[0.055]">
-                        {language === 'id' ? 'Buka case' : 'Open case'} <ArrowUpRight size={12} />
+                      <span className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-colors group-hover:bg-white/[0.055]">
+                        {language === 'id' ? 'Buka case' : 'Open case'}
+                        <ArrowUpRight size={12} aria-hidden="true" />
                       </span>
                     </div>
                   </Link>
@@ -367,108 +525,228 @@ export const IndustryDetail = () => {
               </div>
             </div>
           ) : (
-            <div className="mt-9 rounded-[2rem] border border-dashed border-white/[0.1] bg-white/[0.018] px-6 py-12 text-center">
-              <p className="text-xl font-display font-semibold">{language === 'id' ? 'Belum ada public work yang dipetakan di konteks ini.' : 'No public work is currently mapped to this context.'}</p>
+            <div className="mt-9 rounded-[2rem] border border-dashed border-white/[0.1] bg-white/[0.018] px-6 py-14 text-center">
+              <p className="text-xl font-display font-semibold">
+                {language === 'id'
+                  ? 'Belum ada public work yang dipetakan di konteks ini.'
+                  : 'No public work is currently mapped to this context.'}
+              </p>
             </div>
           )}
         </section>
 
-        <section className="border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-solutions-title">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+        <section
+          id="industry-solutions"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          aria-labelledby="industry-solutions-title"
+        >
+          <div className="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'What we can build' : 'What we can build'}</span>
-              <h2 id="industry-solutions-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3rem]">
-                {language === 'id' ? 'Bentuk pekerjaan yang paling relevan.' : 'The work we can shape around this context.'}
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Ways we can help' : 'Ways we can help'}
+              </span>
+              <h2
+                id="industry-solutions-title"
+                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]"
+              >
                 {language === 'id'
-                  ? 'Kami tidak menjual paket industri. Beberapa bentuk engagement yang paling masuk akal untuk konteks ini antara lain:'
-                  : 'We do not sell industry packages. Some of the most relevant engagement types for this context include:'}
+                  ? 'Bentuk engagement yang paling masuk akal untuk konteks ini.'
+                  : 'The engagement shapes that make sense for this context.'}
+              </h2>
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Tidak ada paket industri yang kaku. Scope dipilih berdasarkan problem, user, dan tingkat kompleksitasnya.'
+                  : 'There is no rigid industry package. Scope is shaped around the problem, the users, and the level of complexity.'}
               </p>
+
+              <div className="mt-8 rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5">
+                <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#626B76]">
+                  {language === 'id' ? 'Core capabilities' : 'Core capabilities'}
+                </span>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {capabilities.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-white"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div>
-              <p className="mb-3 text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-                {language === 'id' ? 'Kapabilitas yang bisa dibawa' : 'Capabilities we can bring'}
-              </p>
-              <div className="mb-7 flex flex-wrap gap-2">
-                {capabilities.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-[#737D89]"
-                  >
-                    {item}
-                  </span>
-                ))}
+              <div className="divide-y divide-white/[0.07] overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
+                {solutionTypes.map((item, index) => {
+                  const Icon = solutionIcons[index % solutionIcons.length];
+                  return (
+                    <motion.article
+                      key={item.title}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-8% 0px' }}
+                      transition={{ duration: 0.42, delay: index * 0.035 }}
+                      className="group grid gap-5 px-5 py-6 transition-[background-color] duration-300 hover:bg-white/[0.018] sm:grid-cols-[74px_minmax(0,1fr)_auto] sm:items-center sm:px-6 sm:py-7 lg:px-7"
+                    >
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0B0C0E] text-[#8B94A0] transition-[border-color,background-color,color] duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.07] group-hover:text-white">
+                        <Icon size={16} strokeWidth={1.8} />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-3">
+                          <span className="text-[9px] font-mono tabular-nums tracking-[0.14em] text-brand-red">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.025em]">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
+                      </div>
+                      <span className="hidden shrink-0 rounded-full border border-white/[0.08] bg-white/[0.02] p-2.5 text-white transition-colors group-hover:border-white/[0.15] group-hover:bg-white/[0.055] sm:inline-flex">
+                        <ArrowUpRight size={13} aria-hidden="true" />
+                      </span>
+                    </motion.article>
+                  );
+                })}
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-              {solutionTypes.map((item, index) => (
-                <article key={item.title} className="group rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-6 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.03] sm:p-7">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#8D96A2] transition-colors duration-200 group-hover:border-white/[0.14] group-hover:text-white">
-                    {index === 0 ? <Sparkles size={15} /> : index === 1 ? <Workflow size={15} /> : index === 2 ? <Layers3 size={15} /> : <ShieldCheck size={15} />}
-                  </span>
-                  <h3 className="mt-5 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
-                </article>
-              ))}
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {serviceLinks.slice(0, 6).map(({ service, href }) => (
+                  <Link
+                    key={service}
+                    to={href}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/[0.17] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  >
+                    {service}
+                    <ArrowUpRight size={11} aria-hidden="true" />
+                  </Link>
+                ))}
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 rounded-full border border-brand-red/25 bg-brand-red/[0.06] px-3.5 py-2 text-[9px] font-semibold font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color] duration-200 hover:border-brand-red/45 hover:bg-brand-red/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? 'Lihat semua layanan' : 'Explore all services'}
+                  <ArrowRight size={11} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="industry-process"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          aria-labelledby="industry-process-title"
+        >
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <span className="kapi-section-label">{language === 'id' ? 'Delivery path' : 'Delivery path'}</span>
+              <h2
+                id="industry-process-title"
+                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]"
+              >
+                {language === 'id'
+                  ? 'Jelas dari langkah pertama sampai handoff.'
+                  : 'Clear from the first step to the handoff.'}
+              </h2>
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Industry context mengubah fokus discovery. Struktur delivery tetap transparan supaya semua pihak tahu apa yang sedang dikerjakan.'
+                  : 'Industry context changes the discovery focus. The delivery structure stays transparent so everyone knows what is being worked on.'}
+              </p>
+
+              <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.11em] text-white">
+                <Check size={12} aria-hidden="true" />
+                {language === 'id' ? 'Scope disesuaikan project' : 'Scope adapted to the project'}
+              </div>
             </div>
 
-            <div className="lg:col-start-2 mt-7 flex flex-wrap items-center gap-2">
-              {serviceLinks.slice(0, 6).map(({ service, href }) => (
-                <Link
-                  key={service}
-                  to={href}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.17] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            <div className="relative">
+              <div className="absolute left-4 top-6 hidden h-[calc(100%-48px)] w-px bg-white/[0.08] sm:block lg:left-6" />
+              <div className="space-y-3">
+                {resolvedDeliverySteps.map((item, index) => (
+                  <motion.article
+                    key={item.step}
+                    initial={{ opacity: 0, x: 12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-8% 0px' }}
+                    transition={{ duration: 0.44, delay: index * 0.05 }}
+                    className="group relative rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] sm:pl-16 sm:p-6 lg:pl-20 lg:p-7"
+                  >
+                    <span className="absolute left-2.5 top-5 flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.1] bg-[#0B0C0E] text-[8px] font-mono text-brand-red sm:left-2.5 sm:top-6 lg:left-2.5 lg:top-7">
+                      {item.step}
+                    </span>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <h3 className="text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
+                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
+                      </div>
+                      <span className="shrink-0 text-[8px] font-mono uppercase tracking-[0.12em] text-[#59616D]">
+                        {language === 'id' ? 'Phase' : 'Phase'} {index + 1}
+                      </span>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20"
+          aria-labelledby="industry-decision-title"
+        >
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-[#111318] px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_16%,rgba(229,9,20,0.12),transparent_36%)]" aria-hidden="true" />
+            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div className="max-w-3xl">
+                <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red">
+                  {language === 'id' ? 'Need a starting point?' : 'Need a starting point?'}
+                </span>
+                <h2
+                  id="industry-decision-title"
+                  className="mt-3 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.04em] sm:text-3xl lg:text-4xl"
                 >
-                  {service}
-                  <ArrowUpRight size={11} aria-hidden="true" />
-                </Link>
-              ))}
+                  {language === 'id'
+                    ? 'Bawa problemnya. Kami bantu menentukan scope yang masuk akal.'
+                    : 'Bring the problem. We will help shape the right scope.'}
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#8A929F]">
+                  {language === 'id'
+                    ? 'Anda tidak perlu datang dengan brief yang sempurna. Konteks awal, target, atau bottleneck sudah cukup untuk memulai pembicaraan.'
+                    : 'You do not need a perfect brief. The initial context, target, or bottleneck is enough to start the conversation.'}
+                </p>
+              </div>
+
               <Link
-                to="/services"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-red/25 bg-brand-red/[0.06] px-3.5 py-2 text-[9px] font-semibold font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color] duration-200 hover:border-brand-red/45 hover:bg-brand-red/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                to="/book-a-call"
+                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
-                {language === 'id' ? 'Lihat semua layanan' : 'Explore all services'}
-                <ArrowRight size={11} aria-hidden="true" />
+                {language === 'id' ? 'Book a call' : 'Book a call'}
+                <ArrowUpRight size={14} aria-hidden="true" />
               </Link>
             </div>
-            </div>
           </div>
         </section>
 
-        <section className="border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-process-title">
-          <div className="max-w-3xl">
-            <span className="kapi-section-label">{language === 'id' ? 'How we work' : 'How we work'}</span>
-            <h2 id="industry-process-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3rem]">
-              {language === 'id' ? 'Prosesnya jelas. Scope-nya disesuaikan.' : 'A clear process, adapted to the scope.'}
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
-              {language === 'id'
-                ? 'Industry context mengubah pertanyaan yang kami ajukan, tetapi flow delivery tetap transparan.'
-                : 'The industry context changes the questions we ask, while the delivery flow stays transparent.'}
-            </p>
-          </div>
-
-          <div className="mt-9 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {resolvedDeliverySteps.map((item) => (
-              <article key={item.step} className="rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 sm:p-7">
-                <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
-                <h3 className="mt-6 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="industry-faq-title">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+        <section
+          id="industry-faq"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          aria-labelledby="industry-faq-title"
+        >
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">FAQ</span>
-              <h2 id="industry-faq-title" className="mt-3 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Pertanyaan yang biasanya muncul sebelum mulai.' : 'Questions that usually come before the project starts.'}
+              <h2
+                id="industry-faq-title"
+                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl"
+              >
+                {language === 'id'
+                  ? 'Pertanyaan yang biasanya muncul sebelum mulai.'
+                  : 'Questions that usually come before the project starts.'}
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
                 {language === 'id'
                   ? 'Jawaban singkat untuk membantu Anda menilai apakah Kapitech cocok untuk kebutuhan ini.'
                   : 'Straightforward answers to help you decide whether Kapitech is a fit for the work.'}
@@ -477,13 +755,21 @@ export const IndustryDetail = () => {
 
             <div className="overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
               {faq.map((item, index) => (
-                <details key={item.question} className="group border-b border-white/[0.07] last:border-b-0 open:bg-white/[0.018]">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 transition-[background-color] duration-200 hover:bg-white/[0.02] sm:px-6 sm:py-6">
+                <details
+                  key={item.question}
+                  className="group border-b border-white/[0.07] last:border-b-0 open:bg-white/[0.018]"
+                >
+                  <summary className="flex min-h-[76px] cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 transition-[background-color] duration-200 hover:bg-white/[0.02] sm:px-6 sm:py-6">
                     <span className="flex min-w-0 items-start gap-4">
-                      <span className="pt-0.5 text-[9px] font-mono tabular-nums text-[#4F5762]">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="pt-0.5 text-[9px] font-mono tabular-nums text-[#4F5762]">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                       <span className="text-sm font-semibold leading-6 text-white sm:text-base">{item.question}</span>
                     </span>
-                    <ChevronDown size={17} className="shrink-0 text-white transition-transform duration-200 group-open:rotate-180" />
+                    <ChevronDown
+                      size={17}
+                      className="shrink-0 text-white transition-transform duration-200 group-open:rotate-180"
+                    />
                   </summary>
                   <div className="grid grid-cols-[28px_minmax(0,1fr)] gap-4 px-5 pb-6 sm:px-6">
                     <span />
@@ -495,31 +781,46 @@ export const IndustryDetail = () => {
           </div>
         </section>
 
-        <section className="scroll-mt-28 py-14 sm:py-18 lg:py-24" aria-labelledby="other-industries-title">
-          <div className="max-w-3xl">
-            <span className="kapi-section-label">{language === 'id' ? 'Other industries' : 'Other industries'}</span>
-            <h2 id="other-industries-title" className="mt-3 text-3xl font-display font-semibold tracking-[-0.04em] sm:text-4xl">
-              {language === 'id' ? 'Pilih konteks berikutnya berdasarkan kebutuhan Anda.' : 'Choose the next context based on what you need.'}
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
-              {language === 'id'
-                ? 'Pilih konteks lain di bawah, atau gunakan menu Industries di navigasi untuk berpindah langsung ke halaman yang Anda cari.'
-                : 'Choose another context below, or use the Industries menu in the navigation to jump directly to the page you need.'}
-            </p>
+        <section className="scroll-mt-28 py-16 sm:py-20 lg:py-24" aria-labelledby="other-industries-title">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Related contexts' : 'Related contexts'}
+              </span>
+              <h2
+                id="other-industries-title"
+                className="mt-3 text-3xl font-display font-semibold tracking-[-0.045em] sm:text-4xl lg:text-[3rem]"
+              >
+                {language === 'id'
+                  ? 'Pilih konteks berikutnya berdasarkan kebutuhan Anda.'
+                  : 'Choose the next context based on what you need.'}
+              </h2>
+            </div>
+            <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
+              {visibleCatalog.length} {language === 'id' ? 'related contexts' : 'related contexts'}
+            </span>
           </div>
 
           <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {visibleCatalog.map((item) => (
+            {visibleCatalog.map((item, index) => (
               <Link
                 key={item.slug}
                 to={'/industries/' + item.slug}
-                className="group rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-5 transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                className="group relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-[#121419] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
-                <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#626B76]">{item.eyebrow}</span>
-                <h3 className="mt-3 text-lg font-display font-semibold tracking-[-0.025em]">{item.shortLabel}</h3>
+                <div className="flex items-center justify-between">
+                  <span className="text-[8px] font-mono uppercase tracking-[0.13em] text-[#626B76]">
+                    {item.eyebrow}
+                  </span>
+                  <span className="text-[8px] font-mono tabular-nums text-[#59616D]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <h3 className="mt-8 text-lg font-display font-semibold tracking-[-0.025em]">{item.shortLabel}</h3>
                 <p className="mt-2 line-clamp-3 text-xs leading-6 text-[#717B87]">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.11em] text-white transition-colors group-hover:border-white/[0.15] group-hover:bg-white/[0.055]">
-                  {language === 'id' ? 'Lihat industri' : 'View industry'} <ArrowRight size={12} />
+                <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.11em] text-white transition-[background-color,border-color] group-hover:border-white/[0.15] group-hover:bg-white/[0.055]">
+                  {language === 'id' ? 'Lihat industri' : 'View industry'}
+                  <ArrowRight size={12} aria-hidden="true" />
                 </span>
               </Link>
             ))}
@@ -529,3 +830,5 @@ export const IndustryDetail = () => {
     </main>
   );
 };
+
+export default IndustryDetail;
