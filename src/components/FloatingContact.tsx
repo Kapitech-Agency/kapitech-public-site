@@ -175,13 +175,13 @@ export const FloatingContact = () => {
                       ref={i === 0 ? firstContactOptionRef : undefined}
                       data-analytics-event="floating_contact_click"
                       data-contact-option={option.label}
-                      className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px]"
+                      className="flex items-center justify-end gap-2.5 sm:gap-3 group min-h-[44px] focus-visible:outline-none"
                     >
                       <span className="max-w-full px-3.5 py-2 rounded-xl bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08] text-xs font-medium text-white shadow-lg transition-all group-hover:border-brand-red/60 group-hover:text-brand-red whitespace-normal break-words sm:whitespace-nowrap">
                         {option.label}
                       </span>
                       <div className={cn(
-                        "w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white shadow-xl transition-transform hover:scale-105 active:scale-95 shrink-0",
+                        "w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white shadow-xl transition-transform hover:scale-105 active:scale-95 shrink-0 group-focus-visible:ring-2 group-focus-visible:ring-brand-red/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-[#0B0C0E]",
                         option.color
                       )}>
                         {option.icon}
@@ -233,7 +233,7 @@ export const FloatingContact = () => {
                 aria-haspopup="dialog"
                 data-cursor-label={isOpen ? "Close" : "Contact"}
                 className={cn(
-                  "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-full sm:rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300",
+                  "w-12 h-12 sm:w-14 sm:h-14 min-h-[44px] min-w-[44px] rounded-full sm:rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
                   isOpen 
                     ? "bg-[#0B0C0E]/58 backdrop-blur-xl backdrop-saturate-150 border border-white/[0.08]" 
                     : "bg-brand-red/78 backdrop-blur-xl border border-brand-red/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_12px_28px_-18px_rgba(229,9,20,0.72)]"
