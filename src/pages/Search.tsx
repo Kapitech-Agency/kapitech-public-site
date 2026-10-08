@@ -16,8 +16,9 @@ export const Search = () => {
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
   const [insights, setInsights] = useState<SearchItem[]>([]);
+  const [contentReady, setContentReady] = useState(false);
 
-  useEffect(() => { void Promise.all([fetchServerCmsProjects(), fetchServerCmsServices(), api.cms.getInsights({ page: 1, pageSize: 100 })]).then(([, , insightResponse]) => { if (insightResponse.success && Array.isArray(insightResponse.data?.insights)) { setInsights(insightResponse.data.insights.map((item) => ({ type: 'Insight', title: item.title, description: item.excerpt || '', href: '/insights/' + item.slug, keywords: [...(item.tags || []).map((tag) => tag.name), item.category?.displayName || '', item.title] }))); } }); }, []);
+  useEffect(() => { void Promise.all([fetchServerCmsProjects(), fetchServerCmsServices(), api.cms.getInsights({ page: 1, pageSize: 100 })]).then(([, , insightResponse]) => { if (insightResponse.success && Array.isArray(insightResponse.data?.insights)) { setInsights(insightResponse.data.insights.map((item) => ({ type: 'Insight', title: item.title, description: item.excerpt || '', href: '/insights/' + item.slug, keywords: [...(item.tags || []).map((tag) => tag.name), item.category?.displayName || '', item.title] }))); } }).finally(() => setContentReady(true)); }, []);
 
   const items = useMemo<SearchItem[]>(() => {
     const projects = getCmsProjects().length ? getCmsProjects() : allProjects;
@@ -27,7 +28,7 @@ export const Search = () => {
       ...projects.map((item) => ({ type: 'Case Study', title: item.title, description: item.desc || '', href: '/work/' + projectSlug(item), keywords: [item.client, item.industry, item.service, item.title] })),
       ...insights
     ];
-  }, [insights]);
+  }, [insights, contentReady]);
 
   const fuse = useMemo(() => new Fuse(items, { keys: [{ name: 'title', weight: 0.5 }, { name: 'description', weight: 0.25 }, { name: 'keywords', weight: 0.25 }], threshold: 0.34 }), [items]);
   const results = query.trim() ? fuse.search(query.trim()).map((entry) => entry.item) : items.slice(0, 18);
