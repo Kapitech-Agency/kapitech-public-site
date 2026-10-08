@@ -1254,7 +1254,6 @@ export const Work = () => {
                           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                             {selectedProject.impact.map((item, idx) => (
                               <div key={idx} className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
-                                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/60 to-transparent" />
                                 <span className="block text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">{item.value}</span>
                                 <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">{item.label}</span>
                               </div>
