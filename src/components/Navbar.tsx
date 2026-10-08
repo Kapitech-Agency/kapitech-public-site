@@ -201,7 +201,7 @@ export const Navbar = () => {
       >
         <div
           className={cn(
-            "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex min-h-[48px] shrink-0 items-center justify-between",
+            "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex xl:grid xl:grid-cols-[minmax(220px,1fr)_auto_minmax(300px,1fr)] min-h-[48px] shrink-0 items-center",
           )}
         >
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
@@ -216,9 +216,9 @@ export const Navbar = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center gap-4 xl:gap-5">
-            <div className="flex items-center gap-4 xl:gap-5">
+          {/* Desktop Navigation: one centered group, independent from brand and actions */}
+          <div className="hidden xl:flex items-center justify-self-center gap-1.5">
+
               
               {/* Work Link */}
               <Link
@@ -299,8 +299,10 @@ export const Navbar = () => {
               >
                 <span className="relative z-10">{t('nav.careers')}</span>
               </Link>
-            </div>
+          </div>
 
+          {/* Desktop Actions: one right-aligned group independent from navigation */}
+          <div className="hidden xl:flex items-center justify-self-end gap-2.5">
             {/* Start Project CTA */}
             <Link
               to="/book-a-call"
@@ -361,7 +363,6 @@ export const Navbar = () => {
                 )} aria-hidden="true" />
                 <span>ID</span>
               </button>
-            </div>
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
