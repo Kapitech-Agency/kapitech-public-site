@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import PublicPageHero from '../components/ui/PublicPageHero';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -972,84 +972,57 @@ export const Careers = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/50 to-transparent" />
-        </div><div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6">
-              {language === 'id' ? 'Berkarya Bersama Kapitech.' : 'Build the Future With Us.'}
-            </h1>
-            <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
-              {language === 'id'
-                ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek (100% WFA) untuk berkolaborasi menggarap produk digital kelas dunia.'
-                : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
-              }
-            </p>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[#8A909D] mb-6">
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.08] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red font-semibold flex items-center gap-2">
-                <Sparkles size={12} />
-                <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.02] border border-white/[0.08]">
-                {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a 
-                href="#open-positions"
-                className="px-5 py-2.5 rounded-full border border-white/[0.1] bg-white/[0.035] text-white hover:bg-white/[0.07] hover:border-white/[0.16] text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2"
-              >
-                <span>{language === 'id' ? 'Posisi Studio On-site' : 'Studio Open Roles'}</span>
-                <ArrowUpRight size={14} />
-              </a>
-              <button 
-                onClick={() => {
-                  setIsFreelanceModalOpen(true);
-                  setIsVendorSubmitted(false);
-                  setVendorSubmitError('');
-                }}
-                className="px-5 py-2.5 rounded-full border border-brand-red/40 bg-brand-red/72 text-white hover:bg-brand-red/86 hover:border-brand-red/60 text-xs font-mono font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)]"
-              >
-                <FolderGit2 size={14} />
-                <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
-              </button>
-              <Link
-                to="/about"
-                className="px-5 py-2.5 rounded-full text-[#A7ACB5] hover:text-white text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-300 inline-flex items-center gap-2"
-              >
-                <span>{language === 'id' ? 'Tentang Kapitech' : 'About Kapitech'}</span>
-                <ArrowUpRight size={14} />
-              </Link>
-            </div>
-          </div>
+      <PublicPageHero
+        eyebrow={language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
+        title={language === 'id' ? 'Berkarya Bersama Kapitech.' : 'Build the Future With Us.'}
+        description={
+          language === 'id'
+            ? 'Kami membuka kesempatan bagi talenta on-site studio di Tangerang Selatan serta jaringan Freelance Vendor berbasis proyek (100% WFA) untuk berkolaborasi menggarap produk digital kelas dunia.'
+            : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
+        }
+      >
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
+            <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3 py-1.5 font-semibold text-brand-red">
+            <Sparkles size={12} />
+            <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
+          </span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5">
+            {language === 'id' ? 'Studio di Tangerang Selatan' : 'Studio in South Tangerang'}
+          </span>
         </div>
-      </section>
+        <div className="flex flex-wrap items-center gap-2.5 pt-2">
+          <a
+            href="#open-positions"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+          >
+            <span>{language === 'id' ? 'Posisi Studio On-site' : 'Studio Open Roles'}</span>
+            <ArrowUpRight size={14} />
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              setIsFreelanceModalOpen(true);
+              setIsVendorSubmitted(false);
+              setVendorSubmitError('');
+            }}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/80 px-5 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand-red/60 hover:bg-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+          >
+            <FolderGit2 size={14} />
+            <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
+          </button>
+          <Link
+            to="/about"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#A7ACB5] transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+          >
+            <span>{language === 'id' ? 'Tentang Kapitech' : 'About Kapitech'}</span>
+            <ArrowUpRight size={14} />
+          </Link>
+        </div>
+      </PublicPageHero>
 
       {/* SECTION: Join With Our 12 Great Talents */}
       <section className="py-16 sm:py-24 border-b border-white/[0.08] bg-[#0B0C0E] relative overflow-hidden">
