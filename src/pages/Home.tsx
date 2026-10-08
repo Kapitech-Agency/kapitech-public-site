@@ -2,34 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ArrowUpRight, 
-  CheckCircle2, 
-  Globe, 
-  Cpu, 
-  Layout, 
-  Code2, 
-  Palette, 
-  Box, 
-  Shield, 
-  Layers, 
-  X, 
-  Smartphone, 
-  Sparkles, 
-  Building2, 
-  Briefcase, 
-  Users, 
-  BarChart3, 
-  ChevronRight,
-  Video,
-  Film,
-  ShoppingCart,
-  Server,
-  Wrench,
-  TrendingUp,
-  Target
-} from 'lucide-react';
-import { PerspectiveTilt } from '../components/ui/PerspectiveTilt';
+import { ArrowUpRight, ChevronRight, Layers, X } from 'lucide-react';
 import { Testimonials } from '../components/Testimonials';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
@@ -57,10 +30,9 @@ const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>
 };
 
 export const Home = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const [projectsList, setProjectsList] = useState(() => getCmsProjects());
   const [cmsServices, setCmsServices] = useState(() => getCmsServices());
-  const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [selectedProcessStep, setSelectedProcessStep] = useState<number | null>(null);
   const processModalRef = React.useRef<HTMLDivElement>(null);
   const processModalTriggerRef = React.useRef<HTMLElement | null>(null);
@@ -88,7 +60,6 @@ export const Home = () => {
         ? document.activeElement
         : null;
     }
-    setActiveProcessStep(index);
     setSelectedProcessStep(index);
   };
 
@@ -159,25 +130,6 @@ export const Home = () => {
     }
     processModalTriggerRef.current = null;
   }, [selectedProcessStep]);
-
-  const selectedClients = Array.from(
-    new Set(
-      projectsList
-        .map((project) => String(project.client || '').trim())
-        .filter(Boolean),
-    ),
-  ).slice(0, 8);
-
-  const techStack = [
-    { name: "React", category: "Frontend", icon: <Layout size={18} /> },
-    { name: "Next.js", category: "Full-Stack", icon: <Globe size={18} /> },
-    { name: "TypeScript", category: "Core", icon: <Code2 size={18} /> },
-    { name: "Tailwind CSS", category: "Styling", icon: <Palette size={18} /> },
-    { name: "Node.js", category: "Backend", icon: <Cpu size={18} /> },
-    { name: "Figma", category: "Design", icon: <Box size={18} /> },
-    { name: "PostgreSQL", category: "Database", icon: <Layers size={18} /> },
-    { name: "AWS & GCP", category: "Cloud", icon: <Shield size={18} /> },
-  ];
 
   const featuredProjects = projectsList
     .filter((project) => project.featured && project.isPublished !== false)
@@ -295,7 +247,7 @@ export const Home = () => {
   ];
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white">
+    <div className="kapi-page-bg min-h-screen text-white selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
       <section className="kapi-page-hero relative min-h-[82vh] flex flex-col justify-center overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-28 sm:min-h-[88vh] sm:px-6 sm:pb-20 sm:pt-32 md:px-12 md:pb-24 md:pt-40">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
@@ -316,25 +268,21 @@ export const Home = () => {
             contrast={1.08}
             intro
           />
-          <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
-          <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-b from-transparent via-[#0B0C0E]/72 to-[#0B0C0E] pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-b from-transparent via-[#0B0C0E]/72 to-[#0B0C0E] pointer-events-none" />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10 -translate-y-2 sm:-translate-y-3 md:-translate-y-4">
+        <div className="mx-auto w-full max-w-7xl relative z-10">
           <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
+            <span className="kapi-section-label mb-6 sm:mb-8">
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
+                <span className="absolute inset-0 animate-ping rounded-full bg-brand-red/60" />
+                <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-[#8A909D]">
-                Digital Product Design & Development Agency
-              </span>
-            </div>
+              <span className="text-[#A7ACB5]">Digital Product Design & Development Agency</span>
+            </span>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] font-display font-bold leading-[1.03] tracking-[-0.045em] max-w-4xl mb-5 sm:mb-8 text-white">
+            <h1 className="max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
               {language === 'id' ? (
                 <>Studio produk digital yang dirancang untuk <span className="text-brand-red">membangun & memperluas</span> bisnis Anda.</>
               ) : (
@@ -342,23 +290,23 @@ export const Home = () => {
               )}
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
+            <p className="mt-6 max-w-3xl text-base leading-8 text-[#9097A4] sm:text-lg">
               {language === 'id'
                 ? 'Kami merancang dan mengembangkan website berkinerja tinggi, aplikasi web kustom, sistem visual, dan infrastruktur cloud terpercaya untuk bisnis visioner.'
                 : 'We design and develop high-performance websites, custom web applications, visual systems, and resilient cloud infrastructures for visionary enterprises.'}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link 
                 to="/book-a-call" 
-                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
                 <ArrowUpRight size={16} />
               </Link>
               <Link 
                 to="/work" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.018] px-5 py-3 text-xs font-medium text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
                 <span>{language === 'id' ? 'Jelajahi Case Studies' : 'Explore Case Studies'}</span>
               </Link>
@@ -390,11 +338,11 @@ export const Home = () => {
       </section>
       {/* STUDIO PROOF / EDITORIAL METRICS */}
       <section
-        className="relative overflow-hidden py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         aria-label="Agency metrics"
       >
-        <div className="max-w-7xl mx-auto relative">
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-8 pb-6 sm:pb-8 lg:pb-9 backdrop-blur-xl overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.025),0_24px_70px_-58px_rgba(229,9,20,0.22)]">
+        <div className="mx-auto w-full max-w-7xl relative">
+          <div className="kapi-surface overflow-hidden p-5 pb-6 sm:p-7 sm:pb-8 lg:p-8 lg:pb-9">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-7 lg:gap-12 items-end mb-8 sm:mb-10 lg:mb-11">
             <div>
               <span className="kapi-section-label mb-5">
@@ -458,10 +406,10 @@ export const Home = () => {
       </section>
       {/* SELECTED CLIENT WORK */}
       <section
-        className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] py-14 sm:py-20"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-14 sm:px-6 sm:py-20 md:px-12"
         id="clients"
       >
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto w-full max-w-7xl">
           <div className="mx-auto mb-10 max-w-4xl px-4 text-center sm:mb-12 sm:px-6 md:px-12">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'KLIEN TERPILIH' : 'SELECTED CLIENT WORK'}
@@ -573,7 +521,7 @@ export const Home = () => {
 
       {/* SERVICES & SOLUTIONS */}
       <section
-        className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="engagement"
       >
         <div className="mx-auto max-w-7xl">
@@ -637,7 +585,7 @@ export const Home = () => {
               return (
                 <article
                   key={category}
-                  className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.32)] sm:p-6 lg:p-7"
+                  className="kapi-surface kapi-surface-interactive group relative flex h-full min-w-0 flex-col overflow-hidden p-5 sm:p-6 lg:p-7"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
@@ -763,7 +711,7 @@ export const Home = () => {
                       to={`/solutions/${solution.slug}`}
                       data-analytics-event="solution_click"
                       data-solution-slug={solution.slug}
-                      className="group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
+                      className="kapi-surface kapi-surface-interactive group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden p-5 sm:p-6 lg:p-7"
                     >
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
@@ -823,7 +771,7 @@ export const Home = () => {
       </section>
 
       {/* FEATURED CASE STUDIES */}
-      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
+      <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
             <div className="max-w-3xl">
@@ -958,160 +906,80 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* WORKING PROCESS STEPPING */}
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <motion.div
-            className="absolute -right-32 top-16 h-72 w-72 rounded-full border border-brand-red/[0.045]"
-            animate={{ rotate: [0, 360], scale: [1, 1.04, 1] }}
-            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute left-[28%] -bottom-48 h-80 w-80 rounded-full border border-white/[0.025]"
-            animate={{ y: [0, -18, 0], opacity: [0.25, 0.5, 0.25] }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
-
-        <div className="max-w-7xl mx-auto relative">
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-7 lg:p-9 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)]">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-14 mb-12 sm:mb-14">
+      {/* WORKING PROCESS */}
+      <section className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <div className="max-w-4xl">
-              <motion.span
-                initial={{ opacity: 0, x: -8 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-12% 0px' }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="kapi-section-label mb-5"
-              >
+              <span className="kapi-section-label">
                 {language === 'id' ? 'ALUR KERJA STUDIO' : 'OUR WORKING FRAMEWORK'}
-              </motion.span>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-12% 0px' }}
-                transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-4 max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[1.01] text-white"
-              >
+              </span>
+              <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id' ? 'Dari brief pertama hingga produk diluncurkan.' : 'From first brief to final launch.'}
-              </motion.h2>
+              </h2>
             </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-12% 0px' }}
-              transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-md lg:pb-1 text-xs sm:text-sm lg:text-base leading-[1.75] text-[#8A909D] font-light"
-            >
+            <p className="max-w-md text-sm leading-7 text-[#8A909D] lg:pb-1">
               {language === 'id'
                 ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
                 : 'Four connected phases keep quality, momentum, and project decisions moving in the same direction.'}
-            </motion.p>
+            </p>
           </div>
 
-          <div className="relative">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {processSteps.map((step, index) => {
-                const isActive = activeProcessStep === index;
-                return (
-                  <motion.article
-                    key={step.step}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-10% 0px' }}
-                    transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    onMouseEnter={() => setActiveProcessStep(index)}
-                    className={cn(
-                      "group relative min-w-0 transition-opacity duration-500 ease-out",
-                      isActive
-                        ? "opacity-100"
-                        : "opacity-[0.68] group-hover:opacity-100",
-                      "min-w-0"
-                    )}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => openProcessStep(index)}
-                      onFocus={() => setActiveProcessStep(index)}
-                      data-analytics-event="process_phase_open"
-                      data-process-step={step.step}
-                      aria-label={(language === 'id' ? 'Pilih fase ' : 'Select phase ') + step.step}
-                      aria-pressed={isActive}
-                      className="relative z-10 block w-full cursor-pointer text-left outline-none"
-                    >
-                      <span
-                        className={cn(
-                          "absolute z-20 left-0 top-[11px] h-2.5 w-2.5 rounded-full border transition-all duration-500 lg:hidden",
-                          isActive
-                            ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
-                            : "border-white/[0.18] bg-[#0B0C0E] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(229,9,20,0.05)]"
-                        )}
-                      />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map((step, index) => (
+              <motion.article
+                key={step.step}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.45, delay: index * 0.04 }}
+                className="relative min-w-0"
+              >
+                <span
+                  className="pointer-events-none absolute left-5 top-5 z-10 text-4xl font-display font-semibold leading-none tracking-[-0.06em] text-brand-red"
+                  aria-hidden="true"
+                >
+                  {step.step}
+                </span>
 
-                      <div className="relative min-h-[270px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-6 lg:p-7 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022]">
-                        <div
-                          className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-3 transition-colors duration-500 lg:pr-1"
-                        >
-                          <span className={cn(
-                            "text-[10px] font-mono uppercase tracking-[0.18em] transition-colors duration-300",
-                            isActive ? "text-brand-red" : "text-[#8A909D]"
-                          )}>
-                            {language === 'id' ? `Fase ${step.step}` : `Phase ${step.step}`}
-                          </span>
-                          <motion.span
-                            animate={{ opacity: isActive ? 1 : 0.45, x: isActive ? 0 : 4 }}
-                            transition={{ duration: 0.35 }}
-                            className="text-[10px] font-mono tabular-nums text-[#8A909D]"
-                          >
-                            {step.step}
-                          </motion.span>
-                        </div>
+                <button
+                  type="button"
+                  onClick={() => openProcessStep(index)}
+                  data-analytics-event="process_phase_open"
+                  data-process-step={step.step}
+                  aria-label={(language === 'id' ? 'Buka fase ' : 'Open phase ') + step.step}
+                  className="kapi-surface kapi-surface-interactive flex min-h-[270px] w-full flex-col p-5 pt-20 text-left sm:p-6 sm:pt-20 lg:p-7 lg:pt-20"
+                >
+                  <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-3">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]">
+                      {language === 'id' ? 'Phase' : 'Phase'}
+                    </span>
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </div>
 
-                        <motion.h3
-                          animate={{ x: isActive ? 4 : 0, color: isActive ? '#FF1E27' : '#FFFFFF' }}
-                          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                          className="mt-5 max-w-[18rem] text-xl sm:text-2xl lg:text-[1.65rem] font-display font-semibold tracking-[-0.045em] leading-[1.06]"
-                        >
-                          {step.title}
-                        </motion.h3>
+                  <h3 className="mt-5 max-w-[18rem] text-xl font-display font-semibold leading-[1.06] tracking-[-0.045em] text-white sm:text-2xl lg:text-[1.65rem]">
+                    {step.title}
+                  </h3>
 
-                        <motion.p
-                          animate={{ opacity: isActive ? 1 : 0.68, y: isActive ? 0 : 2 }}
-                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                          className="mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
-                        >
-                          {step.desc}
-                        </motion.p>
+                  <p className="mt-3 max-w-sm text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                    {step.desc}
+                  </p>
 
-                        <div className="relative mt-6 h-1 w-10 overflow-hidden rounded-full bg-white/[0.06]">
-                          <motion.div
-                            className="absolute inset-y-0 left-0 rounded-full bg-brand-red"
-                            animate={{ width: isActive ? '100%' : '45%', opacity: isActive ? 1 : 0.45 }}
-                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                          />
-                        </div>
-                      </div>
-                    </button>
-                  </motion.article>
-                );
-              })}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.28 }}
-              className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
-            >
-              <span>{language === 'id' ? 'Arahkan kursor untuk preview, pilih phase untuk membuka detail' : 'Hover to preview, select a phase for details'}</span>
-              <span className="text-brand-red/85 tabular-nums">
-                {String(activeProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
-              </span>
-            </motion.div>
+                  <div className="mt-auto flex items-center justify-between gap-4 border-t border-white/[0.07] pt-4">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Lihat detail fase' : 'View phase details'}
+                    </span>
+                    <span className="text-[10px] font-mono tabular-nums text-[#6F757F]">
+                      {String(index + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
+                    </span>
+                  </div>
+                </button>
+              </motion.article>
+            ))}
           </div>
+
+          <div className="mt-5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F7480]">
+            {language === 'id' ? 'Pilih fase untuk membuka detail lengkap.' : 'Select a phase to open the full detail.'}
           </div>
         </div>
       </section>
