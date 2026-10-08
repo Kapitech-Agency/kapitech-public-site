@@ -28,7 +28,7 @@ export const Industries = () => {
         <section className="mt-14 rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">
           <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">{language === 'id' ? 'Tidak melihat konteks Anda?' : 'Do not see your context?'}</p>
           <h2 className="mt-2 max-w-3xl text-2xl font-display font-semibold tracking-[-0.035em] sm:text-3xl">{language === 'id' ? 'Bagikan kebutuhan bisnis Anda dan kita bisa membahas engagement yang paling relevan.' : 'Share your business context and we can discuss the most relevant engagement.'}</h2>
-          <a href="/book-a-call" className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]">{language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'}</a>
+          <Link to="/book-a-call" className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]">{language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'}</Link>
         </section>
       </div>
     </main>
