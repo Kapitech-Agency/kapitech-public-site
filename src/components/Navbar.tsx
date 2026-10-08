@@ -13,7 +13,8 @@ import {
   Sparkles,
   Palette,
   Code2,
-  Cpu
+  Cpu,
+  Search as SearchIcon
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
@@ -235,6 +236,10 @@ export const Navbar = () => {
                 </button>
               </div>
 
+              <Link to="/industries" className={desktopNavItemClass(location.pathname.startsWith('/industries'))} aria-current={location.pathname.startsWith('/industries') ? 'page' : undefined}><span className="relative z-10">Industries</span></Link>
+              <Link to="/clients" className={desktopNavItemClass(location.pathname.startsWith('/clients'))} aria-current={location.pathname.startsWith('/clients') ? 'page' : undefined}><span className="relative z-10">Clients</span></Link>
+              <Link to="/resources" className={desktopNavItemClass(location.pathname.startsWith('/resources'))} aria-current={location.pathname.startsWith('/resources') ? 'page' : undefined}><span className="relative z-10">Resources</span></Link>
+
               {/* Insights Link */}
               <Link
                 to="/insights"
@@ -273,6 +278,8 @@ export const Navbar = () => {
               <span className="relative z-10">{t('nav.startProject')}</span>
               <ChevronRight size={14} className="relative z-10 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
+
+            <Link to="/search" aria-label="Search" className={cn(desktopNavItemClass(location.pathname === '/search'), "h-9 w-9 justify-center px-0")}><SearchIcon size={15} /></Link>
 
             {/* Language Switcher */}
             <div
