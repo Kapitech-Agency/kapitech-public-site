@@ -1039,7 +1039,7 @@ export const Work = () => {
                 exit={{ opacity: 0, scale: 0.965, y: 16 }}
                 transition={{ duration: 0.26 }}
                 ref={caseStudyModalRef}
-                className="relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0F1116] shadow-[0_32px_110px_-40px_rgba(0,0,0,0.96)] sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
+                className="kapi-modal-surface relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
               >
                 <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
                   <div className="min-w-0 flex-1">
