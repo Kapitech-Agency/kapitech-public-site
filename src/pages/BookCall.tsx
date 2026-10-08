@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowLeft, ArrowUpRight, CheckCircle2, FileText, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, FileText, ShieldCheck } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { submitToInbox } from '../lib/submissions';
