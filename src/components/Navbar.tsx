@@ -686,6 +686,14 @@ export const Navbar = () => {
                       <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-[#8A909D]/50")} />
                     </Link>
 
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <Link to="/industries" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Industries</Link>
+                      <Link to="/clients" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Clients</Link>
+                      <Link to="/resources" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">Resources</Link>
+                      <Link to="/faq" onClick={() => setIsMenuOpen(false)} className="rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white">FAQ</Link>
+                      <Link to="/search" onClick={() => setIsMenuOpen(false)} className="col-span-2 flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.018] px-3 py-3 text-sm font-medium text-[#A4AAB5] hover:text-white"><SearchIcon size={15}/> Search</Link>
+                    </div>
+
                     <Link
                       to="/about"
                       onClick={() => setIsMenuOpen(false)}
