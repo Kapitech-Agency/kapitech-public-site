@@ -336,10 +336,10 @@ export const industryCatalogMatches = (item: IndustryCatalogItem, industry: stri
 
     if (!normalizedKeyword) return false;
 
-    // Short acronyms such as AI, ERP, TVC, and F&B must match as standalone terms.
+    // Short acronyms such as AI, ERP, and TVC must match as standalone terms.
     if (normalizedKeyword.length <= 3) {
-      const escaped = normalizedKeyword.replace(/[.*+?^$(){|[\]\\]/g, '\\$&');
-      return new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, 'i').test(value);
+      if (normalizedKeyword.includes('&')) return value.includes(normalizedKeyword);
+      return value.split(/[^a-z0-9]+/).filter(Boolean).includes(normalizedKeyword);
     }
 
     return value.includes(normalizedKeyword);
