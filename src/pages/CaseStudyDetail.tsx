@@ -18,6 +18,37 @@ export const CaseStudyDetail = () => {
   }, []);
 
   const item = project || projectBySlug(allProjects, slug);
+  const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared'>('idle');
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const copyLink = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = shareUrl;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+      }
+      setShareState('copied');
+      window.setTimeout(() => setShareState('idle'), 1800);
+    } catch {
+      setShareState('idle');
+    }
+  };
+  const shareCaseStudy = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: item?.title || 'Kapitech Case Study', url: shareUrl });
+        setShareState('shared');
+        window.setTimeout(() => setShareState('idle'), 1800);
+        return;
+      } catch {}
+    }
+    await copyLink();
+  };
   const related = useMemo(() => {
     if (!item) return [];
     const source = projects.length ? projects : allProjects;
@@ -51,6 +82,14 @@ export const CaseStudyDetail = () => {
             </div>
             <h1 className="mt-5 text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.25rem]">{item.title}</h1>
             <p className="mt-6 max-w-3xl text-base leading-8 text-[#A2A8B4] sm:text-lg">{copy}</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <button type="button" onClick={() => void shareCaseStudy()} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] hover:bg-white/[0.06]">
+              {shareState === 'shared' ? 'Shared' : 'Share case study'} <ArrowUpRight size={13} />
+            </button>
+            <button type="button" onClick={() => void copyLink()} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] hover:bg-white/[0.06]">
+              {shareState === 'copied' ? 'Link copied' : 'Copy link'}
+            </button>
+          </div>
           </div>
           <div className="mt-8 grid gap-3 border-t border-white/[0.08] pt-6 sm:grid-cols-2 lg:grid-cols-5">
             {[['Client', item.client], ['Industry', item.industry], ['Service', item.service], ['Year', item.year], ['Pillar', item.pillar]].map(([label, value]) => (
