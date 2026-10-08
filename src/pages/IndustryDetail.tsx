@@ -144,11 +144,16 @@ export const IndustryDetail = () => {
 
   const capabilities = catalog?.capabilities ?? services.slice(0, 5);
   const solutionTypes = catalog?.solutionTypes ?? [
-    'Industry-focused websites',
-    'Product and application interfaces',
-    'Operational and business systems',
-    'Digital improvement and redesign',
+    { title: 'Industry-focused websites', description: 'Web experiences shaped around the business context, audience, and intended action.' },
+    { title: 'Product and application interfaces', description: 'Usable product flows with clear states, roles, and responsive behaviour.' },
+    { title: 'Operational and business systems', description: 'Structured workflows for teams that need reliable information and repeatable actions.' },
+    { title: 'Digital improvement and redesign', description: 'Targeted improvements for existing digital products, websites, and customer journeys.' },
   ];
+
+  const resolvedDeliverySteps = deliverySteps.map((step, index) => ({
+    ...step,
+    description: catalog?.deliveryFocus?.[index] ?? step.description,
+  }));
 
   const principles = catalog?.principles ?? [
     { title: 'Context before output', description: 'We start from the business problem and user workflow before defining the deliverables.' },
@@ -397,16 +402,12 @@ export const IndustryDetail = () => {
 
               <div className="grid gap-3 sm:grid-cols-2">
               {solutionTypes.map((item, index) => (
-                <article key={item} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#8D96A2]">
+                <article key={item.title} className="group rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-6 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.03] sm:p-7">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#8D96A2] transition-colors duration-200 group-hover:border-white/[0.14] group-hover:text-white">
                     {index === 0 ? <Sparkles size={15} /> : index === 1 ? <Workflow size={15} /> : index === 2 ? <Layers3 size={15} /> : <ShieldCheck size={15} />}
                   </span>
-                  <h3 className="mt-5 text-xl font-display font-semibold tracking-[-0.03em]">{item}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#78818D]">
-                    {language === 'id'
-                      ? 'Scope dan depth disesuaikan dengan tujuan bisnis, pengguna, dan tingkat kompleksitas konteks ini.'
-                      : 'Scope and depth are shaped around the business goal, users, and complexity of this context.'}
-                  </p>
+                  <h3 className="mt-5 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
                 </article>
               ))}
             </div>
@@ -448,7 +449,7 @@ export const IndustryDetail = () => {
           </div>
 
           <div className="mt-9 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {deliverySteps.map((item) => (
+            {resolvedDeliverySteps.map((item) => (
               <article key={item.step} className="rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 sm:p-7">
                 <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
                 <h3 className="mt-6 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
@@ -496,7 +497,7 @@ export const IndustryDetail = () => {
           <div className="max-w-3xl">
             <span className="kapi-section-label">{language === 'id' ? 'Other industries' : 'Other industries'}</span>
             <h2 id="other-industries-title" className="mt-3 text-3xl font-display font-semibold tracking-[-0.04em] sm:text-4xl">
-              {language === 'id' ? 'Lihat konteks lain yang kami pahami.' : 'Explore another context.'}
+              {language === 'id' ? 'Pilih konteks berikutnya berdasarkan kebutuhan Anda.' : 'Choose the next context based on what you need.'}
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-[#7E8793]">
               {language === 'id'
@@ -515,7 +516,7 @@ export const IndustryDetail = () => {
                 <span className="text-[9px] font-mono uppercase tracking-[0.13em] text-[#626B76]">{item.eyebrow}</span>
                 <h3 className="mt-3 text-lg font-display font-semibold tracking-[-0.025em]">{item.shortLabel}</h3>
                 <p className="mt-2 line-clamp-3 text-xs leading-6 text-[#717B87]">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.11em] text-[#616B77] group-hover:text-brand-red">
+                <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.11em] text-white transition-colors group-hover:border-white/[0.15] group-hover:bg-white/[0.055]">
                   {language === 'id' ? 'Lihat industri' : 'View industry'} <ArrowRight size={12} />
                 </span>
               </Link>
