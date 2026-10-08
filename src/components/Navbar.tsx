@@ -20,6 +20,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { useLanguage } from '@/src/lib/LanguageContext';
 import { allSolutionsAndServices } from '@/src/data/servicesData';
+import { industryCatalog } from '@/src/data/industryCatalog';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,8 +29,11 @@ export const Navbar = () => {
   const mobileMenuRef = React.useRef<HTMLDivElement>(null);
   const wasMobileMenuOpenRef = useRef(false);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const industriesDropdownRef = useRef<HTMLDivElement>(null);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isIndustriesDropdownOpen, setIsIndustriesDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const location = useLocation();
@@ -57,7 +61,9 @@ export const Navbar = () => {
       if (event.key === 'Escape') {
         setIsMenuOpen(false);
         setIsServicesDropdownOpen(false);
+        setIsIndustriesDropdownOpen(false);
         setIsMobileServicesOpen(false);
+        setIsMobileIndustriesOpen(false);
         return;
       }
 
@@ -117,7 +123,9 @@ export const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setIsServicesDropdownOpen(false);
+    setIsIndustriesDropdownOpen(false);
     setIsMobileServicesOpen(false);
+    setIsMobileIndustriesOpen(false);
   }, [location.pathname]);
 
   const handleMouseEnterServices = () => {
@@ -125,11 +133,26 @@ export const Navbar = () => {
       clearTimeout(dropdownTimeoutRef.current);
     }
     setIsServicesDropdownOpen(true);
+    setIsIndustriesDropdownOpen(false);
   };
 
   const handleMouseLeaveServices = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setIsServicesDropdownOpen(false);
+    }, 150);
+  };
+
+  const handleMouseEnterIndustries = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setIsIndustriesDropdownOpen(true);
+    setIsServicesDropdownOpen(false);
+  };
+
+  const handleMouseLeaveIndustries = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setIsIndustriesDropdownOpen(false);
     }, 150);
   };
 
@@ -145,6 +168,7 @@ export const Navbar = () => {
   const isAboutActive = location.pathname === '/about' || location.pathname.startsWith('/about/');
   const isCareersActive = location.pathname === '/careers' || location.pathname.startsWith('/careers/');
   const isServicesActive = location.pathname.startsWith('/services') || location.pathname.startsWith('/solutions');
+  const isIndustriesActive = location.pathname.startsWith('/industries');
 
   // Shared navbar material used by the scrolled navbar and mobile controls.
   const navbarGlassMaterial = "bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84";
@@ -163,7 +187,7 @@ export const Navbar = () => {
   return (
     <>
       <AnimatePresence>
-        {isServicesDropdownOpen && (
+        {(isServicesDropdownOpen || isIndustriesDropdownOpen) && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -173,7 +197,7 @@ export const Navbar = () => {
             aria-hidden="true"
             style={{
               top: isScrolled ? '72px' : '88px',
-              height: '480px',
+              height: '500px',
               backgroundColor: 'rgba(11, 12, 14, 0.26)',
               backdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
               WebkitBackdropFilter: 'blur(36px) saturate(1.18) brightness(0.82)',
@@ -186,8 +210,8 @@ export const Navbar = () => {
         className={cn(
           "kapi-public-navbar fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b pt-[env(safe-area-inset-top)]",
           isScrolled
-              ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${isServicesDropdownOpen ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
-              : isServicesDropdownOpen
+              ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${(isServicesDropdownOpen || isIndustriesDropdownOpen) ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
+              : (isServicesDropdownOpen || isIndustriesDropdownOpen)
                 ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
         )}
@@ -262,7 +286,39 @@ export const Navbar = () => {
                 </button>
               </div>
 
-              <Link to="/industries" className={desktopNavItemClass(location.pathname.startsWith('/industries'))} aria-current={location.pathname.startsWith('/industries') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Industri' : 'Industries'}</span></Link>
+              <div
+                className="relative flex items-center h-7"
+                onMouseEnter={handleMouseEnterIndustries}
+                onMouseLeave={handleMouseLeaveIndustries}
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsIndustriesDropdownOpen((prev) => !prev);
+                    setIsServicesDropdownOpen(false);
+                  }}
+                  onFocus={handleMouseEnterIndustries}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      setIsIndustriesDropdownOpen(false);
+                    }
+                  }}
+                  className={cn(desktopNavItemClass(isIndustriesActive || isIndustriesDropdownOpen), "gap-1.5")}
+                  aria-expanded={isIndustriesDropdownOpen}
+                  aria-controls="desktop-industries-dropdown"
+                  aria-haspopup="true"
+                  aria-current={isIndustriesActive ? 'page' : undefined}
+                >
+                  <span className="relative z-10">{language === 'id' ? 'Industri' : 'Industries'}</span>
+                  <motion.span
+                    className="relative z-10 ml-0.5 flex h-4 w-4 shrink-0 items-center justify-center origin-center"
+                    animate={{ rotate: isIndustriesDropdownOpen ? 180 : 0 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <ChevronDown className={cn("h-3.5 w-3.5 transition-colors duration-200", isIndustriesDropdownOpen ? "text-white" : "text-[#8A909D]")} />
+                  </motion.span>
+                </button>
+              </div>
 
               {/* Insights Link */}
               <Link
@@ -572,6 +628,67 @@ export const Navbar = () => {
               </div>
             </motion.div>
           )}
+        <AnimatePresence>
+          {isIndustriesDropdownOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              onMouseEnter={handleMouseEnterIndustries}
+              onMouseLeave={handleMouseLeaveIndustries}
+              id="desktop-industries-dropdown"
+              ref={industriesDropdownRef}
+              className={cn(
+                "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-7 px-6 lg:px-12",
+                dropdownGlassMaterial
+              )}
+            >
+              <div className="mx-auto max-w-7xl">
+                <div className="flex items-end justify-between gap-6 border-b border-white/[0.07] pb-5">
+                  <div>
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                      {language === 'id' ? 'Pilih industri' : 'Choose an industry'}
+                    </span>
+                    <h2 className="mt-2 text-2xl font-display font-semibold tracking-[-0.04em] text-white">
+                      {language === 'id' ? 'Lihat bagaimana Kapitech bekerja di konteks yang paling relevan.' : 'See how Kapitech works in the context that matters to you.'}
+                    </h2>
+                  </div>
+                  <span className="hidden text-[9px] font-mono uppercase tracking-[0.12em] text-[#5E6672] md:block">
+                    {industryCatalog.length} {language === 'id' ? 'industry paths' : 'industry paths'}
+                  </span>
+                </div>
+                <div className="mt-5 grid grid-cols-4 gap-2 lg:gap-3">
+                  {industryCatalog.map((item, index) => {
+                    const active = location.pathname === '/industries/' + item.slug;
+                    return (
+                      <Link
+                        key={item.slug}
+                        to={'/industries/' + item.slug}
+                        onClick={() => setIsIndustriesDropdownOpen(false)}
+                        aria-current={active ? 'page' : undefined}
+                        className={cn(
+                          "group rounded-2xl border p-4 transition-[border-color,background-color,transform] duration-200",
+                          active
+                            ? "border-brand-red/30 bg-brand-red/[0.07]"
+                            : "border-white/[0.07] bg-white/[0.018] hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.035]"
+                        )}
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-mono text-[9px] tabular-nums tracking-[0.14em] text-[#505965]">{String(index + 1).padStart(2, '0')}</span>
+                          <ArrowUpRight size={13} className={active ? "text-brand-red" : "text-[#5E6672] group-hover:text-brand-red"} />
+                        </div>
+                        <p className="mt-6 text-[9px] font-mono uppercase tracking-[0.12em] text-[#69727D]">{item.eyebrow}</p>
+                        <p className="mt-1.5 text-base font-display font-semibold leading-tight tracking-[-0.025em] text-white">{item.shortLabel}</p>
+                        <p className="mt-2 line-clamp-2 text-xs leading-5 text-[#69727D]">{item.description}</p>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         </AnimatePresence>
         {/* Mobile navigation drawer. The main navbar remains the single header; the drawer opens below it. */}
         <AnimatePresence>
@@ -715,30 +832,90 @@ export const Navbar = () => {
                       <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-[#8A909D]/50")} />
                     </Link>
 
-                    <div className="mt-1 flex flex-col gap-1">
-                      {[
-                        { to: '/industries', label: language === 'id' ? 'Industri' : 'Industries', number: '04', active: location.pathname.startsWith('/industries') },
-                        { to: '/faq', label: 'FAQ', number: '05', active: location.pathname === '/faq' },
-                      ].map((item) => (
-                        <Link
-                          key={item.to}
-                          to={item.to}
-                          onClick={() => setIsMenuOpen(false)}
-                          aria-current={item.active ? 'page' : undefined}
+                    <div className="mt-1 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => setIsMobileIndustriesOpen((prev) => !prev)}
+                        aria-expanded={isMobileIndustriesOpen}
+                        aria-controls="mobile-industries-submenu"
+                        aria-current={isIndustriesActive ? 'page' : undefined}
+                        className={cn(
+                          "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
+                          isIndustriesActive || isMobileIndustriesOpen
+                            ? "bg-brand-red/[0.08] text-brand-red"
+                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 text-xs font-mono text-brand-red">04</span>
+                          <span>{language === 'id' ? 'Industri' : 'Industries'}</span>
+                        </div>
+                        <ChevronDown
                           className={cn(
-                            "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
-                            item.active
-                              ? "bg-brand-red/[0.08] text-brand-red"
-                              : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                            "w-5 h-5 transition-transform duration-200",
+                            isMobileIndustriesOpen ? "rotate-180 text-brand-red" : "text-[#8A909D]/60"
                           )}
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="w-6 text-xs font-mono text-brand-red">{item.number}</span>
-                            <span>{item.label}</span>
-                          </div>
-                          <ChevronRight size={18} className={cn(item.active ? "text-brand-red" : "text-[#8A909D]/50")} />
-                        </Link>
-                      ))}
+                        />
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {isMobileIndustriesOpen && (
+                          <motion.div
+                            id="mobile-industries-submenu"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-2 space-y-1 rounded-xl bg-white/[0.018] p-3">
+                              {industryCatalog.map((item, index) => {
+                                const itemActive = location.pathname === '/industries/' + item.slug;
+                                return (
+                                  <Link
+                                    key={item.slug}
+                                    to={'/industries/' + item.slug}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    aria-current={itemActive ? 'page' : undefined}
+                                    className={cn(
+                                      "group flex min-h-[52px] items-center justify-between rounded-xl px-3 py-2 transition-colors",
+                                      itemActive
+                                        ? "bg-brand-red/[0.08] text-white"
+                                        : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                                    )}
+                                  >
+                                    <span className="min-w-0">
+                                      <span className="block text-sm font-semibold">{item.shortLabel}</span>
+                                      <span className="mt-0.5 block truncate text-[10px] text-[#626B76]">{item.label}</span>
+                                    </span>
+                                    <ChevronRight size={16} className="shrink-0 text-[#59616D] group-hover:text-brand-red" />
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="mt-1 flex flex-col gap-1">
+                      <Link
+                        to="/faq"
+                        onClick={() => setIsMenuOpen(false)}
+                        aria-current={location.pathname === '/faq' ? 'page' : undefined}
+                        className={cn(
+                          "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
+                          location.pathname === '/faq'
+                            ? "bg-brand-red/[0.08] text-brand-red"
+                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 text-xs font-mono text-brand-red">05</span>
+                          <span>FAQ</span>
+                        </div>
+                        <ChevronRight size={18} className={location.pathname === '/faq' ? "text-brand-red" : "text-[#8A909D]/50"} />
+                      </Link>
                       <Link
                         to="/search"
                         onClick={() => setIsMenuOpen(false)}
