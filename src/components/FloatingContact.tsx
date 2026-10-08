@@ -121,7 +121,7 @@ export const FloatingContact = () => {
     {
       icon: <MessageSquare size={18} />,
       label: language === 'id' ? 'Mulai Proyek' : 'Start a Project',
-      href: '/contact',
+      href: '/book-a-call',
       isLink: true,
       color: 'bg-brand-red'
     }
