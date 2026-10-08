@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Terminal } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
