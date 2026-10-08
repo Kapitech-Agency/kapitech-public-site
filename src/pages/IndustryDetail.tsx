@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Check,
   ChevronDown,
   Layers3,
   ShieldCheck,
@@ -23,7 +22,6 @@ import {
   type IndustryCatalogItem,
 } from '../data/industryCatalog';
 import { useLanguage } from '../lib/LanguageContext';
-import { cn } from '../lib/utils';
 import PublicPageHero from '../components/ui/PublicPageHero';
 
 const deliverySteps = [
@@ -53,14 +51,6 @@ const deliverySteps = [
   },
 ];
 
-const sectionLinks = [
-  ['industry-approach', 'Approach'],
-  ['industry-work', 'Work'],
-  ['industry-solutions', 'Solutions'],
-  ['industry-process', 'Process'],
-  ['industry-faq', 'FAQ'],
-] as const;
-
 const getResolvedIndustry = (
   source: ProjectItem[],
   slug: string,
@@ -76,106 +66,11 @@ export const IndustryDetail = () => {
   const { slug = '' } = useParams();
   const { language } = useLanguage();
   const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
-  const [activeSection, setActiveSection] = useState('industry-approach');
-  const [navbarHeight, setNavbarHeight] = useState(80);
-  const [sectionNavHeight, setSectionNavHeight] = useState(54);
-  const sectionNavRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
   }, []);
 
-  useEffect(() => {
-    const navbar = document.querySelector<HTMLElement>('.kapi-public-navbar');
-    const sectionNav = sectionNavRef.current;
-
-    if (!navbar || !sectionNav) return;
-
-    const measure = () => {
-      setNavbarHeight(Math.ceil(navbar.getBoundingClientRect().height));
-      setSectionNavHeight(Math.ceil(sectionNav.getBoundingClientRect().height));
-    };
-
-    measure();
-
-    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
-    observer?.observe(navbar);
-    observer?.observe(sectionNav);
-
-    window.addEventListener('resize', measure);
-    return () => {
-      observer?.disconnect();
-      window.removeEventListener('resize', measure);
-    };
-  }, []);
-
-  useEffect(() => {
-    const sectionIds = sectionLinks.map(([id]) => id);
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((element): element is HTMLElement => Boolean(element));
-
-    if (!sections.length) return;
-
-    const markerOffset = navbarHeight + sectionNavHeight + 18;
-    const hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-
-    if (sectionIds.includes(hash)) {
-      setActiveSection(hash);
-    }
-
-    let frame = 0;
-
-    const syncActiveSection = () => {
-      frame = 0;
-      const marker = window.scrollY + markerOffset;
-      let nextActive = sections[0]?.id ?? sectionIds[0];
-
-      for (const section of sections) {
-        if (section.offsetTop <= marker) {
-          nextActive = section.id;
-        } else {
-          break;
-        }
-      }
-
-      setActiveSection((current) => (current === nextActive ? current : nextActive));
-    };
-
-    const requestSync = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(syncActiveSection);
-    };
-
-    syncActiveSection();
-    window.addEventListener('scroll', requestSync, { passive: true });
-    window.addEventListener('resize', requestSync);
-
-    return () => {
-      window.removeEventListener('scroll', requestSync);
-      window.removeEventListener('resize', requestSync);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [navbarHeight, sectionNavHeight]);
-
-  useEffect(() => {
-    if (window.innerWidth >= 768) return;
-
-    const nav = sectionNavRef.current;
-    if (!nav) return;
-
-    const activeLink = nav.querySelector<HTMLElement>(
-      '[data-industry-section-link="' + activeSection + '"]',
-    );
-    if (!activeLink) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    activeLink.scrollIntoView({
-      behavior: reduceMotion ? 'auto' : 'smooth',
-      block: 'nearest',
-      inline: 'center',
-    });
-  }, [activeSection]);
   const source = useMemo(
     () => (cmsProjects.length ? cmsProjects : allProjects).filter((project) => project.isPublished !== false),
     [cmsProjects],
@@ -200,22 +95,7 @@ export const IndustryDetail = () => {
   const supportingProjects = activeProjects.filter((project) => project.id !== featuredProject?.id).slice(0, 4);
 
   const currentLabel = catalog?.label ?? legacyIndustry ?? 'Industry';
-  const industryIndex = catalog ? Math.max(0, industryCatalog.findIndex((item) => item.slug === catalog.slug)) : 0;
-  const industryNumber = String(industryIndex + 1).padStart(2, '0');
-  const industryTotal = String(industryCatalog.length).padStart(2, '0');
   const consultationHref = '/book-a-call?industry=' + encodeURIComponent(currentLabel);
-
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (!section) return;
-
-    setActiveSection(id);
-    const offset = navbarHeight + sectionNavHeight + 12;
-    const top = Math.max(0, section.getBoundingClientRect().top + window.scrollY - offset);
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.history.replaceState(null, '', '#' + id);
-    window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
-  };
 
   const visibleCatalog = catalog
     ? catalog.relatedSlugs
@@ -345,77 +225,10 @@ export const IndustryDetail = () => {
         eyebrow={currentLabel}
         title={heroTitle}
         description={heroDescription}
-        aside={
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.1] bg-[#0F1013]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl sm:p-6">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_0%,rgba(229,9,20,0.15),transparent_34%)]" aria-hidden="true" />
-            <div className="relative">
-              <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
-                <span className="text-[8px] font-mono uppercase tracking-[0.16em] text-[#626A76]">
-                  {language === 'id' ? 'Sinyal industri' : 'Industry signal'}
-                </span>
-                <span className="tabular-nums text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
-                  {industryNumber} / {industryTotal}
-                </span>
-              </div>
-
-              <div className="mt-6 flex items-end justify-between gap-5">
-                <div className="min-w-0">
-                  <span className="block max-w-[18rem] truncate text-2xl font-display font-semibold leading-none tracking-[-0.045em] text-white sm:text-3xl">
-                    {catalog?.shortLabel ?? currentLabel}
-                  </span>
-                  <span className="mt-2 block text-[9px] font-mono uppercase tracking-[0.13em] text-brand-red">
-                    {catalog?.eyebrow ?? currentLabel}
-                  </span>
-                </div>
-                <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[8px] font-mono uppercase tracking-[0.11em] text-white">
-                  {language === 'id' ? 'Fokus aktif' : 'Active focus'}
-                </span>
-              </div>
-
-              <div className="mt-7">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
-                    {language === 'id' ? 'Lensa pengambilan keputusan' : 'Decision lens'}
-                  </span>
-                  <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">
-                    {String(Math.min(4, principles.length)).padStart(2, '0')}
-                  </span>
-                </div>
-                <div className="overflow-hidden rounded-2xl border border-white/[0.07]">
-                  {principles.slice(0, 4).map((principle, index) => (
-                    <div
-                      key={principle.title}
-                      className="group flex items-center gap-3 border-b border-white/[0.06] px-3.5 py-3 last:border-b-0 transition-colors duration-200 hover:bg-white/[0.025]"
-                    >
-                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-white/[0.07] bg-white/[0.018] text-[7px] font-mono tabular-nums text-[#626A76] transition-colors duration-200 group-hover:border-brand-red/25 group-hover:text-brand-red">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="min-w-0 text-[10px] font-medium leading-5 text-[#B7BDC7]">
-                        {principle.title}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-5 grid grid-cols-3 border-t border-white/[0.07] pt-4">
-                {[
-                  [activeProjects.length, language === 'id' ? 'Work' : 'Work'],
-                  [solutionTypes.length, language === 'id' ? 'Solusi' : 'Solutions'],
-                  [capabilities.length, language === 'id' ? 'Kapabilitas' : 'Capabilities'],
-                ].map(([value, label]) => (
-                  <div key={String(label)} className="border-r border-white/[0.06] px-3.5 first:pl-0 last:border-r-0">
-                    <span className="block text-lg font-display font-semibold tracking-[-0.04em] text-white">{value}</span>
-                    <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        }
       >
         <div>
           <p className="mb-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-            {language === 'id' ? 'Kebutuhan project umum' : 'Typical project needs'}
+            {language === 'id' ? 'Typical project needs' : 'Typical project needs'}
           </p>
           <div className="flex flex-wrap gap-2">
             {catalog?.needs.slice(0, 4).map((item) => (
@@ -439,70 +252,38 @@ export const IndustryDetail = () => {
           </Link>
           <a
             href="#industry-work"
-            onClick={(event) => {
-              event.preventDefault();
-              scrollToSection('industry-work');
-            }}
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
-            {language === 'id' ? 'Lihat work relevan' : 'Explore relevant work'}
+            {language === 'id' ? 'Explore relevant work' : 'Explore relevant work'}
             <ArrowDown size={14} aria-hidden="true" />
           </a>
+        <div className="mt-6 grid max-w-4xl gap-2.5 sm:grid-cols-3">
+          {[
+            [language === 'id' ? 'Work relevan' : 'Relevant work', String(activeProjects.length)],
+            [language === 'id' ? 'Kapabilitas inti' : 'Core capabilities', String(capabilities.length)],
+            [language === 'id' ? 'Solusi' : 'Solutions', String(solutionTypes.length)],
+          ].map(([label, value]) => (
+            <div key={label} className="kapi-surface min-w-0 px-4 py-3.5">
+              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">{label}</span>
+              <span className="mt-1.5 block text-lg font-display font-semibold leading-none tracking-[-0.04em] text-white">{value}</span>
+            </div>
+          ))}
+        </div>
         </div>
       </PublicPageHero>
 
-      <nav
-        ref={sectionNavRef}
-        style={{ top: navbarHeight }}
-        aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
-        data-industry-section-nav="true"
-        className="sticky z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
-      >
-        <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
-          <div className="mr-1 hidden shrink-0 items-center gap-2 pr-2 md:flex">
-            <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-              {language === 'id' ? 'Di halaman ini' : 'On this page'}
-            </span>
-            <span className="tabular-nums text-[8px] font-mono tracking-[0.12em] text-[#4F5762]">
-              {String(sectionLinks.findIndex(([id]) => id === activeSection) + 1).padStart(2, '0')} / {String(sectionLinks.length).padStart(2, '0')}
-            </span>
-          </div>
-          {sectionLinks.map(([id, label]) => (
-            <a
-              key={id}
-              data-industry-section-link={id}
-              href={'#' + id}
-              onClick={(event) => {
-                event.preventDefault();
-                scrollToSection(id);
-              }}
-              aria-current={activeSection === id ? 'location' : undefined}
-              className={cn(
-                'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70',
-                activeSection === id
-                  ? 'border-white/[0.13] bg-white/[0.07] shadow-[inset_0_0_0_1px_rgba(229,9,20,0.18),0_8px_22px_-18px_rgba(229,9,20,0.75)]'
-                  : 'border-white/[0.08] bg-white/[0.025] hover:border-white/[0.16] hover:bg-white/[0.055]',
-              )}
-            >
-              {language === 'id'
-                ? ({ Approach: 'Pendekatan', Work: 'Work', Solutions: 'Solusi', Process: 'Proses', FAQ: 'FAQ' } as const)[label]
-                : label}
-            </a>
-          ))}
-        </div>
-      </nav>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12">
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 pb-28">
         <section
           id="industry-approach"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
-          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-approach-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">
-                {language === 'id' ? 'Sudut industri' : 'Industry lens'}
+                {language === 'id' ? 'Industry lens' : 'Industry lens'}
               </span>
               <h2
                 id="industry-approach-title"
@@ -519,7 +300,7 @@ export const IndustryDetail = () => {
               </p>
             </div>
 
-            <div className="grid gap-px overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-white/[0.07] sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {principles.map((item, index) => (
                 <motion.article
                   key={item.title}
@@ -527,41 +308,20 @@ export const IndustryDetail = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.45, delay: index * 0.04 }}
-                  className={cn(
-                    'group relative overflow-hidden bg-[#101216] p-6 transition-[background-color,transform] duration-300 hover:bg-[#13161B] sm:p-7',
-                    index === 0 ? 'sm:col-span-2 lg:min-h-[250px]' : 'min-h-[205px]',
-                  )}
+                  className="group relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] sm:p-7"
                 >
-                  <div
-                    className={cn(
-                      'absolute right-0 top-0 rounded-full bg-brand-red/[0.06] blur-3xl transition-opacity duration-500',
-                      index === 0 ? 'h-40 w-40 opacity-100' : 'h-24 w-24 opacity-0 group-hover:opacity-100',
-                    )}
-                    aria-hidden="true"
-                  />
-                  <div className="relative grid gap-8 sm:grid-cols-[92px_minmax(0,1fr)]">
-                    <div className="flex items-start justify-between sm:flex-col sm:justify-between">
+                  <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-brand-red/[0.05] blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="relative">
+                    <div className="flex items-center justify-between">
                       <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="text-[8px] font-mono uppercase tracking-[0.13em] text-[#4F5762]">
-                        {catalog?.shortLabel ?? currentLabel}
-                      </span>
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/15 transition-colors group-hover:bg-brand-red" />
                     </div>
-                    <div className="max-w-2xl">
-                      <h3 className={cn(
-                        'font-display font-semibold leading-[1.02] tracking-[-0.035em] text-white',
-                        index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl',
-                      )}>
-                        {item.title}
-                      </h3>
-                      <p className={cn(
-                        'mt-3 text-sm leading-7 text-[#78818D]',
-                        index === 0 ? 'max-w-2xl' : 'max-w-xl',
-                      )}>
-                        {item.description}
-                      </p>
-                    </div>
+                    <h3 className="mt-9 text-xl font-display font-semibold leading-tight tracking-[-0.03em] text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
                   </div>
                 </motion.article>
               ))}
@@ -571,13 +331,12 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-work"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
-          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-work-title"
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <span className="kapi-section-label">{language === 'id' ? 'Bukti pekerjaan' : 'Proof of work'}</span>
+              <span className="kapi-section-label">{language === 'id' ? 'Proof of work' : 'Proof of work'}</span>
               <h2
                 id="industry-work-title"
                 className="mt-3 text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
@@ -679,291 +438,176 @@ export const IndustryDetail = () => {
                   ? 'Belum ada public work yang dipetakan di konteks ini.'
                   : 'No public work is currently mapped to this context.'}
               </p>
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#78818D]">
-                {language === 'id'
-                  ? 'Tetap lanjutkan eksplorasi untuk melihat pekerjaan lain, atau langsung hubungi Kapitech bila Anda ingin membahas kebutuhan yang spesifik.'
-                  : 'You can still explore the full work library, or contact Kapitech directly when you already have a specific need in mind.'}
-              </p>
-              <div className="mt-6 flex flex-wrap justify-center gap-2.5">
-                <Link
-                  to="/work"
-                  className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  {language === 'id' ? 'Lihat semua work' : 'View all work'}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                </Link>
-              </div>
             </div>
           )}
         </section>
 
         <section
           id="industry-solutions"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-solutions-title"
         >
-          <div className="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">
-                {language === 'id' ? 'Bentuk bantuan' : 'Ways we can help'}
-              </span>
-              <h2
-                id="industry-solutions-title"
-                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]"
-              >
-                {language === 'id'
-                  ? 'Bentuk engagement yang paling masuk akal untuk konteks ini.'
-                  : 'The engagement shapes that make sense for this context.'}
-              </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Tidak ada paket industri yang kaku. Scope dipilih berdasarkan problem, user, dan tingkat kompleksitasnya.'
-                  : 'There is no rigid industry package. Scope is shaped around the problem, the users, and the level of complexity.'}
-              </p>
+          <div className="mb-9 max-w-3xl">
+            <span className="kapi-section-label">
+              {language === 'id' ? 'Bentuk bantuan' : 'Ways we can help'}
+            </span>
+            <h2
+              id="industry-solutions-title"
+              className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.8rem]"
+            >
+              {language === 'id'
+                ? 'Pilih bentuk engagement yang paling dekat dengan kebutuhan Anda.'
+                : 'Choose the engagement shape that best matches your next move.'}
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#8A909D] sm:text-[15px]">
+              {language === 'id'
+                ? 'Scope tetap fleksibel. Yang kami tunjukkan di sini adalah bentuk pekerjaan yang paling relevan dengan konteks industri ini.'
+                : 'Scope stays flexible. These are the work shapes most relevant to this industry context.'}
+            </p>
+          </div>
 
-              <div className="mt-8 rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5">
-                <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#626B76]">
-                  {language === 'id' ? 'Core capabilities' : 'Core capabilities'}
-                </span>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {capabilities.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-white"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="divide-y divide-white/[0.07] overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
-
-                {solutionTypes.map((item, index) => {
-                  const Icon = solutionIcons[index % solutionIcons.length];
-                  return (
-                    <motion.article
-                      key={item.title}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-8% 0px' }}
-                      transition={{ duration: 0.42, delay: index * 0.035 }}
-                      className="group grid gap-5 px-5 py-6 transition-[background-color] duration-300 hover:bg-white/[0.018] sm:grid-cols-[74px_minmax(0,1fr)_auto] sm:items-center sm:px-6 sm:py-7 lg:px-7"
-                    >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0B0C0E] text-[#8B94A0] transition-[border-color,background-color,color] duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.07] group-hover:text-white">
-                        <Icon size={16} strokeWidth={1.8} />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-3">
-                          <span className="text-[9px] font-mono tabular-nums tracking-[0.14em] text-brand-red">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.025em]">
-                            {item.title}
-                          </h3>
-                        </div>
-                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
-                      </div>
-                      <span
-                        className="hidden shrink-0 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[8px] font-mono uppercase tracking-[0.1em] text-[#7C8490] sm:inline-flex"
-                        aria-hidden="true"
-                      >
-                        <Check size={11} />
-                        {language === 'id' ? 'Relevan' : 'Relevant'}
-                      </span>
-                    </motion.article>
-                  );
-                })}
-              </div>
-
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                {serviceLinks.slice(0, 6).map(({ service, href }) => (
-                  <Link
-                    key={service}
-                    to={href}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/[0.17] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                  >
-                    {service}
-                    <ArrowUpRight size={11} aria-hidden="true" />
-                  </Link>
-                ))}
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2 rounded-full border border-brand-red/25 bg-brand-red/[0.06] px-3.5 py-2 text-[9px] font-semibold font-mono uppercase tracking-[0.09em] text-white transition-[background-color,border-color] duration-200 hover:border-brand-red/45 hover:bg-brand-red/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+          <div className="grid gap-4 md:grid-cols-2">
+            {solutionTypes.map((item, index) => {
+              const Icon = solutionIcons[index % solutionIcons.length];
+              return (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.45, delay: index * 0.05 }}
+                  className="kapi-surface kapi-surface-interactive group relative overflow-hidden p-6 sm:p-7"
                 >
-                  {language === 'id' ? 'Lihat semua layanan' : 'Explore all services'}
-                  <ArrowRight size={11} aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.018] text-[#A7ACB5] transition-[background-color,border-color,color] duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.07] group-hover:text-white">
+                      <Icon size={17} strokeWidth={1.8} />
+                    </div>
+                    <span className="font-mono text-[9px] tabular-nums tracking-[0.16em] text-[#555A63]">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <h3 className="mt-8 text-lg font-display font-semibold tracking-[-0.03em] text-white sm:text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+                    {item.description}
+                  </p>
+                </motion.article>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2.5">
+            {capabilities.map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-[#A7ACB5]"
+              >
+                {item}
+              </span>
+            ))}
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.045]"
+            >
+              {language === 'id' ? 'Lihat semua layanan' : 'Explore all services'}
+              <ArrowUpRight size={13} aria-hidden="true" />
+            </Link>
           </div>
         </section>
 
         <section
           id="industry-process"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-process-title"
         >
-          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'Alur delivery' : 'Delivery path'}</span>
+          <div className="mb-9 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Cara kerja' : 'How we work'}
+              </span>
               <h2
                 id="industry-process-title"
-                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl lg:text-[3.2rem]"
+                className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-[2.8rem]"
               >
                 {language === 'id'
-                  ? 'Jelas dari langkah pertama sampai handoff.'
-                  : 'Clear from the first step to the handoff.'}
+                  ? 'Alurnya jelas. Fokus delivery menyesuaikan konteks.'
+                  : 'A clear delivery path, adapted to the context.'}
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Industry context mengubah fokus discovery. Struktur delivery tetap transparan supaya semua pihak tahu apa yang sedang dikerjakan.'
-                  : 'Industry context changes the discovery focus. The delivery structure stays transparent so everyone knows what is being worked on.'}
-              </p>
-
-              <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.11em] text-white">
-                <Check size={12} aria-hidden="true" />
-                {language === 'id' ? 'Scope disesuaikan project' : 'Scope adapted to the project'}
-              </div>
             </div>
-
-            <div className="relative">
-
-              <div className="overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
-                {resolvedDeliverySteps.map((item, index) => (
-                  <motion.article
-                    key={item.step}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-8% 0px' }}
-                    transition={{ duration: 0.42, delay: index * 0.04 }}
-                    className="group relative grid gap-5 border-b border-white/[0.07] px-5 py-6 last:border-b-0 sm:grid-cols-[76px_minmax(0,1fr)_auto] sm:items-start sm:px-6 lg:px-7"
-                  >
-                    <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1">
-                      <span className="text-[9px] font-mono tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
-                      <span className="text-[8px] font-mono uppercase tracking-[0.12em] text-[#4F5762]">
-                        {language === 'id' ? 'Tahap' : 'Phase'} {index + 1}
-                      </span>
-                    </div>
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-display font-semibold leading-[1.05] tracking-[-0.03em] text-white">{item.title}</h3>
-                      <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
-                    </div>
-                    <div className="hidden self-end sm:flex">
-                      <span
-                        className="h-1.5 w-1.5 rounded-full bg-white/20 transition-[background-color,transform] duration-300 group-hover:scale-125 group-hover:bg-brand-red"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </motion.article>
-                ))}
-              </div>
-            </div>
+            <p className="max-w-md text-sm leading-7 text-[#8A909D] lg:pb-1">
+              {language === 'id'
+                ? 'Setiap fase punya tujuan yang jelas agar keputusan, review, dan handoff tetap mudah diikuti.'
+                : 'Each phase has a clear purpose so decisions, reviews, and handoff stay easy to follow.'}
+            </p>
           </div>
-        </section>
 
-        <section
-          className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20"
-          aria-labelledby="industry-decision-title"
-        >
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-[#111318] px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_16%,rgba(229,9,20,0.12),transparent_36%)]" aria-hidden="true" />
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div className="max-w-3xl">
-                <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red">
-                  {language === 'id' ? 'Butuh titik awal?' : 'Need a starting point?'}
-                </span>
-                <h2
-                  id="industry-decision-title"
-                  className="mt-3 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.04em] sm:text-3xl lg:text-4xl"
-                >
-                  {language === 'id'
-                    ? 'Bawa problemnya. Kami bantu menentukan scope yang masuk akal.'
-                    : 'Bring the problem. We will help shape the right scope.'}
-                </h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#8A929F]">
-                  {language === 'id'
-                    ? 'Anda tidak perlu datang dengan brief yang sempurna. Konteks awal, target, atau bottleneck sudah cukup untuk memulai pembicaraan.'
-                    : 'You do not need a perfect brief. The initial context, target, or bottleneck is enough to start the conversation.'}
-                </p>
-              </div>
-
-              <div className="flex shrink-0 flex-wrap gap-2.5">
-                <Link
-                  to={consultationHref}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {resolvedDeliverySteps.map((item) => (
+              <motion.article
+                key={item.step}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.45 }}
+                className="kapi-surface kapi-surface-interactive flex min-h-[260px] flex-col justify-between p-6 sm:p-7"
+              >
+                <div>
+                  <span className="text-3xl font-display font-light tracking-[-0.05em] text-brand-red/75">
+                    {item.step}
+                  </span>
+                  <h3 className="mt-5 text-base font-display font-semibold tracking-[-0.025em] text-white sm:text-lg">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-[#8A909D]">{item.description}</p>
+                </div>
+                <div className="mt-6 border-t border-white/[0.07] pt-4 text-[9px] font-mono uppercase tracking-[0.14em] text-[#555A63]">
+                  {language === 'id' ? 'Tahap delivery' : 'Delivery phase'}
+                </div>
+              </motion.article>
+            ))}
           </div>
         </section>
 
         <section
           id="industry-faq"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-faq-title"
         >
-          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">FAQ</span>
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-10 text-center">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Pertanyaan umum' : 'Frequently asked'}
+              </span>
               <h2
                 id="industry-faq-title"
-                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.05em] sm:text-4xl"
+                className="mt-4 text-2xl font-display font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-3xl lg:text-4xl"
               >
                 {language === 'id'
-                  ? 'Pertanyaan yang biasanya muncul sebelum mulai.'
-                  : 'Questions that usually come before the project starts.'}
+                  ? 'Hal yang biasanya perlu dijawab sebelum mulai.'
+                  : 'The questions that usually come before the work starts.'}
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Jawaban singkat untuk membantu Anda menilai apakah Kapitech cocok untuk kebutuhan ini.'
-                  : 'Straightforward answers to help you decide whether Kapitech is a fit for the work.'}
-              </p>
             </div>
 
-            <div className="overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
+            <div className="space-y-3">
               {faq.map((item, index) => (
                 <details
                   key={item.question}
-                  className="group border-b border-white/[0.07] last:border-b-0 open:bg-white/[0.018]"
+                  className="kapi-surface overflow-hidden group open:border-white/[0.14]"
                 >
-                  <summary className="flex min-h-[76px] cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 transition-[background-color] duration-200 hover:bg-white/[0.02] sm:px-6 sm:py-6">
+                  <summary className="flex min-h-[68px] cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-left sm:px-6">
                     <span className="flex min-w-0 items-start gap-4">
-                      <span className="pt-0.5 text-[9px] font-mono tabular-nums text-[#4F5762]">
+                      <span className="pt-0.5 text-[9px] font-mono tabular-nums tracking-[0.13em] text-[#555A63]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="text-sm font-semibold leading-6 text-white sm:text-base">{item.question}</span>
+                      <span className="text-sm font-semibold leading-6 text-white sm:text-base">
+                        {item.question}
+                      </span>
                     </span>
-                    <ChevronDown
-                      size={17}
-                      className="shrink-0 text-white transition-transform duration-200 group-open:rotate-180"
-                    />
+                    <ChevronDown size={17} className="shrink-0 text-[#8A909D] transition-transform duration-200 group-open:rotate-180 group-open:text-white" />
                   </summary>
-                  <div className="grid grid-cols-[28px_minmax(0,1fr)] gap-4 px-5 pb-6 sm:px-6">
-                    <span />
-                    <p className="text-sm leading-7 text-[#858E9A]">{item.answer}</p>
+                  <div className="border-t border-white/[0.07] px-5 pb-6 pt-4 sm:px-6">
+                    <p className="pl-0 text-sm leading-7 text-[#8A909D] sm:pl-10">{item.answer}</p>
                   </div>
                 </details>
               ))}
@@ -971,11 +615,11 @@ export const IndustryDetail = () => {
           </div>
         </section>
 
-        <section className="scroll-mt-28 py-16 sm:py-20 lg:py-24" aria-labelledby="other-industries-title">
+        <section className="py-16 sm:py-20 lg:py-24" aria-labelledby="other-industries-title">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <span className="kapi-section-label">
-                {language === 'id' ? 'Konteks terkait' : 'Related contexts'}
+                {language === 'id' ? 'Related contexts' : 'Related contexts'}
               </span>
               <h2
                 id="other-industries-title"
@@ -987,7 +631,7 @@ export const IndustryDetail = () => {
               </h2>
             </div>
             <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-              {visibleCatalog.length} {language === 'id' ? 'konteks terkait' : 'related contexts'}
+              {visibleCatalog.length} {language === 'id' ? 'related contexts' : 'related contexts'}
             </span>
           </div>
 
@@ -996,7 +640,7 @@ export const IndustryDetail = () => {
               <Link
                 key={item.slug}
                 to={'/industries/' + item.slug}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-[#121419] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                className="kapi-surface kapi-surface-interactive group relative overflow-hidden p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[8px] font-mono uppercase tracking-[0.13em] text-[#626B76]">
