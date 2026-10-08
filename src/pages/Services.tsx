@@ -979,7 +979,7 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-3xl bg-[#0F1116]/94 backdrop-blur-2xl border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_24px_80px_-38px_rgba(229,9,20,0.34),0_20px_60px_-40px_rgba(0,0,0,0.9)] my-0 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
+              className="kapi-modal-surface relative w-full max-w-3xl overflow-hidden my-0 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
             >
               {/* Modal Header */}
               <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-white/[0.02] backdrop-blur-2xl border-b border-white/[0.07]">
