@@ -1731,3 +1731,20 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
     transform: none;
   }
 }
+
+
+/* Navbar interaction consistency */
+.kapi-public-navbar :where(a, button):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.18);
+}
+
+.kapi-public-navbar :where(a, button)[aria-current="page"] {
+  color: #FF1E27;
+}
+
+@media (max-width: 1279px) {
+  .kapi-public-navbar .max-w-\[1440px\] {
+    max-width: none;
+  }
+}
