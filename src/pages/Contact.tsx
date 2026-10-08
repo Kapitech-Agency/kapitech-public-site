@@ -1074,7 +1074,7 @@ export const Contact = () => {
               </span>
 
               <div className="relative pl-5 sm:pl-6">
-                <span className="absolute left-0 top-1 bottom-1 w-px bg-gradient-to-b from-brand-red via-brand-red/35 to-transparent" aria-hidden="true" />
+                
                 <h2 className="max-w-xl text-3xl font-display font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-4xl md:text-5xl lg:text-[3.55rem]">
                   {language === 'id'
                     ? <>Pertanyaan yang <span className="text-brand-red">sering muncul</span> sebelum kita mulai.</>
