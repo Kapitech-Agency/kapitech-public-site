@@ -1011,7 +1011,7 @@ export const Work = () => {
                   <button
                     type="button"
                     onClick={() => closeCaseStudy()}
-                    className="flex h-11 min-h-[44px] min-w-[44px] w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#8A909D] transition-[background-color,border-color,color] duration-300 hover:border-white/[0.16] hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                    className="kapi-modal-close"
                     aria-label={language === 'id' ? 'Tutup studi kasus' : 'Close case study modal'}
                     data-cursor-label="Close"
                     autoFocus
