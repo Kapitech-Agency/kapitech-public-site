@@ -468,23 +468,45 @@
   transform: translate(3px, -3px);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+/* ==========================================================================
+   CUSTOM SCROLLBAR
+   Visible, restrained, and consistent across Chromium/WebKit and Firefox.
+   ========================================================================== */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #000000 #16181D;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--kapi-bg-obsidian);
+html,
+body,
+.kapi-public-shell,
+.kapi-public-shell * {
+  scrollbar-color: #000000 #16181D;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--kapi-border-subtle);
-  border-radius: 10px;
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--kapi-red-primary);
+*::-webkit-scrollbar-track {
+  background: #16181D;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 1px solid #2A2D34;
+  border-radius: 9999px;
+  min-height: 36px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+  border-color: #444850;
+}
+
+*::-webkit-scrollbar-corner {
+  background: #16181D;
 }
 
 /* ==========================================================================
