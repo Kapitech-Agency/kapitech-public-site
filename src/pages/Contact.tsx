@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import PublicPageHero from '../components/ui/PublicPageHero';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, Briefcase, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
@@ -403,46 +403,20 @@ export const Contact = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/52 to-transparent" />
-        </div><div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
-            </span>
-            <h1 className="max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white">
-              {language === 'id' ? (
-                <>Mari bangun produk digital <span className="text-brand-red">luar biasa</span> bersama kami.</>
-              ) : (
-                <>Let’s build something <span className="text-brand-red">exceptional</span> together.</>
-              )}
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg text-[#8A909D] font-light leading-relaxed">
-              {language === 'id'
-                ? 'Punya ide proyek, membutuhkan konsultasi arsitektur perangkat lunak, atau ingin menjajaki kemitraan? Hubungi tim Kapitech Agency secara langsung.'
-                : 'Have an upcoming project, need technical consultation, or want to explore collaboration? Reach out to Kapitech Agency directly.'}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PublicPageHero
+        eyebrow={language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
+        title="Let’s build something exceptional together."
+        titleNode={
+          language === 'id'
+            ? <>Mari bangun produk digital <span className="text-brand-red">luar biasa</span> bersama kami.</>
+            : <>Let’s build something <span className="text-brand-red">exceptional</span> together.</>
+        }
+        description={
+          language === 'id'
+            ? 'Punya ide proyek, membutuhkan konsultasi arsitektur perangkat lunak, atau ingin menjajaki kemitraan? Hubungi tim Kapitech Agency secara langsung.'
+            : 'Have an upcoming project, need technical consultation, or want to explore collaboration? Reach out to Kapitech Agency directly.'
+        }
+      />
 
       {/* Main Form & Info Section */}
       <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
