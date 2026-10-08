@@ -286,8 +286,6 @@ export const Footer = () => {
                 { name: t('nav.careers'), href: '/careers' },
                 { name: t('nav.contact'), href: '/contact' },
                 { name: language === 'id' ? 'Industri' : 'Industries', href: '/industries' },
-                { name: language === 'id' ? 'Klien' : 'Clients', href: '/clients' },
-                { name: language === 'id' ? 'Resource' : 'Resources', href: '/resources' },
                 { name: 'FAQ', href: '/faq' },
                 { name: 'Search', href: '/search' }
               ].map((item) => (
