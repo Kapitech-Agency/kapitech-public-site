@@ -5,6 +5,7 @@ import { allProjects, type ProjectItem } from '../data/projectsData';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { industrySlug, uniqueIndustries } from '../lib/publicContent';
 import { useLanguage } from '../lib/LanguageContext';
+import PublicPageHero from '../components/ui/PublicPageHero';
 
 export const Industries = () => {
   const { language } = useLanguage();
@@ -54,42 +55,19 @@ export const Industries = () => {
   );
 
   return (
-    <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-24 pt-32 text-white sm:px-8 lg:px-12">
+    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
       <div className="mx-auto max-w-7xl">
-        <header className="max-w-6xl">
-          <p className="kapi-section-label">{language === 'id' ? 'Konteks Industri' : 'Industry context'}</p>
-          <h1 className="mt-5 max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-            {language === 'id'
-              ? 'Temukan pekerjaan Kapitech berdasarkan konteks industri.'
-              : 'Explore Kapitech work through industry context.'}
-          </h1>
-          <p className="mt-6 max-w-3xl text-base leading-8 text-[#8E96A2] sm:text-lg">
-            {language === 'id'
-              ? 'Lihat portfolio berdasarkan konteks bisnis, layanan yang digunakan, dan pola kebutuhan yang relevan dengan industri Anda.'
-              : 'Browse the public portfolio through business context, relevant services, and delivery patterns across industries.'}
-          </p>
-
-          <div className="mt-10 grid gap-2 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.018] px-4 py-4">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">
-                {language === 'id' ? 'Industri' : 'Industries'}
-              </span>
-              <span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{industryEntries.length}</span>
-            </div>
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.018] px-4 py-4">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">
-                {language === 'id' ? 'Studi kasus publik' : 'Public case studies'}
-              </span>
-              <span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalProjects}</span>
-            </div>
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.018] px-4 py-4">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">
-                {language === 'id' ? 'Kapabilitas' : 'Capabilities'}
-              </span>
-              <span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalCapabilities}</span>
-            </div>
+        <PublicPageHero
+          eyebrow={language === 'id' ? 'Konteks Industri' : 'Industry context'}
+          title={language === 'id' ? 'Temukan pekerjaan Kapitech berdasarkan konteks industri.' : 'Explore Kapitech work through industry context.'}
+          description={language === 'id' ? 'Lihat portfolio berdasarkan konteks bisnis, layanan yang digunakan, dan pola kebutuhan yang relevan dengan industri Anda.' : 'Browse the public portfolio through business context, relevant services, and delivery patterns across industries.'}
+        >
+          <div className="grid gap-2 sm:grid-cols-3">
+            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Industri' : 'Industries'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{industryEntries.length}</span></div>
+            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Studi kasus publik' : 'Public case studies'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalProjects}</span></div>
+            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Kapabilitas' : 'Capabilities'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalCapabilities}</span></div>
           </div>
-        </header>
+        </PublicPageHero>
 
         <section className="mt-14" aria-labelledby="industry-directory-title">
           <div className="flex items-end justify-between gap-5 border-b border-white/[0.08] pb-5">
