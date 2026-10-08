@@ -207,15 +207,15 @@ export const ServiceDetail = () => {
 
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                to={'/contact?service=' + encodeURIComponent(service.title)}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group"
+                to={'/book-a-call?service=' + encodeURIComponent(service.title)}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
               >
                 <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <a
                 href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
               >
                 <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
                 <ChevronDown className="w-4 h-4" />
@@ -368,10 +368,7 @@ export const ServiceDetail = () => {
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                     className="group relative min-h-[255px] border-b border-white/[0.07] p-5 transition-colors duration-300 hover:bg-white/[0.018] sm:p-6 lg:border-b-0 lg:p-7"
                   >
-                    <span
-                      className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
-                      aria-hidden="true"
-                    />
+                    
 
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] text-[#A7ACB5] transition-colors duration-300 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
@@ -716,7 +713,7 @@ export const ServiceDetail = () => {
                       : 'Schedule a free 30-minute discovery call with our senior product architects.'}
                   </p>
                   <Link
-                    to={`/contact?service=${encodeURIComponent(service.title)}`}
+                    to={`/book-a-call?service=${encodeURIComponent(service.title)}`}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Sekarang' : 'Start a Project Now'}</span>
