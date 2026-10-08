@@ -357,31 +357,28 @@ export const IndustryDetail = () => {
               <div className="mt-7">
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
-                    {language === 'id' ? 'Kebutuhan yang sering muncul' : 'Common project needs'}
+                    {language === 'id' ? 'Lensa pengambilan keputusan' : 'Decision lens'}
                   </span>
-                  <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">04</span>
+                  <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">
+                    {String(Math.min(4, principles.length)).padStart(2, '0')}
+                  </span>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/[0.07]">
-                  {(catalog?.needs ?? []).slice(0, 4).map((need, index) => (
+                  {principles.slice(0, 4).map((principle, index) => (
                     <div
-                      key={need}
-                      className="group grid grid-cols-[24px_minmax(0,1fr)_24px] items-center gap-3 border-b border-white/[0.06] px-3.5 py-3 last:border-b-0 transition-colors duration-200 hover:bg-white/[0.025]"
+                      key={principle.title}
+                      className="group flex items-center gap-3 border-b border-white/[0.06] px-3.5 py-3 last:border-b-0 transition-colors duration-200 hover:bg-white/[0.025]"
                     >
-                      <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">
+                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-white/[0.07] bg-white/[0.018] text-[7px] font-mono tabular-nums text-[#626A76] transition-colors duration-200 group-hover:border-brand-red/25 group-hover:text-brand-red">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                       <span className="min-w-0 text-[10px] font-medium leading-5 text-[#B7BDC7]">
-                        {need}
+                        {principle.title}
                       </span>
-                      <span
-                        className="h-1 w-full rounded-full bg-white/[0.06] after:block after:h-full after:w-1/2 after:rounded-full after:bg-brand-red/70"
-                        aria-hidden="true"
-                      />
                     </div>
                   ))}
                 </div>
               </div>
-
               <div className="mt-5 grid grid-cols-3 border-t border-white/[0.07] pt-4">
                 {[
                   [activeProjects.length, language === 'id' ? 'Work' : 'Work'],
