@@ -929,10 +929,6 @@ export const About = () => {
                   </div>
                 </div>
 
-                <span
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
-                  aria-hidden="true"
-                />
               </motion.article>
             ))}
           </div>
