@@ -13,7 +13,7 @@ export const Industries = () => {
   const source = projects.length ? projects : allProjects;
   const industries = useMemo(() => uniqueIndustries(source), [source]);
   return (
-    <main className="min-h-screen bg-[#0B0C0E] px-5 pb-24 pt-32 text-white sm:px-8 lg:px-12">
+    <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-24 pt-32 text-white sm:px-8 lg:px-12">
       <div className="mx-auto max-w-7xl">
         <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Industries</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">{language === 'id' ? 'Pengalaman yang bisa dilihat berdasarkan konteks industri.' : 'Explore Kapitech work by industry context.'}</h1>
