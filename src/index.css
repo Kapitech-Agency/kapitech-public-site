@@ -152,7 +152,8 @@
   border-radius: var(--kapi-radius-pill) !important;
 }
 
-.kapi-public-shell button:not([class*="bg-"]) {
+.kapi-public-shell button:not([class*="bg-"]),
+.kapi-public-shell button[class*="bg-transparent"] {
   background: rgba(255,255,255,0.035);
 }
 
@@ -160,7 +161,8 @@
   border: 1px solid rgba(255,255,255,0.09);
 }
 
-.kapi-public-shell button:not([class*="bg-"]):hover {
+.kapi-public-shell button:not([class*="bg-"]):hover,
+.kapi-public-shell button[class*="bg-transparent"]:hover {
   background: rgba(255,255,255,0.065);
   border-color: rgba(255,255,255,0.16);
 }
