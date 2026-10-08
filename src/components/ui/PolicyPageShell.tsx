@@ -45,21 +45,20 @@ export const PolicyPageShell = ({
 }: PolicyPageShellProps) => {
   return (
     <div className="kapi-policy-page min-h-screen overflow-x-clip bg-[#0B0C0E] text-[#8A909D]">
+      <PublicPageHero
+        eyebrow={eyebrow}
+        title={title}
+        description={summary}
+      >
+        <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-brand-red">{updated}</p>
+        {manageAction ? (
+          <button type="button" onClick={manageAction.onClick} className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.09em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+            {manageAction.label}
+          </button>
+        ) : null}
+      </PublicPageHero>
+
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:px-12">
-        <PublicPageHero
-          eyebrow={eyebrow}
-          title={title}
-          description={summary}
-        >
-          <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-brand-red">{updated}</p>
-          {manageAction ? (
-            <button type="button" onClick={manageAction.onClick} className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.09em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-              {manageAction.label}
-            </button>
-          ) : null}
-        </PublicPageHero>
-
-
         <main className="mt-14 min-w-0 max-w-4xl space-y-12 sm:space-y-14">
           {sections.map((section, index) => {
             const id = getSectionId(index);
