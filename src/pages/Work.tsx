@@ -405,22 +405,22 @@ export const Work = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+      <section className="kapi-page-hero relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.48}
+            opacity={0.34}
             fade="edges"
             fadeSize={0.72}
             interactive
-            cursorSize={48}
-            cursorStrength={0.42}
+            cursorSize={52}
+            cursorStrength={0.38}
             speed={0.2}
-            scale={1.08}
-            depth={0.68}
-            shine={0.48}
+            scale={1.06}
+            depth={0.62}
+            shine={0.5}
             contrast={1.04}
             intro
           />
