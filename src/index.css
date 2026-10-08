@@ -182,6 +182,39 @@
   transform: translateY(1px) scale(0.99);
 }
 
+/* Homepage working framework uses a full-card button as its accessible trigger.
+   Override the global pill-button baseline only for this scoped control. */
+.kapi-public-shell button.kapi-framework-step {
+  min-height: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+.kapi-public-shell button.kapi-framework-step:hover,
+.kapi-public-shell button.kapi-framework-step:active {
+  background: transparent !important;
+  border-color: transparent !important;
+  transform: none;
+}
+
+.kapi-public-shell button.kapi-framework-step:focus-visible {
+  outline: 2px solid rgba(229,9,20,0.7);
+  outline-offset: 4px;
+}
+
+.kapi-public-shell button.kapi-framework-step[data-active="true"] .kapi-framework-step-label,
+.kapi-public-shell button.kapi-framework-step[data-active="true"] .kapi-framework-step-title {
+  color: #FF1E27 !important;
+}
+
+.kapi-public-shell button.kapi-framework-step[data-active="false"] .kapi-framework-step-label {
+  color: #8A909D !important;
+}
+
 .kapi-section-label {
   display: inline-flex;
   align-items: center;
