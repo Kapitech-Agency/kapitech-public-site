@@ -329,9 +329,16 @@ export const industryCatalogMatches = (item: IndustryCatalogItem, industry: stri
     // Short acronyms such as AI, ERP, TVC, and F&B must match as standalone terms.
     if (normalizedKeyword.length <= 3) {
       const escaped = normalizedKeyword.replace(/[.*+?^$()[\]{}|\\]/g, '\\export const industryCatalogMatches = (item: IndustryCatalogItem, industry: string): boolean => {
-  const value = industry.toLowerCase();
-  return item.keywords.some((keyword) => value.includes(keyword));
-};');
+  const value = industry.toLowerCase().trim();
+
+  return item.keywords.some((keyword) => {
+    const normalizedKeyword = keyword.toLowerCase().trim();
+
+    if (!normalizedKeyword) return false;
+
+    // Short acronyms such as AI, ERP, TVC, and F&B must match as standalone terms.
+    if (normalizedKeyword.length <= 3) {
+      const escaped = normalizedKeyword.replace(/[.*+?^$(){|[\]\\]/g, '\\$&');
       return new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, 'i').test(value);
     }
 
