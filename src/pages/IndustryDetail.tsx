@@ -440,7 +440,7 @@ export const IndustryDetail = () => {
         data-industry-section-nav="true"
         className="sticky z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
       >
-        <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
           <div className="mr-1 hidden shrink-0 items-center gap-2 pr-2 md:flex">
             <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
               {language === 'id' ? 'Di halaman ini' : 'On this page'}
@@ -473,7 +473,7 @@ export const IndustryDetail = () => {
         </div>
       </nav>
 
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 md:px-10 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12">
         <section
           id="industry-approach"
           style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
