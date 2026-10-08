@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { PolicyPageShell, PolicySection } from '../components/ui/PolicyPageShell';
+import { PolicyPageShell } from '../components/ui/PolicyPageShell';
+import type { PolicySection } from '../components/ui/PolicyPageShell';
 import { useLanguage } from '../lib/LanguageContext';
 
 type Section = { title: string; body?: string; bullets?: string[] };
