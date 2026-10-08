@@ -1119,7 +1119,7 @@ export const Careers = () => {
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
-                  className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 z-10"
+                  className="kapi-modal-close absolute right-4 top-4 z-10"
                   aria-label="Close talent profile"
                   data-cursor-label="Close"
                   autoFocus
@@ -1471,7 +1471,7 @@ export const Careers = () => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
               ref={careerModalRef}
-              className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
+              className="career-modal-shell kapi-modal-surface relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header with Role Title */}
               <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
@@ -1496,7 +1496,7 @@ export const Careers = () => {
                       setIsSubmitted(false);
                       setApplicantSubmitError('');
                     }}
-                    className="w-11 h-11 min-w-[44px] min-h-[44px] sm:w-11 sm:h-11 rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="kapi-modal-close shrink-0"
                     aria-label="Close modal"
                     data-cursor-label="Close"
                     autoFocus
@@ -1792,7 +1792,7 @@ export const Careers = () => {
                       setIsVendorSubmitted(false);
                       setVendorSubmitError('');
                     }}
-                    className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.09] flex items-center justify-center text-[#8A909D] hover:text-white transition-colors shrink-0"
+                    className="kapi-modal-close shrink-0"
                     aria-label="Close modal"
                     data-cursor-label="Close"
                     autoFocus
