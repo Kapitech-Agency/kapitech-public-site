@@ -300,20 +300,20 @@ export const Home = () => {
       <section className="kapi-page-hero relative min-h-[82vh] flex flex-col justify-center overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-28 sm:min-h-[88vh] sm:px-6 sm:pb-20 sm:pt-32 md:px-12 md:pb-24 md:pt-40">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.32}
-            fade="edges"
-            fadeSize={0.72}
+            preset="silk"
+            color="#dc143c"
+            backgroundColor="#170f0f"
+            opacity={0.58}
+            fade="none"
+            fadeSize={0.7}
             interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
+            cursorSize={50}
+            cursorStrength={0.6}
+            speed={0.28}
+            scale={1.05}
+            depth={0.72}
+            shine={0.7}
+            contrast={1.08}
             intro
           />
           <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
