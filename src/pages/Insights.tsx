@@ -205,63 +205,14 @@ export const Insights: React.FC = () => {
     <>
       <InsightSeoMeta />
       <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
-        <section className="kapi-page-hero relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:min-h-[680px] sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40 lg:min-h-[720px] lg:pt-40">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.32}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-
-          <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:gap-16">
-            <div className="max-w-4xl">
-              <div className="kapi-section-label mb-6">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-brand-red/70" />
-                  <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
-                </span>
-                {eyebrow}
-              </div>
-
-              <h1 className="max-w-4xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
-                {title}
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#9AA1AE] sm:mt-7 sm:text-base sm:leading-8 lg:text-[1.05rem]">
-                {intro}
-              </p>
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <button
-                  type="button"
-                  onClick={scrollToLibrary}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-red px-6 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] active:scale-[0.985]"
-                >
-                  {libraryLabel}
-                  <ArrowDown size={14} aria-hidden="true" />
-                </button>
-                <span className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#676F7C]">
-                  {language === 'id' ? 'Dibuat untuk tim yang ingin berpikir lebih tajam.' : 'Built for teams that want to think sharper.'}
-                </span>
-              </div>
-            </div>
-
-            <div className="rounded-[24px] border border-white/[0.08] bg-[#0B0C0E]/48 p-5 backdrop-blur-xl sm:p-6">
+        <PublicPageHero
+          eyebrow={eyebrow}
+          title={title}
+          description={intro}
+          aside={
+            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 backdrop-blur-xl sm:p-6">
               <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] pb-4">
-                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F7682]">
-                  {language === 'id' ? 'Editorial desk' : 'Editorial desk'}
-                </span>
+                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F7682]">Editorial desk</span>
                 <Sparkles size={14} className="text-brand-red" aria-hidden="true" />
               </div>
               <div className="pt-5">
@@ -270,22 +221,27 @@ export const Insights: React.FC = () => {
                     ? 'Baca pendekatan, kerangka berpikir, dan pembelajaran yang kami gunakan saat mengerjakan design, product, dan engineering.'
                     : 'Read the approaches, frameworks, and lessons we use across design, product, and engineering work.'}
                 </p>
-                <div className="mt-6 grid grid-cols-2 gap-2">
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa konten' : 'Content language'}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
-                      {hasActiveFilters ? (language === 'id' ? 'Hasil' : 'Results') : (language === 'id' ? 'Artikel' : 'Articles')}
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-white">{loading ? '—' : total}</p>
-                  </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {['Design', 'Product', 'Engineering'].map((item) => (
+                    <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8D95A2]">{item}</span>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          }
+        >
+          <button
+            type="button"
+            onClick={scrollToLibrary}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-bright active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+          >
+            {libraryLabel}
+            <ArrowDown size={14} aria-hidden="true" />
+          </button>
+          <span className="ml-0 text-[10px] font-mono uppercase tracking-[0.13em] text-[#676F7C]">
+            {language === 'id' ? 'Dibuat untuk tim yang ingin berpikir lebih tajam.' : 'Built for teams that want to think sharper.'}
+          </span>
+        </PublicPageHero>
 
         <section
           id="insight-library"
