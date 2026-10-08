@@ -112,7 +112,9 @@ export const IndustryDetail = () => {
 
   const currentLabel = catalog?.label ?? legacyIndustry ?? 'Industry';
   const visibleCatalog = catalog
-    ? industryCatalog.filter((item) => item.slug !== catalog.slug).slice(0, 4)
+    ? catalog.relatedSlugs
+        .map((relatedSlug) => industryCatalogBySlug(relatedSlug))
+        .filter((item): item is IndustryCatalogItem => Boolean(item))
     : industryCatalog.slice(0, 4);
 
   if (!catalog && !legacyIndustry) {
