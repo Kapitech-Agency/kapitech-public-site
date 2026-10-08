@@ -709,8 +709,8 @@ export const ServiceDetail = () => {
                   </h3>
                   <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed">
                     {language === 'id' 
-                      ? 'Jadwalkan sesi konsultasi gratis 30 menit bersama tim arsitek produk kami.' 
-                      : 'Schedule a free 30-minute discovery call with our senior product architects.'}
+                      ? 'Ajukan permintaan konsultasi dengan konteks proyek dan waktu yang Anda inginkan.' 
+                      : 'Send a consultation request with your project context and preferred time.'}
                   </p>
                   <Link
                     to={`/book-a-call?service=${encodeURIComponent(service.title)}`}
