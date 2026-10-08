@@ -161,7 +161,7 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
+      "group relative inline-flex items-center h-9 px-2.5 rounded-full text-[9.5px] font-semibold uppercase tracking-[0.14em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
       active
         ? "text-brand-red border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(229,9,20,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
         : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
@@ -211,7 +211,7 @@ export const Navbar = () => {
               className="h-6 sm:h-[22px] md:h-6 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
             />
             {/* Hidden strictly on mobile view to maximize space and preserve top-tier minimal aesthetics */}
-            <span className="hidden lg:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
+            <span className="hidden xl:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
               Kapitech Agency
             </span>
           </Link>
@@ -302,11 +302,11 @@ export const Navbar = () => {
           </div>
 
           {/* Desktop Actions: one right-aligned group independent from navigation */}
-          <div className="hidden min-w-0 xl:flex items-center justify-self-end gap-2.5">
+          <div className="hidden min-w-0 xl:flex items-center justify-self-end gap-2">
             {/* Start Project CTA */}
             <Link
               to="/book-a-call"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[11px] font-bold uppercase tracking-[0.13em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(230,57,70,0.16)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-4 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[10px] font-bold uppercase tracking-[0.12em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(230,57,70,0.16)]"
               data-cursor-label="Start"
             >
 
@@ -328,7 +328,7 @@ export const Navbar = () => {
                 aria-pressed={language === 'en'}
                 aria-label="Switch to English"
                 className={cn(
-                  "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
+                  "inline-flex h-8 min-w-[40px] items-center justify-center gap-1.5 rounded-full px-2 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
                     : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
