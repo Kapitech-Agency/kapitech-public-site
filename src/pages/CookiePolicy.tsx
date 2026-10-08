@@ -34,6 +34,7 @@ const sections: Record<'en' | 'id', Section[]> = {
         headers: ['Technology', 'Provider', 'Type', 'Purpose', 'Data or identifier', 'Duration', 'First / third party', 'Consent'],
         rows: [
           ['kapitech_cookie_consent', 'Kapitech website', 'Local storage', 'Remember whether the user selected “Accept all” or “Only necessary”.', 'Consent choice', 'Until cleared or replaced', 'First party', 'Necessary'],
+          ['kapitech_ams_theme', 'Kapitech website', 'Local storage', 'Remember the selected light or dark site theme before the React app mounts.', 'Theme preference', 'Until cleared or replaced', 'First party', 'Necessary'],
           ['kapitech_lang', 'Kapitech website', 'Local storage', 'Remember the selected website language.', 'Language preference', 'Until cleared or replaced', 'First party', 'Necessary'],
           ['kapitech_attribution_v1', 'Kapitech website', 'Local storage', 'Store first-touch and last-touch campaign or referral context after analytics consent.', 'Landing path, language, UTM values, click identifiers, referral host', 'Until cleared, replaced, or consent is revoked', 'First party', 'Analytics consent'],
           ['kapitech_anonymous_id_v1', 'Kapitech website', 'Local storage', 'Store a random anonymous identifier when optional analytics is configured and consent is active.', 'Random anonymous identifier', 'Until cleared, replaced, or consent is revoked', 'First party', 'Analytics consent'],
@@ -92,7 +93,24 @@ const sections: Record<'en' | 'id', Section[]> = {
       '“kapitech_attribution_v1” untuk konteks campaign atau referral opsional.',
       '“kapitech_anonymous_id_v1” untuk anonymous identifier yang digunakan bersama analytics dan attribution opsional.'
     ]},
-    { title: 'Google Analytics 4', body: 'Jika Google Analytics 4 dikonfigurasi pada website publik, Google dapat menggunakan cookie atau identifier terkait untuk mengukur penggunaan website dan menyediakan reporting. Identifier, retention, lokasi pemrosesan, dan control yang tersedia bergantung pada konfigurasi Google yang aktif serta perilaku layanan Google saat itu.\n\nMekanisme consent website Kapitech dirancang agar analytics opsional tidak berjalan sebelum pilihan consent terkait diberikan. Pengguna juga sebaiknya membaca dokumentasi privacy dan analytics Google terbaru untuk informasi pemrosesan di sisi provider.' },
+        {
+      title: 'Referensi cookie, storage, dan tracker',
+      body: 'Tabel berikut mencerminkan teknologi yang dapat diidentifikasi dari implementasi public website saat ini. Baris yang bergantung pada provider dijelaskan secara kondisional karena konfigurasi production dapat berubah.',
+      table: {
+        caption: 'Referensi implementasi saat ini',
+        headers: ['Technology', 'Provider', 'Type', 'Purpose', 'Data atau identifier', 'Duration', 'First / third party', 'Consent'],
+        rows: [
+          ['kapitech_cookie_consent', 'Website Kapitech', 'Local storage', 'Menyimpan pilihan “Terima semua” atau “Hanya yang diperlukan”.', 'Pilihan consent', 'Sampai dihapus atau diganti', 'First party', 'Necessary'],
+          ['kapitech_lang', 'Website Kapitech', 'Local storage', 'Menyimpan pilihan bahasa website.', 'Preferensi bahasa', 'Sampai dihapus atau diganti', 'First party', 'Necessary'],
+          ['kapitech_ams_theme', 'Website Kapitech', 'Local storage', 'Menyimpan preferensi tema light atau dark sebelum aplikasi React berjalan.', 'Preferensi tema', 'Sampai dihapus atau diganti', 'First party', 'Necessary'],
+          ['kapitech_attribution_v1', 'Website Kapitech', 'Local storage', 'Menyimpan konteks campaign atau referral setelah consent analytics aktif.', 'Landing path, bahasa, UTM, click identifier, referral host', 'Sampai dihapus, diganti, atau consent dicabut', 'First party', 'Analytics consent'],
+          ['kapitech_anonymous_id_v1', 'Website Kapitech', 'Local storage', 'Menyimpan anonymous identifier acak ketika analytics opsional aktif dan disetujui.', 'Anonymous identifier acak', 'Sampai dihapus, diganti, atau consent dicabut', 'First party', 'Analytics consent'],
+          ['_ga* / _gid', 'Google Analytics, jika dikonfigurasi', 'Cookie', 'Pengukuran dan reporting analytics.', 'Identifier analytics yang dikelola provider', 'Ditentukan provider', 'Third party saat aktif', 'Analytics consent'],
+          ['Google Tag Manager script', 'Google Tag Manager, jika dikonfigurasi', 'Script / tag-management', 'Memuat dan mengelola tag yang dikonfigurasi. Perilaku downstream bergantung pada tag aktif.', 'Bergantung pada konfigurasi tag', 'Bergantung provider / tag', 'Third party saat aktif', 'Analytics consent']
+        ]
+      }
+    },
+{ title: 'Google Analytics 4', body: 'Jika Google Analytics 4 dikonfigurasi pada website publik, Google dapat menggunakan cookie atau identifier terkait untuk mengukur penggunaan website dan menyediakan reporting. Identifier, retention, lokasi pemrosesan, dan control yang tersedia bergantung pada konfigurasi Google yang aktif serta perilaku layanan Google saat itu.\n\nMekanisme consent website Kapitech dirancang agar analytics opsional tidak berjalan sebelum pilihan consent terkait diberikan. Pengguna juga sebaiknya membaca dokumentasi privacy dan analytics Google terbaru untuk informasi pemrosesan di sisi provider.' },
     { title: 'Google Tag Manager', body: 'Jika Google Tag Manager digunakan, layanan tersebut dapat menjadi mekanisme teknis untuk memuat dan mengelola tag atau script website. Tag manager sendiri tidak menjelaskan seluruh teknologi downstream yang mungkin dimuat. Tag yang aktif bergantung pada konfigurasi saat ini.\n\nKarena itu Kapitech memperlakukan consent state sebagai gate untuk fungsi analytics opsional dan meninjau konfigurasi tag sebagai bagian dari maintenance website. Detail provider dapat berubah dan sebaiknya dicek pada dokumentasi terbaru.' },
     { title: 'Cookie dan identifier dari provider', body: 'Layanan pihak ketiga dapat menggunakan cookie, local storage, identifier, atau teknologi serupa ketika fungsinya diaktifkan. Nama, expiration, scope, purpose, dan lokasi pemrosesan dapat ditentukan sebagian oleh provider.\n\nKapitech mungkin tidak dapat menghapus secara langsung informasi yang telah dikumpulkan provider dari browser atau disimpan di infrastructure provider. Penarikan consent mengontrol aktivitas opsional berikutnya, tetapi tidak selalu menghapus catatan provider yang telah ada sebelumnya.' },
     { title: 'Cara consent bekerja', bullets: [
