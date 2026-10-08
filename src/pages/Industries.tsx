@@ -530,7 +530,6 @@ export const Industries = () => {
           </div>
         </section>
       </div>
-      </div>
     </main>
   );
 };
