@@ -569,7 +569,7 @@ export const Insights: React.FC = () => {
               </div>
 
               <Link
-                to="/contact"
+                to="/book-a-call"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
               >
                 {language === 'id' ? 'Mulai Project' : 'Start a Project'}
