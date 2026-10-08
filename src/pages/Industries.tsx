@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Building2, Layers3 } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  Layers3,
+  Sparkles,
+  Workflow,
+} from 'lucide-react';
 import { allProjects, type ProjectItem } from '../data/projectsData';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { industrySlug, uniqueIndustries } from '../lib/publicContent';
@@ -14,13 +21,12 @@ export const Industries = () => {
   useEffect(() => {
     const handleUpdate = () => setProjects(getCmsProjects());
     window.addEventListener('kapitech_cms_updated', handleUpdate);
-
     void fetchServerCmsProjects().then(() => setProjects(getCmsProjects()));
-
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
   const source = projects.length ? projects : allProjects;
+
   const publicSource = useMemo(
     () => source.filter((project) => project.isPublished !== false),
     [source],
@@ -30,12 +36,18 @@ export const Industries = () => {
     return uniqueIndustries(publicSource)
       .map((industry) => {
         const industryProjects = publicSource.filter((item) => item.industry === industry);
-        const services = Array.from(new Set(industryProjects.map((item) => item.service).filter(Boolean)));
+        const services = Array.from(
+          new Set(industryProjects.map((item) => item.service).filter(Boolean)),
+        );
+        const pillars = Array.from(
+          new Set(industryProjects.map((item) => item.pillar).filter(Boolean)),
+        );
 
         return {
           industry,
           projects: industryProjects,
           services,
+          pillars,
         };
       })
       .sort((a, b) => {
@@ -44,114 +56,273 @@ export const Industries = () => {
       });
   }, [publicSource]);
 
-  const totalProjects = useMemo(
-    () => source.filter((project) => project.isPublished !== false).length,
-    [source],
-  );
-
+  const totalProjects = publicSource.length;
   const totalCapabilities = useMemo(
     () => new Set(publicSource.map((project) => project.service).filter(Boolean)).size,
     [publicSource],
   );
 
+  const featuredIndustry = industryEntries[0];
+  const featuredProject = featuredIndustry?.projects[0];
+
+  const secondaryIndustries = industryEntries.slice(1);
+
   return (
     <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
-      <div className="mx-auto max-w-7xl">
-        <PublicPageHero
-          eyebrow={language === 'id' ? 'Konteks Industri' : 'Industry context'}
-          title={language === 'id' ? 'Temukan pekerjaan Kapitech berdasarkan konteks industri.' : 'Explore Kapitech work through industry context.'}
-          description={language === 'id' ? 'Lihat portfolio berdasarkan konteks bisnis, layanan yang digunakan, dan pola kebutuhan yang relevan dengan industri Anda.' : 'Browse the public portfolio through business context, relevant services, and delivery patterns across industries.'}
-        >
-          <div className="grid gap-2 sm:grid-cols-3">
-            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Industri' : 'Industries'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{industryEntries.length}</span></div>
-            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Studi kasus publik' : 'Public case studies'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalProjects}</span></div>
-            <div className="kapi-surface px-4 py-4"><span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#69717D]">{language === 'id' ? 'Kapabilitas' : 'Capabilities'}</span><span className="mt-1.5 block text-2xl font-display font-semibold tracking-[-0.035em]">{totalCapabilities}</span></div>
-          </div>
-        </PublicPageHero>
-
-        <section className="mt-14" aria-labelledby="industry-directory-title">
-          <div className="flex items-end justify-between gap-5 border-b border-white/[0.08] pb-5">
-            <div>
-              <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">
-                {language === 'id' ? 'Direktori' : 'Directory'}
-              </p>
-              <h2 id="industry-directory-title" className="mt-2 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-3xl">
-                {language === 'id' ? 'Pilih konteks yang paling dekat dengan bisnis Anda.' : 'Choose the context closest to your business.'}
-              </h2>
+      <PublicPageHero
+        eyebrow={language === 'id' ? 'Konteks Industri' : 'Industry context'}
+        title={
+          language === 'id'
+            ? 'Pengalaman digital yang dibentuk oleh konteks bisnis.'
+            : 'Digital experiences shaped by business context.'
+        }
+        description={
+          language === 'id'
+            ? 'Jelajahi pekerjaan Kapitech berdasarkan industri, kebutuhan yang kami bantu selesaikan, dan kapabilitas yang digunakan di setiap engagement.'
+            : 'Explore Kapitech work by industry, the business needs we help address, and the capabilities applied across each engagement.'
+        }
+        aside={
+          <div className="rounded-3xl border border-white/[0.09] bg-black/25 p-5 backdrop-blur-md sm:p-6">
+            <div className="flex items-center justify-between gap-4">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Industry lens' : 'Industry lens'}
+              </span>
+              <Layers3 size={17} className="text-[#68717D]" aria-hidden="true" />
             </div>
-            <Layers3 size={18} className="hidden text-[#59616D] sm:block" aria-hidden="true" />
+            <p className="mt-5 text-sm leading-7 text-[#8F97A3]">
+              {language === 'id'
+                ? 'Kami tidak memulai dari template industri. Kami memulai dari masalah, pengguna, dan konteks operasional.'
+                : 'We do not start from an industry template. We start from the problem, the users, and the operating context.'}
+            </p>
+            <div className="mt-6 grid grid-cols-3 gap-2">
+              <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-3">
+                <span className="block text-xl font-display font-semibold">{industryEntries.length}</span>
+                <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
+                  {language === 'id' ? 'Industri' : 'Industries'}
+                </span>
+              </div>
+              <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-3">
+                <span className="block text-xl font-display font-semibold">{totalProjects}</span>
+                <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
+                  {language === 'id' ? 'Kasus' : 'Cases'}
+                </span>
+              </div>
+              <div className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-3">
+                <span className="block text-xl font-display font-semibold">{totalCapabilities}</span>
+                <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
+                  {language === 'id' ? 'Layanan' : 'Services'}
+                </span>
+              </div>
+            </div>
           </div>
+        }
+      />
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {industryEntries.map(({ industry, projects: industryProjects, services }, index) => (
+      <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
+        {featuredIndustry && featuredProject ? (
+          <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="featured-industry-title">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="kapi-section-label">
+                  {language === 'id' ? 'Sorotan industri' : 'Industry spotlight'}
+                </span>
+                <h2
+                  id="featured-industry-title"
+                  className="mt-3 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
+                >
+                  {featuredIndustry.industry}
+                </h2>
+              </div>
               <Link
-                key={industry}
-                to={'/industries/' + industrySlug(industry)}
-                className="group relative flex min-h-[270px] flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:bg-white/[0.03] hover:shadow-[0_22px_48px_-36px_rgba(0,0,0,0.95)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+                to={'/industries/' + industrySlug(featuredIndustry.industry)}
+                className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A3AAB5] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.025] text-[#D7DAE0] transition-colors duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.06] group-hover:text-brand-red">
-                    <Building2 size={18} aria-hidden="true" />
-                  </div>
-                  <span className="text-[9px] font-mono tracking-[0.16em] text-[#626A75]">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
+                {language === 'id' ? 'Lihat industri' : 'View industry'}
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
 
-                <div className="mt-7">
-                  <h3 className="text-2xl font-display font-semibold leading-tight tracking-[-0.035em] group-hover:text-white">
-                    {industry}
-                  </h3>
-                  <p className="mt-2 text-xs leading-6 text-[#747C88]">
-                    {industryProjects.length}{' '}
-                    {language === 'id'
-                      ? 'studi kasus publik'
-                      : industryProjects.length === 1 ? 'public case study' : 'public case studies'}
-                    {' · '}
-                    {services.length} {language === 'id' ? 'kapabilitas' : 'capabilities'}
+            <div className="mt-7 grid overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.018] lg:grid-cols-[1.15fr_0.85fr]">
+              <div className="relative min-h-[300px] overflow-hidden bg-[#111317] sm:min-h-[390px]">
+                <img
+                  src={featuredProject.image}
+                  alt={featuredProject.title}
+                  className="absolute inset-0 h-full w-full object-cover opacity-70 transition-transform duration-700 hover:scale-[1.025]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                  <span className="inline-flex rounded-full border border-white/[0.12] bg-black/30 px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-white/70 backdrop-blur-md">
+                    {featuredProject.service}
+                  </span>
+                  <p className="mt-3 max-w-2xl text-xl font-display font-semibold tracking-[-0.035em] sm:text-2xl">
+                    {featuredProject.title}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between p-6 sm:p-8">
+                <div>
+                  <div className="flex flex-wrap gap-2">
+                    {featuredIndustry.pillars.map((pillar) => (
+                      <span
+                        key={pillar}
+                        className="rounded-full border border-white/[0.07] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-[#737C88]"
+                      >
+                        {pillar}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-7 text-sm leading-7 text-[#8E96A2]">
+                    {language === 'id' ? featuredProject.descId : featuredProject.desc}
                   </p>
                 </div>
 
-                <div className="mt-auto flex items-end justify-between gap-4 pt-6">
-                  <div className="flex min-w-0 flex-wrap gap-2">
-                    {services.slice(0, 3).map((service) => (
-                      <span
-                        key={service}
-                        className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.1em] text-[#717986]"
-                      >
-                        {service}
+                <div className="mt-8 border-t border-white/[0.07] pt-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#626B77]">
+                        {language === 'id' ? 'Studi kasus' : 'Case studies'}
                       </span>
-                    ))}
-                    {services.length > 3 ? (
-                      <span className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-mono tracking-[0.1em] text-[#5F6773]">
-                        +{services.length - 3}
+                      <span className="mt-1 block text-xl font-display font-semibold">{featuredIndustry.projects.length}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#626B77]">
+                        {language === 'id' ? 'Kapabilitas' : 'Capabilities'}
                       </span>
-                    ) : null}
+                      <span className="mt-1 block text-xl font-display font-semibold">{featuredIndustry.services.length}</span>
+                    </div>
                   </div>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#66707B] transition-[border-color,background-color,color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                  <Link
+                    to={'/industries/' + industrySlug(featuredIndustry.industry)}
+                    className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+                  >
+                    {language === 'id' ? 'Jelajahi industri' : 'Explore industry'}
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="border-t border-white/[0.07] py-12 sm:py-16" aria-labelledby="industry-directory-title">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Peta industri' : 'Industry map'}
+              </span>
+              <h2
+                id="industry-directory-title"
+                className="mt-3 text-3xl font-display font-semibold leading-[1.04] tracking-[-0.05em] sm:text-4xl"
+              >
+                {language === 'id'
+                  ? 'Temukan pola yang paling dekat dengan bisnis Anda.'
+                  : 'Find the context closest to your business.'}
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Setiap konteks mengarah ke kumpulan pekerjaan, layanan, dan pola delivery yang berbeda.'
+                  : 'Each context leads to a different mix of work, services, and delivery patterns.'}
+              </p>
+            </div>
+
+            <div className="divide-y divide-white/[0.07] border-y border-white/[0.07]">
+              {secondaryIndustries.map(({ industry, projects: industryProjects, services, pillars }, index) => (
+                <Link
+                  key={industry}
+                  to={'/industries/' + industrySlug(industry)}
+                  className="group grid gap-5 py-7 sm:grid-cols-[56px_minmax(0,1fr)_auto] sm:items-start sm:gap-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset"
+                >
+                  <span className="text-[10px] font-mono tracking-[0.16em] text-[#59616D]">
+                    {String(index + 2).padStart(2, '0')}
+                  </span>
+
+                  <div className="min-w-0">
+                    <div className="flex items-start gap-4">
+                      <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.02] text-[#A5ACB6] transition-colors group-hover:border-brand-red/25 group-hover:text-brand-red">
+                        <Building2 size={17} aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="text-xl font-display font-semibold tracking-[-0.03em] transition-colors group-hover:text-white sm:text-2xl">
+                          {industry}
+                        </h3>
+                        <p className="mt-2 max-w-2xl text-xs leading-6 text-[#747D89]">
+                          {industryProjects.length}{' '}
+                          {language === 'id'
+                            ? industryProjects.length === 1 ? 'studi kasus publik' : 'studi kasus publik'
+                            : industryProjects.length === 1 ? 'public case study' : 'public case studies'}
+                          {' · '}
+                          {services.length} {language === 'id' ? 'kapabilitas' : 'capabilities'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2 pl-14">
+                      {services.slice(0, 4).map((service) => (
+                        <span
+                          key={service}
+                          className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.09em] text-[#6F7884]"
+                        >
+                          {service}
+                        </span>
+                      ))}
+                      {services.length > 4 ? (
+                        <span className="rounded-full border border-white/[0.07] px-2.5 py-1 text-[9px] font-mono tracking-[0.09em] text-[#59616D]">
+                          +{services.length - 4}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2 pl-14">
+                      {pillars.map((pillar) => (
+                        <span key={pillar} className="text-[9px] font-mono uppercase tracking-[0.1em] text-[#505965]">
+                          {pillar}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#68717D] transition-[transform,border-color,background-color,color] duration-300 group-hover:-translate-y-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red sm:mt-0">
                     <ArrowUpRight size={15} aria-hidden="true" />
                   </span>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="mt-14 rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8" aria-labelledby="industry-cta-title">
-          <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">
-            {language === 'id' ? 'Tidak melihat konteks Anda?' : 'Do not see your context?'}
-          </p>
-          <h2 id="industry-cta-title" className="mt-2 max-w-3xl text-2xl font-display font-semibold tracking-[-0.035em] sm:text-3xl">
-            {language === 'id'
-              ? 'Bagikan kebutuhan bisnis Anda dan kita bisa membahas engagement yang paling relevan.'
-              : 'Share your business context and we can discuss the most relevant engagement.'}
-          </h2>
-          <Link
-            to="/book-a-call"
-            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
-          >
-            {language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'}
-          </Link>
+        <section className="grid gap-4 border-t border-white/[0.07] pt-12 sm:grid-cols-2 sm:pt-16">
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.025] text-[#A5ACB6]">
+              <Workflow size={17} aria-hidden="true" />
+            </div>
+            <h2 className="mt-6 text-2xl font-display font-semibold tracking-[-0.035em]">
+              {language === 'id' ? 'Bukan sekadar kategori.' : 'More than a category.'}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-[#7E8793]">
+              {language === 'id'
+                ? 'Industry membantu memberi konteks. Tantangan bisnis, pengguna, dan target delivery tetap menjadi dasar cara kami bekerja.'
+                : 'Industry provides context. Business challenges, users, and delivery goals still shape how we work.'}
+            </p>
+          </div>
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.025] text-[#A5ACB6]">
+              <Sparkles size={17} aria-hidden="true" />
+            </div>
+            <h2 className="mt-6 text-2xl font-display font-semibold tracking-[-0.035em]">
+              {language === 'id' ? 'Punya konteks yang berbeda?' : 'Working in a different context?'}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-[#7E8793]">
+              {language === 'id'
+                ? 'Ceritakan kebutuhan Anda. Kami bisa mulai dari problem dan tujuan, bukan dari label industrinya.'
+                : 'Tell us what you need. We can start from the problem and outcome, not from the industry label.'}
+            </p>
+            <Link
+              to="/book-a-call"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+            >
+              {language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'}
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
         </section>
       </div>
     </main>
