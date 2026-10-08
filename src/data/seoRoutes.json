@@ -248,20 +248,6 @@
       "kind": "webpage"
     },
     {
-      "path": "/clients",
-      "title": "Clients & Public Work | Kapitech Agency",
-      "description": "Explore clients represented across Kapitech's public case study portfolio.",
-      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      "kind": "webpage"
-    },
-    {
-      "path": "/resources",
-      "title": "Resources | Kapitech Agency",
-      "description": "Practical checklists, guides, templates, and resources for digital product and website projects.",
-      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      "kind": "webpage"
-    },
-    {
       "path": "/faq",
       "title": "FAQ | Kapitech Agency",
       "description": "Answers about working with Kapitech, process, services, security, careers, and project inquiries.",
