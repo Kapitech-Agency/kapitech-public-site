@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Fuse from 'fuse.js';
 import { ArrowUpRight, Search as SearchIcon } from 'lucide-react';
-import { fetchServerCmsInsights, fetchServerCmsProjects, fetchServerCmsServices, getCmsInsights, getCmsProjects, getCmsServices } from '../lib/cmsStore';
+import { api } from '../lib/apiClient';
+import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
 import { allProjects } from '../data/projectsData';
 import { allSolutionsAndServices } from '../data/servicesData';
 import { projectSlug } from '../lib/publicContent';
@@ -14,20 +15,19 @@ export const Search = () => {
   const { language } = useLanguage();
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
-  const [, refresh] = useState(0);
+  const [insights, setInsights] = useState<SearchItem[]>([]);
 
-  useEffect(() => { void Promise.all([fetchServerCmsInsights(), fetchServerCmsProjects(), fetchServerCmsServices()]).finally(() => refresh((value) => value + 1)); }, []);
+  useEffect(() => { void Promise.all([fetchServerCmsProjects(), fetchServerCmsServices(), api.cms.getInsights({ page: 1, pageSize: 100 })]).then(([, , insightResponse]) => { if (insightResponse.success && Array.isArray(insightResponse.data?.insights)) { setInsights(insightResponse.data.insights.map((item) => ({ type: 'Insight', title: item.title, description: item.excerpt || '', href: '/insights/' + item.slug, keywords: [...(item.tags || []).map((tag) => tag.name), item.category?.displayName || '', item.title] }))); } }); }, []);
 
   const items = useMemo<SearchItem[]>(() => {
     const projects = getCmsProjects().length ? getCmsProjects() : allProjects;
     const services = getCmsServices().length ? getCmsServices() : allSolutionsAndServices;
-    const insights = getCmsInsights();
     return [
       ...services.map((item) => ({ type: 'Service', title: item.title, description: item.heroSubtitle || item.description || '', href: '/services/' + item.slug, keywords: [item.category, item.title] })),
       ...projects.map((item) => ({ type: 'Case Study', title: item.title, description: item.desc || '', href: '/work/' + projectSlug(item), keywords: [item.client, item.industry, item.service, item.title] })),
-      ...insights.map((item) => ({ type: 'Insight', title: item.title, description: item.excerpt || '', href: '/insights/' + item.slug, keywords: [...(item.tags || []).map((tag) => tag.name), item.category?.displayName || '', item.title] }))
+      ...insights
     ];
-  }, [refresh]);
+  }, [insights]);
 
   const fuse = useMemo(() => new Fuse(items, { keys: [{ name: 'title', weight: 0.5 }, { name: 'description', weight: 0.25 }, { name: 'keywords', weight: 0.25 }], threshold: 0.34 }), [items]);
   const results = query.trim() ? fuse.search(query.trim()).map((entry) => entry.item) : items.slice(0, 18);
