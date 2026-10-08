@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Cookie, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { AnimatePresence, motion } from 'motion/react';
