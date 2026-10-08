@@ -128,9 +128,9 @@ export const Navbar = () => {
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
-      "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300",
+      "group relative inline-flex items-center h-9 px-3 rounded-full text-[10px] font-semibold uppercase tracking-[0.15em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
       active
-        ? "text-white border-brand-red/25 bg-white/[0.05] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(230,57,70,0.16),0_6px_18px_rgba(0,0,0,0.08)]"
+        ? "text-brand-red border-brand-red/25 bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(229,9,20,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
         : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
@@ -143,7 +143,7 @@ export const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 z-40 hidden md:block pointer-events-none"
+            className="fixed inset-x-0 z-40 hidden xl:block pointer-events-none"
             aria-hidden="true"
             style={{
               top: isScrolled ? '72px' : '88px',
@@ -184,8 +184,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center gap-5 xl:gap-7">
-            <div className="flex items-center gap-5 xl:gap-7">
+          <div className="hidden xl:flex items-center gap-4 xl:gap-5">
+            <div className="flex items-center gap-4 xl:gap-5">
               
               {/* Work Link */}
               <Link
@@ -236,9 +236,9 @@ export const Navbar = () => {
                 </button>
               </div>
 
-              <Link to="/industries" className={desktopNavItemClass(location.pathname.startsWith('/industries'))} aria-current={location.pathname.startsWith('/industries') ? 'page' : undefined}><span className="relative z-10">Industries</span></Link>
-              <Link to="/clients" className={desktopNavItemClass(location.pathname.startsWith('/clients'))} aria-current={location.pathname.startsWith('/clients') ? 'page' : undefined}><span className="relative z-10">Clients</span></Link>
-              <Link to="/resources" className={desktopNavItemClass(location.pathname.startsWith('/resources'))} aria-current={location.pathname.startsWith('/resources') ? 'page' : undefined}><span className="relative z-10">Resources</span></Link>
+              <Link to="/industries" className={desktopNavItemClass(location.pathname.startsWith('/industries'))} aria-current={location.pathname.startsWith('/industries') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Industri' : 'Industries'}</span></Link>
+              <Link to="/clients" className={desktopNavItemClass(location.pathname.startsWith('/clients'))} aria-current={location.pathname.startsWith('/clients') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Klien' : 'Clients'}</span></Link>
+              <Link to="/resources" className={desktopNavItemClass(location.pathname.startsWith('/resources'))} aria-current={location.pathname.startsWith('/resources') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Resource' : 'Resources'}</span></Link>
 
               {/* Insights Link */}
               <Link
@@ -279,7 +279,7 @@ export const Navbar = () => {
               <ChevronRight size={14} className="relative z-10 opacity-70 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
             </Link>
 
-            <Link to="/search" aria-label="Search" className={cn(desktopNavItemClass(location.pathname === '/search'), "h-9 w-9 justify-center px-0")}><SearchIcon size={15} /></Link>
+            <Link to="/search" aria-label={language === 'id' ? 'Cari' : 'Search'} className={cn(desktopNavItemClass(location.pathname === '/search'), "h-9 w-9 justify-center px-0")}><SearchIcon size={15} /></Link>
 
             {/* Language Switcher */}
             <div
@@ -417,7 +417,7 @@ export const Navbar = () => {
                 setIsServicesDropdownOpen(false);
               }}
               className={cn(
-                "hidden md:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12",
+                "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12",
                 dropdownGlassMaterial
               )}
 
@@ -557,7 +557,7 @@ export const Navbar = () => {
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               id="mobile-navigation"
               aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-              className="absolute left-0 right-0 top-full z-10 lg:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
+              className="absolute left-0 right-0 top-full z-10 xl:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
               <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
                 <div className="flex flex-col">
@@ -686,7 +686,7 @@ export const Navbar = () => {
                       <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-[#8A909D]/50")} />
                     </Link>
 
-                    <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="mt-1 flex flex-col gap-1">
                       {[
                         { to: '/industries', label: 'Industries', active: location.pathname.startsWith('/industries') },
                         { to: '/clients', label: 'Clients', active: location.pathname.startsWith('/clients') },
@@ -699,7 +699,7 @@ export const Navbar = () => {
                           onClick={() => setIsMenuOpen(false)}
                           aria-current={item.active ? 'page' : undefined}
                           className={cn(
-                            "rounded-xl border px-3 py-3 text-sm font-medium transition-colors",
+                            "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-base font-display transition-colors",
                             item.active
                               ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
                               : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
@@ -713,13 +713,13 @@ export const Navbar = () => {
                         onClick={() => setIsMenuOpen(false)}
                         aria-current={location.pathname === '/search' ? 'page' : undefined}
                         className={cn(
-                          "col-span-2 flex items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-medium transition-colors",
+                          "mt-1 flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-base font-display transition-colors",
                           location.pathname === '/search'
                             ? "border-brand-red/25 bg-brand-red/[0.08] text-brand-red"
                             : "border-white/[0.08] bg-white/[0.018] text-[#A4AAB5] hover:text-white"
                         )}
                       >
-                        <SearchIcon size={15}/> Search
+                        <><span>{language === 'id' ? 'Cari' : 'Search'}</span><SearchIcon size={15}/></>
                       </Link>
                     </div>
 
