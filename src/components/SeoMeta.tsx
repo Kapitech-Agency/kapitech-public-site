@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getServiceBySlug } from '../data/servicesData';
 import { allProjects } from '../data/projectsData';
-import { resources } from '../data/resourcesData';
-import { clientSlug, industryBySlug, industrySlug, projectBySlug } from '../lib/publicContent';
+import { industryBySlug, industrySlug, projectBySlug } from '../lib/publicContent';
 import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
@@ -179,32 +178,6 @@ function getRouteSeo(pathname: string, language: 'en' | 'id') {
         seo: { title: industry + ' Digital Work | Kapitech Agency', description: 'Explore Kapitech public work and capabilities represented in ' + industry + '.', robots: DEFAULT_ROBOTS } satisfies SeoDefinition,
         canonicalPath: '/industries/' + industrySlug(industry),
         structuredData: { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': canonicalUrl + '#collection', name: industry, description: 'Kapitech public work represented in ' + industry + '.', url: canonicalUrl }
-      };
-    }
-  }
-
-  const clientMatch = pathname.match(/^\/clients\/([^/]+)$/);
-  if (clientMatch) {
-    const projectClient = allProjects.find((project) => clientSlug(project.client) === clientMatch[1])?.client;
-    if (projectClient) {
-      const canonicalUrl = SITE_URL + '/clients/' + clientMatch[1];
-      return {
-        seo: { title: projectClient + ' | Kapitech Agency', description: 'Public Kapitech work currently represented for ' + projectClient + '.', robots: DEFAULT_ROBOTS } satisfies SeoDefinition,
-        canonicalPath: '/clients/' + clientMatch[1],
-        structuredData: { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': canonicalUrl + '#collection', name: projectClient, description: 'Public Kapitech work currently represented for ' + projectClient + '.', url: canonicalUrl }
-      };
-    }
-  }
-
-  const resourceMatch = pathname.match(/^\/resources\/([^/]+)$/);
-  if (resourceMatch) {
-    const resource = resources.find((item) => item.slug === resourceMatch[1]);
-    if (resource) {
-      const canonicalUrl = SITE_URL + pathname;
-      return {
-        seo: { title: resource.title + ' | Kapitech Agency', description: resource.summary, robots: DEFAULT_ROBOTS } satisfies SeoDefinition,
-        canonicalPath: pathname,
-        structuredData: { '@context': 'https://schema.org', '@type': 'Article', '@id': canonicalUrl + '#resource', headline: resource.title, description: resource.summary, url: canonicalUrl, isPartOf: { '@id': SITE_URL + '/resources#collection' } }
       };
     }
   }
