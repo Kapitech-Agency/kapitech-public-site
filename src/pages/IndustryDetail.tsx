@@ -270,7 +270,6 @@ export const IndustryDetail = () => {
             </div>
           ))}
         </div>
-        </div>
       </PublicPageHero>
 
 
