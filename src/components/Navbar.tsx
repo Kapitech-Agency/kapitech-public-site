@@ -263,8 +263,6 @@ export const Navbar = () => {
               </div>
 
               <Link to="/industries" className={desktopNavItemClass(location.pathname.startsWith('/industries'))} aria-current={location.pathname.startsWith('/industries') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Industri' : 'Industries'}</span></Link>
-              <Link to="/clients" className={desktopNavItemClass(location.pathname.startsWith('/clients'))} aria-current={location.pathname.startsWith('/clients') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Klien' : 'Clients'}</span></Link>
-              <Link to="/resources" className={desktopNavItemClass(location.pathname.startsWith('/resources'))} aria-current={location.pathname.startsWith('/resources') ? 'page' : undefined}><span className="relative z-10">{language === 'id' ? 'Resource' : 'Resources'}</span></Link>
 
               {/* Insights Link */}
               <Link
@@ -720,9 +718,7 @@ export const Navbar = () => {
                     <div className="mt-1 flex flex-col gap-1">
                       {[
                         { to: '/industries', label: language === 'id' ? 'Industri' : 'Industries', number: '04', active: location.pathname.startsWith('/industries') },
-                        { to: '/clients', label: language === 'id' ? 'Klien' : 'Clients', number: '05', active: location.pathname.startsWith('/clients') },
-                        { to: '/resources', label: language === 'id' ? 'Resource' : 'Resources', number: '06', active: location.pathname.startsWith('/resources') },
-                        { to: '/faq', label: 'FAQ', number: '07', active: location.pathname === '/faq' },
+                        { to: '/faq', label: 'FAQ', number: '05', active: location.pathname === '/faq' },
                       ].map((item) => (
                         <Link
                           key={item.to}
