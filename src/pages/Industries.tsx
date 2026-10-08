@@ -430,58 +430,7 @@ export const Industries = () => {
           ) : null}
         </section>
 
-        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="different-title">
-          <div className="grid gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="kapi-section-label">{language === 'id' ? 'Why it matters' : 'Why it matters'}</span>
-              <h2 id="different-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Bukan sekadar tahu industrinya.' : 'Knowing the industry is only the start.'}
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Yang penting adalah bagaimana context tersebut memengaruhi keputusan design, product, engineering, dan delivery.'
-                  : 'What matters is how that context changes design, product, engineering, and delivery decisions.'}
-              </p>
-            </div>
-
-            <div className="grid gap-px overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.07] md:grid-cols-3">
-              {principles.map((item) => (
-                <article key={item.title} className="bg-[#0E1013] p-6 sm:p-7">
-                  <item.icon size={18} className="text-brand-red" aria-hidden="true" />
-                  <h3 className="mt-5 text-xl font-display font-semibold leading-tight tracking-[-0.03em]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="delivery-title">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <span className="kapi-section-label">{language === 'id' ? 'Delivery approach' : 'Delivery approach'}</span>
-              <h2 id="delivery-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Konteksnya berbeda. Flow delivery tetap jelas.' : 'Different context. Clear delivery flow.'}
-              </h2>
-            </div>
-            <Link to="/services" className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A8AEB7] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
-              {language === 'id' ? 'Lihat semua services' : 'Explore services'}
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
-
-          <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {deliverySteps.map((item) => (
-              <article key={item.step} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
-                <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
-                <h3 className="mt-6 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-14 sm:py-18 lg:py-24" aria-labelledby="directory-title">
+        <section className="scroll-mt-24 border-b border-white/[0.07] py-14 sm:py-18 lg:py-24" aria-labelledby="directory-title">
           <div className="grid gap-10 lg:grid-cols-[0.64fr_1.36fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">{language === 'id' ? 'Industry directory' : 'Industry directory'}</span>
@@ -657,6 +606,59 @@ export const Industries = () => {
             </div>
           </div>
         </section>
+
+        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="different-title">
+          <div className="grid gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <span className="kapi-section-label">{language === 'id' ? 'Why it matters' : 'Why it matters'}</span>
+              <h2 id="different-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
+                {language === 'id' ? 'Bukan sekadar tahu industrinya.' : 'Knowing the industry is only the start.'}
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Yang penting adalah bagaimana context tersebut memengaruhi keputusan design, product, engineering, dan delivery.'
+                  : 'What matters is how that context changes design, product, engineering, and delivery decisions.'}
+              </p>
+            </div>
+
+            <div className="grid gap-px overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.07] md:grid-cols-3">
+              {principles.map((item) => (
+                <article key={item.title} className="bg-[#0E1013] p-6 sm:p-7">
+                  <item.icon size={18} className="text-brand-red" aria-hidden="true" />
+                  <h3 className="mt-5 text-xl font-display font-semibold leading-tight tracking-[-0.03em]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-white/[0.07] py-12 sm:py-16 lg:py-20" aria-labelledby="delivery-title">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <span className="kapi-section-label">{language === 'id' ? 'Delivery approach' : 'Delivery approach'}</span>
+              <h2 id="delivery-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
+                {language === 'id' ? 'Konteksnya berbeda. Flow delivery tetap jelas.' : 'Different context. Clear delivery flow.'}
+              </h2>
+            </div>
+            <Link to="/services" className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-[#A8AEB7] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+              {language === 'id' ? 'Lihat semua services' : 'Explore services'}
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+
+          <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {deliverySteps.map((item) => (
+              <article key={item.step} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
+                <h3 className="mt-6 text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+
       </div>
     </main>
   );
