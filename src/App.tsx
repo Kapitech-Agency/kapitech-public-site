@@ -8,6 +8,7 @@ import { FloatingContact } from './components/FloatingContact';
 import { api } from './lib/apiClient';
 import { cn } from './lib/utils';
 import { PublicMotion } from './components/ui/PublicMotion';
+import { PublicPageCta } from './components/ui/PublicPageCta';
 import { SiteCursor } from './components/SiteCursor';
 import { CookieConsent } from './components/CookieConsent';
 import { SeoMeta } from './components/SeoMeta';
@@ -235,6 +236,13 @@ function AppShell() {
         <main id="main-content" className="flex-grow flex flex-col" tabIndex={-1}>
           <AnimatedRoutes />
         </main>
+        <PublicPageCta
+          eyebrow={language === 'id' ? 'Langkah berikutnya' : 'Next step'}
+          title={language === 'id' ? 'Siap membahas kebutuhan proyek Anda?' : 'Ready to discuss your project?'}
+          description={language === 'id' ? 'Bawa konteks, target, atau masalah yang sedang Anda hadapi. Kami bantu menentukan jalur engagement yang paling masuk akal.' : 'Bring the context, target, or problem you are working through. We will help shape the most sensible engagement path.'}
+          primaryLabel={language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule a Consultation'}
+          secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
+        />
         <Footer />
         <FloatingContact />
         <CookieConsent />
