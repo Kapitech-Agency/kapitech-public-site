@@ -127,7 +127,7 @@ export const Industries = () => {
                   <p className="mt-2 text-xs leading-6 text-[#747C88]">
                     {industryProjects.length}{' '}
                     {language === 'id'
-                      ? industryProjects.length === 1 ? 'studi kasus publik' : 'studi kasus publik'}
+                      ? 'studi kasus publik'
                       : industryProjects.length === 1 ? 'public case study' : 'public case studies'}
                     {' · '}
                     {services.length} {language === 'id' ? 'kapabilitas' : 'capabilities'}
