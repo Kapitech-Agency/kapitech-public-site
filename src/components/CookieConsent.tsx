@@ -58,7 +58,7 @@ export const CookieConsent = () => {
           aria-modal="true"
           aria-labelledby="cookie-consent-title"
         >
-          <div className="mx-auto w-full max-w-4xl rounded-2xl border border-white/[0.1] bg-[#111318]/96 p-4 shadow-[0_24px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:p-5">
+          <div className="kapi-modal-surface mx-auto w-full max-w-4xl p-4 sm:p-5">
             {!showPreferences ? (
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
                 <div className="min-w-0 flex-1">
