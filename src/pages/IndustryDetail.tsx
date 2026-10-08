@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
@@ -77,9 +77,36 @@ export const IndustryDetail = () => {
   const { language } = useLanguage();
   const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
   const [activeSection, setActiveSection] = useState('industry-approach');
+  const [navbarHeight, setNavbarHeight] = useState(80);
+  const [sectionNavHeight, setSectionNavHeight] = useState(54);
+  const sectionNavRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
+  }, []);
+
+  useEffect(() => {
+    const navbar = document.querySelector<HTMLElement>('.kapi-public-navbar');
+    const sectionNav = sectionNavRef.current;
+
+    if (!navbar || !sectionNav) return;
+
+    const measure = () => {
+      setNavbarHeight(Math.ceil(navbar.getBoundingClientRect().height));
+      setSectionNavHeight(Math.ceil(sectionNav.getBoundingClientRect().height));
+    };
+
+    measure();
+
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    observer?.observe(navbar);
+    observer?.observe(sectionNav);
+
+    window.addEventListener('resize', measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+    };
   }, []);
 
   useEffect(() => {
@@ -90,15 +117,9 @@ export const IndustryDetail = () => {
 
     if (!sections.length) return;
 
-    const getScrollOffset = () => {
-      const navbar = document.querySelector<HTMLElement>('.kapi-public-navbar');
-      const sectionNav = document.querySelector<HTMLElement>('[data-industry-section-nav]');
-      const navbarHeight = navbar?.getBoundingClientRect().height ?? 72;
-      const sectionNavHeight = sectionNav?.getBoundingClientRect().height ?? 52;
-      return navbarHeight + sectionNavHeight + 20;
-    };
-
+    const markerOffset = navbarHeight + sectionNavHeight + 18;
     const hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+
     if (sectionIds.includes(hash)) {
       setActiveSection(hash);
     }
@@ -107,8 +128,7 @@ export const IndustryDetail = () => {
 
     const syncActiveSection = () => {
       frame = 0;
-      const offset = getScrollOffset();
-      const marker = window.scrollY + offset;
+      const marker = window.scrollY + markerOffset;
       let nextActive = sections[0]?.id ?? sectionIds[0];
 
       for (const section of sections) {
@@ -136,7 +156,7 @@ export const IndustryDetail = () => {
       window.removeEventListener('resize', requestSync);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [navbarHeight, sectionNavHeight]);
 
   const source = useMemo(
     () => (cmsProjects.length ? cmsProjects : allProjects).filter((project) => project.isPublished !== false),
@@ -162,7 +182,22 @@ export const IndustryDetail = () => {
   const supportingProjects = activeProjects.filter((project) => project.id !== featuredProject?.id).slice(0, 4);
 
   const currentLabel = catalog?.label ?? legacyIndustry ?? 'Industry';
+  const industryIndex = catalog ? Math.max(0, industryCatalog.findIndex((item) => item.slug === catalog.slug)) : 0;
+  const industryNumber = String(industryIndex + 1).padStart(2, '0');
+  const industryTotal = String(industryCatalog.length).padStart(2, '0');
   const consultationHref = '/book-a-call?industry=' + encodeURIComponent(currentLabel);
+
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    setActiveSection(id);
+    const offset = navbarHeight + sectionNavHeight + 12;
+    const top = Math.max(0, section.getBoundingClientRect().top + window.scrollY - offset);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.history.replaceState(null, '', '#' + id);
+    window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
 
   const visibleCatalog = catalog
     ? catalog.relatedSlugs
@@ -293,44 +328,69 @@ export const IndustryDetail = () => {
         title={heroTitle}
         description={heroDescription}
         aside={
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.1] bg-[#0F1013]/88 p-5 backdrop-blur-xl sm:p-6">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(229,9,20,0.16),transparent_38%)]" aria-hidden="true" />
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/[0.1] bg-[#0F1013]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl sm:p-6">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_0%,rgba(229,9,20,0.15),transparent_34%)]" aria-hidden="true" />
             <div className="relative">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#69717D]">
-                  {language === 'id' ? 'Fokus industri' : 'Industry focus'}
+              <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] pb-4">
+                <span className="text-[8px] font-mono uppercase tracking-[0.16em] text-[#626A76]">
+                  {language === 'id' ? 'Industry signal' : 'Industry signal'}
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.06] px-2.5 py-1 text-[8px] font-mono uppercase tracking-[0.12em] text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
-                  {language === 'id' ? 'Aktif' : 'Active'}
+                <span className="tabular-nums text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
+                  {industryNumber} / {industryTotal}
                 </span>
               </div>
 
-              <div className="mt-8">
-                <span className="text-2xl font-display font-semibold leading-none tracking-[-0.045em] text-white sm:text-3xl">
-                  {currentLabel}
+              <div className="mt-6 flex items-end justify-between gap-5">
+                <div className="min-w-0">
+                  <span className="block max-w-[18rem] truncate text-2xl font-display font-semibold leading-none tracking-[-0.045em] text-white sm:text-3xl">
+                    {catalog?.shortLabel ?? currentLabel}
+                  </span>
+                  <span className="mt-2 block text-[9px] font-mono uppercase tracking-[0.13em] text-brand-red">
+                    {catalog?.eyebrow ?? currentLabel}
+                  </span>
+                </div>
+                <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[8px] font-mono uppercase tracking-[0.11em] text-white">
+                  {language === 'id' ? 'Fokus aktif' : 'Active focus'}
                 </span>
-                <p className="mt-3 text-xs leading-6 text-[#8A929F]">
-                  {language === 'id'
-                    ? 'Halaman ini memetakan konteks, bukti kerja, dan bentuk engagement yang paling relevan untuk industri ini.'
-                    : 'This page maps the context, proof, and engagement shapes most relevant to this industry.'}
-                </p>
               </div>
 
-              <div className="mt-7 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018]">
+              <div className="mt-7">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#626A76]">
+                    {language === 'id' ? 'Kebutuhan yang sering muncul' : 'Common project needs'}
+                  </span>
+                  <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">04</span>
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/[0.07]">
+                  {(catalog?.needs ?? []).slice(0, 4).map((need, index) => (
+                    <div
+                      key={need}
+                      className="group grid grid-cols-[24px_minmax(0,1fr)_24px] items-center gap-3 border-b border-white/[0.06] px-3.5 py-3 last:border-b-0 transition-colors duration-200 hover:bg-white/[0.025]"
+                    >
+                      <span className="text-[8px] font-mono tabular-nums text-[#4F5762]">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="min-w-0 text-[10px] font-medium leading-5 text-[#B7BDC7]">
+                        {need}
+                      </span>
+                      <span
+                        className="h-1 w-full rounded-full bg-white/[0.06] after:block after:h-full after:w-1/2 after:rounded-full after:bg-brand-red/70"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 grid grid-cols-3 border-t border-white/[0.07] pt-4">
                 {[
-                  [language === 'id' ? 'Work relevan' : 'Relevant work', String(activeProjects.length)],
-                  [language === 'id' ? 'Kapabilitas inti' : 'Core capabilities', String(capabilities.length)],
-                  [language === 'id' ? 'Solusi' : 'Solutions', String(solutionTypes.length)],
-                  [language === 'id' ? 'FAQ' : 'FAQs', String(faq.length)],
-                ].map(([label, value]) => (
-                  <div key={label} className="border-b border-r border-white/[0.07] px-3.5 py-3.5 last:border-b-0">
-                    <span className="block text-lg font-display font-semibold tracking-[-0.04em] text-white">
-                      {value}
-                    </span>
-                    <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">
-                      {label}
-                    </span>
+                  [activeProjects.length, language === 'id' ? 'Work' : 'Work'],
+                  [solutionTypes.length, language === 'id' ? 'Solusi' : 'Solutions'],
+                  [capabilities.length, language === 'id' ? 'Kapabilitas' : 'Capabilities'],
+                ].map(([value, label]) => (
+                  <div key={String(label)} className="border-r border-white/[0.06] px-3.5 first:pl-0 last:border-r-0">
+                    <span className="block text-lg font-display font-semibold tracking-[-0.04em] text-white">{value}</span>
+                    <span className="mt-1 block text-[8px] font-mono uppercase tracking-[0.12em] text-[#626A76]">{label}</span>
                   </div>
                 ))}
               </div>
@@ -364,7 +424,10 @@ export const IndustryDetail = () => {
           </Link>
           <a
             href="#industry-work"
-            onClick={() => setActiveSection('industry-work')}
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToSection('industry-work');
+            }}
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
             {language === 'id' ? 'Lihat work relevan' : 'Explore relevant work'}
@@ -374,9 +437,11 @@ export const IndustryDetail = () => {
       </PublicPageHero>
 
       <nav
+        ref={sectionNavRef}
+        style={{ top: navbarHeight }}
         aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
         data-industry-section-nav="true"
-        className="sticky top-[72px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
+        className="sticky z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
           <span className="mr-1 hidden shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D] md:block">
@@ -386,12 +451,15 @@ export const IndustryDetail = () => {
             <a
               key={id}
               href={'#' + id}
-              onClick={() => setActiveSection(id)}
+              onClick={(event) => {
+                event.preventDefault();
+                scrollToSection(id);
+              }}
               aria-current={activeSection === id ? 'location' : undefined}
               className={cn(
                 'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70',
                 activeSection === id
-                  ? 'border-brand-red/35 bg-brand-red/[0.09]'
+                  ? 'border-white/[0.13] bg-white/[0.07] shadow-[inset_0_0_0_1px_rgba(229,9,20,0.18),0_8px_22px_-18px_rgba(229,9,20,0.75)]'
                   : 'border-white/[0.08] bg-white/[0.025] hover:border-white/[0.16] hover:bg-white/[0.055]',
               )}
             >
@@ -406,7 +474,7 @@ export const IndustryDetail = () => {
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 md:px-10 lg:px-12">
         <section
           id="industry-approach"
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-approach-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
@@ -429,7 +497,7 @@ export const IndustryDetail = () => {
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-px overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-white/[0.07] sm:grid-cols-2">
               {principles.map((item, index) => (
                 <motion.article
                   key={item.title}
@@ -437,20 +505,41 @@ export const IndustryDetail = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.45, delay: index * 0.04 }}
-                  className="group relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-6 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] sm:p-7"
+                  className={cn(
+                    'group relative overflow-hidden bg-[#101216] p-6 transition-[background-color,transform] duration-300 hover:bg-[#13161B] sm:p-7',
+                    index === 0 ? 'sm:col-span-2 lg:min-h-[250px]' : 'min-h-[205px]',
+                  )}
                 >
-                  <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-brand-red/[0.05] blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="relative">
-                    <div className="flex items-center justify-between">
+                  <div
+                    className={cn(
+                      'absolute right-0 top-0 rounded-full bg-brand-red/[0.06] blur-3xl transition-opacity duration-500',
+                      index === 0 ? 'h-40 w-40 opacity-100' : 'h-24 w-24 opacity-0 group-hover:opacity-100',
+                    )}
+                    aria-hidden="true"
+                  />
+                  <div className="relative grid gap-8 sm:grid-cols-[92px_minmax(0,1fr)]">
+                    <div className="flex items-start justify-between sm:flex-col sm:justify-between">
                       <span className="font-mono text-[9px] tabular-nums tracking-[0.15em] text-brand-red">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/15 transition-colors group-hover:bg-brand-red" />
+                      <span className="text-[8px] font-mono uppercase tracking-[0.13em] text-[#4F5762]">
+                        {catalog?.shortLabel ?? currentLabel}
+                      </span>
                     </div>
-                    <h3 className="mt-9 text-xl font-display font-semibold leading-tight tracking-[-0.03em] text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-7 text-[#78818D]">{item.description}</p>
+                    <div className="max-w-2xl">
+                      <h3 className={cn(
+                        'font-display font-semibold leading-[1.02] tracking-[-0.035em] text-white',
+                        index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl',
+                      )}>
+                        {item.title}
+                      </h3>
+                      <p className={cn(
+                        'mt-3 text-sm leading-7 text-[#78818D]',
+                        index === 0 ? 'max-w-2xl' : 'max-w-xl',
+                      )}>
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </motion.article>
               ))}
@@ -460,7 +549,7 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-work"
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-work-title"
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -594,7 +683,7 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-solutions"
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-solutions-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
@@ -698,7 +787,7 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-process"
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-process-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
@@ -726,28 +815,30 @@ export const IndustryDetail = () => {
 
             <div className="relative">
               <div className="absolute left-4 top-6 hidden h-[calc(100%-48px)] w-px bg-white/[0.08] sm:block lg:left-6" />
-              <div className="space-y-3">
+              <div className="overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
                 {resolvedDeliverySteps.map((item, index) => (
                   <motion.article
                     key={item.step}
-                    initial={{ opacity: 0, x: 12 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-8% 0px' }}
-                    transition={{ duration: 0.44, delay: index * 0.05 }}
-                    className="group relative rounded-[1.5rem] border border-white/[0.08] bg-[#101216] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-[#121419] sm:pl-16 sm:p-6 lg:pl-20 lg:p-7"
+                    transition={{ duration: 0.42, delay: index * 0.04 }}
+                    className="group relative grid gap-5 border-b border-white/[0.07] px-5 py-6 last:border-b-0 sm:grid-cols-[76px_minmax(0,1fr)_auto] sm:items-start sm:px-6 lg:px-7"
                   >
-                    <span className="absolute left-2.5 top-5 flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.1] bg-[#0B0C0E] text-[8px] font-mono text-brand-red sm:left-2.5 sm:top-6 lg:left-2.5 lg:top-7">
-                      {item.step}
-                    </span>
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <h3 className="text-xl font-display font-semibold tracking-[-0.03em]">{item.title}</h3>
-                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
-                      </div>
-                      <span className="shrink-0 text-[8px] font-mono uppercase tracking-[0.12em] text-[#59616D]">
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1">
+                      <span className="text-[9px] font-mono tabular-nums tracking-[0.15em] text-brand-red">{item.step}</span>
+                      <span className="text-[8px] font-mono uppercase tracking-[0.12em] text-[#4F5762]">
                         {language === 'id' ? 'Tahap' : 'Phase'} {index + 1}
                       </span>
                     </div>
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-display font-semibold leading-[1.05] tracking-[-0.03em] text-white">{item.title}</h3>
+                      <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
+                    </div>
+                    <div className="hidden self-stretch items-end justify-end sm:flex">
+                      <span className="h-7 w-7 rounded-full border border-white/[0.08] bg-[#0B0C0E] transition-[border-color,background-color] duration-300 group-hover:border-brand-red/35 group-hover:bg-brand-red/[0.07]" aria-hidden="true" />
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brand-red/60 transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
                   </motion.article>
                 ))}
               </div>
@@ -803,7 +894,7 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-faq"
-          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-faq-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
