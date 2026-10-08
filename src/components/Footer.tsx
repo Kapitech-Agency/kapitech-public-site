@@ -197,7 +197,7 @@ export const Footer = () => {
 
               <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-4">
                 <Link
-                  to="/contact"
+                  to="/book-a-call"
                   id="footer-cta-button"
                   className="h-12 sm:h-14 min-h-[44px] px-7 sm:px-8 bg-brand-red hover:bg-[#E01414] text-white rounded-full font-semibold text-xs uppercase tracking-wider transition-all duration-300 flex items-center gap-3 shadow-lg shadow-brand-red/20 hover:scale-[1.02]"
                 >
@@ -319,7 +319,12 @@ export const Footer = () => {
                 { name: t('nav.services'), href: '/services' },
                 { name: t('nav.about'), href: '/about' },
                 { name: t('nav.careers'), href: '/careers' },
-                { name: t('nav.contact'), href: '/contact' }
+                { name: t('nav.contact'), href: '/contact' },
+                { name: language === 'id' ? 'Industri' : 'Industries', href: '/industries' },
+                { name: language === 'id' ? 'Klien' : 'Clients', href: '/clients' },
+                { name: language === 'id' ? 'Resource' : 'Resources', href: '/resources' },
+                { name: 'FAQ', href: '/faq' },
+                { name: 'Search', href: '/search' }
               ].map((item) => (
                 <li key={item.name}>
                   <Link 
