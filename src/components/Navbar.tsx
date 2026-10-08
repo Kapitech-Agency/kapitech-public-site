@@ -201,10 +201,10 @@ export const Navbar = () => {
       >
         <div
           className={cn(
-            "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex xl:grid xl:grid-cols-[minmax(220px,1fr)_auto_minmax(300px,1fr)] min-h-[48px] shrink-0 items-center",
+            "relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 flex xl:grid xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-h-[48px] shrink-0 items-center",
           )}
         >
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0" aria-label="Kapitech Agency Home">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group py-1 shrink-0 xl:justify-self-start" aria-label="Kapitech Agency Home">
             <img 
               src="https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/white.png" 
               alt="Kapitech Agency" 
@@ -217,7 +217,7 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation: one centered group, independent from brand and actions */}
-          <div className="hidden xl:flex items-center justify-self-center gap-1.5">
+          <div className="hidden min-w-0 xl:flex items-center justify-self-center gap-1.5">
 
               
               {/* Work Link */}
@@ -302,7 +302,7 @@ export const Navbar = () => {
           </div>
 
           {/* Desktop Actions: one right-aligned group independent from navigation */}
-          <div className="hidden xl:flex items-center justify-self-end gap-2.5">
+          <div className="hidden min-w-0 xl:flex items-center justify-self-end gap-2.5">
             {/* Start Project CTA */}
             <Link
               to="/book-a-call"
