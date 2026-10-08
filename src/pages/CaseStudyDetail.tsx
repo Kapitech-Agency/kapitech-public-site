@@ -5,6 +5,7 @@ import { useLanguage } from '../lib/LanguageContext';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { allProjects, type ProjectItem } from '../data/projectsData';
 import { projectBySlug, projectSlug } from '../lib/publicContent';
+import PublicPageHero from '../components/ui/PublicPageHero';
 
 export const CaseStudyDetail = () => {
   const { slug = '' } = useParams();
@@ -71,33 +72,33 @@ export const CaseStudyDetail = () => {
   const copy = language === 'id' ? item.descId : item.desc;
 
   return (
-    <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32">
-      <header className="border-b border-white/[0.08]">
-        <div className="mx-auto max-w-7xl px-5 pb-12 sm:px-8 lg:px-12">
-          <Link to="/work" className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#7C8490] hover:text-white"><ArrowLeft size={13} /> Back to Work</Link>
-          <div className="mt-8 max-w-5xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-white/[0.1] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red">{item.service}</span>
-              <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#7B838F]">{item.year}</span>
-            </div>
-            <h1 className="mt-5 text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.25rem]">{item.title}</h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-[#A2A8B4] sm:text-lg">{copy}</p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <button type="button" onClick={() => void shareCaseStudy()} className="inline-flex min-h-10 items-center gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] hover:bg-white/[0.06]">
-              {shareState === 'shared' ? 'Shared' : 'Share case study'} <ArrowUpRight size={13} />
-            </button>
-            <button type="button" onClick={() => void copyLink()} className="inline-flex min-h-10 items-center gap-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] hover:bg-white/[0.06]">
-              {shareState === 'copied' ? 'Link copied' : 'Copy link'}
-            </button>
-          </div>
-          </div>
-          <div className="mt-8 grid gap-3 border-t border-white/[0.08] pt-6 sm:grid-cols-2 lg:grid-cols-5">
-            {[['Client', item.client], ['Industry', item.industry], ['Service', item.service], ['Year', item.year], ['Pillar', item.pillar]].map(([label, value]) => (
-              <div key={label} className="rounded-2xl border border-white/[0.07] bg-white/[0.015] p-4"><span className="block text-[9px] font-mono uppercase tracking-[0.13em] text-[#656D79]">{label}</span><span className="mt-2 block text-sm leading-6 text-white">{value}</span></div>
-            ))}
-          </div>
+    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+      <PublicPageHero
+        eyebrow={`Case Study / ${item.client}`}
+        title={item.title}
+        description={copy}
+        backLink={{ href: '/work', label: language === 'id' ? 'Semua studi kasus' : 'All case studies' }}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-brand-red">{item.service}</span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#7B838F]">{item.year}</span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#7B838F]">{item.industry}</span>
         </div>
-      </header>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button type="button" onClick={() => void shareCaseStudy()} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+            {shareState === 'shared' ? 'Shared' : 'Share case study'} <ArrowUpRight size={13} />
+          </button>
+          <button type="button" onClick={() => void copyLink()} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+            {shareState === 'copied' ? 'Link copied' : 'Copy link'}
+          </button>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {[['Client', item.client], ['Industry', item.industry], ['Service', item.service], ['Year', item.year], ['Pillar', item.pillar]].map(([label, value]) => (
+            <div key={label} className="kapi-surface p-4"><span className="block text-[9px] font-mono uppercase tracking-[0.13em] text-[#656D79]">{label}</span><span className="mt-2 block text-sm leading-6 text-white">{value}</span></div>
+          ))}
+        </div>
+      </PublicPageHero>
+
 
       <section className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.7fr)] lg:px-12 lg:py-16">
         <div className="space-y-12">
