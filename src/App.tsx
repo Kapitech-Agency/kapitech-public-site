@@ -30,10 +30,18 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy').then((m) => ({ de
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const id = decodeURIComponent(hash.replace(/^#/, ''));
+      window.requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+      return;
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 };
 
