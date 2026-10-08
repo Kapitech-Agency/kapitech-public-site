@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import {
   ArrowRight,
   ArrowUpRight,
-  CheckCircle2,
   ChevronDown,
   Layers3,
   ShieldCheck,
