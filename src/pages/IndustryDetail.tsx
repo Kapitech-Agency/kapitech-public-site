@@ -254,9 +254,10 @@ export const IndustryDetail = () => {
             href="#industry-work"
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
-            {language === 'id' ? 'Explore relevant work' : 'Explore relevant work'}
+            {language === 'id' ? 'Lihat work relevan' : 'Explore relevant work'}
             <ArrowDown size={14} aria-hidden="true" />
           </a>
+        </div>
         <div className="mt-6 grid max-w-4xl gap-2.5 sm:grid-cols-3">
           {[
             [language === 'id' ? 'Work relevan' : 'Relevant work', String(activeProjects.length)],
