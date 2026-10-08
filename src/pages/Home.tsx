@@ -441,7 +441,6 @@ export const Home = () => {
                       )}
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="h-px w-7 bg-brand-red/60 transition-all duration-500 group-hover:w-12" />
                       <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red/85">
                         {stat.meta}
                       </span>
@@ -450,10 +449,6 @@ export const Home = () => {
                       {stat.desc}
                     </p>
                   </div>
-                  <span
-                    className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-px origin-left scale-x-0 rounded-full bg-brand-red/70 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
-                    aria-hidden="true"
-                  />
                 </motion.article>
               );
             })}
@@ -644,10 +639,6 @@ export const Home = () => {
                   key={category}
                   className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.32)] sm:p-6 lg:p-7"
                 >
-                  <span
-                    className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6 lg:inset-x-7"
-                    aria-hidden="true"
-                  />
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2.5">
@@ -700,7 +691,6 @@ export const Home = () => {
 
                   <div className="mt-auto flex items-center justify-between gap-4 pt-6">
                     <span className="flex min-w-0 items-center gap-3 text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
-                      <span className="h-px w-7 bg-brand-red/55 transition-all duration-500 group-hover:w-11 group-hover:bg-brand-red/80" />
                       <span>{categoryMeta.action}</span>
                     </span>
                     <Link
@@ -775,10 +765,6 @@ export const Home = () => {
                       data-solution-slug={solution.slug}
                       className="group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)] sm:p-6 lg:p-7"
                     >
-                      <span
-                        className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left scale-x-0 bg-brand-red/75 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:inset-x-6"
-                        aria-hidden="true"
-                      />
                       <div className="flex items-center justify-between gap-4">
                         <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
                           {String(index + 1).padStart(2, '0')}
@@ -1209,7 +1195,7 @@ export const Home = () => {
 
                         <div className="mt-4 rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
                           <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">Checkpoint</span>
-                          <p className="mt-3 border-l-2 border-brand-red/55 pl-4 text-sm leading-[1.75] text-white">
+                          <p className="mt-3 text-sm leading-[1.75] text-white">
                             {step.checkpoint}
                           </p>
                         </div>
