@@ -1,5 +1,5 @@
 import React from 'react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import PublicPageHero from '../components/ui/PublicPageHero';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -285,59 +285,16 @@ export const About = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/50 to-transparent" />
-        </div><div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            className="max-w-3xl"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="kapi-section-label mb-5">
-              {t('about.tag')}
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold leading-[1.03] tracking-[-0.045em] mb-5 sm:mb-6 text-white"
-            >
-              {language === 'id' ? (
-                <>Agensi digital yang dirancang untuk <span className="text-brand-red">kejelasan dan pertumbuhan</span>.</>
-              ) : (
-                <>A digital agency engineered for <span className="text-brand-red">clarity and growth</span>.</>
-              )}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-              className="text-sm sm:text-base md:text-lg text-[#8A909D] font-light leading-relaxed"
-            >
-              {t('about.subtitle')}
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
+      <PublicPageHero
+        eyebrow={t('about.tag')}
+        title="Kapitech Agency"
+        titleNode={
+          language === 'id'
+            ? <>Agensi digital yang dirancang untuk <span className="text-brand-red">kejelasan dan pertumbuhan</span>.</>
+            : <>A digital agency engineered for <span className="text-brand-red">clarity and growth</span>.</>
+        }
+        description={t('about.subtitle')}
+      />
 
       {/* Our Identity & Foundations */}
       <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28">
