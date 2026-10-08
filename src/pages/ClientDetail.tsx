@@ -5,6 +5,7 @@ import { allProjects, type ProjectItem } from '../data/projectsData';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { clientSlug, projectSlug } from '../lib/publicContent';
 import { useLanguage } from '../lib/LanguageContext';
+import PublicPageHero from '../components/ui/PublicPageHero';
 
 export const ClientDetail = () => {
   const { slug = '' } = useParams();
@@ -17,5 +18,34 @@ export const ClientDetail = () => {
   if (!client) return <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white"><div className="mx-auto max-w-4xl"><h1 className="text-4xl font-display font-semibold">Client not found.</h1><Link to="/clients" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3]"><ArrowLeft size={14}/> Back to clients</Link></div></main>;
   const services = Array.from(new Set(projects.map((p) => p.service)));
   const industries = Array.from(new Set(projects.map((p) => p.industry)));
-  return <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] pb-24 pt-28 text-white sm:pt-32"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12"><Link to="/clients" className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-[#77808C] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] rounded-md"><ArrowLeft size={13}/> All clients</Link><p className="mt-9 text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Client / {client}</p><h1 className="mt-4 max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5rem]">{client}</h1><div className="mt-6 flex flex-wrap gap-2">{industries.map((item) => <span key={item} className="rounded-full border border-white/[0.08] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-[#737C88]">{item}</span>)}{services.map((item) => <span key={item} className="rounded-full border border-brand-red/15 bg-brand-red/[0.05] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-brand-red">{item}</span>)}</div><section className="mt-12 grid gap-5 lg:grid-cols-2">{projects.map((project) => <Link key={project.id} to={'/work/' + projectSlug(project)} className="group overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"><img src={project.image} alt={project.title} className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy"/><div className="p-6"><div className="flex items-center justify-between"><span className="text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">{project.service}</span><ArrowUpRight size={14}/></div><h2 className="mt-3 text-2xl font-display font-semibold">{project.title}</h2><p className="mt-3 text-sm leading-6 text-[#828B97]">{language === 'id' ? project.descId : project.desc}</p></div></Link>)}</section><section className="mt-14 rounded-3xl border border-white/[0.08] bg-white/[0.018] p-7 sm:p-8"><p className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">{language === 'id' ? 'Punya kebutuhan serupa?' : 'Have a similar need?'}</p><h2 className="mt-2 max-w-3xl text-2xl font-display font-semibold tracking-[-0.035em] sm:text-3xl">{language === 'id' ? 'Bagikan konteks proyek Anda dan kita bisa menentukan jalur yang tepat.' : 'Share your project context and we can identify the right path.'}</h2><Link to={'/book-a-call?client=' + encodeURIComponent(client)} className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]">{language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'} <ArrowUpRight size={14}/></Link></section></div></main>;
+  return (
+    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+      <PublicPageHero
+        eyebrow={`Client / ${client}`}
+        title={client}
+        description={language === 'id' ? 'Ringkasan pekerjaan publik Kapitech untuk client ini, termasuk layanan dan konteks industri terkait.' : 'A public-work view of Kapitech projects represented for this client, including relevant services and industries.'}
+        backLink={{ href: '/clients', label: language === 'id' ? 'Semua client' : 'All clients' }}
+      >
+        <div className="flex flex-wrap gap-2">
+          {industries.map((item) => <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-[#737C88]">{item}</span>)}
+          {services.map((item) => <span key={item} className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.1em] text-brand-red">{item}</span>)}
+        </div>
+      </PublicPageHero>
+      <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
+        <section className="grid gap-5 lg:grid-cols-2" aria-labelledby="client-projects-title">
+          <h2 id="client-projects-title" className="sr-only">{language === 'id' ? 'Project client' : 'Client projects'}</h2>
+          {projects.map((project) => (
+            <Link key={project.id} to={'/work/' + projectSlug(project)} className="group kapi-surface overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+              <img src={project.image} alt={project.title} className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async"/>
+              <div className="p-6">
+                <div className="flex items-center justify-between gap-4"><span className="text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">{project.service}</span><ArrowUpRight size={14}/></div>
+                <h2 className="mt-3 text-2xl font-display font-semibold">{project.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-[#828B97]">{language === 'id' ? project.descId : project.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </section>
+      </div>
+    </main>
+  );
 };
