@@ -1142,7 +1142,7 @@ export const Careers = () => {
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
                 ref={careerModalRef}
-                className="career-modal-shell relative flex w-full max-w-xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
+                className="kapi-modal-surface career-modal-shell relative flex w-full max-w-xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden my-2 sm:my-6 sm:max-h-[92vh]"
               >
                 <button
                   onClick={() => setSelectedTalent(null)}
