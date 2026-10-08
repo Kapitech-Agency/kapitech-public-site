@@ -21,6 +21,45 @@ for (const route of manifest.routes.filter((item) => item.robots?.startsWith('in
   urls.set(loc, { loc, lastmod: undefined });
 }
 
+const projectsSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
+const projectRecords = [];
+const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'/g;
+for (const match of projectsSource.matchAll(projectPattern)) {
+  projectRecords.push({ id: match[1], title: match[2], client: match[3], industry: match[4] });
+}
+
+const slugify = (value) => String(value || '')
+  .normalize('NFKD')
+  .replace(/[\\u0300-\\u036f]/g, '')
+  .toLowerCase()
+  .trim()
+  .replace(/&/g, ' and ')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+for (const project of projectRecords) {
+  const projectSlug = slugify(project.id || project.title);
+  const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
+  urls.set(loc, { loc, lastmod: undefined });
+}
+
+for (const industry of new Set(projectRecords.map((project) => project.industry).filter(Boolean))) {
+  const loc = manifest.siteUrl + '/industries/' + encodeURIComponent(slugify(industry));
+  urls.set(loc, { loc, lastmod: undefined });
+}
+
+for (const client of new Set(projectRecords.map((project) => project.client).filter(Boolean))) {
+  const loc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(client));
+  urls.set(loc, { loc, lastmod: undefined });
+}
+
+const resourcesSource = await readFile(join(root, 'src/data/resourcesData.ts'), 'utf8');
+const resourcePattern = /slug:\s*'([^']+)'/g;
+for (const match of resourcesSource.matchAll(resourcePattern)) {
+  const loc = manifest.siteUrl + '/resources/' + encodeURIComponent(match[1]);
+  urls.set(loc, { loc, lastmod: undefined });
+}
+
 const insights = await fetchPublishedInsightSummaries();
 
 for (const insight of insights) {
