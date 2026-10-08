@@ -972,22 +972,22 @@ export const Careers = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+      <section className="kapi-page-hero relative pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
-            preset="pond"
+            preset="lines"
             color="#E50914"
             backgroundColor="#0B0C0E"
-            opacity={0.3}
+            opacity={0.34}
             fade="edges"
-            fadeSize={0.74}
+            fadeSize={0.72}
             interactive
             cursorSize={52}
-            cursorStrength={0.36}
+            cursorStrength={0.38}
             speed={0.2}
             scale={1.06}
-            depth={0.58}
-            shine={0.48}
+            depth={0.62}
+            shine={0.5}
             contrast={1.04}
             intro
           />
@@ -1290,7 +1290,7 @@ export const Careers = () => {
         id="freelance-vendor"
       >
         <div className="pointer-events-none absolute -right-24 top-16 h-72 w-72 rounded-full bg-brand-red/[0.035] blur-3xl" />
-        <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl sm:p-7 lg:p-9">
             <div className="pt-1 sm:pt-2">
             <div className="mb-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-16">
