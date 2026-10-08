@@ -83,6 +83,11 @@ export async function apiRequest<T = unknown>(
 }
 
 export async function uploadPublicResume(file: File): Promise<{ success: boolean; data?: { documentId: string; resumeUrl: string; filename: string; mimeType: string; sizeBytes: number }; error?: string }> {
+  const allowedTypes = new Set(['application/pdf']);
+  if (file.size > 5 * 1024 * 1024) return { success: false, error: 'Resume exceeds the 5 MB upload limit.' };
+  if (!/\.pdf$/i.test(file.name) || (file.type && !allowedTypes.has(file.type))) {
+    return { success: false, error: 'Resume must be a valid PDF file.' };
+  }
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 30000);
 
@@ -123,6 +128,11 @@ export async function uploadPublicResume(file: File): Promise<{ success: boolean
 }
 
 export async function uploadProjectBrief(file: File): Promise<{ success: boolean; data?: { documentId: string; briefUrl: string; filename: string; mimeType: string; sizeBytes: number }; error?: string }> {
+  const allowedTypes = new Set(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
+  if (file.size > 10 * 1024 * 1024) return { success: false, error: 'Project brief exceeds the 10 MB upload limit.' };
+  if (!/\.(pdf|doc|docx)$/i.test(file.name) || (file.type && !allowedTypes.has(file.type))) {
+    return { success: false, error: 'Project brief must be a PDF, DOC, or DOCX file.' };
+  }
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 30000);
   try {
