@@ -241,13 +241,6 @@
       "serviceType": "Development"
     },
     {
-      "path": "/industries",
-      "title": "Industries | Kapitech Agency",
-      "description": "Explore Kapitech public work and capabilities by industry context.",
-      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      "kind": "webpage"
-    },
-    {
       "path": "/industries/fintech",
       "title": "FinTech Digital Product & UX Agency | Kapitech",
       "description": "Kapitech designs and develops clearer fintech websites, financial products, dashboards, payment experiences, and enterprise systems.",
