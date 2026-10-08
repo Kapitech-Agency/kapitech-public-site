@@ -48,18 +48,6 @@ for (const industry of new Set(projectRecords.map((project) => project.industry)
   urls.set(loc, { loc, lastmod: undefined });
 }
 
-for (const client of new Set(projectRecords.map((project) => project.client).filter(Boolean))) {
-  const loc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(client));
-  urls.set(loc, { loc, lastmod: undefined });
-}
-
-const resourcesSource = await readFile(join(root, 'src/data/resourcesData.ts'), 'utf8');
-const resourcePattern = /slug:\s*'([^']+)'/g;
-for (const match of resourcesSource.matchAll(resourcePattern)) {
-  const loc = manifest.siteUrl + '/resources/' + encodeURIComponent(match[1]);
-  urls.set(loc, { loc, lastmod: undefined });
-}
-
 const fetchPublicCmsProjects = async () => {
   const apiBase = String(process.env.VITE_AMS_API_BASE_URL || 'https://ams.kapitech.id/api').replace(/\/+$/, '');
   const controller = new AbortController();
@@ -89,10 +77,6 @@ for (const project of cmsProjects) {
   if (project.industry) {
     const industryLoc = manifest.siteUrl + '/industries/' + encodeURIComponent(slugify(project.industry));
     urls.set(industryLoc, { loc: industryLoc, lastmod: undefined });
-  }
-  if (project.client) {
-    const clientLoc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(project.client));
-    urls.set(clientLoc, { loc: clientLoc, lastmod: undefined });
   }
 }
 
