@@ -41,10 +41,17 @@ export const PolicyPageShell = ({ eyebrow, title, updated, summary, sections, ma
   useEffect(() => {
     if (!sectionIds.length) return;
     const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-    setActiveSection(hashId && sectionIds.includes(hashId) ? hashId : sectionIds[0]);
+    const hasHashTarget = hashId && sectionIds.includes(hashId);
+    setActiveSection(hasHashTarget ? hashId : sectionIds[0]);
 
     const nodes = sectionIds.map((id) => document.getElementById(id)).filter((node): node is HTMLElement => Boolean(node));
     if (!nodes.length) return;
+
+    if (hasHashTarget) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(hashId)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+    }
 
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
