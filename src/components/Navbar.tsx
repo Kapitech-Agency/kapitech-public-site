@@ -184,8 +184,8 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-7 lg:gap-9">
-            <div className="flex items-center gap-7 lg:gap-9">
+          <div className="hidden xl:flex items-center gap-5 xl:gap-7">
+            <div className="flex items-center gap-5 xl:gap-7">
               
               {/* Work Link */}
               <Link
@@ -332,7 +332,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
+          <div className="flex items-center gap-2 sm:gap-3 xl:hidden">
             <div
               className="inline-flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-[#0B0C0E]/48 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.1)]"
               role="group"
