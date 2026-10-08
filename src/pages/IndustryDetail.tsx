@@ -83,27 +83,59 @@ export const IndustryDetail = () => {
   }, []);
 
   useEffect(() => {
-    const sections = sectionLinks
-      .map(([id]) => document.getElementById(id))
+    const sectionIds = sectionLinks.map(([id]) => id);
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => Boolean(element));
 
     if (!sections.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    const getScrollOffset = () => {
+      const navbar = document.querySelector<HTMLElement>('.kapi-public-navbar');
+      const sectionNav = document.querySelector<HTMLElement>('[data-industry-section-nav]');
+      const navbarHeight = navbar?.getBoundingClientRect().height ?? 72;
+      const sectionNavHeight = sectionNav?.getBoundingClientRect().height ?? 52;
+      return navbarHeight + sectionNavHeight + 20;
+    };
 
-        if (visible[0]?.target instanceof HTMLElement) {
-          setActiveSection(visible[0].target.id);
+    const hash = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    if (sectionIds.includes(hash)) {
+      setActiveSection(hash);
+    }
+
+    let frame = 0;
+
+    const syncActiveSection = () => {
+      frame = 0;
+      const offset = getScrollOffset();
+      const marker = window.scrollY + offset;
+      let nextActive = sections[0]?.id ?? sectionIds[0];
+
+      for (const section of sections) {
+        if (section.offsetTop <= marker) {
+          nextActive = section.id;
+        } else {
+          break;
         }
-      },
-      { rootMargin: '-16% 0px -66% 0px', threshold: [0.06, 0.18, 0.45] },
-    );
+      }
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+      setActiveSection((current) => (current === nextActive ? current : nextActive));
+    };
+
+    const requestSync = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(syncActiveSection);
+    };
+
+    syncActiveSection();
+    window.addEventListener('scroll', requestSync, { passive: true });
+    window.addEventListener('resize', requestSync);
+
+    return () => {
+      window.removeEventListener('scroll', requestSync);
+      window.removeEventListener('resize', requestSync);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const source = useMemo(
@@ -265,11 +297,11 @@ export const IndustryDetail = () => {
             <div className="relative">
               <div className="flex items-center justify-between gap-4">
                 <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#69717D]">
-                  {language === 'id' ? 'Industry focus' : 'Industry focus'}
+                  {language === 'id' ? 'Fokus industri' : 'Industry focus'}
                 </span>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.06] px-2.5 py-1 text-[8px] font-mono uppercase tracking-[0.12em] text-white">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
-                  {language === 'id' ? 'Active' : 'Active'}
+                  {language === 'id' ? 'Aktif' : 'Active'}
                 </span>
               </div>
 
@@ -286,10 +318,10 @@ export const IndustryDetail = () => {
 
               <div className="mt-7 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018]">
                 {[
-                  [language === 'id' ? 'Relevant work' : 'Relevant work', String(activeProjects.length)],
-                  [language === 'id' ? 'Core capabilities' : 'Core capabilities', String(capabilities.length)],
-                  [language === 'id' ? 'Solutions' : 'Solutions', String(solutionTypes.length)],
-                  [language === 'id' ? 'FAQs' : 'FAQs', String(faq.length)],
+                  [language === 'id' ? 'Work relevan' : 'Relevant work', String(activeProjects.length)],
+                  [language === 'id' ? 'Kapabilitas inti' : 'Core capabilities', String(capabilities.length)],
+                  [language === 'id' ? 'Solusi' : 'Solutions', String(solutionTypes.length)],
+                  [language === 'id' ? 'FAQ' : 'FAQs', String(faq.length)],
                 ].map(([label, value]) => (
                   <div key={label} className="border-b border-r border-white/[0.07] px-3.5 py-3.5 last:border-b-0">
                     <span className="block text-lg font-display font-semibold tracking-[-0.04em] text-white">
@@ -307,7 +339,7 @@ export const IndustryDetail = () => {
       >
         <div>
           <p className="mb-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
-            {language === 'id' ? 'Typical project needs' : 'Typical project needs'}
+            {language === 'id' ? 'Kebutuhan project umum' : 'Typical project needs'}
           </p>
           <div className="flex flex-wrap gap-2">
             {catalog?.needs.slice(0, 4).map((item) => (
@@ -342,11 +374,12 @@ export const IndustryDetail = () => {
 
       <nav
         aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
+        data-industry-section-nav="true"
         className="sticky top-[72px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
           <span className="mr-1 hidden shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D] md:block">
-            {language === 'id' ? 'On this page' : 'On this page'}
+            {language === 'id' ? 'Di halaman ini' : 'On this page'}
           </span>
           {sectionLinks.map(([id, label]) => (
             <a
@@ -531,6 +564,27 @@ export const IndustryDetail = () => {
                   ? 'Belum ada public work yang dipetakan di konteks ini.'
                   : 'No public work is currently mapped to this context.'}
               </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#78818D]">
+                {language === 'id'
+                  ? 'Tetap lanjutkan eksplorasi untuk melihat pekerjaan lain, atau langsung hubungi Kapitech bila Anda ingin membahas kebutuhan yang spesifik.'
+                  : 'You can still explore the full work library, or contact Kapitech directly when you already have a specific need in mind.'}
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-2.5">
+                <Link
+                  to="/work"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-[#0B0C0E] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? 'Lihat semua work' : 'View all work'}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.03] px-4 py-2.5 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           )}
         </section>
@@ -578,6 +632,7 @@ export const IndustryDetail = () => {
 
             <div>
               <div className="divide-y divide-white/[0.07] overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#101216]">
+
                 {solutionTypes.map((item, index) => {
                   const Icon = solutionIcons[index % solutionIcons.length];
                   return (
@@ -603,8 +658,12 @@ export const IndustryDetail = () => {
                         </div>
                         <p className="mt-2 max-w-2xl text-sm leading-7 text-[#78818D]">{item.description}</p>
                       </div>
-                      <span className="hidden shrink-0 rounded-full border border-white/[0.08] bg-white/[0.02] p-2.5 text-white transition-colors group-hover:border-white/[0.15] group-hover:bg-white/[0.055] sm:inline-flex">
-                        <ArrowUpRight size={13} aria-hidden="true" />
+                      <span
+                        className="hidden shrink-0 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-[8px] font-mono uppercase tracking-[0.1em] text-[#7C8490] sm:inline-flex"
+                        aria-hidden="true"
+                      >
+                        <Check size={11} />
+                        {language === 'id' ? 'Relevant' : 'Relevant'}
                       </span>
                     </motion.article>
                   );
@@ -719,13 +778,22 @@ export const IndustryDetail = () => {
                 </p>
               </div>
 
-              <Link
-                to="/book-a-call"
-                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-              >
-                {language === 'id' ? 'Book a call' : 'Book a call'}
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </Link>
+              <div className="flex shrink-0 flex-wrap gap-2.5">
+                <Link
+                  to="/book-a-call"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? 'Book a call' : 'Book a call'}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
