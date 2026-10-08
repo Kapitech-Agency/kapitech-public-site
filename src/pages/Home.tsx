@@ -81,7 +81,6 @@ export const Home = () => {
           const next = event.key === 'ArrowLeft'
             ? Math.max(0, current - 1)
             : Math.min(processSteps.length - 1, current + 1);
-          setActiveProcessStep(next);
           return next;
         });
         return;
