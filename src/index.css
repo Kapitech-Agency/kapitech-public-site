@@ -215,6 +215,11 @@
   color: #8A909D !important;
 }
 
+.kapi-public-shell button.kapi-framework-step .kapi-framework-step-index,
+.kapi-public-shell button.kapi-framework-step .kapi-framework-step-description {
+  color: #8A909D !important;
+}
+
 .kapi-section-label {
   display: inline-flex;
   align-items: center;
