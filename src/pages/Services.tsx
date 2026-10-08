@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
@@ -74,6 +74,8 @@ export interface StrategicSolution {
 export const Services = () => {
   const { language } = useLanguage();
   const [selectedService, setSelectedService] = useState<ServiceDetail | StrategicSolution | null>(null);
+  const lastServiceTriggerRef = useRef<HTMLElement | null>(null);
+  const serviceModalCloseRef = useRef<HTMLButtonElement | null>(null);
   const [activeCategory, setActiveCategory] = useState<'All' | 'Branding' | 'Design' | 'Development'>('All');
   const [cmsServices, setCmsServices] = useState(() => getCmsServices());
 
@@ -94,15 +96,45 @@ export const Services = () => {
     if (!selectedService) return;
 
     const previousOverflow = document.body.style.overflow;
+    const previousActiveElement = lastServiceTriggerRef.current;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedService(null);
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setSelectedService(null);
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const modal = serviceModalCloseRef.current?.closest('[role="dialog"]');
+      if (!modal) return;
+      const focusable = Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => element.getClientRects().length > 0);
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
+    const focusFrame = window.requestAnimationFrame(() => serviceModalCloseRef.current?.focus());
+
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
+      window.requestAnimationFrame(() => previousActiveElement?.focus());
+      lastServiceTriggerRef.current = null;
     };
   }, [selectedService]);
 
@@ -873,7 +905,7 @@ export const Services = () => {
                     <motion.button
                       key={srv.id}
                       type="button"
-                      onClick={() => setSelectedService(srv)}
+                      onClick={(event) => { lastServiceTriggerRef.current = event.currentTarget; setSelectedService(srv); }}
                       whileTap={{ scale: 0.995 }}
                       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                       className="group rounded-3xl p-6 sm:p-7 min-h-[320px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left"
@@ -1057,9 +1089,9 @@ export const Services = () => {
                       <ChevronRight size={14} />
                     </Link>
                     <Link
-                      to={`/contact?service=${encodeURIComponent(selectedService.title)}`}
+                      to={`/book-a-call?service=${encodeURIComponent(selectedService.title)}`}
                       onClick={() => setSelectedService(null)}
-                      className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116]"
                     >
                       <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
                       <ArrowUpRight size={14} />
