@@ -158,6 +158,24 @@ export const IndustryDetail = () => {
     };
   }, [navbarHeight, sectionNavHeight]);
 
+  useEffect(() => {
+    if (window.innerWidth >= 768) return;
+
+    const nav = sectionNavRef.current;
+    if (!nav) return;
+
+    const activeLink = nav.querySelector<HTMLElement>(
+      '[data-industry-section-link="' + activeSection + '"]',
+    );
+    if (!activeLink) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    activeLink.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
+  }, [activeSection]);
   const source = useMemo(
     () => (cmsProjects.length ? cmsProjects : allProjects).filter((project) => project.isPublished !== false),
     [cmsProjects],
@@ -452,6 +470,7 @@ export const IndustryDetail = () => {
           {sectionLinks.map(([id, label]) => (
             <a
               key={id}
+              data-industry-section-link={id}
               href={'#' + id}
               onClick={(event) => {
                 event.preventDefault();
