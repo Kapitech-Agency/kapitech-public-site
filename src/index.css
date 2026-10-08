@@ -152,6 +152,17 @@
   border-radius: var(--kapi-radius-pill) !important;
 }
 
+/* Button foreground is always white.
+   Background/border may change by state, but button text and icons never use muted or brand colors. */
+.kapi-public-shell button,
+.kapi-public-shell button * {
+  color: #FFFFFF !important;
+}
+
+.kapi-public-shell button svg {
+  color: #FFFFFF !important;
+}
+
 .kapi-public-shell button:not([class*="bg-"]),
 .kapi-public-shell button[class*="bg-transparent"] {
   background: rgba(255,255,255,0.035);
