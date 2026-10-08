@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
@@ -101,9 +100,6 @@ export const IndustryDetail = () => {
               ? 'Pilih konteks industri lain dari menu Industries di navigasi.'
               : 'Choose another industry context from the Industries menu in the navigation.'}
           </p>
-          <Link to="/industries" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3] hover:text-white">
-            <ArrowLeft size={14} /> {language === 'id' ? 'Semua industri' : 'All industries'}
-          </Link>
         </div>
       </main>
     );
@@ -155,7 +151,6 @@ export const IndustryDetail = () => {
         eyebrow={currentLabel}
         title={heroTitle}
         description={heroDescription}
-        backLink={{ href: '/industries', label: language === 'id' ? 'Pilih industri lain' : 'Choose another industry' }}
       >
         <div className="flex flex-wrap gap-2">
           {catalog?.needs.slice(0, 4).map((item) => (
