@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDown, ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { InsightAmbientBackground } from '../components/InsightAmbientBackground';
+import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { InsightCard } from '../components/InsightCard';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
@@ -205,12 +205,28 @@ export const Insights: React.FC = () => {
     <>
       <InsightSeoMeta />
       <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
-        <section className="relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-4 pb-20 pt-36 sm:min-h-[680px] sm:px-6 sm:pt-40 md:px-12 lg:min-h-[740px] lg:pt-44">
-          <InsightAmbientBackground intensity="hero" />
+        <section className="kapi-page-hero relative isolate flex min-h-[620px] items-center overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:min-h-[680px] sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40 lg:min-h-[720px] lg:pt-40">
+          <PatternWaves
+            preset="lines"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
+            opacity={0.32}
+            fade="edges"
+            fadeSize={0.72}
+            interactive
+            cursorSize={52}
+            cursorStrength={0.38}
+            speed={0.2}
+            scale={1.06}
+            depth={0.62}
+            shine={0.5}
+            contrast={1.04}
+            intro
+          />
 
           <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[minmax(0,1.15fr)_360px] lg:items-end lg:gap-16">
             <div className="max-w-4xl">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-[#0B0C0E]/45 px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.16em] text-[#A2A8B4] backdrop-blur-md">
+              <div className="kapi-section-label mb-6">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inset-0 animate-ping rounded-full bg-brand-red/70" />
                   <span className="relative block h-1.5 w-1.5 rounded-full bg-brand-red" />
@@ -218,7 +234,7 @@ export const Insights: React.FC = () => {
                 {eyebrow}
               </div>
 
-              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.94] tracking-[-0.06em] text-white sm:text-7xl lg:text-[6.2rem]">
+              <h1 className="max-w-4xl font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
                 {title}
               </h1>
 
