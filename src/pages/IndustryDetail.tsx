@@ -97,11 +97,6 @@ export const IndustryDetail = () => {
     return [];
   }, [catalog, legacyIndustry, source]);
 
-  const industryNames = useMemo(
-    () => Array.from(new Set(activeProjects.map((project) => project.industry))).sort((a, b) => a.localeCompare(b)),
-    [activeProjects],
-  );
-
   const services = useMemo(
     () => Array.from(new Set(activeProjects.map((project) => project.service).filter(Boolean))),
     [activeProjects],
@@ -188,12 +183,17 @@ export const IndustryDetail = () => {
         title={heroTitle}
         description={heroDescription}
       >
-        <div className="flex flex-wrap gap-2">
-          {catalog?.needs.slice(0, 4).map((item) => (
-            <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-[#9DA4AF]">
-              {item}
-            </span>
-          ))}
+        <div>
+          <p className="mb-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
+            {language === 'id' ? 'Kebutuhan yang umum' : 'Typical project needs'}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {catalog?.needs.slice(0, 4).map((item) => (
+              <span key={item} className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-white">
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="mt-5 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3">
