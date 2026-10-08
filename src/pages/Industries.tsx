@@ -5,8 +5,10 @@ import {
   ArrowUpRight,
   Building2,
   Layers3,
+  Search,
   Sparkles,
   Workflow,
+  X,
 } from 'lucide-react';
 import { allProjects, type ProjectItem } from '../data/projectsData';
 import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
@@ -17,6 +19,8 @@ import PublicPageHero from '../components/ui/PublicPageHero';
 export const Industries = () => {
   const { language } = useLanguage();
   const [projects, setProjects] = useState<ProjectItem[]>(() => getCmsProjects());
+  const [query, setQuery] = useState('');
+  const [pillarFilter, setPillarFilter] = useState<'all' | ProjectItem['pillar']>('all');
 
   useEffect(() => {
     const handleUpdate = () => setProjects(getCmsProjects());
@@ -67,6 +71,29 @@ export const Industries = () => {
     publicSource.find((project) => project.featured) ?? publicSource[0];
   const featuredIndustry = industryEntries.find(
     (entry) => entry.industry === featuredProject?.industry,
+  );
+
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const visibleIndustryEntries = useMemo(
+    () =>
+      industryEntries.filter((entry) => {
+        const matchesPillar =
+          pillarFilter === 'all' || entry.pillars.includes(pillarFilter);
+
+        const searchable = [
+          entry.industry,
+          ...entry.services,
+          ...entry.pillars,
+          ...entry.projects.map((project) => project.title),
+          ...entry.projects.map((project) => project.client),
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        return matchesPillar && (!normalizedQuery || searchable.includes(normalizedQuery));
+      }),
+    [industryEntries, normalizedQuery, pillarFilter],
   );
 
   const totalProjects = publicSource.length;
@@ -146,8 +173,87 @@ export const Industries = () => {
       </PublicPageHero>
 
       <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
-        {featuredIndustry && featuredProject ? (
-          <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="industry-proof-title">
+        <section className="border-b border-white/[0.07] py-10 sm:py-12" aria-labelledby="industry-explorer-title">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Jelajahi industri' : 'Explore industries'}
+              </span>
+              <h2
+                id="industry-explorer-title"
+                className="mt-3 text-3xl font-display font-semibold leading-[1.04] tracking-[-0.05em] sm:text-4xl"
+              >
+                {language === 'id'
+                  ? 'Mulai dari konteks yang paling relevan dengan kebutuhan Anda.'
+                  : 'Start with the context closest to your needs.'}
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-7 text-[#7E8793]">
+                {language === 'id'
+                  ? 'Cari industri, client, atau layanan. Anda tidak perlu memahami struktur portfolio Kapitech terlebih dahulu.'
+                  : 'Search by industry, client, or service. You do not need to understand Kapitech’s portfolio structure first.'}
+              </p>
+            </div>
+
+            <div className="flex w-full max-w-md items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 py-2.5 focus-within:border-white/[0.16] focus-within:bg-white/[0.035]">
+              <Search size={16} className="shrink-0 text-[#69717D]" aria-hidden="true" />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                type="search"
+                placeholder={language === 'id' ? 'Cari industri, client, layanan...' : 'Search industry, client, service...'}
+                aria-label={language === 'id' ? 'Cari industri' : 'Search industries'}
+                className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-[#5F6773]"
+              />
+              {query ? (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#69717D] transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  <X size={14} aria-hidden="true" />
+                </button>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2" role="group" aria-label={language === 'id' ? 'Filter kapabilitas' : 'Capability filters'}>
+            <button
+              type="button"
+              onClick={() => setPillarFilter('all')}
+              aria-pressed={pillarFilter === 'all'}
+              className={[
+                'min-h-10 rounded-full border px-4 text-[10px] font-mono uppercase tracking-[0.1em] transition-[background-color,border-color,color]',
+                pillarFilter === 'all'
+                  ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red'
+                  : 'border-white/[0.08] bg-white/[0.018] text-[#7E8793] hover:border-white/[0.14] hover:text-white'
+              ].join(' ')}
+            >
+              {language === 'id' ? 'Semua' : 'All'}
+            </button>
+            {(['Visual Experience', 'Innovation Development'] as ProjectItem['pillar'][]).map((pillar) => (
+              <button
+                key={pillar}
+                type="button"
+                onClick={() => setPillarFilter(pillar)}
+                aria-pressed={pillarFilter === pillar}
+                className={[
+                  'min-h-10 rounded-full border px-4 text-[10px] font-mono uppercase tracking-[0.1em] transition-[background-color,border-color,color]',
+                  pillarFilter === pillar
+                    ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red'
+                    : 'border-white/[0.08] bg-white/[0.018] text-[#7E8793] hover:border-white/[0.14] hover:text-white'
+                ].join(' ')}
+              >
+                {pillar}
+              </button>
+            ))}
+            <span className="ml-auto text-[10px] font-mono tabular-nums text-[#59616D]" aria-live="polite">
+              {visibleIndustryEntries.length} / {industryEntries.length} {language === 'id' ? 'industri' : 'industries'}
+            </span>
+          </div>
+        </section>
+
+        <section className="border-b border-white/[0.07] py-12 sm:py-16" aria-labelledby="industry-index-title">
             <div className="flex flex-col gap-4 border-b border-white/[0.07] pb-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <span className="kapi-section-label">
@@ -291,7 +397,7 @@ export const Industries = () => {
             </div>
 
             <div className="divide-y divide-white/[0.08] border-y border-white/[0.07]">
-              {industryEntries.map((entry, index) => (
+              {visibleIndustryEntries.length > 0 ? visibleIndustryEntries.map((entry, index) => (
                 <Link
                   key={entry.industry}
                   to={'/industries/' + industrySlug(entry.industry)}
@@ -347,12 +453,44 @@ export const Industries = () => {
                     </span>
                   </div>
                 </Link>
-              ))}
+              )) : (
+                <div className="px-6 py-12 sm:px-8">
+                  <p className="text-lg font-display font-semibold tracking-[-0.025em] text-white">
+                    {language === 'id' ? 'Tidak ada industri yang cocok.' : 'No industries match this search.'}
+                  </p>
+                  <p className="mt-2 max-w-lg text-sm leading-7 text-[#737C88]">
+                    {language === 'id'
+                      ? 'Coba kata kunci lain atau hapus filter untuk melihat seluruh index.'
+                      : 'Try another keyword or clear the filters to see the full industry index.'}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {query ? (
+                      <button
+                        type="button"
+                        onClick={() => setQuery('')}
+                        className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#C5CAD2] transition-colors hover:border-white/[0.16] hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                      >
+                        {language === 'id' ? 'Hapus pencarian' : 'Clear search'}
+                      </button>
+                    ) : null}
+                    {pillarFilter !== 'all' ? (
+                      <button
+                        type="button"
+                        onClick={() => setPillarFilter('all')}
+                        className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#C5CAD2] transition-colors hover:border-white/[0.16] hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                      >
+                        {language === 'id' ? 'Reset filter' : 'Reset filter'}
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
 
-        <section className="border-t border-white/[0.07] py-12 sm:py-16" aria-labelledby="delivery-across-industries-title">
+        {featuredIndustry && featuredProject ? (
+          <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="industry-proof-title">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <span className="kapi-section-label">
@@ -400,36 +538,6 @@ export const Industries = () => {
           </div>
         </section>
 
-        <section className="border-t border-white/[0.07] pt-12 sm:pt-16" aria-labelledby="industry-cta-title">
-          <div className="flex flex-col gap-6 rounded-[2rem] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:p-10">
-            <div className="max-w-3xl">
-              <span className="kapi-section-label">
-                {language === 'id' ? 'Punya konteks yang berbeda?' : 'Working in a different context?'}
-              </span>
-              <h2
-                id="industry-cta-title"
-                className="mt-3 text-2xl font-display font-semibold leading-tight tracking-[-0.04em] sm:text-3xl"
-              >
-                {language === 'id'
-                  ? 'Mulai dari masalah dan target bisnis Anda.'
-                  : 'Start with the problem and the business outcome.'}
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7E8793]">
-                {language === 'id'
-                  ? 'Tidak melihat industri Anda di index? Tidak masalah. Konteks bisnis Anda tetap bisa menjadi titik awal engagement.'
-                  : 'Do not see your industry in the index? That is fine. Your business context can still be the starting point for an engagement.'}
-              </p>
-            </div>
-
-            <Link
-              to="/book-a-call"
-              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-            >
-              {language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'}
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-        </section>
       </div>
     </main>
   );
