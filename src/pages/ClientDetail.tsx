@@ -1,15 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { allProjects } from '../data/projectsData';
+import { allProjects, type ProjectItem } from '../data/projectsData';
+import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 import { clientSlug, projectSlug } from '../lib/publicContent';
 import { useLanguage } from '../lib/LanguageContext';
 
 export const ClientDetail = () => {
   const { slug = '' } = useParams();
   const { language } = useLanguage();
-  const client = useMemo(() => Array.from(new Set(allProjects.map((p) => p.client))).find((name) => clientSlug(name) === slug), [slug]);
-  const projects = useMemo(() => client ? allProjects.filter((p) => p.client === client) : [], [client]);
+  const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
+  useEffect(() => { void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects())); }, []);
+  const source = cmsProjects.length ? cmsProjects : allProjects;
+  const client = useMemo(() => Array.from(new Set(source.map((p) => p.client))).find((name) => clientSlug(name) === slug), [source, slug]);
+  const projects = useMemo(() => client ? source.filter((p) => p.client === client) : [], [client, source]);
   if (!client) return <main className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white"><div className="mx-auto max-w-4xl"><h1 className="text-4xl font-display font-semibold">Client not found.</h1><Link to="/clients" className="mt-6 inline-flex items-center gap-2 text-sm text-[#A0A7B3]"><ArrowLeft size={14}/> Back to clients</Link></div></main>;
   const services = Array.from(new Set(projects.map((p) => p.service)));
   const industries = Array.from(new Set(projects.map((p) => p.industry)));
