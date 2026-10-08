@@ -27,6 +27,16 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService').then((m) => (
 const AiInstructions = lazy(() => import('./pages/AiInstructions').then((m) => ({ default: m.AiInstructions })));
 const EditorialPolicy = lazy(() => import('./pages/EditorialPolicy').then((m) => ({ default: m.EditorialPolicy })));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy })));
+const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })));
+const Industries = lazy(() => import('./pages/Industries').then((m) => ({ default: m.Industries })));
+const IndustryDetail = lazy(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })));
+const Clients = lazy(() => import('./pages/Clients').then((m) => ({ default: m.Clients })));
+const ClientDetail = lazy(() => import('./pages/ClientDetail').then((m) => ({ default: m.ClientDetail })));
+const Resources = lazy(() => import('./pages/Resources').then((m) => ({ default: m.Resources })));
+const ResourceDetail = lazy(() => import('./pages/ResourceDetail').then((m) => ({ default: m.ResourceDetail })));
+const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
+const Search = lazy(() => import('./pages/Search').then((m) => ({ default: m.Search })));
+const BookCall = lazy(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const ScrollToTop = () => {
@@ -130,12 +140,22 @@ const AnimatedRoutes = () => {
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route path="/work" element={<Work />} />
+              <Route path="/work/:slug" element={<CaseStudyDetail />} />
               <Route path="/services" element={<Services />} />
               <Route path="/insights" element={<Insights />} />
               <Route path="/insights/:slug" element={<InsightDetail />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/solutions/:slug" element={<ServiceDetail />} />
               <Route path="/about" element={<About />} />
+              <Route path="/industries" element={<Industries />} />
+              <Route path="/industries/:slug" element={<IndustryDetail />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients/:slug" element={<ClientDetail />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/:slug" element={<ResourceDetail />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/book-a-call" element={<BookCall />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
