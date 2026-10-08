@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import PublicPageHero from '../components/ui/PublicPageHero';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -715,55 +715,28 @@ export const Services = () => {
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-        <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
-          <PatternWaves
-            preset="lines"
-            color="#E50914"
-            backgroundColor="#0B0C0E"
-            opacity={0.34}
-            fade="edges"
-            fadeSize={0.72}
-            interactive
-            cursorSize={52}
-            cursorStrength={0.38}
-            speed={0.2}
-            scale={1.06}
-            depth={0.62}
-            shine={0.5}
-            contrast={1.04}
-            intro
-          />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/34 to-transparent" />
-        </div><div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-3xl">
-            <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Specialized Services'}
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-display font-bold tracking-[-0.045em] leading-[1.03] text-white mb-6">
-              {language === 'id' ? 'Layanan & Solusi Digital.' : 'Services & Strategic Solutions.'}
-            </h1>
-            <p className="text-base sm:text-lg text-[#8A909D] font-light leading-relaxed mb-6">
-              {language === 'id'
-                ? 'Pilihan solusi strategis dan keahlian spesialis terlengkap untuk mentransformasi identitas brand, desain produk digital, dan rekayasa web skala modern.'
-                : 'Complete strategic solutions and specialized capabilities to transform brand identity, digital product design, and high-performance web engineering.'
-              }
-            </p>
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.018] border border-white/[0.08] backdrop-blur-xl flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shadow-[0_0_8px_rgba(255,26,26,0.6)]" />
-                <span className="text-white">{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-white/[0.018] border border-white/[0.08] text-white backdrop-blur-xl">
-                {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
-              </span>
-              <span className="px-3 py-1.5 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red font-semibold">
-                Branding • Design • Development
-              </span>
-            </div>
-          </div>
+      <PublicPageHero
+        eyebrow={language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Specialized Services'}
+        title={language === 'id' ? 'Layanan & Solusi Digital.' : 'Services & Strategic Solutions.'}
+        description={
+          language === 'id'
+            ? 'Pilihan solusi strategis dan keahlian spesialis terlengkap untuk mentransformasi identitas brand, desain produk digital, dan rekayasa web skala modern.'
+            : 'Complete strategic solutions and specialized capabilities to transform brand identity, digital product design, and high-performance web engineering.'
+        }
+      >
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 backdrop-blur-xl">
+            <span className="h-2 w-2 rounded-full bg-brand-red" aria-hidden="true" />
+            <span>{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
+          </span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-white backdrop-blur-xl">
+            {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
+          </span>
+          <span className="rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-1.5 font-semibold text-brand-red">
+            Branding • Design • Development
+          </span>
         </div>
-      </section>
+      </PublicPageHero>
 
       {/* SECTION 1: STRATEGIC SOLUTIONS (Always visible above filter) */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 relative">
