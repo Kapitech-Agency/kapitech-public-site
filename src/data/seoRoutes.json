@@ -248,6 +248,62 @@
       "kind": "webpage"
     },
     {
+      "path": "/industries/fintech",
+      "title": "FinTech Digital Product & UX Agency | Kapitech",
+      "description": "Kapitech designs and develops clearer fintech websites, financial products, dashboards, payment experiences, and enterprise systems.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/healthcare",
+      "title": "Healthcare & HealthTech Digital Agency | Kapitech",
+      "description": "Kapitech helps healthcare and HealthTech teams design and build clearer digital products, websites, workflows, and operational systems.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/saas",
+      "title": "AI, SaaS & Digital Product Agency | Kapitech",
+      "description": "Kapitech designs and develops AI, SaaS, MVP, and digital product experiences around real workflows and scalable product systems.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/commerce",
+      "title": "Commerce & Consumer Digital Agency | Kapitech",
+      "description": "Kapitech combines brand, UI/UX, websites, e-commerce, and creative delivery for consumer businesses.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/industrial",
+      "title": "Industrial & Infrastructure Digital Agency | Kapitech",
+      "description": "Kapitech builds enterprise websites, applications, ERP/CRM experiences, and technical infrastructure for complex organisations.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/mobility",
+      "title": "Mobility & Logistics Digital Agency | Kapitech",
+      "description": "Kapitech designs and develops digital experiences for logistics, fleet, transportation, shipping, and operational workflows.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/hospitality",
+      "title": "Hospitality, Property & Lifestyle Digital Agency | Kapitech",
+      "description": "Kapitech creates premium websites, brand systems, 3D experiences, and digital products for hospitality, property, architecture, and lifestyle brands.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
+      "path": "/industries/media",
+      "title": "Media, Gaming & Culture Digital Agency | Kapitech",
+      "description": "Kapitech combines motion, creative design, interactive websites, 3D, and digital product thinking for media, gaming, tourism, and culture.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "industry"
+    },
+    {
       "path": "/faq",
       "title": "FAQ | Kapitech Agency",
       "description": "Answers about working with Kapitech, process, services, security, careers, and project inquiries.",
