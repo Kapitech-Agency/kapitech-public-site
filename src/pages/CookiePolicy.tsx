@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { AtmosphericBackground } from '../components/ui/AtmosphericBackground';
+import { PolicyPageShell, PolicySection } from '../components/ui/PolicyPageShell';
 import { useLanguage } from '../lib/LanguageContext';
 
 type Section = { title: string; body?: string; bullets?: string[] };
@@ -108,38 +108,54 @@ const sections: Record<'en' | 'id', Section[]> = {
   ]
 };
 
+const supplemental: Record<'en' | 'id', PolicySection[]> = {
+  en: [
+    { title: '26. Tracker inventory and purpose mapping', body: 'A useful cookie policy should explain not only that trackers exist, but why they exist. Kapitech therefore distinguishes storage used for consent and language from optional measurement and attribution. If a new tracker is introduced, its purpose should be assessed before it is relied on.\n\nA tracker should not be described as “necessary” merely because it is convenient for analytics or marketing. Necessity relates to the function it supports and the conditions under which the website can operate without it.' },
+    { title: '27. Consent state and technical gating', body: 'The public website uses an explicit consent state to determine whether optional analytics and attribution may initialise. The implementation records the user’s choice locally and uses that state as a gate before optional functionality starts.\n\nA technical implementation should avoid loading optional analytics merely because a page component renders. Consent needs to be evaluated at the point where optional tracking code would otherwise initialise, and changes to consent should update the active analytics state as well.' },
+    { title: '28. First-party storage details', body: 'The site-managed keys currently include “kapitech_cookie_consent”, “kapitech_lang”, “kapitech_attribution_v1”, and “kapitech_anonymous_id_v1”. Their exact values and implementation may change as the website evolves.\n\nConsent storage records a privacy choice, language storage records a functional preference, and attribution or anonymous identifiers support optional measurement when consent exists. These keys should not be used as a hidden substitute for storing contact-form content, passwords, private keys, or other secrets.' },
+    { title: '29. Analytics event categories', body: 'Optional analytics can record events such as page views, selected navigation or conversion interactions, page paths, language context, campaign parameters, and referral information depending on configuration. The purpose is measurement and improvement rather than storing the content of a user’s form submission in analytics.\n\nEvent design should follow data minimisation principles. A useful event can generally use a category, action, or technical identifier rather than embedding free-form Personal Data into an analytics event.' },
+    { title: '30. Attribution identifiers and campaign parameters', body: 'Campaign parameters such as UTM values, click identifiers, and referral hosts can explain how traffic reached the website. Attribution can be useful for evaluating whether a campaign drives meaningful website activity, but it can also become more sensitive when combined with other identifiers.\n\nKapitech therefore treats optional attribution as part of the consent-controlled analytics layer. Campaign identifiers should be handled as measurement metadata rather than as an excuse to place names, messages, resumes, or other user-entered content into browser storage.' },
+    { title: '31. Google service configuration', body: 'Where Google Analytics 4 or Google Tag Manager is configured, the precise provider behaviour depends on the active configuration. Tag names, cookies, retention, integrations, processing locations, and downstream scripts can change.\n\nKapitech should therefore maintain the consent gate and review tag configuration whenever the analytics setup changes. Provider documentation should be checked for current service behaviour rather than relying on a permanent list of cookie names copied into a static policy.' },
+    { title: '32. Withdrawal, deletion, and provider-side limits', body: 'When optional consent is withdrawn, the website can remove or reset storage that it directly controls and stop future optional initialisation. This does not give Kapitech a technical ability to erase every value that a provider previously processed on its infrastructure.\n\nWhere a provider offers a separate privacy or deletion mechanism, users may need to use that provider’s process as well. Withdrawal of consent and deletion of historical provider data are related but technically distinct actions.' },
+    { title: '33. Browser inspection and user verification', body: 'Users who want to inspect actual site storage can use the developer tools or privacy settings of their browser to see cookies, local storage, and other site data. This can reveal implementation details that are more current than a static policy page, especially when a browser or provider changes a technical name.\n\nBrowser inspection should not be treated as a perfect legal description of purpose by itself. The policy explains the intended purpose while the browser shows the technical artifacts present on a particular device at a particular time.' },
+    { title: '34. Impact of blocking essential storage', body: 'A user can often block storage at browser level, but blocking essential storage can cause the site to repeatedly display the consent banner, forget language preference, lose other remembered state, or behave differently after navigation.\n\nOptional analytics should remain unavailable when the relevant consent state is absent, but essential website functionality can still depend on minimal storage. Users who block all site data should understand that some convenience features may no longer work as intended.' },
+    { title: '35. Changes to tracker configuration', body: 'Changes to analytics providers, tags, consent logic, storage keys, advertising technology, embedded widgets, or other trackers should trigger a policy review. A new tracker can change the data categories, recipients, or legal basis associated with the website.\n\nKapitech should update the disclosure when the change is material and should not rely on an old policy wording that describes a tracker which is no longer used or omits a materially new tracker that requires disclosure or consent.' },
+    { title: '36. Cookie policy governance and accountability', body: 'The website team should know which trackers are enabled, which are essential, which require consent, and which provider controls each third-party technology. Configuration changes should be reviewable so that the public policy can remain aligned with the actual implementation.\n\nWhere practical, the current consent implementation, analytics configuration, and public Cookie Policy should be treated as one governance set. The purpose is not to expose internal security configuration, but to keep user-facing disclosures accurate.' }
+  ],
+  id: [
+    { title: '26. Inventarisasi tracker dan pemetaan tujuan', body: 'Cookie policy yang baik bukan hanya menjelaskan bahwa tracker ada, tetapi juga menjelaskan mengapa tracker digunakan. Kapitech membedakan storage untuk consent dan bahasa dari measurement dan attribution opsional. Jika tracker baru ditambahkan, tujuannya harus dinilai sebelum digunakan.\n\nTracker tidak boleh disebut “necessary” hanya karena analytics atau marketing menjadi lebih nyaman. Necessity berkaitan dengan fungsi yang didukung dan apakah website dapat tetap berjalan tanpa tracker tersebut.' },
+    { title: '27. Consent state dan technical gating', body: 'Website publik menggunakan consent state eksplisit untuk menentukan apakah analytics dan attribution opsional boleh diinisialisasi. Implementasi menyimpan pilihan pengguna secara lokal dan menggunakan state tersebut sebagai gate sebelum fungsi opsional berjalan.\n\nImplementasi teknis sebaiknya tidak memuat analytics opsional hanya karena component dirender. Consent harus diperiksa pada titik sebelum optional tracking dijalankan dan perubahan consent juga harus memperbarui active analytics state.' },
+    { title: '28. Detail first-party storage', body: 'Key yang saat ini dikelola website mencakup “kapitech_cookie_consent”, “kapitech_lang”, “kapitech_attribution_v1”, dan “kapitech_anonymous_id_v1”. Nilai dan implementasinya dapat berubah.\n\nConsent storage mencatat privacy choice, language storage mencatat preference fungsional, sedangkan attribution dan anonymous identifier digunakan untuk measurement opsional ketika consent tersedia. Key tersebut tidak boleh digunakan sebagai tempat tersembunyi untuk contact form, password, private key, atau secret.' },
+    { title: '29. Kategori event analytics', body: 'Analytics opsional dapat mencatat page view, interaksi navigasi atau conversion tertentu, page path, konteks bahasa, campaign parameter, dan referral information sesuai konfigurasi. Tujuannya measurement dan improvement, bukan menyimpan isi form submission di analytics.\n\nEvent sebaiknya mengikuti prinsip minimisasi data. Event yang berguna biasanya cukup menggunakan category, action, atau technical identifier tanpa memasukkan Personal Data dalam bentuk free-form text.' },
+    { title: '30. Attribution identifier dan campaign parameter', body: 'Campaign parameter seperti UTM, click identifier, dan referral host membantu memahami dari mana traffic datang. Attribution berguna untuk menilai campaign, tetapi dapat menjadi lebih sensitif jika digabungkan dengan identifier lain.\n\nKarena itu Kapitech memperlakukan attribution sebagai bagian dari analytics yang dikontrol oleh consent. Campaign identifier merupakan metadata measurement dan bukan alasan untuk menyimpan nama, message, resume, atau user-entered content di browser storage.' },
+    { title: '31. Konfigurasi layanan Google', body: 'Jika Google Analytics 4 atau Google Tag Manager dikonfigurasi, behaviour provider bergantung pada konfigurasi aktif. Tag, cookie, retention, integration, processing location, dan downstream script dapat berubah.\n\nKapitech perlu mempertahankan consent gate dan meninjau konfigurasi tag setiap kali analytics berubah. Dokumentasi provider terbaru harus digunakan daripada mengandalkan daftar cookie statis yang bisa cepat usang.' },
+    { title: '32. Withdrawal, deletion, dan batas provider', body: 'Ketika consent opsional ditarik, website dapat menghapus atau reset storage yang dikendalikan langsung dan menghentikan inisialisasi opsional berikutnya. Hal tersebut tidak berarti Kapitech secara teknis dapat menghapus setiap nilai yang telah diproses provider pada infrastructure mereka.\n\nJika provider menyediakan mekanisme privacy atau deletion sendiri, pengguna mungkin perlu menggunakan proses provider tersebut. Withdrawal consent dan deletion data historis provider adalah dua tindakan yang terkait tetapi berbeda secara teknis.' },
+    { title: '33. Browser inspection dan verifikasi pengguna', body: 'Pengguna yang ingin melihat storage aktual dapat menggunakan developer tools atau privacy settings browser untuk memeriksa cookie, local storage, dan site data. Informasi ini dapat lebih mutakhir daripada policy statis, terutama jika browser atau provider mengubah nama teknis.\n\nBrowser inspection tidak boleh dianggap sebagai penjelasan legal lengkap tentang tujuan data. Policy menjelaskan purpose yang dimaksud, sementara browser menampilkan artefak teknis pada device tertentu saat tertentu.' },
+    { title: '34. Dampak memblokir storage esensial', body: 'Pengguna dapat memblokir storage melalui browser, tetapi pemblokiran storage esensial dapat membuat consent banner muncul lagi, bahasa kembali default, state tertentu hilang, atau website berperilaku berbeda.\n\nAnalytics opsional seharusnya tetap tidak tersedia ketika consent tidak ada, tetapi fungsi dasar website masih dapat bergantung pada storage minimal. Pengguna yang memblokir seluruh site data perlu memahami bahwa fitur kenyamanan tertentu dapat tidak berjalan normal.' },
+    { title: '35. Perubahan konfigurasi tracker', body: 'Perubahan analytics provider, tag, consent logic, storage key, advertising technology, embedded widget, atau tracker lain seharusnya memicu review policy. Tracker baru dapat mengubah kategori data, recipient, atau dasar pemrosesan.\n\nKapitech perlu memperbarui disclosure ketika perubahan bersifat material dan tidak menggunakan wording lama yang menjelaskan tracker yang sudah tidak dipakai atau menghilangkan tracker baru yang membutuhkan disclosure atau consent.' },
+    { title: '36. Governance dan accountability Cookie Policy', body: 'Tim website perlu mengetahui tracker apa yang aktif, mana yang essential, mana yang memerlukan consent, dan provider mana yang mengendalikan teknologi pihak ketiga. Perubahan konfigurasi perlu dapat ditinjau agar policy publik tetap sesuai dengan implementasi.\n\nJika memungkinkan, consent implementation, analytics configuration, dan Cookie Policy diperlakukan sebagai satu governance set. Tujuannya bukan membuka security configuration internal, tetapi menjaga disclosure kepada pengguna tetap akurat.' }
+  ]
+};
+
 export const CookiePolicy = () => {
   const { language } = useLanguage();
   const current = language === 'id' ? sections.id : sections.en;
-  const openPreferences = () => window.dispatchEvent(new Event('kapitech_open_cookie_preferences'));
+  const extra = language === 'id' ? supplemental.id : supplemental.en;
+  const ordered = [...current.slice(0, -1), ...extra, ...current.slice(-1)];
+  const manageAction = {
+    label: language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences',
+    onClick: () => window.dispatchEvent(new Event('kapitech_open_cookie_preferences'))
+  };
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="kapi-policy-page min-h-screen pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] text-[#8A909D] font-light relative selection:bg-brand-red selection:text-white">
-      <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.05} disableGrayscale={true} />
-      <div className="max-w-4xl mx-auto relative z-10">
-        <span className="kapi-section-label mb-5">{language === 'id' ? 'Cookie, Consent & Browser Storage' : 'Cookies, Consent & Browser Storage'}</span>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 tracking-tighter">{language === 'id' ? 'Kebijakan Cookie.' : 'Cookie Policy.'}</h1>
-        <p className="text-xs sm:text-sm uppercase tracking-widest text-brand-red font-mono font-semibold mb-4">{language === 'id' ? 'Diperbarui: 8 Oktober 2026' : 'Updated: October 8, 2026'}</p>
-        <p className="text-xs uppercase tracking-widest text-[#666B75] font-mono font-semibold mb-12">{language === 'id' ? 'Analytics opsional memerlukan consent.' : 'Optional analytics requires consent.'}</p>
-        <div className="mb-8 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 text-sm leading-7 text-[#9AA1AD]">
-          {language === 'id'
-            ? 'Website membedakan storage yang diperlukan dari analytics dan attribution yang bersifat opsional. Pilihan Anda dapat diubah kembali kapan saja.'
-            : 'The website distinguishes necessary storage from optional analytics and attribution. You can change your preference again at any time.'}
-        </div>
-        <button type="button" onClick={openPreferences}
-          className="mb-12 inline-flex min-h-[42px] items-center justify-center rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.09em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-          {language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences'}
-        </button>
-        <div className="space-y-12 text-[15px] md:text-base leading-[1.78] text-[#8A909D]">
-          {current.map((section) => (
-            <section key={section.title} className="scroll-mt-32">
-              <h2 className="text-[clamp(21px,2.2vw,27px)] leading-[1.18] font-sans font-bold text-white mb-4 tracking-[-0.025em]">{section.title}</h2>
-              {section.body && section.body.split('\n\n').map((paragraph, index) => <p key={index} className={index > 0 ? 'mt-4' : ''}>{paragraph}</p>)}
-              {section.bullets && <ul className="mt-4 list-disc pl-6 space-y-2">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
-            </section>
-          ))}
-        </div>
-      </div>
-    </motion.div>
+    <PolicyPageShell
+      eyebrow={language === 'id' ? 'Cookie, Consent & Browser Storage' : 'Cookies, Consent & Browser Storage'}
+      title={language === 'id' ? 'Kebijakan Cookie.' : 'Cookie Policy.'}
+      updated={language === 'id' ? 'Diperbarui: 8 Oktober 2026' : 'Updated: October 8, 2026'}
+      summary={language === 'id'
+        ? 'Kebijakan ini menjelaskan secara rinci cookie, local storage, tracker, analytics, attribution, consent, withdrawal, kontrol browser, provider, retensi, dan governance website.'
+        : 'This policy explains the website’s cookie, local-storage, tracker, analytics, attribution, consent, withdrawal, browser-control, provider, retention, and governance model in detail.'}
+      sections={ordered}
+      manageAction={manageAction}
+    />
   );
 };
