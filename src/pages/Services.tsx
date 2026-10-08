@@ -966,7 +966,7 @@ export const Services = () => {
         <AnimatePresence>
           {selectedService && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-[#0B0C0E]/82 backdrop-blur-2xl backdrop-saturate-150"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto kapi-modal-overlay"
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-preview-title"
