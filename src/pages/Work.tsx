@@ -24,6 +24,7 @@ import {
 import Fuse from 'fuse.js';
 import { useLanguage } from '../lib/LanguageContext';
 import { ProjectItem } from '../data/projectsData';
+import { projectSlug } from '../lib/publicContent';
 
 const WorkModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
@@ -1266,15 +1267,24 @@ export const Work = () => {
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</span>
                         <h3 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">{language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}</h3>
                         <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">{language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
-                        <Link
-                          to="/contact"
-                          onClick={() => closeCaseStudy()}
-                          className="mt-5 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
-                          data-cursor-label="Start"
-                        >
-                          <span>{language === 'id' ? 'Mulai Proyek' : 'Start Project'}</span>
-                          <ArrowUpRight size={14} />
-                        </Link>
+                        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                          <Link
+                            to={'/work/' + projectSlug(selectedProject)}
+                            onClick={() => closeCaseStudy()}
+                            className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.08] sm:w-auto"
+                          >
+                            <span>{language === 'id' ? 'Buka Case Study Penuh' : 'Open Full Case Study'}</span>
+                            <ArrowUpRight size={14} />
+                          </Link>
+                          <Link
+                            to="/book-a-call"
+                            onClick={() => closeCaseStudy()}
+                            className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
+                          >
+                            <span>{language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule Consultation'}</span>
+                            <ArrowUpRight size={14} />
+                          </Link>
+                        </div>
                       </section>
                     </div>
                   </section>
