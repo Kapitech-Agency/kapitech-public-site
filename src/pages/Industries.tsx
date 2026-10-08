@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   CheckCircle2,
   Compass,
-  Layers3,
   Search,
   ShieldCheck,
   Sparkles,
