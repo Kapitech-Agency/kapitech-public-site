@@ -20,6 +20,11 @@ export interface ContactSubmission {
   rateCard?: string;
   experienceYears?: string;
   tools?: string;
+  availability?: string;
+  location?: string;
+  industry?: string;
+  ndaRequested?: boolean;
+  briefUrl?: string;
   createdAt?: string;
   userAgent?: string;
   priority?: 'urgent' | 'high' | 'normal' | 'low';
