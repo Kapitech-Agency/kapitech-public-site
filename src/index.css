@@ -147,6 +147,37 @@
   border-radius: 9999px;
 }
 
+/* Consistent public-site button baseline.
+   Buttons may opt into their own rounded-xl/rounded-lg/circle shape.
+   Any button without an explicit radius receives the default pill treatment. */
+.kapi-public-shell button:not([class*="rounded-"]) {
+  min-height: 40px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--kapi-radius-pill);
+  background: rgba(255,255,255,0.035);
+  color: #F8FAFC;
+  padding-inline: 0.875rem;
+  transition:
+    background-color 220ms cubic-bezier(0.22,1,0.36,1),
+    border-color 220ms cubic-bezier(0.22,1,0.36,1),
+    color 220ms cubic-bezier(0.22,1,0.36,1),
+    transform 220ms cubic-bezier(0.22,1,0.36,1);
+}
+
+.kapi-public-shell button:not([class*="rounded-"]):hover {
+  border-color: rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.065);
+}
+
+.kapi-public-shell button:not([class*="rounded-"]):active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.kapi-public-shell button:not([class*="rounded-"])[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .kapi-section-label {
   display: inline-flex;
   align-items: center;
