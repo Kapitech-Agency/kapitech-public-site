@@ -444,9 +444,14 @@ export const IndustryDetail = () => {
         className="sticky z-30 border-y border-white/[0.07] bg-[#0B0C0E]/90 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/78"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
-          <span className="mr-1 hidden shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D] md:block">
-            {language === 'id' ? 'Di halaman ini' : 'On this page'}
-          </span>
+          <div className="mr-1 hidden shrink-0 items-center gap-2 pr-2 md:flex">
+            <span className="text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
+              {language === 'id' ? 'Di halaman ini' : 'On this page'}
+            </span>
+            <span className="tabular-nums text-[8px] font-mono tracking-[0.12em] text-[#4F5762]">
+              {String(sectionLinks.findIndex(([id]) => id === activeSection) + 1).padStart(2, '0')} / {String(sectionLinks.length).padStart(2, '0')}
+            </span>
+          </div>
           {sectionLinks.map(([id, label]) => (
             <a
               key={id}
@@ -474,7 +479,8 @@ export const IndustryDetail = () => {
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 md:px-10 lg:px-12">
         <section
           id="industry-approach"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
+          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-approach-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
@@ -549,7 +555,8 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-work"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
+          className="border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-work-title"
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -683,7 +690,8 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-solutions"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-solutions-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
@@ -787,7 +795,8 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-process"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-process-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
@@ -894,7 +903,8 @@ export const IndustryDetail = () => {
 
         <section
           id="industry-faq"
-          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}\n          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
+          style={{ scrollMarginTop: navbarHeight + sectionNavHeight + 16 }}
+          className="scroll-mt-28 border-b border-white/[0.07] py-16 sm:py-20 lg:py-24"
           aria-labelledby="industry-faq-title"
         >
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
