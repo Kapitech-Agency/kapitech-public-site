@@ -196,7 +196,7 @@ export const IndustryDetail = () => {
 
       <nav
         aria-label={language === 'id' ? 'Navigasi halaman industri' : 'Industry page navigation'}
-        className="sticky top-[68px] z-30 hidden border-y border-white/[0.07] bg-[#0B0C0E]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/76 sm:block"
+        className="sticky top-[64px] z-30 border-y border-white/[0.07] bg-[#0B0C0E]/88 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0B0C0E]/76 sm:block"
       >
         <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-4 py-2.5 [scrollbar-width:none] sm:px-6 md:px-10 lg:px-12 [&::-webkit-scrollbar]:hidden">
           <span className="shrink-0 pr-2 text-[8px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
