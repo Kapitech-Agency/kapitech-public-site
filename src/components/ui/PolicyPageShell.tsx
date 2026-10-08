@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AtmosphericBackground } from './AtmosphericBackground';
+import PublicPageHero from './PublicPageHero';
 
 export type PolicyTable = { caption?: string; headers: string[]; rows: string[][]; };
 export type PolicySection = { title: string; body?: string; paragraphs?: string[]; table?: PolicyTable; };
@@ -44,20 +44,21 @@ export const PolicyPageShell = ({
   showContact = false
 }: PolicyPageShellProps) => {
   return (
-    <div className="kapi-policy-page relative min-h-screen overflow-x-clip bg-[#0B0C0E] px-4 pb-20 pt-28 text-[#8A909D] sm:px-6 sm:pb-28 sm:pt-32 md:px-10 lg:px-12">
-      <AtmosphericBackground imageUrl="/hero_background_3d.png" opacity={0.025} disableGrayscale={true} />
-      <div className="relative z-10 mx-auto max-w-5xl">
-        <header className="max-w-4xl">
-          <span className="kapi-section-label mb-5">{eyebrow}</span>
-          <h1 className="max-w-4xl text-4xl font-display font-bold leading-[1.04] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl">{title}</h1>
-          <p className="mt-5 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-brand-red sm:text-xs">{updated}</p>
-          <p className="mt-7 max-w-3xl text-sm leading-[1.85] text-[#A3A9B4] sm:text-[15px]">{summary}</p>
-          {manageAction && (
-            <button type="button" onClick={manageAction.onClick} className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.09em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
+    <div className="kapi-policy-page min-h-screen overflow-x-clip bg-[#0B0C0E] text-[#8A909D]">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:px-12">
+        <PublicPageHero
+          eyebrow={eyebrow}
+          title={title}
+          description={summary}
+        >
+          <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-brand-red">{updated}</p>
+          {manageAction ? (
+            <button type="button" onClick={manageAction.onClick} className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.09em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
               {manageAction.label}
             </button>
-          )}
-        </header>
+          ) : null}
+        </PublicPageHero>
+
 
         <main className="mt-14 min-w-0 max-w-4xl space-y-12 sm:space-y-14">
           {sections.map((section, index) => {
