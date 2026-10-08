@@ -335,7 +335,7 @@ export const Industries = () => {
               </div>
             </div>
 
-            {activeProjects.length > 0 ? (
+            {activeProjects.length > 0 && activeFeatured ? (
               <div className="mt-9 grid gap-4 lg:grid-cols-[1.28fr_0.72fr]">
                 <Link
                   to={'/work/' + projectSlug(activeFeatured)}
