@@ -307,7 +307,22 @@ export const IndustryDetail = () => {
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <p className="mb-3 text-[9px] font-mono uppercase tracking-[0.14em] text-[#59616D]">
+                {language === 'id' ? 'Kapabilitas yang bisa dibawa' : 'Capabilities we can bring'}
+              </p>
+              <div className="mb-7 flex flex-wrap gap-2">
+                {capabilities.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.09em] text-[#737D89]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
               {solutionTypes.map((item, index) => (
                 <article key={item} className="rounded-[1.5rem] border border-white/[0.08] bg-white/[0.018] p-6 sm:p-7">
                   <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.02] text-[#8D96A2]">
