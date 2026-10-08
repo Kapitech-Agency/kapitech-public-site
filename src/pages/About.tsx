@@ -573,7 +573,6 @@ export const About = () => {
               </span>
               <div className="flex items-center gap-3">
                 <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">{String(team.length).padStart(2, '0')}</span>
-                <span className="h-px w-10 bg-brand-red/70" aria-hidden="true" />
                 <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                   {language === 'id' ? 'Leadership roles' : 'Leadership roles'}
                 </span>
@@ -785,10 +784,6 @@ export const About = () => {
                   </p>
                 </div>
 
-                <span
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
-                  aria-hidden="true"
-                />
               </motion.article>
             ))}
           </div>
@@ -829,10 +824,6 @@ export const About = () => {
                 whileHover={{ y: -4 }}
                 className="group relative flex min-w-0 min-h-[220px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:min-h-[250px] sm:p-7 lg:p-8"
               >
-                <span
-                  className="absolute inset-y-0 left-0 w-px bg-brand-red/0 transition-colors duration-300 group-hover:bg-brand-red/60"
-                  aria-hidden="true"
-                />
                 <div className="flex min-w-0 flex-1 flex-col">
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-2xl font-display font-semibold tracking-[-0.05em] text-brand-red font-mono sm:text-[1.7rem]">
