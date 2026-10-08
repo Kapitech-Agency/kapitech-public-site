@@ -6,6 +6,7 @@ import PatternWaves from './PatternWaves/PatternWavesTyped';
 type PublicPageHeroProps = {
   eyebrow: string;
   title: string;
+  titleNode?: React.ReactNode;
   description?: string;
   backLink?: { href: string; label: string };
   children?: React.ReactNode;
@@ -15,6 +16,7 @@ type PublicPageHeroProps = {
 export const PublicPageHero = ({
   eyebrow,
   title,
+  titleNode,
   description,
   backLink,
   children,
@@ -55,7 +57,7 @@ export const PublicPageHero = ({
       <div className={backLink ? 'mt-8' : ''}>
         <span className="kapi-section-label">{eyebrow}</span>
         <h1 className="mt-5 max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
-          {title}
+          {titleNode ?? title}
         </h1>
         {description ? (
           <p className="mt-6 max-w-3xl text-base leading-8 text-[#9097A4] sm:text-lg">
