@@ -1602,3 +1602,132 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
     transition: none !important;
   }
 }
+
+
+/* ==========================================================================
+   UTILITY / DIRECTORY PAGE CONSISTENCY
+   Shared by the newer public routes so they inherit the same editorial UI
+   language as the established Home / Services / Work surfaces.
+   ========================================================================== */
+.kapi-public-shell .kapi-utility-page {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 78% 8%, rgba(229, 9, 20, 0.045), transparent 24%),
+    radial-gradient(circle at 18% 26%, rgba(255,255,255,0.022), transparent 28%),
+    var(--kapi-v2-bg);
+}
+
+.kapi-public-shell .kapi-utility-page > :where(div:first-child) {
+  position: relative;
+  z-index: 1;
+}
+
+.kapi-public-shell .kapi-utility-page h1 {
+  max-width: 64rem;
+  text-wrap: balance;
+}
+
+.kapi-public-shell .kapi-utility-page > div > p:has(+ h1) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 9999px;
+  background: rgba(11,12,14,0.46);
+  color: var(--kapi-v2-red-bright);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  line-height: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.055);
+}
+
+.kapi-public-shell .kapi-utility-page
+  :where([class*="rounded-2xl"][class*="bg-white/[0.018]"],
+         [class*="rounded-3xl"][class*="bg-white/[0.018]"],
+         [class*="rounded-3xl"][class*="bg-white/[0.025]"],
+         [class*="rounded-2xl"][class*="bg-white/[0.015]"],
+         [class*="rounded-3xl"][class*="bg-white/[0.02]"]) {
+  background: var(--kapi-v2-panel-soft);
+  border-color: var(--kapi-v2-line);
+  backdrop-filter: blur(14px) saturate(115%);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.025),
+    0 18px 42px -30px rgba(0,0,0,0.75);
+}
+
+.kapi-public-shell .kapi-utility-page
+  a[class*="rounded-3xl"][class*="bg-white/[0.018]"] {
+  transition:
+    transform 360ms var(--kapi-v2-ease),
+    border-color 280ms ease,
+    background-color 280ms ease,
+    box-shadow 360ms var(--kapi-v2-ease);
+}
+
+.kapi-public-shell .kapi-utility-page
+  a[class*="rounded-3xl"][class*="bg-white/[0.018]"]:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(21,24,30,0.86);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.035),
+    0 20px 48px -34px rgba(0,0,0,0.88);
+}
+
+.kapi-public-shell .kapi-utility-page
+  :where([class*="border-white/[0.08]"], [class*="border-white/[0.07]"], [class*="border-white/[0.09]"]) {
+  border-color: var(--kapi-v2-line);
+}
+
+.kapi-public-shell .kapi-utility-page :where(input, textarea, select) {
+  background: rgba(11,12,14,0.58);
+  border-color: var(--kapi-v2-line);
+}
+
+.kapi-public-shell .kapi-utility-page :where(input, textarea, select):focus {
+  border-color: rgba(229,9,20,0.56);
+}
+
+.kapi-public-shell .kapi-utility-page section + section {
+  border-top-color: transparent;
+}
+
+.kapi-public-shell .kapi-utility-page > div > section[class*="border-t"] {
+  border-top-color: transparent;
+}
+
+.kapi-public-shell .kapi-utility-page :where(a, button):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(229,9,20,0.16);
+}
+
+@media (max-width: 767px) {
+  .kapi-public-shell .kapi-utility-page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .kapi-public-shell .kapi-utility-page h1 {
+    letter-spacing: -0.045em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kapi-public-shell .kapi-utility-page
+    a[class*="rounded-3xl"][class*="bg-white/[0.018]"] {
+    transition: none;
+  }
+
+  .kapi-public-shell .kapi-utility-page
+    a[class*="rounded-3xl"][class*="bg-white/[0.018]"]:hover {
+    transform: none;
+  }
+}
