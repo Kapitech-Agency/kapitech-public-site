@@ -482,71 +482,169 @@ export const Industries = () => {
           </div>
         </section>
 
-        <section className="py-12 sm:py-16 lg:py-20" aria-labelledby="directory-title">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
+        <section className="py-14 sm:py-18 lg:py-24" aria-labelledby="directory-title">
+          <div className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="kapi-section-label">{language === 'id' ? 'Industry directory' : 'Industry directory'}</span>
-              <h2 id="directory-title" className="mt-3 text-3xl font-display font-semibold leading-[1.03] tracking-[-0.05em] sm:text-4xl">
-                {language === 'id' ? 'Butuh konteks yang lebih spesifik?' : 'Need a more specific context?'}
+              <h2
+                id="directory-title"
+                className="mt-3 max-w-xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] sm:text-4xl lg:text-[3.25rem]"
+              >
+                {language === 'id' ? 'Semua konteks industri, dalam satu tempat.' : 'Every industry context, in one place.'}
               </h2>
-              <p className="mt-4 text-sm leading-7 text-[#7E8793]">
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#7E8793]">
                 {language === 'id'
-                  ? 'Cari industry, client, service, atau judul project untuk masuk langsung ke konteks yang relevan.'
-                  : 'Search by industry, client, service, or project title to jump directly to the relevant context.'}
+                  ? 'Gunakan directory ini ketika Anda sudah tahu industrinya dan ingin langsung melihat pekerjaan yang paling relevan.'
+                  : 'Use this directory when you already know your industry and want to get straight to the most relevant work.'}
               </p>
+
+              <div className="mt-7 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <span className="block text-[9px] font-mono uppercase tracking-[0.14em] text-[#5E6672]">
+                      {language === 'id' ? 'Results' : 'Results'}
+                    </span>
+                    <span className="mt-1 block text-2xl font-display font-semibold tracking-[-0.04em]">{filteredIndustryEntries.length}</span>
+                  </div>
+                  <span className="text-right text-[9px] font-mono uppercase leading-4 tracking-[0.1em] text-[#5E6672]">
+                    {language === 'id' ? 'industry contexts' : 'industry contexts'}
+                  </span>
+                </div>
+
+                <div className="mt-4 flex h-px bg-white/[0.07]" aria-hidden="true" />
+                <p className="mt-4 text-xs leading-6 text-[#646D79]">
+                  {normalizedQuery
+                    ? language === 'id'
+                      ? 'Hasil disaring berdasarkan industry, client, service, dan project.'
+                      : 'Results are matched across industry, client, service, and project.'
+                    : language === 'id'
+                      ? 'Setiap item membawa Anda langsung ke halaman industry dan project yang relevan.'
+                      : 'Each item takes you directly to the relevant industry and project context.'}
+                </p>
+              </div>
             </div>
 
-            <div className="flex w-full max-w-md items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 py-2.5 focus-within:border-white/[0.16] focus-within:bg-white/[0.035]">
-              <Search size={16} className="shrink-0 text-[#69717D]" aria-hidden="true" />
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                type="search"
-                placeholder={language === 'id' ? 'Cari industry, client, service...' : 'Search industry, client, service...'}
-                aria-label={language === 'id' ? 'Cari industry' : 'Search industry'}
-                className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-[#5F6773]"
-              />
-              {query ? (
-                <button
-                  type="button"
-                  onClick={() => setQuery('')}
-                  aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#69717D] transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  <X size={14} aria-hidden="true" />
-                </button>
+            <div className="min-w-0">
+              <div className="flex flex-col gap-4 border-b border-white/[0.08] pb-5 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex min-h-12 w-full max-w-xl items-center gap-3 rounded-2xl border border-white/[0.09] bg-[#101216] px-4 transition-[border-color,background-color,box-shadow] duration-200 focus-within:border-white/[0.18] focus-within:bg-[#121419] focus-within:shadow-[0_12px_36px_rgba(0,0,0,0.16)]">
+                  <Search size={16} className="shrink-0 text-[#69717D]" aria-hidden="true" />
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    type="search"
+                    placeholder={language === 'id' ? 'Cari industry, client, service...' : 'Search industry, client, service...'}
+                    aria-label={language === 'id' ? 'Cari industry' : 'Search industry'}
+                    className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-[#5F6773]"
+                  />
+                  {query ? (
+                    <button
+                      type="button"
+                      onClick={() => setQuery('')}
+                      aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#69717D] transition-colors hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                    >
+                      <X size={14} aria-hidden="true" />
+                    </button>
+                  ) : null}
+                </div>
+
+                <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#535C68]">
+                  {filteredIndustryEntries.length} / {industryEntries.length}
+                </span>
+              </div>
+
+              <div className="divide-y divide-white/[0.08] border-b border-white/[0.08]">
+                {filteredIndustryEntries.map((entry, index) => {
+                  const representativeProject = entry.projects[0];
+
+                  return (
+                    <Link
+                      key={entry.industry}
+                      to={'/industries/' + industrySlug(entry.industry)}
+                      className="group block py-5 sm:py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset"
+                    >
+                      <div className="grid items-center gap-5 md:grid-cols-[34px_minmax(180px,0.95fr)_minmax(220px,1.15fr)_auto]">
+                        <span className="self-start pt-1 text-[9px] font-mono tabular-nums tracking-[0.14em] text-[#4F5762]">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+
+                        <div className="min-w-0">
+                          <div className="flex items-start gap-3">
+                            <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.018] text-[10px] font-mono text-[#737C87] transition-[border-color,background-color,color] duration-200 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.06] group-hover:text-brand-red">
+                              {entry.projects.length}
+                            </span>
+                            <div className="min-w-0">
+                              <h3 className="text-[17px] font-display font-semibold leading-tight tracking-[-0.025em] text-white transition-colors duration-200 group-hover:text-white sm:text-[19px]">
+                                {entry.industry}
+                              </h3>
+                              <p className="mt-1 text-[9px] font-mono uppercase tracking-[0.1em] text-[#59616D]">
+                                {entry.projects.length === 1 ? '1 case' : entry.projects.length + ' cases'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex min-w-0 items-center gap-3">
+                          <div className="relative hidden h-12 w-[72px] shrink-0 overflow-hidden rounded-xl border border-white/[0.08] bg-[#14161A] sm:block">
+                            {representativeProject?.image ? (
+                              <>
+                                <img
+                                  src={representativeProject.image}
+                                  alt=""
+                                  className="absolute inset-0 h-full w-full object-cover opacity-65 transition-[opacity,transform] duration-500 group-hover:scale-[1.04] group-hover:opacity-85"
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                                <span className="absolute inset-0 bg-[#0B0C0E]/25" aria-hidden="true" />
+                              </>
+                            ) : null}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="truncate text-xs font-medium text-[#B7BDC6]">
+                              {representativeProject?.title ?? (language === 'id' ? 'Lihat pekerjaan' : 'View work')}
+                            </p>
+                            <p className="mt-1 truncate text-[9px] font-mono uppercase tracking-[0.09em] text-[#5E6672]">
+                              {entry.services.slice(0, 2).join(' · ')}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-end gap-3">
+                          <span className="hidden text-[9px] font-mono uppercase tracking-[0.11em] text-[#5E6672] transition-colors duration-200 group-hover:text-brand-red lg:inline">
+                            {language === 'id' ? 'Explore' : 'Explore'}
+                          </span>
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.018] text-[#65707C] transition-[transform,border-color,background-color,color] duration-200 group-hover:-translate-y-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                            <ArrowUpRight size={15} aria-hidden="true" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {filteredIndustryEntries.length === 0 ? (
+                <div className="rounded-b-2xl border-x border-b border-white/[0.08] bg-white/[0.018] px-6 py-12 text-center">
+                  <p className="font-display text-xl font-semibold">
+                    {language === 'id' ? 'Tidak ada konteks yang cocok.' : 'No matching industry context.'}
+                  </p>
+                  <p className="mt-2 text-sm text-[#747D88]">
+                    {language === 'id'
+                      ? 'Coba nama industry, client, service, atau project yang berbeda.'
+                      : 'Try a different industry, client, service, or project name.'}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setQuery('')}
+                    className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] px-4 text-xs font-semibold text-[#C7CCD4] transition-colors hover:border-white/[0.16] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  >
+                    {language === 'id' ? 'Reset pencarian' : 'Reset search'}
+                    <X size={13} aria-hidden="true" />
+                  </button>
+                </div>
               ) : null}
             </div>
           </div>
-
-          <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredIndustryEntries.map((entry) => (
-              <Link
-                key={entry.industry}
-                to={'/industries/' + industrySlug(entry.industry)}
-                className="group flex min-h-[128px] flex-col justify-between rounded-2xl border border-white/[0.08] bg-white/[0.015] p-5 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="text-[9px] font-mono uppercase tracking-[0.11em] text-[#626B76]">{entry.projects.length} {entry.projects.length === 1 ? 'case' : 'cases'}</span>
-                  <ArrowUpRight size={14} className="text-[#505965] transition-colors group-hover:text-brand-red" />
-                </div>
-                <div className="mt-5">
-                  <h3 className="text-[15px] font-display font-semibold leading-snug tracking-[-0.02em]">{entry.industry}</h3>
-                  {entry.services[0] ? <p className="mt-2 text-[9px] font-mono uppercase tracking-[0.08em] text-[#626B76]">{entry.services[0]}</p> : null}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {filteredIndustryEntries.length === 0 ? (
-            <div className="mt-3 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-6 py-10 text-center">
-              <p className="font-display text-xl font-semibold">{language === 'id' ? 'Tidak ada konteks yang cocok.' : 'No matching industry context.'}</p>
-              <p className="mt-2 text-sm text-[#747D88]">{language === 'id' ? 'Coba kata kunci yang lebih umum.' : 'Try a broader keyword.'}</p>
-              <button type="button" onClick={() => setQuery('')} className="mt-5 inline-flex min-h-10 items-center rounded-full border border-white/[0.09] px-4 text-xs font-semibold text-[#C7CCD4] hover:border-white/[0.16] hover:text-white">
-                {language === 'id' ? 'Reset pencarian' : 'Reset search'}
-              </button>
-            </div>
-          ) : null}
         </section>
       </div>
     </main>
