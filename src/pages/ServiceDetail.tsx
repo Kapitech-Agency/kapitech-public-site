@@ -27,6 +27,7 @@ import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsS
 import { allSolutionsAndServices, getServiceBySlug } from '../data/servicesData';
 import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
 import { cn } from '../lib/utils';
+import PublicPageHero from '../components/ui/PublicPageHero';
 
 export const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -129,132 +130,42 @@ export const ServiceDetail = () => {
   };
 
   return (
-    <div className="kapi-service-page relative min-h-screen bg-white/[0.012] text-white selection:bg-brand-red selection:text-white pt-28 pb-28 overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <PatternWaves
-          preset="terminal"
-          color="#E50914"
-          backgroundColor="#0B0C0E"
-          opacity={0.1}
-          fade="edges"
-          fadeSize={0.86}
-          interactive
-          cursorSize={46}
-          cursorStrength={0.28}
-          speed={0.17}
-          scale={1.05}
-          depth={0.62}
-          shine={0.42}
-          contrast={1.02}
-          intro
-        />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/78 to-transparent" />
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
-        
-        {/* BREADCRUMB & BACK NAVIGATION */}
-        <nav aria-label={language === 'id' ? 'Breadcrumb' : 'Breadcrumb'}>
-          <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-xs sm:text-sm text-[#8A909D] mb-8 sm:mb-12 list-none p-0 m-0">
-            <li>
-              <Link 
-                to="/services" 
-                className="inline-flex items-center gap-1.5 text-[#8A909D] hover:text-white transition-colors duration-200"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>{language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services'}</span>
-              </Link>
-            </li>
-            <li aria-hidden="true"><ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" /></li>
-            <li>
-              <span className="kapi-section-label mb-0">
-                {service.category}
-              </span>
-            </li>
-            <li aria-hidden="true"><ChevronRight className="w-3.5 h-3.5 text-[#8A909D]" /></li>
-            <li className="min-w-0 max-w-[11rem] sm:max-w-none text-white font-medium break-words sm:truncate">
-              {service.title}
-            </li>
-          </ol>
-        </nav>
-
-
-        {/* HERO SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 sm:mb-16 lg:mb-20"
-        >
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center gap-2.5 mb-6">
-              <span className="kapi-section-label mb-0">
-                {language === 'id' ? service.badgeId : service.badge}
-              </span>
-              {isSolutionPage && (
-                <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
-                  {language === 'id' ? 'Solution' : 'Solution'}
-                </span>
-              )}
+    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+      <PublicPageHero
+        eyebrow={language === 'id' ? service.badgeId : service.badge}
+        title={language === 'id' ? service.heroHeadlineId : service.heroHeadline}
+        description={language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
+        backLink={{ href: '/services', label: language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services' }}
+      >
+        <div className="flex flex-wrap items-center gap-2.5">
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">{service.category}</span>
+          {isSolutionPage ? <span className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">Solution</span> : null}
+        </div>
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <Link to={'/book-a-call?service=' + encodeURIComponent(service.title)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+            <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <a href="#case-studies" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.018] px-5 py-3 text-xs font-medium text-white transition-[background-color,border-color] duration-200 hover:border-white/[0.15] hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+            {language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}
+            <ChevronDown className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+        <div className="mt-6 grid max-w-4xl gap-2.5 sm:grid-cols-3">
+          {[
+            { label: language === 'id' ? 'Kategori' : 'Category', value: service.category },
+            { label: language === 'id' ? 'Cocok untuk' : 'Best for', value: language === 'id' ? service.navSubtitleId : service.navSubtitle },
+            { label: language === 'id' ? 'Tahap awal' : 'Starting point', value: language === 'id' ? service.processStages?.[0]?.stageNameId || 'Discovery' : service.processStages?.[0]?.stageName || 'Discovery' }
+          ].map((item) => (
+            <div key={item.label} className="kapi-surface min-w-0 px-4 py-3.5">
+              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">{item.label}</span>
+              <span className="mt-1.5 block text-xs font-medium leading-[1.55] text-white">{item.value}</span>
             </div>
+          ))}
+        </div>
+      </PublicPageHero>
 
-            <h1 className="max-w-5xl text-3xl sm:text-5xl lg:text-[4.5rem] font-display font-semibold tracking-[-0.055em] text-white leading-[0.98] mb-6">
-              {language === 'id' ? service.heroHeadlineId : service.heroHeadline}
-            </h1>
-
-            <p className="text-sm sm:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.8] max-w-3xl mb-10">
-              {language === 'id' ? service.heroSubtitleId : service.heroSubtitle}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                to={'/book-a-call?service=' + encodeURIComponent(service.title)}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
-              >
-                <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <a
-                href="#case-studies"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-white font-medium text-sm hover:border-brand-red/30 hover:bg-white/[0.03] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
-              >
-                <span>{language === 'id' ? 'Lihat Studi Kasus' : 'View Case Studies'}</span>
-                <ChevronDown className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div className="mt-8 grid max-w-4xl grid-cols-1 gap-2.5 sm:grid-cols-3">
-              {[
-                {
-                  label: language === 'id' ? 'Kategori' : 'Category',
-                  value: service.category
-                },
-                {
-                  label: language === 'id' ? 'Cocok untuk' : 'Best for',
-                  value: language === 'id' ? service.navSubtitleId : service.navSubtitle
-                },
-                {
-                  label: language === 'id' ? 'Tahap awal' : 'Starting point',
-                  value: language === 'id'
-                    ? service.processStages?.[0]?.stageNameId || 'Discovery'
-                    : service.processStages?.[0]?.stageName || 'Discovery'
-                }
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.014] px-4 py-3.5"
-                >
-                  <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">
-                    {item.label}
-                  </span>
-                  <span className="mt-1.5 block text-xs font-medium leading-[1.55] text-white">
-                    {item.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
+      <div className="mx-auto w-full max-w-7xl px-4 pb-28 sm:px-6 md:px-10 lg:px-12">
         {/* PERFORMANCE METRICS */}
         <motion.section
           initial={{ opacity: 0, y: 14 }}
@@ -949,6 +860,7 @@ export const ServiceDetail = () => {
         </section>
 
       </div>
-    </div>
+      </div>
+    </main>
   );
 };
