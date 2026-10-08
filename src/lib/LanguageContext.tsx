@@ -53,7 +53,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title': 'Digital product studio crafted to build & scale your business.',
     'hero.subtitle': 'Kapitech Agency designs and engineers high-performance web applications, intuitive mobile interfaces, and scalable brand identities for growing enterprises.',
     'hero.viewWork': 'Explore Portfolio',
-    'hero.discuss': 'Schedule Consultation',
+    'hero.discuss': 'Request Consultation',
 
     // Clients
     'clients.tag': 'Selected Clients & Partners',
@@ -87,7 +87,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.cta.tag': 'Start a New Project with Kapitech Agency',
     'footer.cta.title': 'Ready to elevate your digital presence?',
     'footer.cta.desc': 'We help ambitious brands and growing companies design, engineer, and deploy high-performing websites, mobile applications, and visual identity systems.',
-    'footer.cta.button': 'Schedule a Consultation',
+    'footer.cta.button': 'Request Consultation',
     'footer.about': 'Kapitech Agency (PT Kapitech Digital Indonesia) is an independent digital product agency specializing in strategic UI/UX design, modern full-stack web engineering, and scalable brand systems.',
     'footer.servicesTitle': 'Services & Capabilities',
     'footer.navTitle': 'Company & Case Studies',
@@ -380,7 +380,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title': 'Studio produk digital yang dirancang untuk membangun & mengembangkan bisnis Anda.',
     'hero.subtitle': 'Kapitech Agency merancang dan membangun aplikasi web berkinerja tinggi, antarmuka mobile intuitif, dan identitas brand terukur untuk perusahaan yang sedang berkembang.',
     'hero.viewWork': 'Lihat Portofolio',
-    'hero.discuss': 'Jadwalkan Konsultasi',
+    'hero.discuss': 'Ajukan Konsultasi',
 
     // Clients
     'clients.tag': 'Klien & Mitra Pilihan',
@@ -414,7 +414,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.cta.tag': 'Mulai Proyek Baru Bersama Kapitech Agency',
     'footer.cta.title': 'Siap meningkatkan kehadiran digital bisnis Anda?',
     'footer.cta.desc': 'Kami membantu brand dan bisnis merancang, membangun, dan meluncurkan website berkecepatan tinggi, aplikasi mobile, dan sistem identitas visual.',
-    'footer.cta.button': 'Jadwalkan Konsultasi',
+    'footer.cta.button': 'Ajukan Konsultasi',
     'footer.about': 'Kapitech Agency (PT Kapitech Digital Indonesia) adalah agensi produk digital independen yang berfokus pada desain UI/UX strategis, rekayasa web modern, dan sistem brand yang terukur.',
     'footer.servicesTitle': 'Layanan & Kemampuan',
     'footer.navTitle': 'Perusahaan & Studi Kasus',
