@@ -68,6 +68,40 @@ const fetchPublicCmsProjects = async () => {
   }
 };
 
+const fetchPublicCmsServices = async () => {
+  const configuredApiBase = String(process.env.VITE_AMS_API_BASE_URL || '').trim().replace(/\\/+$/, '');
+  const apiBase = configuredApiBase
+    ? (/\\/api$/i.test(configuredApiBase) ? configuredApiBase : configuredApiBase + '/api')
+    : 'https://ams.kapitech.id/api';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(apiBase + '/cms/services', {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal
+    });
+    if (!response.ok) return [];
+    const payload = await response.json().catch(() => ({}));
+    return Array.isArray(payload.services)
+      ? payload.services.filter((service) => service?.isPublished !== false)
+      : [];
+  } catch {
+    return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+const cmsServices = await fetchPublicCmsServices();
+for (const service of cmsServices) {
+  const serviceSlug = slugify(service.slug || service.id || service.title);
+  if (!serviceSlug) continue;
+  const isSolution = String(service.type || '').toLowerCase() === 'solution';
+  const path = (isSolution ? '/solutions/' : '/services/') + encodeURIComponent(serviceSlug);
+  const loc = manifest.siteUrl + path;
+  urls.set(loc, { loc, lastmod: service.updatedAt || service.createdAt || undefined });
+}
+
 const cmsProjects = await fetchPublicCmsProjects();
 for (const project of cmsProjects) {
   if (project?.isPublished === false) continue;
