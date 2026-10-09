@@ -280,7 +280,7 @@ export const Work = () => {
     setFeaturedIndex((current) =>
       Math.min(current, Math.max(0, spotlightProjects.length - 1)),
     );
-  }, [featuredProjects.length]);
+  }, [spotlightProjects.length]);
 
   useEffect(() => {
     if (reducedMotion || isSpotlightPaused || spotlightProjects.length <= 1) return;
