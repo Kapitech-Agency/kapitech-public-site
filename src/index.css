@@ -176,30 +176,29 @@
 /* Buttons inherit their component-level color tokens. Do not force every
    button label and icon to white: active, muted, ghost, and disabled states
    must retain their intended contrast and brand accent. */
-.kapi-public-shell button {
+:where(.kapi-public-shell) :where(button) {
   color: inherit;
 }
 
-.kapi-public-shell button svg {
+:where(.kapi-public-shell) :where(button svg) {
   color: currentColor;
 }
 
-.kapi-public-shell button:not([class*="bg-"]),
-.kapi-public-shell button[class*="bg-transparent"] {
+/* Low-specificity defaults only. Component classes own their own color states. */
+:where(.kapi-public-shell) :where(button:not([class*="bg-"]), button[class*="bg-transparent"]) {
   background: rgba(255,255,255,0.035);
 }
 
-.kapi-public-shell button:not([class*="border-"]) {
-  border: 1px solid rgba(255,255,255,0.09);
+:where(.kapi-public-shell) :where(button:not([class*="border-"])) {
+  border: 1px solid var(--kapi-color-line);
 }
 
-.kapi-public-shell button:not([class*="bg-"]):hover,
-.kapi-public-shell button[class*="bg-transparent"]:hover {
+:where(.kapi-public-shell) :where(button:not([class*="bg-"]):hover, button[class*="bg-transparent"]:hover) {
   background: rgba(255,255,255,0.065);
-  border-color: rgba(255,255,255,0.16);
+  border-color: var(--kapi-color-line-highlight);
 }
 
-.kapi-public-shell button:active {
+:where(.kapi-public-shell) :where(button:active) {
   transform: translateY(1px) scale(0.99);
 }
 
