@@ -114,7 +114,7 @@ export const CaseStudyDetail = () => {
   }
 
   const copy = language === 'id' ? localizedValue(item.descId, item.desc) : localizedValue(item.desc, item.descId);
-  const narrative = useMemo(() => buildCaseStudyNarrative(item, language), [item, language]);
+  const narrative = buildCaseStudyNarrative(item, language);
   const metaLabels = language === 'id' ? [['Klien', item.client], ['Industri', item.industry], ['Layanan', item.service], ['Tahun', item.year], ['Pilar', item.pillar]] : [['Client', item.client], ['Industry', item.industry], ['Service', item.service], ['Year', item.year], ['Pillar', item.pillar]];
 
   return (
