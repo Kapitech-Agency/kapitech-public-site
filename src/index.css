@@ -4,30 +4,51 @@
    KAPITECH PUBLIC SITE - CORE DESIGN TOKENS
    ========================================================================== */
 :root {
-  --bg: #0B0C0E;
-  --text: #F8FAFC;
+  /* Canonical public-site palette. Keep aliases below mapped to these values. */
+  --kapi-color-canvas: #0B0C0E;
+  --kapi-color-surface-deep: #0E1014;
+  --kapi-color-surface: #0F1116;
+  --kapi-color-panel: #16181D;
+  --kapi-color-panel-hover: #1B1F26;
+  --kapi-color-panel-soft: rgba(15, 17, 22, 0.78);
+  --kapi-color-line-solid: #262930;
+  --kapi-color-line: rgba(255, 255, 255, 0.08);
+  --kapi-color-line-strong: rgba(255, 255, 255, 0.13);
+  --kapi-color-line-highlight: rgba(255, 255, 255, 0.16);
+  --kapi-color-text-primary: #F8FAFC;
+  --kapi-color-text-secondary: #8A909D;
+  --kapi-color-text-subtle: #6F7783;
+  --kapi-color-text-soft: #C5CAD2;
+  --kapi-color-accent: #E50914;
+  --kapi-color-accent-hover: #FF1E27;
+  --kapi-color-accent-soft: rgba(229, 9, 20, 0.12);
+  --kapi-color-accent-line: rgba(229, 9, 20, 0.42);
+  --kapi-color-overlay: rgba(4, 5, 7, 0.76);
+  --kapi-color-modal-surface: rgba(15, 17, 22, 0.94);
+  --bg: var(--kapi-color-canvas);
+  --text: var(--kapi-color-text-primary);
 }
 
 @theme inline {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --color-brand-red: #E50914;
-  --color-brand-red-bright: #FF1E27;
-  --color-brand-red-hover: #FF1E27;
+  --color-brand-red: var(--kapi-color-accent);
+  --color-brand-red-bright: var(--kapi-color-accent-hover);
+  --color-brand-red-hover: var(--kapi-color-accent-hover);
   --color-brand-red-glow: rgba(229, 9, 20, 0.25);
 
-  --color-dark-base: #0B0C0E;
-  --color-dark-card: #16181D;
-  --color-dark-card-hover: #1B1F26;
-  --color-dark-subtle: #262930;
-  --color-dark-border: rgba(255, 255, 255, 0.07);
-  --color-dark-divider: rgba(255, 255, 255, 0.12);
-  --color-charcoal: #16181D;
+  --color-dark-base: var(--kapi-color-canvas);
+  --color-dark-card: var(--kapi-color-panel);
+  --color-dark-card-hover: var(--kapi-color-panel-hover);
+  --color-dark-subtle: var(--kapi-color-line-solid);
+  --color-dark-border: var(--kapi-color-line);
+  --color-dark-divider: var(--kapi-color-line-strong);
+  --color-charcoal: var(--kapi-color-panel);
 
-  --color-text-headline: #F8FAFC;
-  --color-text-body: #8A94A6;
-  --color-text-muted: #64748B;
+  --color-text-headline: var(--kapi-color-text-primary);
+  --color-text-body: var(--kapi-color-text-secondary);
+  --color-text-muted: var(--kapi-color-text-subtle);
 }
 
 @layer base {
@@ -50,18 +71,18 @@
 
   /* PUBLIC SITE CARD TOKENS */
 .kapi-public-shell {
-  --kapi-bg-charcoal-deep: #0B0C0E;
-  --kapi-bg-obsidian: #0E1014;
-  --kapi-bg-card: #16181D;
-  --kapi-bg-card-hover: #1B1F26;
-  --kapi-border-subtle: #262930;
-  --kapi-border-highlight: rgba(255,255,255,0.16);
-  --kapi-red-primary: #E50914;
-  --kapi-red-electric: #FF1E27;
-  --kapi-red-glow-hover: rgba(229,9,20,0.12);
-  --kapi-red-border-hover: rgba(229,9,20,0.42);
-  --kapi-text-white: #F8FAFC;
-  --kapi-text-slate: #8A909D;
+  --kapi-bg-charcoal-deep: var(--kapi-color-canvas);
+  --kapi-bg-obsidian: var(--kapi-color-surface-deep);
+  --kapi-bg-card: var(--kapi-color-panel);
+  --kapi-bg-card-hover: var(--kapi-color-panel-hover);
+  --kapi-border-subtle: var(--kapi-color-line-solid);
+  --kapi-border-highlight: var(--kapi-color-line-highlight);
+  --kapi-red-primary: var(--kapi-color-accent);
+  --kapi-red-electric: var(--kapi-color-accent-hover);
+  --kapi-red-glow-hover: var(--kapi-color-accent-soft);
+  --kapi-red-border-hover: var(--kapi-color-accent-line);
+  --kapi-text-white: var(--kapi-color-text-primary);
+  --kapi-text-slate: var(--kapi-color-text-secondary);
   --kapi-radius-card: 16px;
   --kapi-radius-inner: 12px;
   --kapi-radius-pill: 999px;
@@ -93,15 +114,17 @@
 }
 
 .kapi-modal-overlay {
-  background: rgba(5,6,9,0.72);
-  backdrop-filter: blur(20px) saturate(110%);
-  -webkit-backdrop-filter: blur(20px) saturate(110%);
+  background: var(--kapi-color-overlay);
+  backdrop-filter: blur(20px) saturate(115%);
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
 }
 
 .kapi-modal-surface {
-  border: 1px solid rgba(255,255,255,0.09);
+  border: 1px solid var(--kapi-color-line);
   border-radius: 1.5rem;
-  background: #0F1116;
+  background: var(--kapi-color-modal-surface);
+  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
   box-shadow: 0 30px 90px -42px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.025);
 }
 
@@ -149,15 +172,15 @@
 /* Button shape is component-specific: CTA buttons opt into rounded-full,
    while cards and accordion rows retain their own rounded-rectangle geometry. */
 
-/* Button foreground is always white.
-   Background/border may change by state, but button text and icons never use muted or brand colors. */
-.kapi-public-shell button,
-.kapi-public-shell button * {
-  color: #FFFFFF !important;
+/* Buttons inherit their component-level color tokens. Do not force every
+   button label and icon to white: active, muted, ghost, and disabled states
+   must retain their intended contrast and brand accent. */
+.kapi-public-shell button {
+  color: inherit;
 }
 
 .kapi-public-shell button svg {
-  color: #FFFFFF !important;
+  color: currentColor;
 }
 
 .kapi-public-shell button:not([class*="bg-"]),
@@ -1042,10 +1065,10 @@ body,
    ========================================================================== */
 .kapi-public-shell {
   --kapi-ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --kapi-ui-surface: #16181D;
-  --kapi-ui-surface-hover: #1B1F26;
-  --kapi-ui-border: #262930;
-  --kapi-ui-muted: #8A909D;
+  --kapi-ui-surface: var(--kapi-color-panel);
+  --kapi-ui-surface-hover: var(--kapi-color-panel-hover);
+  --kapi-ui-border: var(--kapi-color-line-solid);
+  --kapi-ui-muted: var(--kapi-color-text-secondary);
 }
 
 .kapi-public-shell main .kapi-card {
@@ -1282,25 +1305,25 @@ html.kapi-custom-cursor-enabled select {
    Dark editorial surfaces, restrained glass, crimson accent, crisp content.
    ========================================================================== */
 .kapi-public-shell {
-  --kapi-v2-bg: #0B0C0E;
-  --kapi-v2-panel: #16181D;
-  --kapi-v2-panel-soft: rgba(15, 17, 22, 0.78);
+  --kapi-v2-bg: var(--kapi-color-canvas);
+  --kapi-v2-panel: var(--kapi-color-panel);
+  --kapi-v2-panel-soft: var(--kapi-color-panel-soft);
   --kapi-v2-glass: rgba(11, 12, 14, 0.58);
   --kapi-v2-glass-strong: rgba(11, 12, 14, 0.76);
-  --kapi-v2-line: rgba(255, 255, 255, 0.08);
-  --kapi-v2-line-strong: rgba(255, 255, 255, 0.13);
-  --kapi-v2-text: #F8FAFC;
-  --kapi-v2-muted: #8A909D;
-  --kapi-v2-red: #E50914;
-  --kapi-v2-red-bright: #FF1E27;
+  --kapi-v2-line: var(--kapi-color-line);
+  --kapi-v2-line-strong: var(--kapi-color-line-strong);
+  --kapi-v2-text: var(--kapi-color-text-primary);
+  --kapi-v2-muted: var(--kapi-color-text-secondary);
+  --kapi-v2-red: var(--kapi-color-accent);
+  --kapi-v2-red-bright: var(--kapi-color-accent-hover);
   --kapi-v2-radius: 18px;
   --kapi-v2-pill: 999px;
   --kapi-v2-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --k-bg-deep: #0B0C0E;
-  --k-text-secondary: #8A909D;
-  --k-text-primary: #F8FAFC;
-  --k-border-subtle: rgba(255, 255, 255, 0.08);
+  --k-bg-deep: var(--kapi-color-canvas);
+  --k-text-secondary: var(--kapi-color-text-secondary);
+  --k-text-primary: var(--kapi-color-text-primary);
+  --k-border-subtle: var(--kapi-color-line);
 }
 
 /* Page foundations */
@@ -1380,14 +1403,12 @@ html.kapi-custom-cursor-enabled select {
 }
 
 /* Unified action language. No vertical lift on hover. */
-.kapi-public-shell main :where(a, button)[class*="bg-brand-red"],
-.kapi-public-shell main :where(a, button)[class*="bg-[#E50914]"],
-.kapi-public-shell main :where(a, button)[class*="bg-[#FF1E27]"],
-.kapi-public-shell footer :where(a, button)[class*="bg-brand-red"] {
-  background-color: rgba(229, 9, 20, 0.72);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-  border-color: rgba(229, 9, 20, 0.42);
+.kapi-public-shell main :where(a, button)[class~="bg-brand-red"],
+.kapi-public-shell main :where(a, button)[class~="bg-[#E50914]"],
+.kapi-public-shell footer :where(a, button)[class~="bg-brand-red"],
+.kapi-public-shell footer :where(a, button)[class~="bg-[#E50914]"] {
+  background-color: var(--kapi-color-accent);
+  border-color: var(--kapi-color-accent-line);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.12),
     0 12px 30px -22px rgba(229,9,20,0.72);
@@ -1397,12 +1418,12 @@ html.kapi-custom-cursor-enabled select {
               color 280ms var(--kapi-v2-ease);
 }
 
-.kapi-public-shell main :where(a, button)[class*="bg-brand-red"]:hover,
-.kapi-public-shell main :where(a, button)[class*="bg-[#E50914]"]:hover,
-.kapi-public-shell main :where(a, button)[class*="bg-[#FF1E27]"]:hover,
-.kapi-public-shell footer :where(a, button)[class*="bg-brand-red"]:hover {
+.kapi-public-shell main :where(a, button)[class~="bg-brand-red"]:hover,
+.kapi-public-shell main :where(a, button)[class~="bg-[#E50914]"]:hover,
+.kapi-public-shell footer :where(a, button)[class~="bg-brand-red"]:hover,
+.kapi-public-shell footer :where(a, button)[class~="bg-[#E50914]"]:hover {
   transform: none;
-  background-color: rgba(229, 9, 20, 0.82);
+  background-color: var(--kapi-color-accent-hover);
   border-color: rgba(229, 9, 20, 0.62);
 }
 
@@ -1436,10 +1457,10 @@ html.kapi-custom-cursor-enabled select {
   -webkit-backdrop-filter: blur(18px) saturate(115%) !important;
 }
 
-.kapi-public-shell [role="dialog"] > :where(div, form) {
-  border-color: var(--kapi-v2-line-strong);
+.kapi-public-shell [role="dialog"].fixed.inset-0 > :where(div, form) {
+  border-color: var(--kapi-color-line-strong);
   border-radius: 20px;
-  background: rgba(15, 17, 22, 0.88);
+  background: var(--kapi-color-modal-surface);
   backdrop-filter: blur(18px) saturate(115%);
   -webkit-backdrop-filter: blur(18px) saturate(115%);
   box-shadow:
@@ -1447,19 +1468,19 @@ html.kapi-custom-cursor-enabled select {
     0 32px 90px -42px rgba(0,0,0,0.92);
 }
 
-.kapi-public-shell [role="dialog"] > :where(div, form) > :where(div[class*="sticky"][class*="top-0"]) {
-  background: rgba(15, 17, 22, 0.86);
-  border-color: var(--kapi-v2-line);
+.kapi-public-shell [role="dialog"].fixed.inset-0 > :where(div, form) > :where(div[class*="sticky"][class*="top-0"]) {
+  background: var(--kapi-color-modal-surface);
+  border-color: var(--kapi-color-line);
   backdrop-filter: blur(16px) saturate(115%);
   -webkit-backdrop-filter: blur(16px) saturate(115%);
 }
 
-/* Modal controls */
-.kapi-public-shell [role="dialog"] button {
-  border-color: var(--kapi-v2-line);
+/* Preserve each control's own active/disabled variant inside dialogs. */
+.kapi-public-shell [role="dialog"] .kapi-modal-close {
+  border-color: var(--kapi-color-line);
 }
 
-.kapi-public-shell [role="dialog"] :where(input, textarea, select) {
+.kapi-public-shell [role="dialog"].fixed.inset-0 :where(input, textarea, select) {
   background: rgba(11, 12, 14, 0.64);
 }
 
@@ -1598,14 +1619,14 @@ html.kapi-custom-cursor-enabled select {
 }
 
 /* Remove legacy orange accent from public-site UI. */
-.kapi-public-shell :where(
-  [class*="bg-[#FF6B00]"],
-  [class*="text-[#FF6B00]"],
-  [class*="border-[#FF6B00]"]
-) {
-  background-color: rgba(229, 9, 20, 0.16);
-  color: #FF1E27;
-  border-color: rgba(229, 9, 20, 0.38);
+.kapi-public-shell :where([class*="bg-[#FF6B00]"]) {
+  background-color: var(--kapi-color-accent-soft);
+}
+.kapi-public-shell :where([class*="text-[#FF6B00]"]) {
+  color: var(--kapi-color-accent-hover);
+}
+.kapi-public-shell :where([class*="border-[#FF6B00]"]) {
+  border-color: var(--kapi-color-accent-line);
 }
 
 /* Calm, unified section rhythm */
@@ -1636,7 +1657,7 @@ html.kapi-custom-cursor-enabled select {
     min-height: 0;
   }
 
-  .kapi-public-shell [role="dialog"] > :where(div, form) {
+  .kapi-public-shell [role="dialog"].fixed.inset-0 > :where(div, form) {
     border-radius: 18px;
   }
 }
