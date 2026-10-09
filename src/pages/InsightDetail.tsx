@@ -618,6 +618,17 @@ export const InsightDetail: React.FC = () => {
         <InsightSeoMeta article={article} />
 
         <header className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <img
+              src="/insights/article-hero-background.jpg"
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover opacity-[0.15]"
+            />
+            <div className="absolute inset-0 bg-[#0B0C0E]/35" />
+          </div>
           <PatternWaves
             preset="lines"
             color="#E50914"
