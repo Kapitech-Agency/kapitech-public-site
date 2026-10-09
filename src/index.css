@@ -1490,6 +1490,47 @@ html.kapi-custom-cursor-enabled select {
   border-radius: 999px;
 }
 
+/* Footer cookie preferences is a text action in the Policy & Legal list,
+   not a generic filled/bordered button. Keep it visually aligned with links. */
+.kapi-public-shell > footer .kapi-cookie-preferences-trigger {
+  display: block;
+  width: 100%;
+  min-height: 0 !important;
+  margin: 0;
+  padding: 0 !important;
+  appearance: none;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(138, 144, 157, 0.8) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: none;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.kapi-public-shell > footer .kapi-cookie-preferences-trigger:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--kapi-red-electric) !important;
+  transform: none !important;
+}
+
+.kapi-public-shell > footer .kapi-cookie-preferences-trigger:active {
+  background: transparent !important;
+  transform: none !important;
+}
+
+.kapi-public-shell > footer .kapi-cookie-preferences-trigger:focus-visible {
+  outline: 2px solid rgba(229, 9, 20, 0.7);
+  outline-offset: 3px;
+}
+
 /* Shared editorial hierarchy for policy, utility and service-detail pages */
 .kapi-public-shell .kapi-policy-page h1,
 .kapi-public-shell .kapi-utility-page h1,
