@@ -258,11 +258,13 @@ export const Insights: React.FC = () => {
   const effectiveContentLanguage = languageFallback === 'id' ? 'id' : language;
 
   const intro = language === 'id'
-    ? 'Perspektif praktis tentang desain, teknologi, produk digital, dan cara membangun pengalaman digital yang lebih baik.'
-    : 'Practical perspectives on design, technology, digital products, and how teams build better digital experiences.';
+    ? 'Pelajaran praktis dari proses merancang produk, memecahkan masalah, dan membangun pengalaman digital yang berguna.'
+    : 'Practical lessons from shaping products, solving problems, and building digital experiences that do useful work.';
 
   const eyebrow = language === 'id' ? 'Knowledge / Perspective / Practice' : 'Knowledge / Perspective / Practice';
-  const title = language === 'id' ? 'Insight' : 'Insights';
+  const title = language === 'id'
+    ? 'Gagasan untuk pengalaman digital yang lebih baik.'
+    : 'Ideas for better digital experiences.';
   const latestLabel = hasActiveFilters
     ? (language === 'id' ? 'Hasil Insight' : 'Insight results')
     : (language === 'id' ? 'Insight terbaru' : 'Latest insights');
@@ -275,46 +277,109 @@ export const Insights: React.FC = () => {
         <PublicPageHero
           eyebrow={eyebrow}
           title={title}
+          titleNode={
+            language === 'id' ? (
+              <>
+                Gagasan untuk <span className="text-brand-red">pengalaman digital yang lebih baik.</span>
+              </>
+            ) : (
+              <>
+                Ideas for better <span className="text-brand-red">digital experiences.</span>
+              </>
+            )
+          }
           description={intro}
           aside={
-            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 backdrop-blur-xl sm:p-6">
-              <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] pb-4">
-                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F7682]">Editorial desk</span>
-                <Sparkles size={14} className="text-brand-red" aria-hidden="true" />
-              </div>
-              <div className="pt-5">
-                <p className="text-xs leading-6 text-[#A8AEB9]">
-                  {language === 'id'
-                    ? 'Baca pendekatan, kerangka berpikir, dan pembelajaran yang kami gunakan saat mengerjakan design, product, dan engineering.'
-                    : 'Read the approaches, frameworks, and lessons we use across design, product, and engineering work.'}
-                </p>
-                <div className="mt-6 grid grid-cols-2 gap-2">
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">{language === 'id' ? 'Bahasa konten' : 'Content language'}</p>
-                    <p className="mt-1 text-sm font-semibold text-white">{effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] px-4 py-3">
-                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#69717D]">
-                      {hasActiveFilters ? (language === 'id' ? 'Hasil' : 'Results') : (language === 'id' ? 'Artikel' : 'Articles')}
+            <div className="relative isolate overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#101217]/80 p-5 shadow-[0_28px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur-xl sm:p-6">
+              <div
+                className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-brand-red/[0.12] blur-3xl"
+                aria-hidden="true"
+              />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#858C99]">
+                    {language === 'id' ? 'Catatan editorial' : 'Editorial notes'}
+                  </span>
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-brand-red/20 bg-brand-red/[0.08]">
+                    <Sparkles size={14} className="text-brand-red" aria-hidden="true" />
+                  </span>
+                </div>
+
+                <div className="pt-6">
+                  <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red">
+                    {language === 'id' ? 'Dari pemikiran ke praktik' : 'From thinking to practice'}
+                  </p>
+                  <h2 className="mt-3 text-[1.55rem] font-display font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-[1.7rem]">
+                    {language === 'id' ? (
+                      <>
+                        Dari pertanyaan awal hingga <span className="text-brand-red">solusi nyata.</span>
+                      </>
+                    ) : (
+                      <>
+                        From the first question to <span className="text-brand-red">real-world delivery.</span>
+                      </>
+                    )}
+                  </h2>
+                  <p className="mt-3 text-xs leading-6 text-[#A8AEB9]">
+                    {language === 'id'
+                      ? 'Perspektif yang lahir dari pekerjaan nyata di strategi, produk, desain, dan engineering.'
+                      : 'Perspectives shaped by real work across strategy, product, design, and engineering.'}
+                  </p>
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2" aria-label={language === 'id' ? 'Cakupan topik' : 'Editorial topics'}>
+                  {(language === 'id'
+                    ? ['Strategi & produk', 'Desain & pengalaman', 'Teknologi & delivery']
+                    : ['Strategy & product', 'Design & experience', 'Technology & delivery']
+                  ).map((topic) => (
+                    <span
+                      key={topic}
+                      className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-[9px] font-medium tracking-[0.01em] text-[#C5CAD2]"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/[0.08] pt-5">
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#727B88]">
+                      {language === 'id' ? 'Bahasa konten' : 'Content language'}
                     </p>
-                    <p className="mt-1 text-sm font-semibold text-white">{loading ? '—' : total}</p>
+                    <p className="mt-1.5 text-xs font-semibold text-white sm:text-sm">
+                      {effectiveContentLanguage === 'id' ? 'Bahasa Indonesia' : 'English'}
+                    </p>
+                  </div>
+                  <div className="min-w-0 border-l border-white/[0.08] pl-4">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#727B88]">
+                      {hasActiveFilters
+                        ? (language === 'id' ? 'Hasil' : 'Results')
+                        : (language === 'id' ? 'Artikel' : 'Articles')}
+                    </p>
+                    <p className="mt-1.5 text-base font-semibold tabular-nums text-white">
+                      {loading ? '—' : total}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           }
         >
-          <button
-            type="button"
-            onClick={scrollToLibrary}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-bright active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-          >
-            {libraryLabel}
-            <ArrowDown size={14} aria-hidden="true" />
-          </button>
-          <span className="ml-0 text-[10px] font-mono uppercase tracking-[0.13em] text-[#676F7C]">
-            {language === 'id' ? 'Dibuat untuk tim yang ingin berpikir lebih tajam.' : 'Built for teams that want to think sharper.'}
-          </span>
+          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
+            <button
+              type="button"
+              onClick={scrollToLibrary}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-bright active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              {libraryLabel}
+              <ArrowDown size={14} aria-hidden="true" />
+            </button>
+            <span className="max-w-[17rem] text-[10px] font-mono uppercase leading-5 tracking-[0.13em] text-[#77808C]">
+              {language === 'id'
+                ? 'Untuk tim yang ingin berpikir lebih tajam dan membangun lebih baik.'
+                : 'For teams that want to think sharper and build better.'}
+            </span>
+          </div>
         </PublicPageHero>
 
         <section
