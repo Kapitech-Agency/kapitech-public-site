@@ -21,6 +21,11 @@ import { trackEvent } from '../lib/analytics';
 
 type InsightShareState = 'idle' | 'copied' | 'shared';
 
+function isPinnedEditorialSnapshot(slug: string): boolean {
+  return slug === 'mvp-vs-prototype-vs-proof-of-concept-guide'
+    || slug === 'mvp-vs-prototype-vs-proof-of-concept';
+}
+
 function validFaq(article: InsightItem): Array<{ question: string; answer: string }> {
   const explicit = normalizeInsightFaq(article.faq);
 
@@ -130,10 +135,9 @@ export const InsightDetail: React.FC = () => {
 
     let cancelled = false;
 
-    // This editorial snapshot is the authoritative source for the MVP comparison article.
-    // The CMS remains available to the rest of the Insight library, but an incomplete CMS
-    // payload must never blank this published article.
-    if (localFallback) {
+    // Keep the approved bilingual MVP guide pinned to its editorial source. Other local
+    // packs are resilience fallbacks and must still be refreshed from the CMS when available.
+    if (localFallback && isPinnedEditorialSnapshot(slug)) {
       setLoading(false);
       return () => {
         cancelled = true;
