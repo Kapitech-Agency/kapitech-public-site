@@ -78,7 +78,50 @@ export const ServiceDetail = () => {
     return <Navigate to="/services" replace />;
   }
 
-  const performanceMetrics = Array.isArray(service.metrics) ? service.metrics.slice(0, 3) : [];
+  const cmsMetrics = Array.isArray(service.metrics)
+    ? service.metrics
+        .filter((metric) => Boolean(
+          metric &&
+          String(metric.value ?? '').trim() &&
+          (String(metric.label ?? '').trim() || String(metric.labelId ?? '').trim()),
+        ))
+        .slice(0, 3)
+    : [];
+  const curatedServiceMetrics = allSolutionsAndServices.find(
+    (item) => slugify(item.slug) === slugify(service.slug),
+  )?.metrics ?? [];
+  const metricFrameworkFallback = [
+    {
+      value: 'Baseline',
+      label: 'Current performance documented before work begins',
+      labelId: 'Kondisi kinerja awal dicatat sebelum pekerjaan dimulai',
+    },
+    {
+      value: 'Quality',
+      label: 'Deliverables checked against agreed requirements',
+      labelId: 'Output diperiksa berdasarkan kebutuhan yang disepakati',
+    },
+    {
+      value: 'Impact',
+      label: 'Results reviewed against agreed success criteria',
+      labelId: 'Hasil dievaluasi berdasarkan kriteria keberhasilan yang disepakati',
+    },
+  ];
+  const performanceMetrics = Array.from({ length: 3 }, (_, index) => {
+    const metric = cmsMetrics[index] ?? curatedServiceMetrics[index];
+    if (metric && String(metric.value ?? '').trim()) {
+      const label = String(metric.label ?? metric.labelId ?? '').trim();
+      const labelId = String(metric.labelId ?? metric.label ?? '').trim();
+      if (label || labelId) {
+        return {
+          value: String(metric.value).trim(),
+          label: label || labelId,
+          labelId: labelId || label,
+        };
+      }
+    }
+    return metricFrameworkFallback[index];
+  });
 
   const identityFoundations = [
     {
@@ -217,7 +260,7 @@ export const ServiceDetail = () => {
               ))
             ) : (
               <div className="p-5 text-xs leading-relaxed text-[#8A909D] sm:col-span-3 sm:p-6">
-                {language === 'id' ? 'Metrik layanan belum tersedia.' : 'Service metrics are not available yet.'}
+                {language === 'id' ? 'Indikator akan disepakati bersama saat discovery dan dievaluasi berdasarkan kondisi awal serta kriteria keberhasilan proyek.' : 'Indicators will be agreed during discovery and reviewed against the project baseline and success criteria.'}
               </div>
             )}
           </div>
