@@ -300,7 +300,8 @@ export const InsightTableOfContents: React.FC<{
       window.requestAnimationFrame(scheduleScrollSync);
     };
 
-    const articleBody = document.querySelector('.kapi-insight-body');
+    // Observe the whole article, not only the first renderer (the introduction), so image/font layout shifts in later sections resync the active TOC item.
+    const articleBody = document.getElementById('insight-content') || document.querySelector('.kapi-insight-body');
     const resizeObserver = typeof ResizeObserver !== 'undefined' && articleBody
       ? new ResizeObserver(handleLayoutSettled)
       : null;

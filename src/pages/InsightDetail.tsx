@@ -21,6 +21,11 @@ import { trackEvent } from '../lib/analytics';
 
 type InsightShareState = 'idle' | 'copied' | 'shared';
 
+function isPinnedEditorialSnapshot(slug: string): boolean {
+  return slug === 'mvp-vs-prototype-vs-proof-of-concept-guide'
+    || slug === 'mvp-vs-prototype-vs-proof-of-concept';
+}
+
 function validFaq(article: InsightItem): Array<{ question: string; answer: string }> {
   const explicit = normalizeInsightFaq(article.faq);
 
@@ -130,10 +135,9 @@ export const InsightDetail: React.FC = () => {
 
     let cancelled = false;
 
-    // This editorial snapshot is the authoritative source for the MVP comparison article.
-    // The CMS remains available to the rest of the Insight library, but an incomplete CMS
-    // payload must never blank this published article.
-    if (localFallback) {
+    // Keep the approved bilingual MVP guide pinned to its editorial source. Other local
+    // packs are resilience fallbacks and must still be refreshed from the CMS when available.
+    if (localFallback && isPinnedEditorialSnapshot(slug)) {
       setLoading(false);
       return () => {
         cancelled = true;
@@ -174,9 +178,7 @@ export const InsightDetail: React.FC = () => {
         const nextArticle = res.data.insight;
         const validation = validateInsightContent(nextArticle.content);
         const contentBlocks = Array.isArray(nextArticle.content) ? nextArticle.content : [];
-        const hasRenderableContent = contentBlocks.some((block) =>
-          block?.type === 'paragraph' || block?.type === 'heading' || block?.type === 'list' || block?.type === 'quote'
-        );
+        const hasRenderableContent = contentBlocks.some((block) => block && block.type !== 'divider');
 
         if (validation.errors.length > 0) {
           console.error('[Kapitech Insight] published content failed validation:', {
@@ -809,8 +811,8 @@ export const InsightDetail: React.FC = () => {
                       </p>
                       <p className="mt-1.5 text-xs leading-5 text-[#7D8592]">
                         {article.language === 'id'
-                          ? 'Enam hal inti sebelum masuk ke detail.'
-                          : 'The core ideas to keep in mind before the detail.'}
+                          ? 'Inti yang perlu diingat sebelum membaca detail.'
+                          : 'The main ideas to keep in mind before the details.'}
                       </p>
                     </div>
                     <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 font-mono text-[8px] font-semibold tabular-nums text-[#626A76]">
@@ -962,29 +964,29 @@ export const InsightDetail: React.FC = () => {
               <div className="flex flex-col gap-7 p-6 sm:p-8 lg:flex-row lg:items-end lg:justify-between lg:p-9">
                 <div className="max-w-2xl">
                   <span className="kapi-section-label mb-4">
-                    {article.language === 'id' ? 'MVP & Product Design' : 'MVP & Product Design'}
+                    {article.language === 'id' ? 'Dari insight ke eksekusi' : 'From insight to execution'}
                   </span>
                   <h2
                     id="article-final-cta-title"
                     className="mt-3 font-display text-2xl font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-3xl"
                   >
                     {article.language === 'id'
-                      ? 'Pastikan Anda menguji risiko yang tepat sebelum membangun lebih jauh.'
-                      : 'Make sure you validate the right risk before you build further.'}
+                      ? 'Ingin menerapkan insight ini ke proyek Anda?'
+                      : 'Have a question about applying this insight?'}
                   </h2>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
                     {article.language === 'id'
-                      ? 'Kapitech membantu memetakan ketidakpastian, merancang prototype yang dapat diuji, dan menentukan cakupan MVP yang fokus.'
-                      : 'Kapitech helps map uncertainty, design testable prototypes, and define a focused MVP scope.'}
+                      ? 'Ceritakan hal yang ingin Anda perbaiki. Kami bantu menentukan langkah berikutnya, mulai dari strategi, desain, hingga engineering.'
+                      : 'Tell us what you are trying to improve. We will help identify the next practical step across strategy, design, or engineering.'}
                   </p>
                 </div>
 
                 <Link
-                  to="/services/mvp-design"
-                  data-analytics-event="insight_mvp_cta_click"
+                  to="/contact"
+                  data-analytics-event="insight_contact_cta_click"
                   className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,box-shadow,transform] duration-200 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45"
                 >
-                  {article.language === 'id' ? 'Lihat MVP Design' : 'Explore MVP Design'}
+                  {article.language === 'id' ? 'Diskusikan proyek Anda' : 'Discuss your project'}
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
               </div>

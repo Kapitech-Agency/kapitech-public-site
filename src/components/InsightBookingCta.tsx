@@ -16,7 +16,7 @@ export const InsightBookingCta: React.FC<{
       'active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45',
       mobile ? 'w-full xl:hidden' : 'shrink-0'
     ].join(' ')}
-    aria-label={language === 'id' ? 'Book a call dengan Kapitech' : 'Book a call with Kapitech'}
+    aria-label={language === 'id' ? 'Jadwalkan konsultasi dengan Kapitech' : 'Book a call with Kapitech'}
     data-analytics-event="insight_book_call"
   >
     <span>
@@ -24,7 +24,7 @@ export const InsightBookingCta: React.FC<{
         {language === 'id' ? 'Siap berdiskusi?' : 'Ready to discuss?'}
       </span>
       <span className="mt-0.5 block text-[12px] font-semibold tracking-[-0.01em]">
-        Book a call
+        {language === 'id' ? 'Jadwalkan konsultasi' : 'Book a call'}
       </span>
     </span>
     <span

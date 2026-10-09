@@ -34,11 +34,19 @@ type EditorialPack = {
   };
 };
 
+const MVP_EN_SLUG = String((enPack as EditorialPack).seo?.slug || '').trim();
+const MVP_ID_SLUG = String((idPack as EditorialPack).seo?.slug || '').trim();
+
 function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem | null {
   const seo = pack.seo || {};
   const editorial = pack.editorial || {};
   const slug = String(seo.slug || '').trim();
   const content = Array.isArray(editorial.content) ? editorial.content : [];
+  const hasMvpTranslationPair = slug === MVP_EN_SLUG || slug === MVP_ID_SLUG;
+  const alternateLanguages: NonNullable<InsightItem['alternateLanguages']> =
+    hasMvpTranslationPair && MVP_EN_SLUG && MVP_ID_SLUG
+      ? [{ language: 'en', slug: MVP_EN_SLUG }, { language: 'id', slug: MVP_ID_SLUG }]
+      : [{ language, slug }];
 
   if (!slug || content.length === 0) return null;
 
@@ -81,7 +89,7 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
     relatedInsightIds: [],
     relatedInsights: [],
     editorialMeta: { editorialType: editorial.editorialMeta?.editorialType },
-    alternateLanguages: [{ language, slug }],
+    alternateLanguages,
     seoTitle: editorial.seoTitle || seo.title,
     seoDescription: editorial.seoDescription || seo.description,
     ogImage: seo.ogImage,
