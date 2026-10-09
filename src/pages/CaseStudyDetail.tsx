@@ -15,6 +15,14 @@ const cleanValues = (values: unknown): string[] =>
   Array.isArray(values)
     ? values.filter((value): value is string => typeof value === 'string' && value.trim().length > 0).map((value) => value.trim())
     : [];
+
+// CMS content can omit either locale. Keep detail pages resilient to missing
+// localized fields instead of throwing during render.
+const localizedValue = (primary: unknown, fallback: unknown): string => {
+  if (typeof primary === 'string' && primary.trim()) return primary.trim();
+  if (typeof fallback === 'string' && fallback.trim()) return fallback.trim();
+  return '';
+};
 const fallbackCopyToClipboard = (value: string): boolean => {
   const textarea = document.createElement('textarea');
   textarea.value = value;
