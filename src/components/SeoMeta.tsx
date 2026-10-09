@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getServiceBySlug, allSolutionsAndServices, type ServiceItemData } from '../data/servicesData';
 import { allProjects, type ProjectItem } from '../data/projectsData';
-import { industryBySlug, industrySlug, projectBySlug } from '../lib/publicContent';
+import { industryBySlug, industrySlug, projectBySlug, projectSlug } from '../lib/publicContent';
 import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
@@ -156,10 +156,11 @@ function getRouteSeo(
   if (caseStudyMatch) {
     const project = projectBySlug(projects, caseStudyMatch[1]) || projectBySlug(allProjects, caseStudyMatch[1]);
     if (project) {
-      const canonicalUrl = SITE_URL + '/work/' + caseStudyMatch[1];
+      const canonicalSlug = projectSlug(project);
+      const canonicalUrl = SITE_URL + '/work/' + canonicalSlug;
       return {
         seo: { title: project.title + ' | Kapitech Agency', description: language === 'id' ? project.descId : project.desc, robots: DEFAULT_ROBOTS } satisfies SeoDefinition,
-        canonicalPath: '/work/' + caseStudyMatch[1],
+        canonicalPath: '/work/' + canonicalSlug,
         structuredData: {
           '@context': 'https://schema.org',
           '@type': 'CreativeWork',
