@@ -196,9 +196,13 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
     try {
       const res = await api.cms.getServices();
       if (res.success && Array.isArray(res.data?.services) && res.data.services.length > 0) {
-        const services = res.data.services;
-        setCmsCache('services', services);
-        return services;
+        // Prevent draft CMS services from becoming publicly routable/SEO-indexed
+        // if the upstream endpoint accidentally includes unpublished records.
+        const services = res.data.services.filter((service) => service?.isPublished !== false);
+        if (services.length > 0) {
+          setCmsCache('services', services);
+          return services;
+        }
       }
     } catch {
       // Keep the local curated dataset while the server recovers.
@@ -252,11 +256,12 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
         ? extractCmsCollection<TestimonialItem>(res.data, 'testimonials')
         : null;
       if (testimonials) {
-        // Use live CMS content when at least one published item exists.
-        // An empty/draft-only result falls back to the existing AMS seed content,
-        // rather than leaving a permanent empty-state message on the homepage.
-        const hasPublishedTestimonials = testimonials.some((item) => item?.isPublished !== false);
-        const resolvedTestimonials = hasPublishedTestimonials ? testimonials : defaultTestimonials;
+        // Keep draft records out of the public cache. An empty/draft-only result
+        // falls back to the seeded testimonials instead of rendering an empty state.
+        const publishedTestimonials = testimonials.filter((item) => item?.isPublished !== false);
+        const resolvedTestimonials = publishedTestimonials.length > 0
+          ? publishedTestimonials
+          : defaultTestimonials;
         cmsTestimonialsCache = resolvedTestimonials;
         markCmsHydrationSuccess('testimonials');
         notifyCmsUpdate('testimonials');
