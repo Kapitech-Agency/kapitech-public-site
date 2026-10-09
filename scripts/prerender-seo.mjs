@@ -518,14 +518,16 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     '<div><dt>Industry</dt><dd>' + escapeHtml(project.industry) + '</dd></div>' +
     '<div><dt>Service</dt><dd>' + escapeHtml(project.service) + '</dd></div>' +
     '<div><dt>Year</dt><dd>' + escapeHtml(project.year) + '</dd></div>' +
+    '<div><dt>Pillar</dt><dd>' + escapeHtml(project.pillar) + '</dd></div>' +
     '</dl>' +
-    '<img src="' + escapeHtml(project.image || manifest.defaultImage) + '" alt="' + escapeHtml(project.title) + '" style="display:block;width:100%;height:auto;border-radius:24px;margin:32px 0" />' +
-    '<section><h2>Client Challenge</h2><p>' + escapeHtml(project.challenge || project.challengeId || '') + '</p></section>' +
-    '<section><h2>Kapitech Solution</h2><p>' + escapeHtml(project.solution || project.solutionId || '') + '</p></section>' +
-    '<section><h2>Execution & Delivery</h2><p>' + escapeHtml(project.execution || project.executionId || '') + '</p></section>' +
-    '<section><h2>Outcome & Impact</h2><p>' + escapeHtml(project.outcome || project.outcomeId || '') + '</p><dl>' + impactHtml + '</dl></section>' +
-    '<section><h2>Deliverables</h2><ul>' + deliverablesHtml + '</ul></section>' +
-    '<section><h2>Technologies</h2><ul>' + technologiesHtml + '</ul></section>' +
+    '<img src="' + escapeHtml(project.image || manifest.defaultImage) + '" alt="' + escapeHtml(project.title) + '" loading="eager" style="display:block;width:100%;height:auto;border-radius:24px;margin:32px 0" />' +
+    (galleryHtml ? '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 32px">' + galleryHtml + '</div>' : '') +
+    '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Starting point</p><h2 style="font-size:32px;margin:10px 0">Client Challenge</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(challenge) + '</p></section>' +
+    '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Kapitech response</p><h2 style="font-size:32px;margin:10px 0">Kapitech Solution</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(solution) + '</p></section>' +
+    '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Scope of work</p><h2 style="font-size:32px;margin:10px 0">Execution &amp; Delivery</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(execution) + '</p>' + (deliverablesHtml ? '<h3 style="font-size:21px;margin:24px 0 12px">Deliverables</h3><ul style="padding-left:22px;line-height:1.9;color:#C0C5CE">' + deliverablesHtml + '</ul>' : '') + '</section>' +
+    '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Results and indicators</p><h2 style="font-size:32px;margin:10px 0">Outcome &amp; Impact</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(outcome) + '</p>' + (impactHtml ? '<dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:24px 0">' + impactHtml + '</dl>' : '') + '</section>' +
+    (technologiesHtml ? '<section style="margin:44px 0"><h2 style="font-size:32px;margin:10px 0">Technologies and tools</h2><ul style="padding-left:22px;line-height:1.9;color:#C0C5CE">' + technologiesHtml + '</ul></section>' : '') +
+    '<p style="margin-top:56px"><a href="' + escapeHtml(manifest.siteUrl + '/work') + '" style="color:#FF1E27">Explore all case studies</a></p>' +
     '</article></main>';
   return html.replace('<div id="root"></div>', '<div id="root">' + body + '</div>');
 };
