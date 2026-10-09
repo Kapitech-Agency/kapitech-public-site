@@ -254,7 +254,9 @@ function AppShell() {
         <PublicPageCta
           eyebrow={language === 'id' ? 'Langkah berikutnya' : 'Next step'}
           title={language === 'id' ? 'Siap membahas kebutuhan proyek Anda?' : 'Ready to discuss your project?'}
-          description={language === 'id' ? 'Bawa konteks, target, atau masalah yang sedang Anda hadapi. Kami bantu menentukan jalur engagement yang paling masuk akal.' : 'Bring the context, target, or problem you are working through. We will help shape the most sensible engagement path.'}
+          description={language === 'id' ? 'Ceritakan tujuan, kendala, atau tahap proyek Anda. Kami bantu menentukan titik awal dan cakupan kerja yang paling tepat.' : 'Share your goals, constraints, and current stage. We will help identify a clear starting point and the right scope of work.'}
+          actionEyebrow={language === 'id' ? 'Pilih cara memulai' : 'Choose how to start'}
+          actionDescription={language === 'id' ? 'Mulai dari brief proyek atau hubungi tim kami secara langsung.' : 'Start with a project brief or contact our team directly.'}
           primaryLabel={language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule a Consultation'}
           secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
         />
