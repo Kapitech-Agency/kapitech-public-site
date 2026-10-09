@@ -11,7 +11,6 @@ import {
   Laptop, 
   Upload, 
   Phone, 
-  Mail, 
   X, 
   Briefcase, 
   MapPin, 
