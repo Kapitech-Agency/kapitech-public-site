@@ -65,9 +65,8 @@ export const CookieConsent = () => {
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="kapi-cookie-consent fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-5 sm:pb-5"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="cookie-consent-title"
+          role="region"
+          aria-label={language === 'id' ? 'Preferensi cookie' : 'Cookie preferences'}
         >
           <div className="kapi-modal-surface mx-auto w-full max-w-4xl p-4 sm:p-5">
             {!showPreferences ? (
