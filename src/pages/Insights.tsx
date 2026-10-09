@@ -53,6 +53,54 @@ export const Insights: React.FC = () => {
     setError('');
     setLanguageFallback(null);
 
+    const getFilteredFallbacks = () => {
+      const fallbackItems = getAllInsightFallbacks().filter(
+        (item) => item.status === 'published' && item.language === language
+      );
+      const query = search.trim().toLowerCase();
+
+      return fallbackItems.filter((item) => {
+        const matchesCategory = !categoryId
+          || item.categoryId === categoryId
+          || item.category?.id === categoryId
+          || item.category?.slug === categoryId
+          || (categoryId === 'seed_category_product_technology' && item.category?.slug === 'product-technology');
+        const searchableText = [
+          item.title,
+          item.excerpt,
+          ...(item.tags || []).map((tag) => tag.name)
+        ].join(' ').toLowerCase();
+        const matchesSearch = !query || searchableText.includes(query);
+
+        return matchesCategory && matchesSearch;
+      });
+    };
+
+    const showLocalFallback = () => {
+      const fallbackItems = getFilteredFallbacks();
+      if (fallbackItems.length === 0) return false;
+
+      const fallbackTotalPages = Math.max(1, Math.ceil(fallbackItems.length / 9));
+      const fallbackPage = Math.min(Math.max(page, 1), fallbackTotalPages);
+
+      if (fallbackPage !== page) setPage(fallbackPage);
+      setItems(fallbackItems.slice((fallbackPage - 1) * 9, fallbackPage * 9));
+      setTotal(fallbackItems.length);
+      setTotalPages(fallbackTotalPages);
+      setLanguageFallback(null);
+      setError('');
+      return true;
+    };
+
+    const showLoadError = (message?: string) => {
+      setError(message || (language === 'id'
+        ? 'Insight belum dapat dimuat. Periksa koneksi Anda lalu coba lagi.'
+        : 'Insights could not be loaded. Check your connection and try again.'));
+      setItems([]);
+      setTotal(0);
+      setTotalPages(1);
+    };
+
     void api.cms.getInsights({
       language,
       categoryId: categoryId || undefined,
@@ -64,11 +112,16 @@ export const Insights: React.FC = () => {
 
       let displayRes = insightRes;
       let fallbackLanguage: 'id' | null = null;
+      const getResponseTotal = (response: typeof insightRes) => {
+        const value = response.data?.meta?.total;
+        const parsed = Number(value);
+        return value !== undefined && value !== null && Number.isFinite(parsed) ? parsed : 0;
+      };
 
       if (
-        language === 'en' &&
-        insightRes.success &&
-        Number(insightRes.data?.meta?.total || 0) === 0
+        language === 'en'
+        && insightRes.success
+        && getResponseTotal(insightRes) === 0
       ) {
         const fallbackRes = await api.cms.getInsights({
           language: 'id',
@@ -78,7 +131,9 @@ export const Insights: React.FC = () => {
           pageSize: 9
         });
 
-        if (fallbackRes.success && Number(fallbackRes.data?.meta?.total || 0) > 0) {
+        if (cancelled) return;
+
+        if (fallbackRes.success && getResponseTotal(fallbackRes) > 0) {
           displayRes = fallbackRes;
           fallbackLanguage = 'id';
         }
@@ -87,45 +142,52 @@ export const Insights: React.FC = () => {
       if (cancelled) return;
 
       if (!displayRes.success) {
-        // Keep the editorial library usable when the CMS/API is temporarily unavailable.
-        // The same packs are also used by article-level fallback rendering.
-        const fallbackItems = getAllInsightFallbacks().filter((item) => item.language === language);
-        const filteredFallbacks = fallbackItems.filter((item) => {
-          const matchesCategory = !categoryId || item.categoryId === categoryId || item.category?.id === categoryId || item.category?.slug === categoryId || categoryId === 'seed_category_product_technology' && item.category?.slug === 'product-technology';
-          const query = search.trim().toLowerCase();
-          const matchesSearch = !query || [item.title, item.excerpt, ...(item.tags || []).map((tag) => tag.name)].some((value) => String(value || '').toLowerCase().includes(query));
-          return matchesCategory && matchesSearch;
-        });
-        if (filteredFallbacks.length > 0) {
-          setItems(filteredFallbacks.slice((page - 1) * 9, page * 9));
-          setTotal(filteredFallbacks.length);
-          setTotalPages(Math.max(1, Math.ceil(filteredFallbacks.length / 9)));
-          setLanguageFallback(null);
-          setError('');
-        } else {
-          setError(displayRes.error || (language === 'id' ? 'Insight belum dapat dimuat.' : 'Insights could not be loaded.'));
-          setItems([]);
-          setTotal(0);
-          setTotalPages(1);
+        if (!showLocalFallback()) {
+          showLoadError(displayRes.error);
         }
-      } else {
-        setItems(displayRes.data?.insights || []);
-        setTotal(displayRes.data?.meta?.total || 0);
-        setTotalPages(displayRes.data?.meta?.totalPages || 1);
-        setLanguageFallback(fallbackLanguage);
+        return;
       }
 
+      const responseItems = Array.isArray(displayRes.data?.insights)
+        ? displayRes.data.insights.filter((item) => item?.status === 'published')
+        : [];
+      const rawTotal = displayRes.data?.meta?.total;
+      const parsedTotal = Number(rawTotal);
+      const responseTotal = rawTotal !== undefined && rawTotal !== null && Number.isFinite(parsedTotal)
+        ? parsedTotal
+        : responseItems.length;
+      const rawTotalPages = displayRes.data?.meta?.totalPages;
+      const parsedTotalPages = Number(rawTotalPages);
+      const responseTotalPages = rawTotalPages !== undefined && rawTotalPages !== null
+        && Number.isFinite(parsedTotalPages) && parsedTotalPages > 0
+        ? parsedTotalPages
+        : Math.max(1, Math.ceil(responseTotal / 9));
+
+      // Seeded editorial packs keep the library available while the CMS is empty or unavailable.
+      if (responseItems.length === 0 && responseTotal === 0 && showLocalFallback()) return;
+
+      if (responseTotal > 0 && page > responseTotalPages) {
+        setPage(responseTotalPages);
+        return;
+      }
+
+      setItems(responseItems);
+      setTotal(responseTotal);
+      setTotalPages(responseTotalPages);
+      setLanguageFallback(fallbackLanguage);
     }).catch(() => {
       if (cancelled) return;
-      setError(language === 'id' ? 'Terjadi masalah saat memuat Insight.' : 'Something went wrong while loading Insights.');
-      setItems([]);
-      setTotal(0);
-      setTotalPages(1);
+
+      if (!showLocalFallback()) {
+        showLoadError();
+      }
     }).finally(() => {
       if (!cancelled) setLoading(false);
     });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [language, categoryId, search, page, retryToken]);
 
   const featured = useMemo(
