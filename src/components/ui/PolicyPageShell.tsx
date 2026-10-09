@@ -59,7 +59,7 @@ export const PolicyPageShell = ({
       </PublicPageHero>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:px-12">
-        <main className="mt-14 min-w-0 max-w-4xl space-y-12 sm:space-y-14">
+        <div className="mt-14 min-w-0 max-w-4xl space-y-12 sm:space-y-14">
           {sections.map((section, index) => {
             const id = getSectionId(index);
             return (
@@ -87,7 +87,7 @@ export const PolicyPageShell = ({
               </section>
             );
           })}
-        </main>
+        </div>
 
         {showContact && (
           <section className="mt-16 border-t border-white/[0.08] pt-10 sm:mt-20 sm:pt-12" aria-labelledby="policy-contact-title">
