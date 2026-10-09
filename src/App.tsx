@@ -138,7 +138,7 @@ class RouteErrorBoundary extends React.Component<
 
 const BookCallRedirect = () => {
   const location = useLocation();
-  return <Navigate to={{ pathname: '/contact', search: location.search, hash: location.hash }} replace />;
+  return <Navigate to={{ pathname: '/contact', search: location.search, hash: location.hash || '#project-inquiry-form' }} replace />;
 };
 
 const AnimatedRoutes = () => {
