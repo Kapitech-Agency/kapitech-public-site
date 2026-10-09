@@ -515,6 +515,89 @@ const slugify = (value) => String(value || '')
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
 
+const loadCmsServicesForPrerender = async () => {
+  const configuredApiBase = String(process.env.VITE_AMS_API_BASE_URL || '').trim().replace(/\/+$/, '');
+  const apiBase = configuredApiBase
+    ? (/\/api$/i.test(configuredApiBase) ? configuredApiBase : configuredApiBase + '/api')
+    : 'https://ams.kapitech.id/api';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
+  try {
+    const response = await fetch(apiBase + '/cms/services', {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal
+    });
+    if (!response.ok) return [];
+    const payload = await response.json().catch(() => ({}));
+    return Array.isArray(payload.services)
+      ? payload.services.filter((service) => service?.isPublished !== false)
+      : [];
+  } catch {
+    return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+// Include services created in AMS in the static route output as well as the
+// sitemap. CMS slugs can be added after the static SEO manifest was generated.
+const cmsServices = await loadCmsServicesForPrerender();
+for (const service of cmsServices) {
+  const slug = slugify(service.slug || service.id || service.title);
+  if (!slug || !safeText(service.title)) continue;
+
+  const isSolution = String(service.type || '').toLowerCase() === 'solution';
+  const routePath = (isSolution ? '/solutions/' : '/services/') + slug;
+  const canonicalUrl = manifest.siteUrl + routePath;
+  const title = safeText(service.title) + ' | Kapitech Agency';
+  const description = safeText(service.heroSubtitle) || safeText(service.navSubtitle) ||
+    'Explore ' + safeText(service.title) + ' with Kapitech Agency.';
+
+  let html = template;
+  html = setHtmlLang(html, 'en');
+  html = setTitle(html, title);
+  html = setMeta(html, 'name', 'title', title);
+  html = setMeta(html, 'name', 'description', description);
+  html = setMeta(html, 'name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+  html = setMeta(html, 'property', 'og:type', 'website');
+  html = setMeta(html, 'property', 'og:url', canonicalUrl);
+  html = setMeta(html, 'property', 'og:title', title);
+  html = setMeta(html, 'property', 'og:description', description);
+  html = setMeta(html, 'property', 'og:image', manifest.defaultImage);
+  html = setMeta(html, 'property', 'og:site_name', manifest.siteName);
+  html = setMeta(html, 'name', 'twitter:card', 'summary_large_image');
+  html = setMeta(html, 'name', 'twitter:url', canonicalUrl);
+  html = setMeta(html, 'name', 'twitter:title', title);
+  html = setMeta(html, 'name', 'twitter:description', description);
+  html = setMeta(html, 'name', 'twitter:image', manifest.defaultImage);
+  html = setCanonical(html, canonicalUrl);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': canonicalUrl + '#service',
+    name: safeText(service.title),
+    description,
+    url: canonicalUrl,
+    serviceType: safeText(service.category || service.type),
+    provider: {
+      '@type': 'Organization',
+      '@id': manifest.siteUrl + '/#organization',
+      name: manifest.siteName,
+      url: manifest.siteUrl + '/'
+    }
+  };
+  const json = JSON.stringify(schema).replaceAll('<', '\\u003c');
+  const schemaTag = '<script id="kapitech-cms-service-jsonld" type="application/ld+json">' + json + '</script>';
+  html = html.replace('</head>', '  ' + schemaTag + '\n</head>');
+
+  const outputPath = join(distDir, routePath.replace(/^\/+/, ''), 'index.html');
+  await mkdir(dirname(outputPath), { recursive: true });
+  await writeFile(outputPath, html, 'utf8');
+  console.log('[seo] generated CMS service ' + routePath + '/index.html');
+}
+
 const projectSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
 const projectRecords = [];
 const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'[\s\S]*?service:\s*'([^']+)'[\s\S]*?featured:\s*(?:true|false),\s*image:\s*'([^']+)'[\s\S]*?desc:\s*'([^']*)'[\s\S]*?year:\s*'([^']+)'/g;
