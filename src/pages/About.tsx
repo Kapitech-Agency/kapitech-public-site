@@ -1,7 +1,7 @@
 import React from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { motion } from 'motion/react';
-import { ArrowUpRight, CheckCircle2, Globe, Cpu, Layout, Code2, Palette, Shield, Zap, Sparkles, Building2, MapPin, Users, Award, Terminal, Cloud, Layers, Check, Database, Server } from 'lucide-react';
+import { ArrowUpRight, Globe, Code2, Palette, Building2, MapPin, Cloud, Database, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 
@@ -298,10 +298,6 @@ export const About = () => {
 
       {/* Our Identity & Foundations */}
       <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -right-40 top-10 h-96 w-96 rounded-full border border-brand-red/[0.045]" />
-          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.025] blur-[120px]" />
-        </div>
 
         <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:gap-24">
@@ -367,11 +363,10 @@ export const About = () => {
                   </div>
                   <div>
                     <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
-                      {language === 'id' ? 'Pengalaman' : 'Experience'}
+                      {language === 'id' ? 'Berdiri Sejak' : 'Established'}
                     </span>
                     <div className="mt-2 flex items-end gap-2">
-                      <span className="text-4xl font-display font-semibold leading-none tracking-[-0.06em] text-white">3+</span>
-                      <span className="pb-0.5 text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">years</span>
+                      <span className="text-4xl font-display font-semibold leading-none tracking-[-0.06em] text-white">2021</span>
                     </div>
                   </div>
                   <div>
@@ -437,66 +432,59 @@ export const About = () => {
               </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-12% 0px' }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:pt-10"
-            >
-              <div className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#121316] sm:rounded-3xl">
-                <div className="aspect-[4/5] overflow-hidden sm:aspect-[5/6]">
-                  <img
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
-                    alt="Kapitech Agency team collaboration"
-                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08090B] via-[#08090B]/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-                  <div className="border-t border-white/[0.14] pt-4">
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
-                      {language === 'id' ? 'Fondasi Kapitech' : 'Kapitech Foundation'}
-                    </span>
-                    <p className="mt-2 max-w-md text-lg font-display font-semibold leading-tight tracking-[-0.035em] text-white sm:text-xl">
-                      {language === 'id'
-                        ? 'Kualitas, transparansi, dan delivery yang dapat diandalkan.'
-                        : 'Quality, transparency, and dependable delivery.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="lg:pt-10">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#111216] p-6 sm:p-8 lg:p-10">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                  {language === 'id' ? 'Komitmen Kami' : 'Our Commitment'}
+                </span>
+                <h3 className="mt-6 font-display text-4xl font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-5xl">
+                  {language === 'id' ? (
+                    <>Kualitas.<br /><span className="text-brand-red">Presisi.</span><br />Komitmen.</>
+                  ) : (
+                    <>Quality.<br /><span className="text-brand-red">Precision.</span><br />Commitment.</>
+                  )}
+                </h3>
+                <p className="mt-6 max-w-md text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base">
+                  {language === 'id'
+                    ? 'Kami menyelaraskan tujuan, merancang dengan cermat, dan bertanggung jawab atas pekerjaan yang disepakati dari awal hingga serah terima.'
+                    : 'We align on objectives, work with precision, and take responsibility for agreed deliverables from the first brief through handover.'}
+                </p>
 
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-4">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                    {language === 'id' ? 'Model kerja' : 'Working model'}
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-white">
-                    {language === 'id' ? 'Kolaboratif & langsung' : 'Direct & collaborative'}
-                  </p>
-                </div>
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-4">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                    {language === 'id' ? 'Fokus' : 'Focus'}
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-white">
-                    {language === 'id' ? 'Outcome & delivery' : 'Outcome & delivery'}
-                  </p>
+                <div className="mt-8 space-y-4 border-t border-white/[0.08] pt-6">
+                  {[
+                    {
+                      number: '01',
+                      title: language === 'id' ? 'Kualitas' : 'Quality',
+                      description: language === 'id' ? 'Pekerjaan harus menjawab kebutuhan yang jelas.' : 'The work must serve a clear purpose.'
+                    },
+                    {
+                      number: '02',
+                      title: language === 'id' ? 'Presisi' : 'Precision',
+                      description: language === 'id' ? 'Detail, scope, dan standar dijaga sejak awal.' : 'Details, scope, and standards are considered from the start.'
+                    },
+                    {
+                      number: '03',
+                      title: language === 'id' ? 'Komitmen' : 'Commitment',
+                      description: language === 'id' ? 'Komunikasi dan milestone dijalankan dengan tanggung jawab.' : 'Communication and milestones are handled responsibly.'
+                    }
+                  ].map((item) => (
+                    <div key={item.number} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3">
+                      <span className="pt-0.5 text-[10px] font-mono tabular-nums text-[#6F757F]">{item.number}</span>
+                      <div>
+                        <p className="text-sm font-medium text-white">{item.title}</p>
+                        <p className="mt-1 text-xs font-light leading-5 text-[#8A909D]">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Executive Leadership */}
       <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -right-40 top-10 h-96 w-96 rounded-full border border-brand-red/[0.035]" />
-          <div className="absolute -left-40 bottom-[-12rem] h-96 w-96 rounded-full border border-white/[0.02]" />
-          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[110px]" />
-        </div>
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
@@ -543,7 +531,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative mb-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30"
+              className="group relative mb-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111216] transition-colors duration-200 hover:border-white/[0.15]"
             >
               <div className="grid min-w-0 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]">
                 <div className="relative flex min-h-[320px] items-center overflow-hidden bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.045),transparent_55%)] p-5 sm:min-h-[430px] sm:p-6 lg:min-h-[500px]">
@@ -552,11 +540,10 @@ export const About = () => {
                       src={team[0].image}
                       alt={team[0].name}
                       referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                      className="h-full w-full object-cover object-center transition-none"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/65 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 flex items-center gap-2.5 sm:bottom-5 sm:left-5 sm:gap-3">
-                      <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                      <span className="inline-flex rounded-full border border-white/[0.12] bg-[#090A0C]/90 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-white">
                         01
                       </span>
                       <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/65">
@@ -564,7 +551,6 @@ export const About = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#08090B]/10 via-transparent to-[#08090B]/10" />
                 </div>
 
                 <div className="flex min-w-0 flex-col justify-between p-6 sm:p-8 lg:p-10 xl:p-12">
@@ -637,17 +623,16 @@ export const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-brand-red/25 hover:bg-[#141519]"
+                  className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519]"
                 >
                   <div className="relative aspect-[16/15] overflow-hidden bg-[#171920]">
                     <img
                       src={member.image}
                       alt={member.name}
                       referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                      className="h-full w-full object-cover object-center transition-none"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#08090B]/80 via-transparent to-transparent" />
-                    <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/65 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/75 backdrop-blur-md">
+                    <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-[#090A0C]/90 px-2.5 py-1 text-[10px] font-mono tabular-nums text-white/85">
                       {String(index + 2).padStart(2, '0')}
                     </span>
                   </div>
@@ -680,10 +665,6 @@ export const About = () => {
 
       {/* Core Principles / Values */}
       <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -right-40 top-10 h-80 w-80 rounded-full border border-brand-red/[0.035]" />
-          <div className="absolute right-0 top-0 h-72 w-72 bg-brand-red/[0.018] blur-[110px]" />
-        </div>
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -720,11 +701,10 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4 }}
-                className="group relative flex min-w-0 min-h-[230px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:min-h-[250px] sm:p-7 md:p-8"
+                className="group relative flex min-w-0 min-h-[230px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519] sm:min-h-[250px] sm:p-7 md:p-8"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-transform duration-300 group-hover:scale-[1.03] sm:h-12 sm:w-12">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-none sm:h-12 sm:w-12">
                     {v.icon}
                   </div>
                   <span className="pt-1 text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#6F757F]">
@@ -749,10 +729,6 @@ export const About = () => {
 
       {/* Timeline Journey */}
       <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -left-40 top-20 h-80 w-80 rounded-full border border-white/[0.025]" />
-          <div className="absolute right-[-6rem] bottom-[-8rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
-        </div>
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -778,8 +754,7 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4 }}
-                className="group relative flex min-w-0 min-h-[220px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:min-h-[250px] sm:p-7 lg:p-8"
+                className="group relative flex min-w-0 min-h-[220px] flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519] sm:min-h-[250px] sm:p-7 lg:p-8"
               >
                 <div className="flex min-w-0 flex-1 flex-col">
                   <div className="flex items-center justify-between gap-4">
@@ -809,10 +784,6 @@ export const About = () => {
 
       {/* Redesigned Technology Stack Grid */}
       <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -right-40 top-10 h-80 w-80 rounded-full border border-brand-red/[0.03]" />
-          <div className="absolute left-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-white/[0.02]" />
-        </div>
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -847,12 +818,11 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4 }}
-                className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,transform,background-color] duration-300 hover:border-brand-red/30 hover:bg-[#141519] sm:p-7 lg:p-8"
+                className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] p-6 transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519] sm:p-7 lg:p-8"
               >
                 <div className="min-w-0">
                   <div className="flex min-w-0 items-start justify-between gap-4 sm:gap-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-transform duration-300 group-hover:scale-[1.03] sm:h-12 sm:w-12">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-none sm:h-12 sm:w-12">
                       {stack.icon}
                     </div>
                     <span className="max-w-[72%] rounded-full border border-white/[0.08] bg-[#0B0C0E] px-2.5 py-1 text-right text-[9px] font-mono leading-[1.4] text-brand-red sm:max-w-[68%] sm:text-[10px]">
@@ -873,7 +843,7 @@ export const About = () => {
                     {stack.tools.map((tool) => (
                       <div
                         key={tool.name}
-                        className="flex min-w-0 items-center justify-between gap-3 rounded-xl border border-white/[0.07] bg-[#0B0C0E] px-3 py-2.5 transition-colors hover:border-brand-red/30 sm:px-3.5"
+                        className="flex min-w-0 items-center justify-between gap-3 border-b border-white/[0.06] py-3 last:border-b-0"
                       >
                         <span className="min-w-0 text-xs font-medium leading-relaxed text-white">
                           {tool.name}
