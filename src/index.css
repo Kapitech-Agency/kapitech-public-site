@@ -25,6 +25,7 @@
   --kapi-color-accent-line: rgba(229, 9, 20, 0.42);
   --kapi-color-overlay: rgba(4, 5, 7, 0.76);
   --kapi-color-modal-surface: rgba(15, 17, 22, 0.94);
+  --kapi-color-popover-surface: rgba(15, 17, 22, 0.98);
   --bg: var(--kapi-color-canvas);
   --text: var(--kapi-color-text-primary);
 }
@@ -137,19 +138,19 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,0.09);
+  border: 1px solid var(--kapi-color-line);
   border-radius: 9999px;
   background: rgba(255,255,255,0.025);
-  color: #8A909D;
+  color: var(--kapi-color-text-secondary);
   transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 .kapi-modal-close:hover {
-  border-color: rgba(255,255,255,0.16);
+  border-color: var(--kapi-color-line-highlight);
   background: rgba(255,255,255,0.07);
-  color: #FFFFFF;
+  color: var(--kapi-color-text-primary);
 }
 .kapi-modal-close:focus-visible {
-  outline: 2px solid rgba(229,9,20,0.7);
+  outline: 2px solid var(--kapi-color-accent);
   outline-offset: 2px;
 }
 .kapi-modal-close:active {
@@ -157,9 +158,9 @@
 }
 
 .kapi-popover-surface {
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--kapi-color-line);
   border-radius: 1rem;
-  background: rgba(17,18,22,0.98);
+  background: var(--kapi-color-popover-surface);
   box-shadow: 0 24px 60px -28px rgba(0,0,0,0.95);
   backdrop-filter: blur(24px) saturate(140%);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
@@ -1452,7 +1453,7 @@ html.kapi-custom-cursor-enabled select {
 
 /* Modal system */
 .kapi-public-shell [role="dialog"].fixed.inset-0 {
-  background: rgba(4, 5, 7, 0.72) !important;
+  background: var(--kapi-color-overlay) !important;
   backdrop-filter: blur(18px) saturate(115%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(115%) !important;
 }
