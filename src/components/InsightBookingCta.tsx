@@ -12,7 +12,7 @@ export const InsightBookingCta: React.FC<{
     className={[
       'group flex min-h-12 items-center justify-between gap-4 rounded-2xl border border-white/[0.1] bg-brand-red px-4 py-3.5 text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.75)]',
       'transition-[background-color,border-color,box-shadow,transform] duration-200',
-      'hover:border-white/[0.18] hover:bg-[#F01924] hover:shadow-[0_16px_32px_-18px_rgba(229,9,20,0.85)]',
+      'hover:border-white/[0.18] hover:bg-brand-red-bright hover:shadow-[0_16px_32px_-18px_rgba(229,9,20,0.85)]',
       'active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45',
       mobile ? 'w-full xl:hidden' : 'shrink-0'
     ].join(' ')}
