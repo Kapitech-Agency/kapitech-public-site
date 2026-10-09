@@ -1,0 +1,289 @@
+{
+  "seo": {
+    "title": "Audit SEO Teknis: Panduan Praktis Crawling, Indexing, dan Kesehatan Website | Kapitech",
+    "description": "Audit SEO teknis secara terstruktur: akses crawl, indexability, canonical, internal link, rendering, structured data, sitemap, dan pemantauan melalui Search Console.",
+    "slug": "audit-seo-teknis",
+    "canonicalUrl": "https://kapitech.id/insights/audit-seo-teknis",
+    "ogImage": "https://kapitech.id/insights/technical-seo-audit/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 12,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "technical-seo",
+        "name": "SEO Teknis"
+      },
+      {
+        "slug": "seo-audit",
+        "name": "Audit SEO"
+      },
+      {
+        "slug": "indexing",
+        "name": "Indexing"
+      },
+      {
+        "slug": "crawlability",
+        "name": "Crawlability"
+      },
+      {
+        "slug": "canonical",
+        "name": "Canonical URL"
+      },
+      {
+        "slug": "search-console",
+        "name": "Search Console"
+      }
+    ],
+    "coverImage": "/insights/technical-seo-audit/hero.svg",
+    "title": "Audit SEO Teknis: Panduan Praktis Crawling, Indexing, dan Kesehatan Website",
+    "excerpt": "Audit SEO teknis mencari hambatan yang membuat halaman penting sulit ditemukan, dipahami, diindeks, atau diukur. Periksa akses dan arsitektur terlebih dahulu, lalu rendering dan validasi.",
+    "keyTakeaways": [
+      "Periksa crawlability, indexability, canonical, internal link, rendering, dan performa secara berurutan.",
+      "Sitemap membantu penemuan URL, tetapi tidak menjamin sebuah halaman akan diindeks.",
+      "Robots, noindex, canonical, redirect, dan konten harus memberikan sinyal yang konsisten.",
+      "Audit template dan pola URL penting, bukan hanya homepage.",
+      "Prioritaskan temuan berdasarkan halaman terdampak, pengaruh bisnis, dan keyakinan terhadap solusinya."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Audit SEO teknis memeriksa apakah mesin pencari dapat mengakses halaman penting, memahami URL dan kontennya, serta mempertimbangkan halaman tersebut untuk diindeks. Audit juga mencari hambatan pada arsitektur situs dan pengalaman pengguna. Tujuannya bukan membuat spreadsheet berisi sebanyak mungkin peringatan, melainkan menemukan masalah yang benar-benar menghambat discovery, indexing, atau pengalaman pencarian."
+      },
+      {
+        "type": "paragraph",
+        "text": "Mulailah dari jenis halaman dan perjalanan pengguna yang paling penting. Setelah itu, perluas pemeriksaan ke template, pola URL, internal link, dan kasus khusus."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Audit SEO teknis secara ringkas"
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/hero.svg",
+        "alt": "Gambaran alur audit SEO teknis",
+        "caption": "Audit sesuai urutan ketergantungan agar masalah akses tidak mengacaukan pemeriksaan berikutnya."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "1. Periksa akses crawling dan indexability"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Robots.txt bukan alat untuk menghapus halaman"
+      },
+      {
+        "type": "paragraph",
+        "text": "Aturan robots.txt dapat membatasi crawling, tetapi tidak selalu menghapus URL dari hasil pencarian. Jika halaman tidak boleh diindeks, gunakan directive noindex yang tepat dan pastikan crawler tetap bisa mengakses halaman untuk membacanya. Jangan memblokir CSS, JavaScript, atau resource penting yang dibutuhkan untuk memahami halaman."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Gunakan noindex secara sengaja"
+      },
+      {
+        "type": "paragraph",
+        "text": "Periksa meta robots dan X-Robots-Tag pada halaman yang seharusnya dapat diindeks. Halaman staging, hasil pencarian internal, halaman utilitas duplikat, dan area sensitif mungkin membutuhkan kebijakan berbeda. Satu directive global yang salah pada template bisa memengaruhi ratusan URL."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Periksa status code dan rantai redirect"
+      },
+      {
+        "type": "paragraph",
+        "text": "URL publik yang penting seharusnya mengembalikan respons akhir yang diharapkan, bukan error, soft 404, atau rantai redirect yang tidak perlu. Periksa URL lama, variasi trailing slash, perbedaan kapitalisasi, redirect HTTP ke HTTPS, dan tautan ke halaman yang sudah tidak ada."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/discovery-map.svg",
+        "alt": "Peta discovery melalui internal link, sitemap, dan aturan crawl",
+        "caption": "Discovery membutuhkan aturan akses yang jelas dan jalur yang bisa dirayapi."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "2. Tinjau canonical dan jalur URL duplikat"
+      },
+      {
+        "type": "paragraph",
+        "text": "Konten yang sama dapat diakses melalui parameter tracking, format URL alternatif, atau rute lama. Gunakan internal link yang konsisten, redirect bila diperlukan, dan canonical untuk menyampaikan URL pilihan. Canonical merupakan petunjuk; sinyal lain pada struktur website juga harus mendukung keputusan tersebut."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Jaga konsistensi sinyal canonical"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pastikan canonical mengarah ke URL yang nyata, bisa diindeks, dan memiliki konten setara. Hindari canonical ke URL yang redirect, diblokir, atau tidak relevan. Internal link dan sitemap juga sebaiknya menggunakan URL yang dipilih."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/canonical-map.svg",
+        "alt": "Peta canonical yang menghubungkan URL utama dan variasi duplikat",
+        "caption": "Canonical paling berguna ketika seluruh website mengirimkan sinyal yang sama."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "3. Periksa arsitektur dan internal link"
+      },
+      {
+        "type": "paragraph",
+        "text": "Halaman penting sebaiknya dapat dicapai melalui navigasi, halaman kategori, konten terkait, atau tautan crawlable lainnya. Sitemap dapat mendaftarkan URL, tetapi internal link menjelaskan hubungannya dengan konten lain dan membantu pengunjung menjelajah."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Cari halaman yatim dan halaman yang terlalu tersembunyi"
+      },
+      {
+        "type": "paragraph",
+        "text": "Bandingkan hasil crawl dengan XML sitemap dan inventaris konten. Halaman yang terdaftar tetapi tidak memiliki internal link yang berguna mungkin sulit ditemukan pengunjung. Tinjau pagination, navigasi berbasis filter, dan halaman arsip supaya tidak menghasilkan terlalu banyak URL yang duplikatif atau bernilai rendah."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/sitemap-stack.svg",
+        "alt": "Model sitemap dan indexation untuk website",
+        "caption": "Sitemap membantu discovery, tetapi bukan jaminan indexing."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "4. Uji rendering dan template halaman"
+      },
+      {
+        "type": "paragraph",
+        "text": "Website modern dapat merender konten utama melalui JavaScript. Pastikan mesin pencari dan pengguna dapat mengakses konten, judul, tautan, dan metadata setelah rendering. Perhatikan client-side routing, loading state, hydration error, request API yang terblokir, serta konten yang hanya muncul setelah interaksi rapuh."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Uji beberapa jenis halaman"
+      },
+      {
+        "type": "paragraph",
+        "text": "Periksa halaman layanan, artikel, kategori, dan rute dinamis. Pastikan setiap halaman mempunyai title dan description unik, heading utama yang jelas, canonical yang tepat, konten yang dapat diindeks, serta tautan yang valid. Kerusakan pada satu template bersama dapat memengaruhi semua URL yang dihasilkan darinya."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/index-gates.svg",
+        "alt": "Pemeriksaan indexation untuk rendering, directive, canonical, dan konten",
+        "caption": "Anggap indexability sebagai sejumlah persyaratan yang harus dipenuhi halaman penting."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "5. Ukur performa dan structured data"
+      },
+      {
+        "type": "paragraph",
+        "text": "Gunakan data lapangan jika tersedia untuk memahami pengalaman nyata, lalu gunakan alat pengujian terkontrol untuk mencari penyebab. Tinjau dimensi gambar, pemuatan font, JavaScript yang tidak diperlukan, skrip pihak ketiga, layout shift, dan interaksi lambat. Structured data harus menjelaskan konten yang benar-benar terlihat serta mematuhi panduan fitur terkait."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Validasi perbaikan, bukan hanya peringatannya"
+      },
+      {
+        "type": "paragraph",
+        "text": "Perubahan teknis selesai ketika URL terdampak dirender dengan benar, canonical dan directive sesuai tujuan, serta masalah tidak lagi muncul. Ulangi crawl pada sampel halaman dan gunakan URL Inspection atau laporan Search Console yang relevan."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/audit-loop.svg",
+        "alt": "Siklus audit SEO teknis dari pemeriksaan sampai pemantauan",
+        "caption": "SEO teknis berjalan berulang: temukan, perbaiki, verifikasi, dan pantau."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Urutan audit yang bisa dijalankan"
+      },
+      {
+        "type": "checklist",
+        "title": "Checklist audit",
+        "items": [
+          "Inventarisasi jenis halaman, pola URL publik, dan halaman penting bagi bisnis.",
+          "Periksa status HTTP, rantai redirect, robots, dan directive noindex.",
+          "Validasi canonical, format URL pilihan, dan tujuan redirect.",
+          "Bandingkan internal link yang dapat dirayapi dengan sitemap dan inventaris konten.",
+          "Uji rendering, metadata, dan konten utama pada template representatif.",
+          "Periksa pengalaman mobile, Core Web Vitals, pemuatan gambar, serta error JavaScript.",
+          "Validasi structured data dan cari markup yang tidak sesuai.",
+          "Prioritaskan masalah, tetapkan pemilik, uji ulang URL, dan pantau hasil."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Cara menentukan prioritas"
+      },
+      {
+        "type": "paragraph",
+        "text": "Urutkan temuan berdasarkan jumlah halaman bernilai tinggi yang terdampak, tingkat kepentingan halaman, beratnya hambatan, dan keyakinan terhadap solusi. Directive noindex yang tidak sengaja pada template layanan utama lebih mendesak daripada peringatan kecil di arsip yang jarang dikunjungi. Catat dampak yang diharapkan agar hasil setelah deployment dapat dibandingkan."
+      },
+      {
+        "type": "paragraph",
+        "text": "Gunakan dokumentasi Google tentang [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), [canonicalization](https://developers.google.com/search/docs/crawling-indexing/canonicalization), dan [URL Inspection di Search Console](https://support.google.com/webmasters/answer/9012289) untuk memeriksa implementasi spesifik."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: perbaiki penghambat utama terlebih dahulu"
+      },
+      {
+        "type": "paragraph",
+        "text": "Audit SEO teknis yang berguna menghubungkan temuan dengan jenis halaman, dampak terhadap pengguna atau indexing, perbaikan konkret, dan langkah verifikasi. Mulai dari akses serta indexability, lalu lanjutkan ke arsitektur, rendering, performa, dan pemantauan. Dengan urutan ini audit menjadi rencana tindakan, bukan daftar peringatan yang tidak terprioritas."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "SEO teknis",
+        "title": "Temukan masalah yang menghambat halaman penting",
+        "description": "Tinjau akses crawl, sinyal indexation, rendering, dan kualitas teknis sebelum menentukan prioritas perbaikan.",
+        "ctaLabel": "Tinjau website Anda",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "technical-seo"
+      }
+    ],
+    "faq": [
+      [
+        "Seberapa sering audit SEO teknis harus dilakukan?",
+        "Lakukan audit awal sebelum peluncuran besar atau migrasi, lalu ulangi setelah perubahan template, routing, CMS, analitik, dan arsitektur konten. Pantau sinyal teknis penting secara berkala."
+      ],
+      [
+        "Apakah sitemap menjamin halaman diindeks?",
+        "Tidak. Sitemap membantu mesin pencari menemukan URL, tetapi indexing juga bergantung pada akses, canonical, kualitas konten, dan keputusan mesin pencari."
+      ],
+      [
+        "Apakah robots.txt bisa menghapus halaman dari Google?",
+        "Robots.txt terutama mengatur crawling. Ini bukan cara penghapusan yang dapat diandalkan karena URL masih dapat diketahui dari sumber lain. Gunakan noindex atau proses removal sesuai tujuan."
+      ],
+      [
+        "Apa saja yang perlu masuk audit SEO teknis?",
+        "Minimal, periksa akses crawl, status code, directive indexability, canonical, internal link, sitemap, rendering, metadata, structured data, performa, dan pemantauan."
+      ],
+      [
+        "Apakah setiap peringatan dari alat audit harus diperbaiki?",
+        "Tidak. Prioritaskan berdasarkan jumlah halaman terdampak, kepentingan bisnis, tingkat masalah, dan kemungkinan perbaikannya meningkatkan aksesibilitas, crawl, indexing, atau pengalaman pengguna."
+      ],
+      [
+        "Mengapa halaman dinamis perlu diaudit secara terpisah?",
+        "Client-side routing dan rendering dapat memicu masalah pada tautan, metadata, canonical, loading state, atau konten. Uji template representatif, bukan menganggap semua rute bekerja seperti homepage."
+      ]
+    ],
+    "seoTitle": "Audit SEO Teknis: Panduan Praktis Crawling, Indexing, dan Kesehatan Website | Kapitech",
+    "seoDescription": "Audit SEO teknis secara terstruktur: akses crawl, indexability, canonical, internal link, rendering, structured data, sitemap, dan pemantauan melalui Search Console."
+  }
+}
