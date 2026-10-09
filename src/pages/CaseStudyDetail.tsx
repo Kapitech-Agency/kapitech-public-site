@@ -58,21 +58,21 @@ export const CaseStudyDetail = () => {
 
   if (!item) {
     return (
-      <main className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-20 pt-32 text-white sm:px-8">
+      <div className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-20 pt-32 text-white sm:px-8">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Case Study</p>
           <h1 className="mt-4 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-6xl">Case study not found.</h1>
           <p className="mt-5 max-w-2xl text-sm leading-7 text-[#8A909D]">The requested project is no longer available in the public project dataset.</p>
           <button type="button" onClick={() => navigate('/work')} className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.03] px-5 text-xs font-semibold text-white"><ArrowLeft size={15} /> Back to Work</button>
         </div>
-      </main>
+      </div>
     );
   }
 
   const copy = language === 'id' ? item.descId : item.desc;
 
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
       <PublicPageHero
         eyebrow={`Case Study / ${item.client}`}
         title={item.title}
@@ -125,6 +125,6 @@ export const CaseStudyDetail = () => {
       </section>
 
       {related.length ? <section className="mx-auto max-w-7xl px-5 pt-6 sm:px-8 lg:px-12"><div className="border-t border-white/[0.08] pt-12"><div className="flex items-end justify-between gap-5"><div><p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Related work</p><h2 className="mt-3 text-3xl font-display font-semibold tracking-[-0.04em] sm:text-4xl">More relevant projects.</h2></div><Link to="/work" className="hidden items-center gap-2 text-xs font-semibold text-[#8F97A3] hover:text-white sm:inline-flex">View all <ExternalLink size={13} /></Link></div><div className="mt-7 grid gap-4 md:grid-cols-3">{related.map((relatedProject) => <Link key={relatedProject.id} to={'/work/' + projectSlug(relatedProject)} className="group overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.018] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"><img src={relatedProject.image} alt={relatedProject.title} className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" /><div className="p-5"><span className="text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">{relatedProject.service}</span><h3 className="mt-2 text-xl font-display font-semibold tracking-[-0.03em] text-white">{relatedProject.title}</h3><p className="mt-2 text-sm leading-6 text-[#7E8692]">{relatedProject.industry}</p></div></Link>)}</div></div></section> : null}
-    </main>
+    </div>
   );
 };
