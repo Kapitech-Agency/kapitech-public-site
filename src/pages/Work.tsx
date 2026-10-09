@@ -169,7 +169,7 @@ export const Work = () => {
     if (!requestedProject || selectedProject || projectsList.length === 0) return;
 
     const project = projectsList.find(
-      (item) => item.id === requestedProject || item.slug === requestedProject,
+      (item) => item.id === requestedProject || item.slug === requestedProject || projectSlug(item) === requestedProject,
     );
 
     if (project) {
@@ -260,8 +260,11 @@ export const Work = () => {
   };
 
   const featuredProjects = useMemo(() => {
-    return projectsList.filter(p => p.featured);
+    return projectsList.filter((project) => project.featured && project.isPublished !== false);
   }, [projectsList]);
+  const hasFeaturedProjects = featuredProjects.length > 0;
+  // Keep the spotlight functional if CMS records are available but none is flagged featured.
+  const spotlightProjects = hasFeaturedProjects ? featuredProjects : projectsList.slice(0, 3);
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -275,19 +278,19 @@ export const Work = () => {
 
   useEffect(() => {
     setFeaturedIndex((current) =>
-      Math.min(current, Math.max(0, featuredProjects.length - 1)),
+      Math.min(current, Math.max(0, spotlightProjects.length - 1)),
     );
   }, [featuredProjects.length]);
 
   useEffect(() => {
-    if (reducedMotion || isSpotlightPaused || featuredProjects.length <= 1) return;
+    if (reducedMotion || isSpotlightPaused || spotlightProjects.length <= 1) return;
 
     const interval = setInterval(() => {
-      setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
+      setFeaturedIndex(prev => (prev + 1) % spotlightProjects.length);
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [featuredProjects.length, isSpotlightPaused, reducedMotion]);
+  }, [spotlightProjects.length, isSpotlightPaused, reducedMotion]);
 
   const normalizeFilterValue = (value: string | null | undefined) =>
     String(value ?? '').trim().toLocaleLowerCase();
@@ -394,13 +397,13 @@ export const Work = () => {
     return list;
   }, [projectsList, activePillar, activeService, activeIndustry, searchQuery]);
 
-  const currentFeatured = featuredProjects[featuredIndex] || projectsList[0];
+  const currentFeatured = spotlightProjects[featuredIndex] || projectsList[0];
 
   const featuredPositionLabel =
     language === 'id'
-      ? `${featuredIndex + 1} dari ${featuredProjects.length}: ${currentFeatured?.title ?? ''}`
-      : `${featuredIndex + 1} of ${featuredProjects.length}: ${currentFeatured?.title ?? ''}`;
-  const featuredProgress = `${((featuredIndex + 1) / Math.max(featuredProjects.length, 1)) * 100}%`;
+      ? `${featuredIndex + 1} dari ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`
+      : `${featuredIndex + 1} of ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`;
+  const featuredProgress = `${((featuredIndex + 1) / Math.max(spotlightProjects.length, 1)) * 100}%`;
 
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
@@ -442,7 +445,7 @@ export const Work = () => {
           className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
           role="region"
           aria-roledescription="carousel"
-          aria-label={language === 'id' ? 'Sorotan studi kasus unggulan' : 'Featured case studies'}
+          aria-label={language === 'id' ? 'Sorotan studi kasus terpilih' : 'Selected case study spotlight'}
           onMouseEnter={() => setIsSpotlightPaused(true)}
           onMouseLeave={() => setIsSpotlightPaused(false)}
           onFocusCapture={() => setIsSpotlightPaused(true)}
@@ -456,7 +459,9 @@ export const Work = () => {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 mb-7 sm:mb-9">
               <div className="min-w-0">
                 <span className="kapi-section-label mb-4">
-                  {language === 'id' ? 'Sorotan Studi Kasus Unggulan' : 'Featured Case Study Spotlight'}
+                  {hasFeaturedProjects
+                    ? (language === 'id' ? 'Sorotan Studi Kasus Unggulan' : 'Featured Case Study Spotlight')
+                    : (language === 'id' ? 'Sorotan Studi Kasus Terpilih' : 'Selected Case Study Spotlight')}
                 </span>
                 <h2 className="mt-3 max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-[3.25rem] font-display font-semibold tracking-[-0.055em] leading-[1.02] text-white">
                   {language === 'id'
@@ -472,17 +477,21 @@ export const Work = () => {
 
               <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">
                 <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
-                  {String(featuredIndex + 1).padStart(2, '0')} / {String(featuredProjects.length).padStart(2, '0')}
+                  {String(featuredIndex + 1).padStart(2, '0')} / {String(spotlightProjects.length).padStart(2, '0')}
                 </div>
                 <button
-                  onClick={() => setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)}
+                  type="button"
+                  disabled={spotlightProjects.length <= 1}
+                  onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev - 1 + spotlightProjects.length) % spotlightProjects.length : 0)}
                   className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
                   data-cursor-label="Previous"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
-                  onClick={() => setFeaturedIndex(prev => (prev + 1) % featuredProjects.length)}
+                  type="button"
+                  disabled={spotlightProjects.length <= 1}
+                  onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev + 1) % spotlightProjects.length : 0)}
                   className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
                   aria-label={language === 'id' ? 'Studi kasus unggulan berikutnya' : 'Next featured case study'}
                   data-cursor-label="Next"
@@ -511,15 +520,15 @@ export const Work = () => {
                       return;
                     }
 
-                    if (event.key === 'ArrowLeft' && featuredProjects.length > 1) {
+                    if (event.key === 'ArrowLeft' && spotlightProjects.length > 1) {
                       event.preventDefault();
-                      setFeaturedIndex(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length);
+                      setFeaturedIndex(prev => (prev - 1 + spotlightProjects.length) % spotlightProjects.length);
                       return;
                     }
 
-                    if (event.key === 'ArrowRight' && featuredProjects.length > 1) {
+                    if (event.key === 'ArrowRight' && spotlightProjects.length > 1) {
                       event.preventDefault();
-                      setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
+                      setFeaturedIndex(prev => (prev + 1) % spotlightProjects.length);
                     }
                   }}
                   role="button"
@@ -532,6 +541,7 @@ export const Work = () => {
                     <img
                       src={currentFeatured.image}
                       alt={currentFeatured.title}
+                      onError={handleCaseStudyImageError}
                       className="block w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.035] lg:scale-[1.025] lg:group-hover:scale-[1.055]"
                       loading="eager"
                       fetchPriority="high"
@@ -540,7 +550,9 @@ export const Work = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/92 via-[#0B0C0E]/20 to-transparent" />
                     <div className="absolute top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
                       <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/72 backdrop-blur-md border border-white/[0.1] text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-white">
-                        {language === 'id' ? 'Unggulan' : 'Featured'}
+                        {hasFeaturedProjects
+                          ? (language === 'id' ? 'Unggulan' : 'Featured')
+                          : (language === 'id' ? 'Pilihan' : 'Selected')}
                       </span>
                       <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/58 backdrop-blur-md border border-brand-red/25 text-[10px] font-mono text-brand-red">
                         {currentFeatured.year}
@@ -629,7 +641,9 @@ export const Work = () => {
                 />
               </div>
               <span className="shrink-0 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
-                {featuredProjects.length} {language === 'id' ? 'studi kasus unggulan' : 'featured case studies'}
+                {spotlightProjects.length} {hasFeaturedProjects
+                  ? (language === 'id' ? 'studi kasus unggulan' : 'featured case studies')
+                  : (language === 'id' ? 'studi kasus pilihan' : 'selected case studies')}
               </span>
             </div>
           </div>
@@ -748,7 +762,7 @@ export const Work = () => {
             </div>
 
             <div className="flex items-center gap-2 overflow-x-auto py-0.5" aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'} role="group">
-              {industryOptions.slice(0, 16).map((industry) => (
+              {industryOptions.map((industry) => (
                 <button
                   key={industry}
                   type="button"
@@ -856,6 +870,7 @@ export const Work = () => {
                 onClick={() => {
                   setActivePillar('All');
                   setActiveService('All');
+                  setActiveIndustry('All');
                   setSearchQuery('');
                   setVisibleCount(12);
                 }}
