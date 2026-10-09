@@ -16,7 +16,7 @@ export const InsightAmbientBackground: React.FC<{
       <div className="absolute inset-0">
         <PatternWaves
           preset="silk"
-          color="#dc143c"
+          color="#E50914"
           backgroundColor="#0B0C0E"
           opacity={hero ? 0.23 : 0.11}
           fade="edges"
