@@ -61,13 +61,13 @@ export const CaseStudyDetail = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const [projects, setProjects] = useState<ProjectItem[]>(() => getCmsProjects());
-  const project = useMemo(() => projectBySlug(projects.length ? projects : allProjects, slug), [projects, slug]);
+  const project = useMemo(() => projectBySlug(projects, slug), [projects, slug]);
 
   useEffect(() => {
     void fetchServerCmsProjects().then(() => setProjects(getCmsProjects()));
   }, []);
 
-  const item = project || projectBySlug(allProjects, slug);
+  const item = project || (projects === allProjects ? projectBySlug(allProjects, slug) : undefined);
   const visualGallery = useMemo(() => {
     if (!item) return [];
     return Array.from(new Set([item.image, ...(Array.isArray(item.gallery) ? item.gallery : [])]
