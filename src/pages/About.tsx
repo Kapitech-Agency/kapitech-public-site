@@ -1,6 +1,6 @@
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { motion } from 'motion/react';
-import { ArrowUpRight, Globe, Code2, Palette, Building2, MapPin, Cloud, Database, Server } from 'lucide-react';
+import { ArrowUpRight, Globe, Code2, Palette, MapPin, Cloud, Server } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 
@@ -296,7 +296,7 @@ export const About = () => {
       />
 
       {/* Corporate Information */}
-      <section className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
+      <section aria-labelledby="about-corporate-title" className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-12 xl:gap-16">
             <div>
@@ -304,7 +304,7 @@ export const About = () => {
                 {language === 'id' ? 'Informasi Korporat' : 'Corporate Information'}
               </span>
 
-              <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[3.75rem]">
+              <h2 id="about-corporate-title" className="mt-5 max-w-3xl font-display text-3xl font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[3.75rem]">
                 {language === 'id'
                   ? <>Agensi digital untuk <span className="text-brand-red">produk yang lebih baik.</span></>
                   : <>A digital agency for <span className="text-brand-red">better digital products.</span></>}
@@ -354,6 +354,7 @@ export const About = () => {
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
                   alt={language === 'id' ? 'Sekelompok profesional berkolaborasi dalam pekerjaan' : 'Professionals collaborating around a table'}
                   loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
@@ -422,7 +423,7 @@ export const About = () => {
       </section>
 
       {/* Executive Leadership */}
-      <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team">
+      <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team" aria-labelledby="about-leadership-title">
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
@@ -435,7 +436,7 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+                id="about-leadership-title" className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
               >
                 {t('about.leadership.title')}
               </motion.h2>
@@ -457,7 +458,7 @@ export const About = () => {
               <div className="flex items-center gap-3">
                 <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">{String(team.length).padStart(2, '0')}</span>
                 <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                  {language === 'id' ? 'Leadership roles' : 'Leadership roles'}
+                  {language === 'id' ? 'Peran kepemimpinan' : 'Leadership roles'}
                 </span>
               </div>
             </div>
@@ -476,7 +477,9 @@ export const About = () => {
                   <div className="relative w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#0D0E11] aspect-[16/15]">
                     <img
                       src={team[0].image}
-                      alt={team[0].name}
+                      alt={`${team[0].name}, ${team[0].role}`}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="h-full w-full object-cover object-center transition-none"
                     />
@@ -485,7 +488,7 @@ export const About = () => {
                         01
                       </span>
                       <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/65">
-                        {language === 'id' ? 'Executive lead' : 'Executive lead'}
+                        {language === 'id' ? 'Pimpinan eksekutif' : 'Executive lead'}
                       </span>
                     </div>
                   </div>
@@ -495,7 +498,7 @@ export const About = () => {
                   <div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                       <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.18em] text-brand-red">
-                        {language === 'id' ? 'Executive Leadership' : 'Executive Leadership'}
+                        {language === 'id' ? 'Kepemimpinan Eksekutif' : 'Executive Leadership'}
                       </span>
                       <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
                       <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
@@ -566,7 +569,9 @@ export const About = () => {
                   <div className="relative aspect-[16/15] overflow-hidden bg-[#171920]">
                     <img
                       src={member.image}
-                      alt={member.name}
+                      alt={`${member.name}, ${member.role}`}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="h-full w-full object-cover object-center transition-none"
                     />
@@ -602,7 +607,7 @@ export const About = () => {
       </section>
 
       {/* Core Principles / Values */}
-      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-principles-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -614,7 +619,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              id="about-principles-title" className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
             >
               {language === 'id' ? 'Bagaimana kami menangani setiap proyek.' : 'How we approach every project.'}
             </motion.h2>
@@ -666,7 +671,7 @@ export const About = () => {
       </section>
 
       {/* Timeline Journey */}
-      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-journey-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -678,7 +683,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              id="about-journey-title" className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
             >
               {language === 'id' ? 'Perjalanan pertumbuhan kami yang berkelanjutan.' : 'Our journey of continuous growth.'}
             </motion.h2>
@@ -721,7 +726,7 @@ export const About = () => {
       </section>
 
       {/* Redesigned Technology Stack Grid */}
-      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-stack-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -733,7 +738,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              id="about-stack-title" className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.06em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
             >
               {t('about.tools.title')}
             </motion.h2>
