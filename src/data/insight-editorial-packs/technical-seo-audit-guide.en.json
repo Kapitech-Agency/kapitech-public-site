@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Website Cost in Indonesia 2026: A Practical Budget Guide | Kapitech",
-    "description": "A practical guide to website costs in Indonesia: what drives the budget, how to compare quotes, what should be included, and how to avoid under-scoped projects.",
-    "slug": "website-cost-indonesia-guide",
-    "canonicalUrl": "https://kapitech.id/insights/website-cost-indonesia-guide",
-    "ogImage": "/insights/website-cost-indonesia/hero.svg"
+    "title": "Technical SEO Audit: A Practical Guide to Crawling, Indexing, and Site Health | Kapitech",
+    "description": "Audit technical SEO in a useful order: crawl access, indexability, canonical URLs, internal links, rendering, structured data, sitemaps, and monitoring in Search Console.",
+    "slug": "technical-seo-audit-guide",
+    "canonicalUrl": "https://kapitech.id/insights/technical-seo-audit-guide",
+    "ogImage": "https://kapitech.id/insights/technical-seo-audit/hero.svg"
   },
   "editorial": {
     "language": "en",
@@ -12,667 +12,278 @@
     "authorSlug": "kapitech-editorial-team",
     "status": "published",
     "isFeatured": false,
-    "readingTime": 16,
+    "readingTime": 12,
     "editorialMeta": {
-      "editorialType": "Guide"
+      "editorialType": "practical-guide"
     },
     "tags": [
       {
-        "slug": "website-cost",
-        "name": "website-cost"
+        "slug": "technical-seo",
+        "name": "Technical SEO"
       },
       {
-        "slug": "website-development",
-        "name": "website-development"
+        "slug": "seo-audit",
+        "name": "SEO Audit"
       },
       {
-        "slug": "company-website",
-        "name": "company-website"
+        "slug": "indexing",
+        "name": "Indexing"
       },
       {
-        "slug": "website-budget",
-        "name": "website-budget"
+        "slug": "crawlability",
+        "name": "Crawlability"
       },
       {
-        "slug": "web-development",
-        "name": "web-development"
+        "slug": "canonical",
+        "name": "Canonical URLs"
       },
       {
-        "slug": "digital-agency",
-        "name": "digital-agency"
+        "slug": "search-console",
+        "name": "Search Console"
       }
     ],
-    "title": "How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide",
-    "excerpt": "A practical guide to website costs in Indonesia: what drives the budget, how to compare quotes, what should be included, and how to avoid under-scoped projects.",
-    "coverImage": "/insights/website-cost-indonesia/hero.svg",
+    "coverImage": "/insights/technical-seo-audit/hero.svg",
+    "title": "Technical SEO Audit: A Practical Guide to Crawling, Indexing, and Site Health",
+    "excerpt": "A technical SEO audit should find barriers that prevent important pages from being discovered, understood, indexed, and measured. Work from access and architecture through rendering and validation.",
     "keyTakeaways": [
-      "Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially.",
-      "A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow.",
-      "A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site.",
-      "Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items.",
-      "An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch.",
-      "A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
+      "Audit crawlability, indexability, canonicalization, internal linking, rendering, and performance in that order.",
+      "A sitemap helps discovery but does not guarantee that a page will be indexed.",
+      "Robots rules, noindex directives, canonicals, redirects, and page content must send consistent signals.",
+      "Check critical templates and URL patterns, not only the homepage.",
+      "Prioritize errors by affected pages, business impact, and confidence in the fix."
     ],
     "content": [
       {
         "type": "paragraph",
-        "text": "The practical question in website cost in indonesia at a glance is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
+        "text": "A technical SEO audit examines whether search engines can access important pages, understand their URLs and content, and keep useful pages eligible for indexing. It also checks whether the site's architecture and performance create barriers for people. A long spreadsheet of warnings is not the goal; the goal is to identify the issues that block discovery, indexing, or useful search experiences."
       },
       {
         "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
-      },
-      {
-        "type": "callout",
-        "tone": "info",
-        "title": "The principle",
-        "text": "Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
+        "text": "Start with representative page types and the most valuable journeys. Then expand the investigation to templates, URL patterns, internal links, and edge cases."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Website Cost in Indonesia at a Glance"
-      },
-      {
-        "type": "table",
-        "headers": [
-          "Decision area",
-          "What to evaluate",
-          "Why it matters"
-        ],
-        "rows": [
-          [
-            "There is no single website price",
-            "Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially.",
-            "Changes the initial decision"
-          ],
-          [
-            "Budget should follow the job",
-            "A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow.",
-            "Changes future effort"
-          ],
-          [
-            "Complexity changes the estimate",
-            "A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site.",
-            "Changes the initial decision"
-          ],
-          [
-            "Page count is only one variable",
-            "Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items.",
-            "Changes future effort"
-          ],
-          [
-            "Integrations create real effort",
-            "An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch.",
-            "Changes the initial decision"
-          ]
-        ],
-        "caption": "A practical decision model for How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide."
+        "text": "Technical SEO audit at a glance"
       },
       {
         "type": "image",
-        "url": "/insights/website-cost-indonesia/hero.svg",
-        "alt": "Editorial visual: Website Cost in Indonesia at a Glance",
-        "caption": "A visual model for website cost in indonesia at a glance."
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
+        "url": "/insights/technical-seo-audit/hero.svg",
+        "alt": "An overview of the technical SEO audit workflow",
+        "caption": "Audit in dependency order so that later checks are not distorted by earlier access problems."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "What Actually Drives Website Cost"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
+        "text": "1. Check crawl access and indexability"
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "There is no single website price"
+        "text": "Robots.txt is not a removal tool"
       },
       {
         "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A practical proposal should connect every major cost to a requirement or risk that the business can understand."
+        "text": "A robots.txt rule can prevent crawling, but it does not reliably remove a URL from search results. If a page must not be indexed, apply the appropriate noindex directive and make sure crawlers can access it to see that directive. Do not block critical CSS, JavaScript, or resources needed to understand a page."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Budget should follow the job"
+        "text": "Use noindex intentionally"
       },
       {
         "type": "paragraph",
-        "text": "The practical question in what actually drives website cost is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. For a B2B business, the website often has to support prospects, partners, candidates, and existing clients."
+        "text": "Review meta robots and X-Robots-Tag directives on pages that should be indexable. Staging routes, internal search results, duplicate utility pages, and sensitive areas may need different treatment. A global directive accidentally applied to a page template can affect hundreds of URLs."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Complexity changes the estimate"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "The primary business outcome is written down.",
-          "Target audiences and critical journeys are identified.",
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear."
-        ]
-      },
-      {
-        "type": "callout",
-        "tone": "neutral",
-        "title": "Practical rule",
-        "text": "A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "promo",
-        "eyebrow": "WEB DEVELOPMENT",
-        "title": "Plan the website around the business outcome",
-        "description": "Kapitech can turn website requirements into a clear scope, information architecture, design direction, implementation plan, and measurable launch criteria.",
-        "ctaLabel": "Discuss a Website Project",
-        "ctaUrl": "https://kapitech.id/contact",
-        "serviceReference": "web-development"
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Website Scope: Pages, Features, and Integrations"
+        "text": "Inspect status codes and redirect chains"
       },
       {
         "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. The goal is a website investment proportionate to the decision the site needs to support."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
+        "text": "Important public URLs should normally return the expected final response rather than an error, soft 404, or unnecessary chain of redirects. Check old URLs, trailing slash variants, case differences, HTTP-to-HTTPS redirects, and links to pages that no longer exist."
       },
       {
         "type": "image",
-        "url": "/insights/website-cost-indonesia/decision-map.svg",
-        "alt": "Editorial visual: What Actually Drives Website Cost",
-        "caption": "A visual model for what actually drives website cost."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Page count is only one variable"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Target audiences and critical journeys are identified.",
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear.",
-          "Revision and approval rounds are defined."
-        ]
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Integrations create real effort"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Custom requirements increase discovery"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear.",
-          "Revision and approval rounds are defined.",
-          "Content migration or production is accounted for."
-        ]
-      },
-      {
-        "type": "callout",
-        "tone": "info",
-        "title": "The principle",
-        "text": "An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
+        "url": "/insights/technical-seo-audit/discovery-map.svg",
+        "alt": "A discovery map connecting links, sitemaps, and crawl access",
+        "caption": "Discovery depends on clear access rules and crawlable paths through the site."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Design and Content Are Part of the Budget"
+        "text": "2. Review canonical URLs and duplicate paths"
       },
       {
         "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
+        "text": "The same main content can sometimes be reached through tracking parameters, alternative URL forms, or old routes. Use consistent internal links, redirects where appropriate, and canonical annotations to communicate the preferred URL. Canonical signals are hints, so they should agree with the site's actual structure."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Design affects implementation"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "The primary business outcome is written down.",
-          "Target audiences and critical journeys are identified.",
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear."
-        ]
+        "text": "Keep canonical signals consistent"
       },
       {
         "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Content cannot be an afterthought"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Target audiences and critical journeys are identified.",
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear.",
-          "Revision and approval rounds are defined."
-        ]
-      },
-      {
-        "type": "quote",
-        "text": "Make the decision from requirements and evidence, not from the label attached to the solution.",
-        "attribution": "Kapitech editorial principle"
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "How to Compare Website Proposals"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
-      },
-      {
-        "type": "table",
-        "headers": [
-          "Decision area",
-          "What to evaluate",
-          "Why it matters"
-        ],
-        "rows": [
-          [
-            "There is no single website price",
-            "Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially.",
-            "Changes the initial decision"
-          ],
-          [
-            "Budget should follow the job",
-            "A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow.",
-            "Changes future effort"
-          ],
-          [
-            "Complexity changes the estimate",
-            "A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site.",
-            "Changes the initial decision"
-          ],
-          [
-            "Page count is only one variable",
-            "Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items.",
-            "Changes future effort"
-          ],
-          [
-            "Integrations create real effort",
-            "An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch.",
-            "Changes the initial decision"
-          ]
-        ],
-        "caption": "A practical decision model for How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide."
+        "text": "Confirm that the canonical points to a real, indexable URL with equivalent content. Avoid canonicals that point to unrelated pages, redirecting URLs, or URLs blocked from crawling. Include the preferred version in internal links and the sitemap."
       },
       {
         "type": "image",
-        "url": "/insights/website-cost-indonesia/requirements-map.svg",
-        "alt": "Editorial visual: Website Scope: Pages, Features, and Integrations",
-        "caption": "A visual model for website scope: pages, features, and integrations."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Maintenance belongs in the model"
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in how to compare website proposals is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A practical proposal should connect every major cost to a requirement or risk that the business can understand."
+        "url": "/insights/technical-seo-audit/canonical-map.svg",
+        "alt": "A canonical URL map showing preferred URLs and duplicate variants",
+        "caption": "A canonical tag is most useful when the rest of the site sends the same signal."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "A Real Scenario: Rebuilding a B2B Company Website"
+        "text": "3. Inspect the site architecture and internal links"
       },
       {
         "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. For a B2B business, the website often has to support prospects, partners, candidates, and existing clients."
+        "text": "Important pages should be reachable from meaningful navigation, category pages, related content, or other crawlable links. A sitemap can list a URL, but internal links help explain its relationship to the rest of the site and let visitors move through related topics."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Check orphaned and deeply buried pages"
+      },
+      {
+        "type": "paragraph",
+        "text": "Compare crawl results against the XML sitemap and the content inventory. Pages that are listed but have no useful internal links may be difficult for visitors to discover. Review pagination, faceted navigation, filters, and archive pages so they do not create an unhelpful number of duplicate or low-value URLs."
       },
       {
         "type": "image",
-        "url": "/insights/website-cost-indonesia/comparison.svg",
-        "alt": "Editorial visual: Design and Content Are Part of the Budget",
-        "caption": "A visual model for design and content are part of the budget."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Ask what is actually included"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. The goal is a website investment proportionate to the decision the site needs to support."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Separate build cost from ownership cost"
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Define the business outcome"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Map the required user journeys"
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Protect the critical features"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
+        "url": "/insights/technical-seo-audit/sitemap-stack.svg",
+        "alt": "A sitemap and indexation model for technical SEO",
+        "caption": "A sitemap is a discovery aid; it is not a promise of indexing."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Common Website Budget Mistakes"
+        "text": "4. Test rendering and page templates"
       },
       {
         "type": "paragraph",
-        "text": "The practical question in common website budget mistakes is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
+        "text": "Modern websites may render important content through JavaScript. Verify that search engines and users can access the main content, titles, links, and metadata after rendering. Pay special attention to client-side routing, loading states, hydration errors, blocked API requests, and content that appears only after a fragile interaction."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Set acceptance criteria"
+        "text": "Test real page types, not only the homepage"
       },
       {
         "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Treat scope changes explicitly"
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Start with the existing business reality"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A practical proposal should connect every major cost to a requirement or risk that the business can understand."
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. For a B2B business, the website often has to support prospects, partners, candidates, and existing clients."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "How Kapitech Approaches Website Projects"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Find the expensive unknown"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. The goal is a website investment proportionate to the decision the site needs to support."
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Choose the right level of rebuild"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in how kapitech approaches website projects is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not optimize for the cheapest quote"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not compare unlike scopes"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not ignore post-launch work"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A practical proposal should connect every major cost to a requirement or risk that the business can understand."
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. For a B2B business, the website often has to support prospects, partners, candidates, and existing clients."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Use evidence before approving spend"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. The goal is a website investment proportionate to the decision the site needs to support."
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in how kapitech approaches website projects is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Make the next decision explicit"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Before You Approve a Website Quote"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
+        "text": "Inspect a service page, article page, category page, and any pages generated by dynamic routes. Check that each has a unique title and description, a clear primary heading, an appropriate canonical, indexable content, and valid links. A broken shared template can affect every URL built from it."
       },
       {
         "type": "image",
-        "url": "/insights/website-cost-indonesia/scenario.svg",
-        "alt": "Editorial visual: How to Compare Website Proposals",
-        "caption": "A visual model for how to compare website proposals."
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear.",
-          "Revision and approval rounds are defined.",
-          "Content migration or production is accounted for."
-        ]
-      },
-      {
-        "type": "callout",
-        "tone": "neutral",
-        "title": "Practical rule",
-        "text": "The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
+        "url": "/insights/technical-seo-audit/index-gates.svg",
+        "alt": "Indexation checks for rendering, directives, canonical URLs, and useful content",
+        "caption": "Treat indexability as a set of gates that all important pages must pass."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Website Budget FAQs"
+        "text": "5. Measure performance and structured data"
       },
       {
         "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
+        "text": "Use field data where available to understand real user experience, then use lab tools to investigate causes. Check image dimensions, font loading, unused JavaScript, third-party scripts, layout shifts, and slow interactions. Structured data should accurately describe visible page content and follow the requirements for the relevant search feature."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Validate the fix, not just the warning"
+      },
+      {
+        "type": "paragraph",
+        "text": "A technical change is complete when the affected URLs render correctly, the intended canonical and directives are present, and the issue is no longer reproduced. Re-crawl representative pages and use Search Console's URL Inspection or relevant status reports where appropriate."
+      },
+      {
+        "type": "image",
+        "url": "/insights/technical-seo-audit/audit-loop.svg",
+        "alt": "An iterative technical SEO audit and validation loop",
+        "caption": "Technical SEO is continuous: identify, fix, verify, and monitor."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A practical audit sequence"
       },
       {
         "type": "checklist",
-        "title": "Decision checklist",
+        "title": "Audit checklist",
         "items": [
-          "The primary business outcome is written down.",
-          "Target audiences and critical journeys are identified.",
-          "Page templates and content responsibilities are explicit.",
-          "Integrations and dependencies are listed.",
-          "Design, development, QA, and launch responsibilities are clear.",
-          "Revision and approval rounds are defined.",
-          "Content migration or production is accounted for.",
-          "Hosting, maintenance, and ownership are discussed.",
-          "Acceptance criteria are measurable.",
-          "The proposal can be compared on equal scope."
+          "Inventory important page types, public URL patterns, and business-critical pages.",
+          "Check HTTP status codes, redirect chains, robots rules, and noindex directives.",
+          "Validate canonical tags, preferred URL formats, and redirect destinations.",
+          "Compare crawlable internal links against the sitemap and content inventory.",
+          "Test client-side rendering, metadata, and main content on representative templates.",
+          "Review mobile usability, Core Web Vitals, image loading, and JavaScript errors.",
+          "Validate structured data and check for malformed or misleading markup.",
+          "Prioritize fixes, assign owners, retest affected URLs, and monitor changes."
         ]
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Conclusion: Budget for the Outcome, Not the Page Count"
+        "text": "How to prioritize issues"
       },
       {
         "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
+        "text": "Rank issues by how many valuable pages they affect, the importance of those pages, the severity of the barrier, and confidence in the proposed fix. A noindex directive on the primary service template is likely more urgent than a minor warning on a low-value archive. Document the expected effect so that results can be reviewed after deployment."
       },
       {
         "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
+        "text": "Use Google's [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), [canonicalization guidance](https://developers.google.com/search/docs/crawling-indexing/canonicalization), and [Search Console URL Inspection documentation](https://support.google.com/webmasters/answer/9012289) as references for specific implementation decisions."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: fix the barriers first"
       },
       {
         "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A practical proposal should connect every major cost to a requirement or risk that the business can understand."
+        "text": "The most useful technical SEO audit connects each finding to a page type, a user or indexing impact, a concrete fix, and a verification step. Work from access and indexability toward architecture, rendering, performance, and monitoring. That order makes the audit actionable instead of turning it into an unprioritized checklist."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Technical SEO",
+        "title": "Find the issues stopping important pages from performing",
+        "description": "Review crawl access, indexation signals, rendering, and technical quality before prioritizing the next round of improvements.",
+        "ctaLabel": "Review your website",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "technical-seo"
       }
     ],
     "faq": [
       [
-        "What should I decide first?",
-        "Public 2026 pricing guides show a wide spread because project complexity, team location, scope, and functionality vary substantially."
+        "How often should a technical SEO audit be done?",
+        "Run an initial audit before major launches or migrations, then repeat checks after changes to templates, routing, CMS, analytics, and content architecture. Monitoring should be continuous for important technical signals."
       ],
       [
-        "How should I compare options?",
-        "A useful budget starts with the business job: credibility, lead generation, publishing, commerce, customer self-service, or an internal workflow."
+        "Does a sitemap guarantee that pages will be indexed?",
+        "No. A sitemap helps search engines discover URLs, but indexing depends on other signals such as access, canonicalization, content, and search engine decisions."
       ],
       [
-        "What should a good proposal or plan include?",
-        "A five-page website with custom content, integrations, analytics, and bespoke interactions can require more work than a larger template-driven site."
+        "Can robots.txt remove a page from Google?",
+        "Robots.txt primarily controls crawling. It is not a reliable removal mechanism because the URL may still be known from other sources. Use the appropriate noindex or removal workflow for the intended outcome."
       ],
       [
-        "Can the simplest option be the best one?",
-        "Design, content structure, responsive behavior, accessibility, performance, and implementation are connected rather than independent line items."
+        "What should a technical SEO audit include?",
+        "At minimum, check crawl access, status codes, indexability directives, canonicals, internal links, sitemaps, rendering, metadata, structured data, performance, and monitoring."
       ],
       [
-        "What should happen after launch?",
-        "An estimate becomes useful when it names deliverables, assumptions, exclusions, dependencies, review rounds, integrations, launch work, and ownership after launch."
+        "Should every warning from an audit tool be fixed?",
+        "No. Prioritize issues by affected pages, business importance, severity, and the likelihood that a fix improves accessibility, crawling, indexing, or user experience."
       ],
       [
-        "How important is design?",
-        "A lower initial quote can become more expensive when discovery, content migration, QA, analytics, maintenance, or integration work appears later."
-      ],
-      [
-        "How do I reduce project risk?",
-        "The right comparison is comparable scope versus comparable evidence, quality, risk, and ownership, not vendor A versus vendor B on headline price."
+        "Why should dynamic pages be audited separately?",
+        "Client-side routing and rendering can cause page-specific problems with links, metadata, canonical URLs, loading states, or content. Test representative templates rather than assuming all routes behave like the homepage."
       ]
-    ]
+    ],
+    "seoTitle": "Technical SEO Audit: A Practical Guide to Crawling, Indexing, and Site Health | Kapitech",
+    "seoDescription": "Audit technical SEO in a useful order: crawl access, indexability, canonical URLs, internal links, rendering, structured data, sitemaps, and monitoring in Search Console."
   }
 }

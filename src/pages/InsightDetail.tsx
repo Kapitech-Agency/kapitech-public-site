@@ -15,7 +15,7 @@ import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
-import { getInsightFallback } from '../data/insightFallbacks';
+import { getAllInsightFallbacks, getInsightFallback } from '../data/insightFallbacks';
 import { splitInsightBlocks } from '../lib/insightArticlePresentation.mjs';
 import { trackEvent } from '../lib/analytics';
 
@@ -32,6 +32,38 @@ function validFaq(article: InsightItem): Array<{ question: string; answer: strin
   return explicit.length > 0
     ? explicit
     : deriveInsightFaq(article.content, article.language);
+}
+
+function formatEditorialType(value: string | undefined, language: 'id' | 'en'): string {
+  const normalized = String(value || '').trim().toLowerCase().replace(/[-_]+/g, ' ');
+  if (!normalized) return language === 'id' ? 'Panduan editorial' : 'Editorial guide';
+
+  const labels: Record<string, { id: string; en: string }> = {
+    editorial: { id: 'Editorial', en: 'Editorial' },
+    'practical guide': { id: 'Panduan praktis', en: 'Practical guide' },
+    'panduan praktis': { id: 'Panduan praktis', en: 'Practical guide' },
+    'case study': { id: 'Studi kasus', en: 'Case study' },
+    'opinion piece': { id: 'Opini', en: 'Opinion' },
+    interview: { id: 'Wawancara', en: 'Interview' }
+  };
+
+  const known = labels[normalized];
+  if (known) return known[language];
+  return normalized.replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function getLocalRelatedInsights(article: InsightItem): InsightItem[] {
+  const currentTags = new Set((article.tags || []).map((tag) => tag.slug));
+  const candidates = getAllInsightFallbacks()
+    .filter((item) => item.slug !== article.slug && item.language === article.language && item.status === 'published')
+    .map((item) => ({
+      item,
+      score: (item.tags || []).reduce((score, tag) => score + (currentTags.has(tag.slug) ? 2 : 0), 0)
+        + (item.categoryId && item.categoryId === article.categoryId ? 1 : 0)
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  return candidates.slice(0, 3).map(({ item }) => item);
 }
 
 function hasPrerenderedInsight(): boolean {
@@ -229,7 +261,21 @@ export const InsightDetail: React.FC = () => {
           return;
         }
 
-        setArticle(nextArticle);
+        const fallbackArticle = getInsightFallback(slug);
+        const mergedAlternates = [
+          ...(Array.isArray(nextArticle.alternateLanguages) ? nextArticle.alternateLanguages : []),
+          ...(fallbackArticle?.alternateLanguages || [])
+        ].filter((item, index, all) => (
+          item?.language
+          && item?.slug
+          && all.findIndex((candidate) => candidate?.language === item.language) === index
+        ));
+
+        setArticle({
+          ...nextArticle,
+          contentGroupId: nextArticle.contentGroupId || fallbackArticle?.contentGroupId,
+          alternateLanguages: mergedAlternates
+        });
       })
       .catch((error: unknown) => {
         if (cancelled) return;
@@ -309,9 +355,9 @@ export const InsightDetail: React.FC = () => {
         .map(({ item }) => item)
         .slice(0, 3);
 
-      setRelatedInsights(ranked);
+      setRelatedInsights(ranked.length > 0 ? ranked : getLocalRelatedInsights(article));
     }).catch(() => {
-      if (!cancelled) setRelatedInsights([]);
+      if (!cancelled) setRelatedInsights(getLocalRelatedInsights(article));
     });
 
     return () => {
@@ -604,6 +650,18 @@ export const InsightDetail: React.FC = () => {
         <InsightSeoMeta article={article} />
 
         <header className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <img
+              src="/insights/article-hero-background.jpg"
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover opacity-[0.15]"
+            />
+            <div className="absolute inset-0 bg-[#0B0C0E]/35" />
+          </div>
+          <div className="absolute inset-0" aria-hidden="true">
           <PatternWaves
             preset="lines"
             color="#E50914"
@@ -621,6 +679,7 @@ export const InsightDetail: React.FC = () => {
             contrast={1.03}
             intro
           />
+          </div>
           <div
             className="absolute inset-0 bg-[#0B0C0E]/15"
             aria-hidden="true"
@@ -666,7 +725,7 @@ export const InsightDetail: React.FC = () => {
                 )}
                 {article.editorialMeta?.editorialType && (
                   <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
-                    {article.editorialMeta.editorialType}
+                    {formatEditorialType(article.editorialMeta.editorialType, article.language)}
                   </span>
                 )}
               </div>

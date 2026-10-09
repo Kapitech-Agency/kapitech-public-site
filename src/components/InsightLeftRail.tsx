@@ -123,6 +123,25 @@ export const InsightLeftRail: React.FC<InsightLeftRailProps> = ({
       <button
         type="button"
         onClick={onCopy}
+        aria-label={language === 'id' ? 'Salin tautan untuk Instagram' : 'Copy link for Instagram'}
+        title={language === 'id' ? 'Salin tautan untuk Instagram' : 'Copy link for Instagram'}
+        data-analytics-event="insight_copy_link"
+        data-social-network="instagram"
+        className={[
+          buttonClass,
+          'h-9 w-9',
+          'border-white/[0.08] bg-white/[0.018] text-[#9DA4B0] hover:border-brand-red/60 hover:bg-brand-red hover:text-white'
+        ].join(' ')}
+      >
+        <SocialIcon type="instagram" />
+        <span className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 z-20 hidden -translate-y-1/2 whitespace-nowrap rounded-lg border border-white/[0.08] bg-[#101114] px-2.5 py-1.5 text-[9px] font-mono text-white opacity-0 shadow-lg transition-[opacity,transform] duration-150 group-hover:translate-x-0.5 group-hover:opacity-100 group-focus-visible:translate-x-0.5 group-focus-visible:opacity-100 xl:block">
+          {language === 'id' ? 'Salin tautan untuk Instagram' : 'Copy link for Instagram'}
+        </span>
+      </button>
+
+      <button
+        type="button"
+        onClick={onCopy}
         aria-label={toolText(language, 'copy')}
         title={toolText(language, 'copy')}
         data-analytics-event="insight_copy_link"

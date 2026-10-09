@@ -1,0 +1,376 @@
+{
+  "seo": {
+    "title": "Cara Memilih Agency Web Development di Indonesia: Checklist Praktis | Kapitech",
+    "description": "Nilai agency web development di Indonesia berdasarkan pengalaman relevan, discovery, pertimbangan teknis, ruang lingkup, komunikasi, kepemilikan, QA, dan dukungan setelah peluncuran.",
+    "slug": "memilih-agency-web-development-indonesia",
+    "canonicalUrl": "https://kapitech.id/insights/memilih-agency-web-development-indonesia",
+    "ogImage": "https://kapitech.id/insights/choose-web-development-agency-indonesia/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 12,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "web-development-agency",
+        "name": "Agency Web Development"
+      },
+      {
+        "slug": "website-agency-indonesia",
+        "name": "Agency Website Indonesia"
+      },
+      {
+        "slug": "agency-selection",
+        "name": "Pemilihan Agency"
+      },
+      {
+        "slug": "website-development",
+        "name": "Pengembangan Website"
+      },
+      {
+        "slug": "b2b",
+        "name": "B2B"
+      },
+      {
+        "slug": "digital-agency",
+        "name": "Agensi Digital"
+      }
+    ],
+    "coverImage": "/insights/choose-web-development-agency-indonesia/hero.svg",
+    "title": "Cara Memilih Agency Web Development di Indonesia: Checklist Praktis",
+    "excerpt": "Partner web development yang baik menjelaskan trade-off dan menyediakan bukti untuk membantu keputusan. Gunakan checklist ini untuk membandingkan portofolio, proses, kemampuan teknis, proposal, dan kepemilikan jangka panjang.",
+    "keyTakeaways": [
+      "Mulailah dari hasil bisnis dan kebutuhan sebelum membandingkan penyedia.",
+      "Tinjau pekerjaan yang relevan dan tanyakan kontribusi nyata agency.",
+      "Proses yang baik mengungkap risiko, ketergantungan, dan keputusan lebih awal.",
+      "Bandingkan proposal melalui ruang lingkup dan kepemilikan, bukan harga atau tampilan presentasi saja.",
+      "Pastikan pemilik kode, file desain, akun, dukungan, dan peningkatan setelah peluncuran ditentukan."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Memilih agency web development adalah keputusan bisnis yang memiliki konsekuensi teknis. Partner akan memengaruhi cara proyek ditentukan ruang lingkupnya, bagaimana risiko disampaikan, bagaimana keputusan dibuat, dan apakah hasilnya tetap berguna setelah peluncuran. Portofolio yang menarik penting, tetapi hanya salah satu sumber bukti."
+      },
+      {
+        "type": "paragraph",
+        "text": "Gunakan proses berikut untuk membandingkan beberapa agency berdasarkan brief yang sama. Panduan ini ditujukan bagi bisnis yang menilai partner lokal maupun internasional untuk website perusahaan, e-commerce, portal, dan aplikasi web khusus."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Nilai berdasarkan proyek, bukan presentasi vendor"
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/hero.svg",
+        "alt": "Kerangka memilih agency web development di Indonesia",
+        "caption": "Brief yang jelas membantu membandingkan partner berdasarkan hasil yang sama."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Tentukan hasil bisnis"
+      },
+      {
+        "type": "paragraph",
+        "text": "Tulis perubahan yang diharapkan setelah peluncuran: lebih banyak inquiry berkualitas, alur publikasi yang lebih baik, lebih sedikit pekerjaan manual, portal pelanggan yang andal, atau pengalaman produk yang lebih jelas. Sebutkan audiens, masalah saat ini, kendala, pendorong tenggat, dan cara mengukur keberhasilan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pisahkan kebutuhan wajib dan preferensi"
+      },
+      {
+        "type": "paragraph",
+        "text": "Bedakan perilaku inti dari fitur tambahan. Tandai integrasi wajib, bahasa, kebutuhan kepatuhan, migrasi data, target performa, dan batasan operasional. Dengan begitu agency bisa memperkirakan ruang lingkup utama yang sama sembari mengusulkan implementasi yang berbeda."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Minta bukti yang relevan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Tangkapan layar portofolio menunjukkan hasil visual, bukan cara proyek dikerjakan. Tanyakan contoh yang memiliki audiens, alur, integrasi, atau skala serupa. Klarifikasi peran agency, ruang lingkup yang diselesaikan, kendala utama, dan apa yang dapat dibagikan secara publik."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Nilai proses dan komunikasi"
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/decision-map.svg",
+        "alt": "Peta keputusan untuk mengevaluasi proses dan komunikasi agency",
+        "caption": "Proses yang baik membuat keputusan berikutnya lebih jelas di setiap tahap."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Discovery harus mengurangi ketidakpastian"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sebelum memperkirakan pekerjaan kompleks, agency perlu bertanya tentang pengguna, konten, data, integrasi, pengambil keputusan, serta kriteria penerimaan. Jika tim langsung menjanjikan tenggat untuk brief yang masih kabur, mereka mungkin memakai asumsi yang kelak muncul sebagai change request."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Komunikasi harus menghasilkan keputusan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Komunikasi yang baik bukan sekadar update rutin. Cari keputusan tertulis, risiko yang terlihat, pemilik tugas yang jelas, laporan milestone yang realistis, dan cara mengatasi blocker. Tanyakan siapa yang hadir saat review, siapa yang memberi persetujuan, serta bagaimana perbedaan pendapat tentang ruang lingkup diselesaikan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pahami model delivery"
+      },
+      {
+        "type": "paragraph",
+        "text": "Klarifikasi siapa yang memimpin strategi, desain, engineering, QA, deployment, dan serah terima. Tanyakan apakah orang yang mengestimasi pekerjaan juga terlibat dalam delivery, bagaimana spesialis dilibatkan, dan apa yang terjadi jika anggota kunci tidak tersedia."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Nilai kemampuan teknis tanpa menebak stack"
+      },
+      {
+        "type": "paragraph",
+        "text": "Teknologi yang tepat mengikuti kebutuhan. Agency seharusnya menjelaskan trade-off antara CMS, platform e-commerce yang sudah tersedia, dan pengembangan custom berdasarkan kemudahan pemeliharaan, integrasi, keamanan, pengalaman editor, dan biaya di masa depan."
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/requirements-map.svg",
+        "alt": "Peta kebutuhan proyek untuk menilai kapabilitas teknis",
+        "caption": "Rekomendasi teknis harus terhubung langsung dengan kebutuhan bisnis dan pengguna."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Tanyakan bagaimana kualitas diuji"
+      },
+      {
+        "type": "paragraph",
+        "text": "Bahas perilaku responsif, navigasi keyboard, validasi formulir, kondisi error, performa, dukungan browser, QA konten, aksesibilitas, keamanan, dan pengujian regresi. Tanyakan apa yang otomatis, apa yang diperiksa manual, dan siapa yang memberi persetujuan sebelum rilis."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Minta arsitektur dijelaskan dengan bahasa sederhana"
+      },
+      {
+        "type": "paragraph",
+        "text": "Tim yang kuat dapat menjelaskan bagaimana konten dikelola, bagaimana integrasi gagal dengan aman, di mana data sensitif disimpan, bagaimana aplikasi dirilis, dan bagaimana perubahan berikutnya dilakukan. Untuk sistem custom, tanyakan dokumentasi, pembaruan dependency, monitoring, backup, serta pemulihan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Bandingkan ruang lingkup, harga, dan kepemilikan"
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Item proposal",
+          "Jawaban yang seharusnya jelas"
+        ],
+        "rows": [
+          [
+            "Ruang lingkup",
+            "Deliverable, template, alur kerja, integrasi, bahasa, dan pengecualian"
+          ],
+          [
+            "Timeline",
+            "Milestone, ketergantungan klien, waktu review, dan syarat peluncuran"
+          ],
+          [
+            "Harga",
+            "Asumsi, termin pembayaran, biaya rutin, serta aturan perubahan"
+          ],
+          [
+            "Kualitas",
+            "Kriteria penerimaan, tanggung jawab QA, penanganan bug, dan target performa"
+          ],
+          [
+            "Kepemilikan",
+            "Kode, file desain, domain, akun hosting, analitik, dan kredensial"
+          ],
+          [
+            "Dukungan",
+            "Garansi, pemeliharaan, waktu respons, upgrade, dan pekerjaan di luar cakupan"
+          ]
+        ],
+        "caption": "Gunakan daftar yang sama untuk setiap proposal agar perbedaannya mudah terlihat."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Jangan membandingkan ruang lingkup yang berbeda"
+      },
+      {
+        "type": "paragraph",
+        "text": "Proposal murah bisa masuk akal jika cakupannya sempit, menggunakan platform yang terbukti, dan konten disediakan klien. Namun proposal tersebut tidak sebanding langsung dengan pekerjaan yang mencakup riset, desain khusus, migrasi, integrasi, QA, pelatihan, dan dukungan. Minta agency mencantumkan asumsi dan item opsional."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pastikan kepemilikan eksplisit"
+      },
+      {
+        "type": "paragraph",
+        "text": "Tentukan pemilik domain, hosting, source code, file desain, konten, akun analitik, dan langganan pihak ketiga. Pastikan bisnis memiliki akses dan rencana serah terima yang dapat dijalankan. Hindari situasi ketika hanya agency yang dapat mengoperasikan website."
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/comparison.svg",
+        "alt": "Matriks perbandingan proposal agency",
+        "caption": "Proposal terbaik menjelaskan asumsi dan tanggung jawab dengan mudah."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Gunakan penilaian yang transparan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Matriks sederhana membantu mengurangi pengaruh satu pertemuan yang meyakinkan atau harga yang sangat rendah. Sesuaikan bobot dengan risiko proyek. Untuk platform custom, delivery teknis dan dukungan mungkin lebih penting; untuk website kampanye kecil, kecepatan dan workflow konten bisa lebih dominan."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Kriteria",
+          "Bobot contoh",
+          "Bukti yang ditinjau"
+        ],
+        "rows": [
+          [
+            "Pekerjaan relevan",
+            "20%",
+            "Studi kasus, kejelasan peran, referensi bila tersedia"
+          ],
+          [
+            "Kualitas discovery dan scope",
+            "20%",
+            "Pertanyaan, asumsi, kebutuhan, daftar risiko"
+          ],
+          [
+            "Pertimbangan desain dan teknis",
+            "20%",
+            "Trade-off, arsitektur, pendekatan responsif dan QA"
+          ],
+          [
+            "Komunikasi dan delivery",
+            "15%",
+            "Proses keputusan, pemilik tugas, laporan milestone"
+          ],
+          [
+            "Transparansi harga dan ruang lingkup",
+            "15%",
+            "Deliverable sebanding, pengecualian, proses perubahan"
+          ],
+          [
+            "Kepemilikan dan dukungan",
+            "10%",
+            "Serah terima, pemeliharaan, akses, tanggung jawab tertulis"
+          ]
+        ],
+        "caption": "Bobot ilustratif. Ubah sesuai jenis proyek dan profil risikonya."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesalahan umum saat memilih agency"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Memilih dari screenshot homepage tanpa memeriksa ruang lingkup dan hasil proyek.",
+          "Menyetujui harga tetap ketika kebutuhan utama dan integrasi belum jelas.",
+          "Menganggap stack teknologi sebagai bukti kualitas tanpa membahas penerapannya.",
+          "Mengabaikan pemilik akun, kode, file desain, dan operasional setelah peluncuran.",
+          "Membandingkan harga tanpa menyamakan ruang lingkup dan pengecualian.",
+          "Tidak menentukan siapa yang menyetujui konten, desain, dan keputusan peluncuran.",
+          "Menganggap dukungan sebagai janji informal, bukan layanan yang didefinisikan."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/scenario.svg",
+        "alt": "Skenario menilai calon partner pengembangan website B2B",
+        "caption": "Gunakan kebutuhan nyata saat discovery untuk melihat cara agency berpikir dan berkomunikasi."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Checklist sebelum menandatangani proposal"
+      },
+      {
+        "type": "checklist",
+        "title": "Checklist pemilihan agency",
+        "items": [
+          "Agency memahami audiens, hasil bisnis, dan kendala.",
+          "Pengalaman relevan serta tanggung jawab delivery dapat dijelaskan.",
+          "Ruang lingkup, asumsi, ketergantungan, pengecualian, dan kriteria penerimaan tertulis.",
+          "Desain, engineering, QA, deployment, dan serah terima tercakup.",
+          "Kepemilikan kode, file desain, domain, dan akun jelas.",
+          "Biaya rutin, garansi, pemeliharaan, dan batas dukungan didefinisikan.",
+          "Pengambil keputusan memahami cara menangani perubahan dan persetujuan."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: pilih partner yang membuat pekerjaan jelas"
+      },
+      {
+        "type": "paragraph",
+        "text": "Agency terbaik tidak selalu memiliki portofolio terbesar atau biaya terendah. Pilih tim yang memahami masalah bisnis, menjelaskan trade-off, menetapkan ruang lingkup secara transparan, dan dapat mendukung sistem setelah diserahkan. Kejelasan tersebut menjadi indikator penting tentang bagaimana kemitraan akan berjalan saat keputusan proyek nyata harus diambil."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Pemilihan agency",
+        "title": "Evaluasi proyek sebelum memilih partner delivery",
+        "description": "Discovery terstruktur membantu mengungkap kekurangan ruang lingkup, risiko teknis, dan pekerjaan yang dibutuhkan untuk serah terima yang andal.",
+        "ctaLabel": "Diskusikan proyek Anda",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Bagaimana memilih agency web development di Indonesia?",
+        "Mulai dari brief yang jelas, tinjau pekerjaan relevan, bandingkan proses discovery dan QA, samakan ruang lingkup proposal, lalu klarifikasi kepemilikan dan dukungan. Nilai bukti serta komunikasi, bukan hanya harga."
+      ],
+      [
+        "Apakah sebaiknya memilih agency paling murah?",
+        "Jangan berdasarkan harga saja. Penawaran rendah dapat sesuai untuk cakupan sempit, tetapi pastikan konten, integrasi, pengujian, kepemilikan, dan dukungan sudah diperhitungkan."
+      ],
+      [
+        "Apa saja yang perlu ada dalam proposal agency?",
+        "Proposal perlu mencakup deliverable, asumsi, ketergantungan, timeline, termin pembayaran, kriteria penerimaan, pengecualian, kepemilikan, biaya rutin, aturan perubahan, serta dukungan."
+      ],
+      [
+        "Bagaimana menilai pengalaman agency secara nyata?",
+        "Tanyakan apa yang benar-benar mereka kerjakan, kendala yang dihadapi, keputusan yang mereka ambil, dan bukti yang bisa dibagikan. Screenshot saja tidak membuktikan peran atau kualitas proses."
+      ],
+      [
+        "Siapa yang sebaiknya memiliki website setelah peluncuran?",
+        "Bisnis harus memiliki akses ke domain, hosting, analitik, source code, file desain, serta akun pihak ketiga. Tetapkan siapa yang mengelola pembaruan dan dukungan dari agency."
+      ],
+      [
+        "Apakah saya harus menentukan teknologi sebelum merekrut agency?",
+        "Tidak. Anda perlu memahami kebutuhan pengguna dan bisnis. Agency yang baik akan menjelaskan pilihan platform berdasarkan pemeliharaan, workflow, integrasi, keamanan, dan biaya total."
+      ]
+    ],
+    "seoTitle": "Cara Memilih Agency Web Development di Indonesia: Checklist Praktis | Kapitech",
+    "seoDescription": "Nilai agency web development di Indonesia berdasarkan pengalaman relevan, discovery, pertimbangan teknis, ruang lingkup, komunikasi, kepemilikan, QA, dan dukungan setelah peluncuran."
+  }
+}

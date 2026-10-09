@@ -1,0 +1,316 @@
+{
+  "seo": {
+    "title": "WordPress vs Website Custom: Mana yang Tepat untuk Bisnis Anda? | Kapitech",
+    "description": "Bandingkan WordPress dan website custom berdasarkan kebutuhan konten, integrasi, alur kerja, kepemilikan, performa, keamanan, anggaran, dan pemeliharaan jangka panjang.",
+    "slug": "wordpress-vs-website-custom",
+    "canonicalUrl": "https://kapitech.id/insights/wordpress-vs-website-custom",
+    "ogImage": "https://kapitech.id/insights/wordpress-vs-custom-website/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 11,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "wordpress",
+        "name": "WordPress"
+      },
+      {
+        "slug": "custom-website",
+        "name": "Website Custom"
+      },
+      {
+        "slug": "cms",
+        "name": "CMS"
+      },
+      {
+        "slug": "web-development",
+        "name": "Pengembangan Website"
+      },
+      {
+        "slug": "website-maintenance",
+        "name": "Pemeliharaan Website"
+      },
+      {
+        "slug": "website-architecture",
+        "name": "Arsitektur Website"
+      }
+    ],
+    "coverImage": "/insights/wordpress-vs-custom-website/hero.svg",
+    "title": "WordPress vs Website Custom: Mana yang Tepat untuk Bisnis Anda?",
+    "excerpt": "WordPress dan pengembangan custom menyelesaikan kebutuhan yang berbeda. Pilih berdasarkan kebutuhan publikasi, aturan bisnis, integrasi, kemampuan tim, dan biaya perubahan di masa depan.",
+    "keyTakeaways": [
+      "WordPress cocok untuk banyak website berbasis konten jika tema, plugin, dan model operasionalnya sesuai.",
+      "Pengembangan custom berguna ketika alur kerja, integrasi, hak akses, atau perilaku produk tidak cocok dengan platform standar.",
+      "Tidak ada pilihan yang otomatis menjamin performa, keamanan, aksesibilitas, atau kemudahan pemeliharaan.",
+      "Bandingkan total biaya kepemilikan, termasuk lisensi, pembaruan, hosting, dukungan, dan perubahan di masa depan.",
+      "Mulailah dari kebutuhan bisnis dan pilih platform paling sederhana yang dapat memenuhinya dengan andal."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Memilih WordPress atau website custom bukan soal teknologi mana yang lebih modern. Ini keputusan operasional. Platform yang dipilih harus membantu tim mengelola konten, mendukung alur kerja pengguna, terhubung dengan sistem lain, dan tetap mudah dirawat dengan biaya yang bisa ditanggung bisnis."
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress banyak digunakan untuk website berbasis konten karena memiliki alur publikasi yang familiar dan ekosistem plugin yang luas. Pengembangan custom lebih sesuai ketika website berperilaku seperti produk atau sistem bisnis, bukan sekadar kumpulan halaman."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "WordPress vs website custom secara ringkas"
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/hero.svg",
+        "alt": "Gambaran perbandingan WordPress dan website custom",
+        "caption": "Platform yang tepat adalah yang cocok dengan kebutuhan operasional website."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Faktor keputusan",
+          "WordPress sering sesuai ketika",
+          "Custom sering sesuai ketika"
+        ],
+        "rows": [
+          [
+            "Publikasi",
+            "Editor membutuhkan halaman, artikel, kategori, dan workflow standar",
+            "Konten terkait erat dengan data terstruktur atau hak akses kompleks"
+          ],
+          [
+            "Fitur",
+            "Plugin yang terawat memenuhi kebutuhan dengan kualitas yang dapat diterima",
+            "Aturan bisnis atau alur pengguna sulit dikelola dengan plugin standar"
+          ],
+          [
+            "Integrasi",
+            "Koneksi umum didukung dengan baik",
+            "Integrasi memiliki kontrak, izin, atau kebutuhan pemrosesan khusus"
+          ],
+          [
+            "Kepemilikan",
+            "Tim dapat mengelola pembaruan platform, plugin, dan hosting",
+            "Tim memerlukan kontrol langsung atas arsitektur dan proses rilis"
+          ],
+          [
+            "Anggaran",
+            "Tema atau pola yang terbukti mengurangi pekerjaan awal",
+            "Engineering lebih tinggi di awal sepadan dengan kebutuhan dan biaya perubahan"
+          ]
+        ],
+        "caption": "Ini kecenderungan, bukan aturan mutlak. Discovery dapat mengubah keputusan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kapan WordPress menjadi pilihan yang kuat"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Tim konten membutuhkan alur publikasi yang mudah"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress berguna ketika tim marketing atau komunikasi perlu menerbitkan halaman, artikel, pengumuman, landing page, dan media tanpa selalu meminta developer mengubah setiap bagian. Ekosistemnya menyediakan solusi untuk formulir, peran editorial, pencarian, dan SEO jika plugin dipilih dengan cermat."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Fitur yang dibutuhkan umum dan didukung dengan baik"
+      },
+      {
+        "type": "paragraph",
+        "text": "Plugin yang stabil dapat lebih ekonomis daripada membangun fitur serupa dari nol. Namun, pastikan plugin aktif dipelihara, kompatibel, aman, aksesibel, dan memiliki dukungan ketika terjadi masalah."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/decision-map.svg",
+        "alt": "Peta keputusan untuk menilai kecocokan WordPress",
+        "caption": "Gunakan kemampuan yang sudah tersedia bila benar-benar memenuhi kebutuhan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Tim mampu mengelola pemeliharaan rutin"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress tidak menghilangkan tanggung jawab teknis. Pembaruan core dan plugin, backup, kontrol akses, monitoring, serta pengujian regresi tetap membutuhkan pemilik yang jelas. Biaya awal rendah dapat berubah menjadi mahal ketika pemeliharaan tidak direncanakan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kapan pengembangan custom lebih masuk akal"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Website memuat alur kerja seperti produk"
+      },
+      {
+        "type": "paragraph",
+        "text": "Custom patut dipertimbangkan ketika pengguna perlu mengonfigurasi produk, mengelola akun, mengajukan permohonan kompleks, melewati tahapan persetujuan, melihat data personal, atau menjalankan aturan berbeda bagi setiap kelompok pelanggan. Perilaku ini memerlukan model aplikasi yang jelas, bukan sekadar tambahan halaman."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Integrasi dan hak akses merupakan bagian inti"
+      },
+      {
+        "type": "paragraph",
+        "text": "Jika website harus bertukar data dengan sistem internal, mengikuti hak akses kompleks, atau menangani kegagalan secara konsisten, arsitektur perlu dirancang sesuai kontrak integrasi. Custom memberi kontrol lebih langsung atas validasi, status, penanganan error, dan pengujian, tetapi tanggung jawab pemeliharaannya juga lebih besar."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Bisnis membutuhkan jalur perubahan yang terkendali"
+      },
+      {
+        "type": "paragraph",
+        "text": "Codebase custom dapat memudahkan perubahan kompleks jika memiliki batas modul, pengujian otomatis, dan proses rilis disiplin. Sebaliknya, kode yang terlalu saling bergantung, tidak terdokumentasi, atau bergantung pada satu developer dapat menjadi beban."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/requirements-map.svg",
+        "alt": "Peta kebutuhan bisnis yang memengaruhi pemilihan platform",
+        "caption": "Keputusan sebaiknya mengikuti kebutuhan yang sulit dikompromikan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Bandingkan biaya sepanjang siklus hidup"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pisahkan biaya pembangunan awal dari biaya kepemilikan. WordPress dapat memerlukan plugin berbayar, hosting, pemeliharaan, tinjauan keamanan, dan kompatibilitas berkala. Solusi custom mungkin membutuhkan engineering lebih besar sejak awal, disusul dukungan teknis, monitoring, dan peningkatan terencana."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Area biaya",
+          "Pertanyaan yang perlu dijawab"
+        ],
+        "rows": [
+          [
+            "Delivery awal",
+            "Apakah desain, template, konten, integrasi, dan testing termasuk?"
+          ],
+          [
+            "Layanan berulang",
+            "Plugin, lisensi, hosting, dan API pihak ketiga apa yang harus diperpanjang?"
+          ],
+          [
+            "Pemeliharaan",
+            "Siapa yang memperbarui platform, dependency, backup, dan kontrol keamanan?"
+          ],
+          [
+            "Perubahan",
+            "Bagaimana fitur baru diperkirakan dan disetujui?"
+          ],
+          [
+            "Serah terima",
+            "Apakah bisnis menerima source file, akses, dokumentasi, dan pelatihan?"
+          ]
+        ],
+        "caption": "Gunakan pertanyaan yang sama untuk menilai kedua pendekatan."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/comparison.svg",
+        "alt": "Perbandingan biaya dan kepemilikan WordPress dengan website custom",
+        "caption": "Keputusan platform perlu menghitung upaya operasional, bukan hanya biaya peluncuran."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Performa, keamanan, dan aksesibilitas ditentukan implementasi"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress dapat cepat dan aman jika tema serta plugin dipilih dengan tepat, halaman dioptimalkan, dan pembaruan dikelola. Kode custom juga bisa lambat atau rentan bila tidak memiliki pengujian, caching yang sesuai, validasi input, atau kontrol akses yang aman. Nama platform bukan pengganti praktik engineering."
+      },
+      {
+        "type": "paragraph",
+        "text": "Untuk kedua pilihan, tetapkan kebutuhan yang terukur untuk kecepatan halaman, akses keyboard, validasi formulir, kondisi error, perlindungan data, backup, dan pemulihan. Pastikan cara pengujiannya disepakati sebelum peluncuran."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Proses praktis untuk menentukan pilihan"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Tuliskan perjalanan pengguna dan aturan bisnis yang harus didukung.",
+          "Pisahkan kebutuhan pengelolaan konten dari perilaku aplikasi.",
+          "Periksa apakah fitur platform atau plugin terawat memenuhi setiap kebutuhan wajib.",
+          "Prototipekan integrasi atau alur paling berisiko sebelum menetapkan arsitektur.",
+          "Hitung biaya pembangunan dan biaya operasional tiga tahun secara terpisah.",
+          "Tentukan pemilik keamanan, publikasi konten, deployment, dan perubahan berikutnya."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/scenario.svg",
+        "alt": "Skenario memilih platform berdasarkan kebutuhan bisnis",
+        "caption": "Biarkan alur nyata menentukan apakah platform standar atau sistem custom lebih tepat."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: pilih sistem paling sederhana yang sesuai"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress bukan otomatis jalan pintas, dan custom bukan otomatis lebih unggul. Pilih WordPress jika model publikasi serta fiturnya memenuhi kebutuhan. Pilih custom ketika alur kerja, integrasi, atau kontrol produk membenarkan tambahan engineering. Keduanya membutuhkan rencana pemeliharaan dan kepemilikan sejak awal."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Pemilihan platform",
+        "title": "Pilih teknologi berdasarkan kebutuhan bisnis yang nyata",
+        "description": "Discovery terstruktur dapat menunjukkan apakah CMS standar, platform yang dikustomisasi, atau produk khusus merupakan pilihan yang paling berkelanjutan.",
+        "ctaLabel": "Diskusikan kebutuhan Anda",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Apakah WordPress cocok untuk website perusahaan profesional?",
+        "Ya. WordPress dapat sesuai untuk website perusahaan dengan konten terstruktur dan workflow editorial, selama tema, plugin, hosting, serta model pemeliharaannya tepat."
+      ],
+      [
+        "Apakah website custom pasti lebih cepat daripada WordPress?",
+        "Tidak. Performa bergantung pada arsitektur halaman, aset, hosting, kualitas kode, caching, dan skrip pihak ketiga. Keduanya perlu pengukuran dan optimasi."
+      ],
+      [
+        "Kapan bisnis sebaiknya memilih pengembangan custom?",
+        "Pertimbangkan custom ketika alur inti, hak akses, integrasi data, atau perilaku produk tidak cocok dengan CMS standar tanpa workaround yang rapuh."
+      ],
+      [
+        "Mana yang lebih aman, WordPress atau custom?",
+        "Keamanan bergantung pada konfigurasi, patch, kontrol akses, kualitas kode, dependency, dan monitoring. WordPress membutuhkan pemeliharaan platform dan plugin; sistem custom memerlukan engineering aman serta pembaruan rutin."
+      ],
+      [
+        "Apakah WordPress bisa terintegrasi dengan CRM atau ERP?",
+        "Sering kali bisa, tergantung sistem dan arus datanya. Periksa apakah integrasi dapat menangani autentikasi, retry, validasi data, serta kegagalan."
+      ],
+      [
+        "Bagaimana membandingkan biaya WordPress dan custom?",
+        "Bandingkan deliverable yang sama dan hitung pembangunan awal, lisensi, hosting, pemeliharaan, keamanan, operasional konten, serta biaya perubahan berikutnya."
+      ]
+    ],
+    "seoTitle": "WordPress vs Website Custom: Mana yang Tepat untuk Bisnis Anda? | Kapitech",
+    "seoDescription": "Bandingkan WordPress dan website custom berdasarkan kebutuhan konten, integrasi, alur kerja, kepemilikan, performa, keamanan, anggaran, dan pemeliharaan jangka panjang."
+  }
+}

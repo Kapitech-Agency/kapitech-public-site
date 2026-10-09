@@ -1,0 +1,376 @@
+{
+  "seo": {
+    "title": "How to Choose a Web Development Agency in Indonesia: A Practical Checklist | Kapitech",
+    "description": "Evaluate web development agencies in Indonesia by relevant work, discovery, technical judgment, scope, communication, ownership, QA, and post-launch support.",
+    "slug": "choose-web-development-agency-indonesia",
+    "canonicalUrl": "https://kapitech.id/insights/choose-web-development-agency-indonesia",
+    "ogImage": "https://kapitech.id/insights/choose-web-development-agency-indonesia/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 12,
+    "editorialMeta": {
+      "editorialType": "practical-guide"
+    },
+    "tags": [
+      {
+        "slug": "web-development-agency",
+        "name": "Web Development Agency"
+      },
+      {
+        "slug": "website-agency-indonesia",
+        "name": "Website Agency Indonesia"
+      },
+      {
+        "slug": "agency-selection",
+        "name": "Agency Selection"
+      },
+      {
+        "slug": "website-development",
+        "name": "Website Development"
+      },
+      {
+        "slug": "b2b",
+        "name": "B2B"
+      },
+      {
+        "slug": "digital-agency",
+        "name": "Digital Agency"
+      }
+    ],
+    "coverImage": "/insights/choose-web-development-agency-indonesia/hero.svg",
+    "title": "How to Choose a Web Development Agency in Indonesia: A Practical Checklist",
+    "excerpt": "A strong web development partner makes trade-offs clear and gives you evidence for a decision. Use this checklist to compare portfolios, processes, technical approach, proposals, and long-term ownership.",
+    "keyTakeaways": [
+      "Start with the business outcome and requirements before comparing vendors.",
+      "Review relevant delivered work and ask what the agency actually contributed.",
+      "A strong process exposes risks, dependencies, and decisions early.",
+      "Compare proposals by scope and ownership, not only by price or visual presentation.",
+      "Confirm who owns code, design files, accounts, support, and future improvements."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Choosing a web development agency is a business decision with technical consequences. The partner will influence how the project is scoped, how risks are surfaced, how decisions are made, and whether the result remains useful after launch. A polished portfolio matters, but it is only one source of evidence."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use the following process to compare agencies against the same brief. It is intended for businesses in Indonesia evaluating local or international partners for corporate websites, e-commerce, portals, and custom web applications."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Choose against the project, not the vendor pitch"
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/hero.svg",
+        "alt": "A framework for choosing a web development agency in Indonesia",
+        "caption": "A clear brief lets you evaluate partners against the same outcome."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Define a business outcome"
+      },
+      {
+        "type": "paragraph",
+        "text": "Write down what should change after launch: more qualified inquiries, a better publishing workflow, fewer manual steps, a more reliable customer portal, or a clearer product experience. State the audience, current problem, constraints, deadline drivers, and how success will be measured."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Separate must-haves from preferences"
+      },
+      {
+        "type": "paragraph",
+        "text": "Distinguish essential behaviour from nice-to-have features. Label required integrations, languages, compliance needs, data migration, performance expectations, and operating constraints. This helps agencies estimate the same core scope while suggesting different implementation options."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Ask for relevant evidence"
+      },
+      {
+        "type": "paragraph",
+        "text": "A portfolio screenshot proves that a visual result exists, not how the project was delivered. Ask for examples with a similar audience, workflow, integration, or scale. Clarify the agency's role, what was included, which constraints mattered, and what can be shared publicly."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Evaluate the process and communication"
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/decision-map.svg",
+        "alt": "A decision map for evaluating agency process and communication",
+        "caption": "The process should make the next decision clearer at every stage."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Discovery should reduce uncertainty"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before estimating complex work, the agency should ask questions about users, content, data, integrations, decision-makers, and acceptance criteria. If the team immediately promises a timeline for a vague brief, it may be relying on assumptions that will surface as change requests later."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Communication should create decisions"
+      },
+      {
+        "type": "paragraph",
+        "text": "Good communication is more than frequent updates. Look for written decisions, visible risks, clear owners, realistic milestone reporting, and a process for resolving blockers. Ask who will attend reviews, who approves the work, and how disagreements over scope are handled."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Understand the delivery model"
+      },
+      {
+        "type": "paragraph",
+        "text": "Clarify who leads strategy, design, engineering, QA, deployment, and handover. Find out whether the people who estimate the work will be involved in delivery, how specialists are brought in, and what happens if a key team member becomes unavailable."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Assess technical capability without guessing the stack"
+      },
+      {
+        "type": "paragraph",
+        "text": "The right technology follows the requirements. An agency should be able to explain the trade-offs among a CMS, an established e-commerce platform, and custom development in terms of maintainability, integration, security, editor experience, and future cost."
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/requirements-map.svg",
+        "alt": "A map of project requirements used to evaluate technical capability",
+        "caption": "Technical recommendations should map directly to business and user requirements."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Ask how quality is tested"
+      },
+      {
+        "type": "paragraph",
+        "text": "Discuss responsive behaviour, keyboard navigation, form validation, error states, performance, browser coverage, content QA, accessibility, security checks, and regression testing. Ask what is automated, what is checked manually, and who signs off before release."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Discuss architecture in plain language"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong team can explain how content is managed, how integrations fail safely, where sensitive data is stored, how the application is deployed, and how future changes can be made. If the system is custom, ask about documentation, dependency updates, monitoring, backups, and recovery."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Compare scope, pricing, and ownership"
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Proposal item",
+          "What a clear answer should include"
+        ],
+        "rows": [
+          [
+            "Scope",
+            "Deliverables, page templates, workflows, integrations, languages, and exclusions"
+          ],
+          [
+            "Timeline",
+            "Milestones, client dependencies, review windows, and launch conditions"
+          ],
+          [
+            "Price",
+            "Assumptions, payment milestones, recurring costs, and change-request rules"
+          ],
+          [
+            "Quality",
+            "Acceptance criteria, QA responsibilities, defect handling, and performance expectations"
+          ],
+          [
+            "Ownership",
+            "Code, design files, domains, hosting accounts, analytics, and credentials"
+          ],
+          [
+            "Support",
+            "Warranty, maintenance, response times, upgrades, and out-of-scope work"
+          ]
+        ],
+        "caption": "Use the same checklist for each proposal so differences are visible."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Do not compare unlike scopes"
+      },
+      {
+        "type": "paragraph",
+        "text": "A low proposal can be reasonable when the scope is narrow, a proven platform is used, and the client supplies content. It is not directly comparable with a proposal that includes research, custom design, migration, integrations, QA, training, and support. Ask agencies to label assumptions and optional items."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Keep ownership explicit"
+      },
+      {
+        "type": "paragraph",
+        "text": "Clarify who owns the domain, hosting, source code, design files, content, analytics accounts, and third-party subscriptions. Ensure accounts can be accessed by the business and that the handover plan is practical. Avoid a situation where the agency is the only party who can operate the website."
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/comparison.svg",
+        "alt": "A comparison matrix for agency proposals",
+        "caption": "The strongest proposal makes its assumptions and responsibilities easy to compare."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Score the decision transparently"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use a simple scoring matrix to reduce the influence of a single impressive meeting or low price. Adjust the weights to match project risk. For a custom platform, technical delivery and support may matter more; for a small campaign site, speed and content workflow may weigh more."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Criterion",
+          "Suggested weight",
+          "Evidence to review"
+        ],
+        "rows": [
+          [
+            "Relevant delivered work",
+            "20%",
+            "Case studies, role clarity, references where available"
+          ],
+          [
+            "Discovery and scope quality",
+            "20%",
+            "Questions, assumptions, requirements, risk register"
+          ],
+          [
+            "Technical and design judgment",
+            "20%",
+            "Reasoned trade-offs, architecture, responsive and QA approach"
+          ],
+          [
+            "Communication and delivery",
+            "15%",
+            "Decision process, owners, milestone reporting"
+          ],
+          [
+            "Price and scope transparency",
+            "15%",
+            "Comparable deliverables, exclusions, change process"
+          ],
+          [
+            "Ownership and support",
+            "10%",
+            "Handover, maintenance, access, and documented responsibilities"
+          ]
+        ],
+        "caption": "Illustrative weights: change them to fit your project and risk profile."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common agency selection mistakes"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Choosing from homepage screenshots without checking project scope or results.",
+          "Accepting a fixed price when major requirements and integrations remain undefined.",
+          "Treating the technology stack as proof of quality without discussing how it will be used.",
+          "Ignoring who owns the accounts, code, design files, and ongoing operations.",
+          "Comparing vendor prices without aligning scope and exclusions.",
+          "Failing to identify who approves content, design, and launch decisions.",
+          "Treating support as an informal promise rather than a defined service."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/choose-web-development-agency-indonesia/scenario.svg",
+        "alt": "A scenario for evaluating a prospective B2B web development partner",
+        "caption": "Use a real requirement during discovery to see how the agency reasons and communicates."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before signing the proposal"
+      },
+      {
+        "type": "checklist",
+        "title": "Agency selection checklist",
+        "items": [
+          "The agency understands the audience, business outcome, and constraints.",
+          "Relevant experience and delivery responsibilities can be explained.",
+          "Scope, assumptions, dependencies, exclusions, and acceptance criteria are written down.",
+          "Design, engineering, QA, deployment, and handover are covered.",
+          "Ownership of code, design files, domains, and accounts is explicit.",
+          "Recurring costs, warranty, maintenance, and support boundaries are defined.",
+          "The decision-makers know how changes and approvals will be handled."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: choose the partner who makes the work clear"
+      },
+      {
+        "type": "paragraph",
+        "text": "The best agency is not necessarily the one with the largest portfolio or the lowest fee. Choose the team that understands the business problem, makes trade-offs understandable, defines scope transparently, and can support the system it delivers. That clarity is a strong indicator of how the partnership will work once real project decisions begin."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Agency selection",
+        "title": "Evaluate your project before choosing the delivery partner",
+        "description": "A structured discovery conversation can expose scope gaps, technical risks, and the work required for a reliable handover.",
+        "ctaLabel": "Discuss your project",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "How do I choose a web development agency in Indonesia?",
+        "Start with a clear brief, review relevant delivered work, compare discovery and QA processes, align proposal scope, and clarify ownership and support. Evaluate evidence and communication as well as price."
+      ],
+      [
+        "Should I choose the cheapest agency?",
+        "Not on price alone. A low quote can be appropriate for a narrow scope, but make sure content, integrations, testing, ownership, and support are accounted for before comparing totals."
+      ],
+      [
+        "What should an agency proposal include?",
+        "It should include deliverables, assumptions, dependencies, timeline, payment milestones, acceptance criteria, exclusions, ownership, recurring costs, change-request rules, and support terms."
+      ],
+      [
+        "How can I tell whether an agency has real experience?",
+        "Ask what they personally delivered, what constraints they worked with, what decisions they made, and what evidence they can share. A visual screenshot alone cannot prove their role or the quality of the delivery process."
+      ],
+      [
+        "Who should own the website after launch?",
+        "The business should maintain access to its domain, hosting, analytics, source code, design files, and third-party accounts. Define who manages updates and what support the agency continues to provide."
+      ],
+      [
+        "Do I need to know which technology to use before hiring an agency?",
+        "No. You should know the user and business requirements. A capable agency should explain platform options and trade-offs in terms of maintainability, workflows, integrations, security, and total cost."
+      ]
+    ],
+    "seoTitle": "How to Choose a Web Development Agency in Indonesia: A Practical Checklist | Kapitech",
+    "seoDescription": "Evaluate web development agencies in Indonesia by relevant work, discovery, technical judgment, scope, communication, ownership, QA, and post-launch support."
+  }
+}
