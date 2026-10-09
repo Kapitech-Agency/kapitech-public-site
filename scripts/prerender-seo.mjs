@@ -474,16 +474,40 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     keywords: [project.service, project.industry, project.client].filter(Boolean).join(', ')
   });
 
-  const impactHtml = Array.isArray(project.impact)
-    ? project.impact.map((metric) => '<div><dt>' + escapeHtml(metric.label) + '</dt><dd>' + escapeHtml(metric.value) + '</dd></div>').join('')
-    : '';
-  const deliverablesHtml = Array.isArray(project.deliverables)
-    ? project.deliverables.map((value) => '<li>' + escapeHtml(value) + '</li>').join('')
-    : '';
-  const technologiesHtml = Array.isArray(project.technologies)
-    ? project.technologies.map((value) => '<li>' + escapeHtml(value) + '</li>').join('')
-    : '';
-
+  const impactRecords = Array.isArray(project.impact) ? project.impact.filter((metric) => safeText(metric?.label) && safeText(metric?.value)) : [];
+  const impactHtml = impactRecords
+    .map((metric) => '<div><dt>' + escapeHtml(metric.label) + '</dt><dd>' + escapeHtml(metric.value) + '</dd></div>')
+    .join('');
+  const deliverables = Array.isArray(project.deliverables) ? project.deliverables.filter((value) => safeText(value)) : [];
+  const technologies = Array.isArray(project.technologies) ? project.technologies.filter((value) => safeText(value)) : [];
+  const deliverablesHtml = deliverables.map((value) => '<li>' + escapeHtml(value) + '</li>').join('');
+  const technologiesHtml = technologies.map((value) => '<li>' + escapeHtml(value) + '</li>').join('');
+  const gallery = Array.isArray(project.gallery) ? project.gallery.filter((value) => safeText(value) && value !== project.image) : [];
+  const galleryHtml = gallery.map((image, index) =>
+    '<figure><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(safeText(project.title) + ' project visual ' + String(index + 2)) +
+    '" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" /></figure>'
+  ).join('');
+  const joinPublicList = (values) => values.length < 2
+    ? (values[0] || '')
+    : values.length === 2
+      ? values[0] + ' and ' + values[1]
+      : values.slice(0, -1).join(', ') + ', and ' + values[values.length - 1];
+  const challenge = safeText(project.challenge) || safeText(project.challengeId) || 'The challenge narrative is not available in the public project record yet.';
+  const solution = safeText(project.solution) || safeText(project.solutionId) || 'The solution narrative is not available in the public project record yet.';
+  const execution = safeText(project.execution) || safeText(project.executionId) || [
+    deliverables.length
+      ? 'The recorded delivery scope for this project includes ' + joinPublicList(deliverables) + '.'
+      : 'The public project record does not yet include a detailed deliverables list.',
+    technologies.length
+      ? 'The technologies or production tools recorded for this engagement are ' + joinPublicList(technologies) + '.'
+      : '',
+    'The deliverables below make the documented scope easier to review.'
+  ].filter(Boolean).join(' ');
+  const outcome = safeText(project.outcome) || safeText(project.outcomeId) || (
+    impactRecords.length
+      ? 'The impact indicators listed in this project record are ' + joinPublicList(impactRecords.map((metric) => safeText(metric.label))) + '. Available values are shown below so the reported outcomes can be reviewed in context.'
+      : 'A measured outcome summary has not been included in this public project record yet.'
+  );
   const body = '<main style="background:#0B0C0E;color:#F8FAFC;padding:120px 24px 80px;font-family:Inter,system-ui,sans-serif">' +
     '<article style="max-width:1120px;margin:0 auto">' +
     '<p style="font:600 10px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#E50914">Case Study</p>' +
