@@ -819,7 +819,7 @@ const cleanSolutionComponentLabel = (source: string): string => {
   const value = source
     .trim()
     .replace(/^(?:and|dan)\s+/i, '')
-    .replace(/^(?:engineered|designed|created|built|developed|implemented|crafted|used|delivered|deployed|architected|integrated|exported|produced|established|rendered|shot|configured|optimised|optimized|introduced|combined|translated|launched|migrated|automated|connected|programmed|structured|leveraged|executed|animated|modelled|modeled|converted|refined|synchronized|synchronised|tuned|applied|assembled|generated)\s+/i, '')
+    .replace(/^(?:engineered|designed|created|built|developed|implemented|crafted|used|delivered|deployed|architected|integrated|exported|produced|established|rendered|shot|configured|optimised|optimized|introduced|combined|translated|launched|migrated|automated|connected|programmed|structured|leveraged|executed|animated|modelled|modeled|converted|refined|synchronized|synchronised|tuned|applied|assembled|generated|menerapkan|membangun|merancang|mengembangkan|membuat|menggunakan|mengintegrasikan|menyiapkan|menyusun|mendesain|menerjemahkan|menghasilkan|menambahkan|mengoptimalkan|mengotomatisasi|menghubungkan|memproduksi|mengekspor|menyatukan|mengkonsolidasikan|memperbaiki|menggabungkan|menyediakan|menciptakan|mengatur|menghasilkan|menampilkan)\s+/i, '')
     .replace(/^(?:a|an|the)\s+/i, '')
     .trim();
   return value ? value.charAt(0).toLocaleUpperCase() + value.slice(1) : '';
