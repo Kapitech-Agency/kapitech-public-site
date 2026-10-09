@@ -6,12 +6,23 @@ import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, Me
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
+import { uploadProjectBrief } from '../lib/apiClient';
 import { trackEvent } from '../lib/analytics';
 
 export const Contact = () => {
   const { t, language } = useLanguage();
+  const [searchParams] = useSearchParams();
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [budgetRange, setBudgetRange] = useState<string>('');
+  const [industry, setIndustry] = useState(() => searchParams.get('industry') || '');
+  const [preferredDate, setPreferredDate] = useState(() => searchParams.get('date') || '');
+  const [preferredTime, setPreferredTime] = useState(() => searchParams.get('time') || '');
+  const [timezone, setTimezone] = useState(() => searchParams.get('timezone') || 'Asia/Jakarta');
+  const [ndaRequested, setNdaRequested] = useState(false);
+  const [projectBrief, setProjectBrief] = useState<File | null>(null);
+  const [briefError, setBriefError] = useState('');
+  const briefInputRef = useRef<HTMLInputElement | null>(null);
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [formState, setFormState] = useState({
     name: '',
@@ -78,7 +89,6 @@ export const Contact = () => {
   ];
 
   const serviceOptions = language === 'id' ? serviceOptionsId : serviceOptionsEn;
-  const [searchParams] = useSearchParams();
   const hasPrefilledService = useRef(false);
   const hasTrackedContactStart = useRef(false);
 
@@ -190,6 +200,27 @@ export const Contact = () => {
     });
   };
 
+  const handleBriefChange = (file: File | null) => {
+    setBriefError('');
+    if (!file) {
+      setProjectBrief(null);
+      return;
+    }
+    const allowedTypes = new Set(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
+    const allowedExtensions = /\.(pdf|doc|docx)$/i;
+    if (!allowedExtensions.test(file.name) || (file.type && !allowedTypes.has(file.type))) {
+      setProjectBrief(null);
+      setBriefError(language === 'id' ? 'Pilih file PDF, DOC, atau DOCX.' : 'Please choose a PDF, DOC, or DOCX file.');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setProjectBrief(null);
+      setBriefError(language === 'id' ? 'Project brief maksimal 10 MB.' : 'Project brief must be 10 MB or smaller.');
+      return;
+    }
+    setProjectBrief(file);
+  };
+
   const validateContactStep = () => {
     const nextErrors: { [key: string]: string } = {};
     const sanitizedName = sanitizeInput(clampLength(formState.name, 100));
@@ -271,6 +302,7 @@ export const Contact = () => {
     const sanitizedCompany = sanitizeInput(clampLength(formState.company, 100));
     const sanitizedPhone = sanitizeInput(clampLength(formState.phone, 30));
     const sanitizedMessage = sanitizeInput(clampLength(formState.message, 3000));
+    const sanitizedIndustry = sanitizeInput(clampLength(industry, 120));
 
     const errors: { [key: string]: string } = {};
 
@@ -297,11 +329,33 @@ export const Contact = () => {
       return;
     }
 
+    if (Boolean(preferredDate) !== Boolean(preferredTime)) {
+      setSubmitError(language === 'id' ? 'Pilih tanggal dan waktu konsultasi, atau kosongkan keduanya.' : 'Choose both a consultation date and time, or leave both fields blank.');
+      return;
+    }
+    if (preferredDate && preferredDate < today) {
+      setSubmitError(language === 'id' ? 'Tanggal konsultasi harus hari ini atau setelahnya.' : 'The consultation date must be today or in the future.');
+      return;
+    }
+    if (briefError) {
+      setSubmitError(briefError);
+      return;
+    }
+
     setFormErrors({});
     setSubmitError('');
     setIsSubmitting(true);
-    
+
     try {
+      let briefUrl = '';
+      if (projectBrief) {
+        const upload = await uploadProjectBrief(projectBrief);
+        if (!upload.success || !upload.data?.briefUrl) {
+          throw new Error(upload.error || (language === 'id' ? 'Upload project brief gagal.' : 'Project brief upload failed.'));
+        }
+        briefUrl = upload.data.briefUrl;
+      }
+
       const result = await submitToInbox({
         fullName: sanitizedName,
         email: sanitizedEmail,
@@ -311,7 +365,12 @@ export const Contact = () => {
         budget: budgetRange || undefined,
         message: sanitizedMessage,
         source: 'Website Contact Form',
-        type: 'inquiry'
+        type: 'inquiry',
+        availability: preferredDate && preferredTime ? preferredDate + ' ' + preferredTime : undefined,
+        location: preferredDate && preferredTime ? timezone : undefined,
+        industry: sanitizedIndustry || undefined,
+        ndaRequested,
+        briefUrl: briefUrl || undefined
       });
       setSubmissionId(result.id);
       setIsSubmitted(true);
@@ -419,7 +478,7 @@ export const Contact = () => {
       />
 
       {/* Main Form & Info Section */}
-      <section className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section id="contact-details" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="absolute -left-40 top-16 h-80 w-80 rounded-full border border-white/[0.025]" />
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
@@ -675,6 +734,14 @@ export const Contact = () => {
                             setFormStep(0);
                             setShowSpecificServices(false);
                             setShowOptionalContact(false);
+                            setIndustry('');
+                            setPreferredDate('');
+                            setPreferredTime('');
+                            setTimezone('Asia/Jakarta');
+                            setNdaRequested(false);
+                            setProjectBrief(null);
+                            setBriefError('');
+                            if (briefInputRef.current) briefInputRef.current.value = '';
                           }}
                           className="w-full sm:w-auto px-6 py-3 rounded-full border border-brand-red/45 bg-brand-red/72 text-white text-xs font-semibold uppercase tracking-wider hover:bg-brand-red/86 hover:border-brand-red/60 transition-[background-color,border-color,box-shadow] duration-300 min-h-[44px] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_24px_-18px_rgba(229,9,20,0.72)]"
                         >
@@ -691,7 +758,7 @@ export const Contact = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col space-y-5 sm:space-y-6" noValidate>
+                  <form id="project-inquiry-form" onSubmit={handleSubmit} className="flex flex-col space-y-5 sm:space-y-6" noValidate>
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website_hp">Do not fill this</label>
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
@@ -1000,12 +1067,48 @@ export const Contact = () => {
                                 </div>
                               </div>
 
+                              <section className="space-y-4 rounded-2xl border border-white/[0.07] bg-white/[0.012] p-4 sm:p-5" aria-labelledby="consultation-options-title">
+                                <div>
+                                  <span className="block text-[10px] font-mono uppercase tracking-[0.14em] text-white" id="consultation-options-title">{language === 'id' ? 'Jadwalkan konsultasi (opsional)' : 'Schedule a consultation (optional)'}</span>
+                                  <p className="mt-1.5 text-[11px] leading-[1.7] text-[#8A909D]">{language === 'id' ? 'Pilih waktu yang Anda inginkan. Slot belum otomatis dipesan dan akan dikonfirmasi oleh tim Kapitech.' : 'Choose your preferred time. No calendar slot is reserved automatically; Kapitech will confirm it with you.'}</p>
+                                </div>
+                                <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                                  <div>
+                                    <label htmlFor="inquiry-industry" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] mb-1.5">{language === 'id' ? 'Industri (opsional)' : 'Industry (optional)'}</label>
+                                    <input id="inquiry-industry" type="text" value={industry} maxLength={120} onChange={(event) => setIndustry(event.target.value)} placeholder={language === 'id' ? 'Mis. teknologi finansial' : 'e.g. Fintech'} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white placeholder:text-[#8A909D]/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="inquiry-timezone" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] mb-1.5">{language === 'id' ? 'Zona waktu' : 'Timezone'}</label>
+                                    <select id="inquiry-timezone" value={timezone} onChange={(event) => setTimezone(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-[#111216] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm">
+                                      {['Asia/Jakarta', 'Asia/Singapore', 'Asia/Kuala_Lumpur', 'Asia/Bangkok', 'Asia/Tokyo', 'Australia/Perth', 'Europe/London', 'Europe/Berlin', 'America/New_York', 'America/Los_Angeles'].map((zone) => <option key={zone} value={zone}>{zone}</option>)}
+                                    </select>
+                                  </div>
+                                  <div>
+                                    <label htmlFor="inquiry-preferred-date" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] mb-1.5">{language === 'id' ? 'Tanggal yang diinginkan' : 'Preferred date'}</label>
+                                    <input id="inquiry-preferred-date" type="date" min={today} value={preferredDate} onChange={(event) => setPreferredDate(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="inquiry-preferred-time" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] mb-1.5">{language === 'id' ? 'Waktu yang diinginkan' : 'Preferred time'}</label>
+                                    <input id="inquiry-preferred-time" type="time" value={preferredTime} onChange={(event) => setPreferredTime(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
+                                  </div>
+                                </div>
+                                <label className="flex items-start gap-3 rounded-xl border border-white/[0.07] bg-black/[0.08] p-3.5">
+                                  <input type="checkbox" checked={ndaRequested} onChange={(event) => setNdaRequested(event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-brand-red" />
+                                  <span className="text-[11px] leading-[1.7] text-[#A7ACB5]">{language === 'id' ? 'Mohon catat bahwa inquiry ini memerlukan NDA atau penanganan rahasia sebelum detail proyek dibagikan.' : 'Please note that this inquiry requires NDA or confidential handling before detailed project information is shared.'}</span>
+                                </label>
+                                <div>
+                                  <label htmlFor="inquiry-project-brief" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D] mb-1.5">{language === 'id' ? 'Lampiran project brief (opsional)' : 'Project brief attachment (optional)'}</label>
+                                  <input ref={briefInputRef} id="inquiry-project-brief" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => handleBriefChange(event.target.files?.[0] || null)} className="block w-full rounded-xl border border-dashed border-white/[0.12] bg-black/20 p-3 text-xs text-[#8E96A2] file:mr-3 file:rounded-full file:border-0 file:bg-white/[0.06] file:px-3 file:py-2 file:text-[11px] file:font-semibold file:text-white" />
+                                  {briefError ? <p className="mt-2 text-[11px] leading-5 text-brand-red" role="alert">{briefError}</p> : projectBrief ? <p className="mt-2 text-[11px] leading-5 text-[#8A909D]">{projectBrief.name} · {(projectBrief.size / 1024 / 1024).toFixed(2)} MB · {language === 'id' ? 'Maks. 10 MB' : '10 MB maximum'}</p> : <p className="mt-2 text-[11px] leading-5 text-[#6F757F]">{language === 'id' ? 'Format PDF, DOC, atau DOCX. Maksimal 10 MB.' : 'PDF, DOC, or DOCX. Maximum 10 MB.'}</p>}
+                                </div>
+                              </section>
+
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
                                 <div className="flex items-end justify-between gap-5">
                                   <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
                                     {language === 'id'
-                                      ? 'Budget membantu kami memperkirakan scope, tetapi sifatnya opsional.'
-                                      : 'Budget helps us frame the scope, but sharing it is completely optional.'}
+                                      ? 'Booking konsultasi, NDA, dan lampiran brief bersifat opsional.'
+                                      : 'Consultation timing, NDA, and project brief details are all optional.'}
                                   </p>
                                   <div className="flex shrink-0 items-center gap-2.5">
                                     <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-[#8A909D] hover:text-white hover:border-white/15 transition-colors">
