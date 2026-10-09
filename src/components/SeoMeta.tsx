@@ -262,11 +262,20 @@ export const SeoMeta = () => {
     };
 
     window.addEventListener(CMS_EVENT_KEY, handleCmsUpdate);
-    void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
-    void fetchServerCmsServices().then(() => setCmsServices(getCmsServices()));
-
     return () => window.removeEventListener(CMS_EVENT_KEY, handleCmsUpdate);
   }, []);
+
+  const needsCmsProjects = /^\/work\/[^/]+$/.test(pathname) || /^\/industries\/[^/]+$/.test(pathname);
+  const needsCmsServices = /^\/(services|solutions)\/[^/]+$/.test(pathname);
+
+  useEffect(() => {
+    if (needsCmsProjects) {
+      void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
+    }
+    if (needsCmsServices) {
+      void fetchServerCmsServices().then(() => setCmsServices(getCmsServices()));
+    }
+  }, [needsCmsProjects, needsCmsServices, pathname]);
 
   useEffect(() => {
     if (pathname === '/insights' || pathname.startsWith('/insights/')) return;
