@@ -42,20 +42,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" />
     <meta name="theme-color" content="#0B0C0E" />
-    <meta name="color-scheme" content="dark light" />
-    <script>
-      (() => {
-        try {
-          const saved = localStorage.getItem('kapitech_ams_theme');
-          const theme = saved === 'light' || saved === 'dark'
-            ? saved
-            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-          document.documentElement.dataset.theme = theme;
-        } catch {
-          document.documentElement.dataset.theme = 'dark';
-        }
-      })();
-    </script>
+    <meta name="color-scheme" content="dark" />
 
     <!-- Structured Data / JSON-LD -->
     <script id="kapitech-site-jsonld" type="application/ld+json">
