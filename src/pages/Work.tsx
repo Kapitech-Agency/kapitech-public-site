@@ -280,6 +280,7 @@ export const Work = () => {
   const serviceScrollRef = serviceDrag.scrollRef;
   const isDraggingService = serviceDrag.isDragging;
   const [isServiceScrolled, setIsServiceScrolled] = useState(false);
+  const [isIndustryScrolled, setIsIndustryScrolled] = useState(false);
 
   const handleServiceScroll = (e: React.UIEvent<HTMLDivElement>) => {
     setIsServiceScrolled(e.currentTarget.scrollLeft > 2);
@@ -793,6 +794,15 @@ export const Work = () => {
               ref={industryDrag.scrollRef}
               onPointerDown={industryDrag.handlePointerDown}
               onClickCapture={industryDrag.handleClickCapture}
+              onScroll={(event) => setIsIndustryScrolled(event.currentTarget.scrollLeft > 2)}
+              style={{
+                maskImage: isIndustryScrolled
+                  ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
+                  : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                WebkitMaskImage: isIndustryScrolled
+                  ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
+                  : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+              }}
               className={`flex items-center gap-2 overflow-x-auto py-0.5 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${industryDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'}
               role="group"
@@ -828,7 +838,7 @@ export const Work = () => {
                     ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
                     : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
                 }}
-                className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
+                className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
                 }`}
               >
