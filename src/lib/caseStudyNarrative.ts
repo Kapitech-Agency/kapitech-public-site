@@ -982,38 +982,44 @@ const explainExecutionComponent = (component: string, language: string): string 
 const buildProjectExecution = (
   item: ProjectItem,
   challenge: string,
-  solution: string,
   deliverables: string[],
+  technologies: string[],
   language: string,
   playbook: LocalizedPlaybook
 ): CaseStudyNarrativeLine[] => {
   const id = language === 'id';
-  const parts = splitSolutionComponents(solution);
-  const steps: CaseStudyNarrativeLine[] = [{
-    title: id ? '01 · Menentukan arah dan kriteria kerja' : '01 · Define direction and working criteria',
-    body: executionFraming(item, challenge, language)
-  }];
-  parts.forEach((component, index) => {
-    steps.push({
-      title: String(index + 2).padStart(2, '0') + ' · ' + solutionComponentHeading(component),
-      body: explainExecutionComponent(component, language)
-    });
+  const opening = executionFraming(item, challenge, language);
+  const outputsSummary = deliverables.length
+    ? (id ? 'Output yang dicatat untuk proyek ini: ' : 'The outputs recorded for this project are: ') + readableList(deliverables, language) + '.'
+    : (id ? 'Daftar output belum tersedia dalam catatan proyek publik.' : 'A deliverables list is not available in the public project record.');
+  const technologySummary = technologies.length
+    ? (id ? ' Perangkat dan teknologi yang tercatat untuk mendukung pekerjaan ini: ' : ' Tools and technologies recorded for this work: ') + readableList(technologies, language) + '.'
+    : (id ? ' Perangkat teknis spesifik belum dicatat secara publik.' : 'Specific production tools are not recorded publicly.');
+  const processSteps = playbook.process.map((step, index) => {
+    const titleWithoutNumber = step.title.replace(/^\\d+\\s*·\\s*/, '');
+    const number = String(index + 2).padStart(2, '0');
+    return {
+      title: number + ' · ' + titleWithoutNumber,
+      body: step.body,
+    };
   });
-  const relevantOutputs = deliverables.length
-    ? (id ? 'Keluaran yang perlu dipastikan sesuai dengan cakupan proyek ini meliputi ' : 'The outputs to reconcile against this project scope include ') + readableList(deliverables, language) + '.'
-    : (id ? 'Daftar keluaran rinci belum tercatat pada data publik proyek ini.' : 'A detailed list of outputs is not yet recorded in the public project data.');
-  const finalIndex = steps.length + 1;
-  steps.push({
-    title: String(finalIndex).padStart(2, '0') + (id ? ' · Pemeriksaan akhir dan penyerahan' : ' · Final review and handover'),
-    body: (id
-      ? 'Tahap akhir menyatukan tiap komponen menjadi hasil yang dapat digunakan sesuai tujuan awal. Pemeriksaan dilakukan terhadap keselarasan hasil dengan tantangan, konsistensi antarkeluaran, kebutuhan format, dan kelengkapan materi yang diserahkan. '
-      : 'The final stage brings the components together into outputs suited to the original objective. Review focuses on alignment with the challenge, consistency between deliverables, format requirements, and completeness of the handover. ') + relevantOutputs
-  });
-  if (parts.length === 0) {
-    const fallback = playbook.process.map((step) => ({ title: step.title, body: step.body }));
-    return [...steps.slice(0, 1), ...fallback];
-  }
-  return steps;
+  const finalTitleNumber = String(processSteps.length + 2).padStart(2, '0');
+  const finalReview = id
+    ? 'Sebelum penyerahan, hasil ditinjau terhadap tujuan awal, konsistensi antar-output, kebutuhan format, kelengkapan file, dan kesiapan penggunaan. Catatan publik tidak memuat tanggal review atau daftar persetujuan per tahap, sehingga detail tersebut perlu mengikuti dokumentasi proyek yang disetujui.'
+    : 'Before handover, the work is reviewed against the original objective, consistency across outputs, format requirements, file completeness, and readiness for use. The public record does not include review dates or stage-by-stage approvals, so those details should follow the approved project documentation.';
+  return [
+    {
+      title: id ? '01 · Mengubah brief menjadi rencana kerja' : '01 · Translate the brief into a working plan',
+      body: opening + (id
+        ? ' Fokus berikutnya adalah menerjemahkan kebutuhan tersebut menjadi urutan kerja, titik review, dan kriteria penerimaan yang bisa diperiksa. Tahapan ini menjaga keputusan produksi atau implementasi tetap berhubungan dengan masalah yang ingin diselesaikan.'
+        : ' The next step is to translate that need into a sequence of work, review points, and inspectable acceptance criteria. This keeps production or implementation decisions connected to the problem the project is meant to solve.')
+    },
+    ...processSteps,
+    {
+      title: finalTitleNumber + (id ? ' · Quality check dan serah terima' : ' · Quality check and handover'),
+      body: finalReview + ' ' + outputsSummary + technologySummary,
+    },
+  ];
 };
 
 const explainTechnology = (technology: string, language: string): string => {
@@ -1253,19 +1259,29 @@ const describeImpactMetric = (
 
 export function buildCaseStudyNarrative(item: ProjectItem, language: string): CaseStudyNarrative {
   const lang = language === 'id' ? 'id' : 'en';
-  const playbook = servicePlaybooks[item.service]?.[lang] || servicePlaybooks['Web Application'][lang];
-  const description = localText(item, 'desc', lang);
-  const challenge = localText(item, 'challenge', lang);
-  const solution = localText(item, 'solution', lang);
-  const rawExecution = localText(item, 'execution', lang);
-  const rawOutcome = localText(item, 'outcome', lang);
+  const service = typeof item?.service === 'string' && Object.prototype.hasOwnProperty.call(servicePlaybooks, item.service)
+    ? item.service
+    : 'Web Application';
+  const safeItem: ProjectItem = {
+    ...item,
+    service,
+    deliverables: cleanValues(item?.deliverables),
+    technologies: cleanValues(item?.technologies),
+    impact: Array.isArray(item?.impact)
+      ? item.impact.filter((entry) => Boolean(entry && String(entry.label || '').trim() && String(entry.value || '').trim()))
+      : [],
+  };
+  const playbook = servicePlaybooks[service][lang];
+  const description = localText(safeItem, 'desc', lang);
+  const challenge = localText(safeItem, 'challenge', lang);
+  const solution = localText(safeItem, 'solution', lang);
+  const rawExecution = localText(safeItem, 'execution', lang);
+  const rawOutcome = localText(safeItem, 'outcome', lang);
   const execution = isRedundantNarrative(rawExecution, [description, challenge, solution]) ? '' : rawExecution;
   const outcome = isRedundantNarrative(rawOutcome, [description, challenge, solution]) ? '' : rawOutcome;
-  const deliverables = cleanValues(item.deliverables);
-  const technologies = cleanValues(item.technologies);
-  const metrics = Array.isArray(item.impact)
-    ? item.impact.filter((entry) => entry && String(entry.label || '').trim() && String(entry.value || '').trim())
-    : [];
+  const deliverables = safeItem.deliverables;
+  const technologies = safeItem.technologies;
+  const metrics = safeItem.impact;
   const contextDetails: CaseStudyNarrativeLine[] = [
     {
       title: lang === 'id' ? 'Kebutuhan yang tercatat' : 'The documented need',
@@ -1296,7 +1312,7 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
     ? specificDecisions
     : [...specificDecisions, ...playbook.decisions].slice(0, 3);
 
-  const process = buildProjectExecution(item, challenge, solution, deliverables, lang, playbook);
+  const process = buildProjectExecution(safeItem, challenge, deliverables, technologies, lang, playbook);
 
   const describedDeliverables = deliverables.map((title) => ({ title, body: explainDeliverable(title, lang) }));
   const describedTechnologies = technologies.map((title) => ({ title, body: explainTechnology(title, lang) }));
@@ -1318,8 +1334,8 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
   const metricInterpretation = explainMetricSignals(metrics, lang);
   const impact = outcome || (metrics.length
     ? (lang === 'id'
-      ? metricInterpretation + ' ' + serviceImpactContext[item.service].id + ' Untuk memastikan seberapa besar perubahan terkait dengan pekerjaan ini, angka tersebut tetap perlu dibaca bersama nilai awal, periode pengukuran, sumber data, dan metode atribusi.'
-      : metricInterpretation + ' ' + serviceImpactContext[item.service].en + ' To establish how much change is attributable to this work, the figures still need a baseline, measurement period, data source, and attribution method.')
+      ? metricInterpretation + ' ' + serviceImpactContext[safeItem.service].id + ' Untuk memastikan seberapa besar perubahan terkait dengan pekerjaan ini, angka tersebut tetap perlu dibaca bersama nilai awal, periode pengukuran, sumber data, dan metode atribusi.'
+      : metricInterpretation + ' ' + serviceImpactContext[safeItem.service].en + ' To establish how much change is attributable to this work, the figures still need a baseline, measurement period, data source, and attribution method.')
     : (lang === 'id'
       ? 'Catatan publik belum memuat hasil terukur. Karena itu, dampak di bawah ini dijelaskan sebagai manfaat yang dituju oleh ruang lingkup dan bukan sebagai klaim peningkatan yang sudah terverifikasi.'
       : 'The public record does not yet include measured results. Accordingly, the impact below is described as the value the scope is designed to support, not as a verified improvement claim.'));
@@ -1334,9 +1350,9 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
 
   const relevance = playbook.relevance;
   const context = (description ? description + ' ' : '') + playbook.context;
-  const expandedChallenge = expandChallengeNarrative(item, challenge, lang);
-  const expandedSolution = expandSolutionNarrative(item, solution, lang);
-  const impactDetails = metrics.map((metric) => describeImpactMetric(metric, item, lang));
+  const expandedChallenge = expandChallengeNarrative(safeItem, challenge, lang);
+  const expandedSolution = expandSolutionNarrative(safeItem, solution, lang);
+  const impactDetails = metrics.map((metric) => describeImpactMetric(metric, safeItem, lang));
   const impactFallback = lang === 'id'
     ? 'Dampak yang dapat dibahas secara bertanggung jawab adalah bagaimana keluaran ini dirancang untuk menjawab masalah awal: ' + (challenge || 'tantangan yang dicatat pada brief') + '. Nilai bisnis yang benar-benar tercapai perlu dibedakan dari manfaat yang diharapkan dan didukung dengan data evaluasi.'
     : 'The responsible impact narrative is how these outputs are designed to address the original problem: ' + (challenge || 'the challenge recorded in the brief') + '. Achieved business value should be distinguished from intended benefits and supported by evaluation data.';
