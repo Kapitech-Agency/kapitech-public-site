@@ -815,9 +815,22 @@ const explainSolutionComponent = (component: string, language: string): string =
     : 'This component is part of the recorded solution. Its role should be read alongside the original challenge, the other deliverables, and the final use case; the public record does not specify a more granular configuration.';
 };
 
+const cleanSolutionComponentLabel = (source: string): string => {
+  const value = source
+    .trim()
+    .replace(/^(?:and|dan)\s+/i, '')
+    .replace(/^(?:engineered|designed|created|built|developed|implemented|crafted|used|delivered|deployed|architected|integrated|exported|produced|established|rendered|shot|configured|optimised|optimized|introduced|combined|translated|launched|migrated|automated|connected)\s+/i, '')
+    .replace(/^(?:a|an|the)\s+/i, '')
+    .trim();
+  return value ? value.charAt(0).toLocaleUpperCase() + value.slice(1) : '';
+};
+
 const splitSolutionComponents = (solution: string): string[] => {
   const value = solution.trim().replace(/^[^:]{3,100}:\s*/, '').replace(/[.;]\s*$/, '');
-  const parts = value.split(/,\s*|\s+(?:and|dan)\s+/i).map((part) => part.trim().replace(/^[,;:\s]+|[,;:\s]+$/g, '')).filter(Boolean);
+  const parts = value
+    .split(/,\s*|\s+(?:and|dan)\s+/i)
+    .map(cleanSolutionComponentLabel)
+    .filter(Boolean);
   return Array.from(new Set(parts)).slice(0, 6);
 };
 
