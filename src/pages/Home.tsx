@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, ChevronRight, Layers, X } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, Layers, X, Palette, PanelsTopLeft, Code2, Lightbulb, RefreshCw, Users } from 'lucide-react';
 import { Testimonials } from '../components/Testimonials';
 import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
 import { useLanguage } from '../lib/LanguageContext';
@@ -532,34 +532,34 @@ export const Home = () => {
       <section
         className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="engagement"
+        aria-labelledby="services-solutions-heading"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end lg:gap-14">
+          <div className="mb-9 grid gap-5 sm:mb-11 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end lg:gap-14">
             <div className="max-w-4xl">
-              <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'SERVICES & SOLUTIONS' : 'SERVICES & SOLUTIONS'}
-              </span>
-              <h2 className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.01] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+              <span className="kapi-section-label mb-5">SERVICES &amp; SOLUTIONS</span>
+              <h2
+                id="services-solutions-heading"
+                className="mt-4 max-w-4xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              >
                 {language === 'id'
-                  ? 'Pilih kapabilitas yang Anda butuhkan, lalu lanjut ke solusi yang paling relevan.'
-                  : 'Choose the capability you need, then move into the solution that fits.'}
+                  ? 'Dari identitas brand yang kuat hingga produk digital yang siap berkembang.'
+                  : 'From a clearer brand to a digital product built to scale.'}
               </h2>
             </div>
 
-            <div className="max-w-md lg:justify-self-end lg:pb-1">
-              <p className="text-xs font-light leading-[1.8] text-[#8A909D] sm:text-sm">
-                {language === 'id'
-                  ? 'Mulai dari layanan yang paling dekat dengan kebutuhan Anda. Untuk kebutuhan yang lebih spesifik, pilih jalur solusi yang sesuai dengan situasi proyek.'
-                  : 'Start with the service closest to your need. For a more specific need, choose the solution that fits your project situation.'}
-              </p>
-              <Link
-                to="/contact#project-inquiry-form"
-                className="mt-4 inline-flex items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
-              >
-                <span>{language === 'id' ? 'Diskusikan kebutuhan Anda' : 'Discuss your project'}</span>
-                <ArrowUpRight size={13} aria-hidden="true" />
-              </Link>
-            </div>
+            <p className="max-w-md text-sm font-light leading-[1.85] text-[#8A909D] lg:justify-self-end lg:pb-1">
+              {language === 'id'
+                ? 'Pilih kapabilitas untuk kebutuhan spesifik Anda, atau mulai dari solusi yang sesuai dengan tantangan bisnis saat ini.'
+                : 'Choose the capability your team needs, or start with a focused solution for the challenge in front of your business.'}
+            </p>
+          </div>
+
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#A7ACB5]">
+              {language === 'id' ? 'KATEGORI LAYANAN' : 'SERVICE CATEGORIES'}
+            </span>
+            <span className="text-[10px] font-mono tabular-nums tracking-[0.12em] text-[#626872]">03 {language === 'id' ? 'DISIPLIN' : 'DISCIPLINES'}</span>
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
@@ -569,93 +569,100 @@ export const Home = () => {
               );
               const categoryMeta = {
                 Branding: {
-                  descriptor: 'Brand & visual communication',
-                  bestFor: language === 'id'
-                    ? 'Untuk bisnis yang perlu tampil lebih konsisten, kredibel, dan mudah dikenali.'
-                    : 'For businesses that need a clearer, more credible, and recognizable brand.',
-                  action: language === 'id' ? 'Mulai dari branding' : 'Start with branding',
+                  icon: Palette,
+                  title: language === 'id' ? 'Branding & Identitas' : 'Branding & Identity',
+                  description: language === 'id'
+                    ? 'Bangun identitas yang konsisten, mudah dikenali, dan dipercaya.'
+                    : 'Build a brand people recognize, remember, and trust.',
+                  action: language === 'id' ? 'Jelajahi layanan branding' : 'Explore branding',
                 },
                 Design: {
-                  descriptor: 'Product & digital experience',
-                  bestFor: language === 'id'
-                    ? 'Untuk tim yang ingin memperjelas experience, usability, dan conversion sebelum atau saat build.'
-                    : 'For teams improving product experience, usability, and conversion before or during build.',
-                  action: language === 'id' ? 'Mulai dari design' : 'Start with design',
+                  icon: PanelsTopLeft,
+                  title: language === 'id' ? 'Desain Produk & UI/UX' : 'Product & UI/UX Design',
+                  description: language === 'id'
+                    ? 'Ubah alur yang rumit menjadi pengalaman digital yang jelas dan mudah digunakan.'
+                    : 'Turn complex journeys into clear, intuitive digital experiences.',
+                  action: language === 'id' ? 'Jelajahi layanan desain' : 'Explore design',
                 },
                 Development: {
-                  descriptor: 'Web & digital product delivery',
-                  bestFor: language === 'id'
-                    ? 'Untuk bisnis yang siap mengubah kebutuhan dan desain menjadi website atau produk digital yang berjalan.'
-                    : 'For businesses ready to turn requirements and design into working websites or digital products.',
-                  action: language === 'id' ? 'Mulai dari development' : 'Start with development',
+                  icon: Code2,
+                  title: language === 'id' ? 'Web & Product Engineering' : 'Web & Product Engineering',
+                  description: language === 'id'
+                    ? 'Bangun website dan produk digital yang andal, responsif, serta siap dikembangkan.'
+                    : 'Build reliable, responsive websites and digital products ready to evolve.',
+                  action: language === 'id' ? 'Jelajahi layanan development' : 'Explore development',
                 },
               }[category];
+              const CategoryIcon = categoryMeta.icon;
 
               return (
                 <article
                   key={category}
-                  className="kapi-surface kapi-surface-interactive group relative flex h-full min-w-0 flex-col overflow-hidden p-5 sm:p-6 lg:p-7"
+                  className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-[1.35rem] border border-white/[0.085] bg-[#101115] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-1 hover:border-white/[0.15] hover:bg-[#13151A] sm:p-6 lg:p-7"
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-brand-red">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
-                        <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
-                          {categoryMeta.descriptor}
-                        </span>
-                      </div>
-                      <h3 className="mt-5 text-2xl font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.8rem]">
-                        {category}
-                      </h3>
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-[#A7ACB5] transition-colors duration-300 group-hover:text-brand-red">
+                      <CategoryIcon size={19} strokeWidth={1.7} aria-hidden="true" />
+                    </span>
+                    <span className="pt-1 text-[10px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#626872]">
+                      0{index + 1} / 03
+                    </span>
+                  </div>
+
+                  <h3 className="mt-6 text-[1.55rem] font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.7rem]">
+                    {categoryMeta.title}
+                  </h3>
+                  <p className="mt-3 min-h-[3.5rem] max-w-sm text-sm font-light leading-[1.75] text-[#8A909D]">
+                    {categoryMeta.description}
+                  </p>
+
+                  <div className="mt-6 border-t border-white/[0.075] pt-4">
+                    <div className="mb-1 flex items-center justify-between gap-3">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[#626872]">
+                        {language === 'id' ? 'LAYANAN' : 'SERVICES'}
+                      </span>
+                      <span className="text-[10px] font-mono tabular-nums text-[#626872]">
+                        {String(services.length).padStart(2, '0')}
+                      </span>
                     </div>
-                    <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
-                      {String(services.length).padStart(2, '0')} {language === 'id' ? 'layanan' : 'services'}
-                    </span>
+                    {services.length > 0 ? (
+                      <div>
+                        {services.map((service) => (
+                          <Link
+                            key={service.slug}
+                            to={'/services/' + service.slug}
+                            data-analytics-event="service_click"
+                            data-service-slug={service.slug}
+                            className="group/service flex min-h-11 w-full min-w-0 items-center justify-between gap-3 border-b border-white/[0.045] py-2.5 text-left last:border-b-0"
+                          >
+                            <span className="min-w-0 pr-2 text-[13px] font-medium leading-snug text-white/80 transition-colors duration-200 group-hover/service:text-white">
+                              {service.title}
+                            </span>
+                            <ArrowUpRight
+                              size={14}
+                              className="shrink-0 text-[#626872] transition-all duration-200 group-hover/service:-translate-y-0.5 group-hover/service:translate-x-0.5 group-hover/service:text-brand-red"
+                              aria-hidden="true"
+                            />
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="py-4 text-xs leading-6 text-[#737985]">
+                        {language === 'id' ? 'Layanan akan ditampilkan di sini.' : 'Services will appear here.'}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="mt-5 border-t border-white/[0.065] pt-4">
-                    <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                      {language === 'id' ? 'Paling sesuai untuk' : 'Best for'}
-                    </span>
-                    <p className="mt-2 max-w-md text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                      {categoryMeta.bestFor}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 border-t border-white/[0.065] pt-1">
-                    {services.map((service) => (
-                      <Link
-                        key={service.slug}
-                        to={`/services/${service.slug}`}
-                        data-analytics-event="service_click"
-                        data-service-slug={service.slug}
-                        className="group/item flex min-h-11 w-full min-w-0 items-center justify-between gap-4 border-b border-white/[0.045] py-2.5 text-left last:border-b-0 sm:min-h-12"
-                      >
-                        <span className="min-w-0 pr-2 text-xs font-medium leading-snug text-white/80 transition-colors duration-300 group-hover/item:text-brand-red sm:text-[13px]">
-                          {service.title}
-                        </span>
-                        <ArrowUpRight
-                          size={14}
-                          className="shrink-0 text-[#626872] transition-all duration-300 group-hover/item:-translate-y-0.5 group-hover/item:translate-x-0.5 group-hover/item:text-brand-red"
-                          aria-hidden="true"
-                        />
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto flex items-center justify-between gap-4 pt-6">
-                    <span className="flex min-w-0 items-center gap-3 text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] group-hover:text-brand-red">
-                      <span>{categoryMeta.action}</span>
+                  <div className="mt-auto flex items-center justify-between gap-3 pt-6">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#A7ACB5] transition-colors duration-300 group-hover:text-white">
+                      {categoryMeta.action}
                     </span>
                     <Link
-                      to={services[0] ? `/services/${services[0].slug}` : '/services'}
-                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#7A808A] transition-all duration-300 hover:border-brand-red/35 hover:bg-brand-red/[0.08] hover:text-brand-red"
+                      to={services[0] ? '/services/' + services[0].slug : '/services'}
+                      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#A7ACB5] transition-colors duration-300 hover:bg-white/[0.07] hover:text-white"
                       aria-label={categoryMeta.action}
                     >
-                      <ArrowUpRight size={14} aria-hidden="true" />
+                      <ArrowUpRight size={15} aria-hidden="true" />
                     </Link>
                   </div>
                 </article>
@@ -663,118 +670,122 @@ export const Home = () => {
             })}
           </div>
 
-          <div className="mt-10 border-t border-white/[0.065] pt-8 sm:mt-12 sm:pt-10">
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+          <div className="mt-12 sm:mt-14">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
               <div>
-                <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-brand-red/80">
-                  {language === 'id' ? 'JALUR SOLUSI SPESIFIK' : 'FOCUSED SOLUTION PATHS'}
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                  {language === 'id' ? 'SOLUSI TERARAH' : 'FOCUSED SOLUTIONS'}
                 </span>
-                <p className="mt-2 max-w-3xl text-sm font-light leading-[1.75] text-[#8A909D]">
-                  {language === 'id'
-                    ? 'Saat kebutuhan Anda lebih spesifik, masuk langsung lewat salah satu dari tiga solusi berikut.'
-                    : 'When your need is more specific, move directly into one of these three focused solutions.'}
-                </p>
+                <h3 className="mt-3 text-2xl font-display font-semibold leading-tight tracking-[-0.045em] text-white sm:text-3xl">
+                  {language === 'id' ? 'Mulai dari tantangan yang ingin Anda selesaikan.' : 'Start with the challenge you need to solve.'}
+                </h3>
               </div>
-              <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                03 {language === 'id' ? 'jalur' : 'paths'}
-              </span>
+              <p className="max-w-lg text-sm font-light leading-[1.8] text-[#8A909D] sm:text-right">
+                {language === 'id'
+                  ? 'Tiga jalur praktis untuk memvalidasi ide, meningkatkan produk, atau memperkuat kapasitas tim.'
+                  : 'Three practical paths to validate an idea, improve an existing product, or extend your team.'}
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
               {allSolutionsAndServices
                 .filter((item) => item.type === 'solution')
                 .map((solution, index) => {
                   const solutionMeta = {
                     'mvp-design': {
+                      icon: Lightbulb,
+                      label: language === 'id' ? 'VALIDASI IDE' : 'VALIDATE',
                       bestFor: language === 'id'
-                        ? 'Founder atau product team yang perlu memvalidasi konsep sebelum engineering.'
-                        : 'Founders or product teams that need to validate the concept before engineering.',
+                        ? 'Untuk founder dan product team yang perlu menguji konsep sebelum mulai engineering.'
+                        : 'For founders and product teams validating a concept before engineering.',
                       outcome: language === 'id'
-                        ? 'Output: prototype interaktif, user flow yang fokus, dan handoff siap build.'
-                        : 'Outcome: interactive prototype, focused user flows, and build-ready handoff.',
-                      cta: language === 'id' ? 'Explore MVP Design' : 'Explore MVP Design',
+                        ? 'Prototipe interaktif, alur utama yang jelas, dan handoff siap dikembangkan.'
+                        : 'Interactive prototype, clear core flows, and an engineering-ready handoff.',
                     },
                     'product-redesign': {
+                      icon: RefreshCw,
+                      label: language === 'id' ? 'TINGKATKAN PRODUK' : 'IMPROVE',
                       bestFor: language === 'id'
-                        ? 'Bisnis dengan product experience yang sudah berjalan tetapi mulai terasa lambat, rumit, atau tidak konsisten.'
-                        : 'Businesses with an existing product that feels slow, complex, or inconsistent.',
+                        ? 'Untuk produk yang sudah berjalan tetapi terasa rumit, lambat, atau tidak konsisten.'
+                        : 'For existing products that feel complex, slow, or inconsistent.',
                       outcome: language === 'id'
-                        ? 'Outcome: UX lebih jelas, interface lebih konsisten, dan roadmap perbaikan yang terarah.'
-                        : 'Outcome: clearer UX, a more consistent interface, and a focused improvement roadmap.',
-                      cta: language === 'id' ? 'Explore Product Redesign' : 'Explore Product Redesign',
+                        ? 'UX lebih jelas, UI lebih konsisten, dan roadmap perbaikan yang terarah.'
+                        : 'Clearer UX, a more consistent UI, and a focused improvement roadmap.',
                     },
                     'team-extension': {
+                      icon: Users,
+                      label: language === 'id' ? 'TAMBAH KAPASITAS' : 'EXTEND',
                       bestFor: language === 'id'
-                        ? 'Tim internal yang membutuhkan tambahan design atau engineering tanpa menambah struktur tim permanen.'
-                        : 'Internal teams that need extra design or engineering capacity without building a permanent team.',
+                        ? 'Untuk tim internal yang membutuhkan dukungan design atau engineering tambahan.'
+                        : 'For internal teams that need additional design or engineering capacity.',
                       outcome: language === 'id'
-                        ? 'Outcome: kapasitas delivery tambahan yang masuk ke workflow dan ritme kerja tim Anda.'
-                        : 'Outcome: added delivery capacity that fits your workflow and delivery rhythm.',
-                      cta: language === 'id' ? 'Explore Team Extension' : 'Explore Team Extension',
+                        ? 'Kapasitas delivery tambahan yang mengikuti workflow dan ritme tim Anda.'
+                        : 'Extra delivery capacity that fits your workflow and team rhythm.',
                     },
                   }[solution.slug];
+                  const SolutionIcon = solutionMeta.icon;
 
                   return (
                     <Link
                       key={solution.slug}
-                      to={`/solutions/${solution.slug}`}
+                      to={'/solutions/' + solution.slug}
                       data-analytics-event="solution_click"
                       data-solution-slug={solution.slug}
-                      className="kapi-surface kapi-surface-interactive group relative flex min-h-[246px] min-w-0 flex-col overflow-hidden p-5 sm:p-6 lg:p-7"
+                      className="group flex min-h-[260px] min-w-0 flex-col rounded-[1.35rem] border border-white/[0.085] bg-[#0F1014] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-1 hover:border-white/[0.15] hover:bg-[#13151A] sm:p-6 lg:p-7"
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#8A909D]">
-                          {String(index + 1).padStart(2, '0')}
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-[#A7ACB5] transition-colors duration-300 group-hover:text-brand-red">
+                          <SolutionIcon size={18} strokeWidth={1.7} aria-hidden="true" />
                         </span>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red/75">
-                          {language === 'id' ? 'Solusi fokus' : 'Focused solution'}
+                        <span className="text-[10px] font-mono tabular-nums uppercase tracking-[0.14em] text-[#626872]">
+                          PATH / 0{index + 1}
                         </span>
                       </div>
 
-                      <div className="mt-6">
-                        <h4 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.55rem]">
-                          {solution.title}
-                        </h4>
-                        <div className="mt-4">
-                          <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                            {language === 'id' ? 'Cocok untuk' : 'Best for'}
-                          </span>
-                          <p className="mt-2 text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
-                            {solutionMeta?.bestFor}
-                          </p>
-                        </div>
-                        <p className="mt-3 text-[11px] font-medium leading-[1.65] text-white/75">
-                          {solutionMeta?.outcome}
+                      <span className="mt-5 text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red/90">
+                        {solutionMeta.label}
+                      </span>
+                      <h4 className="mt-2 text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.4rem]">
+                        {solution.title}
+                      </h4>
+                      <p className="mt-3 text-sm font-light leading-[1.75] text-[#8A909D]">
+                        {solutionMeta.bestFor}
+                      </p>
+
+                      <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.07] pt-4 mt-5">
+                        <p className="max-w-[90%] text-[11px] font-medium leading-[1.7] text-white/75">
+                          {solutionMeta.outcome}
                         </p>
-                      </div>
-
-                      <div className="mt-auto flex items-center justify-between gap-4 pt-6">
-                        <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F] transition-colors duration-300 group-hover:text-brand-red">
-                          {solutionMeta?.cta}
-                        </span>
-                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-[#7A808A] transition-all duration-300 group-hover:border-brand-red/35 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
-                          <ArrowUpRight size={14} aria-hidden="true" />
-                        </span>
+                        <ArrowUpRight
+                          size={17}
+                          className="mb-0.5 shrink-0 text-[#7A808A] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-red"
+                          aria-hidden="true"
+                        />
                       </div>
                     </Link>
                   );
                 })}
             </div>
+          </div>
 
-            <div className="mt-6 flex flex-col gap-3 border-t border-white/[0.065] pt-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl text-[11px] font-light leading-[1.7] text-[#6F757F]">
-                {language === 'id'
-                  ? 'Belum yakin jalur mana yang paling tepat? Ceritakan konteks proyek Anda dan kami bantu menentukan starting point yang paling masuk akal.'
-                  : 'Not sure which path fits? Share your project context and we will help you choose the most sensible starting point.'}
+          <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
+            <div>
+              <p className="text-sm font-semibold text-white">
+                {language === 'id' ? 'Belum yakin harus mulai dari mana?' : 'Not sure where to start?'}
               </p>
-              <Link
-                to="/contact#project-inquiry-form"
-                className="inline-flex shrink-0 items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
-              >
-                <span>{language === 'id' ? 'Mulai diskusi' : 'Start a discussion'}</span>
-                <ArrowUpRight size={13} aria-hidden="true" />
-              </Link>
+              <p className="mt-1 max-w-2xl text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+                {language === 'id'
+                  ? 'Ceritakan tujuan dan kendala Anda. Kami bantu menentukan langkah yang paling masuk akal.'
+                  : 'Tell us your goals and constraints. We will help you map out a sensible next step.'}
+              </p>
             </div>
+            <Link
+              to="/contact#project-inquiry-form"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#FF1E27]"
+            >
+              <span>{language === 'id' ? 'Diskusikan proyek' : 'Discuss your project'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
