@@ -16,9 +16,9 @@ export const PublicPageCta = ({
   eyebrow = 'Next step',
   title,
   description,
-  primaryHref = '/book-a-call',
-  primaryLabel = 'Schedule a Consultation',
-  secondaryHref = '/contact',
+  primaryHref = '/contact#project-inquiry-form',
+  primaryLabel = 'Start a Project',
+  secondaryHref = '/contact#contact-details',
   secondaryLabel = 'Contact Kapitech'
 }: PublicPageCtaProps) => (
   <section className="kapi-page-cta relative overflow-hidden border-t border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
