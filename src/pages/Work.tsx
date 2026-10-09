@@ -1248,7 +1248,7 @@ export const Work = () => {
                             <ArrowUpRight size={14} />
                           </Link>
                           <Link
-                            to="/contact#project-inquiry-form"
+                            to={'/contact?service=' + encodeURIComponent(selectedProject.service) + '#project-inquiry-form'}
                             onClick={() => closeCaseStudy()}
                             className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           >
