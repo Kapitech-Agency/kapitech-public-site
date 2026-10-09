@@ -19,7 +19,8 @@ import {
   Building2, 
   ExternalLink,
   Sparkles,
-  Briefcase
+  Briefcase,
+  MoveHorizontal
 } from 'lucide-react';
 import Fuse from 'fuse.js';
 import { useLanguage } from '../lib/LanguageContext';
@@ -63,6 +64,10 @@ const useDragToScroll = () => {
       if (!drag.active || drag.pointerId !== event.pointerId) return;
 
       suppressClickRef.current = drag.moved;
+      const scroller = scrollRef.current;
+      if (scroller?.hasPointerCapture(event.pointerId)) {
+        scroller.releasePointerCapture(event.pointerId);
+      }
       drag.active = false;
       drag.pointerId = -1;
       setIsDragging(false);
@@ -86,7 +91,13 @@ const useDragToScroll = () => {
   }, []);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!scrollRef.current || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    const scroller = scrollRef.current;
+    if (
+      !scroller ||
+      !event.isPrimary ||
+      (event.pointerType === 'mouse' && event.button !== 0) ||
+      scroller.scrollWidth <= scroller.clientWidth + 2
+    ) return;
 
     suppressClickRef.current = false;
     dragRef.current = {
@@ -94,9 +105,16 @@ const useDragToScroll = () => {
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
-      startScrollLeft: scrollRef.current.scrollLeft,
+      startScrollLeft: scroller.scrollLeft,
       moved: false,
     };
+
+    // Keep tracking a drag even when the pointer leaves the chip row.
+    try {
+      scroller.setPointerCapture(event.pointerId);
+    } catch {
+      // Window-level pointer listeners remain as a fallback.
+    }
     setIsDragging(true);
   };
 
@@ -689,10 +707,13 @@ export const Work = () => {
                 <span className="kapi-section-label mb-0 shrink-0">
                   {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
                 </span>
-                <span className="hidden sm:block mt-1 text-[10px] font-mono text-[#8A909D]/60">
-                  {language === 'id'
-                    ? 'Filter berdasarkan bidang, layanan, atau kata kunci.'
-                    : 'Filter by discipline, service, or keyword.'}
+                <span className="mt-1 flex items-center gap-1.5 text-[10px] font-mono text-[#8A909D]/65">
+                  <MoveHorizontal size={12} aria-hidden="true" />
+                  <span>
+                    {language === 'id'
+                      ? 'Geser atau drag filter untuk melihat semua pilihan.'
+                      : 'Drag or swipe the filter rows to explore all options.'}
+                  </span>
                 </span>
               </div>
               <div className="flex items-center gap-2">
