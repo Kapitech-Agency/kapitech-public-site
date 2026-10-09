@@ -148,8 +148,9 @@ export const Insights: React.FC = () => {
         return;
       }
 
-      const responseItems = Array.isArray(displayRes.data?.insights)
-        ? displayRes.data.insights.filter((item) => item?.status === 'published')
+      const rawItems = displayRes.data?.insights;
+      const responseItems = Array.isArray(rawItems)
+        ? rawItems.filter((item) => item?.status === 'published')
         : [];
       const rawTotal = displayRes.data?.meta?.total;
       const parsedTotal = Number(rawTotal);
