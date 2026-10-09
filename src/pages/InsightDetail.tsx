@@ -243,7 +243,21 @@ export const InsightDetail: React.FC = () => {
           return;
         }
 
-        setArticle(nextArticle);
+        const fallbackArticle = getInsightFallback(slug);
+        const mergedAlternates = [
+          ...(Array.isArray(nextArticle.alternateLanguages) ? nextArticle.alternateLanguages : []),
+          ...(fallbackArticle?.alternateLanguages || [])
+        ].filter((item, index, all) => (
+          item?.language
+          && item?.slug
+          && all.findIndex((candidate) => candidate?.language === item.language) === index
+        ));
+
+        setArticle({
+          ...nextArticle,
+          contentGroupId: nextArticle.contentGroupId || fallbackArticle?.contentGroupId,
+          alternateLanguages: mergedAlternates
+        });
       })
       .catch((error: unknown) => {
         if (cancelled) return;
