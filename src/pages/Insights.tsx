@@ -365,7 +365,7 @@ export const Insights: React.FC = () => {
             </div>
           }
         >
-          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
             <button
               type="button"
               onClick={scrollToLibrary}
