@@ -1030,6 +1030,41 @@ const explainTechnology = (technology: string, language: string): string => {
     : 'Listed as a tool or technology for this project; its exact technical use should follow the approved implementation record.';
 };
 
+const explainMetricSignals = (metrics: Array<{ label: string; value: string }>, language: string): string => {
+  const id = language === 'id';
+  const labels = metrics.map((metric) => String(metric.label || '').toLowerCase());
+  const groups: string[] = [];
+  if (labels.some((label) => /view|reach|impression|visitor|visit|watch time|readership|download|citation|media mention|concurrent|volume|transaction value|players hosted|audience|user base|outlets|sites served|users managed/.test(label))) {
+    groups.push(id
+      ? 'indikator jangkauan atau skala penggunaan, yang menunjukkan berapa banyak orang, transaksi, atau aktivitas yang tercatat'
+      : 'reach or usage-scale indicators, showing how many people, transactions, or activities are recorded');
+  }
+  if (labels.some((label) => /engagement|completion|recall|rating|satisfaction|retention|share|subscriber|repeat|trust|delight|readership|brand trust|customer lifetime value|watch time/.test(label))) {
+    groups.push(id
+      ? 'indikator respons, pengalaman, atau keberlanjutan penggunaan, yang menggambarkan bagaimana audiens atau pengguna berinteraksi'
+      : 'response, experience, or continued-use indicators, showing how audiences or users interact');
+  }
+  if (labels.some((label) => /conversion|pre.order|sales|inquir|rfq|lead|booking|funding|revenue|aov|cac|roas|roi|sold|export|income|savings|cost|pipe|term sheet|footfall|orders/.test(label))) {
+    groups.push(id
+      ? 'indikator komersial, yang berkaitan dengan inquiry, transaksi, penjualan, biaya, atau nilai bisnis'
+      : 'commercial indicators, relating to inquiries, transactions, sales, cost, or business value');
+  }
+  if (labels.some((label) => /latency|load speed|page speed|uptime|fps|error|accuracy|time|rto|mttr|downtime|execution speed|turnaround|wait time|response|requests|tps|spoillage|spoilage|packet loss|fraud|reliability|recovery|deployment|audit score|compliance/.test(label))) {
+    groups.push(id
+      ? 'indikator operasional atau teknis, yang menunjukkan performa, keandalan, waktu proses, atau tingkat kesalahan'
+      : 'operational or technical indicators, showing performance, reliability, processing time, or error levels');
+  }
+  const distinctGroups = Array.from(new Set(groups));
+  if (distinctGroups.length === 0) {
+    return id
+      ? 'Indikator di bawah mengukur beberapa sisi hasil proyek. Masing-masing perlu dibaca sesuai definisinya, bukan digabungkan menjadi satu klaim keberhasilan.'
+      : 'The indicators below measure different aspects of the project. Each should be read according to its definition rather than combined into a single success claim.';
+  }
+  return id
+    ? 'Indikator yang tercantum mencakup ' + readableList(distinctGroups, language) + '. Masing-masing menjawab pertanyaan yang berbeda, sehingga angka jangkauan tidak otomatis berarti konversi, dan indikator teknis tidak otomatis membuktikan pertumbuhan bisnis.'
+    : 'The listed indicators cover ' + readableList(distinctGroups, language) + '. Each answers a different question, so reach does not automatically mean conversion, and a technical indicator does not automatically prove business growth.';
+};
+
 export function buildCaseStudyNarrative(item: ProjectItem, language: string): CaseStudyNarrative {
   const lang = language === 'id' ? 'id' : 'en';
   const playbook = servicePlaybooks[item.service]?.[lang] || servicePlaybooks['Web Application'][lang];
@@ -1092,10 +1127,11 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
     'ERP / CRM System': { en: 'For ERP and CRM, useful impact signals include fewer duplicate entries, clearer ownership and status, better reconciliation, and more reliable execution across teams or locations.', id: 'Untuk ERP dan CRM, indikator yang relevan mencakup berkurangnya input ganda, kejelasan pemilik dan status pekerjaan, rekonsiliasi yang lebih baik, serta konsistensi proses antartim atau lokasi.' },
     'IT Support & Infrastructure': { en: 'For infrastructure, outcomes should be assessed through availability, latency, recovery behaviour, release reliability, security posture, and the support coverage actually delivered.', id: 'Untuk infrastruktur, hasil perlu dinilai melalui availability, latency, perilaku pemulihan, keandalan rilis, kondisi keamanan, dan cakupan dukungan yang benar-benar diberikan.' }
   };
+  const metricInterpretation = explainMetricSignals(metrics, lang);
   const impact = outcome || (metrics.length
     ? (lang === 'id'
-      ? 'Data proyek mencantumkan indikator hasil pada kartu di bawah. ' + serviceImpactContext[item.service].id + ' Angka tersebut perlu dibaca bersama nilai awal, periode pengukuran, sumber data, dan metode atribusi agar dampaknya dapat ditafsirkan secara tepat.'
-      : 'The project record lists outcome indicators in the cards below. ' + serviceImpactContext[item.service].en + ' Those figures need to be read alongside the baseline, measurement period, data source, and attribution method to interpret the impact accurately.')
+      ? metricInterpretation + ' ' + serviceImpactContext[item.service].id + ' Untuk memastikan seberapa besar perubahan terkait dengan pekerjaan ini, angka tersebut tetap perlu dibaca bersama nilai awal, periode pengukuran, sumber data, dan metode atribusi.'
+      : metricInterpretation + ' ' + serviceImpactContext[item.service].en + ' To establish how much change is attributable to this work, the figures still need a baseline, measurement period, data source, and attribution method.')
     : (lang === 'id'
       ? 'Catatan publik belum memuat hasil terukur. Karena itu, dampak di bawah ini dijelaskan sebagai manfaat yang dituju oleh ruang lingkup dan bukan sebagai klaim peningkatan yang sudah terverifikasi.'
       : 'The public record does not yet include measured results. Accordingly, the impact below is described as the value the scope is designed to support, not as a verified improvement claim.'));
