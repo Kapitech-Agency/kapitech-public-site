@@ -996,7 +996,7 @@ const buildProjectExecution = (
     ? (id ? ' Perangkat dan teknologi yang tercatat untuk mendukung pekerjaan ini: ' : ' Tools and technologies recorded for this work: ') + readableList(technologies, language) + '.'
     : (id ? ' Perangkat teknis spesifik belum dicatat secara publik.' : 'Specific production tools are not recorded publicly.');
   const processSteps = playbook.process.map((step, index) => {
-    const titleWithoutNumber = step.title.replace(/^\\d+\\s*·\\s*/, '');
+    const titleWithoutNumber = step.title.replace(/^\d+\s*·\s*/, '');
     const number = String(index + 2).padStart(2, '0');
     return {
       title: number + ' · ' + titleWithoutNumber,
