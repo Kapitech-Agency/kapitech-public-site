@@ -1062,7 +1062,7 @@ export const Services = () => {
                       <ChevronRight size={14} />
                     </Link>
                     <Link
-                      to={`/book-a-call?service=${encodeURIComponent(selectedService.title)}`}
+                      to={`/contact?service=${encodeURIComponent(selectedService.title)}#project-inquiry-form`}
                       onClick={() => setSelectedService(null)}
                       className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116]"
                     >
