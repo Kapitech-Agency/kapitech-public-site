@@ -81,7 +81,7 @@ export const InsightCard: React.FC<{
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[8px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
           {categoryName && <span className="text-brand-red">{categoryName}</span>}
-          {insight.readingTime && <><span className="text-white/[0.18]">/</span><span className="inline-flex items-center gap-1.5"><Clock3 size={10} />{insight.readingTime} min</span></>}
+          {insight.readingTime && <><span className="text-white/[0.18]">/</span><span className="inline-flex items-center gap-1.5"><Clock3 size={10} />{insight.readingTime} {language === 'id' ? 'menit baca' : 'min read'}</span></>}
           {insight.publishedAt && <><span className="text-white/[0.18]">/</span><span>{formatDate(insight.publishedAt, language)}</span></>}
         </div>
 
