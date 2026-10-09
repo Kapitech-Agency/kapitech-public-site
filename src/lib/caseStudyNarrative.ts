@@ -695,7 +695,9 @@ const localText = (item: ProjectItem, field: 'desc' | 'challenge' | 'solution' |
   const value = item as ProjectItem & Record<string, unknown>;
   const primary = value[field + (language === 'id' ? 'Id' : '')];
   const secondary = value[field + (language === 'id' ? '' : 'Id')];
-  return (typeof primary === 'string' && primary.trim()) || (typeof secondary === 'string' && secondary.trim()) || '';
+  const primaryText = typeof primary === 'string' ? primary.trim() : '';
+  const secondaryText = typeof secondary === 'string' ? secondary.trim() : '';
+  return primaryText || secondaryText;
 };
 
 const readableList = (values: string[], language: string): string => {
@@ -785,8 +787,6 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
   const metrics = Array.isArray(item.impact)
     ? item.impact.filter((entry) => entry && String(entry.label || '').trim() && String(entry.value || '').trim())
     : [];
-  const languageJoin = (a: string, b: string) => a + (lang === 'id' ? ' dan ' : ' and ') + b;
-
   const contextDetails: CaseStudyNarrativeLine[] = [
     {
       title: lang === 'id' ? 'Kebutuhan yang tercatat' : 'The documented need',
@@ -803,11 +803,9 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
     }
   ];
 
-  const diagnosis = playbook.diagnosis.map((line, index) => ({
+  const diagnosis = playbook.diagnosis.map((line) => ({
     title: line.title,
-    body: index === 0 && challenge
-      ? challenge + ' ' + line.body
-      : line.body
+    body: line.body
   }));
 
   const decisions = playbook.decisions.map((line, index) => ({
