@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDown, ArrowLeft, ArrowRight, Search, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import PatternWaves from '../components/ui/PatternWaves/PatternWavesTyped';
+import { PublicPageHero } from '../components/ui/PublicPageHero';
 import { InsightCard } from '../components/InsightCard';
 import { InsightSeoMeta } from '../components/InsightSeoMeta';
 import { api } from '../lib/apiClient';
