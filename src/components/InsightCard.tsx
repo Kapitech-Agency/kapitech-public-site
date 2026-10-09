@@ -56,7 +56,7 @@ export const InsightCard: React.FC<{
             <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-transparent to-transparent" />
             <div className="absolute left-4 top-4">
               <span className="kapi-section-label !border-white/[0.08] !bg-[#0B0C0E]/72 !px-3 !py-1.5 !text-[8px]">
-                {featured ? (language === 'id' ? 'EDITOR PICK' : 'EDITOR PICK') : 'INSIGHT'}
+                {featured ? (language === 'id' ? 'PILIHAN EDITOR' : 'EDITOR PICK') : 'INSIGHT'}
               </span>
             </div>
             <span className="absolute bottom-4 right-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-red text-white shadow-lg shadow-brand-red/15 transition-transform duration-300 group-hover/media:translate-x-0.5" aria-hidden="true">
