@@ -488,6 +488,13 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     '<figure><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(safeText(project.title) + ' project visual ' + String(index + 2)) +
     '" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" /></figure>'
   ).join('');
+  const isIllustrativeCover = /^https?:\\/\\/images\\.unsplash\\.com\\//i.test(safeText(project.image)) && gallery.length === 0;
+  const coverImageAlt = isIllustrativeCover
+    ? 'Illustrative cover image for ' + safeText(project.title)
+    : safeText(project.title);
+  const coverImageNotice = isIllustrativeCover
+    ? '<p style="margin:-16px 0 32px;font-size:12px;line-height:1.6;color:#7F8793">Illustrative reference image; not documentation of the delivered project.</p>'
+    : '';
   const joinPublicList = (values) => values.length < 2
     ? (values[0] || '')
     : values.length === 2
@@ -521,7 +528,8 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     '<div><dt>Year</dt><dd>' + escapeHtml(project.year) + '</dd></div>' +
     '<div><dt>Pillar</dt><dd>' + escapeHtml(project.pillar) + '</dd></div>' +
     '</dl>' +
-    '<img src="' + escapeHtml(project.image || manifest.defaultImage) + '" alt="' + escapeHtml(project.title) + '" loading="eager" style="display:block;width:100%;height:auto;border-radius:24px;margin:32px 0" />' +
+    '<img src="' + escapeHtml(project.image || manifest.defaultImage) + '" alt="' + escapeHtml(coverImageAlt) + '" loading="eager" style="display:block;width:100%;height:auto;border-radius:24px;margin:32px 0" />' +
+    coverImageNotice +
     (galleryHtml ? '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 32px">' + galleryHtml + '</div>' : '') +
     '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Starting point</p><h2 style="font-size:32px;margin:10px 0">Client Challenge</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(challenge) + '</p></section>' +
     '<section style="margin:44px 0"><p style="font:600 10px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E50914">Kapitech response</p><h2 style="font-size:32px;margin:10px 0">Kapitech Solution</h2><p style="font-size:16px;line-height:1.8;color:#A2A8B4">' + escapeHtml(solution) + '</p></section>' +
