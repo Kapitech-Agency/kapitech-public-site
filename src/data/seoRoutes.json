@@ -304,13 +304,6 @@
       "kind": "webpage"
     },
     {
-      "path": "/book-a-call",
-      "title": "Book a Consultation | Kapitech Agency",
-      "description": "Request a Kapitech consultation with project context, preferred time, NDA flagging, and optional project brief attachment.",
-      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      "kind": "webpage"
-    },
-    {
       "path": "/search",
       "title": "Search | Kapitech Agency",
       "description": "Search Kapitech services, case studies, and Insights.",
