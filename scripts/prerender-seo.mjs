@@ -488,7 +488,7 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     '<figure><img src="' + escapeHtml(image) + '" alt="' + escapeHtml(safeText(project.title) + ' project visual ' + String(index + 2)) +
     '" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" /></figure>'
   ).join('');
-  const isIllustrativeCover = /^https?:\\/\\/images\\.unsplash\\.com\\//i.test(safeText(project.image)) && gallery.length === 0;
+  const isIllustrativeCover = /^https?:\/\/images\.unsplash\.com\//i.test(safeText(project.image)) && gallery.length === 0;
   const coverImageAlt = isIllustrativeCover
     ? 'Illustrative cover image for ' + safeText(project.title)
     : safeText(project.title);
