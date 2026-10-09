@@ -471,6 +471,7 @@ const renderCaseStudyPrerender = (sourceHtml, project) => {
     url: canonicalUrl,
     creator: { '@id': manifest.siteUrl + '/#organization' },
     about: safeText(project.industry),
+    image: safeText(project.image) || manifest.defaultImage,
     keywords: [project.service, project.industry, project.client].filter(Boolean).join(', ')
   });
 
