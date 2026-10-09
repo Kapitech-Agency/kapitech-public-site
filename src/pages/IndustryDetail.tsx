@@ -189,7 +189,7 @@ export const IndustryDetail = () => {
 
   if (!catalog && !legacyIndustry) {
     return (
-      <main className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white">
+      <div className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Industry</p>
           <h1 className="mt-3 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-5xl">
@@ -201,7 +201,7 @@ export const IndustryDetail = () => {
               : 'Choose another industry context from the Industries menu in the navigation.'}
           </p>
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -220,7 +220,7 @@ export const IndustryDetail = () => {
       : 'We combine design, development, and technical delivery around digital needs in ' + currentLabel + '.');
 
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
       <PublicPageHero
         eyebrow={currentLabel}
         title={heroTitle}
@@ -661,7 +661,7 @@ export const IndustryDetail = () => {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 };
 
