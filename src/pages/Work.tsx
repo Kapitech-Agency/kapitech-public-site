@@ -27,6 +27,94 @@ import { ProjectItem } from '../data/projectsData';
 import { projectSlug } from '../lib/publicContent';
 import { buildCaseStudyNarrative } from '../lib/caseStudyNarrative';
 
+const useDragToScroll = () => {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const dragRef = React.useRef({
+    active: false,
+    pointerId: -1,
+    startX: 0,
+    startY: 0,
+    startScrollLeft: 0,
+    moved: false,
+  });
+  const suppressClickRef = React.useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      const drag = dragRef.current;
+      const scroller = scrollRef.current;
+      if (!drag.active || drag.pointerId !== event.pointerId || !scroller) return;
+
+      const deltaX = event.clientX - drag.startX;
+      const deltaY = event.clientY - drag.startY;
+      if (Math.abs(deltaX) > 5 && Math.abs(deltaX) > Math.abs(deltaY) * 1.15) {
+        drag.moved = true;
+      }
+
+      if (drag.moved) {
+        if (event.cancelable) event.preventDefault();
+        scroller.scrollLeft = drag.startScrollLeft - deltaX * 1.15;
+      }
+    };
+
+    const finishPointer = (event: PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag.active || drag.pointerId !== event.pointerId) return;
+
+      suppressClickRef.current = drag.moved;
+      drag.active = false;
+      drag.pointerId = -1;
+      setIsDragging(false);
+
+      if (drag.moved) {
+        window.setTimeout(() => {
+          suppressClickRef.current = false;
+        }, 0);
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: false });
+    window.addEventListener('pointerup', finishPointer);
+    window.addEventListener('pointercancel', finishPointer);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', finishPointer);
+      window.removeEventListener('pointercancel', finishPointer);
+    };
+  }, []);
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!scrollRef.current || (event.pointerType === 'mouse' && event.button !== 0)) return;
+
+    suppressClickRef.current = false;
+    dragRef.current = {
+      active: true,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startScrollLeft: scrollRef.current.scrollLeft,
+      moved: false,
+    };
+    setIsDragging(true);
+  };
+
+  const handleClickCapture = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!suppressClickRef.current) return;
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClickRef.current = false;
+  };
+
+  return {
+    scrollRef,
+    isDragging,
+    handlePointerDown,
+    handleClickCapture,
+  };
+};
+
 const WorkModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
   return createPortal(children, document.body);
@@ -185,86 +273,16 @@ export const Work = () => {
     }
   }, [projectsList, searchParams, selectedProject]);
 
-  // Drag-to-scroll refs & state for horizontal filter bars
-  const serviceScrollRef = React.useRef<HTMLDivElement>(null);
-  const serviceDragRef = React.useRef({
-    active: false,
-    pointerId: -1,
-    startX: 0,
-    startScrollLeft: 0,
-    moved: false,
-  });
-  const suppressServiceClickRef = React.useRef(false);
-  const [isDraggingService, setIsDraggingService] = useState(false);
+  // The filter chip rows support mouse drag on desktop and native horizontal swipe on touch.
+  const disciplineDrag = useDragToScroll();
+  const industryDrag = useDragToScroll();
+  const serviceDrag = useDragToScroll();
+  const serviceScrollRef = serviceDrag.scrollRef;
+  const isDraggingService = serviceDrag.isDragging;
   const [isServiceScrolled, setIsServiceScrolled] = useState(false);
 
   const handleServiceScroll = (e: React.UIEvent<HTMLDivElement>) => {
     setIsServiceScrolled(e.currentTarget.scrollLeft > 2);
-  };
-
-  const handleServicePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!serviceScrollRef.current || (e.pointerType === 'mouse' && e.button !== 0)) return;
-
-    serviceDragRef.current = {
-      active: true,
-      pointerId: e.pointerId,
-      startX: e.clientX,
-      startScrollLeft: serviceScrollRef.current.scrollLeft,
-      moved: false,
-    };
-
-    suppressServiceClickRef.current = false;
-    setIsDraggingService(true);
-    serviceScrollRef.current.setPointerCapture(e.pointerId);
-  };
-
-  const handleServicePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = serviceDragRef.current;
-    if (!drag.active || drag.pointerId !== e.pointerId || !serviceScrollRef.current) return;
-
-    const deltaX = e.clientX - drag.startX;
-    if (Math.abs(deltaX) > 4) {
-      drag.moved = true;
-    }
-
-    if (drag.moved) {
-      e.preventDefault();
-      serviceScrollRef.current.scrollLeft = drag.startScrollLeft - deltaX * 1.35;
-    }
-  };
-
-  const handleServicePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = serviceDragRef.current;
-    if (drag.pointerId !== e.pointerId) return;
-
-    if (serviceScrollRef.current?.hasPointerCapture(e.pointerId)) {
-      serviceScrollRef.current.releasePointerCapture(e.pointerId);
-    }
-
-    suppressServiceClickRef.current = drag.moved;
-    serviceDragRef.current.active = false;
-    serviceDragRef.current.pointerId = -1;
-    setIsDraggingService(false);
-
-    if (drag.moved) {
-      window.setTimeout(() => {
-        suppressServiceClickRef.current = false;
-      }, 0);
-    }
-  };
-
-  const handleServicePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-    const drag = serviceDragRef.current;
-    if (drag.pointerId !== e.pointerId) return;
-
-    if (serviceScrollRef.current?.hasPointerCapture(e.pointerId)) {
-      serviceScrollRef.current.releasePointerCapture(e.pointerId);
-    }
-
-    suppressServiceClickRef.current = false;
-    serviceDragRef.current.active = false;
-    serviceDragRef.current.pointerId = -1;
-    setIsDraggingService(false);
   };
 
   const featuredProjects = useMemo(() => {
@@ -704,7 +722,10 @@ export const Work = () => {
 
             <div className="flex flex-col gap-2 sm:gap-2.5 lg:flex-row lg:items-center lg:gap-3">
               <div
-                className="min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.08] bg-[#17191F]/92 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                ref={disciplineDrag.scrollRef}
+                onPointerDown={disciplineDrag.handlePointerDown}
+                onClickCapture={disciplineDrag.handleClickCapture}
+                className={`min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.08] bg-[#17191F]/92 p-1 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${disciplineDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                 role="group"
                 aria-label={language === 'id' ? 'Filter bidang' : 'Discipline filters'}
               >
@@ -717,7 +738,6 @@ export const Work = () => {
                     <button
                       key={tab.key}
                       type="button"
-                      onPointerDown={(event) => event.stopPropagation()}
                       onClick={() => {
                         handlePillarChange(tab.key);
                       }}
@@ -769,7 +789,14 @@ export const Work = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto py-0.5" aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'} role="group">
+            <div
+              ref={industryDrag.scrollRef}
+              onPointerDown={industryDrag.handlePointerDown}
+              onClickCapture={industryDrag.handleClickCapture}
+              className={`flex items-center gap-2 overflow-x-auto py-0.5 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${industryDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'}
+              role="group"
+            >
               {industryOptions.map((industry) => (
                 <button
                   key={industry}
@@ -791,10 +818,8 @@ export const Work = () => {
               <div
                 ref={serviceScrollRef}
                 onScroll={handleServiceScroll}
-                onPointerDown={handleServicePointerDown}
-                onPointerMove={handleServicePointerMove}
-                onPointerUp={handleServicePointerUp}
-                onPointerCancel={handleServicePointerCancel}
+                onPointerDown={serviceDrag.handlePointerDown}
+                onClickCapture={serviceDrag.handleClickCapture}
                 style={{
                   maskImage: isServiceScrolled
                     ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
@@ -812,7 +837,6 @@ export const Work = () => {
                   <button
                     key={srv}
                     type="button"
-                    onPointerDown={(event) => event.stopPropagation()}
                     onClick={() => {
                       setActiveService(srv);
                       setVisibleCount(12);
