@@ -117,10 +117,11 @@ function applyArticleSeo(article: InsightItem): void {
 
 export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ article }) => {
   const { pathname } = useLocation();
+  const normalizedPathname = pathname.replace(/\/+$/, '') || '/';
   const { language } = useLanguage();
 
   useEffect(() => {
-    if (pathname === '/insights') {
+    if (normalizedPathname === '/insights') {
       const title = language === 'id' ? 'Insight | Kapitech Agency' : 'Insights | Kapitech Agency';
       const description = language === 'id'
         ? 'Wawasan praktis tentang desain, teknologi, produk digital, dan pengembangan website untuk bisnis.'
@@ -185,7 +186,7 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
       return;
     }
 
-    if (!pathname.startsWith('/insights/')) return;
+    if (!normalizedPathname.startsWith('/insights/')) return;
 
     if (article) {
       applyArticleSeo(article);
@@ -197,15 +198,15 @@ export const InsightSeoMeta: React.FC<{ article?: InsightItem | null }> = ({ art
     setMeta('description', 'The requested Kapitech Insight could not be found.');
     setMeta('robots', 'noindex, follow');
     setProp('og:type', 'website');
-    setProp('og:url', SITE + pathname);
-    setCanonical(SITE + pathname);
+    setProp('og:url', SITE + normalizedPathname);
+    setCanonical(SITE + normalizedPathname);
     setHreflang([], null);
     setJsonLd({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: document.title,
       description: 'The requested Kapitech Insight could not be found.',
-      url: SITE + pathname,
+      url: SITE + normalizedPathname,
       inLanguage: language
     });
   }, [article, language, pathname]);
