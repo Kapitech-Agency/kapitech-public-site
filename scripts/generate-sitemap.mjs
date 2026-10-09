@@ -41,10 +41,6 @@ for (const project of projectRecords) {
   const projectSlug = slugify(project.id || project.title);
   const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
   urls.set(loc, { loc, lastmod: undefined });
-  if (project.client) {
-    const clientLoc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(project.client));
-    urls.set(clientLoc, { loc: clientLoc, lastmod: undefined });
-  }
 }
 
 for (const industry of new Set(projectRecords.map((project) => project.industry).filter(Boolean))) {
@@ -79,20 +75,10 @@ for (const project of cmsProjects) {
   if (!projectSlug) continue;
   const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
   urls.set(loc, { loc, lastmod: project.updatedAt || project.createdAt || undefined });
-  if (project.client) {
-    const clientLoc = manifest.siteUrl + '/clients/' + encodeURIComponent(slugify(project.client));
-    urls.set(clientLoc, { loc: clientLoc, lastmod: undefined });
-  }
   if (project.industry) {
     const industryLoc = manifest.siteUrl + '/industries/' + encodeURIComponent(slugify(project.industry));
     urls.set(industryLoc, { loc: industryLoc, lastmod: undefined });
   }
-}
-
-const resourceSource = await readFile(join(root, 'src/data/resourcesData.ts'), 'utf8');
-for (const match of resourceSource.matchAll(/slug:\s*'([^']+)'/g)) {
-  const loc = manifest.siteUrl + '/resources/' + encodeURIComponent(match[1]);
-  urls.set(loc, { loc, lastmod: undefined });
 }
 
 const insights = await fetchPublishedInsightSummaries();

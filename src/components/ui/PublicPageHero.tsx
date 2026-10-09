@@ -25,7 +25,7 @@ export const PublicPageHero = ({
   preset = 'lines'
 }: PublicPageHeroProps) => (
   <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div className="absolute inset-0" aria-hidden="true">
       <PatternWaves
         preset={preset}
         color="#E50914"
@@ -43,8 +43,8 @@ export const PublicPageHero = ({
         contrast={1.04}
         intro
       />
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/55 to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(229,9,20,0.08),transparent_42%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/55 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(229,9,20,0.08),transparent_42%)]" />
     </div>
     <div className="relative z-10 mx-auto max-w-7xl">
       <div className={aside ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:gap-16' : undefined}>

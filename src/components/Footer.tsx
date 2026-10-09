@@ -281,9 +281,6 @@ export const Footer = () => {
             <ul className="space-y-2.5 text-xs">
               {[
                 { name: t('nav.work'), href: '/work' },
-                { name: language === 'id' ? 'Klien' : 'Clients', href: '/clients' },
-                { name: language === 'id' ? 'Industri' : 'Industries', href: '/industries' },
-                { name: 'Resources', href: '/resources' },
                 { name: t('nav.services'), href: '/services' },
                 { name: t('nav.about'), href: '/about' },
                 { name: t('nav.careers'), href: '/careers' },
