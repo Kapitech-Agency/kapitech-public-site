@@ -10,10 +10,19 @@ export const slugify = (value: string): string =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-export const projectSlug = (project: ProjectItem): string => project.slug || slugify(project.id || project.title);
+// Use one canonical slug rule for static records, CMS records, sitemap URLs,
+// prerendered routes, related-work links, and per-page SEO metadata.
+export const projectSlug = (project: ProjectItem): string =>
+  slugify(project.slug || project.id || project.title);
 
-export const projectBySlug = (projects: ProjectItem[], slug: string): ProjectItem | undefined =>
-  projects.find((project) => projectSlug(project) === slug || project.id === slug || slugify(project.title) === slug);
+export const projectBySlug = (projects: ProjectItem[], slug: string): ProjectItem | undefined => {
+  const normalizedSlug = slugify(slug);
+  return projects.find((project) =>
+    projectSlug(project) === normalizedSlug ||
+    slugify(project.id) === normalizedSlug ||
+    slugify(project.title) === normalizedSlug
+  );
+};
 
 export const uniqueIndustries = (projects: ProjectItem[]): string[] =>
   Array.from(new Set(projects.map((project) => project.industry).filter(Boolean))).sort((a, b) => a.localeCompare(b));
