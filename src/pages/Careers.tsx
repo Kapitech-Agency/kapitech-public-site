@@ -574,6 +574,8 @@ export const Careers = () => {
       const file = e.target.files[0];
       const validation = validateResumeFile(file);
       if (!validation.isValid) {
+        e.currentTarget.value = '';
+        setFormData(prev => ({ ...prev, resume: null }));
         setApplicantErrors(prev => ({ ...prev, resume: validation.error || 'Invalid file' }));
         return;
       }
@@ -665,6 +667,8 @@ export const Careers = () => {
       const file = e.target.files[0];
       const validation = validateResumeFile(file);
       if (!validation.isValid) {
+        e.currentTarget.value = '';
+        setVendorFormData(prev => ({ ...prev, resume: null }));
         setVendorErrors(prev => ({ ...prev, resume: validation.error || 'Invalid file' }));
         return;
       }
@@ -724,7 +728,8 @@ export const Careers = () => {
         tools: sanitizedTools,
         portfolioUrl: sanitizedPortfolio,
         resumeUrl: resumeUrl || undefined,
-        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${vendorFormData.resume?.name || 'Not attached'}${resumeUrl ? `\nResume URL: ${resumeUrl}` : ''}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
+        ndaRequested: vendorFormData.agreedNda,
+        message: `[Freelance Vendor Application]\nSpecialty: ${vendorFormData.specialty}\nExperience: ${vendorFormData.experienceYears}\nRate / Project Cost: ${sanitizedRateCard || 'Standard rate'}\nTools & Stack: ${sanitizedTools || '-'}\nPortfolio / CV Link: ${sanitizedPortfolio || '-'}\nResume File: ${vendorFormData.resume?.name || 'Not attached'}${resumeUrl ? `\nResume URL: ${resumeUrl}` : ''}\n\nAgreements accepted:\n- 100% remote & project-based: ${vendorFormData.agreedWfa ? 'Yes' : 'No'}\n- Bring your own device and licenses: ${vendorFormData.agreedDevice ? 'Yes' : 'No'}\n- NDA and milestone commitments: ${vendorFormData.agreedNda ? 'Yes' : 'No'}\n\nAdditional Notes:\n${sanitizedNotes || '-'}`,
         source: 'Careers: Freelance Vendor Network',
         type: 'vendor'
       });
