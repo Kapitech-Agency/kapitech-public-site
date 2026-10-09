@@ -298,7 +298,7 @@ export const About = () => {
       {/* Corporate Information */}
       <section className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:gap-14 xl:gap-20">
+          <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-12 xl:gap-16">
             <div>
               <span className="kapi-section-label">
                 {language === 'id' ? 'Informasi Korporat' : 'Corporate Information'}
@@ -349,7 +349,7 @@ export const About = () => {
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111216]">
-              <div className="aspect-[4/5] overflow-hidden sm:aspect-[5/5] lg:aspect-[4/5]">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
                   alt={language === 'id' ? 'Sekelompok profesional berkolaborasi dalam pekerjaan' : 'Professionals collaborating around a table'}
@@ -370,25 +370,25 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111216]">
-            <div className="border-b border-white/[0.08] px-5 py-5 sm:px-7">
+          <div className="mt-8 overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111216] sm:mt-10 lg:mt-12">
+            <div className="flex flex-col gap-1 border-b border-white/[0.08] px-5 py-5 sm:px-7 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
               <h3 className="text-sm font-semibold text-white">
                 {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
               </h3>
-              <p className="mt-1 text-xs font-light text-[#8A909D]">
+              <p className="text-xs font-light leading-5 text-[#8A909D] lg:text-right">
                 {language === 'id' ? 'Identitas usaha dan informasi operasional' : 'Business identity and operating details'}
               </p>
             </div>
 
-            <dl className="grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0 sm:divide-x sm:divide-white/[0.07] xl:grid-cols-4">
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+            <dl className="grid grid-cols-1 gap-px bg-white/[0.08] sm:grid-cols-2 xl:grid-cols-[0.9fr_1fr_1.75fr_0.9fr]">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   {language === 'id' ? 'Badan usaha' : 'Legal entity'}
                 </dt>
                 <dd className="mt-2 text-sm font-medium leading-6 text-white">PT Kapitech Digital Indonesia</dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   {language === 'id' ? 'Fokus usaha' : 'Business focus'}
                 </dt>
@@ -397,7 +397,7 @@ export const About = () => {
                 </dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   <MapPin size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                   {language === 'id' ? 'Kantor' : 'Headquarters'}
@@ -407,7 +407,7 @@ export const About = () => {
                 </dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   <Globe size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                   {language === 'id' ? 'Pasar' : 'Markets'}
