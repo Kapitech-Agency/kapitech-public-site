@@ -8,7 +8,7 @@ export const NotFound = () => {
   const { language } = useLanguage();
 
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
       <PublicPageHero
         eyebrow="404 / Not Found"
         title={language === 'id' ? 'Halaman tidak ditemukan.' : 'This page could not be found.'}
@@ -29,7 +29,7 @@ export const NotFound = () => {
           <p className="mt-4 max-w-2xl">{language === 'id' ? 'Silakan gunakan navigasi utama untuk melanjutkan atau kembali ke halaman sebelumnya.' : 'Use the primary navigation to continue or return to the previous route.'}</p>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
