@@ -787,8 +787,7 @@ export const Careers = () => {
             <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
             <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3 py-1.5 font-semibold text-brand-red">
-            <Sparkles size={12} />
+          <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5">
             <span>{language === 'id' ? 'Freelance Vendor Network (WFA Terbuka)' : 'Freelance Vendor Network (WFA Open)'}</span>
           </span>
           <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5">
@@ -830,8 +829,6 @@ export const Careers = () => {
         id="disciplines"
         className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
       >
-        <div className="pointer-events-none absolute -right-28 top-8 h-96 w-96 rounded-full bg-brand-red/[0.055] blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-[-10rem] top-[42%] h-72 w-72 rounded-full border border-white/[0.035]" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-7xl">
           <div className="mb-10 grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.62fr)] lg:items-end lg:gap-12">
             <div>
@@ -859,7 +856,7 @@ export const Careers = () => {
           </div>
 
           <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.92fr)] lg:gap-5">
-            <div className="min-w-0 overflow-hidden rounded-[26px] border border-white/[0.085] bg-[#101217]/90 p-4 sm:p-5 lg:p-6">
+            <div className="min-w-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101217] p-4 sm:p-5 lg:p-6">
               <div className="flex flex-col gap-4 border-b border-white/[0.075] pb-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747C89]">
@@ -915,11 +912,10 @@ export const Careers = () => {
                       className={[
                         'group/item relative flex min-h-[68px] min-w-0 items-center gap-3 overflow-hidden rounded-xl border px-3.5 py-3 text-left transition-[background-color,border-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
                         active
-                          ? 'border-brand-red/35 bg-brand-red/[0.075]'
-                          : 'border-white/[0.055] bg-white/[0.012] hover:border-white/[0.13] hover:bg-white/[0.025]'
+                          ? 'border-brand-red/40 bg-white/[0.035]'
+                          : 'border-white/[0.07] bg-transparent hover:border-white/[0.14] hover:bg-white/[0.02]'
                       ].join(' ')}
                     >
-                      <span className={['h-8 w-1 shrink-0 rounded-full transition-colors duration-200', active ? 'bg-brand-red' : 'bg-white/[0.08] group-hover/item:bg-white/[0.2]'].join(' ')} aria-hidden="true" />
                       <span className="min-w-0 flex-1">
                         <span className="block text-[9px] font-mono tracking-[0.12em] text-[#69717D]">
                           {String(disciplines.findIndex((item) => item.id === discipline.id) + 1).padStart(2, '0')}
@@ -941,18 +937,14 @@ export const Careers = () => {
             </div>
 
             <aside
-              className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(150deg,#161820_0%,#0F1116_54%,#0B0C0E_100%)] p-6 sm:p-8 lg:min-h-full lg:p-9"
+              className="flex min-h-[390px] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-8 lg:min-h-full lg:p-9"
               aria-live="polite"
               aria-label={language === 'id' ? 'Detail bidang terpilih' : 'Selected discipline details'}
             >
-              <div className="pointer-events-none absolute -right-16 -top-12 h-64 w-64 rounded-full bg-brand-red/[0.09] blur-3xl transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-              <div className="pointer-events-none absolute right-6 top-4 select-none font-display text-[9rem] font-semibold leading-none tracking-[-0.09em] text-white/[0.025] sm:text-[12rem]" aria-hidden="true">
-                {String(selectedDisciplineIndex + 1).padStart(2, '0')}
-              </div>
 
               <div className="relative flex items-start justify-between gap-4">
                 <span className="inline-flex items-center gap-2 rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-2 text-[9px] font-mono uppercase tracking-[0.14em] text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.9)]" aria-hidden="true" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
                   {language === 'id'
                     ? (selectedDisciplineIsEngineering ? 'Pengembangan Teknologi' : 'Visual Experience')
                     : selectedDiscipline.area}
@@ -963,7 +955,7 @@ export const Careers = () => {
               </div>
 
               <div className="relative mt-12 sm:mt-16">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-red/25 bg-brand-red/[0.08] text-brand-red shadow-[0_14px_40px_-24px_rgba(229,9,20,0.6)] transition-transform duration-300 group-hover:scale-[1.03]">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025] text-brand-red">
                   <SelectedDisciplineIcon size={25} strokeWidth={1.5} aria-hidden="true" />
                 </div>
                 <p className="mt-6 text-[9px] font-mono uppercase tracking-[0.16em] text-[#858D99]">
@@ -978,7 +970,7 @@ export const Careers = () => {
               </div>
 
               <div className="relative mt-auto pt-10">
-                <div className="mb-5 h-px w-full bg-gradient-to-r from-brand-red/60 via-white/[0.12] to-transparent" />
+                <div className="mb-5 h-px w-full bg-white/[0.08]" />
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#747C89]">
                     {language === 'id' ? 'Ingin berkontribusi?' : 'Interested in contributing?'}
@@ -1025,7 +1017,6 @@ export const Careers = () => {
                 tabIndex={0}
                 aria-haspopup="dialog"
                 aria-label={`${language === 'id' ? 'Lihat detail dan lamar' : 'View role details and apply'}: ${pos.title}`}
-                whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' || event.key === ' ') {
@@ -1033,7 +1024,7 @@ export const Careers = () => {
                     setSelectedPosition(pos);
                   }
                 }}
-                className="cursor-pointer group min-w-0 p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
+                className="cursor-pointer group min-w-0 p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.08] bg-white/[0.015] hover:border-white/[0.16] hover:bg-white/[0.025] transition-[background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 <div className="flex min-w-0 flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
@@ -1087,18 +1078,12 @@ export const Careers = () => {
         className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="freelance-vendor"
       >
-        <div className="pointer-events-none absolute -right-40 top-0 h-[34rem] w-[34rem] rounded-full bg-brand-red/[0.045] blur-3xl" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
-
         <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
-            <div className="relative flex min-h-[430px] flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.09] bg-[radial-gradient(circle_at_82%_6%,rgba(220,20,60,0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.005))] p-6 sm:p-9 lg:p-11">
-              <div className="pointer-events-none absolute -bottom-28 -right-16 h-72 w-72 rounded-full border border-white/[0.05]" />
-              <div className="pointer-events-none absolute -bottom-16 -right-4 h-48 w-48 rounded-full border border-brand-red/[0.14]" />
-
-              <div className="relative z-10">
-                <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-black/20 px-3.5 py-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_14px_rgba(220,20,60,0.9)]" />
+            <div className="flex min-h-[430px] flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-9 lg:p-11">
+              <div>
+                <div className="mb-7 inline-flex items-center gap-2.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
                   <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.17em] text-white/75">
                     Freelance Partner Network
                   </span>
@@ -1114,7 +1099,7 @@ export const Careers = () => {
                 </p>
               </div>
 
-              <div className="relative z-10 mt-10 flex flex-col items-start gap-4 border-t border-white/[0.09] pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-10 flex flex-col items-start gap-4 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-semibold text-white">
                     {language === 'id' ? 'Punya keahlian yang ingin dibagikan?' : 'Have a craft worth bringing to the table?'}
@@ -1132,7 +1117,7 @@ export const Careers = () => {
                     setVendorErrors({});
                     setVendorHoneypot('');
                   }}
-                  className="group inline-flex min-h-[48px] w-full shrink-0 items-center justify-between gap-5 rounded-full border border-brand-red/60 bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/90 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:w-auto"
+                  className="group inline-flex min-h-[48px] w-full shrink-0 items-center justify-between gap-5 rounded-full border border-brand-red bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-200 hover:bg-brand-red/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 sm:w-auto"
                 >
                   <span>{language === 'id' ? 'Daftar sebagai mitra' : 'Join the network'}</span>
                   <ArrowUpRight size={16} className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -1141,15 +1126,14 @@ export const Careers = () => {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="relative flex min-h-[230px] flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.09] bg-[#101115] p-6 sm:p-7">
-                <div className="pointer-events-none absolute -right-7 -top-9 h-40 w-40 rounded-full bg-brand-red/[0.08] blur-2xl" />
-                <div className="relative z-10 flex items-center justify-between gap-3">
+              <div className="flex min-h-[230px] flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-3">
                   <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.17em] text-white/45">
                     {language === 'id' ? 'Model kolaborasi' : 'The collaboration model'}
                   </span>
                   <Layers size={17} className="text-brand-red" />
                 </div>
-                <div className="relative z-10 py-7">
+                <div className="py-7">
                   <p className="font-display text-3xl font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-4xl">
                     {language === 'id' ? <>Mandiri dalam bekerja.<br />Selaras dalam berkarya.</> : <>Independent by nature.<br />Aligned by craft.</>}
                   </p>
@@ -1159,7 +1143,7 @@ export const Careers = () => {
                       : 'You bring your expertise and professional practice. Scope, deliverables, and timelines are agreed together before a project begins.'}
                   </p>
                 </div>
-                <div className="relative z-10 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
                   {['Remote', 'Project-based', 'BYOD', 'NDA'].map((item) => (
                     <span key={item} className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-1.5 text-[10px] font-mono text-white/65">
                       {item}
@@ -1168,11 +1152,9 @@ export const Careers = () => {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-white/[0.09] bg-white/[0.018] p-6 sm:p-7">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-7">
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/[0.08]">
-                    <ShieldCheck size={17} className="text-brand-red" />
-                  </div>
+                  <ShieldCheck size={17} className="text-brand-red" />
                   <div>
                     <p className="text-xs font-semibold text-white">
                       {language === 'id' ? 'Sejak awal harus jelas' : 'Clear from day one'}
@@ -1211,7 +1193,7 @@ export const Careers = () => {
           </div>
 
           <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <div className="rounded-3xl border border-white/[0.09] bg-white/[0.018] p-6 sm:p-8">
+            <div className="rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-8">
               <span className="kapi-section-label">
                 {language === 'id' ? 'Bidang kolaborasi' : 'Areas of collaboration'}
               </span>
@@ -1252,9 +1234,7 @@ export const Careers = () => {
                   }
                 ].map(({ number, title, detail, icon: Icon }) => (
                   <div key={number} className="flex items-start gap-3.5 py-4 first:pt-0 last:pb-0">
-                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025]">
-                      <Icon size={16} className="text-brand-red" />
-                    </div>
+                    <Icon size={16} className="mt-1 shrink-0 text-brand-red" />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         <span className="text-[9px] font-mono tracking-[0.12em] text-white/30">{number}</span>
@@ -1267,7 +1247,7 @@ export const Careers = () => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/[0.09] bg-[#101115] p-6 sm:p-8">
+            <div className="rounded-2xl border border-white/[0.08] bg-[#101217] p-6 sm:p-8">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <span className="kapi-section-label">
@@ -1300,18 +1280,15 @@ export const Careers = () => {
                     text: language === 'id' ? 'Jika sesuai, ruang lingkup, biaya, timeline, dan ekspektasi dibahas sebelum mulai.' : 'When there is a fit, scope, fees, timeline, and expectations are discussed before work starts.'
                   }
                 ].map((step) => (
-                  <div key={step.number} className="relative rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:p-5">
-                    <div className="mb-5 flex items-center justify-between">
-                      <span className="font-mono text-xs tabular-nums tracking-[0.15em] text-brand-red">{step.number}</span>
-                      <span className="h-px w-10 bg-gradient-to-r from-brand-red/65 to-transparent" />
-                    </div>
+                  <div key={step.number} className="rounded-xl border border-white/[0.07] p-4 sm:p-5">
+                    <p className="mb-5 font-mono text-xs tabular-nums tracking-[0.15em] text-brand-red">{step.number}</p>
                     <h4 className="text-sm font-semibold tracking-[-0.02em] text-white">{step.title}</h4>
                     <p className="mt-2.5 text-xs font-light leading-6 text-[#8A909D]">{step.text}</p>
                   </div>
                 ))}
               </div>
 
-              <p className="mt-5 flex items-start gap-2.5 rounded-xl border border-white/[0.07] bg-black/15 px-4 py-3 text-[11px] font-light leading-5 text-white/50">
+              <p className="mt-5 flex items-start gap-2.5 border-t border-white/[0.08] pt-4 text-[11px] font-light leading-5 text-white/55">
                 <ShieldCheck size={14} className="mt-0.5 shrink-0 text-brand-red" />
                 <span>
                   {language === 'id'
@@ -1344,10 +1321,9 @@ export const Careers = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px' }}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -3 }}
-                className="p-6 sm:p-8 rounded-2xl border border-white/[0.09] bg-white/[0.018] hover:border-brand-red/28 hover:bg-white/[0.025] transition-[background-color,border-color,transform] duration-300 flex flex-col justify-between"
+                className="p-6 sm:p-8 rounded-2xl border border-white/[0.08] bg-white/[0.015] hover:border-white/[0.15] hover:bg-white/[0.025] transition-[background-color,border-color] duration-200 flex flex-col justify-between"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-red/[0.055] border border-brand-red/20 flex items-center justify-center text-brand-red mb-6">
+                <div className="w-10 h-10 flex items-center justify-start text-brand-red mb-5">
                   {benefit.icon}
                 </div>
                 <div>
@@ -1647,7 +1623,7 @@ export const Careers = () => {
                         type="submit"
                         disabled={isApplicantSubmitting}
                         aria-busy={isApplicantSubmitting}
-                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                        className="w-full min-h-[44px] py-3 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
                       >
                         {isApplicantSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Lamaran Sekarang' : 'Submit Application Now'}</span><ArrowUpRight size={16} /></>}
                       </button>
@@ -2022,7 +1998,7 @@ export const Careers = () => {
                       type="submit"
                       disabled={isVendorSubmitting}
                       aria-busy={isVendorSubmitting}
-                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 disabled:opacity-60 disabled:cursor-wait font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_10px_24px_-18px_rgba(229,9,20,0.72)] flex items-center justify-center gap-2"
+                      className="w-full min-h-[44px] py-3.5 rounded-xl bg-brand-red/72 text-white hover:bg-brand-red/86 disabled:opacity-60 disabled:cursor-wait font-semibold text-xs font-mono uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
                     >
                       {isVendorSubmitting ? <><LoaderCircle size={15} className="animate-spin" /><span>{language === 'id' ? 'Mengirim...' : 'Submitting...'}</span></> : <><span>{language === 'id' ? 'Kirimkan Pendaftaran Freelance Vendor' : 'Submit Vendor Application'}</span><ArrowUpRight size={16} /></>}
                     </button>
