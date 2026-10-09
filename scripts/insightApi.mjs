@@ -12,14 +12,38 @@ const FALLBACK_PACKS = [
   ['en', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.en.json')],
   ['id', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.id.json')],
   ['en', join(FALLBACK_DIR, 'website-cost-indonesia-guide.en.json')],
+  ['id', join(FALLBACK_DIR, 'website-cost-indonesia-guide.id.json')],
   ['en', join(FALLBACK_DIR, 'wordpress-vs-custom-website.en.json')],
+  ['id', join(FALLBACK_DIR, 'wordpress-vs-custom-website.id.json')],
   ['en', join(FALLBACK_DIR, 'corporate-website-vs-landing-page.en.json')],
+  ['id', join(FALLBACK_DIR, 'corporate-website-vs-landing-page.id.json')],
   ['en', join(FALLBACK_DIR, 'choose-web-development-agency-indonesia.en.json')],
+  ['id', join(FALLBACK_DIR, 'choose-web-development-agency-indonesia.id.json')],
   ['en', join(FALLBACK_DIR, 'technical-seo-audit-guide.en.json')],
+  ['id', join(FALLBACK_DIR, 'technical-seo-audit-guide.id.json')],
   ['en', join(FALLBACK_DIR, 'core-web-vitals-explained.en.json')],
+  ['id', join(FALLBACK_DIR, 'core-web-vitals-explained.id.json')],
   ['en', join(FALLBACK_DIR, 'structured-data-for-seo-guide.en.json')],
-  ['en', join(FALLBACK_DIR, 'helpful-seo-content-framework.en.json')]
+  ['id', join(FALLBACK_DIR, 'structured-data-for-seo-guide.id.json')],
+  ['en', join(FALLBACK_DIR, 'helpful-seo-content-framework.en.json')],
+  ['id', join(FALLBACK_DIR, 'helpful-seo-content-framework.id.json')]
 ];
+
+const INSIGHT_LANGUAGE_PAIRS = [
+  { group: 'mvp-vs-prototype-vs-proof-of-concept', en: 'mvp-vs-prototype-vs-proof-of-concept-guide', id: 'mvp-vs-prototype-vs-proof-of-concept' },
+  { group: 'website-cost-indonesia-guide', en: 'website-cost-indonesia-guide', id: 'biaya-pembuatan-website-indonesia' },
+  { group: 'wordpress-vs-custom-website', en: 'wordpress-vs-custom-website', id: 'wordpress-vs-website-custom' },
+  { group: 'corporate-website-vs-landing-page', en: 'corporate-website-vs-landing-page', id: 'website-korporat-vs-landing-page' },
+  { group: 'choose-web-development-agency-indonesia', en: 'choose-web-development-agency-indonesia', id: 'memilih-agency-web-development-indonesia' },
+  { group: 'technical-seo-audit-guide', en: 'technical-seo-audit-guide', id: 'audit-seo-teknis' },
+  { group: 'core-web-vitals-explained', en: 'core-web-vitals-explained', id: 'core-web-vitals' },
+  { group: 'structured-data-for-seo-guide', en: 'structured-data-for-seo-guide', id: 'structured-data-untuk-seo' },
+  { group: 'helpful-seo-content-framework', en: 'helpful-seo-content-framework', id: 'konten-seo-bermanfaat' }
+];
+
+function getInsightLanguagePair(slug) {
+  return INSIGHT_LANGUAGE_PAIRS.find((pair) => pair.en === slug || pair.id === slug) || null;
+}
 
 async function loadLocalEditorialFallbacks() {
   const fallbacks = [];
@@ -39,11 +63,11 @@ async function loadLocalEditorialFallbacks() {
             .map(([question, answer]) => ({ question: String(question), answer: String(answer) }))
         : [];
 
+      const translationPair = getInsightLanguagePair(String(seo.slug));
+
       fallbacks.push({
         id: 'local-fallback:' + language + ':' + seo.slug,
-        contentGroupId: String(seo.slug).startsWith('mvp-vs-prototype-vs-proof-of-concept')
-          ? 'mvp-vs-prototype-vs-proof-of-concept'
-          : String(editorial.contentGroupId || seo.contentGroupId || seo.slug),
+        contentGroupId: translationPair?.group || String(editorial.contentGroupId || seo.contentGroupId || seo.slug),
         language,
         title: String(editorial.title || seo.title || seo.slug),
         slug: String(seo.slug),
@@ -74,12 +98,12 @@ async function loadLocalEditorialFallbacks() {
         relatedInsightIds: [],
         relatedInsights: [],
         editorialMeta: { editorialType: editorial.editorialMeta?.editorialType },
-        alternateLanguages: String(seo.slug).startsWith('mvp-vs-prototype-vs-proof-of-concept')
+        alternateLanguages: translationPair
           ? [
-              { language: 'en', slug: 'mvp-vs-prototype-vs-proof-of-concept-guide' },
-              { language: 'id', slug: 'mvp-vs-prototype-vs-proof-of-concept' }
+              { language: 'en', slug: translationPair.en },
+              { language: 'id', slug: translationPair.id }
             ]
-          : [],
+          : [{ language, slug: String(seo.slug) }],
         seoTitle: editorial.seoTitle || seo.title,
         seoDescription: editorial.seoDescription || seo.description,
         ogImage: seo.ogImage,
