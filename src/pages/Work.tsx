@@ -1318,6 +1318,16 @@ export const Work = () => {
                                 ))}
                               </div>
                             ) : null}
+                            {selectedCaseStudyNarrative.impactDetails.length ? (
+                              <div className="mt-5 grid grid-cols-1 gap-3">
+                                {selectedCaseStudyNarrative.impactDetails.map((detail) => (
+                                  <article key={detail.title} className="rounded-2xl border border-white/[0.06] bg-black/10 p-4">
+                                    <h4 className="text-sm font-semibold leading-6 text-white">{detail.title}</h4>
+                                    <p className="mt-2 text-sm leading-7 text-[#929AA7]">{detail.body}</p>
+                                  </article>
+                                ))}
+                              </div>
+                            ) : null}
                             <p className="mt-5 rounded-2xl border border-dashed border-white/[0.1] bg-black/10 p-4 text-xs leading-6 text-[#818995]">{selectedCaseStudyNarrative.evidenceNote}</p>
                             <p className="mt-4 text-sm leading-7 text-[#929AA7]">{selectedCaseStudyNarrative.relevance}</p>
                           </section>

@@ -17,6 +17,7 @@ export interface CaseStudyNarrative {
   deliverables: CaseStudyNarrativeLine[];
   technologies: CaseStudyNarrativeLine[];
   impact: string;
+  impactDetails: CaseStudyNarrativeLine[];
   evidenceNote: string;
   relevance: string;
 }
@@ -1088,6 +1089,168 @@ const isRedundantNarrative = (candidate: string, sources: string[]): boolean => 
   });
 };
 
+const expandChallengeNarrative = (item: ProjectItem, challenge: string, language: string): string => {
+  const id = language === 'id';
+  const framing: Record<ProjectItem['service'], { en: string; id: string }> = {
+    'UI/UX Design': {
+      en: 'This challenge needs to be examined across the full task journey: entry, decisions, information hierarchy, validation, feedback, and recovery when something goes wrong. Improving a single screen would not be enough if the surrounding steps still leave people uncertain about what to do next.',
+      id: 'Tantangan ini perlu ditinjau sepanjang alur tugas: titik masuk, keputusan, hierarki informasi, validasi, feedback, dan pemulihan saat terjadi kesalahan. Memperbaiki satu layar saja tidak cukup jika langkah di sekitarnya masih membuat pengguna ragu tentang tindakan berikutnya.'
+    },
+    'Video Production': {
+      en: 'The production challenge is to make the intended brand impression hold together from the first idea to the final cut. Concept, shot coverage, camera movement, sound, pacing, colour treatment, and channel-specific edits have to reinforce the same message instead of feeling like separate production choices.',
+      id: 'Tantangan produksi adalah menjaga kesan brand tetap utuh dari ide pertama sampai versi final. Konsep, cakupan shot, gerak kamera, suara, tempo, warna, dan editing untuk tiap kanal perlu memperkuat pesan yang sama, bukan terasa seperti keputusan produksi yang terpisah.'
+    },
+    '2D Animation': {
+      en: 'The problem is not simply how to animate the subject, but how to help the audience understand and retain the message. Information order, visual metaphor, on-screen wording, timing, and transitions need to work together so movement clarifies the topic rather than adding more noise.',
+      id: 'Masalahnya bukan sekadar bagaimana menganimasikan materi, tetapi bagaimana membantu audiens memahami dan mengingat pesan. Urutan informasi, metafora visual, teks di layar, timing, dan transisi perlu bekerja bersama agar gerakan memperjelas materi, bukan menambah gangguan.'
+    },
+    'Branding & Identity': {
+      en: 'The identity has to do more than look distinctive in a single presentation. It needs recognisable rules that remain legible and coherent when applied across the real touchpoints, formats, sizes, and production conditions included in the scope.',
+      id: 'Identitas brand harus lebih dari sekadar terlihat berbeda pada satu presentasi. Sistemnya perlu memiliki aturan yang mudah dikenali, tetap terbaca, dan konsisten saat diterapkan ke berbagai media, format, ukuran, dan kondisi produksi dalam ruang lingkup.'
+    },
+    'Motion & Graphic Design': {
+      en: 'The core challenge is to make the message understandable within the time and space available to the audience. Hierarchy, timing, scale, contrast, motion, and format adaptations have to prioritise the information that matters instead of competing for attention.',
+      id: 'Tantangan utamanya adalah membuat pesan dipahami dalam waktu dan ruang yang tersedia bagi audiens. Hierarki, timing, ukuran, kontras, gerak, dan adaptasi format perlu memprioritaskan informasi terpenting, bukan saling berebut perhatian.'
+    },
+    'Creative Design': {
+      en: 'The content must help its reader find the right information, understand its significance, and move through the material without losing the main argument. Editorial order, typography, chart or image treatment, and page composition therefore need to support comprehension as well as appearance.',
+      id: 'Konten perlu membantu pembaca menemukan informasi yang tepat, memahami maknanya, dan mengikuti materi tanpa kehilangan inti pembahasan. Urutan editorial, tipografi, pengolahan grafik atau gambar, dan komposisi halaman harus mendukung pemahaman sekaligus tampilan.'
+    },
+    '3D Visualization': {
+      en: 'The visual needs to communicate the right spatial, material, or product information from the viewer’s intended perspective. Modelling detail, lighting, camera position, motion, and output format must be chosen around what the audience needs to evaluate, rather than detail for its own sake.',
+      id: 'Visual perlu menyampaikan informasi ruang, material, atau produk dari sudut pandang yang dibutuhkan audiens. Detail model, pencahayaan, posisi kamera, gerakan, dan format output harus dipilih sesuai hal yang perlu dinilai audiens, bukan menambah detail tanpa tujuan.'
+    },
+    'Company Profile Website': {
+      en: 'The challenge is to turn a company’s capabilities and credibility into information that visitors can find and understand quickly. Page hierarchy, proof points, service detail, mobile behaviour, and the route to contact have to form one coherent path rather than a collection of disconnected pages.',
+      id: 'Tantangannya adalah menerjemahkan kemampuan dan kredibilitas perusahaan menjadi informasi yang mudah ditemukan dan dipahami. Hierarki halaman, bukti kemampuan, detail layanan, perilaku mobile, dan jalur kontak perlu menjadi satu alur yang utuh, bukan halaman-halaman yang terpisah.'
+    },
+    'E-Commerce Website': {
+      en: 'The shopping journey depends on a connected chain: discovering a product, understanding its options, confirming price and availability, completing payment, and knowing what happens to the order. Friction at any hand-off can weaken confidence, so the solution must treat the experience and its operational states together.',
+      id: 'Alur belanja bergantung pada rangkaian yang saling terhubung: menemukan produk, memahami pilihan, memastikan harga dan stok, menyelesaikan pembayaran, lalu mengetahui status pesanan. Hambatan pada satu tahap dapat mengurangi kepercayaan, sehingga pengalaman belanja dan status operasional perlu dipikirkan bersama.'
+    },
+    'Web Application': {
+      en: 'The challenge needs to be translated into users, records, permissions, actions, state changes, exceptions, and completion conditions. Without that model, a feature list may look complete while the actual workflow remains unclear or difficult to operate.',
+      id: 'Tantangan perlu diterjemahkan menjadi pengguna, data, hak akses, tindakan, perubahan status, kondisi pengecualian, dan syarat penyelesaian. Tanpa model tersebut, daftar fitur bisa terlihat lengkap sementara alur kerja sebenarnya tetap tidak jelas atau sulit dijalankan.'
+    },
+    'ERP / CRM System': {
+      en: 'The issue crosses operational hand-offs between people, records, approvals, and reporting. A useful solution has to make ownership and status visible, reduce ambiguity between teams, and preserve a consistent record as work moves through the process.',
+      id: 'Masalah melibatkan perpindahan pekerjaan antara orang, data, approval, dan pelaporan. Solusi yang berguna harus memperjelas pemilik dan status pekerjaan, mengurangi ketidakjelasan antartim, serta menjaga catatan tetap konsisten saat proses berjalan.'
+    },
+    'IT Support & Infrastructure': {
+      en: 'Infrastructure work needs to address the failure or capacity scenario behind the brief, not only change one component. Dependencies, monitoring, access, recovery, deployment, and day-to-day ownership all affect whether the service can operate reliably after delivery.',
+      id: 'Pekerjaan infrastruktur perlu menjawab skenario gangguan atau kapasitas di balik brief, bukan sekadar mengubah satu komponen. Dependensi, monitoring, akses, pemulihan, deployment, dan tanggung jawab operasional memengaruhi keandalan layanan setelah penyerahan.'
+    }
+  };
+  const additionalContext = framing[item.service][id ? 'id' : 'en'];
+  return challenge ? challenge + ' ' + additionalContext : (id
+    ? 'Tantangan spesifik belum dicatat pada data publik proyek ini. Uraian tambahan berikut menjelaskan aspek yang perlu diperiksa berdasarkan jenis layanan, bukan klaim bahwa setiap masalah tersebut benar-benar terjadi pada proyek.'
+    : 'A project-specific challenge has not been recorded in the public project data. The additional explanation below identifies aspects to assess for this service type; it is not a claim that every issue occurred in this engagement.') + ' ' + additionalContext;
+};
+
+const expandSolutionNarrative = (
+  item: ProjectItem,
+  solution: string,
+  language: string,
+): string => {
+  const id = language === 'id';
+  const components = splitSolutionComponents(solution);
+  const componentList = components.length
+    ? readableList(components, language)
+    : (id ? 'komponen solusi yang tercatat' : 'the recorded solution components');
+  const framing: Record<ProjectItem['service'], { en: string; id: string }> = {
+    'UI/UX Design': {
+      en: 'The intent is to connect the key task flow, interface states, and reusable patterns so the experience is understandable for users and specific enough for implementation. The listed elements should be reviewed as one journey, including what users see before and after the main action.',
+      id: 'Tujuannya adalah menghubungkan alur tugas utama, status antarmuka, dan pola yang dapat digunakan ulang agar pengalaman mudah dipahami dan cukup jelas untuk diimplementasikan. Elemen yang tercatat perlu ditinjau sebagai satu alur, termasuk kondisi sebelum dan sesudah tindakan utama.'
+    },
+    'Video Production': {
+      en: 'These elements form a production chain: creative direction establishes what the film should communicate, capture choices translate that direction into usable footage, and post-production brings image, sound, and pacing together. Final versions then need to fit the delivery formats and intended viewing contexts.',
+      id: 'Elemen-elemen tersebut membentuk rangkaian produksi: arah kreatif menetapkan pesan film, pilihan pengambilan gambar menerjemahkannya menjadi footage, lalu pascaproduksi menyatukan gambar, suara, dan tempo. Versi final kemudian harus sesuai dengan format penyerahan dan konteks tayang.'
+    },
+    '2D Animation': {
+      en: 'The listed elements need to work as one explanatory sequence. The script or storyboard sets the order of ideas, the visual language makes those ideas concrete, animation controls emphasis and timing, and finishing keeps the final message legible in the target format.',
+      id: 'Elemen yang tercatat perlu bekerja sebagai satu rangkaian penjelasan. Naskah atau storyboard menyusun urutan ide, bahasa visual membuat ide lebih konkret, animasi mengatur penekanan dan timing, lalu finishing menjaga pesan tetap terbaca pada format tujuan.'
+    },
+    'Branding & Identity': {
+      en: 'The solution needs to connect the core identity with clear usage rules and real applications. This allows the brand to remain recognisable beyond the hero asset and gives teams a common reference for future materials.',
+      id: 'Solusi perlu menghubungkan identitas utama dengan aturan penggunaan dan penerapan nyata. Hal ini membantu brand tetap dikenali di luar aset utama dan memberi tim acuan yang sama untuk materi berikutnya.'
+    },
+    'Motion & Graphic Design': {
+      en: 'The approach should align message hierarchy, motion or graphic treatment, and adaptations to each placement. A master composition can establish the visual logic, while each output must preserve the most important information at its actual viewing size and duration.',
+      id: 'Pendekatan perlu menyelaraskan hierarki pesan, pengolahan motion atau grafis, dan adaptasi untuk tiap penempatan. Komposisi utama menetapkan logika visual, sementara setiap output harus menjaga informasi terpenting pada ukuran dan durasi tayang sebenarnya.'
+    },
+    'Creative Design': {
+      en: 'The solution links editorial structure and visual treatment: content order establishes the argument, typography and layout make it scannable, and charts or supporting imagery clarify the evidence where included. The final output should be easy to navigate as well as visually consistent.',
+      id: 'Solusi menghubungkan struktur editorial dan pengolahan visual: urutan konten membangun pembahasan, tipografi dan tata letak membuatnya mudah dipindai, sedangkan grafik atau gambar pendukung memperjelas bukti bila tersedia. Output akhir perlu mudah dinavigasi sekaligus konsisten secara visual.'
+    },
+    '3D Visualization': {
+      en: 'The approach ties modelling, materials, lighting, camera direction, and final rendering to the information the audience needs to understand. This keeps technical detail in service of a clear view of the product or space and the intended presentation format.',
+      id: 'Pendekatan menghubungkan modeling, material, pencahayaan, arah kamera, dan rendering akhir dengan informasi yang perlu dipahami audiens. Dengan begitu, detail teknis mendukung pemahaman produk atau ruang serta format presentasi yang dituju.'
+    },
+    'Company Profile Website': {
+      en: 'The solution needs to align information architecture, page content, proof of capability, responsive behaviour, and inquiry routes. These parts should help a visitor move from understanding the organisation to finding a relevant service and taking the next step.',
+      id: 'Solusi perlu menyelaraskan arsitektur informasi, konten halaman, bukti kemampuan, perilaku responsif, dan jalur inquiry. Semua bagian harus membantu pengunjung beralih dari memahami perusahaan menuju layanan yang relevan dan tindakan berikutnya.'
+    },
+    'E-Commerce Website': {
+      en: 'The solution connects discovery, product information, checkout, payment, and order status instead of treating them as separate screens. The exact implementation should preserve data and status consistency at each hand-off and make recovery paths understandable when a step cannot be completed.',
+      id: 'Solusi menghubungkan penemuan produk, informasi produk, checkout, pembayaran, dan status pesanan, bukan memperlakukannya sebagai layar terpisah. Implementasi perlu menjaga konsistensi data dan status pada tiap perpindahan serta menjelaskan langkah pemulihan ketika sebuah tahap gagal.'
+    },
+    'Web Application': {
+      en: 'The solution ties the interface and technical workflow together: the actions shown to each role must match the underlying rules, while validation, status, integrations, and exception paths should be clear enough to test and operate.',
+      id: 'Solusi menyatukan antarmuka dan alur teknis: tindakan yang terlihat untuk setiap peran harus sesuai dengan aturan sistem, sementara validasi, status, integrasi, dan kondisi pengecualian harus cukup jelas untuk diuji dan dijalankan.'
+    },
+    'ERP / CRM System': {
+      en: 'The modules should share a consistent model of records, permissions, approvals, ownership, and reporting. This is what connects individual functions into an operational system instead of leaving teams to reconcile disconnected tools or statuses.',
+      id: 'Modul perlu memakai model data, hak akses, approval, kepemilikan, dan pelaporan yang konsisten. Inilah yang menghubungkan fungsi satu per satu menjadi sistem operasional, bukan membiarkan tim menyelaraskan alat atau status yang terpisah.'
+    },
+    'IT Support & Infrastructure': {
+      en: 'The solution needs to join configuration changes with monitoring, security boundaries, rollout controls, and recovery procedures. That makes the delivery reviewable as an operational capability rather than only a technical change.',
+      id: 'Solusi perlu menghubungkan perubahan konfigurasi dengan monitoring, batas keamanan, kontrol rollout, dan prosedur pemulihan. Dengan begitu, hasilnya dapat ditinjau sebagai kemampuan operasional, bukan hanya perubahan teknis.'
+    }
+  };
+  const expanded = framing[item.service][id ? 'id' : 'en'];
+  const actualSolution = solution || (id ? 'Solusi spesifik belum dicatat pada data publik proyek ini.' : 'A project-specific solution has not been recorded in the public project data.');
+  return actualSolution + ' ' + (id ? 'Komponen solusi yang tercatat meliputi ' : 'The recorded solution components include ') + componentList + '. ' + expanded;
+};
+
+const describeImpactMetric = (
+  metric: { label: string; value: string },
+  item: ProjectItem,
+  language: string,
+): CaseStudyNarrativeLine => {
+  const label = metric.label.toLocaleLowerCase();
+  const id = language === 'id';
+  let body: string;
+  if (/view|reach|impression|visitor|visit|watch time|download|audience|outlet|concurrent|volume/.test(label)) {
+    body = id
+      ? 'Indikator ini menggambarkan jangkauan atau skala aktivitas yang tercatat. Angka tersebut membantu menilai seberapa luas output digunakan atau dilihat, tetapi tidak otomatis membuktikan kualitas perhatian, pemahaman, atau konversi.'
+      : 'This is a recorded reach or activity-scale indicator. It helps describe how widely an output was seen or used, but does not by itself prove attention quality, comprehension, or conversion.';
+  } else if (/conversion|pre.order|sales|inquir|lead|booking|revenue|funding|sold|export|orders|transaction|pipeline|aov|roas|roi/.test(label)) {
+    body = id
+      ? 'Indikator ini berkaitan dengan respons komersial, seperti permintaan, pemesanan, atau transaksi. Untuk mengaitkannya secara akurat dengan pekerjaan ini, perlu diketahui baseline, periode kampanye, sumber analytics, dan metode atribusi.'
+      : 'This is a commercial-response indicator, such as demand, bookings, or transactions. Attributing it accurately to this work requires the baseline, campaign period, analytics source, and attribution method.';
+  } else if (/recall|rating|satisfaction|retention|share|subscriber|trust|engagement|completion/.test(label)) {
+    body = id
+      ? 'Indikator ini berkaitan dengan respons audiens atau keberlanjutan penggunaan. Definisi pengukuran, ukuran sampel, sumber feedback, dan periode evaluasi diperlukan untuk menilai seberapa kuat angka ini mendukung kesimpulan.'
+      : 'This indicator relates to audience response or continued use. Its measurement definition, sample size, feedback source, and evaluation period are needed to determine how strongly it supports a conclusion.';
+  } else if (/latency|speed|time|error|uptime|availability|fps|accuracy|recovery|deployment|response|downtime|loss|reliability|execution/.test(label)) {
+    body = id
+      ? 'Indikator ini berkaitan dengan performa atau operasi. Interpretasi yang dapat dipercaya memerlukan definisi pengujian, kondisi beban, baseline, dan periode pengamatan agar angka tidak dibaca di luar konteksnya.'
+      : 'This is an operational or performance indicator. A reliable interpretation needs the test definition, workload conditions, baseline, and observation period so the value is not read out of context.';
+  } else {
+    body = id
+      ? 'Indikator ini merupakan salah satu sinyal hasil yang dicatat pada data portofolio. Maknanya perlu dikaitkan dengan definisi pengukuran, konteks proyek, sumber data, dan periode evaluasi.'
+      : 'This is one outcome signal recorded in the portfolio data. Its meaning should be linked to the measurement definition, project context, data source, and evaluation period.';
+  }
+  const serviceContext = {
+    en: `For this ${item.service.toLowerCase()} engagement, the figure is most useful when read alongside the project challenge and the outputs delivered; it should not be treated as proof of causation on its own.`,
+    id: `Untuk proyek ${item.service.toLowerCase()} ini, angka tersebut paling berguna jika dibaca bersama tantangan awal dan hasil kerja yang diserahkan; angka ini sendiri belum membuktikan hubungan sebab-akibat.`
+  };
+  return {
+    title: `${metric.value} · ${metric.label}`,
+    body: body + ' ' + serviceContext[id ? 'id' : 'en']
+  };
+};
+
 export function buildCaseStudyNarrative(item: ProjectItem, language: string): CaseStudyNarrative {
   const lang = language === 'id' ? 'id' : 'en';
   const playbook = servicePlaybooks[item.service]?.[lang] || servicePlaybooks['Web Application'][lang];
@@ -1175,6 +1338,9 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
     : (lang === 'id' ? 'Solusi spesifik belum diisi pada catatan publik.' : 'A project-specific solution has not been added to the public record yet.');
 
   const context = (description ? description + ' ' : '') + playbook.context;
+  const expandedChallenge = expandChallengeNarrative(item, challenge, lang);
+  const expandedSolution = expandSolutionNarrative(item, solution, lang);
+  const impactDetails = metrics.map((metric) => describeImpactMetric(metric, item, lang));
   const impactFallback = lang === 'id'
     ? 'Dampak yang dapat dibahas secara bertanggung jawab adalah bagaimana keluaran ini dirancang untuk menjawab masalah awal: ' + (challenge || 'tantangan yang dicatat pada brief') + '. Nilai bisnis yang benar-benar tercapai perlu dibedakan dari manfaat yang diharapkan dan didukung dengan data evaluasi.'
     : 'The responsible impact narrative is how these outputs are designed to address the original problem: ' + (challenge || 'the challenge recorded in the brief') + '. Achieved business value should be distinguished from intended benefits and supported by evaluation data.';
@@ -1182,15 +1348,16 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
   return {
     context,
     contextDetails,
-    challenge: challenge || (lang === 'id' ? 'Tantangan spesifik belum diisi pada data proyek.' : 'A project-specific challenge has not been added to the project record.'),
+    challenge: expandedChallenge,
     diagnosis,
     objectives: playbook.objective,
-    solution: solutionIntro,
+    solution: expandedSolution,
     solutionLogic: decisions,
     process: execution ? [{ title: lang === 'id' ? 'Catatan eksekusi proyek' : 'Recorded project execution', body: execution }, ...process] : process,
     deliverables: describedDeliverables,
     technologies: describedTechnologies,
     impact: outcome ? outcome : metrics.length ? impact : impactFallback,
+    impactDetails,
     evidenceNote,
     relevance
   };

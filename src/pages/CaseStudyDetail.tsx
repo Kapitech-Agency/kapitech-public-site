@@ -275,6 +275,16 @@ export const CaseStudyDetail = () => {
               ) : (
                 <p className="mt-5 rounded-2xl border border-dashed border-white/[0.1] p-4 text-sm leading-6 text-[#7F8793]">{language === 'id' ? 'Indikator hasil belum tersedia untuk proyek ini.' : 'Outcome indicators have not been provided for this project.'}</p>
               )}
+              {narrative.impactDetails.length ? (
+                <div className="mt-5 grid gap-3 md:grid-cols-2">
+                  {narrative.impactDetails.map((detail) => (
+                    <article key={detail.title} className="min-w-0 rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:p-5">
+                      <h3 className="text-sm font-semibold leading-6 text-white">{detail.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-[#8F97A3]">{detail.body}</p>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
               <p className="mt-5 rounded-2xl border border-white/[0.06] bg-white/[0.012] p-4 text-xs leading-6 text-[#737B87]">{narrative.evidenceNote}</p>
             </section>
 
