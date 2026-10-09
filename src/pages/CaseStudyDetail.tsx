@@ -93,6 +93,8 @@ export const CaseStudyDetail = () => {
       .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
       .map((value) => value.trim())));
   }, [item]);
+  const hasAdditionalVisuals = visualGallery.length > 1;
+  const isIllustrativeCover = /^https?:\/\/images\.unsplash\.com\//i.test(visualGallery[0] || '') && !hasAdditionalVisuals;
   const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'error'>('idle');
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const copyLink = async () => {
@@ -195,10 +197,10 @@ export const CaseStudyDetail = () => {
           <div className="min-w-0 space-y-12">
             <section aria-labelledby="case-study-visual-title" className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.018]">
               <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
-                <div><p className="text-[10px] font-mono uppercase tracking-[0.15em] text-brand-red">{language === 'id' ? 'Dokumentasi proyek' : 'Project visuals'}</p><h2 id="case-study-visual-title" className="mt-1 text-sm font-medium text-white">{language === 'id' ? 'Ringkasan visual' : 'Visual overview'}</h2></div>
-                <span className="shrink-0 text-[10px] font-mono tabular-nums text-[#727A86]">{String(Math.max(visualGallery.length, 1)).padStart(2, '0')} {language === 'id' ? 'gambar' : 'images'}</span>
+                <div><p className="text-[10px] font-mono uppercase tracking-[0.15em] text-brand-red">{isIllustrativeCover ? (language === 'id' ? 'Referensi ilustratif' : 'Illustrative reference') : (language === 'id' ? 'Dokumentasi proyek' : 'Project documentation')}</p><h2 id="case-study-visual-title" className="mt-1 text-sm font-medium text-white">{isIllustrativeCover ? (language === 'id' ? 'Gambar ilustratif, bukan dokumentasi proyek' : 'Illustrative cover, not project documentation') : hasAdditionalVisuals ? (language === 'id' ? 'Galeri proyek' : 'Project gallery') : (language === 'id' ? 'Gambar sampul' : 'Cover image')}</h2></div>
+                {hasAdditionalVisuals ? <span className="shrink-0 text-[10px] font-mono tabular-nums text-[#727A86]">{String(visualGallery.length).padStart(2, '0')} {language === 'id' ? 'gambar' : 'images'}</span> : null}
               </div>
-              <img src={visualGallery[0] || CASE_STUDY_FALLBACK_IMAGE} alt={item.title} onError={handleCaseStudyImageError} className="aspect-[16/10] w-full bg-[#101115] object-cover" loading="eager" decoding="async" />
+              <img src={visualGallery[0] || CASE_STUDY_FALLBACK_IMAGE} alt={isIllustrativeCover ? (language === 'id' ? 'Gambar ilustratif untuk ' + item.title : 'Illustrative cover image for ' + item.title) : item.title} onError={handleCaseStudyImageError} className="aspect-[16/10] w-full bg-[#101115] object-cover" loading="eager" decoding="async" />
               {visualGallery.length > 1 ? <div className="grid gap-2 p-2 sm:grid-cols-2">{visualGallery.slice(1).map((image, index) => <figure key={image} className="min-w-0 overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0B0C0E]"><img src={image} alt={item.title + ' — ' + (language === 'id' ? 'visual proyek' : 'project visual') + ' ' + (index + 2)} onError={handleCaseStudyImageError} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" /></figure>)}</div> : null}
             </section>
             <section aria-labelledby="case-study-challenge-title">
