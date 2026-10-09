@@ -223,8 +223,12 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         ? extractCmsCollection<ProjectItem>(res.data, 'projects')
         : null;
       if (projects) {
-        setCmsCache('projects', projects);
-        return projects;
+        // The public API should normally return published records only, but
+        // never expose a draft/unpublished project if an upstream response
+        // accidentally includes one. Keep the static fallback if all are drafts.
+        const publishedProjects = projects.filter((project) => project?.isPublished !== false);
+        setCmsCache('projects', publishedProjects);
+        return publishedProjects;
       }
     } catch {
       // Keep the empty CMS state visible until the server recovers.
