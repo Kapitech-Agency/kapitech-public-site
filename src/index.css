@@ -146,11 +146,8 @@
   min-height: 44px;
   border-radius: 9999px;
 }
-/* Public button shape baseline.
-   Every button is pill-shaped; equal height/width controls naturally render as circles. */
-.kapi-public-shell button {
-  border-radius: var(--kapi-radius-pill) !important;
-}
+/* Button shape is component-specific: CTA buttons opt into rounded-full,
+   while cards and accordion rows retain their own rounded-rectangle geometry. */
 
 /* Button foreground is always white.
    Background/border may change by state, but button text and icons never use muted or brand colors. */
