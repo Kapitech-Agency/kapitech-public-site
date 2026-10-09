@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "WordPress vs Custom Website: Which Is Right for Your Business? | Kapitech",
-    "description": "Compare WordPress and custom website development by content needs, integrations, ownership, performance, security, budget, and long-term change.",
-    "slug": "wordpress-vs-custom-website",
-    "canonicalUrl": "https://kapitech.id/insights/wordpress-vs-custom-website",
-    "ogImage": "/insights/wordpress-vs-custom-website/hero.svg"
+    "title": "Core Web Vitals Explained: LCP, INP, and CLS in Practice | Kapitech",
+    "description": "Understand Core Web Vitals thresholds and learn how to diagnose LCP, INP, and CLS using field data, browser tooling, and a practical optimization workflow.",
+    "slug": "core-web-vitals-explained",
+    "canonicalUrl": "https://kapitech.id/insights/core-web-vitals-explained",
+    "ogImage": "https://kapitech.id/insights/core-web-vitals/hero.svg"
   },
   "editorial": {
     "language": "en",
@@ -12,667 +12,314 @@
     "authorSlug": "kapitech-editorial-team",
     "status": "published",
     "isFeatured": false,
-    "readingTime": 16,
+    "readingTime": 11,
     "editorialMeta": {
-      "editorialType": "Guide"
+      "editorialType": "practical-guide"
     },
     "tags": [
       {
-        "slug": "wordpress",
-        "name": "WordPress"
+        "slug": "core-web-vitals",
+        "name": "Core Web Vitals"
       },
       {
-        "slug": "custom-website",
-        "name": "custom-website"
+        "slug": "web-performance",
+        "name": "Web Performance"
       },
       {
-        "slug": "cms",
-        "name": "CMS"
+        "slug": "lcp",
+        "name": "LCP"
       },
       {
-        "slug": "web-development",
-        "name": "web-development"
+        "slug": "inp",
+        "name": "INP"
       },
       {
-        "slug": "website-maintenance",
-        "name": "website-maintenance"
+        "slug": "cls",
+        "name": "CLS"
       },
       {
-        "slug": "website-architecture",
-        "name": "website-architecture"
+        "slug": "frontend-engineering",
+        "name": "Frontend Engineering"
       }
     ],
-    "title": "WordPress vs Custom Website: Which Is Right for Your Business?",
-    "excerpt": "Compare WordPress and custom website development by content needs, integrations, ownership, performance, security, budget, and long-term change.",
-    "coverImage": "/insights/wordpress-vs-custom-website/hero.svg",
+    "coverImage": "/insights/core-web-vitals/hero.svg",
+    "title": "Core Web Vitals Explained: LCP, INP, and CLS in Practice",
+    "excerpt": "Core Web Vitals describe loading, responsiveness, and visual stability. Learn what each metric measures, the current good thresholds, and how to prioritize fixes based on real-user data.",
     "keyTakeaways": [
-      "W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites.",
-      "WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem.",
-      "Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior.",
-      "A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely.",
-      "Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter.",
-      "WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
+      "LCP measures loading, INP measures responsiveness, and CLS measures unexpected visual movement.",
+      "Good field thresholds are LCP at or below 2.5 seconds, INP at or below 200 milliseconds, and CLS at or below 0.1.",
+      "Assess the 75th percentile of real user visits, not only one lab run.",
+      "Optimize the bottleneck behind the metric instead of applying generic speed tricks.",
+      "Re-test mobile devices, templates, and real interactions after each meaningful change."
     ],
     "content": [
       {
         "type": "paragraph",
-        "text": "The practical question in wordpress vs custom website at a glance is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
+        "text": "A page can look polished and still feel slow or unstable when someone uses it on a real phone, connection, or browser. Core Web Vitals provide a practical way to measure three parts of that experience: how quickly the main content appears, how quickly the page responds to input, and whether content shifts unexpectedly while the page is being used."
       },
       {
         "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
-      },
-      {
-        "type": "callout",
-        "tone": "info",
-        "title": "The principle",
-        "text": "W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
+        "text": "They are not a substitute for usability research or business metrics, but they help teams identify experience problems that deserve attention. The current Core Web Vitals set is LCP, INP, and CLS."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "WordPress vs Custom Website at a Glance"
+        "text": "Core Web Vitals at a glance"
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/hero.svg",
+        "alt": "An overview of Core Web Vitals and the experiences they measure",
+        "caption": "Loading, responsiveness, and visual stability are separate dimensions of quality."
       },
       {
         "type": "table",
         "headers": [
-          "Decision area",
-          "What to evaluate",
-          "Why it matters"
+          "Metric",
+          "What it measures",
+          "Good threshold",
+          "Poor threshold"
         ],
         "rows": [
           [
-            "WordPress is a real platform, not a shortcut",
-            "W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites.",
-            "Changes the initial decision"
+            "LCP",
+            "Time until the largest visible content element is rendered",
+            "≤ 2.5 seconds",
+            "> 4.0 seconds"
           ],
           [
-            "Custom does not automatically mean better",
-            "WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem.",
-            "Changes future effort"
+            "INP",
+            "Responsiveness across user interactions",
+            "≤ 200 ms",
+            "> 500 ms"
           ],
           [
-            "Start with the operating model",
-            "Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior.",
-            "Changes the initial decision"
-          ],
-          [
-            "Plugins can accelerate delivery",
-            "A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely.",
-            "Changes future effort"
-          ],
-          [
-            "CMS ownership matters",
-            "Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter.",
-            "Changes the initial decision"
+            "CLS",
+            "Unexpected visual layout movement",
+            "≤ 0.1",
+            "> 0.25"
           ]
         ],
-        "caption": "A practical decision model for WordPress vs Custom Website: Which Is Right for Your Business?."
+        "caption": "Google's recommended field thresholds are evaluated at the 75th percentile of page visits."
+      },
+      {
+        "type": "paragraph",
+        "text": "These thresholds are documented by [web.dev's Core Web Vitals guidance](https://web.dev/articles/vitals). A page should be assessed with real user data where available, because hardware, network conditions, interaction patterns, and page types can affect outcomes."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "LCP: make the main content appear sooner"
       },
       {
         "type": "image",
-        "url": "/insights/wordpress-vs-custom-website/hero.svg",
-        "alt": "Editorial visual: WordPress vs Custom Website at a Glance",
-        "caption": "A visual model for wordpress vs custom website at a glance."
+        "url": "/insights/core-web-vitals/lcp-path.svg",
+        "alt": "The LCP path from request start to main content rendering",
+        "caption": "Find the largest content element, then identify the delays before it appears."
       },
       {
         "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "What WordPress Does Well"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
+        "text": "Largest Contentful Paint estimates when the main visible content has appeared. Depending on the page, that element may be a hero image, a large heading block, or a primary content image. Reducing unrelated asset size will not necessarily help if the actual LCP element is delayed by discovery, server response, or render-blocking resources."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "WordPress is a real platform, not a shortcut"
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. Businesses should avoid paying for custom complexity that does not support a real requirement."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Custom does not automatically mean better"
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in what wordpress does well is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. Forcing a complex operational workflow into generic plugins can also create fragile dependencies and difficult upgrades."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Start with the operating model"
+        "text": "Common causes of slow LCP"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "The content team and publishing workflow are defined.",
-          "Required integrations are documented.",
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit."
+          "A slow server response or expensive initial rendering.",
+          "A hero image discovered late or loaded with low priority.",
+          "Oversized images that take too long to download and decode.",
+          "CSS or JavaScript that blocks rendering before the main content is ready.",
+          "Third-party scripts competing for bandwidth and main-thread time."
         ]
       },
       {
-        "type": "callout",
-        "tone": "neutral",
-        "title": "Practical rule",
-        "text": "Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
+        "type": "heading",
+        "level": 3,
+        "text": "A useful LCP investigation"
       },
       {
-        "type": "promo",
-        "eyebrow": "WEB DEVELOPMENT",
-        "title": "Choose the platform around your real requirements",
-        "description": "Kapitech can evaluate your content model, user journeys, integrations, and future change requirements before recommending a website architecture.",
-        "ctaLabel": "Discuss Website Architecture",
-        "ctaUrl": "https://kapitech.id/contact",
-        "serviceReference": "web-development"
+        "type": "paragraph",
+        "text": "Identify the LCP element in browser performance tools and separate server response, resource load delay, resource load duration, and render delay. Give priority to the actual LCP asset, reserve appropriate space for it, and ensure the browser can discover it early. Test the result on realistic mobile conditions."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "When Custom Development Makes Sense"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. The best stack is the simplest system that supports actual requirements and expected change."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
+        "text": "INP: keep interactions responsive"
       },
       {
         "type": "image",
-        "url": "/insights/wordpress-vs-custom-website/decision-map.svg",
-        "alt": "Editorial visual: What WordPress Does Well",
-        "caption": "A visual model for what wordpress does well."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Plugins can accelerate delivery"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Required integrations are documented.",
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit.",
-          "Security and update responsibilities are assigned."
-        ]
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "CMS ownership matters"
+        "url": "/insights/core-web-vitals/inp-path.svg",
+        "alt": "An interaction path illustrating input, event handlers, and visual feedback",
+        "caption": "A responsive interface provides timely feedback without long main-thread tasks."
       },
       {
         "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
+        "text": "Interaction to Next Paint reflects how quickly the page responds visually after user interactions, such as opening a menu, applying a filter, submitting a form, or switching a tab. It looks across interactions rather than measuring one isolated click."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Business rules can justify custom work"
+        "text": "Common causes of poor INP"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit.",
-          "Security and update responsibilities are assigned.",
-          "Backups and recovery are planned."
+          "Long JavaScript tasks that block the main thread.",
+          "Heavy event handlers or repeated synchronous calculations.",
+          "Rendering too much content after one action.",
+          "Large third-party scripts competing with the interface.",
+          "A slow interaction design that waits for the whole request before giving feedback."
         ]
       },
       {
-        "type": "callout",
-        "tone": "info",
-        "title": "The principle",
-        "text": "Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
+        "type": "heading",
+        "level": 3,
+        "text": "Make the next visible state clear"
+      },
+      {
+        "type": "paragraph",
+        "text": "Break up long tasks, reduce unnecessary re-renders, defer non-critical work, and keep event handlers small. For network-bound actions, show a clear pending state and then update the relevant region when the response arrives. Feedback does not replace performance work, but it helps users understand that their action was received."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Content, CMS, and Ownership"
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Integrations change the equation"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "The content team and publishing workflow are defined.",
-          "Required integrations are documented.",
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit."
-        ]
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Design freedom is not the only factor"
-      },
-      {
-        "type": "list",
-        "ordered": false,
-        "items": [
-          "Required integrations are documented.",
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit.",
-          "Security and update responsibilities are assigned."
-        ]
-      },
-      {
-        "type": "quote",
-        "text": "Make the decision from requirements and evidence, not from the label attached to the solution.",
-        "attribution": "Kapitech editorial principle"
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Performance, Security, and Maintenance"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
-      },
-      {
-        "type": "table",
-        "headers": [
-          "Decision area",
-          "What to evaluate",
-          "Why it matters"
-        ],
-        "rows": [
-          [
-            "WordPress is a real platform, not a shortcut",
-            "W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites.",
-            "Changes the initial decision"
-          ],
-          [
-            "Custom does not automatically mean better",
-            "WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem.",
-            "Changes future effort"
-          ],
-          [
-            "Start with the operating model",
-            "Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior.",
-            "Changes the initial decision"
-          ],
-          [
-            "Plugins can accelerate delivery",
-            "A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely.",
-            "Changes future effort"
-          ],
-          [
-            "CMS ownership matters",
-            "Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter.",
-            "Changes the initial decision"
-          ]
-        ],
-        "caption": "A practical decision model for WordPress vs Custom Website: Which Is Right for Your Business?."
+        "text": "CLS: prevent unexpected movement"
       },
       {
         "type": "image",
-        "url": "/insights/wordpress-vs-custom-website/requirements-map.svg",
-        "alt": "Editorial visual: When Custom Development Makes Sense",
-        "caption": "A visual model for when custom development makes sense."
+        "url": "/insights/core-web-vitals/cls-path.svg",
+        "alt": "A layout stability path showing content movement during loading",
+        "caption": "Reserve space for content before images, embeds, and late-loading components appear."
+      },
+      {
+        "type": "paragraph",
+        "text": "Cumulative Layout Shift measures unexpected movement of visible content. A button that shifts just as someone tries to tap it is more than a cosmetic issue; it can cause mistakes and make the page feel unreliable."
       },
       {
         "type": "heading",
         "level": 3,
-        "text": "Performance depends on implementation"
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in performance, security, and maintenance is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. Businesses should avoid paying for custom complexity that does not support a real requirement."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "A Real Scenario: Choosing a Platform for a Growing Business"
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. Forcing a complex operational workflow into generic plugins can also create fragile dependencies and difficult upgrades."
-      },
-      {
-        "type": "image",
-        "url": "/insights/wordpress-vs-custom-website/comparison.svg",
-        "alt": "Editorial visual: Content, CMS, and Ownership",
-        "caption": "A visual model for content, cms, and ownership."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Security requires maintenance"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. The best stack is the simplest system that supports actual requirements and expected change."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Ownership includes future changes"
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Define who publishes content"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Map the workflows the site must support"
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Identify integration boundaries"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Common Platform Selection Mistakes"
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in common platform selection mistakes is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Estimate the cost of change"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Set a maintenance model"
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "A growing business has changing needs"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. Businesses should avoid paying for custom complexity that does not support a real requirement."
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. Forcing a complex operational workflow into generic plugins can also create fragile dependencies and difficult upgrades."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "How Kapitech Evaluates the Right Stack"
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Avoid rebuilding for hypothetical scale"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. The best stack is the simplest system that supports actual requirements and expected change."
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Protect the workflows that differentiate you"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in how kapitech evaluates the right stack is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Use the simplest system that meets the requirements"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not select technology from aesthetics"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
-      },
-      {
-        "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not equate plugin count with capability"
-      },
-      {
-        "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. Businesses should avoid paying for custom complexity that does not support a real requirement."
-      },
-      {
-        "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. Forcing a complex operational workflow into generic plugins can also create fragile dependencies and difficult upgrades."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Do not ignore maintenance"
-      },
-      {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. The best stack is the simplest system that supports actual requirements and expected change."
-      },
-      {
-        "type": "paragraph",
-        "text": "The practical question in how kapitech evaluates the right stack is not whether an option is possible. It is whether it solves the intended business problem with an acceptable level of cost, complexity, risk, and future change. W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
-      },
-      {
-        "type": "heading",
-        "level": 3,
-        "text": "Make the platform decision reversible where possible"
-      },
-      {
-        "type": "paragraph",
-        "text": "Teams often make this decision too early. Start by defining the audience, the job the website must perform, and the constraints that could make one approach unsuitable. WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is why a visible deliverable can be misleading. Two websites can look similar while having very different content models, integrations, ownership requirements, and operating costs. Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
-      },
-      {
-        "type": "heading",
-        "level": 2,
-        "text": "Before You Commit to a Platform"
-      },
-      {
-        "type": "paragraph",
-        "text": "A useful evaluation connects the decision to evidence: requirements, user journeys, content needs, technical constraints, and what the team must be able to change after launch. A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
-      },
-      {
-        "type": "image",
-        "url": "/insights/wordpress-vs-custom-website/scenario.svg",
-        "alt": "Editorial visual: Performance, Security, and Maintenance",
-        "caption": "A visual model for performance, security, and maintenance."
+        "text": "Common causes of layout shift"
       },
       {
         "type": "list",
         "ordered": false,
         "items": [
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit.",
-          "Security and update responsibilities are assigned.",
-          "Backups and recovery are planned."
+          "Images or video elements without reserved dimensions or aspect ratios.",
+          "Ads, embeds, and banners inserted above existing content.",
+          "Fonts that change text metrics after the first render.",
+          "Components that expand without reserved space when data arrives.",
+          "Animations that change layout properties instead of transform or opacity."
         ]
       },
       {
-        "type": "callout",
-        "tone": "neutral",
-        "title": "Practical rule",
-        "text": "The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
+        "type": "heading",
+        "level": 3,
+        "text": "Stabilize the layout before content arrives"
+      },
+      {
+        "type": "paragraph",
+        "text": "Reserve image dimensions, use aspect-ratio containers, avoid inserting content above the user's current position, and handle font loading intentionally. Test the real page while content, fonts, and embeds load rather than evaluating only the final static state."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/vitals-triad.svg",
+        "alt": "The three Core Web Vitals metrics and their roles in user experience",
+        "caption": "A good experience needs loading, responsiveness, and stability to work together."
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Platform Selection Checklist"
+        "text": "Use field data and lab tools together"
       },
       {
         "type": "paragraph",
-        "text": "The goal is not to maximize features. The goal is to create the smallest credible system that supports the business outcome and can be operated safely. Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
+        "text": "Field data shows how visitors experience the page across real devices and networks. Lab testing helps reproduce and diagnose a specific cause under controlled conditions. Use field trends to decide what matters, then use lab traces and browser tools to investigate why the metric is poor."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/performance-loop.svg",
+        "alt": "A performance optimization loop from measurement to verification",
+        "caption": "Measure, diagnose, change one cause, and verify the impact."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A practical optimization workflow"
       },
       {
         "type": "checklist",
-        "title": "Decision checklist",
+        "title": "Performance checklist",
         "items": [
-          "The content team and publishing workflow are defined.",
-          "Required integrations are documented.",
-          "Distinct business rules are identified.",
-          "Expected future changes are known.",
-          "Performance requirements are explicit.",
-          "Security and update responsibilities are assigned.",
-          "Backups and recovery are planned.",
-          "Third-party dependencies are reviewed.",
-          "Future change cost is considered.",
-          "The platform is justified by requirements rather than preference."
+          "Identify the affected page templates, devices, and user journeys.",
+          "Check field data and separate it by page type where data is available.",
+          "Find the actual LCP element and inspect its request and render delays.",
+          "Record long tasks and heavy event handlers that affect key interactions.",
+          "Reserve dimensions for media and late-loading components to reduce CLS.",
+          "Re-test with realistic mobile CPU and network conditions.",
+          "Monitor after release to confirm that field experience improves."
         ]
       },
       {
         "type": "heading",
         "level": 2,
-        "text": "Conclusion: Choose the System That Fits the Business"
+        "text": "Prioritize fixes by user impact"
       },
       {
         "type": "paragraph",
-        "text": "Cost and quality should be considered together. A cheap decision can become expensive when missing discovery, QA, content work, or maintenance appears later. WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
+        "text": "Start with issues affecting important entry pages or common conversion journeys. A dramatic lab score improvement is not automatically the highest business priority if users rarely visit that template. Pair performance metrics with measures such as form completion, product exploration, and support reports so improvements serve the actual audience."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: optimize the experience, not just the score"
       },
       {
         "type": "paragraph",
-        "text": "The website is a living system. New pages, campaigns, integrations, devices, stakeholders, and business requirements will test the choices made during the initial project. The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
+        "text": "Core Web Vitals work best as a repeatable engineering practice. Measure the real experience, identify the bottleneck, fix the cause, and validate the result. Treat LCP, INP, and CLS as complementary signals: a page should appear quickly, respond when people interact, and stay stable while they use it."
       },
       {
-        "type": "paragraph",
-        "text": "A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users. Businesses should avoid paying for custom complexity that does not support a real requirement."
+        "type": "promo",
+        "eyebrow": "Web performance",
+        "title": "Turn performance findings into a prioritized engineering plan",
+        "description": "Identify high-impact loading, interaction, and layout problems across the page templates that matter most.",
+        "ctaLabel": "Review your website",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
       }
     ],
     "faq": [
       [
-        "What should I decide first?",
-        "W3Techs reports WordPress remains the most widely used CMS on the web, making its ecosystem and maintenance model relevant to many business sites."
+        "What are the current Core Web Vitals?",
+        "The current set is Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS). They measure loading performance, responsiveness, and visual stability."
       ],
       [
-        "How should I compare options?",
-        "WordPress is often a strong fit when teams need frequent publishing, familiar editorial workflows, and a broad extension ecosystem."
+        "What are the good Core Web Vitals thresholds?",
+        "The good thresholds are LCP at or below 2.5 seconds, INP at or below 200 milliseconds, and CLS at or below 0.1, evaluated at the 75th percentile of real page visits."
       ],
       [
-        "What should a good proposal or plan include?",
-        "Custom development becomes more defensible when the website must implement distinctive business rules, complex integrations, specialized workflows, or product-like behavior."
+        "Can a website pass a Lighthouse test and still have poor Core Web Vitals?",
+        "Yes. Lab tests use controlled conditions while field data reflects real users, devices, and networks. Both are useful for different purposes."
       ],
       [
-        "Can the simplest option be the best one?",
-        "A custom stack still needs content management, security, testing, deployment, monitoring, and a team capable of changing it safely."
+        "Which Core Web Vital should be fixed first?",
+        "Prioritize the metric and template with the largest real user impact. Identify the bottleneck using field and lab data rather than choosing a metric solely from one score."
       ],
       [
-        "What should happen after launch?",
-        "Performance is not determined by the platform label alone; themes, plugins, assets, rendering, hosting, caching, and implementation all matter."
+        "Does a good Core Web Vitals score guarantee a high Google ranking?",
+        "No. These metrics describe aspects of page experience and are not a guarantee of rankings. Useful content, relevance, accessibility, and other factors remain important."
       ],
       [
-        "How important is design?",
-        "WordPress documentation emphasizes keeping core, themes, and plugins updated and maintaining reliable backups."
-      ],
-      [
-        "How do I reduce project risk?",
-        "The useful comparison is total cost of ownership and ability to change the system, not only the initial development quote."
+        "How often should performance be checked?",
+        "Monitor important pages continuously where field data is available and repeat lab checks after changes to images, JavaScript, fonts, layout, third-party scripts, or core templates."
       ]
-    ]
+    ],
+    "seoTitle": "Core Web Vitals Explained: LCP, INP, and CLS in Practice | Kapitech",
+    "seoDescription": "Understand Core Web Vitals thresholds and learn how to diagnose LCP, INP, and CLS using field data, browser tooling, and a practical optimization workflow."
   }
 }
