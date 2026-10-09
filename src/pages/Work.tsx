@@ -25,6 +25,7 @@ import Fuse from 'fuse.js';
 import { useLanguage } from '../lib/LanguageContext';
 import { ProjectItem } from '../data/projectsData';
 import { projectSlug } from '../lib/publicContent';
+import { buildCaseStudyNarrative } from '../lib/caseStudyNarrative';
 
 const WorkModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
@@ -81,6 +82,13 @@ export const Work = () => {
     ];
     return Array.from(new Set(candidates.filter((item): item is string => Boolean(item && item.trim()))));
   }, [selectedProject]);
+
+  // Reuse the detailed narrative on /work/:slug so the quick view is not limited
+  // to four short text fields stored in the CMS record.
+  const selectedCaseStudyNarrative = useMemo(
+    () => selectedProject ? buildCaseStudyNarrative(selectedProject, language) : null,
+    [selectedProject, language],
+  );
 
   const openCaseStudy = (project: ProjectItem) => {
     modalTriggerRef.current = document.activeElement instanceof HTMLElement
@@ -1116,7 +1124,7 @@ export const Work = () => {
                       <section id="case-study-modal-summary" aria-labelledby="case-study-overview-heading">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Ringkasan Proyek' : 'Project Context'}</span>
                         <h2 id="case-study-overview-heading" className="mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-[2.65rem] font-display font-bold leading-[1.08] tracking-[-0.035em] text-white">{language === 'id' ? 'Konteks, ruang lingkup, dan hasil.' : 'Context, scope, and outcome.'}</h2>
-                        <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">{language === 'id' ? selectedProject.descId : selectedProject.desc}</p>
+                        <p className="mt-4 text-sm sm:text-[0.98rem] leading-[1.85] text-[#C2C7D1] font-light">{selectedCaseStudyNarrative?.context || (language === 'id' ? selectedProject.descId : selectedProject.desc)}</p>
 
                         <div className="mt-6 rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
                           <div className="mb-4 flex items-center justify-between gap-3">
@@ -1163,77 +1171,158 @@ export const Work = () => {
                         )}
                       </section>
 
-                      <div className="grid grid-cols-1 gap-4">
-                        <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-challenge-heading">
-                          <div className="mb-4 flex items-start gap-3">
-                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">01</span>
-                            <div>
-                              <h3 id="case-study-challenge-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Masalah Klien' : 'Client Challenge'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Business context' : 'Business context'}</p>
-                            </div>
-                          </div>
-                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#A9AFBB] font-light">{language === 'id' ? selectedProject.challengeId : selectedProject.challenge}</p>
-                        </section>
-
-                        <section className="rounded-[22px] border border-brand-red/20 bg-brand-red/[0.035] p-5 sm:p-6" aria-labelledby="case-study-solution-heading">
-                          <div className="mb-4 flex items-start gap-3">
-                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">02</span>
-                            <div>
-                              <h3 id="case-study-solution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Solusi Kapitech' : 'Kapitech Solution'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Approach & direction' : 'Approach & direction'}</p>
-                            </div>
-                          </div>
-                          <p className="text-sm sm:text-[0.96rem] leading-[1.85] text-[#C1C6D0] font-light">{language === 'id' ? selectedProject.solutionId : selectedProject.solution}</p>
-                        </section>
-
-                        <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-execution-heading">
-                          <div className="mb-4 flex items-start gap-3">
-                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">03</span>
-                            <div>
-                              <h3 id="case-study-execution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Eksekusi & Delivery' : 'Execution & Delivery'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'How the work was delivered' : 'How the work was delivered'}</p>
-                            </div>
-                          </div>
-                          {(language === 'id' ? selectedProject.executionId : selectedProject.execution) && (
-                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">{language === 'id' ? selectedProject.executionId : selectedProject.execution}</p>
-                          )}
-                          <div className="space-y-2.5">
-                            {selectedProject.deliverables.map((item, idx) => (
-                              <div key={idx} className="flex items-start gap-3 rounded-xl border border-white/[0.06] bg-black/10 px-4 py-3">
-                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-brand-red/20 bg-brand-red/[0.06] text-[10px] font-mono font-semibold tabular-nums text-brand-red">{String(idx + 1).padStart(2, '0')}</span>
-                                <span className="pt-1 text-sm font-medium leading-snug text-white">{item}</span>
+                      {selectedCaseStudyNarrative && (
+                        <div className="space-y-5">
+                          <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-challenge-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">01</span>
+                              <div>
+                                <h3 id="case-study-challenge-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Tantangan Klien & Diagnosis Masalah' : 'Client Challenge & Problem Diagnosis'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Masalah, dampak operasional, dan hal yang perlu diselesaikan' : 'The problem, operational friction, and what needed to change'}</p>
                               </div>
-                            ))}
-                          </div>
-                          <div className="mt-5 flex flex-wrap gap-2">
-                            {selectedProject.technologies.map((tech, idx) => (
-                              <span key={idx} className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] sm:text-xs font-mono text-[#A9AFBB]">{tech}</span>
-                            ))}
-                          </div>
-                        </section>
-
-                        <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-impact-heading">
-                          <div className="mb-4 flex items-start gap-3">
-                            <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">04</span>
-                            <div>
-                              <h3 id="case-study-impact-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Hasil & Dampak ke Klien' : 'Outcome & Client Impact'}</h3>
-                              <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'What changed after delivery' : 'What changed after delivery'}</p>
                             </div>
-                          </div>
-                          {(language === 'id' ? selectedProject.outcomeId : selectedProject.outcome) && (
-                            <p className="mb-5 text-sm sm:text-[0.96rem] leading-[1.85] text-[#B8BEC9] font-light">{language === 'id' ? selectedProject.outcomeId : selectedProject.outcome}</p>
-                          )}
-                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                            {selectedProject.impact.map((item, idx) => (
-                              <div key={idx} className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.018] p-4 sm:p-5">
-                                <span className="block text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">{item.value}</span>
-                                <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">{item.label}</span>
+                            <p className="text-sm sm:text-[0.96rem] leading-[1.9] text-[#B8BEC9] font-light">{selectedCaseStudyNarrative.challenge}</p>
+                            <div className="mt-5 grid grid-cols-1 gap-3">
+                              {selectedCaseStudyNarrative.diagnosis.map((detail, idx) => (
+                                <article key={detail.title} className="rounded-2xl border border-white/[0.06] bg-black/10 p-4 sm:p-5">
+                                  <div className="flex items-start gap-3">
+                                    <span className="mt-0.5 text-[10px] font-mono tabular-nums text-brand-red">{String(idx + 1).padStart(2, '0')}</span>
+                                    <div className="min-w-0">
+                                      <h4 className="text-sm sm:text-base font-semibold leading-6 text-white">{detail.title}</h4>
+                                      <p className="mt-2 text-sm leading-7 text-[#929AA7]">{detail.body}</p>
+                                    </div>
+                                  </div>
+                                </article>
+                              ))}
+                            </div>
+                            <div className="mt-5 rounded-2xl border border-white/[0.06] bg-black/10 p-4 sm:p-5">
+                              <h4 className="text-sm font-semibold text-white">{language === 'id' ? 'Sasaran pengerjaan' : 'Project objectives'}</h4>
+                              <div className="mt-3 space-y-3">
+                                {selectedCaseStudyNarrative.objectives.map((objective, idx) => (
+                                  <div key={objective} className="flex items-start gap-3">
+                                    <CheckCircle2 size={15} className="mt-1 shrink-0 text-brand-red" aria-hidden="true" />
+                                    <p className="text-sm leading-7 text-[#A7AEB9]">{objective}</p>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                        </section>
-                      </div>
+                            </div>
+                          </section>
 
+                          <section className="rounded-[22px] border border-brand-red/20 bg-brand-red/[0.035] p-5 sm:p-6" aria-labelledby="case-study-solution-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">02</span>
+                              <div>
+                                <h3 id="case-study-solution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Solusi Kapitech & Alasan Strategis' : 'Kapitech Solution & Strategic Rationale'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Apa yang dipilih, cara kerjanya, dan mengapa relevan' : 'What was selected, how it works, and why it matters'}</p>
+                              </div>
+                            </div>
+                            <p className="text-sm sm:text-[0.96rem] leading-[1.9] text-[#C1C6D0] font-light">{selectedCaseStudyNarrative.solution}</p>
+                            <div className="mt-5 space-y-3">
+                              {selectedCaseStudyNarrative.solutionLogic.map((detail, idx) => (
+                                <article key={detail.title} className="grid gap-2 rounded-2xl border border-white/[0.07] bg-black/10 p-4 sm:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] sm:gap-5 sm:p-5">
+                                  <div className="flex items-start gap-3">
+                                    <span className="mt-0.5 text-[10px] font-mono tabular-nums text-brand-red">{String(idx + 1).padStart(2, '0')}</span>
+                                    <h4 className="text-sm font-semibold leading-6 text-white">{detail.title}</h4>
+                                  </div>
+                                  <p className="text-sm leading-7 text-[#929AA7]">{detail.body}</p>
+                                </article>
+                              ))}
+                            </div>
+                          </section>
+
+                          <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-execution-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">03</span>
+                              <div>
+                                <h3 id="case-study-execution-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Proses Pengerjaan, Tahap demi Tahap' : 'Execution Process, Step by Step'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Dari perumusan masalah hingga pemeriksaan dan penyerahan' : 'From problem framing through review and handover'}</p>
+                              </div>
+                            </div>
+                            <div className="space-y-3">
+                              {selectedCaseStudyNarrative.process.map((step, idx) => (
+                                <article key={step.title} className="grid gap-3 rounded-2xl border border-white/[0.06] bg-black/10 p-4 sm:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)] sm:gap-5 sm:p-5">
+                                  <div>
+                                    <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Tahap' : 'Stage'} {String(idx + 1).padStart(2, '0')}</span>
+                                    <h4 className="mt-2 text-sm font-semibold leading-6 text-white">{step.title.replace(/^\d+\s*·\s*/, '')}</h4>
+                                  </div>
+                                  <p className="text-sm leading-7 text-[#929AA7]">{step.body}</p>
+                                </article>
+                              ))}
+                            </div>
+                          </section>
+
+                          <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-deliverables-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">04</span>
+                              <div>
+                                <h3 id="case-study-deliverables-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Deliverables & Rincian Hasil Kerja' : 'Deliverables & Delivery Details'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Bukan hanya daftar output, tetapi fungsi tiap hasil kerja' : 'Not just a list of outputs, but the role each deliverable plays'}</p>
+                              </div>
+                            </div>
+                            {selectedCaseStudyNarrative.deliverables.length ? (
+                              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                {selectedCaseStudyNarrative.deliverables.map((deliverable, idx) => (
+                                  <article key={deliverable.title} className="min-w-0 rounded-2xl border border-white/[0.06] bg-black/10 p-4 sm:p-5">
+                                    <div className="flex items-center justify-between gap-3">
+                                      <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">{language === 'id' ? 'Hasil kerja' : 'Deliverable'}</span>
+                                      <span className="text-[10px] font-mono tabular-nums text-brand-red">{String(idx + 1).padStart(2, '0')}</span>
+                                    </div>
+                                    <h4 className="mt-3 text-sm font-semibold leading-6 text-white">{deliverable.title}</h4>
+                                    <p className="mt-2 text-sm leading-7 text-[#929AA7]">{deliverable.body}</p>
+                                  </article>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm leading-7 text-[#929AA7]">{language === 'id' ? 'Rincian output belum diisi dalam data proyek yang tersedia.' : 'The project record does not yet include detailed outputs.'}</p>
+                            )}
+                          </section>
+
+                          <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-tools-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">05</span>
+                              <div>
+                                <h3 id="case-study-tools-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Tools, Teknologi & Pertimbangan Teknis' : 'Tools, Technologies & Technical Considerations'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Peran setiap alat di dalam solusi' : 'The role each tool plays in the solution'}</p>
+                              </div>
+                            </div>
+                            {selectedCaseStudyNarrative.technologies.length ? (
+                              <div className="space-y-4">
+                                {selectedCaseStudyNarrative.technologies.map((technology) => (
+                                  <div key={technology.title} className="grid gap-2 border-b border-white/[0.06] pb-4 last:border-b-0 last:pb-0 sm:grid-cols-[minmax(0,0.35fr)_minmax(0,1fr)] sm:gap-5">
+                                    <span className="inline-flex h-fit max-w-full break-words rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono text-[#C4CAD3]">{technology.title}</span>
+                                    <p className="text-sm leading-7 text-[#929AA7]">{technology.body}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm leading-7 text-[#929AA7]">{language === 'id' ? 'Daftar tools belum tersedia.' : 'No tools have been listed yet.'}</p>
+                            )}
+                          </section>
+
+                          <section className="rounded-[22px] border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6" aria-labelledby="case-study-impact-heading">
+                            <div className="mb-4 flex items-start gap-3">
+                              <span className="tabular-nums text-[10px] font-mono font-semibold text-brand-red">06</span>
+                              <div>
+                                <h3 id="case-study-impact-heading" className="text-xl sm:text-2xl font-display font-semibold tracking-[-0.02em] text-white">{language === 'id' ? 'Outcome, Dampak & Bukti' : 'Outcome, Client Impact & Evidence'}</h3>
+                                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F7480]">{language === 'id' ? 'Pisahkan hasil yang tercatat dari manfaat yang dituju' : 'Separate recorded outcomes from intended benefits'}</p>
+                              </div>
+                            </div>
+                            <p className="text-sm sm:text-[0.96rem] leading-[1.9] text-[#B8BEC9] font-light">{selectedCaseStudyNarrative.impact}</p>
+                            {selectedProject.impact.length > 0 ? (
+                              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                                {selectedProject.impact.map((metric, idx) => (
+                                  <div key={metric.label + '-' + idx} className="relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-black/10 p-4 sm:p-5">
+                                    <span className="block break-words text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">{metric.value}</span>
+                                    <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">{metric.label}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : null}
+                            <p className="mt-5 rounded-2xl border border-dashed border-white/[0.1] bg-black/10 p-4 text-xs leading-6 text-[#818995]">{selectedCaseStudyNarrative.evidenceNote}</p>
+                            <p className="mt-4 text-sm leading-7 text-[#929AA7]">{selectedCaseStudyNarrative.relevance}</p>
+                          </section>
+                        </div>
+                      )}
                       <section className="rounded-[22px] border border-brand-red/20 bg-gradient-to-br from-brand-red/[0.12] via-white/[0.018] to-transparent p-5 sm:p-6 lg:p-7">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</span>
                         <h3 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">{language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}</h3>

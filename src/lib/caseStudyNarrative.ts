@@ -1065,14 +1065,39 @@ const explainMetricSignals = (metrics: Array<{ label: string; value: string }>, 
     : 'The listed indicators cover ' + readableList(distinctGroups, language) + '. Each answers a different question, so reach does not automatically mean conversion, and a technical indicator does not automatically prove business growth.';
 };
 
+const normalizeNarrativeComparison = (value: string): string => value
+  .normalize('NFKD')
+  .replace(/[\\u0300-\\u036f]/g, '')
+  .toLocaleLowerCase()
+  .replace(/[^a-z0-9]+/g, ' ')
+  .trim();
+
+const isRedundantNarrative = (candidate: string, sources: string[]): boolean => {
+  const normalized = normalizeNarrativeComparison(candidate);
+  if (!normalized) return true;
+  return sources.some((source) => {
+    const comparison = normalizeNarrativeComparison(source);
+    if (!comparison) return false;
+    if (normalized === comparison) return true;
+    // CMS records sometimes copy a project description into execution/outcome.
+    // Ignore only near-identical long strings, preserving distinct details.
+    const shorter = Math.min(normalized.length, comparison.length);
+    const longer = Math.max(normalized.length, comparison.length);
+    return shorter >= 80 && longer > 0 && shorter / longer >= 0.84 &&
+      (normalized.includes(comparison) || comparison.includes(normalized));
+  });
+};
+
 export function buildCaseStudyNarrative(item: ProjectItem, language: string): CaseStudyNarrative {
   const lang = language === 'id' ? 'id' : 'en';
   const playbook = servicePlaybooks[item.service]?.[lang] || servicePlaybooks['Web Application'][lang];
   const description = localText(item, 'desc', lang);
   const challenge = localText(item, 'challenge', lang);
   const solution = localText(item, 'solution', lang);
-  const execution = localText(item, 'execution', lang);
-  const outcome = localText(item, 'outcome', lang);
+  const rawExecution = localText(item, 'execution', lang);
+  const rawOutcome = localText(item, 'outcome', lang);
+  const execution = isRedundantNarrative(rawExecution, [description, challenge, solution]) ? '' : rawExecution;
+  const outcome = isRedundantNarrative(rawOutcome, [description, challenge, solution]) ? '' : rawOutcome;
   const deliverables = cleanValues(item.deliverables);
   const technologies = cleanValues(item.technologies);
   const metrics = Array.isArray(item.impact)
