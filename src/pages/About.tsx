@@ -298,7 +298,7 @@ export const About = () => {
       {/* Corporate Information */}
       <section className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(340px,0.95fr)] lg:items-start lg:gap-16 xl:gap-24">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:gap-14 xl:gap-20">
             <div>
               <span className="kapi-section-label">
                 {language === 'id' ? 'Informasi Korporat' : 'Corporate Information'}
@@ -349,56 +349,74 @@ export const About = () => {
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111216]">
-              <div className="flex items-center gap-3 border-b border-white/[0.08] px-5 py-5 sm:px-7">
-                <Building2 size={18} className="shrink-0 text-brand-red" aria-hidden="true" />
-                <div>
-                  <h3 className="text-sm font-semibold text-white">
-                    {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
-                  </h3>
-                  <p className="mt-1 text-xs font-light text-[#8A909D]">
-                    {language === 'id' ? 'Informasi resmi dan fokus usaha' : 'Business identity and operating details'}
-                  </p>
-                </div>
+              <div className="aspect-[4/5] overflow-hidden sm:aspect-[5/5] lg:aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+                  alt={language === 'id' ? 'Sekelompok profesional berkolaborasi dalam pekerjaan' : 'Professionals collaborating around a table'}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div className="border-t border-white/[0.08] p-5 sm:p-6">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                  {language === 'id' ? 'Prinsip Kerja' : 'Our Approach'}
+                </span>
+                <p className="mt-2 font-display text-xl font-semibold tracking-[-0.035em] text-white sm:text-2xl">
+                  {language === 'id'
+                    ? 'Kualitas, presisi, dan komitmen.'
+                    : 'Quality, precision, and commitment.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 overflow-hidden rounded-2xl border border-white/[0.09] bg-[#111216]">
+            <div className="border-b border-white/[0.08] px-5 py-5 sm:px-7">
+              <h3 className="text-sm font-semibold text-white">
+                {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
+              </h3>
+              <p className="mt-1 text-xs font-light text-[#8A909D]">
+                {language === 'id' ? 'Identitas usaha dan informasi operasional' : 'Business identity and operating details'}
+              </p>
+            </div>
+
+            <dl className="grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-2 sm:divide-y-0 sm:divide-x sm:divide-white/[0.07] xl:grid-cols-4">
+              <div className="min-w-0 px-5 py-5 sm:px-6">
+                <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
+                  {language === 'id' ? 'Badan usaha' : 'Legal entity'}
+                </dt>
+                <dd className="mt-2 text-sm font-medium leading-6 text-white">PT Kapitech Digital Indonesia</dd>
               </div>
 
-              <dl className="divide-y divide-white/[0.07] px-5 sm:px-7">
-                <div className="grid gap-1.5 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-5">
-                  <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
-                    {language === 'id' ? 'Badan usaha' : 'Legal entity'}
-                  </dt>
-                  <dd className="text-sm font-medium leading-6 text-white">PT Kapitech Digital Indonesia</dd>
-                </div>
+              <div className="min-w-0 px-5 py-5 sm:px-6">
+                <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
+                  {language === 'id' ? 'Fokus usaha' : 'Business focus'}
+                </dt>
+                <dd className="mt-2 text-sm font-medium leading-6 text-white">
+                  Digital Product Design & Engineering
+                </dd>
+              </div>
 
-                <div className="grid gap-1.5 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-5">
-                  <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
-                    {language === 'id' ? 'Fokus usaha' : 'Business focus'}
-                  </dt>
-                  <dd className="text-sm font-medium leading-6 text-white">
-                    Digital Product Design & Engineering
-                  </dd>
-                </div>
+              <div className="min-w-0 px-5 py-5 sm:px-6">
+                <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
+                  <MapPin size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
+                  {language === 'id' ? 'Kantor' : 'Headquarters'}
+                </dt>
+                <dd className="mt-2 text-sm font-medium leading-6 text-[#D4D7DE]">
+                  Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
+                </dd>
+              </div>
 
-                <div className="grid gap-1.5 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-5">
-                  <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
-                    <MapPin size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
-                    {language === 'id' ? 'Kantor' : 'Headquarters'}
-                  </dt>
-                  <dd className="text-sm font-medium leading-6 text-[#D4D7DE]">
-                    Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
-                  </dd>
-                </div>
-
-                <div className="grid gap-1.5 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-5">
-                  <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
-                    <Globe size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
-                    {language === 'id' ? 'Pasar' : 'Markets'}
-                  </dt>
-                  <dd className="text-sm font-medium leading-6 text-white">
-                    {language === 'id' ? 'Indonesia · Asia Tenggara · Global' : 'Indonesia · Southeast Asia · Global'}
-                  </dd>
-                </div>
-              </dl>
-            </div>
+              <div className="min-w-0 px-5 py-5 sm:px-6">
+                <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
+                  <Globe size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
+                  {language === 'id' ? 'Pasar' : 'Markets'}
+                </dt>
+                <dd className="mt-2 text-sm font-medium leading-6 text-white">
+                  {language === 'id' ? 'Indonesia · Asia Tenggara · Global' : 'Indonesia · Southeast Asia · Global'}
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
