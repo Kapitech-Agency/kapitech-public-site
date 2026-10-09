@@ -21,6 +21,7 @@ type RetryState = { count: number; timer: number | null };
 
 let cmsServicesCache: ServiceItemData[] | null = null;
 let cmsProjectsCache: ProjectItem[] | null = null;
+let cmsProjectsHasExplicitUnpublishedRecords = false;
 let cmsTestimonialsCache: TestimonialItem[] | null = null;
 let cmsServicesRequest: Promise<ServiceItemData[]> | null = null;
 let cmsProjectsRequest: Promise<ProjectItem[]> | null = null;
@@ -306,8 +307,11 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
 }
 
 export function getCmsProjects(): ProjectItem[] {
-  // Keep the public portfolio usable during CMS outages or when the CMS collection is empty.
-  return cmsProjectsCache && cmsProjectsCache.length > 0 ? cmsProjectsCache : allProjects;
+  if (cmsProjectsCache && cmsProjectsCache.length > 0) return cmsProjectsCache;
+  // A genuinely empty CMS response keeps the curated portfolio fallback, but an
+  // explicit all-unpublished response is authoritative and must not re-expose drafts.
+  if (cmsHydrated.projects && cmsProjectsHasExplicitUnpublishedRecords) return [];
+  return allProjects;
 }
 
 export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
@@ -319,6 +323,10 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         ? extractCmsCollection<unknown>(res.data, 'projects')
         : null;
       if (projects) {
+        cmsProjectsHasExplicitUnpublishedRecords = projects.some((project) =>
+          Boolean(project && typeof project === 'object' && !Array.isArray(project) &&
+            (project as Record<string, unknown>).isPublished === false),
+        );
         // Normalize JSON at the runtime boundary; TypeScript casts alone cannot
         // guarantee the optional CMS fields are valid arrays/strings.
         const publishedProjects = projects
