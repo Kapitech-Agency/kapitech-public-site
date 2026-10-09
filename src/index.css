@@ -176,30 +176,21 @@
 /* Buttons inherit their component-level color tokens. Do not force every
    button label and icon to white: active, muted, ghost, and disabled states
    must retain their intended contrast and brand accent. */
-:where(.kapi-public-shell) :where(button) {
-  color: inherit;
-}
+/* Generic button defaults live in the components layer so Tailwind
+   utilities and component variants can override them as intended. */
+@layer components {
+  :where(.kapi-public-shell) :where(button:not([class*="bg-"])) {
+    background: rgba(255,255,255,0.035);
+  }
 
-:where(.kapi-public-shell) :where(button svg) {
-  color: currentColor;
-}
+  :where(.kapi-public-shell) :where(button:not([class*="border-"])) {
+    border: 1px solid var(--kapi-color-line);
+  }
 
-/* Low-specificity defaults only. Component classes own their own color states. */
-:where(.kapi-public-shell) :where(button:not([class*="bg-"]), button[class*="bg-transparent"]) {
-  background: rgba(255,255,255,0.035);
-}
-
-:where(.kapi-public-shell) :where(button:not([class*="border-"])) {
-  border: 1px solid var(--kapi-color-line);
-}
-
-:where(.kapi-public-shell) :where(button:not([class*="bg-"]):hover, button[class*="bg-transparent"]:hover) {
-  background: rgba(255,255,255,0.065);
-  border-color: var(--kapi-color-line-highlight);
-}
-
-:where(.kapi-public-shell) :where(button:active) {
-  transform: translateY(1px) scale(0.99);
+  :where(.kapi-public-shell) :where(button:not([class*="bg-"]):hover) {
+    background: rgba(255,255,255,0.065);
+    border-color: var(--kapi-color-line-highlight);
+  }
 }
 
 /* Homepage working framework uses a full-card button as its accessible trigger.
