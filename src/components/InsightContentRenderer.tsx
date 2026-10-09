@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import type { InsightBlock } from '../data/insightTypes';
 import { buildInsightHeadingIds } from '../lib/insightHeadingIds';
 import { InsightContextualPromo } from './InsightContextualPromo';
+import { resolveInsightVisualFallback, resolveInsightVisualUrl } from '../lib/insightVisuals.mjs';
 
 function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean; internalTo: string } | null {
   const value = typeof rawUrl === 'string' ? rawUrl.trim() : '';
@@ -20,52 +21,6 @@ function resolveSafeUrl(rawUrl: unknown): { url: string; external: boolean; inte
     };
   } catch {
     return null;
-  }
-}
-
-const INSIGHT_VISUAL_BASENAMES = [
-  'validate',
-  'learning-loop',
-  'comparison',
-  'decision-tree',
-  'framework'
-] as const;
-
-const INSIGHT_VISUAL_ASSET_VERSION = '4a2c6c27';
-
-function resolveInsightVisualUrl(rawUrl: string, language: 'id' | 'en'): string {
-  if (!rawUrl) return rawUrl;
-
-  const match = rawUrl.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)(?:\?.*)?$/i);
-  if (!match) return rawUrl;
-
-  const [, base, basename, extension] = match;
-  if (!INSIGHT_VISUAL_BASENAMES.includes(basename as typeof INSIGHT_VISUAL_BASENAMES[number])) {
-    return rawUrl;
-  }
-
-  return base + (language === 'id' ? '-id' : '') + extension + '?v=' + INSIGHT_VISUAL_ASSET_VERSION;
-}
-
-function resolveInsightVisualFallback(rawUrl: string): string {
-  const fallbackImage = '/insights/article-hero-background.jpg';
-
-  try {
-    const parsed = new URL(rawUrl, window.location.origin);
-    if (parsed.origin !== window.location.origin || !parsed.pathname.startsWith('/insights/')) {
-      return fallbackImage;
-    }
-
-    const segments = parsed.pathname.split('/').filter(Boolean);
-    if (segments.length < 3) return fallbackImage;
-
-    const articleDirectory = '/' + segments.slice(0, 2).join('/');
-    const filename = segments[segments.length - 1].toLowerCase();
-    return filename === 'hero.svg'
-      ? fallbackImage
-      : articleDirectory + '/hero.svg';
-  } catch {
-    return fallbackImage;
   }
 }
 
@@ -322,7 +277,7 @@ export const InsightContentRenderer: React.FC<{
                       const image = event.currentTarget;
                       if (image.dataset.fallbackApplied === 'true') return;
                       image.dataset.fallbackApplied = 'true';
-                      image.src = resolveInsightVisualFallback(resolvedSrc);
+                      image.src = resolveInsightVisualFallback(resolvedSrc, language);
                       image.alt = language === 'id'
                         ? 'Visual pendukung artikel Kapitech'
                         : 'Supporting visual for this Kapitech article';

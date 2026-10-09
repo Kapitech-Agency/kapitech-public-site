@@ -13,6 +13,7 @@ import {
 import { fetchPublishedInsights } from './insightApi.mjs';
 import { deriveInsightFaq } from '../src/lib/insightFaq.mjs';
 import { splitInsightBlocks } from '../src/lib/insightArticlePresentation.mjs';
+import { resolveInsightVisualFallback, resolveInsightVisualUrl } from '../src/lib/insightVisuals.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = join(root, 'dist');
@@ -27,42 +28,6 @@ const escapeHtml = (value) => String(value ?? '')
 
 const safeText = (value) => typeof value === 'string' ? value.trim() : '';
 const absoluteUrl = (value) => absoluteInsightUrl(value, manifest.siteUrl);
-
-const resolveInsightVisualUrl = (rawUrl, language) => {
-  const value = safeText(rawUrl);
-  if (!value) return value;
-
-  const match = value.match(/^(.*\/(validate|learning-loop|comparison|decision-tree|framework))(?:-id)?(\.svg)$/i);
-  if (!match) return value;
-
-  const [, base, basename, extension] = match;
-  return base + (language === 'id' ? '-id' : '') + extension;
-};
-
-const resolveInsightVisualFallback = (rawUrl) => {
-  const fallbackImage = '/insights/article-hero-background.jpg';
-  const value = safeText(rawUrl);
-  if (!value) return absoluteUrl(fallbackImage);
-
-  try {
-    const parsed = new URL(value, manifest.siteUrl);
-    const site = new URL(manifest.siteUrl);
-    if (parsed.origin !== site.origin || !parsed.pathname.startsWith('/insights/')) {
-      return absoluteUrl(fallbackImage);
-    }
-
-    const segments = parsed.pathname.split('/').filter(Boolean);
-    if (segments.length < 3) return absoluteUrl(fallbackImage);
-
-    const articleDirectory = '/' + segments.slice(0, 2).join('/');
-    const filename = segments[segments.length - 1].toLowerCase();
-    return absoluteUrl(filename === 'hero.svg'
-      ? fallbackImage
-      : articleDirectory + '/hero.svg');
-  } catch {
-    return absoluteUrl(fallbackImage);
-  }
-};
 
 const inlineMarkdownToHtml = (value) => {
   const safe = escapeHtml(value);
@@ -124,7 +89,7 @@ const renderCanonicalInsightBlock = (block, headingId, insight, sectionNumber = 
 
   if (block.type === 'image') {
     const visualUrl = resolveInsightVisualUrl(block.url, insight.language);
-    const fallback = resolveInsightVisualFallback(visualUrl);
+    const fallback = resolveInsightVisualFallback(visualUrl, insight.language);
     const widthValue = Number.isFinite(block.width) && Number(block.width) > 0 ? Number(block.width) : null;
     const heightValue = Number.isFinite(block.height) && Number(block.height) > 0 ? Number(block.height) : null;
     const width = widthValue ? ' width="' + String(widthValue) + '"' : '';

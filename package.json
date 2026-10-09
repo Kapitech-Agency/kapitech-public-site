@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-sitemap.mjs && node scripts/prerender-seo.mjs && node scripts/verify-hostinger-build.mjs && node scripts/write-build-stamp.mjs",
+    "build": "vite build && node scripts/verify-insight-editorial-packs.mjs && node scripts/generate-sitemap.mjs && node scripts/prerender-seo.mjs && node scripts/verify-hostinger-build.mjs && node scripts/write-build-stamp.mjs",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "start": "node server.mjs"
