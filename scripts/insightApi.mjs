@@ -11,10 +11,10 @@ const FALLBACK_DIR = join(ROOT, '..', 'src', 'data', 'insight-editorial-packs');
 const FALLBACK_PACKS = [
   ['en', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.en.json')],
   ['id', join(FALLBACK_DIR, 'mvp-vs-prototype-vs-proof-of-concept.id.json')],
-  ['en', join(FALLBACK_DIR, 'website-cost-indonesia-guide.en.json')],
-  ['en', join(FALLBACK_DIR, 'wordpress-vs-custom-website.en.json')],
-  ['en', join(FALLBACK_DIR, 'corporate-website-vs-landing-page.en.json')],
-  ['en', join(FALLBACK_DIR, 'choose-web-development-agency-indonesia.en.json')]
+  ['en', join(FALLBACK_DIR, 'technical-seo-audit-guide.en.json')],
+  ['en', join(FALLBACK_DIR, 'core-web-vitals-explained.en.json')],
+  ['en', join(FALLBACK_DIR, 'structured-data-for-seo-guide.en.json')],
+  ['en', join(FALLBACK_DIR, 'helpful-seo-content-framework.en.json')]
 ];
 
 async function loadLocalEditorialFallbacks() {
@@ -37,7 +37,9 @@ async function loadLocalEditorialFallbacks() {
 
       fallbacks.push({
         id: 'local-fallback:' + language + ':' + seo.slug,
-        contentGroupId: 'mvp-vs-prototype-vs-proof-of-concept',
+        contentGroupId: String(seo.slug).startsWith('mvp-vs-prototype-vs-proof-of-concept')
+          ? 'mvp-vs-prototype-vs-proof-of-concept'
+          : String(editorial.contentGroupId || seo.contentGroupId || seo.slug),
         language,
         title: String(editorial.title || seo.title || seo.slug),
         slug: String(seo.slug),
@@ -68,10 +70,12 @@ async function loadLocalEditorialFallbacks() {
         relatedInsightIds: [],
         relatedInsights: [],
         editorialMeta: { editorialType: editorial.editorialMeta?.editorialType },
-        alternateLanguages: [
-          { language: 'en', slug: 'mvp-vs-prototype-vs-proof-of-concept-guide' },
-          { language: 'id', slug: 'mvp-vs-prototype-vs-proof-of-concept' }
-        ],
+        alternateLanguages: String(seo.slug).startsWith('mvp-vs-prototype-vs-proof-of-concept')
+          ? [
+              { language: 'en', slug: 'mvp-vs-prototype-vs-proof-of-concept-guide' },
+              { language: 'id', slug: 'mvp-vs-prototype-vs-proof-of-concept' }
+            ]
+          : [],
         seoTitle: editorial.seoTitle || seo.title,
         seoDescription: editorial.seoDescription || seo.description,
         ogImage: seo.ogImage,
@@ -184,13 +188,20 @@ export async function fetchPublishedInsightSummaries() {
     console.warn('[Insight API] unable to load published ' + language + ' summaries:', result.reason);
   });
 
-  const seen = new Set();
-  return combined.filter((item) => {
-    const key = item.language + ':' + item.slug;
-    if (seen.has(key)) return false;
+  // Keep the sitemap and prerender useful when AMS is temporarily unreachable.
+  // Live CMS summaries are inserted first and therefore take precedence over local fallbacks.
+  const localFallbacks = await loadLocalEditorialFallbacks();
+  const seen = new Set(
+    combined.map((item) => item.language + ':' + item.slug)
+  );
+  for (const fallback of localFallbacks) {
+    const key = fallback.language + ':' + fallback.slug;
+    if (seen.has(key)) continue;
     seen.add(key);
-    return true;
-  });
+    combined.push(fallback);
+  }
+
+  return combined;
 }
 
 export async function fetchPublishedInsights() {
@@ -207,11 +218,12 @@ export async function fetchPublishedInsights() {
     const key = summary.language + ':' + summary.slug;
 
     try {
-      // The migration-seed editorial packs are the canonical source for the
-      // published MVP/Prototype/PoC article. The client already uses the same
-      // fallback as its initial source, so prerender must not drift from it.
-      if (fallbackByKey.has(key)) {
-        return fallbackByKey.get(key);
+      // The migration-seed editorial packs remain canonical for the MVP/Prototype/PoC
+      // bilingual pair. Other local packs are fallbacks only; published CMS content wins.
+      if (key === 'en:mvp-vs-prototype-vs-proof-of-concept-guide' ||
+          key === 'id:mvp-vs-prototype-vs-proof-of-concept') {
+        const canonicalPack = fallbackByKey.get(key);
+        if (canonicalPack) return canonicalPack;
       }
       let detail = summary;
 
