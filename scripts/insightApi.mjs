@@ -277,7 +277,24 @@ export async function fetchPublishedInsights() {
         console.warn('[Insight API] content warnings for ' + summary.language + ':' + summary.slug + ':', validation.warnings);
       }
 
-      return { ...summary, ...detail };
+      const canonicalFallback = fallbackByKey.get(key);
+      const mergedAlternates = [
+        ...(Array.isArray(detail.alternateLanguages) ? detail.alternateLanguages : []),
+        ...(canonicalFallback?.alternateLanguages || [])
+      ].filter((item, index, all) => (
+        item?.language
+        && item?.slug
+        && all.findIndex((candidate) => candidate?.language === item.language) === index
+      ));
+
+      return {
+        ...summary,
+        ...detail,
+        contentGroupId: detail.contentGroupId || canonicalFallback?.contentGroupId || summary.contentGroupId,
+        alternateLanguages: mergedAlternates.length > 0
+          ? mergedAlternates
+          : [{ language: summary.language, slug: summary.slug }]
+      };
     } catch (error) {
       const fallback = fallbackByKey.get(key);
 
