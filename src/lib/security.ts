@@ -47,12 +47,6 @@ export interface FileValidationResult {
   error?: string;
 }
 
-const ALLOWED_MIME_TYPES = [
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-];
-
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export function validateResumeFile(file: File | null): FileValidationResult {
@@ -63,19 +57,17 @@ export function validateResumeFile(file: File | null): FileValidationResult {
   if (file.size > MAX_FILE_SIZE_BYTES) {
     return {
       isValid: false,
-      error: 'File size exceeds 5MB limit. Please upload a smaller PDF or Word document.'
+      error: 'File size exceeds 5MB limit. Please upload a smaller PDF.'
     };
   }
 
-  if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-    // Check file extension as fallback
-    const ext = file.name.split('.').pop()?.toLowerCase();
-    if (!['pdf', 'doc', 'docx'].includes(ext || '')) {
-      return {
-        isValid: false,
-        error: 'Invalid file format. Only PDF, DOC, and DOCX files are allowed.'
-      };
-    }
+  // The public upload endpoint accepts PDF only; match this validator to the
+  // actual transport so DOC/DOCX files are rejected before the user submits.
+  if (!/\.pdf$/i.test(file.name) || (file.type && file.type !== 'application/pdf')) {
+    return {
+      isValid: false,
+      error: 'Invalid file format. Only PDF files are allowed.'
+    };
   }
 
   return { isValid: true };
