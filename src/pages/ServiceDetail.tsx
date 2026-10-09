@@ -140,7 +140,7 @@ export const ServiceDetail = () => {
           {isSolutionPage ? <span className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">Solution</span> : null}
         </div>
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <Link to={'/book-a-call?service=' + encodeURIComponent(service.title)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+          <Link to={'/contact?service=' + encodeURIComponent(service.title) + '#project-inquiry-form'} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
             <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -622,7 +622,7 @@ export const ServiceDetail = () => {
                       : 'Send a consultation request with your project context and preferred time.'}
                   </p>
                   <Link
-                    to={`/book-a-call?service=${encodeURIComponent(service.title)}`}
+                    to={`/contact?service=${encodeURIComponent(service.title)}#project-inquiry-form`}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Sekarang' : 'Start a Project Now'}</span>
