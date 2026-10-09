@@ -128,7 +128,7 @@ export const ServiceDetail = () => {
   };
 
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
       <PublicPageHero
         eyebrow={language === 'id' ? service.badgeId : service.badge}
         title={language === 'id' ? service.heroHeadlineId : service.heroHeadline}
@@ -858,6 +858,6 @@ export const ServiceDetail = () => {
         </section>
 
       </div>
-    </main>
+    </div>
   );
 };
