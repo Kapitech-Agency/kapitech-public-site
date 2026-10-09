@@ -1,0 +1,325 @@
+{
+  "seo": {
+    "title": "Core Web Vitals: Memahami LCP, INP, dan CLS dalam Praktik | Kapitech",
+    "description": "Pahami ambang Core Web Vitals dan cara mendiagnosis LCP, INP, serta CLS memakai data pengguna nyata, alat browser, dan alur optimasi yang praktis.",
+    "slug": "core-web-vitals",
+    "canonicalUrl": "https://kapitech.id/insights/core-web-vitals",
+    "ogImage": "https://kapitech.id/insights/core-web-vitals/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 11,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "core-web-vitals",
+        "name": "Core Web Vitals"
+      },
+      {
+        "slug": "web-performance",
+        "name": "Performa Web"
+      },
+      {
+        "slug": "lcp",
+        "name": "LCP"
+      },
+      {
+        "slug": "inp",
+        "name": "INP"
+      },
+      {
+        "slug": "cls",
+        "name": "CLS"
+      },
+      {
+        "slug": "frontend-engineering",
+        "name": "Engineering Frontend"
+      }
+    ],
+    "coverImage": "/insights/core-web-vitals/hero.svg",
+    "title": "Core Web Vitals: Memahami LCP, INP, dan CLS dalam Praktik",
+    "excerpt": "Core Web Vitals mengukur loading, responsivitas, dan kestabilan visual. Pelajari arti tiap metrik, ambang kategori baik saat ini, dan cara memprioritaskan perbaikan berdasarkan data pengguna.",
+    "keyTakeaways": [
+      "LCP mengukur loading, INP mengukur responsivitas, dan CLS mengukur pergeseran layout yang tidak diharapkan.",
+      "Ambang kategori baik adalah LCP maksimal 2,5 detik, INP maksimal 200 milidetik, dan CLS maksimal 0,1.",
+      "Nilai persentil ke-75 dari kunjungan nyata, bukan satu pengujian laboratorium saja.",
+      "Perbaiki sumber hambatan metrik, bukan menerapkan trik kecepatan secara umum.",
+      "Uji ulang perangkat mobile, template halaman, dan interaksi nyata setelah perubahan berarti."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Halaman bisa terlihat rapi tetapi tetap terasa lambat atau tidak stabil saat dibuka melalui ponsel, jaringan, atau browser tertentu. Core Web Vitals menyediakan cara praktis untuk mengukur tiga bagian pengalaman itu: seberapa cepat konten utama tampil, seberapa cepat halaman merespons masukan pengguna, dan apakah konten bergeser tanpa diduga ketika halaman digunakan."
+      },
+      {
+        "type": "paragraph",
+        "text": "Metrik ini tidak menggantikan riset usability atau ukuran bisnis, tetapi membantu tim menemukan masalah pengalaman yang perlu ditangani. Set Core Web Vitals saat ini terdiri dari LCP, INP, dan CLS."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Core Web Vitals secara ringkas"
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/hero.svg",
+        "alt": "Gambaran tiga Core Web Vitals dan pengalaman yang diukur",
+        "caption": "Loading, responsivitas, dan stabilitas visual merupakan dimensi kualitas yang berbeda."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Metrik",
+          "Yang diukur",
+          "Ambang baik",
+          "Ambang buruk"
+        ],
+        "rows": [
+          [
+            "LCP",
+            "Waktu hingga elemen konten terbesar yang terlihat selesai dirender",
+            "≤ 2,5 detik",
+            "> 4,0 detik"
+          ],
+          [
+            "INP",
+            "Responsivitas berbagai interaksi pengguna",
+            "≤ 200 ms",
+            "> 500 ms"
+          ],
+          [
+            "CLS",
+            "Pergeseran layout yang tidak diharapkan",
+            "≤ 0,1",
+            "> 0,25"
+          ]
+        ],
+        "caption": "Ambang rekomendasi Google dinilai pada persentil ke-75 kunjungan halaman nyata."
+      },
+      {
+        "type": "paragraph",
+        "text": "Ambang tersebut dijelaskan dalam [panduan Core Web Vitals web.dev](https://web.dev/articles/vitals). Jika tersedia, gunakan data pengguna nyata karena perangkat, jaringan, pola interaksi, dan jenis halaman dapat mengubah hasil."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "LCP: tampilkan konten utama lebih cepat"
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/lcp-path.svg",
+        "alt": "Alur LCP dari awal request sampai konten utama dirender",
+        "caption": "Temukan elemen LCP, lalu identifikasi jeda sebelum elemen tersebut muncul."
+      },
+      {
+        "type": "paragraph",
+        "text": "Largest Contentful Paint memperkirakan waktu ketika konten utama yang terlihat sudah tampil. Elemen ini bisa berupa gambar hero, blok judul besar, atau gambar konten utama. Mengecilkan aset yang tidak terkait belum tentu membantu jika elemen LCP tertunda karena penemuan resource, respons server, atau proses render."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Penyebab LCP lambat"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Respons server lambat atau rendering awal yang berat.",
+          "Gambar hero baru ditemukan terlambat atau mendapat prioritas pemuatan rendah.",
+          "Gambar berukuran terlalu besar sehingga lama diunduh dan didekode.",
+          "CSS atau JavaScript menghambat rendering sebelum konten utama siap.",
+          "Skrip pihak ketiga berebut bandwidth dan waktu main thread."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Cara menyelidiki LCP"
+      },
+      {
+        "type": "paragraph",
+        "text": "Identifikasi elemen LCP lewat alat performance browser dan pisahkan waktu respons server, jeda pemuatan resource, durasi unduhan, serta jeda render. Prioritaskan aset LCP yang sebenarnya, sediakan ruang dimensinya, dan pastikan browser bisa menemukannya lebih awal. Uji hasil di kondisi mobile yang realistis."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "INP: jaga interaksi tetap responsif"
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/inp-path.svg",
+        "alt": "Alur interaksi dari input, event handler, sampai umpan balik visual",
+        "caption": "Antarmuka responsif memberi umpan balik tanpa tugas main thread yang terlalu panjang."
+      },
+      {
+        "type": "paragraph",
+        "text": "Interaction to Next Paint mengukur seberapa cepat halaman memberi respons visual setelah interaksi, misalnya membuka menu, menerapkan filter, mengirim formulir, atau berpindah tab. INP mengamati beberapa interaksi, bukan hanya satu klik terpisah."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Penyebab INP buruk"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Tugas JavaScript panjang yang memblokir main thread.",
+          "Event handler berat atau perhitungan sinkron berulang.",
+          "Terlalu banyak konten dirender setelah satu tindakan.",
+          "Skrip pihak ketiga yang bersaing dengan antarmuka.",
+          "Desain interaksi yang menunggu seluruh request selesai sebelum memberi respons."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pastikan status berikutnya terlihat jelas"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pecah tugas panjang, kurangi render ulang yang tidak perlu, tunda pekerjaan non-kritis, dan buat event handler tetap ringan. Untuk tindakan yang menunggu jaringan, tampilkan status proses yang jelas lalu perbarui bagian terkait ketika respons tiba. Umpan balik tidak menggantikan optimasi performa, tetapi membantu pengguna memahami bahwa tindakan mereka sudah diterima."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "CLS: cegah pergeseran layout"
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/cls-path.svg",
+        "alt": "Ilustrasi stabilitas layout ketika konten sedang dimuat",
+        "caption": "Sediakan ruang untuk gambar, embed, dan komponen yang datang belakangan."
+      },
+      {
+        "type": "paragraph",
+        "text": "Cumulative Layout Shift mengukur pergeseran konten yang terlihat dan tidak diharapkan. Tombol yang berpindah saat pengguna akan menekannya bukan sekadar masalah kosmetik; hal ini dapat menyebabkan salah klik dan membuat halaman terasa tidak dapat diandalkan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Penyebab layout shift"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Gambar atau video tanpa dimensi atau rasio aspek yang disediakan.",
+          "Iklan, embed, dan banner yang disisipkan di atas konten yang sudah tampil.",
+          "Font yang mengubah ukuran teks setelah render pertama.",
+          "Komponen yang membesar tanpa ruang yang disediakan saat data muncul.",
+          "Animasi yang mengubah properti layout alih-alih transform atau opacity."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Stabilkan layout sebelum konten tersedia"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sediakan dimensi media, gunakan container aspect-ratio, hindari menyisipkan konten di atas posisi baca pengguna, dan kelola pemuatan font dengan sengaja. Uji halaman ketika konten, font, serta embed sedang dimuat, bukan hanya pada tampilan akhirnya."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/vitals-triad.svg",
+        "alt": "Tiga metrik Core Web Vitals dan perannya dalam pengalaman pengguna",
+        "caption": "Pengalaman yang baik membutuhkan loading, responsivitas, dan stabilitas yang bekerja bersama."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Gunakan data lapangan dan lab testing bersama"
+      },
+      {
+        "type": "paragraph",
+        "text": "Data lapangan menunjukkan pengalaman pengunjung di perangkat dan jaringan nyata. Pengujian laboratorium membantu mengulang dan mendiagnosis penyebab dalam kondisi terkontrol. Gunakan tren lapangan untuk memilih prioritas, lalu gunakan trace dan alat browser untuk mencari alasan metrik buruk."
+      },
+      {
+        "type": "image",
+        "url": "/insights/core-web-vitals/performance-loop.svg",
+        "alt": "Siklus optimasi performa dari pengukuran hingga verifikasi",
+        "caption": "Ukur, diagnosis, ubah satu penyebab, kemudian validasi dampaknya."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Alur optimasi yang praktis"
+      },
+      {
+        "type": "checklist",
+        "title": "Checklist performa",
+        "items": [
+          "Identifikasi template, perangkat, dan perjalanan pengguna yang terdampak.",
+          "Periksa data lapangan dan kelompokkan berdasarkan jenis halaman bila tersedia.",
+          "Temukan elemen LCP yang sebenarnya dan periksa jeda request serta render.",
+          "Catat long task dan event handler berat yang memengaruhi interaksi utama.",
+          "Sediakan dimensi media dan komponen terlambat untuk mengurangi CLS.",
+          "Uji ulang dalam kondisi CPU dan jaringan mobile yang realistis.",
+          "Pantau setelah rilis untuk memastikan pengalaman lapangan membaik."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Prioritaskan berdasarkan dampak kepada pengguna"
+      },
+      {
+        "type": "paragraph",
+        "text": "Mulai dari masalah yang memengaruhi halaman masuk penting atau perjalanan konversi yang sering digunakan. Peningkatan skor laboratorium yang besar tidak otomatis menjadi prioritas bisnis tertinggi jika template tersebut jarang diakses. Gabungkan metrik performa dengan penyelesaian formulir, eksplorasi produk, dan laporan dukungan agar perbaikannya relevan bagi pengguna."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: optimalkan pengalaman, bukan hanya skor"
+      },
+      {
+        "type": "paragraph",
+        "text": "Core Web Vitals paling bermanfaat sebagai praktik engineering yang berulang. Ukur pengalaman nyata, temukan hambatannya, perbaiki penyebab, lalu validasi hasil. LCP, INP, dan CLS saling melengkapi: halaman harus tampil cepat, merespons ketika digunakan, dan tetap stabil selama interaksi."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Performa web",
+        "title": "Ubah temuan performa menjadi rencana engineering",
+        "description": "Identifikasi masalah loading, interaksi, dan layout yang paling berpengaruh pada template halaman penting.",
+        "ctaLabel": "Tinjau website Anda",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Apa saja Core Web Vitals saat ini?",
+        "Set saat ini adalah Largest Contentful Paint (LCP), Interaction to Next Paint (INP), dan Cumulative Layout Shift (CLS). Ketiganya mengukur loading, responsivitas, dan stabilitas visual."
+      ],
+      [
+        "Berapa ambang Core Web Vitals kategori baik?",
+        "Ambangnya adalah LCP maksimal 2,5 detik, INP maksimal 200 milidetik, dan CLS maksimal 0,1 pada persentil ke-75 kunjungan halaman nyata."
+      ],
+      [
+        "Apakah website bisa lulus Lighthouse tetapi Core Web Vitals lapangannya buruk?",
+        "Bisa. Pengujian lab menggunakan kondisi terkontrol sedangkan data lapangan mencerminkan pengguna, perangkat, serta jaringan nyata. Keduanya berguna untuk tujuan berbeda."
+      ],
+      [
+        "Core Web Vital mana yang perlu diperbaiki terlebih dahulu?",
+        "Prioritaskan metrik dan template dengan dampak pengguna terbesar. Gunakan data lapangan dan lab untuk menemukan hambatan, bukan memilih berdasarkan satu skor saja."
+      ],
+      [
+        "Apakah skor Core Web Vitals yang baik menjamin ranking Google tinggi?",
+        "Tidak. Metrik ini menggambarkan aspek pengalaman halaman dan bukan jaminan ranking. Konten yang bermanfaat, relevansi, aksesibilitas, serta faktor lain tetap penting."
+      ],
+      [
+        "Seberapa sering performa perlu diperiksa?",
+        "Pantau halaman penting secara berkelanjutan jika data lapangan tersedia dan ulangi pengujian setelah perubahan gambar, JavaScript, font, layout, skrip pihak ketiga, atau template inti."
+      ]
+    ],
+    "seoTitle": "Core Web Vitals: Memahami LCP, INP, dan CLS dalam Praktik | Kapitech",
+    "seoDescription": "Pahami ambang Core Web Vitals dan cara mendiagnosis LCP, INP, serta CLS memakai data pengguna nyata, alat browser, dan alur optimasi yang praktis."
+  }
+}
