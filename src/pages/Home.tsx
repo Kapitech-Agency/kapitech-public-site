@@ -915,6 +915,9 @@ export const Home = () => {
         </div>
       </section>
 
+      {/* Client testimonials are part of the main homepage flow, directly after featured work. */}
+      <Testimonials />
+
       {/* WORKING PROCESS STEPPING */}
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -1281,8 +1284,6 @@ export const Home = () => {
           })()}
         </AnimatePresence>
       </ProcessModalPortal>
-      {/* Testimonials */}
-      <Testimonials />
     </div>
   );
 };
