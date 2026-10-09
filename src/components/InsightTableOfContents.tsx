@@ -268,6 +268,8 @@ export const InsightTableOfContents: React.FC<{
       return undefined;
     }
 
+    let disposed = false;
+
     const syncHash = (shouldScroll: boolean) => {
       const hash = getHash();
 
@@ -281,6 +283,7 @@ export const InsightTableOfContents: React.FC<{
 
       if (shouldScroll) {
         window.requestAnimationFrame(() => {
+          if (disposed || !isVariantActive()) return;
           scrollToHeading(hash, 'auto');
           scheduleScrollSync();
         });
@@ -288,25 +291,28 @@ export const InsightTableOfContents: React.FC<{
     };
 
     const handleScroll = () => {
-      if (isVariantActive()) scheduleScrollSync();
+      if (!disposed && isVariantActive()) scheduleScrollSync();
     };
 
     const handleResize = () => {
-      if (isVariantActive()) scheduleScrollSync();
+      if (!disposed && isVariantActive()) scheduleScrollSync();
     };
 
     const handleLayoutSettled = () => {
-      if (!isVariantActive()) return;
-      window.requestAnimationFrame(scheduleScrollSync);
+      if (disposed || !isVariantActive()) return;
+      scheduleScrollSync();
     };
 
-    // Observe the whole article, not only the first renderer (the introduction), so image/font layout shifts in later sections resync the active TOC item.
+    // Observe the whole article so late-loading images and font metrics keep
+    // the active heading synchronized after a reader resizes the viewport.
+    // Both responsive TOCs remain observed; only the visible variant performs
+    // scroll work. This also keeps the desktop TOC accurate after mobile resize.
     const articleBody = document.getElementById('insight-content') || document.querySelector('.kapi-insight-body');
     const resizeObserver = typeof ResizeObserver !== 'undefined' && articleBody
       ? new ResizeObserver(handleLayoutSettled)
       : null;
 
-    resizeObserver?.observe(articleBody as Element);
+    if (articleBody) resizeObserver?.observe(articleBody);
 
     const articleImages = articleBody
       ? Array.from(articleBody.querySelectorAll('img'))
@@ -320,15 +326,15 @@ export const InsightTableOfContents: React.FC<{
     void document.fonts?.ready?.then(handleLayoutSettled).catch(() => undefined);
 
     const handleHashChange = () => {
-      if (isVariantActive()) syncHash(true);
+      if (!disposed && isVariantActive()) syncHash(true);
     };
 
     const handlePopState = () => {
-      if (isVariantActive()) syncHash(true);
+      if (!disposed && isVariantActive()) syncHash(true);
     };
 
     const cancelOnUserIntent = (event: Event) => {
-      if (!isVariantActive()) return;
+      if (disposed || !isVariantActive()) return;
 
       if (
         event.target instanceof Node
@@ -339,13 +345,14 @@ export const InsightTableOfContents: React.FC<{
 
       clearNavigationLock();
       window.requestAnimationFrame(() => {
+        if (disposed || !isVariantActive()) return;
         lastScrollYRef.current = window.scrollY;
         scheduleScrollSync();
       });
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (!isVariantActive()) return;
+      if (disposed || !isVariantActive()) return;
 
       if (
         event.key === 'ArrowUp'
@@ -365,9 +372,11 @@ export const InsightTableOfContents: React.FC<{
     const handleBreakpointChange = () => {
       clearNavigationLock();
 
-      if (isVariantActive()) {
-        window.requestAnimationFrame(syncActiveFromScroll);
-      }
+      if (disposed || !isVariantActive()) return;
+
+      window.requestAnimationFrame(() => {
+        if (!disposed && isVariantActive()) syncActiveFromScroll();
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -382,41 +391,33 @@ export const InsightTableOfContents: React.FC<{
 
     const initialHash = getHash();
 
-    if (!isVariantActive()) {
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleResize);
-        mediaQuery.removeEventListener?.('change', handleBreakpointChange);
-        resizeObserver?.disconnect();
-        articleImages.forEach((image) => {
-          image.removeEventListener('load', handleLayoutSettled);
-          image.removeEventListener('error', handleLayoutSettled);
+    if (isVariantActive()) {
+      if (initialHash && sectionItems.some((item) => item.id === initialHash)) {
+        syncHash(true);
+      } else {
+        window.requestAnimationFrame(() => {
+          if (!disposed && isVariantActive()) syncActiveFromScroll();
         });
-        window.removeEventListener('hashchange', handleHashChange);
-        window.removeEventListener('popstate', handlePopState);
-        window.removeEventListener('wheel', cancelOnUserIntent);
-        window.removeEventListener('touchstart', cancelOnUserIntent);
-        window.removeEventListener('pointerdown', cancelOnUserIntent);
-        window.removeEventListener('keydown', handleKeydown);
-      };
-    }
-
-    if (initialHash && sectionItems.some((item) => item.id === initialHash)) {
-      syncHash(true);
-    } else {
-      window.requestAnimationFrame(syncActiveFromScroll);
+      }
     }
 
     return () => {
+      disposed = true;
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('wheel', cancelOnUserIntent);
       window.removeEventListener('touchstart', cancelOnUserIntent);
       window.removeEventListener('pointerdown', cancelOnUserIntent);
       window.removeEventListener('keydown', handleKeydown);
-      mediaQuery.removeEventListener?.('change', handleBreakpointChange);
+
+      resizeObserver?.disconnect();
+      articleImages.forEach((image) => {
+        image.removeEventListener('load', handleLayoutSettled);
+        image.removeEventListener('error', handleLayoutSettled);
+      });
 
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
