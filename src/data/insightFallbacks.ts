@@ -1,9 +1,13 @@
-import enPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.en.json';
-import idPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.id.json';
-import helpful_seo_contentPack from './insight-editorial-packs/helpful-seo-content-framework.en.json';
-import structured_data_seoPack from './insight-editorial-packs/structured-data-for-seo-guide.en.json';
-import core_web_vitalsPack from './insight-editorial-packs/core-web-vitals-explained.en.json';
-import technical_seo_auditPack from './insight-editorial-packs/technical-seo-audit-guide.en.json';
+import mvpEnPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.en.json';
+import mvpIdPack from './insight-editorial-packs/mvp-vs-prototype-vs-proof-of-concept.id.json';
+import websiteCostPack from './insight-editorial-packs/website-cost-indonesia-guide.en.json';
+import wordpressVsCustomPack from './insight-editorial-packs/wordpress-vs-custom-website.en.json';
+import corporateWebsitePack from './insight-editorial-packs/corporate-website-vs-landing-page.en.json';
+import chooseAgencyPack from './insight-editorial-packs/choose-web-development-agency-indonesia.en.json';
+import technicalSeoPack from './insight-editorial-packs/technical-seo-audit-guide.en.json';
+import coreWebVitalsPack from './insight-editorial-packs/core-web-vitals-explained.en.json';
+import structuredDataPack from './insight-editorial-packs/structured-data-for-seo-guide.en.json';
+import helpfulSeoPack from './insight-editorial-packs/helpful-seo-content-framework.en.json';
 import type { InsightItem } from './insightTypes';
 
 type EditorialPack = {
@@ -34,8 +38,8 @@ type EditorialPack = {
   };
 };
 
-const MVP_EN_SLUG = String((enPack as EditorialPack).seo?.slug || '').trim();
-const MVP_ID_SLUG = String((idPack as EditorialPack).seo?.slug || '').trim();
+const MVP_EN_SLUG = String((mvpEnPack as EditorialPack).seo?.slug || '').trim();
+const MVP_ID_SLUG = String((mvpIdPack as EditorialPack).seo?.slug || '').trim();
 
 function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem | null {
   const seo = pack.seo || {};
@@ -98,12 +102,16 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
 }
 
 const fallbackInsights = [
-  toInsightItem(enPack as EditorialPack, 'en'),
-  toInsightItem(idPack as EditorialPack, 'id'),
-  toInsightItem(technical_seo_auditPack as EditorialPack, 'en'),
-  toInsightItem(core_web_vitalsPack as EditorialPack, 'en'),
-  toInsightItem(structured_data_seoPack as EditorialPack, 'en'),
-  toInsightItem(helpful_seo_contentPack as EditorialPack, 'en')
+  toInsightItem(mvpEnPack as EditorialPack, 'en'),
+  toInsightItem(mvpIdPack as EditorialPack, 'id'),
+  toInsightItem(websiteCostPack as EditorialPack, 'en'),
+  toInsightItem(wordpressVsCustomPack as EditorialPack, 'en'),
+  toInsightItem(corporateWebsitePack as EditorialPack, 'en'),
+  toInsightItem(chooseAgencyPack as EditorialPack, 'en'),
+  toInsightItem(technicalSeoPack as EditorialPack, 'en'),
+  toInsightItem(coreWebVitalsPack as EditorialPack, 'en'),
+  toInsightItem(structuredDataPack as EditorialPack, 'en'),
+  toInsightItem(helpfulSeoPack as EditorialPack, 'en')
 ].filter((item): item is InsightItem => Boolean(item));
 
 export function getInsightFallback(slug: string): InsightItem | null {
