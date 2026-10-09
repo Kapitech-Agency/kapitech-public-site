@@ -1333,10 +1333,6 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
       : 'The public record does not provide comparable quantitative metrics. Any measured outcome should be supported by a baseline, measurement window, data source, and publication approval before being stated as a verified result.');
 
   const relevance = playbook.relevance;
-  const solutionIntro = solution
-    ? solution
-    : (lang === 'id' ? 'Solusi spesifik belum diisi pada catatan publik.' : 'A project-specific solution has not been added to the public record yet.');
-
   const context = (description ? description + ' ' : '') + playbook.context;
   const expandedChallenge = expandChallengeNarrative(item, challenge, lang);
   const expandedSolution = expandSolutionNarrative(item, solution, lang);
