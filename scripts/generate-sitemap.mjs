@@ -104,9 +104,26 @@ for (const service of cmsServices) {
 
 const cmsProjects = await fetchPublicCmsProjects();
 for (const project of cmsProjects) {
-  if (project?.isPublished === false) continue;
-  const projectSlug = slugify(project.slug || project.id || project.title);
+  const candidateSlugs = [project?.slug, project?.id, project?.title]
+    .map((value) => slugify(value))
+    .filter(Boolean);
+  const projectSlug = slugify(project?.slug || project?.id || project?.title);
+
+  // Static fallback URLs are inserted first for availability, but an explicit
+  // unpublished CMS record must remove its matching public route from the sitemap.
+  if (project?.isPublished === false) {
+    for (const candidateSlug of candidateSlugs) {
+      urls.delete(manifest.siteUrl + '/work/' + encodeURIComponent(candidateSlug));
+    }
+    continue;
+  }
+
   if (!projectSlug) continue;
+  for (const candidateSlug of candidateSlugs) {
+    if (candidateSlug !== projectSlug) {
+      urls.delete(manifest.siteUrl + '/work/' + encodeURIComponent(candidateSlug));
+    }
+  }
   const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
   urls.set(loc, { loc, lastmod: project.updatedAt || project.createdAt || undefined });
   if (project.industry) {
