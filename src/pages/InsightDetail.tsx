@@ -153,6 +153,7 @@ export const InsightDetail: React.FC = () => {
   const [readingProgress, setReadingProgress] = useState(0);
   const [relatedInsights, setRelatedInsights] = useState<InsightItem[]>([]);
   const trackedProgressRef = useRef<Set<number>>(new Set());
+  const trackedArticleViewSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
     languageInitializedRef.current = false;
@@ -366,8 +367,12 @@ export const InsightDetail: React.FC = () => {
   }, [article]);
 
   useEffect(() => {
-    if (!article) return;
+    if (!article || trackedArticleViewSlugRef.current === article.slug) return;
 
+    // A local editorial fallback can render immediately and then be replaced by
+    // the CMS response. Treat both objects as one page view when their slug is
+    // unchanged, so view/depth analytics are not counted twice per visit.
+    trackedArticleViewSlugRef.current = article.slug;
     trackedProgressRef.current = new Set();
     trackEvent('article_view', {
       article_slug: article.slug,
@@ -375,7 +380,7 @@ export const InsightDetail: React.FC = () => {
       article_category: article.category?.slug || article.categoryId || undefined,
       reading_time_minutes: article.readingTime || undefined
     });
-  }, [article]);
+  }, [article?.slug]);
 
   useEffect(() => {
     if (!article) return;
