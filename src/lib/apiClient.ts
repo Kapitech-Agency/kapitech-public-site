@@ -5,7 +5,14 @@ const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 const configuredApiBase = String(import.meta.env.VITE_AMS_API_BASE_URL || '').trim();
 const defaultApiBase = import.meta.env.PROD ? 'https://ams.kapitech.id/api' : '/api';
-const API_BASE_URL = (configuredApiBase || defaultApiBase).replace(/\/+$/, '');
+
+function normalizeApiBase(value: string): string {
+  const normalized = value.trim().replace(/\/+$/, '');
+  if (!normalized) return '/api';
+  return /\/api$/i.test(normalized) ? normalized : `${normalized}/api`;
+}
+
+const API_BASE_URL = normalizeApiBase(configuredApiBase || defaultApiBase);
 
 function readCookie(name: string): string {
   if (typeof document === 'undefined') return '';

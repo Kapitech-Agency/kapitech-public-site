@@ -41,6 +41,25 @@ const cmsHydrated: Record<CmsResource, boolean> = {
 export const CMS_EVENT_KEY = 'kapitech_cms_updated';
 export const defaultTestimonials: TestimonialItem[] = [];
 
+function extractCmsCollection<T>(payload: unknown, collectionKey: string): T[] | null {
+  let current: unknown = payload;
+
+  for (let depth = 0; depth < 4; depth += 1) {
+    if (Array.isArray(current)) return current as T[];
+    if (!current || typeof current !== 'object') return null;
+
+    const record = current as Record<string, unknown>;
+    const collection = record[collectionKey] ?? record.items ?? record.records;
+    if (Array.isArray(collection)) return collection as T[];
+
+    const nested = record.data ?? record.result ?? record.payload;
+    if (!nested || nested === current) return null;
+    current = nested;
+  }
+
+  return null;
+}
+
 function getStaticServiceFallback(): ServiceItemData[] {
   return allSolutionsAndServices.map((service) => ({
     ...service,
@@ -125,8 +144,10 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
   cmsProjectsRequest = (async () => {
     try {
       const res = await api.cms.getProjects();
-      if (res.success && Array.isArray(res.data?.projects)) {
-        const projects = res.data.projects;
+      const projects = res.success
+        ? extractCmsCollection<ProjectItem>(res.data, 'projects')
+        : null;
+      if (projects) {
         setCmsCache('projects', projects);
         return projects;
       }
@@ -148,8 +169,10 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
   cmsTestimonialsRequest = (async () => {
     try {
       const res = await api.cms.getTestimonials();
-      if (res.success && Array.isArray(res.data?.testimonials)) {
-        const testimonials = res.data.testimonials;
+      const testimonials = res.success
+        ? extractCmsCollection<TestimonialItem>(res.data, 'testimonials')
+        : null;
+      if (testimonials) {
         cmsTestimonialsCache = testimonials;
         markCmsHydrationSuccess('testimonials');
         notifyCmsUpdate('testimonials');

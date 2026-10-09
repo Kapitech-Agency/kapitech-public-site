@@ -133,9 +133,11 @@ export const Home = () => {
     processModalTriggerRef.current = null;
   }, [selectedProcessStep]);
 
-  const featuredProjects = projectsList
-    .filter((project) => project.featured && project.isPublished !== false)
+  const publishedProjects = projectsList.filter((project) => project.isPublished !== false);
+  const featuredProjects = publishedProjects
+    .filter((project) => project.featured === true)
     .slice(0, 3);
+  const homepageProjects = (featuredProjects.length > 0 ? featuredProjects : publishedProjects).slice(0, 3);
 
   const stats = [
     {
@@ -804,9 +806,9 @@ export const Home = () => {
             </Link>
           </div>
 
-          {featuredProjects.length > 0 ? (
+          {homepageProjects.length > 0 ? (
             <div className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
-            {featuredProjects.map((project, index) => {
+            {homepageProjects.map((project, index) => {
               const isLead = index === 0;
               const impact = project.impact?.[0];
 
