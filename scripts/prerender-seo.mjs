@@ -766,7 +766,7 @@ const loadCmsProjectsForPrerender = async () => {
     const response = await fetch(apiBase + '/cms/projects', { headers: { Accept: 'application/json' } });
     if (!response.ok) return [];
     const payload = await response.json().catch(() => ({}));
-    return Array.isArray(payload.projects) ? payload.projects.filter((project) => project?.isPublished !== false) : [];
+    return Array.isArray(payload.projects) ? payload.projects : [];
   } catch {
     return [];
   }
@@ -795,8 +795,22 @@ for (const route of manifest.routes) {
   console.log('[seo] generated ' + posix.normalize(route.path + '/index.html'));
 }
 
-const cmsProjects = await loadCmsProjectsForPrerender();
-const allPrerenderProjects = [...cmsProjects, ...projectRecords];
+const cmsProjectRecords = await loadCmsProjectsForPrerender();
+const unpublishedProjectSlugs = new Set(
+  cmsProjectRecords
+    .filter((project) => project?.isPublished === false)
+    .flatMap((project) => [project?.slug, project?.id, project?.title])
+    .map((value) => slugify(value))
+    .filter(Boolean)
+);
+const cmsProjects = cmsProjectRecords.filter((project) => project?.isPublished !== false);
+const fallbackStaticProjects = projectRecords.filter((project) =>
+  ![project.slug, project.id, project.title]
+    .map((value) => slugify(value))
+    .filter(Boolean)
+    .some((slug) => unpublishedProjectSlugs.has(slug))
+);
+const allPrerenderProjects = [...cmsProjects, ...fallbackStaticProjects];
 const seenProjectSlugs = new Set();
 for (const project of allPrerenderProjects) {
   const slug = slugify(project.slug || project.id || project.title);
