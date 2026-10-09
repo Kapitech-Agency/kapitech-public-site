@@ -278,15 +278,13 @@ export const Careers = () => {
     experienceYears: '3-5 Years',
     tools: '',
     notes: '',
-    agreedWfa: true,
-    agreedDevice: true,
-    agreedNda: true,
+    agreedWfa: false,
+    agreedDevice: false,
+    agreedNda: false,
     resume: null as File | null
   });
 
-  const [selectedTalent, setSelectedTalent] = useState<any | null>(null);
-
-  const hasOpenCareerModal = Boolean(selectedPosition || isFreelanceModalOpen || selectedTalent);
+  const hasOpenCareerModal = Boolean(selectedPosition || isFreelanceModalOpen);
   const careerModalRef = React.useRef<HTMLDivElement>(null);
   const careerModalTriggerRef = React.useRef<HTMLElement | null>(null);
   const careerModalWasOpenRef = React.useRef(false);
@@ -365,8 +363,7 @@ export const Careers = () => {
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      if (selectedTalent) setSelectedTalent(null);
-      else if (isFreelanceModalOpen) setIsFreelanceModalOpen(false);
+      if (isFreelanceModalOpen) setIsFreelanceModalOpen(false);
       else if (selectedPosition) setSelectedPosition(null);
     };
 
@@ -377,255 +374,37 @@ export const Careers = () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [hasOpenCareerModal, selectedTalent, isFreelanceModalOpen, selectedPosition]);
+  }, [hasOpenCareerModal, isFreelanceModalOpen, selectedPosition]);
 
-  const twelveTalentsEn = [
-    {
-      id: "frontend-engineering",
-      name: "Lead Frontend Engineering",
-      role: "Lead Frontend Engineering",
-      specialty: "React, Next.js & Web Performance",
-      department: "Innovation Development",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "product-design",
-      name: "Product UI & Design Systems",
-      role: "Product UI & Design Systems",
-      specialty: "Figma Systems & Design Tokens",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "motion-2d",
-      name: "Motion & 2D Animation",
-      role: "Motion & 2D Animation",
-      specialty: "Kinetic Typography & After Effects",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "brand-editorial",
-      name: "Brand Identity & Editorial Design",
-      role: "Brand Identity & Editorial Design",
-      specialty: "Brand Guidelines & Visual Story",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "3d-webgl",
-      name: "3D Visualization & WebGL",
-      role: "3D Visualization & WebGL",
-      specialty: "Blender 3D & WebGL Environments",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "product-ui",
-      name: "Product UI Design",
-      role: "Product UI Design",
-      specialty: "Responsive Product UI & Prototypes",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "cloud-devops",
-      name: "Cloud Infrastructure & DevOps",
-      role: "Cloud Infrastructure & DevOps",
-      specialty: "AWS, GCP & Automated CI/CD",
-      department: "Innovation Development",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "illustration",
-      name: "2D Illustration & Character Art",
-      role: "2D Illustration & Character Art",
-      specialty: "Vector Assets & Explainer Artworks",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "backend-database",
-      name: "Backend & Database Engineering",
-      role: "Backend & Database Engineering",
-      specialty: "Node.js, PostgreSQL & Distributed Cache",
-      department: "Innovation Development",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "video-color",
-      name: "Video Production & Color",
-      role: "Video Production & Color",
-      specialty: "TVC Editing, Cinematic LUTs & DaVinci",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "fullstack",
-      name: "Full-Stack Web Applications",
-      role: "Full-Stack Web Applications",
-      specialty: "TypeScript, GraphQL & Realtime Systems",
-      department: "Innovation Development",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    },
-    {
-      id: "pitch-publication",
-      name: "Pitch Deck & Publication Design",
-      role: "Pitch Deck & Publication Design",
-      specialty: "Investor Decks & Executive Reports",
-      department: "Visual Experience",
-      experience: "Illustrative discipline",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=85&w=800",
-      bio: "Illustrative visual only. This card describes a specialist capability rather than an individual staff profile or verified personal credential."
-    }
-  ];
-
-  const twelveTalentsId = [
-    {
-      id: "frontend-engineering",
-      name: "Lead Frontend Engineering",
-      role: "Lead Frontend Engineering",
-      specialty: "React, Next.js & Web Performance",
-      department: "Innovation Development",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "product-design",
-      name: "Product UI & Design Systems",
-      role: "Product UI & Design Systems",
-      specialty: "Sistem Figma & Token Desain",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "motion-2d",
-      name: "Motion & 2D Animation",
-      role: "Motion & 2D Animation",
-      specialty: "Tipografi Kinetik & After Effects",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "brand-editorial",
-      name: "Brand Identity & Editorial Design",
-      role: "Brand Identity & Editorial Design",
-      specialty: "Pedoman Brand & Identitas Visual",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "3d-webgl",
-      name: "3D Visualization & WebGL",
-      role: "3D Visualization & WebGL",
-      specialty: "Blender 3D & Lingkungan WebGL",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "product-ui",
-      name: "Product UI Design",
-      role: "Product UI Design",
-      specialty: "UI Produk Responsif & Prototipe",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "cloud-devops",
-      name: "Cloud Infrastructure & DevOps",
-      role: "Cloud Infrastructure & DevOps",
-      specialty: "AWS, GCP & Otomasi CI/CD",
-      department: "Innovation Development",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "illustration",
-      name: "2D Illustration & Character Art",
-      role: "2D Illustration & Character Art",
-      specialty: "Aset Vektor & Artwork Explainer",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "backend-database",
-      name: "Backend & Database Engineering",
-      role: "Backend & Database Engineering",
-      specialty: "Node.js, PostgreSQL & Distributed Cache",
-      department: "Innovation Development",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "video-color",
-      name: "Video Production & Color",
-      role: "Video Production & Color",
-      specialty: "Editing TVC, LUT Sinematik & DaVinci",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "fullstack",
-      name: "Full-Stack Web Applications",
-      role: "Full-Stack Web Applications",
-      specialty: "TypeScript, GraphQL & Realtime Systems",
-      department: "Innovation Development",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    },
-    {
-      id: "pitch-publication",
-      name: "Pitch Deck & Publication Design",
-      role: "Pitch Deck & Publication Design",
-      specialty: "Investor Pitch Deck & Laporan Eksekutif",
-      department: "Visual Experience",
-      experience: "Disiplin ilustratif",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=85&w=800",
-      bio: "Visual ilustratif. Kartu ini menjelaskan kapabilitas spesialis, bukan profil staf individual atau kredensial personal yang diverifikasi."
-    }
-  ];
-
-  const twelveTalents = language === 'id' ? twelveTalentsId : twelveTalentsEn;
+  const disciplines = language === 'id'
+    ? [
+        { id: 'frontend-engineering', title: 'Engineering Frontend', area: 'Innovation Development', focus: 'React, Next.js, arsitektur komponen, dan performa web.' },
+        { id: 'product-design-systems', title: 'UI Produk & Sistem Desain', area: 'Visual Experience', focus: 'Sistem Figma, design token, dan pustaka komponen.' },
+        { id: 'motion-2d', title: 'Motion Graphics & Animasi 2D', area: 'Visual Experience', focus: 'Tipografi kinetik, animasi, dan After Effects.' },
+        { id: 'brand-editorial', title: 'Identitas Brand & Desain Editorial', area: 'Visual Experience', focus: 'Identitas visual, pedoman brand, dan arah kreatif.' },
+        { id: '3d-webgl', title: 'Visualisasi 3D & WebGL', area: 'Visual Experience', focus: 'Blender, aset 3D, dan pengalaman web interaktif.' },
+        { id: 'product-ui', title: 'Desain UI Produk', area: 'Visual Experience', focus: 'Antarmuka responsif, alur pengguna, dan prototipe.' },
+        { id: 'cloud-devops', title: 'Infrastruktur Cloud & DevOps', area: 'Innovation Development', focus: 'Cloud infrastructure, otomatisasi, dan CI/CD.' },
+        { id: 'illustration', title: 'Ilustrasi 2D & Character Art', area: 'Visual Experience', focus: 'Aset vektor, ilustrasi, dan visual explainer.' },
+        { id: 'backend-database', title: 'Engineering Backend & Database', area: 'Innovation Development', focus: 'Node.js, PostgreSQL, API, dan pengelolaan data.' },
+        { id: 'video-color', title: 'Produksi Video & Color Grading', area: 'Visual Experience', focus: 'Editing, koreksi warna, dan finishing video.' },
+        { id: 'fullstack', title: 'Aplikasi Web Full-Stack', area: 'Innovation Development', focus: 'TypeScript, integrasi API, dan sistem real-time.' },
+        { id: 'pitch-publication', title: 'Pitch Deck & Desain Publikasi', area: 'Visual Experience', focus: 'Presentasi investor, laporan, dan materi komunikasi.' }
+      ]
+    : [
+        { id: 'frontend-engineering', title: 'Frontend Engineering', area: 'Innovation Development', focus: 'React, Next.js, component architecture, and web performance.' },
+        { id: 'product-design-systems', title: 'Product UI & Design Systems', area: 'Visual Experience', focus: 'Figma systems, design tokens, and component libraries.' },
+        { id: 'motion-2d', title: 'Motion Graphics & 2D Animation', area: 'Visual Experience', focus: 'Kinetic typography, animation, and After Effects.' },
+        { id: 'brand-editorial', title: 'Brand Identity & Editorial Design', area: 'Visual Experience', focus: 'Visual identity, brand guidelines, and creative direction.' },
+        { id: '3d-webgl', title: '3D Visualization & WebGL', area: 'Visual Experience', focus: 'Blender, 3D assets, and interactive web experiences.' },
+        { id: 'product-ui', title: 'Product UI Design', area: 'Visual Experience', focus: 'Responsive interfaces, user flows, and prototyping.' },
+        { id: 'cloud-devops', title: 'Cloud Infrastructure & DevOps', area: 'Innovation Development', focus: 'Cloud infrastructure, automation, and CI/CD.' },
+        { id: 'illustration', title: '2D Illustration & Character Art', area: 'Visual Experience', focus: 'Vector assets, illustration, and explainer visuals.' },
+        { id: 'backend-database', title: 'Backend & Database Engineering', area: 'Innovation Development', focus: 'Node.js, PostgreSQL, APIs, and data systems.' },
+        { id: 'video-color', title: 'Video Production & Color', area: 'Visual Experience', focus: 'Editing, color grading, and video finishing.' },
+        { id: 'fullstack', title: 'Full-Stack Web Applications', area: 'Innovation Development', focus: 'TypeScript, API integration, and real-time systems.' },
+        { id: 'pitch-publication', title: 'Pitch Deck & Publication Design', area: 'Visual Experience', focus: 'Investor decks, executive reports, and communication assets.' }
+      ];
 
   const positionsEn: Position[] = [
     {
@@ -1012,7 +791,7 @@ export const Careers = () => {
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-brand-red/35 bg-brand-red/80 px-5 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand-red/60 hover:bg-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
             <FolderGit2 size={14} />
-            <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
+            <span>{language === 'id' ? 'Ajukan sebagai mitra freelance' : 'Apply to the partner network'}</span>
           </button>
           <Link
             to="/about"
@@ -1024,162 +803,76 @@ export const Careers = () => {
         </div>
       </PublicPageHero>
 
-      {/* SECTION: Join With Our 12 Great Talents */}
-      <section className="py-16 sm:py-24 border-b border-white/[0.08] bg-[#0B0C0E] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      {/* SECTION: Specialist Disciplines */}
+      <section
+        id="disciplines"
+        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
+      >
+        <div className="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-brand-red/[0.045] blur-3xl" aria-hidden="true" />
+        <div className="relative mx-auto w-full max-w-7xl">
+          <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.65fr)] lg:items-end">
             <div>
               <span className="kapi-section-label mb-5">
-                {language === 'id' ? '12 Disiplin Spesialis' : '12 Specialist Disciplines'}
+                {language === 'id' ? 'Area Keahlian' : 'Areas of Practice'}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-[3.5rem] font-display font-semibold text-white tracking-[-0.055em] leading-[1.02]">
-                {language === 'id' ? 'Jelajahi 12 Disiplin Spesialis' : 'Explore 12 Specialist Disciplines'}
+              <h2 className="max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-[3.5rem]">
+                {language === 'id' ? '12 bidang untuk karya yang berdampak.' : '12 disciplines. One connected practice.'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
-              {language === 'id'
-                ? 'Bekerja bahu-membahu bersama para insinyur software, desainer visual, animator 3D, dan spesialis kreatif kami.'
-                : 'Collaborate shoulder-to-shoulder with our multidisciplinary squad of software engineers, visual designers, 3D animators, and creative strategists.'
-              }
-            </p>
+            <div className="lg:pb-1">
+              <p className="text-sm font-light leading-7 text-[#8A909D]">
+                {language === 'id'
+                  ? 'Kami menyatukan keahlian desain dan engineering untuk merancang, membangun, dan menyempurnakan produk digital.'
+                  : 'We bring design and engineering capabilities together to shape, build, and refine digital products.'}
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#818895]">
+                <span className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-2">Visual Experience</span>
+                <span className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-2">Innovation Development</span>
+              </div>
+            </div>
           </div>
-          <p className="mt-4 max-w-2xl text-[11px] font-mono uppercase tracking-[0.12em] text-white/35">
-            {language === 'id'
-              ? 'Visual di bawah bersifat ilustratif dan bukan direktori profil staf individual.'
-              : 'The visuals below are illustrative and are not individual staff profiles.'}
-          </p>
-        </div>
 
-        {/* Dynamic & Aesthetic Staggered Photo Wall (Plain Darkened Photos) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-          <div className="grid min-w-0 grid-cols-2 gap-3 pb-6 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 lg:gap-5">
-            {twelveTalents.map((talent, index) => {
-              // Staggered offset for dynamic editorial rhythm
-              const offsetClasses = [
-                'lg:translate-y-0',
-                'lg:translate-y-5 sm:translate-y-3',
-                'lg:-translate-y-2',
-                'lg:translate-y-7 sm:translate-y-4',
-                'lg:translate-y-1',
-                'lg:translate-y-6 sm:translate-y-2',
-                'lg:-translate-y-1',
-                'lg:translate-y-6 sm:translate-y-4',
-                'lg:translate-y-0',
-                'lg:translate-y-5 sm:translate-y-2',
-                'lg:-translate-y-2',
-                'lg:translate-y-7 sm:translate-y-3',
-              ][index % 12];
+          <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {disciplines.map((discipline, index) => {
+              const isEngineering = discipline.area === 'Innovation Development';
+              const isMotion = /motion|video|3d|illustration|animasi|publikasi/i.test(discipline.title);
+              const DisciplineIcon = isEngineering ? Code2 : isMotion ? Layers : Palette;
 
               return (
-                <div
-                  key={`talent-wrap-${talent.id}`}
-                  className={`transition-transform duration-500 ${offsetClasses}`}
+                <article
+                  key={discipline.id}
+                  className="group relative flex min-h-[205px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.075] bg-white/[0.014] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30 hover:bg-white/[0.025] sm:p-6"
                 >
-                  <button
-                    onClick={() => setSelectedTalent(talent)}
-                    className="group relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/[0.09] bg-white/[0.02] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-[0_18px_40px_-30px_rgba(229,9,20,0.7)] cursor-pointer aspect-[3/4] p-0 block w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-red/50"
-                    title={`Illustrative visual - ${talent.role}`}
-                    aria-label={`View illustrative visual for ${talent.role}`}
-                  >
-                    {/* Pure Plain Photo with Tasteful Dark Moody Grading */}
-                    <img 
-                      src={talent.image} 
-                      alt={`Illustrative visual for ${talent.role}`}
-                      className="w-full h-full object-cover object-top sm:object-center brightness-[0.66] contrast-[1.08] saturate-[0.82] group-hover:brightness-[0.86] group-hover:saturate-[0.95] group-hover:scale-[1.03] transition-all duration-700 ease-out"
-                      loading="lazy"
-                    />
-                  </button>
-                </div>
+                  <div className="pointer-events-none absolute -right-10 -top-12 h-28 w-28 rounded-full bg-brand-red/[0.045] blur-2xl transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
+                  <div className="relative flex items-start justify-between gap-3">
+                    <span className="text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#636B77]">
+                      {String(index + 1).padStart(2, '0')} <span className="text-white/20">/ 12</span>
+                    </span>
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025] text-brand-red transition-[border-color,background-color] duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.08]">
+                      <DisciplineIcon size={16} aria-hidden="true" />
+                    </span>
+                  </div>
+                  <p className="relative mt-5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#777F8C]">
+                    {language === 'id'
+                      ? (isEngineering ? 'Pengembangan Teknologi' : 'Visual Experience')
+                      : discipline.area}
+                  </p>
+                  <h3 className="relative mt-2 text-lg font-display font-semibold leading-[1.12] tracking-[-0.035em] text-white">
+                    {discipline.title}
+                  </h3>
+                  <p className="relative mt-3 text-xs font-light leading-6 text-[#89909D]">
+                    {discipline.focus}
+                  </p>
+                </article>
               );
             })}
           </div>
+          <p className="mt-6 max-w-3xl text-[11px] leading-6 text-[#6F7783]">
+            {language === 'id'
+              ? 'Daftar bidang keahlian ini menggambarkan cakupan pekerjaan kami, bukan daftar posisi yang semuanya sedang dibuka.'
+              : 'These disciplines describe the scope of our work; they do not imply that every discipline is currently hiring.'}
+          </p>
         </div>
-
-        {/* Interactive Talent Detail Modal */}
-        <CareerModalPortal>
-<AnimatePresence>
-          {selectedTalent && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 kapi-modal-overlay overflow-y-auto"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="talent-profile-title"
-              onClick={() => setSelectedTalent(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                ref={careerModalRef}
-                className="kapi-modal-surface career-modal-shell relative flex w-full max-w-xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden my-2 sm:my-6 sm:max-h-[92vh]"
-              >
-                <button
-                  onClick={() => setSelectedTalent(null)}
-                  className="kapi-modal-close absolute right-4 top-4 z-10"
-                  aria-label="Close talent profile"
-                  data-cursor-label="Close"
-                  autoFocus
-                >
-                  <X size={18} />
-                </button>
-
-                <div className="flex items-center gap-4 px-5 sm:px-7 pt-5 sm:pt-7 pb-5 sm:pb-6 pr-16 border-b border-white/[0.08]">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-brand-red/30 bg-[#0B0C0E] shrink-0 relative shadow-lg shadow-brand-red/10">
-                    <img 
-                      src={selectedTalent.image} 
-                      alt={selectedTalent.name}
-                      className="w-full h-full object-cover object-center brightness-95 contrast-105"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[11px] sm:text-xs font-mono text-brand-red font-semibold block mb-0.5 truncate">
-                      {selectedTalent.department} • {selectedTalent.experience}
-                    </span>
-                    <h3 id="talent-profile-title" className="text-lg sm:text-xl font-display font-bold text-white truncate">
-                      {selectedTalent.name}
-                    </h3>
-                    <p className="text-xs text-[#8A909D] truncate">
-                      {selectedTalent.role}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="career-modal-scroll min-h-0 flex-1 overflow-y-auto space-y-6 px-5 py-6 text-xs font-light text-white/80 overscroll-contain sm:px-7">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
-                      {language === 'id' ? 'Fokus Kapabilitas' : 'Capability Focus'}
-                    </span>
-                    <p className="font-mono text-brand-red font-medium text-xs sm:text-sm">
-                      {selectedTalent.specialty}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-[#8A909D] block mb-1">
-                      {language === 'id' ? 'Tentang Praktik Kerja' : 'About Craft & Practice'}
-                    </span>
-                    <p className="leading-relaxed text-[#8A909D]">
-                      {selectedTalent.bio}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="px-5 sm:px-7 pb-5 sm:pb-7 flex justify-end border-t border-white/[0.08] pt-4">
-                  <button
-                    onClick={() => setSelectedTalent(null)}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] text-white hover:bg-white/[0.06] hover:border-white/[0.16] text-xs font-mono font-semibold uppercase tracking-wider transition-[background-color,border-color] duration-300"
-                  >
-                    {language === 'id' ? 'Tutup Profil' : 'Close Profile'}
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        </CareerModalPortal>
       </section>
 
       {/* SECTION: Current Opportunities */}
@@ -1206,9 +899,19 @@ export const Careers = () => {
             {positions.map((pos) => (
               <motion.div
                 key={pos.id}
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
+                aria-label={`${language === 'id' ? 'Lihat detail dan lamar' : 'View role details and apply'}: ${pos.title}`}
                 whileHover={{ y: -2 }}
                 onClick={() => setSelectedPosition(pos)}
-                className="cursor-pointer group min-w-0 p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300"
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedPosition(pos);
+                  }
+                }}
+                className="cursor-pointer group min-w-0 p-6 sm:p-8 lg:p-9 rounded-2xl border border-white/[0.09] bg-white/[0.02] hover:border-brand-red/35 hover:bg-white/[0.03] transition-[background-color,border-color,transform] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55"
               >
                 <div className="flex min-w-0 flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div className="space-y-3 max-w-3xl">
@@ -1272,7 +975,7 @@ export const Careers = () => {
                   {language === 'id' ? 'Freelance Partner Network' : 'Freelance Partner Network'}
                 </span>
                 <h2 className="max-w-4xl font-display text-4xl font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl">
-                  {language === 'id' ? 'Apply as a Freelance Vendor' : 'Apply as a Freelance Vendor'}
+                  {language === 'id' ? 'Bergabung sebagai Mitra Freelance' : 'Join Our Freelance Partner Network'}
                 </h2>
                 <p className="mt-6 max-w-3xl text-sm font-light leading-7 text-[#8A909D] sm:text-base">
                   {language === 'id'
@@ -1290,7 +993,7 @@ export const Careers = () => {
                   }}
                   className="group inline-flex w-full items-center justify-between gap-4 rounded-full border border-brand-red/55 bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.14em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/88 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] sm:w-auto sm:min-w-[280px]"
                 >
-                  <span>{language === 'id' ? 'Daftar sebagai Freelance Vendor' : 'Apply as Freelance Vendor'}</span>
+                  <span>{language === 'id' ? 'Ajukan sebagai mitra freelance' : 'Apply to the partner network'}</span>
                   <ArrowUpRight size={16} className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
                 <p className="mt-3 text-[10px] font-mono uppercase tracking-[0.16em] text-white/35">
