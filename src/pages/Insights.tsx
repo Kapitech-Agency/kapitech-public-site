@@ -256,6 +256,7 @@ export const Insights: React.FC = () => {
     || selectedCategory?.slug;
   const hasActiveFilters = Boolean(search || categoryId);
   const effectiveContentLanguage = languageFallback === 'id' ? 'id' : language;
+  const articleCountLabel = language === 'id' ? 'artikel' : total === 1 ? 'article' : 'articles';
 
   const intro = language === 'id'
     ? 'Pelajaran praktis dari proses merancang produk, memecahkan masalah, dan membangun pengalaman digital yang berguna.'
@@ -478,7 +479,7 @@ export const Insights: React.FC = () => {
           {hasActiveFilters && !loading && (
             <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.018] px-4 py-3 sm:flex-row sm:items-center sm:justify-between" role="status" aria-live="polite">
               <p className="min-w-0 text-xs leading-6 text-[#858C99]">
-                {language === 'id' ? 'Menampilkan' : 'Showing'} <span className="font-semibold text-white">{total}</span> {language === 'id' ? 'artikel' : 'articles'}
+                {language === 'id' ? 'Menampilkan' : 'Showing'} <span className="font-semibold text-white">{total}</span> {articleCountLabel}
                 {search ? <>{language === 'id' ? ' untuk ' : ' for '}<span className="font-medium text-white">“{search}”</span></> : null}
                 {selectedCategoryLabel ? <>{language === 'id' ? ' dalam ' : ' in '}<span className="font-medium text-white">{selectedCategoryLabel}</span></> : null}.
               </p>
@@ -541,7 +542,7 @@ export const Insights: React.FC = () => {
                   <Sparkles size={16} />
                 </div>
                 <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.17em] text-brand-red">
-                  {language === 'id' ? 'Editorial queue' : 'Editorial queue'}
+                  {language === 'id' ? 'Konten editorial' : 'Editorial queue'}
                 </p>
                 <h2
                   ref={resultsHeadingRef}
@@ -578,7 +579,7 @@ export const Insights: React.FC = () => {
                         {language === 'id' ? 'Pilihan editor' : 'Featured insight'}
                       </p>
                       <h2 id="featured-insight-title" className="mt-2 text-2xl font-display font-semibold tracking-[-0.035em] text-white sm:text-3xl">
-                        {language === 'id' ? 'Satu ide untuk dibawa minggu ini.' : 'One idea worth carrying this week.'}
+                        {language === 'id' ? 'Mulai dari satu insight pilihan.' : 'A featured perspective to start with.'}
                       </h2>
                     </div>
                     <span className="hidden text-[9px] font-mono uppercase tracking-[0.14em] text-[#656D79] sm:block">
@@ -593,7 +594,7 @@ export const Insights: React.FC = () => {
                 <div className="mb-6 flex items-end justify-between gap-4">
                   <div>
                     <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                      {language === 'id' ? 'Library' : 'Library'}
+                      {language === 'id' ? 'Pustaka Insight' : 'Insight library'}
                     </p>
                     <h2
                       ref={resultsHeadingRef}
@@ -605,7 +606,7 @@ export const Insights: React.FC = () => {
                     </h2>
                   </div>
                   <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#626A76]">
-                    {total} {language === 'id' ? 'artikel' : 'articles'}
+                    {total} {articleCountLabel}
                   </span>
                 </div>
 
@@ -683,7 +684,7 @@ export const Insights: React.FC = () => {
                 to="/book-a-call"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.035] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/10"
               >
-                {language === 'id' ? 'Mulai Project' : 'Start a Project'}
+                {language === 'id' ? 'Mulai proyek' : 'Start a project'}
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
