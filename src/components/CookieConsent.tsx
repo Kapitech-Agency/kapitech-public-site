@@ -24,13 +24,24 @@ export const CookieConsent = () => {
       setIsVisible(true);
     }
 
-    const handleOpenPreferences = () => { setIsVisible(true); setShowPreferences(true); };
+    const handleOpenPreferences = () => {
+      try {
+        setAnalyticsEnabled(window.localStorage.getItem(COOKIE_CONSENT_KEY) === 'accepted');
+      } catch {
+        setAnalyticsEnabled(false);
+      }
+      setIsVisible(true);
+      setShowPreferences(true);
+    };
     window.addEventListener('kapitech_open_cookie_preferences', handleOpenPreferences);
     return () => window.removeEventListener('kapitech_open_cookie_preferences', handleOpenPreferences);
   }, []);
 
   const saveConsent = (choice: ConsentChoice) => {
-    if (choice === 'necessary') {
+    const optionalAnalyticsAllowed = choice === 'accepted';
+    setAnalyticsEnabled(optionalAnalyticsAllowed);
+
+    if (!optionalAnalyticsAllowed) {
       revokeOptionalAnalyticsConsent();
     }
 
