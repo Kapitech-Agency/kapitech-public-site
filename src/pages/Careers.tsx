@@ -240,6 +240,8 @@ export interface Position {
 
 export const Careers = () => {
   const { language } = useLanguage();
+  const [activePractice, setActivePractice] = useState<'all' | 'Visual Experience' | 'Innovation Development'>('all');
+  const [selectedDisciplineId, setSelectedDisciplineId] = useState('frontend-engineering');
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [applicantSubmitError, setApplicantSubmitError] = useState('');
@@ -398,6 +400,22 @@ export const Careers = () => {
         { id: 'fullstack', title: 'Full-Stack Web Applications', area: 'Innovation Development', focus: 'TypeScript, API integration, and real-time systems.' },
         { id: 'pitch-publication', title: 'Pitch Deck & Publication Design', area: 'Visual Experience', focus: 'Investor decks, executive reports, and communication assets.' }
       ];
+
+  const visibleDisciplines = activePractice === 'all'
+    ? disciplines
+    : disciplines.filter((discipline) => discipline.area === activePractice);
+  const selectedDiscipline = visibleDisciplines.find((discipline) => discipline.id === selectedDisciplineId)
+    || visibleDisciplines[0]
+    || disciplines[0];
+  const selectedDisciplineIndex = disciplines.findIndex((discipline) => discipline.id === selectedDiscipline.id);
+  const selectedDisciplineIsEngineering = selectedDiscipline.area === 'Innovation Development';
+  const selectedDisciplineIsMotion = /motion|video|3d|illustration|animasi|publikasi/i.test(selectedDiscipline.title);
+  const SelectedDisciplineIcon = selectedDisciplineIsEngineering ? Code2 : selectedDisciplineIsMotion ? Layers : Palette;
+  const practiceFilters = [
+    { value: 'all' as const, label: language === 'id' ? 'Semua bidang' : 'All disciplines', count: disciplines.length },
+    { value: 'Visual Experience' as const, label: 'Visual Experience', count: disciplines.filter((discipline) => discipline.area === 'Visual Experience').length },
+    { value: 'Innovation Development' as const, label: 'Innovation Development', count: disciplines.filter((discipline) => discipline.area === 'Innovation Development').length }
+  ];
 
   const positionsEn: Position[] = [
     {
@@ -806,70 +824,170 @@ export const Careers = () => {
         id="disciplines"
         className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
       >
-        <div className="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-brand-red/[0.045] blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute -right-28 top-8 h-96 w-96 rounded-full bg-brand-red/[0.055] blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute left-[-10rem] top-[42%] h-72 w-72 rounded-full border border-white/[0.035]" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-7xl">
-          <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.65fr)] lg:items-end">
+          <div className="mb-10 grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.62fr)] lg:items-end lg:gap-12">
             <div>
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Area Keahlian' : 'Areas of Practice'}
               </span>
-              <h2 className="max-w-3xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-[3.5rem]">
-                {language === 'id' ? '12 bidang untuk karya yang berdampak.' : '12 disciplines. One connected practice.'}
+              <h2 className="max-w-4xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.06em] text-white sm:text-5xl md:text-[4rem]">
+                {language === 'id'
+                  ? <>Kreativitas bertemu <span className="text-brand-red">ketelitian teknologi.</span></>
+                  : <>Creative craft meets <span className="text-brand-red">technical depth.</span></>}
               </h2>
             </div>
             <div className="lg:pb-1">
-              <p className="text-sm font-light leading-7 text-[#8A909D]">
+              <p className="max-w-xl text-sm font-light leading-7 text-[#949BA7] sm:text-base">
                 {language === 'id'
-                  ? 'Kami menyatukan keahlian desain dan engineering untuk merancang, membangun, dan menyempurnakan produk digital.'
-                  : 'We bring design and engineering capabilities together to shape, build, and refine digital products.'}
+                  ? 'Jelajahi spesialisasi yang menyatukan strategi visual, pengalaman produk, dan engineering dalam satu proses kerja.'
+                  : 'Explore the specialist disciplines that bring visual thinking, product experience, and engineering into one connected practice.'}
               </p>
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-[9px] font-mono uppercase tracking-[0.12em] text-[#818895]">
-                <span className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-2">Visual Experience</span>
-                <span className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-2">Innovation Development</span>
+              <div className="mt-5 flex items-center gap-3 text-[9px] font-mono uppercase tracking-[0.15em] text-[#747C89]">
+                <span>{language === 'id' ? 'Dua praktik utama' : 'Two core practices'}</span>
+                <span className="h-px w-8 bg-brand-red/70" aria-hidden="true" />
+                <span>12 {language === 'id' ? 'disiplin' : 'disciplines'}</span>
               </div>
             </div>
           </div>
 
-          <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {disciplines.map((discipline, index) => {
-              const isEngineering = discipline.area === 'Innovation Development';
-              const isMotion = /motion|video|3d|illustration|animasi|publikasi/i.test(discipline.title);
-              const DisciplineIcon = isEngineering ? Code2 : isMotion ? Layers : Palette;
+          <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.92fr)] lg:gap-5">
+            <div className="min-w-0 overflow-hidden rounded-[26px] border border-white/[0.085] bg-[#101217]/90 p-4 sm:p-5 lg:p-6">
+              <div className="flex flex-col gap-4 border-b border-white/[0.075] pb-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#747C89]">
+                    {language === 'id' ? 'Peta kapabilitas' : 'Capability index'}
+                  </p>
+                  <p className="mt-1.5 text-sm font-medium text-white">
+                    {language === 'id' ? 'Pilih bidang untuk melihat fokusnya' : 'Select a discipline to explore its focus'}
+                  </p>
+                </div>
+                <span className="w-fit rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#8D95A2]">
+                  {String(visibleDisciplines.length).padStart(2, '0')} {language === 'id' ? 'bidang' : 'fields'}
+                </span>
+              </div>
 
-              return (
-                <article
-                  key={discipline.id}
-                  className="group relative flex min-h-[205px] min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.075] bg-white/[0.014] p-5 transition-[background-color,border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/30 hover:bg-white/[0.025] sm:p-6"
-                >
-                  <div className="pointer-events-none absolute -right-10 -top-12 h-28 w-28 rounded-full bg-brand-red/[0.045] blur-2xl transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-                  <div className="relative flex items-start justify-between gap-3">
-                    <span className="text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#636B77]">
-                      {String(index + 1).padStart(2, '0')} <span className="text-white/20">/ 12</span>
-                    </span>
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025] text-brand-red transition-[border-color,background-color] duration-300 group-hover:border-brand-red/25 group-hover:bg-brand-red/[0.08]">
-                      <DisciplineIcon size={16} aria-hidden="true" />
-                    </span>
-                  </div>
-                  <p className="relative mt-5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#777F8C]">
-                    {language === 'id'
-                      ? (isEngineering ? 'Pengembangan Teknologi' : 'Visual Experience')
-                      : discipline.area}
-                  </p>
-                  <h3 className="relative mt-2 text-lg font-display font-semibold leading-[1.12] tracking-[-0.035em] text-white">
-                    {discipline.title}
-                  </h3>
-                  <p className="relative mt-3 text-xs font-light leading-6 text-[#89909D]">
-                    {discipline.focus}
-                  </p>
-                </article>
-              );
-            })}
+              <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label={language === 'id' ? 'Filter bidang keahlian' : 'Filter practice areas'}>
+                {practiceFilters.map((filter) => {
+                  const active = activePractice === filter.value;
+                  return (
+                    <button
+                      key={filter.value}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => {
+                        setActivePractice(filter.value);
+                        const firstMatch = filter.value === 'all'
+                          ? disciplines[0]
+                          : disciplines.find((discipline) => discipline.area === filter.value);
+                        if (firstMatch) setSelectedDisciplineId(firstMatch.id);
+                      }}
+                      className={[
+                        'inline-flex min-h-9 items-center gap-2 rounded-full border px-3 py-2 text-[9px] font-mono uppercase tracking-[0.09em] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+                        active
+                          ? 'border-brand-red/40 bg-brand-red/10 text-white'
+                          : 'border-white/[0.075] bg-white/[0.015] text-[#858D99] hover:border-white/[0.16] hover:text-white'
+                      ].join(' ')}
+                    >
+                      <span>{filter.label}</span>
+                      <span className={active ? 'text-brand-red' : 'text-[#59616D]'}>{String(filter.count).padStart(2, '0')}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-4 grid gap-2 sm:grid-cols-2" aria-live="polite">
+                {visibleDisciplines.map((discipline) => {
+                  const active = discipline.id === selectedDiscipline.id;
+                  return (
+                    <button
+                      key={discipline.id}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => setSelectedDisciplineId(discipline.id)}
+                      className={[
+                        'group/item relative flex min-h-[68px] min-w-0 items-center gap-3 overflow-hidden rounded-xl border px-3.5 py-3 text-left transition-[background-color,border-color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60',
+                        active
+                          ? 'border-brand-red/35 bg-brand-red/[0.075]'
+                          : 'border-white/[0.055] bg-white/[0.012] hover:border-white/[0.13] hover:bg-white/[0.025]'
+                      ].join(' ')}
+                    >
+                      <span className={['h-8 w-1 shrink-0 rounded-full transition-colors duration-200', active ? 'bg-brand-red' : 'bg-white/[0.08] group-hover/item:bg-white/[0.2]'].join(' ')} aria-hidden="true" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-[9px] font-mono tracking-[0.12em] text-[#69717D]">
+                          {String(disciplines.findIndex((item) => item.id === discipline.id) + 1).padStart(2, '0')}
+                        </span>
+                        <span className={['mt-1 block text-xs font-medium leading-5', active ? 'text-white' : 'text-[#A5ABB6] group-hover/item:text-white'].join(' ')}>
+                          {discipline.title}
+                        </span>
+                      </span>
+                      <ArrowUpRight size={13} className={['shrink-0 transition-[color,transform] duration-200', active ? 'translate-x-0.5 -translate-y-0.5 text-brand-red' : 'text-[#626A76] group-hover/item:text-white'].join(' ')} aria-hidden="true" />
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-5 text-[10px] leading-5 text-[#737B87]">
+                {language === 'id'
+                  ? 'Bidang keahlian tidak berarti semua posisi sedang dibuka. Lihat lowongan aktif di bawah.'
+                  : 'Practice areas do not mean every discipline is hiring. See current openings below.'}
+              </p>
+            </div>
+
+            <aside
+              className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(150deg,#161820_0%,#0F1116_54%,#0B0C0E_100%)] p-6 sm:p-8 lg:min-h-full lg:p-9"
+              aria-live="polite"
+              aria-label={language === 'id' ? 'Detail bidang terpilih' : 'Selected discipline details'}
+            >
+              <div className="pointer-events-none absolute -right-16 -top-12 h-64 w-64 rounded-full bg-brand-red/[0.09] blur-3xl transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
+              <div className="pointer-events-none absolute right-6 top-4 select-none font-display text-[9rem] font-semibold leading-none tracking-[-0.09em] text-white/[0.025] sm:text-[12rem]" aria-hidden="true">
+                {String(selectedDisciplineIndex + 1).padStart(2, '0')}
+              </div>
+
+              <div className="relative flex items-start justify-between gap-4">
+                <span className="inline-flex items-center gap-2 rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-2 text-[9px] font-mono uppercase tracking-[0.14em] text-white">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_10px_rgba(229,9,20,0.9)]" aria-hidden="true" />
+                  {language === 'id'
+                    ? (selectedDisciplineIsEngineering ? 'Pengembangan Teknologi' : 'Visual Experience')
+                    : selectedDiscipline.area}
+                </span>
+                <span className="text-[10px] font-mono tracking-[0.12em] text-[#666E7A]">
+                  {String(selectedDisciplineIndex + 1).padStart(2, '0')} / 12
+                </span>
+              </div>
+
+              <div className="relative mt-12 sm:mt-16">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-red/25 bg-brand-red/[0.08] text-brand-red shadow-[0_14px_40px_-24px_rgba(229,9,20,0.6)] transition-transform duration-300 group-hover:scale-[1.03]">
+                  <SelectedDisciplineIcon size={25} strokeWidth={1.5} aria-hidden="true" />
+                </div>
+                <p className="mt-6 text-[9px] font-mono uppercase tracking-[0.16em] text-[#858D99]">
+                  {language === 'id' ? 'Fokus kapabilitas' : 'Capability focus'}
+                </p>
+                <h3 className="mt-3 max-w-lg text-3xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-4xl">
+                  {selectedDiscipline.title}
+                </h3>
+                <p className="mt-4 max-w-lg text-sm font-light leading-7 text-[#949BA7]">
+                  {selectedDiscipline.focus}
+                </p>
+              </div>
+
+              <div className="relative mt-auto pt-10">
+                <div className="mb-5 h-px w-full bg-gradient-to-r from-brand-red/60 via-white/[0.12] to-transparent" />
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#747C89]">
+                    {language === 'id' ? 'Ingin berkontribusi?' : 'Interested in contributing?'}
+                  </span>
+                  <a
+                    href="#open-positions"
+                    className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                  >
+                    {language === 'id' ? 'Lihat lowongan' : 'View open roles'}
+                    <ArrowUpRight size={13} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+            </aside>
           </div>
-          <p className="mt-6 max-w-3xl text-[11px] leading-6 text-[#6F7783]">
-            {language === 'id'
-              ? 'Daftar bidang keahlian ini menggambarkan cakupan pekerjaan kami, bukan daftar posisi yang semuanya sedang dibuka.'
-              : 'These disciplines describe the scope of our work; they do not imply that every discipline is currently hiring.'}
-          </p>
         </div>
       </section>
 
