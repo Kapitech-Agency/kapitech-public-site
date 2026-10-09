@@ -1163,14 +1163,11 @@ export const Contact = () => {
                 {language === 'id' ? 'Sebelum Memulai' : 'Before We Start'}
               </span>
 
-              <div className="relative pl-5 sm:pl-6">
-                
-                <h2 className="max-w-xl text-3xl font-display font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-4xl md:text-5xl lg:text-[3.55rem]">
-                  {language === 'id'
-                    ? <>Pertanyaan yang <span className="text-brand-red">sering muncul</span> sebelum kita mulai.</>
-                    : <>The questions that come up <span className="text-brand-red">before we start.</span></>}
-                </h2>
-              </div>
+              <h2 className="max-w-xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+                {language === 'id'
+                  ? <>Pertanyaan yang <span className="text-brand-red">sering muncul</span> sebelum kita mulai.</>
+                  : <>The questions that come up <span className="text-brand-red">before we start.</span></>}
+              </h2>
 
               <p className="mt-6 max-w-md text-sm font-light leading-[1.85] text-[#A7ACB5] sm:text-base">
                 {language === 'id'
@@ -1224,11 +1221,12 @@ export const Contact = () => {
                       className="border-b border-white/[0.07] last:border-b-0"
                     >
                       <button
+                        id={`faq-trigger-${i}`}
                         type="button"
                         onClick={() => setActiveFaq(isOpen ? null : i)}
                         aria-expanded={isOpen}
                         aria-controls={`faq-answer-${i}`}
-                        className={`group flex w-full items-start gap-4 px-4 py-5 text-left transition-[background-color,color] duration-300 sm:gap-5 sm:px-6 sm:py-6 ${isOpen ? 'bg-white/[0.025]' : 'hover:bg-white/[0.018]'}`}
+                        className={`group flex w-full items-start gap-4 px-4 py-5 text-left transition-[background-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:gap-5 sm:px-6 sm:py-6 ${isOpen ? 'bg-white/[0.025]' : 'hover:bg-white/[0.018]'}`}
                       >
                         <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[9px] font-mono font-semibold tracking-[0.12em] transition-all duration-300 sm:h-8 sm:w-8 ${isOpen ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.08] bg-white/[0.02] text-[#A7ACB5] group-hover:border-white/[0.16] group-hover:text-white'}`}>
                           {String(i + 1).padStart(2, '0')}
@@ -1243,24 +1241,22 @@ export const Contact = () => {
                         </span>
                       </button>
 
-                      <AnimatePresence initial={false}>
-                        {isOpen && (
-                          <motion.div
-                            id={`faq-answer-${i}`}
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                            className="overflow-hidden"
-                          >
-                            <div className="border-t border-white/[0.05] bg-black/[0.08] px-4 pb-6 pt-4 pl-16 sm:px-6 sm:pb-7 sm:pt-4 sm:pl-[4.65rem]">
-                              <p className="max-w-2xl text-[12px] font-light leading-[1.85] text-[#BFC4CC] sm:text-[13px]">
-                                {faq.a}
-                              </p>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <motion.div
+                        id={`faq-answer-${i}`}
+                        role="region"
+                        aria-labelledby={`faq-trigger-${i}`}
+                        aria-hidden={!isOpen}
+                        initial={false}
+                        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="border-t border-white/[0.05] bg-black/[0.08] px-4 pb-6 pt-4 pl-16 sm:px-6 sm:pb-7 sm:pt-4 sm:pl-[4.65rem]">
+                          <p className="max-w-2xl text-[12px] font-light leading-[1.85] text-[#BFC4CC] sm:text-[13px]">
+                            {faq.a}
+                          </p>
+                        </div>
+                      </motion.div>
                     </motion.div>
                   );
                 })}
