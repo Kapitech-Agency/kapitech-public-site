@@ -1,0 +1,301 @@
+{
+  "seo": {
+    "title": "Website Korporat vs Landing Page: Mana yang Dibutuhkan Bisnis Anda? | Kapitech",
+    "description": "Pahami kapan website korporat, landing page, atau pendekatan gabungan lebih sesuai dengan audiens, kampanye, kebutuhan informasi, bukti kepercayaan, dan tujuan konversi.",
+    "slug": "website-korporat-vs-landing-page",
+    "canonicalUrl": "https://kapitech.id/insights/website-korporat-vs-landing-page",
+    "ogImage": "https://kapitech.id/insights/corporate-website-vs-landing-page/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 10,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "corporate-website",
+        "name": "Website Korporat"
+      },
+      {
+        "slug": "landing-page",
+        "name": "Landing Page"
+      },
+      {
+        "slug": "website-strategy",
+        "name": "Strategi Website"
+      },
+      {
+        "slug": "conversion",
+        "name": "Konversi"
+      },
+      {
+        "slug": "information-architecture",
+        "name": "Arsitektur Informasi"
+      },
+      {
+        "slug": "b2b-marketing",
+        "name": "Marketing B2B"
+      }
+    ],
+    "coverImage": "/insights/corporate-website-vs-landing-page/hero.svg",
+    "title": "Website Korporat vs Landing Page: Mana yang Dibutuhkan Bisnis Anda?",
+    "excerpt": "Website korporat mendukung eksplorasi dan kepercayaan, sedangkan landing page berfokus pada satu audiens dan tindakan. Pilih format dengan memetakan maksud pengunjung dan pertanyaan yang perlu dijawab.",
+    "keyTakeaways": [
+      "Landing page memusatkan perhatian pada audiens, penawaran, dan satu tindakan utama.",
+      "Website korporat membantu pengunjung menjelajahi layanan, bukti, informasi perusahaan, dan beberapa langkah berikutnya.",
+      "Sumber traffic dan tingkat pemahaman pengunjung menentukan konteks yang diperlukan.",
+      "Pendekatan gabungan menghubungkan landing page kampanye dengan website korporat yang kredibel.",
+      "Struktur terbaik adalah struktur paling sederhana yang tetap menjawab pertanyaan pengunjung."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Website korporat dan landing page sama-sama dapat menghasilkan prospek, tetapi keduanya dirancang untuk kebutuhan pengunjung yang berbeda. Landing page memusatkan perhatian pada satu penawaran atau tindakan. Website korporat mendukung eksplorasi yang lebih luas, mulai dari memahami perusahaan sampai membandingkan layanan, memeriksa bukti, dan memutuskan apakah akan menghubungi tim."
+      },
+      {
+        "type": "paragraph",
+        "text": "Pemilihan format perlu mengikuti titik awal pengunjung serta pertanyaan yang harus dijawab. Halaman yang terlalu luas dapat mengaburkan kampanye, sedangkan halaman yang terlalu sempit dapat membuat pembeli B2B kekurangan bukti untuk mempercayai bisnis."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Website korporat vs landing page secara ringkas"
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/hero.svg",
+        "alt": "Visual perbandingan website korporat dan landing page",
+        "caption": "Keduanya dapat memiliki CTA, tetapi pekerjaan utamanya berbeda."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Dimensi",
+          "Website korporat",
+          "Landing page"
+        ],
+        "rows": [
+          [
+            "Tujuan utama",
+            "Menjelaskan bisnis dan mendukung beberapa perjalanan pengunjung",
+            "Mendukung satu kampanye, penawaran, atau tindakan"
+          ],
+          [
+            "Navigasi",
+            "Biasanya menyediakan navigasi halaman atau section",
+            "Sering mengurangi distraksi dari tindakan utama"
+          ],
+          [
+            "Kedalaman konten",
+            "Layanan, bukti, konteks perusahaan, sumber daya",
+            "Konteks minimum yang diperlukan untuk satu keputusan"
+          ],
+          [
+            "Sumber traffic",
+            "Pencarian brand, referral, kunjungan langsung, riset, kampanye",
+            "Iklan, email, event, atau penawaran tertentu"
+          ],
+          [
+            "Sinyal keberhasilan",
+            "Prospek berkualitas, eksplorasi, kepercayaan, konversi terbantu",
+            "Penyelesaian aksi, kualitas prospek, dan hasil kampanye"
+          ]
+        ],
+        "caption": "Ini perbedaan umum. Kampanye tertentu dapat membutuhkan beberapa halaman, dan website korporat juga dapat memiliki halaman konversi khusus."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Pekerjaan yang dilayani tiap format"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Landing page mendekatkan pengunjung pada satu tindakan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Landing page efektif ketika pengunjung sudah memiliki konteks yang cukup, misalnya penawaran produk, kampanye, event, atau layanan tertentu. Halaman perlu menjelaskan untuk siapa penawaran itu, masalah yang diselesaikan, apa yang didapat, alasan untuk percaya, dan langkah berikutnya. Elemen tambahan sebaiknya benar-benar membantu keputusan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Website korporat mendukung eksplorasi"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pengunjung website korporat mungkin perlu memahami banyak hal sebelum bertindak. Mereka dapat membandingkan kapabilitas, membaca studi kasus, mempelajari proses, memeriksa informasi perusahaan, atau membagikan halaman kepada pengambil keputusan lain. Navigasi berguna ketika mengurangi ketidakpastian, bukan sekadar menampilkan daftar halaman."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Sumber traffic mengubah konteks yang diperlukan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pengunjung dari referral mungkin sudah mengenal perusahaan, sedangkan pengunjung dari iklan pencarian membutuhkan jawaban yang tepat sejak awal. Halaman kampanye berintensi tinggi dapat tetap fokus, sementara halaman layanan atau brand biasanya membutuhkan konteks dan bukti lebih luas."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/decision-map.svg",
+        "alt": "Peta keputusan untuk memilih website korporat atau landing page kampanye",
+        "caption": "Mulai dari maksud pengunjung, lalu tentukan kebutuhan konteks dan navigasi."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Sesuaikan struktur dengan perjalanan pembelian"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pahami apa yang sudah diketahui pengunjung"
+      },
+      {
+        "type": "paragraph",
+        "text": "Tuliskan pertanyaan yang mungkin dibawa pengunjung dari pencarian, iklan, referral, atau email. Jika mereka masih perlu memahami kategori atau masalahnya, halaman perlu memberikan konteks. Jika mereka sudah memahami penawaran, halaman bisa lebih fokus pada evaluasi dan tindakan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Berikan bukti yang cukup untuk keputusan kompleks"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pembelian B2B sering melibatkan beberapa orang dan proses evaluasi lebih panjang. Kapabilitas, studi kasus relevan, proses kerja, batasan, keamanan, serta detail implementasi dapat menjadi hal penting. Menghilangkan semua navigasi demi memaksa konversi justru dapat mengurangi kepercayaan."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pilih langkah berikutnya yang proporsional"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pengunjung yang masih meneliti mungkin ingin membaca studi kasus atau membandingkan pilihan. Pengunjung yang kebutuhannya sudah jelas mungkin siap meminta konsultasi. Arsitektur informasi yang baik menyediakan langkah wajar bagi keduanya tanpa membuat semua halaman bersaing untuk CTA yang sama."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/requirements-map.svg",
+        "alt": "Peta kebutuhan informasi sebelum pengunjung melakukan konversi",
+        "caption": "Struktur perlu mengikuti pertanyaan yang muncul sebelum tindakan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Model gabungan sering menjadi pilihan praktis"
+      },
+      {
+        "type": "paragraph",
+        "text": "Website korporat dapat menjadi sumber utama informasi brand, layanan, studi kasus, dan insight. Landing page yang fokus dapat mendukung kampanye tertentu tanpa menduplikasi seluruh website. Hubungkan halaman kampanye ke informasi yang lebih mendalam bila membantu pengunjung, dan gunakan klaim, visual, serta jalur kontak yang konsisten."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Hubungkan kampanye dengan bukti yang kredibel"
+      },
+      {
+        "type": "paragraph",
+        "text": "Jika halaman menyampaikan klaim tentang keahlian atau hasil, berikan cara bagi pengunjung untuk memeriksa bukti pendukung. Bukti dapat berupa studi kasus yang relevan, metodologi, testimoni dengan izin publikasi, atau penjelasan proses yang jelas. Hindari klaim yang tidak dapat dibuktikan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesalahan struktur yang sering terjadi"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Membangun website penuh padahal kebutuhan langsung hanya satu penawaran kampanye.",
+          "Menggunakan landing page satu halaman untuk layanan kompleks dengan banyak pemangku kepentingan.",
+          "Menyembunyikan bukti, konteks harga, atau batasan agar halaman terlihat singkat.",
+          "Mengirim traffic iklan ke homepage umum tanpa kesinambungan pesan.",
+          "Membuat halaman duplikat dengan janji berbeda untuk penawaran yang sama.",
+          "Memasang banyak CTA tanpa prioritas yang jelas.",
+          "Mengukur klik tanpa memeriksa kualitas prospek yang masuk."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/comparison.svg",
+        "alt": "Perbandingan fokus, bukti kepercayaan, dan navigasi",
+        "caption": "Fokus bermanfaat bila memudahkan keputusan, bukan ketika menyembunyikan konteks penting."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Checklist sebelum memilih format"
+      },
+      {
+        "type": "checklist",
+        "title": "Checklist format website",
+        "items": [
+          "Audiens dan sumber traffic utama sudah jelas.",
+          "Pertanyaan yang harus dijawab pengunjung telah ditentukan.",
+          "Tindakan konversi sesuai dengan maksud pengunjung.",
+          "Bukti, detail layanan, dan batasan yang diperlukan tersedia.",
+          "Navigasi disertakan atau dihilangkan dengan alasan yang jelas.",
+          "Analitik mengukur hasil berkualitas, bukan hanya klik tombol.",
+          "Halaman terhubung dengan perjalanan pelanggan yang lebih luas tanpa duplikasi yang tidak perlu."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/scenario.svg",
+        "alt": "Skenario lead generation B2B untuk menata halaman website",
+        "caption": "Landing page yang fokus dan website korporat yang berguna dapat saling menguatkan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: sesuaikan format dengan tujuannya"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pilih landing page ketika satu audiens, satu penawaran, dan satu tindakan mendefinisikan kebutuhan. Pilih website korporat ketika pengunjung memerlukan eksplorasi dan bukti yang lebih luas. Gabungkan keduanya bila bisnis membutuhkan fokus kampanye sekaligus tempat yang kredibel untuk riset lebih mendalam."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Strategi website",
+        "title": "Rancang perjalanan pengunjung sebelum membangun halaman",
+        "description": "Petakan maksud audiens, bukti kepercayaan, informasi wajib, dan tujuan konversi untuk memilih struktur situs yang tepat.",
+        "ctaLabel": "Rencanakan website",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Apakah website korporat boleh memiliki landing page?",
+        "Boleh. Website korporat dapat menjadi sumber informasi perusahaan dan layanan, sementara landing page terfokus mendukung kampanye atau penawaran tertentu."
+      ],
+      [
+        "Apakah landing page selalu menghasilkan konversi lebih tinggi?",
+        "Tidak. Landing page dapat mengurangi distraksi untuk penawaran yang jelas, tetapi keputusan kompleks bisa membutuhkan informasi dan bukti lebih banyak. Ukur hasil yang berkualitas, bukan menganggap halaman pendek selalu lebih baik."
+      ],
+      [
+        "Berapa banyak halaman yang sebaiknya dimiliki website perusahaan?",
+        "Tidak ada angka universal. Buat halaman terpisah ketika ia menjawab kebutuhan pengguna yang berbeda, mendukung maksud pencarian yang bermakna, atau memuat informasi yang sebaiknya tidak disembunyikan di halaman lain."
+      ],
+      [
+        "Apakah landing page perlu navigasi?",
+        "Sesuai kebutuhan. Mengurangi navigasi dapat membantu kampanye tertentu, tetapi tautan ke bukti, informasi privasi, atau detail penting dapat meningkatkan kepercayaan."
+      ],
+      [
+        "Format mana yang cocok untuk lead generation B2B?",
+        "Sering kali kombinasi. Website korporat mendukung kredibilitas dan riset, sedangkan landing page yang terarah menghubungkan kampanye dengan audiens serta penawaran yang relevan."
+      ],
+      [
+        "Bagaimana mengukur format yang tepat?",
+        "Lacak tindakan utama, kualitas prospek, tingkat konversi, konversi terbantu, dan kemampuan pengunjung menemukan informasi yang dibutuhkan untuk mengambil keputusan."
+      ]
+    ],
+    "seoTitle": "Website Korporat vs Landing Page: Mana yang Dibutuhkan Bisnis Anda? | Kapitech",
+    "seoDescription": "Pahami kapan website korporat, landing page, atau pendekatan gabungan lebih sesuai dengan audiens, kampanye, kebutuhan informasi, bukti kepercayaan, dan tujuan konversi."
+  }
+}
