@@ -388,7 +388,7 @@ export const About = () => {
                 <dd className="mt-2 text-sm font-medium leading-6 text-white">PT Kapitech Digital Indonesia</dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   {language === 'id' ? 'Fokus usaha' : 'Business focus'}
                 </dt>
@@ -397,7 +397,7 @@ export const About = () => {
                 </dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   <MapPin size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                   {language === 'id' ? 'Kantor' : 'Headquarters'}
@@ -407,7 +407,7 @@ export const About = () => {
                 </dd>
               </div>
 
-              <div className="min-w-0 px-5 py-5 sm:px-6">
+              <div className="min-w-0 bg-[#111216] px-5 py-5 sm:px-6">
                 <dt className="flex items-start gap-2 text-[10px] font-mono uppercase tracking-[0.13em] text-[#747C89]">
                   <Globe size={12} className="mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                   {language === 'id' ? 'Pasar' : 'Markets'}
