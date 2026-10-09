@@ -355,7 +355,7 @@ export const Insights: React.FC = () => {
                     }}
                     aria-pressed={active}
                     className={[
-                      'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300',
+                      'shrink-0 rounded-full border px-3.5 py-2 text-[9px] font-semibold uppercase tracking-[0.12em] transition-[background-color,border-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/55',
                       active
                         ? 'border-brand-red/35 bg-brand-red/12 text-white'
                         : 'border-white/[0.08] bg-transparent text-[#858C99] hover:border-white/[0.16] hover:text-white'
@@ -516,7 +516,7 @@ export const Insights: React.FC = () => {
                       01 / {Math.max(1, total).toString().padStart(2, '0')}
                     </span>
                   </div>
-                  <InsightCard insight={featured} language={language} featured />
+                  <InsightCard insight={featured} language={effectiveContentLanguage} featured />
                 </section>
               )}
 
@@ -543,7 +543,7 @@ export const Insights: React.FC = () => {
                 {latest.length > 0 ? (
                   <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                     {latest.map(item => (
-                      <InsightCard key={item.id} insight={item} language={language} />
+                      <InsightCard key={item.id} insight={item} language={effectiveContentLanguage} />
                     ))}
                   </div>
                 ) : (
