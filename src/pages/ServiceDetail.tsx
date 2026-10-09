@@ -87,9 +87,6 @@ export const ServiceDetail = () => {
         ))
         .slice(0, 3)
     : [];
-  const curatedServiceMetrics = allSolutionsAndServices.find(
-    (item) => slugify(item.slug) === slugify(service.slug),
-  )?.metrics ?? [];
   const metricFrameworkFallback = [
     {
       value: 'Baseline',
@@ -108,7 +105,7 @@ export const ServiceDetail = () => {
     },
   ];
   const performanceMetrics = Array.from({ length: 3 }, (_, index) => {
-    const metric = cmsMetrics[index] ?? curatedServiceMetrics[index];
+    const metric = cmsMetrics[index];
     if (metric && String(metric.value ?? '').trim()) {
       const label = String(metric.label ?? metric.labelId ?? '').trim();
       const labelId = String(metric.labelId ?? metric.label ?? '').trim();
