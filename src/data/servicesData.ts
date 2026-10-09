@@ -1,5 +1,7 @@
 export interface ServiceItemData {
   slug: string;
+  /** Publication state provided by the CMS; absent means the legacy record is public. */
+  isPublished?: boolean;
   type: 'solution' | 'service';
   category: 'Solutions' | 'Branding' | 'Design' | 'Development';
   title: string;
