@@ -25,6 +25,7 @@ import { fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsS
 import { allSolutionsAndServices, getServiceBySlug } from '../data/servicesData';
 import { mergeServiceContent, serviceContentEnhancements } from '../data/serviceContentEnhancements';
 import { cn } from '../lib/utils';
+import { slugify } from '../lib/publicContent';
 import PublicPageHero from '../components/ui/PublicPageHero';
 
 export const ServiceDetail = () => {
@@ -53,20 +54,22 @@ export const ServiceDetail = () => {
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
 
-  const staticService = slug ? getServiceBySlug(slug) : undefined;
-  const isSolutionPage = staticService?.type === 'solution';
-
-  if (staticService && pathname.startsWith('/solutions/') && !isSolutionPage) {
-    return <Navigate to={'/services/' + staticService.slug} replace />;
-  }
-
-  if (staticService && pathname.startsWith('/services/') && isSolutionPage) {
-    return <Navigate to={'/solutions/' + staticService.slug} replace />;
-  }
-
-  const baseService = slug
-    ? cmsServices.find((item) => item.slug === slug) || staticService
+  const cmsService = slug
+    ? cmsServices.find((item) => slugify(item.slug) === slugify(slug))
     : undefined;
+  const staticService = slug ? getServiceBySlug(slug) : undefined;
+  const resolvedService = cmsService || staticService;
+  const isSolutionPage = resolvedService?.type === 'solution';
+
+  if (resolvedService && pathname.startsWith('/solutions/') && !isSolutionPage) {
+    return <Navigate to={'/services/' + slugify(resolvedService.slug)} replace />;
+  }
+
+  if (resolvedService && pathname.startsWith('/services/') && isSolutionPage) {
+    return <Navigate to={'/solutions/' + slugify(resolvedService.slug)} replace />;
+  }
+
+  const baseService = resolvedService;
   const service = baseService
     ? mergeServiceContent(baseService, serviceContentEnhancements[baseService.slug])
     : undefined;
