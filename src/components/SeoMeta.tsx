@@ -154,7 +154,7 @@ function getRouteSeo(
 
   const caseStudyMatch = pathname.match(/^\/work\/([^/]+)$/);
   if (caseStudyMatch) {
-    const project = projectBySlug(projects, caseStudyMatch[1]) || projectBySlug(allProjects, caseStudyMatch[1]);
+    const project = projectBySlug(projects, caseStudyMatch[1]) || (projects === allProjects ? projectBySlug(allProjects, caseStudyMatch[1]) : undefined);
     if (project) {
       const canonicalSlug = projectSlug(project);
       const canonicalUrl = SITE_URL + '/work/' + canonicalSlug;
