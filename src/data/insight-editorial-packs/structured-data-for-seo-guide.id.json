@@ -1,0 +1,302 @@
+{
+  "seo": {
+    "title": "Structured Data untuk SEO: Panduan Praktis Schema Markup | Kapitech",
+    "description": "Pelajari fungsi structured data, pemilihan tipe Schema.org yang relevan, implementasi JSON-LD, validasi markup, dan kesalahan umum yang dapat menggugurkan kelayakan rich results.",
+    "slug": "structured-data-untuk-seo",
+    "canonicalUrl": "https://kapitech.id/insights/structured-data-untuk-seo",
+    "ogImage": "https://kapitech.id/insights/structured-data-seo/hero.svg"
+  },
+  "editorial": {
+    "language": "id",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 11,
+    "editorialMeta": {
+      "editorialType": "panduan-praktis"
+    },
+    "tags": [
+      {
+        "slug": "structured-data",
+        "name": "Structured Data"
+      },
+      {
+        "slug": "schema-markup",
+        "name": "Schema Markup"
+      },
+      {
+        "slug": "technical-seo",
+        "name": "SEO Teknis"
+      },
+      {
+        "slug": "json-ld",
+        "name": "JSON-LD"
+      },
+      {
+        "slug": "rich-results",
+        "name": "Rich Results"
+      },
+      {
+        "slug": "search-appearance",
+        "name": "Tampilan Pencarian"
+      }
+    ],
+    "coverImage": "/insights/structured-data-seo/hero.svg",
+    "title": "Structured Data untuk SEO: Panduan Praktis Schema Markup",
+    "excerpt": "Structured data memberikan petunjuk eksplisit tentang makna halaman kepada mesin pencari. Gunakan markup akurat yang sesuai dengan konten terlihat dan uji sebelum publikasi, bukan untuk menjanjikan rich results.",
+    "keyTakeaways": [
+      "Structured data membantu menjelaskan entitas dan hubungan halaman, tetapi tidak menjamin rich results.",
+      "Pilih markup yang sesuai dengan konten yang terlihat dan ikuti ketentuan khusus fitur Google.",
+      "JSON-LD sering menjadi format yang mudah diterapkan dan dipelihara.",
+      "Gunakan data minimum yang lengkap, akurat, dan relevan dengan tipe schema.",
+      "Validasi sebelum rilis dan pantau website ketika template atau model konten berubah."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Structured data adalah deskripsi informasi di halaman dalam format yang dapat dibaca mesin. Data ini dapat menjelaskan entitas, properti, dan hubungan sehingga mesin pencari lebih konsisten memahami konten. Contohnya, halaman artikel dapat menjelaskan judul dan penulis; halaman bisnis dapat mendeskripsikan organisasi; sementara halaman produk dapat menyediakan detail produk ketika memenuhi ketentuan fitur yang didukung."
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data dapat membuat halaman memenuhi syarat untuk tampilan pencarian tertentu, tetapi bukan jalan pintas ranking dan tidak menjamin rich result akan muncul. Markup yang benar tetap harus mewakili konten yang terlihat serta memenuhi panduan fitur yang relevan."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Structured data untuk SEO secara ringkas"
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/hero.svg",
+        "alt": "Gambaran structured data dan perannya dalam pencarian",
+        "caption": "Schema markup menjelaskan makna halaman, bukan menggantikan konten yang bermanfaat."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Fungsi dan batasan structured data"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Memberi petunjuk eksplisit tentang makna halaman"
+      },
+      {
+        "type": "paragraph",
+        "text": "Schema yang tepat dapat membedakan organisasi dari orang, artikel dari produk, atau breadcrumb dari teks biasa. Detail ini membantu sistem otomatis memahami konten dan menghubungkan informasi secara konsisten di seluruh website."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Tidak menjamin rich result"
+      },
+      {
+        "type": "paragraph",
+        "text": "Mesin pencari tetap menentukan tampilan yang sesuai untuk sebuah kueri dan dapat memilih hasil standar meskipun markup valid. Markup yang tidak valid, menyesatkan, tersembunyi, atau tidak relevan dapat membuat halaman tidak memenuhi syarat dan menimbulkan masalah kualitas."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/schema-types.svg",
+        "alt": "Contoh tipe structured data dan jenis konten yang dideskripsikan",
+        "caption": "Pilih tipe karena sesuai dengan halaman, bukan karena namanya terlihat menarik."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Pilih tipe sesuai konten yang terlihat"
+      },
+      {
+        "type": "paragraph",
+        "text": "Mulai dari tujuan utama halaman. Artikel editorial dapat menggunakan Article atau BlogPosting; website bisa mendeskripsikan organisasinya; breadcrumb menyatakan hierarki navigasi; dan halaman produk dapat memakai Product ketika konten serta kelayakan fiturnya sesuai. Tidak semua halaman membutuhkan semua tipe."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Jangan menandai informasi yang tidak tersedia"
+      },
+      {
+        "type": "paragraph",
+        "text": "Markup harus mendeskripsikan informasi yang dapat dilihat pengguna. Jangan menambahkan rating fiktif, penawaran tersembunyi, entitas yang tidak relevan, atau data yang disalin dari halaman lain. Gunakan nama, tanggal, URL, dan gambar yang akurat serta pastikan data template benar-benar cocok dengan halaman yang dirender."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Utamakan informasi yang lengkap dan relevan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Properti wajib perlu tersedia untuk fitur yang dituju. Properti rekomendasi dapat menambah detail, tetapi kumpulan data kecil yang akurat lebih baik daripada banyak field yang tidak bisa dipastikan."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/jsonld-layers.svg",
+        "alt": "Lapisan JSON-LD yang menghubungkan entitas halaman dengan properti deskriptif",
+        "caption": "Setiap properti sebaiknya dapat ditelusuri ke field nyata di halaman atau model konten."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Mengapa JSON-LD sering menjadi pilihan praktis"
+      },
+      {
+        "type": "paragraph",
+        "text": "JSON-LD memisahkan structured data dari markup yang terlihat sehingga lebih mudah dibuat dari model konten dan diuji di berbagai template. Microdata dan RDFa juga merupakan format yang didukung jika diimplementasikan dengan benar. Kriteria utamanya adalah validitas, konsistensi, dan kepatuhan terhadap panduan fitur."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Selaraskan schema dengan CMS"
+      },
+      {
+        "type": "paragraph",
+        "text": "Buat markup dari sumber tepercaya yang sama dengan judul halaman, penulis, tanggal, breadcrumb, atribut produk, atau detail bisnis. Hindari memelihara deskripsi manual terpisah karena konten dan schema dapat berbeda."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Contoh JSON-LD sederhana"
+      },
+      {
+        "type": "paragraph",
+        "text": "Contoh berikut mendeskripsikan organisasi fiktif. Implementasi production harus menggunakan nilai yang sudah diverifikasi dan hanya menyertakan properti yang dapat dipelihara secara akurat."
+      },
+      {
+        "type": "code",
+        "language": "json",
+        "code": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Organization\",\n  \"name\": \"Example Company\",\n  \"url\": \"https://www.example.com\"\n}"
+      },
+      {
+        "type": "paragraph",
+        "text": "Contoh ini hanya memberi deskripsi dasar sebuah entitas. Jangan menganggap markup Organization otomatis menghasilkan knowledge panel atau tampilan pencarian tertentu."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/schema-flow.svg",
+        "alt": "Alur implementasi structured data dari konten halaman ke schema",
+        "caption": "Hubungkan field yang terlihat ke schema yang tepat, lalu uji hasil render."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Validasi sebelum dan setelah peluncuran"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Uji sintaks dan properti wajib"
+      },
+      {
+        "type": "paragraph",
+        "text": "Gunakan Rich Results Test Google untuk fitur tampilan yang didukung, lalu periksa hasil render atau output JSON-LD untuk mencari nilai yang hilang atau salah format. Uji sintaks tidak dapat memeriksa seluruh persyaratan kualitas, jadi pastikan markup memang menggambarkan halaman."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Pantau perubahan template dan konten"
+      },
+      {
+        "type": "paragraph",
+        "text": "Perubahan field CMS, template, routing, atau tipe konten dapat merusak markup secara diam-diam di banyak halaman. Uji ulang template representatif setelah rilis dan periksa laporan Search Console untuk masalah atau perubahan kelayakan."
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/validation-gates.svg",
+        "alt": "Gerbang validasi untuk sintaks schema, kesesuaian halaman, dan persyaratan fitur pencarian",
+        "caption": "Validasi adalah bagian dari rilis yang berulang, bukan pemeriksaan satu kali."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesalahan structured data yang umum"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Menggunakan tipe schema yang tidak sesuai dengan halaman terlihat.",
+          "Menandai review, rating, harga, penulis, atau tanggal yang tidak akurat.",
+          "Menambahkan properti demi kelengkapan tanpa memverifikasi datanya.",
+          "Menganggap JSON valid menjamin kelayakan rich result.",
+          "Menghasilkan entitas yang sama dengan URL atau ID yang saling bertentangan.",
+          "Menerbitkan markup rusak setelah perubahan CMS tanpa pengujian ulang.",
+          "Memperlakukan structured data sebagai pengganti konten yang jelas dan bermanfaat."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/structured-data-seo/markup-loop.svg",
+        "alt": "Alur structured data berulang dari pemodelan sampai pemantauan",
+        "caption": "Modelkan, implementasikan, validasi, publikasikan, lalu pantau markup."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Checklist implementasi"
+      },
+      {
+        "type": "checklist",
+        "title": "Checklist schema markup",
+        "items": [
+          "Identifikasi tujuan utama halaman dan entitas yang direpresentasikan.",
+          "Periksa apakah Google mendukung fitur pencarian yang dituju jika rich result merupakan sasaran.",
+          "Gunakan field akurat yang sesuai dengan konten terlihat.",
+          "Buat schema dari sumber data halaman, bukan dari nilai duplikat yang diketik manual.",
+          "Periksa properti wajib, identifier, URL, dan tanggal.",
+          "Uji halaman representatif dengan alat validasi yang relevan.",
+          "Pantau laporan Search Console dan uji ulang setelah perubahan template."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Baca dokumentasi Google tentang [pengantar structured data](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data) dan [panduan umum structured data](https://developers.google.com/search/docs/appearance/structured-data/sd-policies) sebelum menentukan fitur atau menerbitkan markup."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Kesimpulan: akurasi lebih penting dari tampilan tambahan"
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data paling berguna ketika menggambarkan konten dengan akurat dan dipelihara sebagai bagian dari proses publikasi. Pilih tipe yang relevan, gunakan data tepercaya, validasi hasil render, dan pantau setelah rilis. Perlakukan rich results sebagai kemungkinan, bukan janji."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "SEO teknis",
+        "title": "Buat structured data yang akurat dan mudah dipelihara",
+        "description": "Tinjau pemilihan schema, field CMS, hasil render, dan validasi sebagai bagian dari kualitas teknis website.",
+        "ctaLabel": "Tinjau website Anda",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "technical-seo"
+      }
+    ],
+    "faq": [
+      [
+        "Apakah structured data langsung meningkatkan ranking?",
+        "Structured data membantu mesin pencari memahami informasi dan dapat membuat halaman memenuhi syarat untuk tampilan pencarian tambahan tertentu. Markup tidak menjamin ranking lebih tinggi atau tampilan khusus."
+      ],
+      [
+        "Format mana yang sebaiknya digunakan?",
+        "Google mendukung JSON-LD, Microdata, dan RDFa. JSON-LD sering lebih mudah diterapkan dan dipelihara secara terpisah dari HTML yang terlihat."
+      ],
+      [
+        "Bisakah semua halaman menggunakan schema yang sama?",
+        "Tidak. Markup harus sesuai tujuan dan konten halaman. Markup yang tidak relevan dapat menyesatkan dan membuat halaman tidak memenuhi syarat untuk enhanced result."
+      ],
+      [
+        "Apakah schema valid menjamin rich result?",
+        "Tidak. Markup valid hanya salah satu syarat. Halaman juga harus memenuhi panduan konten dan fitur, dan mesin pencari tetap memilih tampilan yang sesuai."
+      ],
+      [
+        "Bagaimana cara menguji structured data?",
+        "Gunakan Rich Results Test untuk fitur yang didukung, periksa markup hasil render, dan pantau laporan Search Console setelah publikasi."
+      ],
+      [
+        "Kapan structured data perlu diaudit?",
+        "Audit saat mengubah template, field CMS, metadata SEO, data produk, breadcrumb, dan routing. Periksa juga jika Search Console menunjukkan masalah baru."
+      ]
+    ],
+    "seoTitle": "Structured Data untuk SEO: Panduan Praktis Schema Markup | Kapitech",
+    "seoDescription": "Pelajari fungsi structured data, pemilihan tipe Schema.org yang relevan, implementasi JSON-LD, validasi markup, dan kesalahan umum yang dapat menggugurkan kelayakan rich results."
+  }
+}
