@@ -170,6 +170,7 @@ function getRouteSeo(
           url: canonicalUrl,
           creator: { '@id': SITE_URL + '/#organization' },
           about: project.industry,
+          image: project.image || DEFAULT_IMAGE,
           keywords: [project.service, project.industry, project.client].join(', ')
         }
       };
