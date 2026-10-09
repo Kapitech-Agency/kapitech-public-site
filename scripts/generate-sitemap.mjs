@@ -69,9 +69,9 @@ const fetchPublicCmsProjects = async () => {
 };
 
 const fetchPublicCmsServices = async () => {
-  const configuredApiBase = String(process.env.VITE_AMS_API_BASE_URL || '').trim().replace(/\\/+$/, '');
+  const configuredApiBase = String(process.env.VITE_AMS_API_BASE_URL || '').trim().replace(/\/+$/, '');
   const apiBase = configuredApiBase
-    ? (/\\/api$/i.test(configuredApiBase) ? configuredApiBase : configuredApiBase + '/api')
+    ? (/\/api$/i.test(configuredApiBase) ? configuredApiBase : configuredApiBase + '/api')
     : 'https://ams.kapitech.id/api';
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
