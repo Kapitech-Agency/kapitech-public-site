@@ -311,22 +311,24 @@ export const Footer = () => {
                 { name: language === 'id' ? 'Kebijakan Cookie' : 'Cookie Policy', href: '/cookie-policy' }
               ].map((policy) => (
                 <li key={policy.name}>
-                  <Link 
-                    to={policy.href} 
+                  <Link
+                    to={policy.href}
                     className="text-[#8A909D]/80 hover:text-brand-red transition-colors block text-[11px]"
                   >
                     {policy.name}
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent('kapitech_open_cookie_preferences'))}
+                  className="kapi-cookie-preferences-trigger"
+                >
+                  {language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences'}
+                </button>
+              </li>
             </ul>
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('kapitech_open_cookie_preferences'))}
-              className="mt-3 text-left text-[11px] text-[#6F7783] transition-colors hover:text-white"
-            >
-              {language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences'}
-            </button>
           </div>
 
           {/* Col 5: Direct Office & Contacts (2 cols) */}
