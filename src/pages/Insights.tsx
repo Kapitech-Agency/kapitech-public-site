@@ -570,48 +570,76 @@ export const Insights: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="space-y-16">
+            <div className="space-y-20 sm:space-y-24">
               {featured && (
                 <section aria-labelledby="featured-insight-title">
-                  <div className="mb-5 flex items-end justify-between gap-4">
+                  <div className="mb-7 grid gap-5 border-b border-white/[0.08] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.68fr)] lg:items-end">
                     <div>
-                      <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-brand-red">
-                        {language === 'id' ? 'Pilihan editor' : 'Featured insight'}
+                      <p className="flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.17em] text-brand-red">
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_12px_rgba(229,9,20,0.75)]" aria-hidden="true" />
+                        {language === 'id' ? 'Pilihan editorial' : "Editor's selection"}
                       </p>
-                      <h2 id="featured-insight-title" className="mt-2 text-2xl font-display font-semibold tracking-[-0.035em] text-white sm:text-3xl">
-                        {language === 'id' ? 'Mulai dari satu insight pilihan.' : 'A featured perspective to start with.'}
+                      <h2 id="featured-insight-title" className="mt-4 max-w-2xl text-[2rem] font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-4xl lg:text-[2.75rem]">
+                        {language === 'id' ? 'Satu insight untuk dilihat lebih dalam.' : 'A closer look at one good idea.'}
                       </h2>
                     </div>
-                    <span className="hidden text-[9px] font-mono uppercase tracking-[0.14em] text-[#656D79] sm:block">
-                      01 / {Math.max(1, total).toString().padStart(2, '0')}
-                    </span>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:justify-end">
+                      <p className="max-w-md text-sm leading-7 text-[#858C99]">
+                        {language === 'id'
+                          ? 'Satu pilihan dari tim editorial, dengan konteks dan detail yang layak dipelajari.'
+                          : 'One editorial pick, with the context and detail worth spending time on.'}
+                      </p>
+                      <span className="inline-flex w-fit shrink-0 items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#89909D]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+                        01 / {Math.max(1, total).toString().padStart(2, '0')}
+                      </span>
+                    </div>
                   </div>
                   <InsightCard insight={featured} language={effectiveContentLanguage} featured />
                 </section>
               )}
 
               <section aria-labelledby="latest-insights-title">
-                <div className="mb-6 flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#69717D]">
-                      {language === 'id' ? 'Pustaka Insight' : 'Insight library'}
-                    </p>
-                    <h2
-                      ref={resultsHeadingRef}
-                      id="latest-insights-title"
-                      tabIndex={-1}
-                      className="mt-2 scroll-mt-28 text-3xl font-display font-semibold tracking-[-0.04em] text-white outline-none focus-visible:outline-none sm:text-[2.45rem]"
-                    >
-                      {latestLabel}
-                    </h2>
+                <div className="mb-7 border-b border-white/[0.08] pb-6">
+                  <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                    <div>
+                      <p className="flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.17em] text-[#818895]">
+                        <span className="h-px w-7 bg-brand-red" aria-hidden="true" />
+                        {hasActiveFilters
+                          ? (language === 'id' ? 'Hasil pencarian' : 'Search results')
+                          : (language === 'id' ? 'Jelajahi koleksi' : 'Browse the collection')}
+                      </p>
+                      <h2
+                        ref={resultsHeadingRef}
+                        id="latest-insights-title"
+                        tabIndex={-1}
+                        className="mt-4 scroll-mt-28 text-[2.25rem] font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white outline-none focus-visible:outline-none sm:text-4xl lg:text-[2.75rem]"
+                      >
+                        {latestLabel}
+                      </h2>
+                      <p className="mt-3 max-w-2xl text-sm leading-7 text-[#858C99]">
+                        {hasActiveFilters
+                          ? (language === 'id'
+                            ? 'Artikel yang sesuai dengan kata kunci dan kategori yang dipilih.'
+                            : 'Articles matching your search and selected category.')
+                          : (language === 'id'
+                            ? 'Panduan, perspektif, dan pendekatan praktis untuk membangun pengalaman digital yang lebih baik.'
+                            : 'Practical guides, perspectives, and frameworks for building better digital experiences.')}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between gap-5 border-t border-white/[0.08] pt-4 md:min-w-[10rem] md:justify-end md:border-l md:border-t-0 md:pl-6 md:pt-0">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#737B88]">
+                        {language === 'id' ? 'Total artikel' : 'Total articles'}
+                      </span>
+                      <span className="text-3xl font-display font-semibold leading-none tracking-[-0.05em] text-white tabular-nums">
+                        {String(total).padStart(2, '0')}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#626A76]">
-                    {total} {articleCountLabel}
-                  </span>
                 </div>
 
                 {latest.length > 0 ? (
-                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {latest.map(item => (
                       <InsightCard key={item.id} insight={item} language={effectiveContentLanguage} />
                     ))}
