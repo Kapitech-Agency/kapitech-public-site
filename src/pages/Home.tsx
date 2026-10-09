@@ -306,7 +306,7 @@ export const Home = () => {
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <Link 
-                to="/contact" 
+                to="/contact#project-inquiry-form" 
                 className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
@@ -553,7 +553,7 @@ export const Home = () => {
                   : 'Start with the service closest to your need. For a more specific need, choose the solution that fits your project situation.'}
               </p>
               <Link
-                to="/contact"
+                to="/contact#project-inquiry-form"
                 className="mt-4 inline-flex items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
               >
                 <span>{language === 'id' ? 'Diskusikan kebutuhan Anda' : 'Discuss your project'}</span>
@@ -768,7 +768,7 @@ export const Home = () => {
                   : 'Not sure which path fits? Share your project context and we will help you choose the most sensible starting point.'}
               </p>
               <Link
-                to="/contact"
+                to="/contact#project-inquiry-form"
                 className="inline-flex shrink-0 items-center gap-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-[#A7ACB5] transition-colors duration-300 hover:text-white"
               >
                 <span>{language === 'id' ? 'Mulai diskusi' : 'Start a discussion'}</span>
