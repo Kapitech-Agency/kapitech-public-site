@@ -625,7 +625,7 @@ export const Contact = () => {
 
             {/* Interactive Consultation Form */}
             <div className="min-w-0 w-full">
-              <div className="relative h-full">
+              <div className="relative">
                 {isSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -691,13 +691,13 @@ export const Contact = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex h-full flex-col space-y-5 sm:space-y-6" noValidate>
+                  <form onSubmit={handleSubmit} className="flex flex-col space-y-5 sm:space-y-6" noValidate>
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website_hp">Do not fill this</label>
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+                    <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
                       <div className="border-b border-white/[0.08] px-5 pt-5 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
@@ -714,6 +714,19 @@ export const Contact = () => {
                                   ? (language === 'id' ? 'Bagaimana kami menghubungi Anda?' : 'How can we reach you?')
                                   : (language === 'id' ? 'Sedikit konteks, lalu selesai.' : 'A little context, then we’re done.')}
                             </h3>
+                            <p className="mt-2.5 max-w-2xl text-xs leading-relaxed text-[#8A909D] sm:text-sm">
+                              {formStep === 0
+                                ? (language === 'id'
+                                  ? 'Pilih satu atau beberapa area yang paling sesuai. Detail scope bisa kita rapikan bersama setelahnya.'
+                                  : 'Choose one or more areas. We can shape the exact scope together afterwards.')
+                                : formStep === 1
+                                  ? (language === 'id'
+                                    ? 'Nama dan email sudah cukup untuk memulai. Detail lain sepenuhnya opsional.'
+                                    : 'Your name and email are enough to start. Everything else is optional.')
+                                  : (language === 'id'
+                                    ? 'Brief singkat sudah cukup. Tidak perlu menulis proposal panjang.'
+                                    : 'A concise brief is enough. No need to write a full proposal.')}
+                            </p>
                           </div>
                           <div className="flex shrink-0 items-center gap-2">
                             {formStep === 0 && selectedServices.length > 0 && (
@@ -734,7 +747,7 @@ export const Contact = () => {
                         </div>
                       </div>
 
-                      <div className="flex min-h-0 flex-1 flex-col px-5 py-5 sm:px-7 sm:py-7">
+                      <div className="flex flex-col px-5 py-5 sm:px-7 sm:py-7">
                         <AnimatePresence mode="wait" initial={false}>
                           {formStep === 0 && (
                             <motion.div
@@ -743,7 +756,7 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="flex min-h-full flex-col space-y-5"
+                              className="flex flex-col space-y-5"
                             >
                               <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
                                 {serviceChoices.map((choice, index) => {
@@ -868,7 +881,7 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="flex min-h-full flex-col space-y-5"
+                              className="flex flex-col space-y-5"
                             >
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 <div>
@@ -943,7 +956,7 @@ export const Contact = () => {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -14 }}
                               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                              className="flex min-h-full flex-col space-y-5"
+                              className="flex flex-col space-y-5"
                             >
                               <div>
                                 <div className="flex items-center justify-between gap-3 mb-1.5">
