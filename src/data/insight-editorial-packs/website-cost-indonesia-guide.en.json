@@ -1,0 +1,320 @@
+{
+  "seo": {
+    "title": "How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide | Kapitech",
+    "description": "Understand website development costs in Indonesia in 2026, the scope behind common price ranges, what a proposal should include, and how to budget beyond launch.",
+    "slug": "website-cost-indonesia-guide",
+    "canonicalUrl": "https://kapitech.id/insights/website-cost-indonesia-guide",
+    "ogImage": "https://kapitech.id/insights/website-cost-indonesia/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 12,
+    "editorialMeta": {
+      "editorialType": "practical-guide"
+    },
+    "tags": [
+      {
+        "slug": "website-cost",
+        "name": "Website Cost"
+      },
+      {
+        "slug": "website-development",
+        "name": "Website Development"
+      },
+      {
+        "slug": "website-budget",
+        "name": "Website Budget"
+      },
+      {
+        "slug": "company-website",
+        "name": "Company Website"
+      },
+      {
+        "slug": "ecommerce",
+        "name": "E-commerce"
+      },
+      {
+        "slug": "web-application",
+        "name": "Web Application"
+      }
+    ],
+    "coverImage": "/insights/website-cost-indonesia/hero.svg",
+    "title": "How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide",
+    "excerpt": "Website prices vary because projects include different levels of discovery, content, design, integrations, and ongoing support. Use this guide to estimate scope and compare proposals fairly.",
+    "keyTakeaways": [
+      "A useful website budget starts with business goals, user journeys, and required features, not page count alone.",
+      "Public 2026 pricing guides vary widely; treat broad price bands as planning references, not guaranteed quotes.",
+      "Compare proposals by scope, content, integrations, testing, ownership, and support rather than headline price.",
+      "Include domain, hosting, maintenance, security, analytics, and future improvements in the total cost of ownership.",
+      "A clear brief reduces estimation uncertainty before a contract is signed."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Website development costs in Indonesia can range from a small campaign page to a substantial custom platform. The spread is real, but it is not explained by the number of pages alone. Two websites with ten pages can require very different work if one publishes fixed information while the other connects to a CRM, manages product data, or supports several user roles."
+      },
+      {
+        "type": "paragraph",
+        "text": "This guide is designed to help business owners and product teams build a sensible budget, understand what they are buying, and compare proposals without treating the lowest quote as automatically best."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Start with the job the website must do"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before requesting a price, define the outcome. A website built to establish trust has different requirements from one built to sell products, qualify enterprise leads, accept bookings, or support internal operations. The outcome determines the content, journeys, integrations, and level of reliability the project needs."
+      },
+      {
+        "type": "image",
+        "url": "/insights/website-cost-indonesia/hero.svg",
+        "alt": "A planning overview of website cost drivers in Indonesia",
+        "caption": "The right starting point is the scope and outcome, not a generic package label."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Landing pages and campaign websites"
+      },
+      {
+        "type": "paragraph",
+        "text": "A focused landing page usually has a narrow audience, one dominant offer, and a single conversion path. Costs rise when the project requires original campaign strategy, conversion copywriting, custom motion, experiments, analytics events, or several audience-specific variants."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Company and corporate websites"
+      },
+      {
+        "type": "paragraph",
+        "text": "A corporate website may include service pages, case studies, leadership information, careers, resources, localization, and a content management system. Planning the information architecture and producing accurate content can take as much care as building the interface."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "E-commerce and custom web applications"
+      },
+      {
+        "type": "paragraph",
+        "text": "Stores and applications add operational rules. Product variants, inventory, pricing, checkout, permissions, approval flows, reporting, third-party APIs, and failure handling require design and testing beyond the visible screens. A custom application should be estimated around workflows and risk, not simply a count of templates."
+      },
+      {
+        "type": "callout",
+        "title": "Use ranges carefully",
+        "text": "Public Indonesian pricing guides in 2026 show broad ranges across providers and scopes. Use them as a first planning signal only; the exact deliverables, team, quality bar, and ongoing support must be checked before you compare prices.",
+        "tone": "warning"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "What moves the estimate up or down"
+      },
+      {
+        "type": "paragraph",
+        "text": "A good estimate explains why the work costs what it costs. If a proposal gives one total without showing its assumptions, it is difficult to tell whether important requirements have been included or merely deferred."
+      },
+      {
+        "type": "image",
+        "url": "/insights/website-cost-indonesia/decision-map.svg",
+        "alt": "A decision map for understanding what affects a website development estimate",
+        "caption": "Each major requirement should map to a deliverable, an assumption, or a risk."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Scope, content, and number of unique templates"
+      },
+      {
+        "type": "paragraph",
+        "text": "The number of pages is only a rough proxy for effort. Ten pages built from one reusable template may be simpler than five pages with distinct interactions, content models, and user journeys. Ask which layouts are unique, who writes the copy, who supplies photography, and how many review rounds are included."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Design quality and implementation constraints"
+      },
+      {
+        "type": "paragraph",
+        "text": "Custom interaction, accessibility requirements, responsive behaviour, multilingual content, migration from an existing website, and browser support all affect the work. Reusing a known platform can reduce some effort, but it does not remove the need for a well-designed content model or QA."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Integrations and non-functional requirements"
+      },
+      {
+        "type": "paragraph",
+        "text": "Payment gateways, CRM or ERP connections, authentication, data imports, reporting, uptime expectations, security controls, and role-based access need discovery and error-state design. Integration complexity often appears late when a brief describes only the happy path."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Illustrative website budget bands for 2026"
+      },
+      {
+        "type": "paragraph",
+        "text": "The following broad bands are a planning aid drawn from publicly available Indonesian provider guides, not a formal market survey or Kapitech price list. They overlap because deliverables differ between vendors. A requirements workshop and written scope are necessary before a reliable quote can be made."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Project type",
+          "Illustrative budget band",
+          "Typical scope signals"
+        ],
+        "rows": [
+          [
+            "Campaign landing page",
+            "Rp 1.5–8 million",
+            "One main conversion path, limited templates, supplied or lightly adapted content"
+          ],
+          [
+            "Professional company website",
+            "Rp 5–25 million",
+            "Several page types, responsive design, CMS or publishing workflow, analytics"
+          ],
+          [
+            "E-commerce website",
+            "Rp 15–75 million+",
+            "Catalog, product variants, checkout, orders, payment or shipping integrations"
+          ],
+          [
+            "Custom web application",
+            "Rp 20–100 million+",
+            "User roles, workflow logic, APIs, data handling, admin tools, deeper QA"
+          ]
+        ],
+        "caption": "Illustrative planning ranges only. Vendor, scope, licensing, integrations, content, tax, and support terms can move a real quote outside these bands."
+      },
+      {
+        "type": "paragraph",
+        "text": "For context, compare more than one published pricing guide and check the assumptions behind each. The [Erista 2026 cost guide](https://www.erista.id/blog/biaya-pembuatan-website-indonesia-2026-rincian-per-jenis-fitur), [Studiosoft 2026 overview](https://studiosoft.id/berapa-biaya-jasa-website/), and [Seawise's 2026 pricing page](https://www.seawise.id/id/blog/biaya-bikin-website) illustrate how the numbers vary by package and provider."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "How to compare proposals fairly"
+      },
+      {
+        "type": "paragraph",
+        "text": "Ask every provider to estimate the same brief. One quote may include copywriting, CMS training, analytics setup, redirects, and a post-launch warranty; another may include only design and code. Without scope parity, the totals do not measure the same thing."
+      },
+      {
+        "type": "image",
+        "url": "/insights/website-cost-indonesia/comparison.svg",
+        "alt": "A comparison visual for evaluating website proposals by scope",
+        "caption": "A fair comparison puts assumptions and exclusions beside the total price."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "List the required pages, templates, user journeys, languages, and integrations.",
+          "Define who supplies and approves copy, data, images, and translations.",
+          "Ask what is included in design, development, QA, deployment, and training.",
+          "Specify hosting, domain, third-party licenses, payment fees, and recurring services.",
+          "Clarify ownership of code, design files, accounts, and source content.",
+          "Record acceptance criteria, revision limits, milestones, and change-request rates.",
+          "Confirm the warranty period, maintenance options, response times, and exclusions."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Look for evidence behind the estimate"
+      },
+      {
+        "type": "paragraph",
+        "text": "A trustworthy proposal will state assumptions, describe the delivery sequence, identify dependencies, and explain the risks that could change the estimate. The goal is not to make every uncertainty disappear; it is to make the uncertainty visible before it turns into an unexpected bill."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Budget for ownership after launch"
+      },
+      {
+        "type": "paragraph",
+        "text": "The initial build is only one part of the lifecycle. Domains, hosting, email services, CMS or plugin subscriptions, monitoring, backups, security patches, content production, and ongoing improvements can become meaningful recurring costs. Ask who will own each item and whether it is billed annually, monthly, by usage, or by change request."
+      },
+      {
+        "type": "image",
+        "url": "/insights/website-cost-indonesia/scenario.svg",
+        "alt": "A scenario showing how a company website budget expands beyond the first build",
+        "caption": "Keep launch costs and ongoing operating costs separate in the budget."
+      },
+      {
+        "type": "paragraph",
+        "text": "A practical budget separates one-time discovery and build costs from recurring operating costs. It also leaves room for measured iteration after real users begin using the website."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before you approve a website quote"
+      },
+      {
+        "type": "checklist",
+        "title": "Budget approval checklist",
+        "items": [
+          "The business outcome and primary audience are written down.",
+          "Core user journeys and functional requirements are agreed.",
+          "Deliverables, exclusions, and content responsibilities are explicit.",
+          "Integrations and security requirements have been discussed.",
+          "Acceptance criteria and launch responsibilities are documented.",
+          "Ownership, support, maintenance, and recurring costs are clear.",
+          "The proposal describes how scope changes will be estimated and approved."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: budget for the outcome"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful website estimate connects investment to a defined business need. Use public prices to orient the conversation, then compare providers against the same scope, quality expectations, ownership terms, and operating costs. The best decision is the proposal that fits the requirements with the clearest understanding of risk, not necessarily the smallest number on the page."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Website planning",
+        "title": "Scope the website before committing the budget",
+        "description": "Bring your goals, constraints, and required workflows into a structured project brief before comparing implementation options.",
+        "ctaLabel": "Discuss your project",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "How much does a website cost in Indonesia in 2026?",
+        "Public provider guides show wide ranges: a focused landing page may be a few million rupiah, a professional company website can run into the tens of millions, and e-commerce or custom applications can cost substantially more. Use any range as a starting point and request a quote against a written scope."
+      ],
+      [
+        "Why can two website quotes be very different?",
+        "They may include different design depth, content production, integrations, testing, CMS functionality, ownership terms, and post-launch support. Compare deliverables and exclusions before comparing the totals."
+      ],
+      [
+        "Is WordPress always cheaper than a custom website?",
+        "Not always. WordPress can be efficient for content-led websites, while extensive customization, plugin maintenance, or complex workflows can raise total cost. Custom development costs more upfront when it is justified by requirements, but the lifecycle cost depends on maintenance and future change."
+      ],
+      [
+        "What should be included in a website development quote?",
+        "The quote should define scope, design and build deliverables, content responsibilities, integrations, QA, deployment, source-file ownership, acceptance criteria, recurring expenses, and post-launch support."
+      ],
+      [
+        "Should hosting and maintenance be part of the initial budget?",
+        "Yes, but list them separately from the one-time build so the business can see first-year and ongoing costs. Confirm who manages updates, backups, security, monitoring, and content changes."
+      ],
+      [
+        "How can I avoid unexpected website costs?",
+        "Provide a clear brief, agree on acceptance criteria, name dependencies, clarify excluded work, and use a written change-request process before new scope is started."
+      ]
+    ],
+    "seoTitle": "How Much Does a Website Cost in Indonesia? A Practical 2026 Budget Guide | Kapitech",
+    "seoDescription": "Understand website development costs in Indonesia in 2026, the scope behind common price ranges, what a proposal should include, and how to budget beyond launch."
+  }
+}
