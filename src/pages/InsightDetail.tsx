@@ -34,6 +34,24 @@ function validFaq(article: InsightItem): Array<{ question: string; answer: strin
     : deriveInsightFaq(article.content, article.language);
 }
 
+function formatEditorialType(value: string | undefined, language: 'id' | 'en'): string {
+  const normalized = String(value || '').trim().toLowerCase().replace(/[-_]+/g, ' ');
+  if (!normalized) return language === 'id' ? 'Panduan editorial' : 'Editorial guide';
+
+  const labels: Record<string, { id: string; en: string }> = {
+    editorial: { id: 'Editorial', en: 'Editorial' },
+    'practical guide': { id: 'Panduan praktis', en: 'Practical guide' },
+    'panduan praktis': { id: 'Panduan praktis', en: 'Practical guide' },
+    'case study': { id: 'Studi kasus', en: 'Case study' },
+    'opinion piece': { id: 'Opini', en: 'Opinion' },
+    interview: { id: 'Wawancara', en: 'Interview' }
+  };
+
+  const known = labels[normalized];
+  if (known) return known[language];
+  return normalized.replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
 function getLocalRelatedInsights(article: InsightItem): InsightItem[] {
   const currentTags = new Set((article.tags || []).map((tag) => tag.slug));
   const candidates = getAllInsightFallbacks()
@@ -707,7 +725,7 @@ export const InsightDetail: React.FC = () => {
                 )}
                 {article.editorialMeta?.editorialType && (
                   <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
-                    {article.editorialMeta.editorialType}
+                    {formatEditorialType(article.editorialMeta.editorialType, article.language)}
                   </span>
                 )}
               </div>
