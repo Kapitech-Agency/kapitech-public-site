@@ -1,0 +1,301 @@
+{
+  "seo": {
+    "title": "Corporate Website vs Landing Page: Which Does Your Business Need? | Kapitech",
+    "description": "Learn when a corporate website, a landing page, or a combined approach fits your audience, campaign, information needs, trust requirements, and conversion goals.",
+    "slug": "corporate-website-vs-landing-page",
+    "canonicalUrl": "https://kapitech.id/insights/corporate-website-vs-landing-page",
+    "ogImage": "https://kapitech.id/insights/corporate-website-vs-landing-page/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 10,
+    "editorialMeta": {
+      "editorialType": "practical-guide"
+    },
+    "tags": [
+      {
+        "slug": "corporate-website",
+        "name": "Corporate Website"
+      },
+      {
+        "slug": "landing-page",
+        "name": "Landing Page"
+      },
+      {
+        "slug": "website-strategy",
+        "name": "Website Strategy"
+      },
+      {
+        "slug": "conversion",
+        "name": "Conversion"
+      },
+      {
+        "slug": "information-architecture",
+        "name": "Information Architecture"
+      },
+      {
+        "slug": "b2b-marketing",
+        "name": "B2B Marketing"
+      }
+    ],
+    "coverImage": "/insights/corporate-website-vs-landing-page/hero.svg",
+    "title": "Corporate Website vs Landing Page: Which Does Your Business Need?",
+    "excerpt": "A corporate website supports exploration and trust; a landing page focuses on one audience and action. Choose the format by mapping the visitor's intent and the questions they need answered.",
+    "keyTakeaways": [
+      "A landing page concentrates attention around a specific audience, offer, and action.",
+      "A corporate website helps visitors explore services, proof, company information, and multiple next steps.",
+      "Traffic source and visitor awareness should determine the amount of context and navigation provided.",
+      "A strong hybrid approach connects focused campaign landing pages to a credible corporate website.",
+      "The best structure is the simplest one that answers the visitor's questions and supports the business goal."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "A corporate website and a landing page can both generate leads, but they are designed around different visitor needs. A landing page focuses attention on one offer or action. A corporate website supports broader exploration, from understanding the company to comparing services, reviewing proof, and deciding whether to make contact."
+      },
+      {
+        "type": "paragraph",
+        "text": "The choice should follow the visitor's starting point and the questions they need answered. A page that is too broad can dilute a campaign; a page that is too narrow can leave a B2B buyer without enough evidence to trust the business."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Corporate website vs landing page at a glance"
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/hero.svg",
+        "alt": "A visual comparison of corporate websites and landing pages",
+        "caption": "The formats serve different jobs, even when both include a call to action."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Dimension",
+          "Corporate website",
+          "Landing page"
+        ],
+        "rows": [
+          [
+            "Primary job",
+            "Explain the business and support several visitor journeys",
+            "Support one focused campaign, offer, or action"
+          ],
+          [
+            "Navigation",
+            "Usually includes section or page navigation",
+            "Often reduces distractions around the main action"
+          ],
+          [
+            "Content depth",
+            "Services, proof, company context, resources, and details",
+            "The minimum context needed for one audience to make a decision"
+          ],
+          [
+            "Traffic",
+            "Branded search, referrals, direct visits, research, and campaigns",
+            "A specific campaign, ad group, email, event, or offer"
+          ],
+          [
+            "Success signals",
+            "Qualified inquiries, relevant exploration, trust, and assisted conversions",
+            "Completion rate, lead quality, and campaign economics"
+          ]
+        ],
+        "caption": "These differences are directional. A campaign may require multiple pages, and a corporate site may include focused conversion pages."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The job each format is designed to do"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "A landing page reduces the distance to one action"
+      },
+      {
+        "type": "paragraph",
+        "text": "Landing pages work well when the visitor already has a clear context: a product offer, campaign, event, or service. The page should state who the offer is for, what problem it addresses, what the visitor receives, why it is credible, and what to do next. Every extra element should help that decision."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "A corporate website supports exploration"
+      },
+      {
+        "type": "paragraph",
+        "text": "Corporate websites serve visitors who need to understand more before they act. They may compare service capabilities, read case studies, review leadership information, look for technical details, check locations, or share a page with other decision-makers. Navigation is useful when it reduces uncertainty rather than merely listing pages."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Traffic source changes the required context"
+      },
+      {
+        "type": "paragraph",
+        "text": "A warm referral may already understand the company; a paid search visitor may need a precise answer immediately. A high-intent campaign page can stay focused, while a broad service or branded page usually needs more context and supporting evidence."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/decision-map.svg",
+        "alt": "A decision map for choosing a corporate website or campaign landing page",
+        "caption": "Start from visitor intent, then decide how much context and navigation is needed."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Match the structure to the buying journey"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Define what the visitor knows before arrival"
+      },
+      {
+        "type": "paragraph",
+        "text": "List the questions a visitor is likely to bring from search, advertising, referrals, or an email. If the visitor still needs to understand the category or problem, the page must provide that context. If they already know the offer, the page can focus on evaluation and action."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Give complex decisions enough evidence"
+      },
+      {
+        "type": "paragraph",
+        "text": "B2B purchases often involve several people and a longer evaluation. Capabilities, relevant case studies, process, constraints, security expectations, and implementation details may be necessary. Removing all navigation to force a conversion can make the decision less trustworthy."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Make the next action feel proportionate"
+      },
+      {
+        "type": "paragraph",
+        "text": "A visitor who is still researching may prefer to read a case study or compare options. A visitor with a clearly defined requirement may be ready to request a consultation. Good information architecture provides a sensible next step for both without making every page compete for the same CTA."
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/requirements-map.svg",
+        "alt": "A map of the content requirements visitors need before converting",
+        "caption": "Page structure should reflect the questions that precede the action."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A hybrid model is often practical"
+      },
+      {
+        "type": "paragraph",
+        "text": "A corporate website can provide the source of truth for the brand, services, case studies, and resources. Focused landing pages can then support specific campaigns without duplicating the whole site. They should link to deeper information where it helps the visitor, and they should use consistent claims, visuals, and contact paths."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Keep campaign pages connected to credible proof"
+      },
+      {
+        "type": "paragraph",
+        "text": "If a page makes a claim about expertise or results, give visitors a way to inspect the supporting evidence. This could be a relevant case study, methodology, testimonial that has permission to be published, or a clear description of the process. Avoid claims that cannot be substantiated."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Common structure mistakes"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Building a full website when the immediate job is a single campaign offer.",
+          "Using a one-page landing page to explain a complex service with multiple stakeholders.",
+          "Hiding essential proof, pricing context, or limitations to make a page look shorter.",
+          "Sending paid traffic to a general homepage with no message continuity.",
+          "Creating duplicate pages that make different promises for the same offer.",
+          "Using multiple competing calls to action without a clear priority.",
+          "Measuring clicks without checking whether the leads are qualified."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/comparison.svg",
+        "alt": "A comparison of focus, trust evidence, and navigation choices",
+        "caption": "Focus is useful when it makes the decision easier, not when it hides important context."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Before choosing a format"
+      },
+      {
+        "type": "checklist",
+        "title": "Website format checklist",
+        "items": [
+          "The target audience and traffic source are clear.",
+          "The main question the visitor needs answered is documented.",
+          "The primary conversion action matches the visitor's intent.",
+          "Required evidence, service detail, and limitations are available.",
+          "Navigation is included or removed for a deliberate reason.",
+          "Analytics measure qualified outcomes, not only button clicks.",
+          "The page connects to the wider customer journey without duplicating content unnecessarily."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/corporate-website-vs-landing-page/scenario.svg",
+        "alt": "A B2B lead generation scenario for structuring website pages",
+        "caption": "A focused campaign page and a useful corporate site can reinforce each other."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: match the website to the job"
+      },
+      {
+        "type": "paragraph",
+        "text": "Choose a landing page when one audience, one offer, and one action define the task. Choose a corporate website when visitors need broader exploration and proof. Combine them when the business needs both campaign focus and a credible, well-structured place for deeper research."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Website strategy",
+        "title": "Plan the visitor journey before building pages",
+        "description": "Map audience intent, trust signals, required information, and conversion goals to choose the right site structure.",
+        "ctaLabel": "Plan your website",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Can a corporate website have landing pages?",
+        "Yes. A corporate website can provide the main source of company and service information while focused landing pages support individual campaigns or offers."
+      ],
+      [
+        "Are landing pages always better for conversion?",
+        "No. They can reduce distractions for a clear offer, but complex decisions may require more information and evidence. Measure qualified outcomes instead of assuming a shorter page is better."
+      ],
+      [
+        "How many pages should a corporate website have?",
+        "There is no universal number. Create a separate page when it answers a distinct user need, supports a meaningful search intent, or provides information that should not be buried in another page."
+      ],
+      [
+        "Should a landing page include navigation?",
+        "Only as needed. Reducing navigation can help a focused campaign, but links to essential proof, privacy information, or relevant details may improve trust and decision quality."
+      ],
+      [
+        "What is best for B2B lead generation?",
+        "Often a combination: a corporate site supports credibility and research, while targeted landing pages align specific campaigns to relevant audiences and offers."
+      ],
+      [
+        "How do I measure the right format?",
+        "Track the primary action, lead quality, conversion rate, assisted conversions, and whether visitors can find the information needed to make a confident decision."
+      ]
+    ],
+    "seoTitle": "Corporate Website vs Landing Page: Which Does Your Business Need? | Kapitech",
+    "seoDescription": "Learn when a corporate website, a landing page, or a combined approach fits your audience, campaign, information needs, trust requirements, and conversion goals."
+  }
+}
