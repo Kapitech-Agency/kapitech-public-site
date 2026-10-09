@@ -1,0 +1,316 @@
+{
+  "seo": {
+    "title": "WordPress vs Custom Website: Which Is Right for Your Business? | Kapitech",
+    "description": "Compare WordPress and custom website development by content needs, integrations, workflows, ownership, performance, security, budget, and long-term maintenance.",
+    "slug": "wordpress-vs-custom-website",
+    "canonicalUrl": "https://kapitech.id/insights/wordpress-vs-custom-website",
+    "ogImage": "https://kapitech.id/insights/wordpress-vs-custom-website/hero.svg"
+  },
+  "editorial": {
+    "language": "en",
+    "categorySlug": "product-technology",
+    "authorSlug": "kapitech-editorial-team",
+    "status": "published",
+    "isFeatured": false,
+    "readingTime": 11,
+    "editorialMeta": {
+      "editorialType": "practical-guide"
+    },
+    "tags": [
+      {
+        "slug": "wordpress",
+        "name": "WordPress"
+      },
+      {
+        "slug": "custom-website",
+        "name": "Custom Website"
+      },
+      {
+        "slug": "cms",
+        "name": "CMS"
+      },
+      {
+        "slug": "web-development",
+        "name": "Web Development"
+      },
+      {
+        "slug": "website-maintenance",
+        "name": "Website Maintenance"
+      },
+      {
+        "slug": "website-architecture",
+        "name": "Website Architecture"
+      }
+    ],
+    "coverImage": "/insights/wordpress-vs-custom-website/hero.svg",
+    "title": "WordPress vs Custom Website: Which Is Right for Your Business?",
+    "excerpt": "WordPress and custom development solve different problems. Choose based on publishing needs, business rules, integrations, team capability, and the cost of future change rather than technology preference alone.",
+    "keyTakeaways": [
+      "WordPress is a strong option for many content-led websites when the theme, plugin, and operating model fit the requirements.",
+      "Custom development is most useful when workflows, integrations, permissions, or product behaviour do not fit a standard platform well.",
+      "Neither option guarantees speed, security, accessibility, or maintainability; implementation and ongoing ownership matter.",
+      "Compare total cost of ownership, including licenses, updates, hosting, support, and future changes.",
+      "Start from the business requirements and select the simplest platform that can meet them reliably."
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Choosing between WordPress and a custom website is not a test of which technology is more modern. It is an operating decision. The right platform should let your team publish and manage content, support the workflows customers need, integrate with the systems you use, and remain maintainable at a cost the business can sustain."
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress powers many content-led websites because it provides a familiar publishing model and a large ecosystem. Custom development can be a better fit when the website behaves more like a product or business system than a set of pages."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "WordPress vs custom website at a glance"
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/hero.svg",
+        "alt": "A comparison overview of WordPress and custom website approaches",
+        "caption": "The best platform is the one that fits the site's real operating requirements."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Decision factor",
+          "WordPress often fits when",
+          "Custom development often fits when"
+        ],
+        "rows": [
+          [
+            "Publishing",
+            "Editors need standard pages, posts, categories, and familiar workflows",
+            "Content is tightly connected to structured product data or complex roles"
+          ],
+          [
+            "Features",
+            "Existing plugins cover the required workflow with acceptable quality",
+            "Business rules or user journeys are distinctive and cannot be maintained cleanly with plugins"
+          ],
+          [
+            "Integrations",
+            "Connections are common and supported",
+            "Integrations have custom contracts, permissions, or data-processing requirements"
+          ],
+          [
+            "Ownership",
+            "The team can manage platform, plugin, and hosting updates",
+            "The team needs explicit control over application architecture and release process"
+          ],
+          [
+            "Budget",
+            "A proven theme or pattern reduces initial build work",
+            "Higher upfront engineering is justified by product behaviour or future operating needs"
+          ]
+        ],
+        "caption": "These are tendencies, not universal rules. A discovery process can change the decision."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Where WordPress is a strong fit"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Content teams need a manageable publishing workflow"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress is useful when marketing or communications teams publish pages, articles, announcements, landing pages, and media without asking developers to change every section. Its ecosystem can cover common needs such as forms, editorial roles, search, and SEO controls when plugins are carefully selected."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The required features are standard and well-supported"
+      },
+      {
+        "type": "paragraph",
+        "text": "A stable plugin can be more economical than building an equivalent feature from scratch. The important question is whether the plugin is maintained, compatible with the rest of the stack, secure, accessible, and supported by a team that can respond when it breaks."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/decision-map.svg",
+        "alt": "A decision map for identifying when WordPress is a suitable platform",
+        "caption": "Prefer an established capability when it reliably matches the requirement."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The team can own routine maintenance"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress does not remove technical responsibility. Core updates, plugins, backups, access controls, monitoring, and regression testing still need an owner. A low initial build cost can become expensive when no one is responsible for maintenance."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "When custom development makes sense"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The website includes product-like workflows"
+      },
+      {
+        "type": "paragraph",
+        "text": "Custom development becomes relevant when users must configure products, manage accounts, submit complex applications, move through approval stages, view personalized data, or interact with rules that differ across customer groups. These behaviours need a clear application model, not just more pages."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "Integrations and permissions are part of the core product"
+      },
+      {
+        "type": "paragraph",
+        "text": "If your website must exchange data with internal systems, respect complex permissions, or handle failures predictably, the architecture should be designed around those contracts. Custom development gives the team direct control over validation, state, error handling, and testing, but also gives the team responsibility for maintaining them."
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "text": "The business needs a controlled path for future change"
+      },
+      {
+        "type": "paragraph",
+        "text": "A custom codebase can make complex requirements easier to reason about when it has documented boundaries, automated tests, and disciplined releases. It can also become a liability if the implementation is tightly coupled, undocumented, or dependent on a single developer."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/requirements-map.svg",
+        "alt": "A requirements map connecting business needs to platform choices",
+        "caption": "The decision should follow the requirements that are difficult to compromise."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Evaluate cost across the full lifecycle"
+      },
+      {
+        "type": "paragraph",
+        "text": "Compare the first delivery and the cost of ownership separately. WordPress may require paid plugins, hosting, maintenance, security review, and periodic compatibility work. A custom solution may require more engineering at the beginning plus ongoing technical support, monitoring, and planned improvements."
+      },
+      {
+        "type": "table",
+        "headers": [
+          "Cost area",
+          "Questions to ask"
+        ],
+        "rows": [
+          [
+            "Initial delivery",
+            "What design, templates, content, integrations, and testing are included?"
+          ],
+          [
+            "Recurring services",
+            "Which plugins, licenses, hosting services, or third-party APIs need renewal?"
+          ],
+          [
+            "Maintenance",
+            "Who updates the platform, dependencies, backups, and security controls?"
+          ],
+          [
+            "Change requests",
+            "How are new features estimated and approved?"
+          ],
+          [
+            "Handover",
+            "Will the team receive source files, access credentials, documentation, and training?"
+          ]
+        ],
+        "caption": "Use the same questions for both approaches to compare them fairly."
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/comparison.svg",
+        "alt": "A lifecycle comparison of WordPress and custom website ownership",
+        "caption": "A platform decision should include operating effort, not only launch cost."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Performance, security, and accessibility depend on implementation"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress can be fast and secure when themes and plugins are chosen carefully, pages are optimized, and updates are managed. Custom code can also be slow or vulnerable when it lacks testing, sensible caching, input validation, or secure access control. The platform name is not a substitute for engineering practice."
+      },
+      {
+        "type": "paragraph",
+        "text": "For either approach, establish measurable requirements for page speed, keyboard access, form validation, error states, data protection, backups, and recovery. Confirm how those requirements will be tested before launch."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "A practical decision process"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Write the user journeys and business rules the website must support.",
+          "Separate content-management needs from application behaviour.",
+          "Check whether a reliable platform feature or maintained plugin already satisfies each must-have.",
+          "Prototype the risky integrations or workflows before committing to the architecture.",
+          "Estimate build cost and three-year operating cost separately.",
+          "Confirm who will own security, content publishing, deployment, and future changes."
+        ]
+      },
+      {
+        "type": "image",
+        "url": "/insights/wordpress-vs-custom-website/scenario.svg",
+        "alt": "A scenario showing how platform choice should respond to business requirements",
+        "caption": "Let actual workflows determine whether a standard platform or custom system is appropriate."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Conclusion: choose the simplest system that fits"
+      },
+      {
+        "type": "paragraph",
+        "text": "WordPress is not automatically a shortcut, and custom development is not automatically superior. Choose WordPress when its publishing model and supported features meet the requirements. Choose custom development when the product's workflows, integrations, or control needs justify the additional engineering. In both cases, plan for ownership and change from the beginning."
+      },
+      {
+        "type": "promo",
+        "eyebrow": "Platform selection",
+        "title": "Choose a stack around the actual business requirements",
+        "description": "A short discovery phase can reveal whether a standard CMS, a customized platform, or a custom product is the most sustainable option.",
+        "ctaLabel": "Discuss your requirements",
+        "ctaUrl": "https://kapitech.id/contact#project-inquiry-form",
+        "serviceReference": "web-development"
+      }
+    ],
+    "faq": [
+      [
+        "Is WordPress good for a professional company website?",
+        "Yes. It can work well for a company website with structured content, editorial workflows, and common business features, provided the theme, plugins, hosting, and maintenance model are appropriate."
+      ],
+      [
+        "Is a custom website faster than WordPress?",
+        "Not automatically. Performance depends on page architecture, assets, hosting, code quality, caching, and third-party scripts. Both approaches need measurement and optimization."
+      ],
+      [
+        "When should a business choose custom website development?",
+        "Consider custom development when core workflows, permissions, data integrations, or product behaviour do not fit a standard CMS without fragile workarounds."
+      ],
+      [
+        "Which option is more secure?",
+        "Security depends on configuration, patching, access controls, code quality, dependencies, and monitoring. WordPress requires platform and plugin maintenance; custom systems require secure engineering and ongoing updates."
+      ],
+      [
+        "Can WordPress integrate with CRM or ERP systems?",
+        "Often yes, depending on the systems and data flows involved. Check whether the integration is maintained and can support authentication, retries, data validation, and failure handling."
+      ],
+      [
+        "How should we compare WordPress and custom costs?",
+        "Compare the same deliverables and include initial build, licenses, hosting, maintenance, security, content operations, and future change costs."
+      ]
+    ],
+    "seoTitle": "WordPress vs Custom Website: Which Is Right for Your Business? | Kapitech",
+    "seoDescription": "Compare WordPress and custom website development by content needs, integrations, workflows, ownership, performance, security, budget, and long-term maintenance."
+  }
+}
