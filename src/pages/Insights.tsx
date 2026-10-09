@@ -59,16 +59,20 @@ export const Insights: React.FC = () => {
       );
       const query = search.trim().toLowerCase();
 
+      const selectedCategory = categories.find((category) => category.id === categoryId);
+      const selectedCategorySlug = selectedCategory?.slug || categoryId;
+
       return fallbackItems.filter((item) => {
         const matchesCategory = !categoryId
           || item.categoryId === categoryId
           || item.category?.id === categoryId
           || item.category?.slug === categoryId
-          || (categoryId === 'seed_category_product_technology' && item.category?.slug === 'product-technology');
+          || item.category?.slug === selectedCategorySlug;
         const searchableText = [
           item.title,
           item.excerpt,
-          ...(item.tags || []).map((tag) => tag.name)
+          ...(item.tags || []).map((tag) => tag.name),
+          JSON.stringify(item.content || [])
         ].join(' ').toLowerCase();
         const matchesSearch = !query || searchableText.includes(query);
 
@@ -189,7 +193,7 @@ export const Insights: React.FC = () => {
     return () => {
       cancelled = true;
     };
-  }, [language, categoryId, search, page, retryToken]);
+  }, [language, categoryId, search, page, retryToken, categories]);
 
   const featured = useMemo(
     () => page === 1 && !search && !categoryId ? items.find(item => item.isFeatured) || null : null,
