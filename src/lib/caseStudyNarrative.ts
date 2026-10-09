@@ -1068,7 +1068,7 @@ const explainMetricSignals = (metrics: Array<{ label: string; value: string }>, 
 
 const normalizeNarrativeComparison = (value: string): string => value
   .normalize('NFKD')
-  .replace(/[\\u0300-\\u036f]/g, '')
+  .replace(/[\u0300-\u036f]/g, '')
   .toLocaleLowerCase()
   .replace(/[^a-z0-9]+/g, ' ')
   .trim();
