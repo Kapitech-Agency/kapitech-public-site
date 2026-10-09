@@ -154,7 +154,7 @@ function getRouteSeo(
 
   const caseStudyMatch = pathname.match(/^\/work\/([^/]+)$/);
   if (caseStudyMatch) {
-    const project = projectBySlug(projects, caseStudyMatch[1]);
+    const project = projectBySlug(projects, caseStudyMatch[1]) || projectBySlug(allProjects, caseStudyMatch[1]);
     if (project) {
       const canonicalUrl = SITE_URL + '/work/' + caseStudyMatch[1];
       return {
@@ -177,7 +177,7 @@ function getRouteSeo(
 
   const industryMatch = pathname.match(/^\/industries\/([^/]+)$/);
   if (industryMatch) {
-    const industry = industryBySlug(projects, industryMatch[1]);
+    const industry = industryBySlug(projects, industryMatch[1]) || industryBySlug(allProjects, industryMatch[1]);
     if (industry) {
       const canonicalUrl = SITE_URL + '/industries/' + industrySlug(industry);
       return {
