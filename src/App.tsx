@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { LanguageProvider, useLanguage } from './lib/LanguageContext';
 import { Navbar } from './components/Navbar';
@@ -53,7 +53,6 @@ const CaseStudyDetail = lazyWithChunkRecovery(() => import('./pages/CaseStudyDet
 const IndustryDetail = lazyWithChunkRecovery(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })), 'industry-detail');
 const Faq = lazyWithChunkRecovery(() => import('./pages/Faq').then((m) => ({ default: m.Faq })), 'faq');
 const Search = lazyWithChunkRecovery(() => import('./pages/Search').then((m) => ({ default: m.Search })), 'search');
-const BookCall = lazyWithChunkRecovery(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })), 'book-call');
 const NotFound = lazyWithChunkRecovery(() => import('./pages/NotFound'), 'not-found');
 
 const ScrollToTop = () => {
@@ -137,6 +136,11 @@ class RouteErrorBoundary extends React.Component<
   }
 }
 
+const BookCallRedirect = () => {
+  const location = useLocation();
+  return <Navigate to={{ pathname: '/contact', search: location.search, hash: location.hash }} replace />;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
@@ -171,7 +175,7 @@ const AnimatedRoutes = () => {
               <Route path="/industries/:slug" element={<IndustryDetail />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/book-a-call" element={<BookCall />} />
+              <Route path="/book-a-call" element={<BookCallRedirect />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
