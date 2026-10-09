@@ -1,4 +1,3 @@
-import React from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Globe, Code2, Palette, Building2, MapPin, Cloud, Database, Server } from 'lucide-react';
