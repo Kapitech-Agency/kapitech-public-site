@@ -15,7 +15,7 @@ import type { InsightItem } from '../data/insightTypes';
 import { buildInsightHeadingIds, buildInsightToc } from '../lib/insightHeadingIds';
 import { validateInsightContent } from '../lib/insightContentValidation';
 import { deriveInsightFaq, normalizeInsightFaq } from '../lib/insightFaq.mjs';
-import { getInsightFallback } from '../data/insightFallbacks';
+import { getAllInsightFallbacks, getInsightFallback } from '../data/insightFallbacks';
 import { splitInsightBlocks } from '../lib/insightArticlePresentation.mjs';
 import { trackEvent } from '../lib/analytics';
 
@@ -32,6 +32,20 @@ function validFaq(article: InsightItem): Array<{ question: string; answer: strin
   return explicit.length > 0
     ? explicit
     : deriveInsightFaq(article.content, article.language);
+}
+
+function getLocalRelatedInsights(article: InsightItem): InsightItem[] {
+  const currentTags = new Set((article.tags || []).map((tag) => tag.slug));
+  const candidates = getAllInsightFallbacks()
+    .filter((item) => item.slug !== article.slug && item.language === article.language && item.status === 'published')
+    .map((item) => ({
+      item,
+      score: (item.tags || []).reduce((score, tag) => score + (currentTags.has(tag.slug) ? 2 : 0), 0)
+        + (item.categoryId && item.categoryId === article.categoryId ? 1 : 0)
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  return candidates.slice(0, 3).map(({ item }) => item);
 }
 
 function hasPrerenderedInsight(): boolean {
@@ -309,9 +323,9 @@ export const InsightDetail: React.FC = () => {
         .map(({ item }) => item)
         .slice(0, 3);
 
-      setRelatedInsights(ranked);
+      setRelatedInsights(ranked.length > 0 ? ranked : getLocalRelatedInsights(article));
     }).catch(() => {
-      if (!cancelled) setRelatedInsights([]);
+      if (!cancelled) setRelatedInsights(getLocalRelatedInsights(article));
     });
 
     return () => {
