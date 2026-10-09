@@ -49,6 +49,25 @@ const buildOutcomeSummary = (item: ProjectItem, language: string): string => {
   if (indicators.length) return 'The impact indicators listed in this project record are ' + readableList(indicators, language) + '. Available values are shown below so the reported outcomes can be reviewed in context.';
   return 'A measured outcome summary has not been included in this public project record yet.';
 };
+const fallbackCopyToClipboard = (value: string): boolean => {
+  const textarea = document.createElement('textarea');
+  textarea.value = value;
+  textarea.readOnly = true;
+  textarea.setAttribute('aria-hidden', 'true');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  textarea.style.pointerEvents = 'none';
+  document.body.appendChild(textarea);
+  textarea.select();
+  let copied = false;
+  try {
+    copied = document.execCommand('copy');
+  } finally {
+    textarea.remove();
+  }
+  return copied;
+};
+
 const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
   const image = event.currentTarget;
   if (image.dataset.fallbackApplied === 'true') return;
@@ -74,24 +93,24 @@ export const CaseStudyDetail = () => {
       .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
       .map((value) => value.trim())));
   }, [item]);
-  const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared'>('idle');
+  const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'error'>('idle');
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const copyLink = async () => {
     try {
       if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(shareUrl);
-      } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = shareUrl;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        textarea.remove();
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+        } catch {
+          if (!fallbackCopyToClipboard(shareUrl)) throw new Error('Clipboard copy failed');
+        }
+      } else if (!fallbackCopyToClipboard(shareUrl)) {
+        throw new Error('Clipboard copy failed');
       }
       setShareState('copied');
       window.setTimeout(() => setShareState('idle'), 1800);
     } catch {
-      setShareState('idle');
+      setShareState('error');
+      window.setTimeout(() => setShareState('idle'), 2600);
     }
   };
   const shareCaseStudy = async () => {
@@ -101,7 +120,9 @@ export const CaseStudyDetail = () => {
         setShareState('shared');
         window.setTimeout(() => setShareState('idle'), 1800);
         return;
-      } catch {}
+      } catch (error) {
+        if (error && typeof error === 'object' && 'name' in error && error.name === 'AbortError') return;
+      }
     }
     await copyLink();
   };
@@ -149,8 +170,17 @@ export const CaseStudyDetail = () => {
             {shareState === 'shared' ? (language === 'id' ? 'Dibagikan' : 'Shared') : (language === 'id' ? 'Bagikan studi kasus' : 'Share case study')} <ArrowUpRight size={13} />
           </button>
           <button type="button" onClick={() => void copyLink()} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C2C7D1] transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
-            {shareState === 'copied' ? (language === 'id' ? 'Tautan disalin' : 'Link copied') : (language === 'id' ? 'Salin tautan' : 'Copy link')}
+            {shareState === 'copied' ? (language === 'id' ? 'Tautan disalin' : 'Link copied') : shareState === 'error' ? (language === 'id' ? 'Gagal menyalin' : 'Copy failed') : (language === 'id' ? 'Salin tautan' : 'Copy link')}
           </button>
+          <span role="status" aria-live="polite" className="sr-only">
+            {shareState === 'copied'
+              ? (language === 'id' ? 'Tautan studi kasus berhasil disalin.' : 'Case study link copied.')
+              : shareState === 'shared'
+                ? (language === 'id' ? 'Studi kasus dibagikan.' : 'Case study shared.')
+                : shareState === 'error'
+                  ? (language === 'id' ? 'Tautan tidak dapat disalin. Silakan salin alamat halaman secara manual.' : 'The link could not be copied. Please copy the page address manually.')
+                  : ''}
+          </span>
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {metaLabels.map(([label, value]) => (
