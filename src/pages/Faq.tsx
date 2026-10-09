@@ -10,7 +10,7 @@ export const Faq = () => {
   const categories = Array.from(new Set(faqItems.map((item) => item.category)));
 
   return (
-    <main className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
       <PublicPageHero
         eyebrow="FAQ"
         title={language === 'id' ? 'Jawaban sebelum Anda memulai proyek.' : 'Answers before you start a project.'}
@@ -78,6 +78,6 @@ export const Faq = () => {
           })}
         </div>
       </div>
-    </main>
+    </div>
   );
 };
