@@ -17,6 +17,15 @@ function text(value) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+const GENERIC_EDITORIAL_PATTERNS = [
+  /^The practical question in .{5,180} is not whether an option is possible\./i,
+  /^A strong project makes trade-offs explicit, assigns ownership, and defines how the team will verify that the delivered system actually works for its users\./i
+];
+
+function normalizeParagraph(value) {
+  return text(value).replace(/\\s+/g, ' ').toLowerCase();
+}
+
 function validHttpUrl(value) {
   if (!text(value)) return false;
 
@@ -31,6 +40,7 @@ function validHttpUrl(value) {
 export function validateInsightContent(blocks) {
   const errors = [];
   const warnings = [];
+  const normalizedParagraphs = [];
   let hasH2 = false;
 
   if (!Array.isArray(blocks) || blocks.length === 0) {
@@ -52,9 +62,21 @@ export function validateInsightContent(blocks) {
     }
 
     switch (block.type) {
-      case 'paragraph':
-        if (!text(block.text)) errors.push(label + ' paragraph text is empty.');
+      case 'paragraph': {
+        const paragraphText = text(block.text);
+        if (!paragraphText) {
+          errors.push(label + ' paragraph text is empty.');
+          break;
+        }
+
+        if (GENERIC_EDITORIAL_PATTERNS.some((pattern) => pattern.test(paragraphText))) {
+          errors.push(label + ' contains generic placeholder copy; replace it with topic-specific editorial content.');
+        }
+
+        const normalized = normalizeParagraph(paragraphText);
+        if (normalized.length >= 110) normalizedParagraphs.push({ index, value: normalized });
         break;
+      }
 
       case 'heading':
         if (!text(block.text)) {
@@ -134,6 +156,19 @@ export function validateInsightContent(blocks) {
         break;
     }
   });
+
+  const paragraphOccurrences = new Map();
+  for (const paragraph of normalizedParagraphs) {
+    const indexes = paragraphOccurrences.get(paragraph.value) || [];
+    indexes.push(paragraph.index);
+    paragraphOccurrences.set(paragraph.value, indexes);
+  }
+
+  for (const indexes of paragraphOccurrences.values()) {
+    if (indexes.length > 1) {
+      errors.push('Insight content repeats the same long paragraph in blocks ' + indexes.map((index) => index + 1).join(', ') + '.');
+    }
+  }
 
   if (!hasH2) {
     warnings.push('Insight content does not contain an H2 heading, so the table of contents will be empty.');
