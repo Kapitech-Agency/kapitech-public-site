@@ -353,7 +353,7 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact#project-inquiry-form"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-4 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[10px] font-bold uppercase tracking-[0.12em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(230,57,70,0.16)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-4 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[10px] font-bold uppercase tracking-[0.12em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(229,9,20,0.16)]"
               data-cursor-label="Start"
             >
 
