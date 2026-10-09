@@ -685,6 +685,16 @@ export const Navbar = () => {
                     );
                   })}
                 </div>
+                <div className="mt-5 flex justify-end">
+                  <Link
+                    to="/industries"
+                    onClick={() => setIsIndustriesDropdownOpen(false)}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#A7ACB5] transition-colors hover:border-brand-red/30 hover:text-white"
+                  >
+                    {language === 'id' ? 'Jelajahi semua industri' : 'Browse all industries'}
+                    <ArrowUpRight size={13} />
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}

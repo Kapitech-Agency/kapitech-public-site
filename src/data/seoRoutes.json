@@ -316,6 +316,27 @@
       "description": "Search Kapitech services, case studies, and Insights.",
       "robots": "noindex, follow",
       "kind": "utility"
+    },
+    {
+      "path": "/industries",
+      "title": "Industries | Digital Product Design & Development by Kapitech",
+      "description": "Explore how Kapitech approaches digital products, design, web engineering, and infrastructure across different industry contexts.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/clients",
+      "title": "Clients & Portfolio Proof | Kapitech Agency",
+      "description": "Explore clients represented in Kapitech Agency's public portfolio, with related projects, services, and industry contexts.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
+    },
+    {
+      "path": "/resources",
+      "title": "Digital Project Resources, Checklists & Guides | Kapitech Agency",
+      "description": "Practical checklists, templates, and guides for founders, product teams, marketing teams, and technology buyers.",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "kind": "webpage"
     }
   ]
 }

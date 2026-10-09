@@ -1,4 +1,4 @@
-import type { ProjectItem } from '../data/projectsData';
+import { allProjects, type ProjectItem } from '../data/projectsData';
 import { allSolutionsAndServices } from '../data/servicesData';
 import type { ServiceItemData } from '../data/servicesData';
 import { api } from './apiClient';
@@ -136,7 +136,8 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
 }
 
 export function getCmsProjects(): ProjectItem[] {
-  return cmsProjectsCache || (cmsProjectsCache = []);
+  // Keep the public portfolio usable during CMS outages or when the CMS collection is empty.
+  return cmsProjectsCache && cmsProjectsCache.length > 0 ? cmsProjectsCache : allProjects;
 }
 
 export function fetchServerCmsProjects(): Promise<ProjectItem[]> {

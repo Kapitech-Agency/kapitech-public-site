@@ -50,7 +50,12 @@ const AiInstructions = lazyWithChunkRecovery(() => import('./pages/AiInstruction
 const EditorialPolicy = lazyWithChunkRecovery(() => import('./pages/EditorialPolicy').then((m) => ({ default: m.EditorialPolicy })), 'editorial-policy');
 const CookiePolicy = lazyWithChunkRecovery(() => import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy })), 'cookie-policy');
 const CaseStudyDetail = lazyWithChunkRecovery(() => import('./pages/CaseStudyDetail').then((m) => ({ default: m.CaseStudyDetail })), 'case-study-detail');
+const Industries = lazyWithChunkRecovery(() => import('./pages/Industries').then((m) => ({ default: m.Industries })), 'industries');
 const IndustryDetail = lazyWithChunkRecovery(() => import('./pages/IndustryDetail').then((m) => ({ default: m.IndustryDetail })), 'industry-detail');
+const Clients = lazyWithChunkRecovery(() => import('./pages/Clients').then((m) => ({ default: m.Clients })), 'clients');
+const ClientDetail = lazyWithChunkRecovery(() => import('./pages/ClientDetail').then((m) => ({ default: m.ClientDetail })), 'client-detail');
+const Resources = lazyWithChunkRecovery(() => import('./pages/Resources').then((m) => ({ default: m.Resources })), 'resources');
+const ResourceDetail = lazyWithChunkRecovery(() => import('./pages/ResourceDetail').then((m) => ({ default: m.ResourceDetail })), 'resource-detail');
 const Faq = lazyWithChunkRecovery(() => import('./pages/Faq').then((m) => ({ default: m.Faq })), 'faq');
 const Search = lazyWithChunkRecovery(() => import('./pages/Search').then((m) => ({ default: m.Search })), 'search');
 const BookCall = lazyWithChunkRecovery(() => import('./pages/BookCall').then((m) => ({ default: m.BookCall })), 'book-call');
@@ -168,11 +173,12 @@ const AnimatedRoutes = () => {
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/solutions/:slug" element={<ServiceDetail />} />
               <Route path="/about" element={<About />} />
+              <Route path="/industries" element={<Industries />} />
               <Route path="/industries/:slug" element={<IndustryDetail />} />
-              <Route path="/clients" element={<Navigate to="/work" replace />} />
-              <Route path="/clients/:slug" element={<Navigate to="/work" replace />} />
-              <Route path="/resources" element={<Navigate to="/insights" replace />} />
-              <Route path="/resources/:slug" element={<Navigate to="/insights" replace />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients/:slug" element={<ClientDetail />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/:slug" element={<ResourceDetail />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/search" element={<Search />} />
               <Route path="/book-a-call" element={<BookCall />} />
