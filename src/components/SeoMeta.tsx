@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getServiceBySlug, allSolutionsAndServices, type ServiceItemData } from '../data/servicesData';
 import { allProjects, type ProjectItem } from '../data/projectsData';
-import { industryBySlug, industrySlug, projectBySlug, projectSlug } from '../lib/publicContent';
+import { industryBySlug, industrySlug, projectBySlug, projectSlug, slugify } from '../lib/publicContent';
 import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
@@ -191,11 +191,12 @@ function getRouteSeo(
 
   const match = pathname.match(/^\/(services|solutions)\/([^/]+)$/);
   if (match) {
-    const service = services.find((item) => item.slug === match[2]) || getServiceBySlug(match[2]);
+    const service = services.find((item) => slugify(item.slug) === slugify(match[2])) || getServiceBySlug(match[2]);
     if (service) {
       const title = service.title.replace(/\s+/g, ' ').trim() + ' | Kapitech Agency';
       const description = language === 'id' ? service.heroSubtitleId : service.heroSubtitle;
-      const canonicalPath = service.type === 'solution' ? '/solutions/' + service.slug : '/services/' + service.slug;
+      const canonicalSlug = slugify(service.slug);
+      const canonicalPath = service.type === 'solution' ? '/solutions/' + canonicalSlug : '/services/' + canonicalSlug;
       const canonicalUrl = SITE_URL + canonicalPath;
       const breadcrumb = buildBreadcrumbs(canonicalPath, service.title);
 
