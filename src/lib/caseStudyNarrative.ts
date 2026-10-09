@@ -759,6 +759,68 @@ const explainDeliverable = (value: string, language: string): string => {
     : 'Is a tangible output from the project scope and serves as a reference for subsequent use, publication, implementation, or development.';
 };
 
+const explainSolutionComponent = (component: string, item: ProjectItem, language: string): string => {
+  const value = component.toLowerCase();
+  const id = language === 'id';
+  if (/storyboard|storyboard|script|concept|creative direction|sequence/.test(value)) return id
+    ? 'Komponen ini menerjemahkan tujuan dan pesan proyek menjadi urutan yang bisa dievaluasi sebelum produksi penuh. Fungsinya adalah menyamakan arah cerita, menentukan informasi yang harus terlihat, dan mengurangi keputusan penting yang baru dibuat pada tahap akhir.'
+    : 'This element translates the project goal and message into a sequence that can be reviewed before full production. It aligns the story direction, defines what must be visible, and reduces the need to make major decisions at the final stage.';
+  if (/aerial|drone|cinematography|camera|russian arm|chase|high-speed|phantom|arri|sony fx|gimbal|lens|capture/.test(value)) return id
+    ? 'Pilihan pengambilan gambar ini mendukung cara subjek, gerakan, skala, atau lokasi harus terlihat. Nilainya bergantung pada kecocokan teknik dengan adegan, kesinambungan visual, dan kebutuhan komposisi yang telah ditetapkan.'
+    : 'This capture choice supports how the subject, movement, scale, or location needs to be shown. Its value depends on the technique matching the scene, maintaining visual continuity, and meeting the intended composition.';
+  if (/orchestral|scoring|soundtrack|sound design|audio|lavalier|acoustic|music/.test(value)) return id
+    ? 'Lapisan audio membantu membentuk suasana dan ritme sekaligus mendukung informasi yang disampaikan gambar. Musik, dialog, efek, dan transisi perlu saling mendukung agar tidak bersaing dengan pesan utama.'
+    : 'The audio layer helps shape atmosphere and rhythm while supporting the information carried by the picture. Music, dialogue, effects, and transitions need to work together rather than compete with the main message.';
+  if (/color grading|davinci|colour|grading|color grade/.test(value)) return id
+    ? 'Tahap finishing warna menyatukan tampilan antarscene dan mengarahkan persepsi terhadap suasana, material, serta subjek. Ini membantu hasil akhir terasa sengaja dirancang, bukan sekadar kumpulan footage yang berbeda kondisi.'
+    : 'Colour finishing unifies the look across scenes and guides how the audience reads mood, materials, and subjects. It helps the final film feel intentionally directed rather than like footage captured under unrelated conditions.';
+  if (/biometric|onboarding|user flow|journey|quick-transfer|transfer|qris|checkout flow|triage|booking|prescription|high contrast|touch zone|offline|barcode|node-graph|inspector panel|debugging indicator|heatmap|shortcut/.test(value)) return id
+    ? 'Komponen ini menjawab hambatan pada alur pengguna dengan membuat tindakan, informasi, atau status yang relevan lebih jelas. Nilainya perlu dilihat dari hubungan antara kebutuhan pengguna, perilaku antarmuka, dan langkah berikutnya yang harus dilakukan.'
+    : 'This element addresses friction in the user journey by making the relevant action, information, or state clearer. Its value should be assessed through the connection between user needs, interface behaviour, and the next action the user must take.';
+  if (/wcag|accessible|accessibility|contrast|large touch|font|typography|legibility|readability/.test(value)) return id
+    ? 'Fokus keterbacaan ini membantu informasi penting tetap dapat dikenali pada kondisi penggunaan yang relevan. Kontras, ukuran, jarak, dan konsistensi perlu diterapkan sebagai aturan sistem, bukan penyesuaian terpisah pada satu layar.'
+    : 'This readability focus helps important information remain recognisable in the intended use conditions. Contrast, sizing, spacing, and consistency need to operate as system rules rather than isolated adjustments to one screen.';
+  if (/design system|component library|design token|modular|reusable|system/.test(value)) return id
+    ? 'Sistem dan komponen yang dapat digunakan ulang mengurangi perbedaan implementasi saat halaman atau fitur bertambah. Aturan bersama juga memudahkan tim meninjau perubahan tanpa harus mendesain ulang setiap elemen yang sejenis.'
+    : 'Reusable systems and components reduce implementation drift as pages or features expand. Shared rules also help teams review changes without redesigning every similar element.';
+  if (/logo|monogram|identity|canting|typography|palette|brand|gold foil|packaging|signage|brandbook|geometric/.test(value)) return id
+    ? 'Elemen identitas ini memberi bentuk konkret pada karakter brand dan perlu bekerja pada media yang benar-benar digunakan. Sistemnya harus menjaga pengenalan, keterbacaan, dan konsistensi ketika diterapkan pada ukuran atau material berbeda.'
+    : 'This identity element gives concrete form to the brand character and needs to work on the media where it will actually be used. The system must preserve recognition, readability, and consistency across different sizes or materials.';
+  if (/animation|kinetic|morph|lottie|vector|character|storyline|motion|transition|3d parcel|billboard|overlay|lower third|scoreboard/.test(value)) return id
+    ? 'Gerak dan aset visual ini menerjemahkan pesan menjadi urutan yang dapat ditangkap dalam waktu tayang terbatas. Komposisi, tempo, dan transisi perlu menuntun perhatian serta tetap terbaca pada format output yang dipakai.'
+    : 'This motion and visual asset turns the message into a sequence viewers can absorb within the available viewing time. Composition, timing, and transitions should direct attention and remain legible in the target output format.';
+  if (/render|3d|webgl|unreal|ar |augmented reality|material|lighting|photorealistic|modeling|modelling|shader/.test(value)) return id
+    ? 'Komponen visualisasi ini membantu memperlihatkan bentuk, material, kedalaman, atau perilaku objek. Model, pencahayaan, sudut pandang, dan tingkat detail perlu mengikuti tujuan visual serta kemampuan format akhirnya.'
+    : 'This visualisation element helps communicate form, material, depth, or object behaviour. Modelling, lighting, camera angle, and level of detail should follow the visual purpose and capabilities of the final format.';
+  if (/api|integration|websocket|realtime|real-time|sync|synchron|webhook|midtrans|stripe|payment|qr code|qris|courier|shipping|notification|whatsapp/.test(value)) return id
+    ? 'Integrasi ini menghubungkan sistem atau langkah yang sebelumnya harus dikelola terpisah. Detail pentingnya adalah konsistensi status, validasi data, penanganan respons gagal, dan kejelasan informasi yang diterima pengguna.'
+    : 'This integration connects systems or steps that would otherwise need separate handling. The important details are state consistency, data validation, failure handling, and clarity of the information returned to users.';
+  if (/next\.?js|headless|storefront|e-commerce|commerce|subscription|quiz|bundle|inventory|catalog|catalogue|cart|checkout/.test(value)) return id
+    ? 'Pilihan ini mengatur hubungan antara pengalaman belanja di sisi pelanggan dan proses di belakangnya. Katalog, pilihan produk, keranjang, pembayaran, inventori, dan notifikasi harus memperlihatkan status yang saling sesuai.'
+    : 'This choice shapes the relationship between the customer-facing shopping experience and the processes behind it. Catalogue, product options, cart, payment, inventory, and notifications need to present consistent states.';
+  if (/dashboard|analytics|data visual|heatmap|financial|report|data|chart|metric|visualizer|visualiser|infographic/.test(value)) return id
+    ? 'Komponen ini membantu mengubah data atau informasi padat menjadi struktur yang dapat dipindai dan dibandingkan. Label, hierarki, konteks, dan pembaruan data perlu cukup jelas agar pembaca tidak hanya melihat angka tanpa memahami maknanya.'
+    : 'This element turns data or dense information into a structure that can be scanned and compared. Labels, hierarchy, context, and data updates need to be clear enough that readers do not see numbers without understanding their meaning.';
+  if (/kubernetes|cloud|infrastructure|server|network|terraform|gitops|cicd|ci\/cd|backup|disaster recovery|sla|monitoring|security|routing|autoscaling|redis|cache|failover|anycast|latency|packet|proxy|edge/.test(value)) return id
+    ? 'Komponen infrastruktur ini diarahkan pada pola risiko yang tercatat dalam brief, seperti kapasitas, latensi, konsistensi deployment, atau kemampuan pulih saat terjadi gangguan. Konfigurasi akhir perlu dinilai bersama monitoring, batas kegagalan, dan prosedur operasionalnya.'
+    : 'This infrastructure element targets the risk pattern described in the brief, such as capacity, latency, deployment consistency, or recovery during disruption. The final configuration needs to be assessed alongside monitoring, failure boundaries, and operational procedures.';
+  if (/automation|automated|engine|algorithm|scheduler|forecast|reconciliation|tax|payroll|inventory|approval|permission|role-based|workflow|crdt|wasm|webassembly|gpu|canvas/.test(value)) return id
+    ? 'Logika ini mengubah aturan kerja menjadi perilaku sistem yang lebih konsisten. Validasi input, status proses, penanganan pengecualian, dan jejak perubahan tetap penting agar otomatisasi dapat dipercaya.'
+    : 'This logic turns an operational rule into more consistent system behaviour. Input validation, process states, exception handling, and change history remain important so the automation can be trusted.';
+  if (/content|cms|portal|website|web application|application|admin panel|gateway|mobile app|interface|platform/.test(value)) return id
+    ? 'Bagian ini menyediakan titik akses untuk informasi atau tindakan yang dibutuhkan pengguna. Struktur navigasi, status, respons layar, serta cara pengelolaan konten perlu mendukung proses yang dijelaskan dalam proyek.'
+    : 'This part provides the access point for the information or actions users need. Navigation structure, states, responsive behaviour, and content management should support the workflow described in the project.';
+  return id
+    ? 'Komponen ini merupakan bagian dari solusi yang tercatat. Perannya perlu dibaca bersama tantangan awal, deliverable lain, dan kebutuhan penggunaan akhir; data publik belum merinci konfigurasi yang lebih spesifik.'
+    : 'This component is part of the recorded solution. Its role should be read alongside the original challenge, the other deliverables, and the final use case; the public record does not specify a more granular configuration.';
+};
+
+const splitSolutionComponents = (solution: string): string[] => {
+  const value = solution.trim().replace(/^[^:]{3,100}:\s*/, '').replace(/[.;]\s*$/, '');
+  const parts = value.split(/,\s*|\s+(?:and|dan)\s+/i).map((part) => part.trim().replace(/^[,;:\s]+|[,;:\s]+$/g, '')).filter(Boolean);
+  return Array.from(new Set(parts)).slice(0, 6);
+};
+
 const explainTechnology = (technology: string, language: string): string => {
   const t = technology.toLowerCase();
   const id = language === 'id';
@@ -808,12 +870,14 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
     body: line.body
   }));
 
-  const decisions = playbook.decisions.map((line, index) => ({
-    title: line.title,
-    body: index === 0 && solution
-      ? (lang === 'id' ? 'Solusi yang tercatat adalah ' : 'The recorded solution is ') + solution + ' ' + line.body
-      : line.body
+  const specificSolutionParts = splitSolutionComponents(solution);
+  const specificDecisions = specificSolutionParts.map((component) => ({
+    title: component,
+    body: explainSolutionComponent(component, item, lang)
   }));
+  const decisions = specificDecisions.length >= 2
+    ? specificDecisions
+    : [...specificDecisions, ...playbook.decisions].slice(0, 3);
 
   const process = playbook.process.map((line, index) => ({
     title: line.title,
