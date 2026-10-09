@@ -115,6 +115,98 @@ export const defaultTestimonials: TestimonialItem[] = [
   },
 ];
 
+const PUBLIC_PROJECT_SERVICES = new Set<ProjectItem['service']>([
+  'UI/UX Design',
+  'Video Production',
+  '2D Animation',
+  'Branding & Identity',
+  'Motion & Graphic Design',
+  'Creative Design',
+  '3D Visualization',
+  'Company Profile Website',
+  'E-Commerce Website',
+  'Web Application',
+  'ERP / CRM System',
+  'IT Support & Infrastructure',
+]);
+
+const PUBLIC_PROJECT_PILLARS = new Set<ProjectItem['pillar']>([
+  'Visual Experience',
+  'Innovation Development',
+]);
+
+const cmsText = (value: unknown): string =>
+  typeof value === 'string' ? value.trim() : '';
+
+const cmsStringArray = (value: unknown): string[] =>
+  Array.isArray(value)
+    ? value.map(cmsText).filter(Boolean)
+    : [];
+
+function normalizeCmsProject(value: unknown): ProjectItem | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+
+  const raw = value as Partial<ProjectItem> & Record<string, unknown>;
+  const id = cmsText(raw.id);
+  const title = cmsText(raw.title) || cmsText(raw.name);
+  if (!id || !title) return null;
+
+  const rawService = cmsText(raw.service) as ProjectItem['service'];
+  const service = PUBLIC_PROJECT_SERVICES.has(rawService)
+    ? rawService
+    : 'Web Application';
+  const rawPillar = cmsText(raw.pillar) as ProjectItem['pillar'];
+  const pillar = PUBLIC_PROJECT_PILLARS.has(rawPillar)
+    ? rawPillar
+    : ([
+        'UI/UX Design',
+        'Video Production',
+        '2D Animation',
+        'Branding & Identity',
+        'Motion & Graphic Design',
+        'Creative Design',
+        '3D Visualization',
+      ] as ProjectItem['service'][]).includes(service)
+      ? 'Visual Experience'
+      : 'Innovation Development';
+
+  const impact = Array.isArray(raw.impact)
+    ? raw.impact
+        .filter((metric): metric is Record<string, unknown> => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
+        .map((metric) => ({ label: cmsText(metric.label), value: cmsText(metric.value) }))
+        .filter((metric) => metric.label && metric.value)
+    : [];
+
+  return {
+    ...raw,
+    id,
+    slug: cmsText(raw.slug) || id,
+    isPublished: raw.isPublished !== false,
+    title,
+    client: cmsText(raw.client) || cmsText(raw.company),
+    industry: cmsText(raw.industry) || 'Unspecified',
+    pillar,
+    service,
+    featured: raw.featured === true,
+    image: cmsText(raw.image) || cmsText(raw.coverImage),
+    gallery: cmsStringArray(raw.gallery),
+    desc: cmsText(raw.desc) || cmsText(raw.description),
+    descId: cmsText(raw.descId),
+    challenge: cmsText(raw.challenge),
+    challengeId: cmsText(raw.challengeId),
+    solution: cmsText(raw.solution),
+    solutionId: cmsText(raw.solutionId),
+    execution: cmsText(raw.execution),
+    executionId: cmsText(raw.executionId),
+    outcome: cmsText(raw.outcome),
+    outcomeId: cmsText(raw.outcomeId),
+    deliverables: cmsStringArray(raw.deliverables),
+    technologies: cmsStringArray(raw.technologies),
+    impact,
+    year: cmsText(raw.year),
+  } as ProjectItem;
+}
+
 function extractCmsCollection<T>(payload: unknown, collectionKey: string): T[] | null {
   let current: unknown = payload;
 
@@ -224,13 +316,14 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
     try {
       const res = await api.cms.getProjects();
       const projects = res.success
-        ? extractCmsCollection<ProjectItem>(res.data, 'projects')
+        ? extractCmsCollection<unknown>(res.data, 'projects')
         : null;
       if (projects) {
-        // The public API should normally return published records only, but
-        // never expose a draft/unpublished project if an upstream response
-        // accidentally includes one. Keep the static fallback if all are drafts.
-        const publishedProjects = projects.filter((project) => project?.isPublished !== false);
+        // Normalize JSON at the runtime boundary; TypeScript casts alone cannot
+        // guarantee the optional CMS fields are valid arrays/strings.
+        const publishedProjects = projects
+          .map(normalizeCmsProject)
+          .filter((project): project is ProjectItem => Boolean(project) && project.isPublished !== false);
         setCmsCache('projects', publishedProjects);
         return publishedProjects;
       }
