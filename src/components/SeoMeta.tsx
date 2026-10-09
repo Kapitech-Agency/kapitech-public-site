@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getServiceBySlug } from '../data/servicesData';
-import { allProjects } from '../data/projectsData';
+import { getServiceBySlug, allSolutionsAndServices, type ServiceItemData } from '../data/servicesData';
+import { allProjects, type ProjectItem } from '../data/projectsData';
 import { industryBySlug, industrySlug, projectBySlug } from '../lib/publicContent';
 import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
 import seoRoutes from '../data/seoRoutes.json';
+import { CMS_EVENT_KEY, fetchServerCmsProjects, fetchServerCmsServices, getCmsProjects, getCmsServices } from '../lib/cmsStore';
 
 type SeoDefinition = {
   title: string;
@@ -99,7 +100,12 @@ function buildBreadcrumbs(pathname: string, currentName: string) {
   };
 }
 
-function getRouteSeo(pathname: string, language: 'en' | 'id') {
+function getRouteSeo(
+  pathname: string,
+  language: 'en' | 'id',
+  projects: ProjectItem[] = allProjects,
+  services: ServiceItemData[] = allSolutionsAndServices,
+) {
   if (pathname === '/faq') {
     const canonicalUrl = SITE_URL + '/faq';
     return {
@@ -148,7 +154,7 @@ function getRouteSeo(pathname: string, language: 'en' | 'id') {
 
   const caseStudyMatch = pathname.match(/^\/work\/([^/]+)$/);
   if (caseStudyMatch) {
-    const project = projectBySlug(allProjects, caseStudyMatch[1]);
+    const project = projectBySlug(projects, caseStudyMatch[1]);
     if (project) {
       const canonicalUrl = SITE_URL + '/work/' + caseStudyMatch[1];
       return {
@@ -171,7 +177,7 @@ function getRouteSeo(pathname: string, language: 'en' | 'id') {
 
   const industryMatch = pathname.match(/^\/industries\/([^/]+)$/);
   if (industryMatch) {
-    const industry = industryBySlug(allProjects, industryMatch[1]);
+    const industry = industryBySlug(projects, industryMatch[1]);
     if (industry) {
       const canonicalUrl = SITE_URL + '/industries/' + industrySlug(industry);
       return {
@@ -184,7 +190,7 @@ function getRouteSeo(pathname: string, language: 'en' | 'id') {
 
   const match = pathname.match(/^\/(services|solutions)\/([^/]+)$/);
   if (match) {
-    const service = getServiceBySlug(match[2]);
+    const service = services.find((item) => item.slug === match[2]) || getServiceBySlug(match[2]);
     if (service) {
       const title = service.title.replace(/\s+/g, ' ').trim() + ' | Kapitech Agency';
       const description = language === 'id' ? service.heroSubtitleId : service.heroSubtitle;
@@ -245,11 +251,27 @@ function getRouteSeo(pathname: string, language: 'en' | 'id') {
 export const SeoMeta = () => {
   const { pathname } = useLocation();
   const { language } = useLanguage();
+  const [cmsProjects, setCmsProjects] = useState<ProjectItem[]>(() => getCmsProjects());
+  const [cmsServices, setCmsServices] = useState<ServiceItemData[]>(() => getCmsServices());
+
+  useEffect(() => {
+    const handleCmsUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<{ type?: string }>).detail;
+      if (!detail?.type || detail.type === 'projects') setCmsProjects(getCmsProjects());
+      if (!detail?.type || detail.type === 'services') setCmsServices(getCmsServices());
+    };
+
+    window.addEventListener(CMS_EVENT_KEY, handleCmsUpdate);
+    void fetchServerCmsProjects().then(() => setCmsProjects(getCmsProjects()));
+    void fetchServerCmsServices().then(() => setCmsServices(getCmsServices()));
+
+    return () => window.removeEventListener(CMS_EVENT_KEY, handleCmsUpdate);
+  }, []);
 
   useEffect(() => {
     if (pathname === '/insights' || pathname.startsWith('/insights/')) return;
 
-    const { seo, canonicalPath, structuredData } = getRouteSeo(pathname, language);
+    const { seo, canonicalPath, structuredData } = getRouteSeo(pathname, language, cmsProjects, cmsServices);
     const canonicalUrl = SITE_URL + (canonicalPath === '/' ? '/' : canonicalPath);
 
     document.documentElement.lang = language;
@@ -274,7 +296,7 @@ export const SeoMeta = () => {
     setMeta('twitter:creator', '@kapitechagency');
     setCanonical(canonicalUrl);
     setJsonLd(structuredData);
-  }, [language, pathname]);
+  }, [cmsProjects, cmsServices, language, pathname]);
 
   return null;
 };
