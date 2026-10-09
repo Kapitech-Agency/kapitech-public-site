@@ -621,6 +621,11 @@ export const Careers = () => {
     if (!sanitizedName) errors.name = language === 'id' ? 'Nama wajib diisi' : 'Name is required';
     if (!sanitizedEmail || !isValidEmail(sanitizedEmail)) errors.email = language === 'id' ? 'Email tidak valid' : 'Valid email is required';
     if (sanitizedPhone && !isValidPhone(sanitizedPhone)) errors.phone = language === 'id' ? 'Nomor telepon tidak valid' : 'Valid phone number is required';
+    if (!vendorFormData.agreedWfa || !vendorFormData.agreedDevice || !vendorFormData.agreedNda) {
+      errors.agreements = language === 'id'
+        ? 'Konfirmasi ketiga ketentuan untuk melanjutkan pendaftaran.'
+        : 'Please acknowledge all three terms to continue your application.';
+    }
     if (!formData.resume) errors.resume = language === 'id' ? 'Dokumen resume / CV wajib diunggah' : 'Resume / CV file is required';
 
     if (Object.keys(errors).length > 0) {
@@ -670,10 +675,11 @@ export const Careers = () => {
     } else {
       setVendorFormData(prev => ({ ...prev, [name]: value }));
     }
-    if (vendorErrors[name]) {
+    if (vendorErrors[name] || (name.startsWith('agreed') && vendorErrors.agreements)) {
       setVendorErrors(prev => {
         const next = { ...prev };
         delete next[name];
+        if (name.startsWith('agreed')) delete next.agreements;
         return next;
       });
     }
@@ -1076,153 +1082,244 @@ export const Careers = () => {
         </div>
       </section>
 
-      {/* SECTION: Apply as Freelance Vendor / Freelance Partner Network */}
+      {/* SECTION: Freelance Partner Network */}
       <section
-        className="relative overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
+        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="freelance-vendor"
       >
-        <div className="pointer-events-none absolute -right-24 top-16 h-72 w-72 rounded-full bg-brand-red/[0.035] blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-0 h-[34rem] w-[34rem] rounded-full bg-brand-red/[0.045] blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
+
         <div className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl sm:p-7 lg:p-9">
-            <div className="pt-1 sm:pt-2">
-            <div className="mb-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-16">
-              <div className="max-w-4xl">
-                <span className="kapi-section-label mb-5">
-                  {language === 'id' ? 'Freelance Partner Network' : 'Freelance Partner Network'}
-                </span>
-                <h2 className="max-w-4xl font-display text-4xl font-bold leading-[0.96] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl">
-                  {language === 'id' ? 'Bergabung sebagai Mitra Freelance' : 'Join Our Freelance Partner Network'}
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
+            <div className="relative flex min-h-[430px] flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.09] bg-[radial-gradient(circle_at_82%_6%,rgba(220,20,60,0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.005))] p-6 sm:p-9 lg:p-11">
+              <div className="pointer-events-none absolute -bottom-28 -right-16 h-72 w-72 rounded-full border border-white/[0.05]" />
+              <div className="pointer-events-none absolute -bottom-16 -right-4 h-48 w-48 rounded-full border border-brand-red/[0.14]" />
+
+              <div className="relative z-10">
+                <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-black/20 px-3.5 py-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_14px_rgba(220,20,60,0.9)]" />
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.17em] text-white/75">
+                    Freelance Partner Network
+                  </span>
+                </div>
+
+                <h2 className="max-w-3xl font-display text-4xl font-bold leading-[0.94] tracking-[-0.055em] text-white sm:text-5xl lg:text-6xl">
+                  {language === 'id' ? 'Keahlian Anda. Proyek yang tepat.' : 'Your expertise. The right project.'}
                 </h2>
-                <p className="mt-6 max-w-3xl text-sm font-light leading-7 text-[#8A909D] sm:text-base">
+                <p className="mt-6 max-w-2xl text-sm font-light leading-7 text-[#A0A5B0] sm:text-base sm:leading-8">
                   {language === 'id'
-                    ? 'Kapitech secara aktif berkolaborasi dengan freelancer bertalenta, independent designer, dan developer profesional untuk mengerjakan proyek digital berskala nasional dan global. Semua engagement bersifat 100% remote dan project-based.'
-                    : 'Kapitech collaborates with independent designers, developers, and specialist freelancers on digital projects across national and global markets. All engagements are 100% remote and project-based.'
-                  }
+                    ? 'Kami membentuk tim berdasarkan kebutuhan proyek klien dan melibatkan spesialis independen saat keahliannya sesuai. Daftarkan profil Anda untuk dipertimbangkan pada proyek yang relevan. Ini adalah jaringan kolaborasi berbasis proyek, bukan lowongan karyawan penuh waktu.'
+                    : 'We build teams around each client brief and bring in independent specialists when their expertise fits. Share your profile to be considered for relevant projects. This is a project-based collaboration network, not a full-time employment role.'}
                 </p>
               </div>
 
-              <div className="lg:pb-1">
+              <div className="relative z-10 mt-10 flex flex-col items-start gap-4 border-t border-white/[0.09] pt-6 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    {language === 'id' ? 'Punya keahlian yang ingin dibagikan?' : 'Have a craft worth bringing to the table?'}
+                  </p>
+                  <p className="mt-1.5 text-xs font-light leading-5 text-[#8A909D]">
+                    {language === 'id' ? 'Mulai dengan profil dan portofolio Anda.' : 'Start with your profile and portfolio.'}
+                  </p>
+                </div>
                 <button
+                  type="button"
                   onClick={() => {
                     setIsFreelanceModalOpen(true);
                     setIsVendorSubmitted(false);
+                    setVendorSubmitError('');
+                    setVendorErrors({});
+                    setVendorHoneypot('');
                   }}
-                  className="group inline-flex w-full items-center justify-between gap-4 rounded-full border border-brand-red/55 bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.14em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/88 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] sm:w-auto sm:min-w-[280px]"
+                  className="group inline-flex min-h-[48px] w-full shrink-0 items-center justify-between gap-5 rounded-full border border-brand-red/60 bg-brand-red px-5 py-3.5 text-left text-xs font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red hover:bg-brand-red/90 hover:shadow-[0_16px_42px_-24px_rgba(229,9,20,0.8)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:w-auto"
                 >
-                  <span>{language === 'id' ? 'Ajukan sebagai mitra freelance' : 'Apply to the partner network'}</span>
+                  <span>{language === 'id' ? 'Daftar sebagai mitra' : 'Join the network'}</span>
                   <ArrowUpRight size={16} className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
-                <p className="mt-3 text-[10px] font-mono uppercase tracking-[0.16em] text-white/35">
-                  {language === 'id' ? 'Remote · Project-Based · NDA' : 'Remote · Project-Based · NDA'}
-                </p>
               </div>
             </div>
 
-            <div className="grid gap-2 sm:gap-3 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  icon: Globe,
-                  title: language === 'id' ? '100% Remote' : '100% Remote',
-                  text: language === 'id' ? 'Bekerja fleksibel dari mana saja tanpa batasan geografi.' : 'Work from anywhere globally with complete location flexibility.'
-                },
-                {
-                  icon: Briefcase,
-                  title: language === 'id' ? 'Project-Based' : 'Project-Based',
-                  text: language === 'id' ? 'Scope, milestone, deliverables, dan fee ditetapkan sejak awal.' : 'Scope, milestones, deliverables, and fees are defined upfront.'
-                },
-                {
-                  icon: Laptop,
-                  title: language === 'id' ? 'BYOD' : 'BYOD',
-                  text: language === 'id' ? 'Gunakan perangkat dan lisensi kerja pribadi Anda.' : 'Work with your own devices and required software licenses.'
-                },
-                {
-                  icon: ShieldCheck,
-                  title: language === 'id' ? 'NDA & Deadline' : 'NDA & Deadlines',
-                  text: language === 'id' ? 'Kerahasiaan proyek dan komitmen milestone menjadi standar utama.' : 'Project confidentiality and milestone commitments are core standards.'
-                }
-              ].map(({ icon: Icon, title, text }, index) => (
-                <div
-                  key={title}
-                  className="rounded-2xl border border-white/[0.07] bg-white/[0.014] px-5 py-5 transition-[background-color,border-color] duration-300 hover:border-white/[0.12] hover:bg-white/[0.022] sm:px-6 sm:py-6 lg:px-6"
-                >
-                  <div className="mb-4 flex items-center gap-3 text-white">
-                    <Icon size={16} className="text-brand-red" />
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-white/80">{title}</span>
-                  </div>
-                  <p className="max-w-xs text-xs font-light leading-6 text-[#8A909D]">{text}</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="relative flex min-h-[230px] flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.09] bg-[#101115] p-6 sm:p-7">
+                <div className="pointer-events-none absolute -right-7 -top-9 h-40 w-40 rounded-full bg-brand-red/[0.08] blur-2xl" />
+                <div className="relative z-10 flex items-center justify-between gap-3">
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.17em] text-white/45">
+                    {language === 'id' ? 'Model kolaborasi' : 'The collaboration model'}
+                  </span>
+                  <Layers size={17} className="text-brand-red" />
                 </div>
-              ))}
-            </div>
+                <div className="relative z-10 py-7">
+                  <p className="font-display text-3xl font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-4xl">
+                    {language === 'id' ? <>Mandiri dalam bekerja.<br />Selaras dalam berkarya.</> : <>Independent by nature.<br />Aligned by craft.</>}
+                  </p>
+                  <p className="mt-4 max-w-sm text-xs font-light leading-6 text-[#8A909D]">
+                    {language === 'id'
+                      ? 'Anda membawa keahlian dan cara kerja profesional. Kami menyepakati ruang lingkup, deliverable, dan timeline bersama sebelum proyek dimulai.'
+                      : 'You bring your expertise and professional practice. Scope, deliverables, and timelines are agreed together before a project begins.'}
+                  </p>
+                </div>
+                <div className="relative z-10 flex flex-wrap gap-2">
+                  {['Remote', 'Project-based', 'BYOD', 'NDA'].map((item) => (
+                    <span key={item} className="rounded-full border border-white/[0.09] bg-white/[0.025] px-3 py-1.5 text-[10px] font-mono text-white/65">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-            <div className="mt-10 grid gap-3 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
-              {[
-                {
-                  number: '01',
-                  icon: Layers,
-                  title: language === 'id' ? 'Deskripsi Kemitraan' : 'Partnership Model',
-                  intro: language === 'id'
-                    ? 'Kami menghubungkan talenta spesialis dengan proyek riil dari klien korporat, startup, dan scaleup.'
-                    : 'We connect specialized independent contractors with real projects from startups, scaleups, and enterprises.',
-                  items: language === 'id'
-                    ? ['Brief proyek terstruktur & jelas', 'Kolaborasi langsung via Slack / WhatsApp', 'Pipeline proyek berkelanjutan']
-                    : ['Structured briefs & clear deliverables', 'Direct collaboration via Slack / WhatsApp', 'Ongoing project pipeline']
-                },
-                {
-                  number: '02',
-                  icon: ShieldCheck,
-                  title: language === 'id' ? 'Aturan & Standar' : 'Rules & Standards',
-                  intro: language === 'id'
-                    ? 'Integritas, kualitas, dan komitmen pada milestone yang telah disepakati adalah standar dasar.'
-                    : 'Integrity, quality, and commitment to agreed milestones are baseline standards.',
-                  items: language === 'id'
-                    ? ['Wajib menandatangani NDA proyek', 'Komitmen pada deadline yang disepakati', 'Mengikuti standar desain & engineering Kapitech']
-                    : ['Project NDA is mandatory', 'Commit to agreed deadlines', 'Follow Kapitech design & engineering standards']
-                },
-                {
-                  number: '03',
-                  icon: DollarSign,
-                  title: language === 'id' ? 'Benefit & Keuntungan' : 'Vendor Benefits',
-                  intro: language === 'id'
-                    ? 'Struktur kerja yang transparan dengan apresiasi yang jelas atas hasil yang disetujui.'
-                    : 'A transparent working model with clear compensation for approved deliverables.',
-                  items: language === 'id'
-                    ? ['Project fee transparan & tepat waktu', 'Portofolio dengan proyek nyata', 'Otonomi jam kerja & lokasi']
-                    : ['Transparent project fees & timely payouts', 'Real project portfolio opportunities', 'Schedule and location autonomy']
-                },
-                {
-                  number: '04',
-                  icon: Code2,
-                  title: language === 'id' ? 'Keahlian yang Dicari' : 'Roles & Skills We Need',
-                  intro: language === 'id'
-                    ? 'Kami membuka jaringan vendor pada beberapa bidang spesialis berikut.'
-                    : 'We maintain an active vendor network across the following specialist domains.',
-                  items: language === 'id'
-                    ? ['UI/UX & Product Design', 'Frontend / Full-Stack Development', 'Brand, Motion & 3D']
-                    : ['UI/UX & Product Design', 'Frontend / Full-Stack Development', 'Brand, Motion & 3D']
-                }
-              ].map(({ number, icon: Icon, title, intro, items }, index) => (
-                <div
-                  key={number}
-                  className="rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 transition-[background-color,border-color] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] sm:p-6 lg:p-6"
-                >
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="text-[11px] font-mono tabular-nums tracking-[0.16em] text-white/35">{number}</span>
-                    <Icon size={17} className="text-brand-red" />
+              <div className="rounded-3xl border border-white/[0.09] bg-white/[0.018] p-6 sm:p-7">
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/[0.08]">
+                    <ShieldCheck size={17} className="text-brand-red" />
                   </div>
-                  <h3 className="text-base font-semibold tracking-[-0.02em] text-white">{title}</h3>
-                  <p className="mt-3 text-xs font-light leading-6 text-[#8A909D]">{intro}</p>
-                  <ul className="mt-5 space-y-3">
-                    {items.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-xs font-light leading-5 text-white/75">
-                        <Check size={13} className="mt-1 shrink-0 text-brand-red" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <p className="text-xs font-semibold text-white">
+                      {language === 'id' ? 'Sejak awal harus jelas' : 'Clear from day one'}
+                    </p>
+                    <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.13em] text-white/35">
+                      {language === 'id' ? 'Standar kerja sama' : 'Working standards'}
+                    </p>
+                  </div>
                 </div>
-              ))}
+                <div className="space-y-4">
+                  {[
+                    {
+                      title: language === 'id' ? 'Ruang lingkup' : 'Defined scope',
+                      text: language === 'id' ? 'Target, tanggung jawab, dan hasil kerja disepakati.' : 'Goals, responsibilities, and deliverables are agreed.'
+                    },
+                    {
+                      title: language === 'id' ? 'Biaya transparan' : 'Transparent fees',
+                      text: language === 'id' ? 'Rate dan ketentuan pembayaran dibahas sebelum mulai.' : 'Rates and payment terms are discussed before work starts.'
+                    },
+                    {
+                      title: language === 'id' ? 'Komunikasi profesional' : 'Professional communication',
+                      text: language === 'id' ? 'Pembaruan progres, feedback, dan milestone dijaga bersama.' : 'Progress updates, feedback, and milestones are handled clearly.'
+                    }
+                  ].map((item) => (
+                    <div key={item.title} className="grid grid-cols-[10px_minmax(0,1fr)] gap-3">
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-red" />
+                      <div>
+                        <p className="text-xs font-medium text-white/90">{item.title}</p>
+                        <p className="mt-1 text-xs font-light leading-5 text-[#8A909D]">{item.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+
+          <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+            <div className="rounded-3xl border border-white/[0.09] bg-white/[0.018] p-6 sm:p-8">
+              <span className="kapi-section-label">
+                {language === 'id' ? 'Bidang kolaborasi' : 'Areas of collaboration'}
+              </span>
+              <h3 className="mt-4 max-w-md font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-3xl">
+                {language === 'id' ? 'Spesialis berbeda. Satu tim saat dibutuhkan.' : 'Different specialists. One team when it matters.'}
+              </h3>
+              <p className="mt-3 max-w-md text-xs font-light leading-6 text-[#8A909D]">
+                {language === 'id'
+                  ? 'Kami terbuka pada spesialisasi kreatif maupun teknis yang mendukung produk digital dari konsep hingga peluncuran.'
+                  : 'We welcome creative and technical specialists who can support digital products from concept through delivery.'}
+              </p>
+
+              <div className="mt-7 divide-y divide-white/[0.08]">
+                {[
+                  {
+                    number: '01',
+                    title: language === 'id' ? 'Product & Experience' : 'Product & Experience',
+                    detail: language === 'id' ? 'UI/UX, desain produk, design system, dan prototyping' : 'UI/UX, product design, design systems, and prototyping',
+                    icon: Palette
+                  },
+                  {
+                    number: '02',
+                    title: language === 'id' ? 'Engineering & Delivery' : 'Engineering & Delivery',
+                    detail: language === 'id' ? 'Frontend, backend, full-stack, API, cloud, dan DevOps' : 'Frontend, backend, full-stack, APIs, cloud, and DevOps',
+                    icon: Code2
+                  },
+                  {
+                    number: '03',
+                    title: language === 'id' ? 'Brand & Visual Systems' : 'Brand & Visual Systems',
+                    detail: language === 'id' ? 'Identitas brand, desain grafis, editorial, dan presentasi' : 'Brand identity, graphic design, editorial, and presentations',
+                    icon: Briefcase
+                  },
+                  {
+                    number: '04',
+                    title: language === 'id' ? 'Motion, 3D & Media' : 'Motion, 3D & Media',
+                    detail: language === 'id' ? 'Motion graphics, video, aset 3D, dan visual interaktif' : 'Motion graphics, video, 3D assets, and interactive visuals',
+                    icon: Layers
+                  }
+                ].map(({ number, title, detail, icon: Icon }) => (
+                  <div key={number} className="flex items-start gap-3.5 py-4 first:pt-0 last:pb-0">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.025]">
+                      <Icon size={16} className="text-brand-red" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span className="text-[9px] font-mono tracking-[0.12em] text-white/30">{number}</span>
+                        <h4 className="text-xs font-semibold text-white">{title}</h4>
+                      </div>
+                      <p className="mt-1.5 text-xs font-light leading-5 text-[#8A909D]">{detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-white/[0.09] bg-[#101115] p-6 sm:p-8">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="kapi-section-label">
+                    {language === 'id' ? 'Cara kerja jaringan' : 'How the network works'}
+                  </span>
+                  <h3 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-3xl">
+                    {language === 'id' ? 'Proses jelas, sejak langkah pertama.' : 'A clear process, from the first step.'}
+                  </h3>
+                </div>
+                <span className="hidden rounded-full border border-white/[0.09] px-3 py-1.5 text-[10px] font-mono text-white/40 sm:inline-flex">
+                  01 — 03
+                </span>
+              </div>
+
+              <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                {[
+                  {
+                    number: '01',
+                    title: language === 'id' ? 'Kirim profil' : 'Share your profile',
+                    text: language === 'id' ? 'Ceritakan spesialisasi, pengalaman, portofolio, dan kisaran rate Anda.' : 'Share your specialty, experience, portfolio, and expected rate.'
+                  },
+                  {
+                    number: '02',
+                    title: language === 'id' ? 'Tinjau kecocokan' : 'Review the fit',
+                    text: language === 'id' ? 'Profil ditinjau berdasarkan kebutuhan dan konteks proyek yang tersedia.' : 'Profiles are reviewed against the needs and context of available projects.'
+                  },
+                  {
+                    number: '03',
+                    title: language === 'id' ? 'Sepakati scope' : 'Agree on the scope',
+                    text: language === 'id' ? 'Jika sesuai, ruang lingkup, biaya, timeline, dan ekspektasi dibahas sebelum mulai.' : 'When there is a fit, scope, fees, timeline, and expectations are discussed before work starts.'
+                  }
+                ].map((step) => (
+                  <div key={step.number} className="relative rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:p-5">
+                    <div className="mb-5 flex items-center justify-between">
+                      <span className="font-mono text-xs tabular-nums tracking-[0.15em] text-brand-red">{step.number}</span>
+                      <span className="h-px w-10 bg-gradient-to-r from-brand-red/65 to-transparent" />
+                    </div>
+                    <h4 className="text-sm font-semibold tracking-[-0.02em] text-white">{step.title}</h4>
+                    <p className="mt-2.5 text-xs font-light leading-6 text-[#8A909D]">{step.text}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-5 flex items-start gap-2.5 rounded-xl border border-white/[0.07] bg-black/15 px-4 py-3 text-[11px] font-light leading-5 text-white/50">
+                <ShieldCheck size={14} className="mt-0.5 shrink-0 text-brand-red" />
+                <span>
+                  {language === 'id'
+                    ? 'Pendaftaran tidak menjamin penugasan proyek. Kami menghubungi mitra ketika kebutuhan, keahlian, dan ketersediaan sesuai.'
+                    : 'Joining the network does not guarantee a project assignment. We reach out when project needs, expertise, and availability align.'}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1747,13 +1844,14 @@ export const Careers = () => {
                           value={vendorFormData.specialty}
                           onChange={(value) => setVendorFormData((currentData) => ({ ...currentData, specialty: value }))}
                           options={[
-                            { value: 'UI/UX & Product Design', label: 'UI/UX & Product Design (Figma, Systems, Prototyping)' },
-                            { value: 'Frontend Web Development', label: 'Frontend Web Dev (React, Next.js, Tailwind, Motion)' },
-                            { value: 'Backend & Full-Stack Development', label: 'Backend / Full-Stack (Node.js, PostgreSQL, Supabase)' },
-                            { value: 'Brand Identity & Graphic Design', label: 'Brand Identity & Graphic Design (Illustrator, Guidelines)' },
-                            { value: 'Motion & 3D WebGL Animation', label: 'Motion & 3D (After Effects, Lottie, Blender, Spline)' },
-                            { value: 'Pitch Deck & Presentation Specialist', label: 'Pitch Deck & Presentation Specialist (Keynote, Pitch Decks)' },
-                            { value: 'Other Specialist Role', label: 'Other Specialist Tech / Creative Role' }
+                            { value: 'UI/UX & Product Design', label: language === 'id' ? 'UI/UX & Product Design (Figma, Design System, Prototyping)' : 'UI/UX & Product Design (Figma, Design Systems, Prototyping)' },
+                            { value: 'Frontend Web Development', label: language === 'id' ? 'Frontend Web Development (React, Next.js, Tailwind)' : 'Frontend Web Development (React, Next.js, Tailwind)' },
+                            { value: 'Backend & Full-Stack Development', label: language === 'id' ? 'Backend & Full-Stack Development (API, Database, Node.js)' : 'Backend & Full-Stack Development (APIs, Databases, Node.js)' },
+                            { value: 'Brand Identity & Graphic Design', label: language === 'id' ? 'Brand Identity & Graphic Design (Identitas Visual, Guideline)' : 'Brand Identity & Graphic Design (Visual Identity, Guidelines)' },
+                            { value: 'Motion & 3D WebGL Animation', label: language === 'id' ? 'Motion, Video & 3D (After Effects, Blender, Spline)' : 'Motion, Video & 3D (After Effects, Blender, Spline)' },
+                            { value: 'Cloud & DevOps', label: language === 'id' ? 'Cloud & DevOps (Deployment, CI/CD, Infrastruktur)' : 'Cloud & DevOps (Deployment, CI/CD, Infrastructure)' },
+                            { value: 'Editorial & Presentation Design', label: language === 'id' ? 'Editorial & Presentation Design (Layout, Pitch Deck)' : 'Editorial & Presentation Design (Layouts, Pitch Decks)' },
+                            { value: 'Other Specialist Role', label: language === 'id' ? 'Spesialisasi Teknis / Kreatif Lainnya' : 'Other Specialist Tech / Creative Role' }
                           ]}
                         />
                       </div>
@@ -1870,6 +1968,11 @@ export const Careers = () => {
                           : 'I agree to execute project NDAs and maintain strict adherence to milestone deadlines and prompt communication.'}
                       </CareerCheckbox>
                     </div>
+                    {vendorErrors.agreements && (
+                      <p className="rounded-lg border border-brand-red/25 bg-brand-red/[0.045] px-3.5 py-2.5 text-[11px] font-mono leading-5 text-brand-red" role="alert">
+                        {vendorErrors.agreements}
+                      </p>
+                    )}
 
                     <div>
                       <label htmlFor="vendor-notes" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
