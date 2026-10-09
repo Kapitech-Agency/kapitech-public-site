@@ -494,7 +494,7 @@ const PatternWaves = ({
     const saveData = Boolean(connection?.saveData);
     const slowConnection = /(^|-)2g$/.test(connection?.effectiveType || '');
     if (reducedMotion || saveData || slowConnection) {
-      container.style.background = 'radial-gradient(circle at 50% 42%, rgba(220,20,60,0.10), transparent 58%), #170f0f';
+      container.style.background = 'radial-gradient(circle at 50% 42%, rgba(229,9,20,0.10), transparent 58%), #0B0C0E';
       return undefined;
     }
 
