@@ -629,6 +629,7 @@ export const InsightDetail: React.FC = () => {
             />
             <div className="absolute inset-0 bg-[#0B0C0E]/35" />
           </div>
+          <div className="absolute inset-0" aria-hidden="true">
           <PatternWaves
             preset="lines"
             color="#E50914"
@@ -646,6 +647,7 @@ export const InsightDetail: React.FC = () => {
             contrast={1.03}
             intro
           />
+          </div>
           <div
             className="absolute inset-0 bg-[#0B0C0E]/15"
             aria-hidden="true"
