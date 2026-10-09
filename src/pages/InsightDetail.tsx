@@ -982,7 +982,7 @@ export const InsightDetail: React.FC = () => {
                 <Link
                   to="/services/mvp-design"
                   data-analytics-event="insight_mvp_cta_click"
-                  className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,box-shadow,transform] duration-200 hover:bg-[#F01924] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,box-shadow,transform] duration-200 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45"
                 >
                   {article.language === 'id' ? 'Lihat MVP Design' : 'Explore MVP Design'}
                   <ArrowRight size={14} aria-hidden="true" />
