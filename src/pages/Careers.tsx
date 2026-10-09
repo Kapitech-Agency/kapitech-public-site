@@ -15,7 +15,6 @@ import {
   Briefcase, 
   MapPin, 
   Clock,
-  Sparkles,
   TrendingUp,
   Award,
   ShieldCheck,
