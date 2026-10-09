@@ -40,13 +40,16 @@ export const InsightCard: React.FC<{
       data-kapi-spotlight="true"
       onPointerMove={handlePointerMove}
       className={[
-        'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300',
+        'group relative flex h-full flex-col overflow-hidden border border-white/[0.07] bg-white/[0.014] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)] transition-[background-color,border-color,transform,box-shadow] duration-300',
+        featured
+          ? 'rounded-[26px] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch'
+          : 'rounded-2xl',
         'hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)]'
       ].join(' ')}
     >
-      <div className="relative overflow-hidden">
+      <div className={featured ? 'relative overflow-hidden lg:h-full' : 'relative overflow-hidden'}>
         {insight.coverImage ? (
-          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className="group/media relative block aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset">
+          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className={['group/media relative block aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset', featured ? 'lg:h-full lg:aspect-auto' : ''].join(' ')}>
             <img
               src={insight.coverImage}
               alt=""
@@ -64,7 +67,7 @@ export const InsightCard: React.FC<{
             </span>
           </Link>
         ) : (
-          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className="relative flex aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset">
+          <Link to={'/insights/' + insight.slug} aria-label={insight.title} className={['relative flex aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset', featured ? 'lg:h-full lg:aspect-auto' : ''].join(' ')}>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(229,9,20,0.15),transparent_30%),linear-gradient(135deg,#15171D,#090A0C)]" aria-hidden="true" />
             <div className="absolute left-4 top-4">
               <span className="kapi-section-label !border-white/[0.08] !bg-[#0B0C0E]/72 !px-3 !py-1.5 !text-[8px]">
@@ -78,7 +81,7 @@ export const InsightCard: React.FC<{
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
+      <div className={['flex flex-1 flex-col p-5 sm:p-6', featured ? 'lg:justify-center lg:p-8 xl:p-10' : ''].join(' ')}>
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[8px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
           {categoryName && <span className="text-brand-red">{categoryName}</span>}
           {insight.readingTime && <><span className="text-white/[0.18]">/</span><span className="inline-flex items-center gap-1.5"><Clock3 size={10} />{insight.readingTime} {language === 'id' ? 'menit baca' : 'min read'}</span></>}
@@ -86,13 +89,13 @@ export const InsightCard: React.FC<{
         </div>
 
         <Link to={'/insights/' + insight.slug} className="mt-4 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60">
-          <h2 className="font-display font-semibold leading-[1.05] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.45rem]">
+          <h2 className={['font-display font-semibold leading-[1.05] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red', featured ? 'text-2xl sm:text-[1.8rem] lg:text-[2.15rem] xl:text-[2.55rem]' : 'sm:text-[1.45rem]'].join(' ')}>
             {insight.title}
           </h2>
         </Link>
 
         {insight.excerpt && (
-          <p className="mt-3 text-[13px] font-light leading-[1.75] text-[#8A909D]">
+          <p className={['mt-3 text-[13px] font-light leading-[1.75] text-[#8A909D]', featured ? 'lg:text-sm lg:leading-7' : ''].join(' ')}>
             {insight.excerpt}
           </p>
         )}
