@@ -257,8 +257,8 @@ export const Home = () => {
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="silk"
-            color="#dc143c"
-            backgroundColor="#170f0f"
+            color="#E50914"
+            backgroundColor="#0B0C0E"
             opacity={0.58}
             fade="none"
             fadeSize={0.7}
