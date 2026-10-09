@@ -819,10 +819,16 @@ const cleanSolutionComponentLabel = (source: string): string => {
   const value = source
     .trim()
     .replace(/^(?:and|dan)\s+/i, '')
-    .replace(/^(?:engineered|designed|created|built|developed|implemented|crafted|used|delivered|deployed|architected|integrated|exported|produced|established|rendered|shot|configured|optimised|optimized|introduced|combined|translated|launched|migrated|automated|connected)\s+/i, '')
+    .replace(/^(?:engineered|designed|created|built|developed|implemented|crafted|used|delivered|deployed|architected|integrated|exported|produced|established|rendered|shot|configured|optimised|optimized|introduced|combined|translated|launched|migrated|automated|connected|programmed|structured|leveraged|executed|animated|modelled|modeled|converted|refined|synchronized|synchronised|tuned|applied|assembled|generated)\s+/i, '')
     .replace(/^(?:a|an|the)\s+/i, '')
     .trim();
   return value ? value.charAt(0).toLocaleUpperCase() + value.slice(1) : '';
+};
+
+const solutionComponentHeading = (component: string): string => {
+  const maxLength = 76;
+  if (component.length <= maxLength) return component;
+  return component.slice(0, maxLength - 1).trimEnd() + '…';
 };
 
 const splitSolutionComponents = (solution: string): string[] => {
@@ -963,7 +969,7 @@ const buildProjectExecution = (
   }];
   parts.forEach((component, index) => {
     steps.push({
-      title: String(index + 2).padStart(2, '0') + ' · ' + component,
+      title: String(index + 2).padStart(2, '0') + ' · ' + solutionComponentHeading(component),
       body: explainExecutionComponent(component, language)
     });
   });
@@ -1035,7 +1041,7 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
 
   const specificSolutionParts = splitSolutionComponents(solution);
   const specificDecisions = specificSolutionParts.map((component) => ({
-    title: component,
+    title: solutionComponentHeading(component),
     body: explainSolutionComponent(component, lang)
   }));
   const decisions = specificDecisions.length >= 2
