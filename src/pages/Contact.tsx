@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, Briefcase, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
@@ -11,6 +11,7 @@ import { trackEvent } from '../lib/analytics';
 
 export const Contact = () => {
   const { t, language } = useLanguage();
+  const { hash } = useLocation();
   const [searchParams] = useSearchParams();
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [budgetRange, setBudgetRange] = useState<string>('');
@@ -123,6 +124,21 @@ export const Contact = () => {
 
     hasPrefilledService.current = true;
   }, [searchParams, serviceOptions]);
+
+  // Hash navigation can happen before this lazy-loaded route has rendered its form.
+  // Scroll again after Contact mounts so case-study CTAs land on the actual inquiry form.
+  useEffect(() => {
+    if (hash !== '#project-inquiry-form') return;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById('project-inquiry-form')?.scrollIntoView({
+        behavior: 'instant',
+        block: 'start',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [hash]);
 
   const serviceGroups = [
     { label: 'Branding', items: serviceOptions.slice(0, 5) },
@@ -758,7 +774,7 @@ export const Contact = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  <form id="project-inquiry-form" onSubmit={handleSubmit} className="flex flex-col space-y-5 sm:space-y-6" noValidate>
+                  <form id="project-inquiry-form" onSubmit={handleSubmit} className="scroll-mt-24 flex flex-col space-y-5 sm:space-y-6" noValidate>
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website_hp">Do not fill this</label>
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
