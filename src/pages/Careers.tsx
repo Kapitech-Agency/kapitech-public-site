@@ -1706,7 +1706,7 @@ export const Careers = () => {
                           <input 
                             type="file"
                             id="career-resume"
-                            accept=".pdf,.doc,.docx"
+                            accept=".pdf,application/pdf"
                             onChange={handleFileChange}
                             className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                           />
@@ -2075,7 +2075,7 @@ export const Careers = () => {
                         <input 
                           type="file"
                           id="vendor-resume"
-                          accept=".pdf,.doc,.docx"
+                          accept=".pdf,application/pdf"
                           onChange={handleVendorFileChange}
                           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                         />
