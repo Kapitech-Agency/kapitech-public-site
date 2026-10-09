@@ -23,9 +23,8 @@ const GENERIC_EDITORIAL_PATTERNS = [
 ];
 
 function normalizeParagraph(value) {
-  return text(value).replace(/\\s+/g, ' ').toLowerCase();
+  return text(value).replace(/\s+/g, ' ').toLowerCase();
 }
-
 function validHttpUrl(value) {
   if (!text(value)) return false;
 
