@@ -759,7 +759,7 @@ const explainDeliverable = (value: string, language: string): string => {
     : 'Is a tangible output from the project scope and serves as a reference for subsequent use, publication, implementation, or development.';
 };
 
-const explainSolutionComponent = (component: string, item: ProjectItem, language: string): string => {
+const explainSolutionComponent = (component: string, language: string): string => {
   const value = component.toLowerCase();
   const id = language === 'id';
   if (/storyboard|storyboard|script|concept|creative direction|sequence/.test(value)) return id
@@ -873,7 +873,7 @@ export function buildCaseStudyNarrative(item: ProjectItem, language: string): Ca
   const specificSolutionParts = splitSolutionComponents(solution);
   const specificDecisions = specificSolutionParts.map((component) => ({
     title: component,
-    body: explainSolutionComponent(component, item, lang)
+    body: explainSolutionComponent(component, lang)
   }));
   const decisions = specificDecisions.length >= 2
     ? specificDecisions
