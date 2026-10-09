@@ -752,7 +752,7 @@ export const Home = () => {
                         {solutionMeta.bestFor}
                       </p>
 
-                      <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.07] pt-4 mt-5">
+                      <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.07] pt-4">
                         <p className="max-w-[90%] text-[11px] font-medium leading-[1.7] text-white/75">
                           {solutionMeta.outcome}
                         </p>
