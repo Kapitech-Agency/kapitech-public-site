@@ -71,11 +71,9 @@ const useDragToScroll = () => {
       drag.pointerId = -1;
       setIsDragging(false);
 
-      if (drag.moved) {
-        window.setTimeout(() => {
-          suppressClickRef.current = false;
-        }, 0);
-      }
+      // Keep click suppression until the generated click is captured. A new
+      // pointerdown also resets it, so a drag without a click cannot block the
+      // next deliberate tap.
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: false });
@@ -146,6 +144,8 @@ import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
 export const Work = () => {
   const { t, language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
+  const lastSyncedSearchParamsRef = React.useRef(searchParams.toString());
+  const skipFilterUrlWriteRef = React.useRef(false);
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => getCmsProjects());
   const [activePillar, setActivePillar] = useState<string>(() => searchParams.get('pillar') || 'All');
   const [activeService, setActiveService] = useState<string>(() => searchParams.get('service') || 'All');
@@ -191,10 +191,8 @@ export const Work = () => {
     [selectedProject, language],
   );
 
-  const openCaseStudy = (project: ProjectItem) => {
-    modalTriggerRef.current = document.activeElement instanceof HTMLElement
-      ? document.activeElement
-      : null;
+  const openCaseStudy = (project: ProjectItem, trigger?: HTMLElement | null) => {
+    modalTriggerRef.current = trigger?.isConnected ? trigger : null;
     setSelectedProject(project);
   };
 
@@ -371,6 +369,24 @@ export const Work = () => {
   }, [activePillar, activeService, activeIndustry, projectsList, serviceOptions, industryOptions]);
 
   useEffect(() => {
+    const currentParams = searchParams.toString();
+    if (currentParams === lastSyncedSearchParamsRef.current) return;
+
+    lastSyncedSearchParamsRef.current = currentParams;
+    skipFilterUrlWriteRef.current = true;
+    setActivePillar(searchParams.get('pillar') || 'All');
+    setActiveService(searchParams.get('service') || 'All');
+    setActiveIndustry(searchParams.get('industry') || 'All');
+    setSearchQuery(searchParams.get('q') || '');
+    setVisibleCount(12);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (skipFilterUrlWriteRef.current) {
+      skipFilterUrlWriteRef.current = false;
+      return;
+    }
+
     const nextParams = new URLSearchParams(searchParams);
     if (activePillar === 'All') nextParams.delete('pillar');
     else nextParams.set('pillar', activePillar);
@@ -383,6 +399,7 @@ export const Work = () => {
 
     const next = nextParams.toString();
     if (next !== searchParams.toString()) {
+      lastSyncedSearchParamsRef.current = next;
       setSearchParams(nextParams, { replace: true });
     }
   }, [activePillar, activeService, activeIndustry, searchQuery, searchParams, setSearchParams]);
@@ -400,6 +417,21 @@ export const Work = () => {
     setActivePillar(pillar);
     setActiveService('All');
     setVisibleCount(12);
+  };
+
+  const resetFilters = () => {
+    setActivePillar('All');
+    setActiveService('All');
+    setActiveIndustry('All');
+    setSearchQuery('');
+    setVisibleCount(12);
+
+    const behavior: ScrollBehavior = reducedMotion ? 'auto' : 'smooth';
+    disciplineDrag.scrollRef.current?.scrollTo({ left: 0, behavior });
+    industryDrag.scrollRef.current?.scrollTo({ left: 0, behavior });
+    serviceScrollRef.current?.scrollTo({ left: 0, behavior });
+    setIsIndustryScrolled(false);
+    setIsServiceScrolled(false);
   };
 
   const filteredProjects = useMemo(() => {
@@ -523,7 +555,8 @@ export const Work = () => {
                   type="button"
                   disabled={spotlightProjects.length <= 1}
                   onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev - 1 + spotlightProjects.length) % spotlightProjects.length : 0)}
-                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
                   data-cursor-label="Previous"
                 >
                   <ChevronLeft size={16} />
@@ -532,7 +565,7 @@ export const Work = () => {
                   type="button"
                   disabled={spotlightProjects.length <= 1}
                   onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev + 1) % spotlightProjects.length : 0)}
-                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300"
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                   aria-label={language === 'id' ? 'Studi kasus unggulan berikutnya' : 'Next featured case study'}
                   data-cursor-label="Next"
                 >
@@ -552,11 +585,11 @@ export const Work = () => {
                     duration: reducedMotion ? 0 : 0.32,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  onClick={() => openCaseStudy(currentFeatured)}
+                  onClick={(event) => openCaseStudy(currentFeatured, event.currentTarget)}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault();
-                      openCaseStudy(currentFeatured);
+                      openCaseStudy(currentFeatured, event.currentTarget);
                       return;
                     }
 
@@ -720,13 +753,8 @@ export const Work = () => {
                 </span>
                 {(activePillar !== 'All' || activeService !== 'All' || activeIndustry !== 'All' || searchQuery) && (
                   <button
-                    onClick={() => {
-                      setActivePillar('All');
-                      setActiveService('All');
-                      setActiveIndustry('All');
-                      setSearchQuery('');
-                      setVisibleCount(12);
-                    }}
+                    type="button"
+                    onClick={resetFilters}
                     className="shrink-0 text-[10px] font-mono uppercase tracking-[0.1em] text-brand-red hover:text-white transition-colors flex items-center gap-1 min-h-[40px]"
                     data-cursor-label="Reset"
                   >
@@ -925,14 +953,9 @@ export const Work = () => {
                   : 'Try adjusting your search or filters to explore other case studies.'}
               </p>
               <button
-                onClick={() => {
-                  setActivePillar('All');
-                  setActiveService('All');
-                  setActiveIndustry('All');
-                  setSearchQuery('');
-                  setVisibleCount(12);
-                }}
-                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px]"
+                type="button"
+                onClick={resetFilters}
+                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
                 data-cursor-label="Reset"
               >
                 {language === 'id' ? 'Reset Filter' : 'Reset Filters'}
@@ -944,11 +967,11 @@ export const Work = () => {
                 {filteredProjects.slice(0, visibleCount).map((project) => (
                   <article
                     key={project.id}
-                    onClick={() => openCaseStudy(project)}
+                    onClick={(event) => openCaseStudy(project, event.currentTarget)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        openCaseStudy(project);
+                        openCaseStudy(project, event.currentTarget);
                       }
                     }}
                     role="button"
@@ -1059,7 +1082,7 @@ export const Work = () => {
               aria-modal="true"
               aria-labelledby="case-study-modal-title"
               aria-describedby="case-study-modal-summary"
-              onMouseDown={(event) => {
+              onPointerDown={(event) => {
                 if (event.target === event.currentTarget) closeCaseStudy();
               }}
             >
@@ -1390,7 +1413,7 @@ export const Work = () => {
                         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
                           <Link
                             to={'/work/' + projectSlug(selectedProject)}
-                            onClick={() => closeCaseStudy()}
+                            onClick={() => { modalTriggerRef.current = null; }}
                             className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.08] sm:w-auto"
                           >
                             <span>{language === 'id' ? 'Buka Case Study Penuh' : 'Open Full Case Study'}</span>
@@ -1398,7 +1421,7 @@ export const Work = () => {
                           </Link>
                           <Link
                             to={'/contact?service=' + encodeURIComponent(selectedProject.service) + '#project-inquiry-form'}
-                            onClick={() => closeCaseStudy()}
+                            onClick={() => { modalTriggerRef.current = null; }}
                             className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           >
                             <span>{language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule Consultation'}</span>
