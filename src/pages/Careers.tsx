@@ -422,32 +422,416 @@ export const Careers = () => {
 
   const disciplines = language === 'id'
     ? [
-        { id: 'frontend-engineering', title: 'Engineering Frontend', area: 'Innovation Development', focus: 'React, Next.js, arsitektur komponen, dan performa web.' },
-        { id: 'product-design-systems', title: 'UI Produk & Sistem Desain', area: 'Visual Experience', focus: 'Sistem Figma, design token, dan pustaka komponen.' },
-        { id: 'motion-2d', title: 'Motion Graphics & Animasi 2D', area: 'Visual Experience', focus: 'Tipografi kinetik, animasi, dan After Effects.' },
-        { id: 'brand-editorial', title: 'Identitas Brand & Desain Editorial', area: 'Visual Experience', focus: 'Identitas visual, pedoman brand, dan arah kreatif.' },
-        { id: '3d-webgl', title: 'Visualisasi 3D & WebGL', area: 'Visual Experience', focus: 'Blender, aset 3D, dan pengalaman web interaktif.' },
-        { id: 'product-ui', title: 'Desain UI Produk', area: 'Visual Experience', focus: 'Antarmuka responsif, alur pengguna, dan prototipe.' },
-        { id: 'cloud-devops', title: 'Infrastruktur Cloud & DevOps', area: 'Innovation Development', focus: 'Cloud infrastructure, otomatisasi, dan CI/CD.' },
-        { id: 'illustration', title: 'Ilustrasi 2D & Character Art', area: 'Visual Experience', focus: 'Aset vektor, ilustrasi, dan visual explainer.' },
-        { id: 'backend-database', title: 'Engineering Backend & Database', area: 'Innovation Development', focus: 'Node.js, PostgreSQL, API, dan pengelolaan data.' },
-        { id: 'video-color', title: 'Produksi Video & Color Grading', area: 'Visual Experience', focus: 'Editing, koreksi warna, dan finishing video.' },
-        { id: 'fullstack', title: 'Aplikasi Web Full-Stack', area: 'Innovation Development', focus: 'TypeScript, integrasi API, dan sistem real-time.' },
-        { id: 'pitch-publication', title: 'Pitch Deck & Desain Publikasi', area: 'Visual Experience', focus: 'Presentasi investor, laporan, dan materi komunikasi.' }
+        {
+          id: 'frontend-engineering',
+          title: 'Engineering Frontend',
+          area: 'Innovation Development',
+          focus: 'React, Next.js, arsitektur komponen, dan performa web.',
+          scope: 'Menerjemahkan desain dan spesifikasi fitur menjadi antarmuka yang responsif, konsisten, dan siap digunakan.',
+          examples: [
+            'Membangun halaman dan komponen yang dapat digunakan ulang',
+            'Menghubungkan form, navigasi, dan API',
+            'Memperbaiki tampilan mobile, aksesibilitas, dan performa',
+          ],
+          outputs: [
+            'Halaman responsif',
+            'Komponen UI reusable',
+            'Integrasi API dan catatan QA',
+          ],
+        },
+        {
+          id: 'product-design-systems',
+          title: 'UI Produk & Sistem Desain',
+          area: 'Visual Experience',
+          focus: 'Sistem Figma, design token, dan pustaka komponen.',
+          scope: 'Menyusun fondasi visual produk agar seluruh layar konsisten dan mudah dikembangkan oleh desainer maupun engineer.',
+          examples: [
+            'Menetapkan warna, tipografi, dan design token',
+            'Membangun pustaka komponen di Figma',
+            'Mendokumentasikan variasi, state, dan aturan penggunaan',
+          ],
+          outputs: [
+            'Pustaka komponen Figma',
+            'Design token dan panduan UI',
+            'Prototype dan dokumentasi handoff',
+          ],
+        },
+        {
+          id: 'motion-2d',
+          title: 'Motion Graphics & Animasi 2D',
+          area: 'Visual Experience',
+          focus: 'Tipografi kinetik, animasi, dan After Effects.',
+          scope: 'Mengubah pesan atau konsep menjadi animasi 2D untuk menjelaskan produk, memperkuat identitas brand, atau mendukung campaign.',
+          examples: [
+            'Menyusun storyboard, ritme, dan urutan gerak',
+            'Membuat motion typography dan animasi grafis',
+            'Menyesuaikan durasi dan format untuk tiap kanal',
+          ],
+          outputs: [
+            'Storyboard dan animatic',
+            'File animasi final',
+            'Source project dan versi format kanal',
+          ],
+        },
+        {
+          id: 'brand-editorial',
+          title: 'Identitas Brand & Desain Editorial',
+          area: 'Visual Experience',
+          focus: 'Identitas visual, pedoman brand, dan arah kreatif.',
+          scope: 'Merancang sistem identitas visual yang konsisten, dari elemen brand utama hingga materi komunikasi digital dan cetak.',
+          examples: [
+            'Mengembangkan logo, warna, tipografi, dan brand guideline',
+            'Merancang key visual, layout, dan materi editorial',
+            'Mengadaptasi aset untuk website, media sosial, dan publikasi',
+          ],
+          outputs: [
+            'Aset dan guideline brand',
+            'Key visual dan template',
+            'File desain siap produksi',
+          ],
+        },
+        {
+          id: '3d-webgl',
+          title: 'Visualisasi 3D & WebGL',
+          area: 'Visual Experience',
+          focus: 'Blender, aset 3D, dan pengalaman web interaktif.',
+          scope: 'Membuat aset dan adegan 3D untuk campaign maupun pengalaman web interaktif dengan mempertimbangkan kualitas visual dan performa.',
+          examples: [
+            'Memodelkan objek, material, tekstur, dan pencahayaan',
+            'Mengoptimalkan aset untuk penggunaan web',
+            'Menyiapkan gerakan atau interaksi bersama frontend',
+          ],
+          outputs: [
+            'Aset 3D teroptimasi',
+            'Render atau adegan 3D',
+            'File ekspor dan catatan integrasi',
+          ],
+        },
+        {
+          id: 'product-ui',
+          title: 'Desain UI Produk',
+          area: 'Visual Experience',
+          focus: 'Antarmuka responsif, alur pengguna, dan prototipe.',
+          scope: 'Merancang layar dan alur produk dari kebutuhan pengguna hingga prototype yang dapat ditinjau sebelum development.',
+          examples: [
+            'Menyusun user flow dan wireframe',
+            'Mendesain layar high-fidelity untuk web atau mobile',
+            'Menentukan state, interaksi, dan prototype klik',
+          ],
+          outputs: [
+            'Desain layar dan user flow',
+            'Prototype interaktif',
+            'Spesifikasi handoff untuk developer',
+          ],
+        },
+        {
+          id: 'cloud-devops',
+          title: 'Infrastruktur Cloud & DevOps',
+          area: 'Innovation Development',
+          focus: 'Cloud infrastructure, otomatisasi, dan CI/CD.',
+          scope: 'Menyiapkan infrastruktur dan proses rilis agar aplikasi dapat di-deploy dengan aman, dipantau, dan dipelihara.',
+          examples: [
+            'Mengelola environment cloud atau server',
+            'Menyiapkan pipeline CI/CD dan otomatisasi deployment',
+            'Mengonfigurasi monitoring, secrets, dan backup',
+          ],
+          outputs: [
+            'Konfigurasi environment',
+            'Pipeline deployment',
+            'Dokumentasi operasional dan monitoring',
+          ],
+        },
+        {
+          id: 'illustration',
+          title: 'Ilustrasi 2D & Character Art',
+          area: 'Visual Experience',
+          focus: 'Aset vektor, ilustrasi, dan visual explainer.',
+          scope: 'Membuat visual orisinal untuk menyampaikan ide, menjelaskan fitur, atau membangun karakter visual yang konsisten.',
+          examples: [
+            'Menggambar ilustrasi, karakter, dan diagram',
+            'Menyusun gaya visual untuk satu set aset',
+            'Menyesuaikan ukuran dan format untuk berbagai kanal',
+          ],
+          outputs: [
+            'Aset ilustrasi final',
+            'File vektor yang dapat diedit',
+            'Ekspor aset untuk web dan publikasi',
+          ],
+        },
+        {
+          id: 'backend-database',
+          title: 'Engineering Backend & Database',
+          area: 'Innovation Development',
+          focus: 'Node.js, PostgreSQL, API, dan pengelolaan data.',
+          scope: 'Membangun layanan server dan model data yang menggerakkan fitur produk, menjaga konsistensi data, dan mendukung integrasi.',
+          examples: [
+            'Merancang endpoint API dan validasi data',
+            'Menyusun skema database dan migration',
+            'Mengimplementasikan autentikasi, integrasi, logging, dan pengujian',
+          ],
+          outputs: [
+            'Endpoint API dan dokumentasinya',
+            'Model data dan migration',
+            'Test serta penanganan error',
+          ],
+        },
+        {
+          id: 'video-color',
+          title: 'Produksi Video & Color Grading',
+          area: 'Visual Experience',
+          focus: 'Editing, koreksi warna, dan finishing video.',
+          scope: 'Mengolah footage menjadi video dengan alur yang jelas, warna konsisten, dan hasil akhir sesuai kebutuhan platform.',
+          examples: [
+            'Menyunting urutan, tempo, transisi, dan judul',
+            'Melakukan color correction dan color grading',
+            'Menangani audio, subtitle, dan versi rasio berbeda',
+          ],
+          outputs: [
+            'File video final',
+            'Subtitle dan versi untuk tiap kanal',
+            'File project yang tertata',
+          ],
+        },
+        {
+          id: 'fullstack',
+          title: 'Aplikasi Web Full-Stack',
+          area: 'Innovation Development',
+          focus: 'TypeScript, integrasi API, dan sistem real-time.',
+          scope: 'Mengembangkan fitur web dari antarmuka hingga server dan database agar alur bisnis berjalan dalam satu sistem terintegrasi.',
+          examples: [
+            'Membangun UI, logika server, dan model data',
+            'Menghubungkan API, database, dan autentikasi',
+            'Menguji alur end-to-end dan menyiapkan rilis',
+          ],
+          outputs: [
+            'Fitur web end-to-end',
+            'Integrasi backend dan layanan',
+            'Dokumentasi implementasi dan handoff',
+          ],
+        },
+        {
+          id: 'pitch-publication',
+          title: 'Pitch Deck & Desain Publikasi',
+          area: 'Visual Experience',
+          focus: 'Presentasi investor, laporan, dan materi komunikasi.',
+          scope: 'Menyusun informasi bisnis menjadi presentasi atau publikasi yang mudah dipahami, meyakinkan, dan konsisten secara visual.',
+          examples: [
+            'Merancang pitch deck investor dan presentasi bisnis',
+            'Menyusun laporan, proposal, dan publikasi eksekutif',
+            'Mengubah data dan ide kompleks menjadi diagram yang jelas',
+          ],
+          outputs: [
+            'Deck presentasi siap digunakan',
+            'Template publikasi yang dapat diedit',
+            'Aset desain dan file master',
+          ],
+        },
       ]
     : [
-        { id: 'frontend-engineering', title: 'Frontend Engineering', area: 'Innovation Development', focus: 'React, Next.js, component architecture, and web performance.' },
-        { id: 'product-design-systems', title: 'Product UI & Design Systems', area: 'Visual Experience', focus: 'Figma systems, design tokens, and component libraries.' },
-        { id: 'motion-2d', title: 'Motion Graphics & 2D Animation', area: 'Visual Experience', focus: 'Kinetic typography, animation, and After Effects.' },
-        { id: 'brand-editorial', title: 'Brand Identity & Editorial Design', area: 'Visual Experience', focus: 'Visual identity, brand guidelines, and creative direction.' },
-        { id: '3d-webgl', title: '3D Visualization & WebGL', area: 'Visual Experience', focus: 'Blender, 3D assets, and interactive web experiences.' },
-        { id: 'product-ui', title: 'Product UI Design', area: 'Visual Experience', focus: 'Responsive interfaces, user flows, and prototyping.' },
-        { id: 'cloud-devops', title: 'Cloud Infrastructure & DevOps', area: 'Innovation Development', focus: 'Cloud infrastructure, automation, and CI/CD.' },
-        { id: 'illustration', title: '2D Illustration & Character Art', area: 'Visual Experience', focus: 'Vector assets, illustration, and explainer visuals.' },
-        { id: 'backend-database', title: 'Backend & Database Engineering', area: 'Innovation Development', focus: 'Node.js, PostgreSQL, APIs, and data systems.' },
-        { id: 'video-color', title: 'Video Production & Color', area: 'Visual Experience', focus: 'Editing, color grading, and video finishing.' },
-        { id: 'fullstack', title: 'Full-Stack Web Applications', area: 'Innovation Development', focus: 'TypeScript, API integration, and real-time systems.' },
-        { id: 'pitch-publication', title: 'Pitch Deck & Publication Design', area: 'Visual Experience', focus: 'Investor decks, executive reports, and communication assets.' }
+        {
+          id: 'frontend-engineering',
+          title: 'Frontend Engineering',
+          area: 'Innovation Development',
+          focus: 'React, Next.js, component architecture, and web performance.',
+          scope: 'Turn approved designs and feature specifications into responsive, consistent interfaces that are ready to use.',
+          examples: [
+            'Build pages and reusable components',
+            'Connect forms, navigation, and APIs',
+            'Improve mobile layouts, accessibility, and performance',
+          ],
+          outputs: [
+            'Responsive pages',
+            'Reusable UI components',
+            'API integrations and QA notes',
+          ],
+        },
+        {
+          id: 'product-design-systems',
+          title: 'Product UI & Design Systems',
+          area: 'Visual Experience',
+          focus: 'Figma systems, design tokens, and component libraries.',
+          scope: 'Create a visual foundation that keeps product screens consistent and makes future design and engineering work easier to extend.',
+          examples: [
+            'Define colors, typography, and design tokens',
+            'Build a Figma component library',
+            'Document variants, states, and usage rules',
+          ],
+          outputs: [
+            'Figma component library',
+            'Design tokens and UI guidelines',
+            'Prototype and handoff documentation',
+          ],
+        },
+        {
+          id: 'motion-2d',
+          title: 'Motion Graphics & 2D Animation',
+          area: 'Visual Experience',
+          focus: 'Kinetic typography, animation, and After Effects.',
+          scope: 'Turn a message or concept into 2D animation that explains a product, strengthens a brand, or supports a campaign.',
+          examples: [
+            'Plan storyboards, timing, and motion sequences',
+            'Create kinetic typography and animated graphics',
+            'Adapt duration and formats for each channel',
+          ],
+          outputs: [
+            'Storyboard and animatic',
+            'Final animation files',
+            'Source project and channel-ready versions',
+          ],
+        },
+        {
+          id: 'brand-editorial',
+          title: 'Brand Identity & Editorial Design',
+          area: 'Visual Experience',
+          focus: 'Visual identity, brand guidelines, and creative direction.',
+          scope: 'Build a consistent visual identity system, from core brand elements to digital and print communication materials.',
+          examples: [
+            'Develop logos, colors, typography, and brand guidelines',
+            'Design key visuals, layouts, and editorial materials',
+            'Adapt assets for websites, social media, and publications',
+          ],
+          outputs: [
+            'Brand assets and guidelines',
+            'Key visuals and templates',
+            'Production-ready design files',
+          ],
+        },
+        {
+          id: '3d-webgl',
+          title: '3D Visualization & WebGL',
+          area: 'Visual Experience',
+          focus: 'Blender, 3D assets, and interactive web experiences.',
+          scope: 'Create 3D assets and scenes for campaigns or interactive web experiences while balancing visual quality and performance.',
+          examples: [
+            'Model objects, materials, textures, and lighting',
+            'Optimize assets for web delivery',
+            'Prepare motion or interactions with frontend engineers',
+          ],
+          outputs: [
+            'Optimized 3D assets',
+            'Renders or 3D scenes',
+            'Export files and integration notes',
+          ],
+        },
+        {
+          id: 'product-ui',
+          title: 'Product UI Design',
+          area: 'Visual Experience',
+          focus: 'Responsive interfaces, user flows, and prototyping.',
+          scope: 'Design product screens and user flows, from understanding user needs through to a prototype that can be reviewed before development.',
+          examples: [
+            'Map user flows and create wireframes',
+            'Design high-fidelity web or mobile screens',
+            'Define interface states, interactions, and click-through prototypes',
+          ],
+          outputs: [
+            'Screen designs and user flows',
+            'Interactive prototype',
+            'Developer handoff specifications',
+          ],
+        },
+        {
+          id: 'cloud-devops',
+          title: 'Cloud Infrastructure & DevOps',
+          area: 'Innovation Development',
+          focus: 'Cloud infrastructure, automation, and CI/CD.',
+          scope: 'Set up infrastructure and release workflows so applications can be deployed securely, monitored, and maintained.',
+          examples: [
+            'Manage cloud or server environments',
+            'Set up CI/CD pipelines and deployment automation',
+            'Configure monitoring, secrets, and backups',
+          ],
+          outputs: [
+            'Environment configuration',
+            'Deployment pipeline',
+            'Operations and monitoring documentation',
+          ],
+        },
+        {
+          id: 'illustration',
+          title: '2D Illustration & Character Art',
+          area: 'Visual Experience',
+          focus: 'Vector assets, illustration, and explainer visuals.',
+          scope: 'Create original visuals that communicate ideas, explain features, or establish a consistent visual character for a brand.',
+          examples: [
+            'Draw illustrations, characters, and diagrams',
+            'Create a consistent visual style across asset sets',
+            'Adapt sizes and formats for different channels',
+          ],
+          outputs: [
+            'Final illustration assets',
+            'Editable vector source files',
+            'Assets exported for web and publication',
+          ],
+        },
+        {
+          id: 'backend-database',
+          title: 'Backend & Database Engineering',
+          area: 'Innovation Development',
+          focus: 'Node.js, PostgreSQL, APIs, and data systems.',
+          scope: 'Build server-side services and data models that power product features, preserve data consistency, and support integrations.',
+          examples: [
+            'Design API endpoints and data validation',
+            'Create database schemas and migrations',
+            'Implement authentication, integrations, logging, and tests',
+          ],
+          outputs: [
+            'API endpoints and documentation',
+            'Data models and migrations',
+            'Tests and error handling',
+          ],
+        },
+        {
+          id: 'video-color',
+          title: 'Video Production & Color',
+          area: 'Visual Experience',
+          focus: 'Editing, color grading, and video finishing.',
+          scope: 'Shape raw footage into clear, polished videos with consistent color and a finish tailored to the destination platform.',
+          examples: [
+            'Edit sequences, pacing, transitions, and titles',
+            'Perform color correction and grading',
+            'Prepare audio, subtitles, and alternate aspect ratios',
+          ],
+          outputs: [
+            'Final video files',
+            'Subtitles and channel-specific versions',
+            'Organized project files',
+          ],
+        },
+        {
+          id: 'fullstack',
+          title: 'Full-Stack Web Applications',
+          area: 'Innovation Development',
+          focus: 'TypeScript, API integration, and real-time systems.',
+          scope: 'Develop web features across the interface, server, and database so business workflows work as one integrated system.',
+          examples: [
+            'Build UI, server logic, and data models',
+            'Connect APIs, databases, and authentication',
+            'Test end-to-end flows and prepare releases',
+          ],
+          outputs: [
+            'End-to-end web features',
+            'Backend and service integrations',
+            'Implementation and handoff documentation',
+          ],
+        },
+        {
+          id: 'pitch-publication',
+          title: 'Pitch Deck & Publication Design',
+          area: 'Visual Experience',
+          focus: 'Investor decks, executive reports, and communication assets.',
+          scope: 'Turn business information into presentations or publications that are easy to understand, persuasive, and visually consistent.',
+          examples: [
+            'Design investor pitch decks and business presentations',
+            'Lay out reports, proposals, and executive publications',
+            'Translate complex data and ideas into clear diagrams',
+          ],
+          outputs: [
+            'Presentation deck ready to use',
+            'Editable publication templates',
+            'Design assets and master files',
+          ],
+        },
       ];
 
   const visibleDisciplines = activePractice === 'all'
@@ -1018,7 +1402,45 @@ export const Careers = () => {
                 </p>
               </div>
 
-              <div className="relative mt-auto pt-10">
+              <div className="relative mt-7 border-t border-white/[0.08] pt-6">
+                <div>
+                  <p className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#858D99]">
+                    {language === 'id' ? 'Ruang lingkup kerja' : 'What the work covers'}
+                  </p>
+                  <p className="mt-2 text-sm font-light leading-6 text-[#C2C7D1]">
+                    {selectedDiscipline.scope}
+                  </p>
+                </div>
+
+                <div className="mt-6">
+                  <p className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#858D99]">
+                    {language === 'id' ? 'Contoh pekerjaan' : 'Typical work'}
+                  </p>
+                  <ul className="mt-3 space-y-2.5">
+                    {selectedDiscipline.examples.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-xs font-light leading-5 text-[#AEB5C0]">
+                        <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-red/80" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <p className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#858D99]">
+                    {language === 'id' ? 'Output yang umum' : 'Typical outputs'}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedDiscipline.outputs.map((item) => (
+                      <span key={item} className="rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] leading-4 text-[#C2C7D1]">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative mt-auto pt-8">
                 <div className="mb-5 h-px w-full bg-white/[0.08]" />
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#747C89]">
