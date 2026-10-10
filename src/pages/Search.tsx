@@ -191,34 +191,36 @@ export const Search = () => {
           ? 'Cari layanan, studi kasus, dan insight Kapitech dari satu tempat.'
           : 'Search Kapitech services, case studies, and insights in one place.'}
       >
-        <form onSubmit={submit} role="search" className="max-w-3xl">
-          <div className="flex min-h-[58px] min-w-0 items-center gap-3 rounded-2xl border border-white/[0.12] bg-[#111216]/90 px-4 shadow-[0_14px_38px_-24px_rgba(0,0,0,0.9)] transition-colors duration-200 focus-within:border-white/[0.22] sm:gap-3.5 sm:px-5">
-            <SearchIcon size={19} aria-hidden="true" className="shrink-0 text-[#9AA1AC]" />
-            <input
-              type="text"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              autoComplete="off"
-              enterKeyHint="search"
-              placeholder={language === 'id'
-                ? 'Cari layanan, studi kasus, atau insight...'
-                : 'Search services, case studies, or insights...'}
-              className="min-w-0 flex-1 bg-transparent py-4 text-base text-white outline-none placeholder:text-[#69717D] sm:text-sm"
-              aria-label={language === 'id' ? 'Cari di website Kapitech' : 'Search the Kapitech website'}
-            />
-            {query ? (
-              <button
-                type="button"
-                onClick={clearSearch}
-                aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#8A909D] transition-colors hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-              >
-                <X size={16} aria-hidden="true" />
-              </button>
-            ) : null}
+        <form onSubmit={submit} role="search" className="w-full max-w-3xl">
+          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0 sm:overflow-hidden sm:rounded-2xl sm:border sm:border-white/[0.12] sm:bg-[#111216]/90 sm:shadow-[0_14px_38px_-24px_rgba(0,0,0,0.9)] sm:transition-colors sm:duration-200 sm:focus-within:border-white/[0.22]">
+            <div className="flex min-h-[58px] min-w-0 flex-1 items-center gap-3 rounded-2xl border border-white/[0.12] bg-[#111216]/90 px-4 transition-colors duration-200 focus-within:border-white/[0.22] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-5 sm:focus-within:border-transparent">
+              <SearchIcon size={19} aria-hidden="true" className="shrink-0 text-[#9AA1AC]" />
+              <input
+                type="text"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                autoComplete="off"
+                enterKeyHint="search"
+                placeholder={language === 'id'
+                  ? 'Cari layanan, studi kasus, atau insight...'
+                  : 'Search services, case studies, or insights...'}
+                className="h-full min-w-0 flex-1 truncate bg-transparent py-4 text-base text-white outline-none placeholder:text-[#69717D] sm:text-sm"
+                aria-label={language === 'id' ? 'Cari di website Kapitech' : 'Search the Kapitech website'}
+              />
+              {query ? (
+                <button
+                  type="button"
+                  onClick={clearSearch}
+                  aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#8A909D] transition-colors hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              ) : null}
+            </div>
             <button
               type="submit"
-              className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-4 text-xs font-semibold text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111216] sm:px-5"
+              className="inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-xs font-semibold text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:min-h-[58px] sm:w-auto sm:min-w-[116px] sm:rounded-none sm:rounded-r-[calc(1rem-1px)] sm:px-6"
             >
               <span>{language === 'id' ? 'Cari' : 'Search'}</span>
               <ArrowRight size={14} aria-hidden="true" />
