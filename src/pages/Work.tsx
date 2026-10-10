@@ -64,10 +64,9 @@ const useDragToScroll = () => {
       if (!drag.active || drag.pointerId !== event.pointerId) return;
 
       suppressClickRef.current = drag.moved;
-      const scroller = scrollRef.current;
-      if (scroller?.hasPointerCapture(event.pointerId)) {
-        scroller.releasePointerCapture(event.pointerId);
-      }
+      // Do not capture the pointer on the scroll container: doing so retargets
+      // the generated click to the container and prevents child filter buttons
+      // from receiving their onClick handlers.
       drag.active = false;
       drag.pointerId = -1;
       setIsDragging(false);
@@ -109,12 +108,8 @@ const useDragToScroll = () => {
       moved: false,
     };
 
-    // Keep tracking a drag even when the pointer leaves the chip row.
-    try {
-      scroller.setPointerCapture(event.pointerId);
-    } catch {
-      // Window-level pointer listeners remain as a fallback.
-    }
+    // Window-level pointer listeners track movement outside the chip row.
+    // Avoid setPointerCapture here so clicks still target each nested filter button.
     setIsDragging(true);
   };
 
