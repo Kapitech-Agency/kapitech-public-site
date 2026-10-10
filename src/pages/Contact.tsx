@@ -500,10 +500,10 @@ export const Contact = () => {
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <div className="flex min-w-0 flex-col gap-10 lg:gap-12">
+          <div className="grid min-w-0 grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-8 xl:gap-10">
             {/* Corporate Information */}
-            <div className="min-w-0 w-full">
-              <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+            <div className="min-w-0 w-full lg:sticky lg:top-24">
+              <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
                 <div className="border-b border-white/[0.08] px-5 py-5 sm:px-7 sm:py-6">
                   <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                     <div className="min-w-0">
@@ -529,8 +529,8 @@ export const Contact = () => {
                 </div>
 
                 <div className="divide-y divide-white/[0.07]">
-                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center lg:w-32">
+                  <div className="grid min-w-0 gap-3 px-5 py-5 sm:px-6 sm:py-6">
+                    <div className="flex items-center">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Profil' : 'Profile'}
                       </span>
@@ -579,8 +579,8 @@ export const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center lg:w-32">
+                  <div className="grid min-w-0 gap-3 px-5 py-5 sm:px-6 sm:py-6">
+                    <div className="flex items-center">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Kontak' : 'Contact'}
                       </span>
@@ -647,8 +647,8 @@ export const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="grid min-w-0 gap-5 px-5 py-6 sm:px-7 sm:py-7 lg:grid-cols-[auto_minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start lg:gap-7">
-                    <div className="flex items-center lg:w-32">
+                  <div className="grid min-w-0 gap-3 px-5 py-5 sm:px-6 sm:py-6">
+                    <div className="flex items-center">
                       <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-[#6F757F]">
                         {language === 'id' ? 'Kantor' : 'Office'}
                       </span>
