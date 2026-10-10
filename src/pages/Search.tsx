@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Fuse from 'fuse.js';
-import { ArrowUpRight, Search as SearchIcon } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, Briefcase, Building2, FileText, Layers, Search as SearchIcon, X, type LucideIcon } from 'lucide-react';
 import { api } from '../lib/apiClient';
 import {
   CMS_EVENT_KEY,
@@ -20,6 +20,35 @@ import { useLanguage } from '../lib/LanguageContext';
 import PublicPageHero from '../components/ui/PublicPageHero';
 
 type SearchItemType = 'Page' | 'Service' | 'Case Study' | 'Insight' | 'Industry';
+type SearchFilter = 'All' | SearchItemType;
+
+const SEARCH_FILTERS: SearchFilter[] = ['All', 'Service', 'Case Study', 'Insight', 'Industry', 'Page'];
+const SEARCH_TYPE_ICONS: Record<SearchItemType, LucideIcon> = {
+  Page: FileText,
+  Service: Layers,
+  'Case Study': Briefcase,
+  Insight: BookOpen,
+  Industry: Building2,
+};
+
+function getFilterLabel(filter: SearchFilter, language: 'id' | 'en'): string {
+  if (filter === 'All') return language === 'id' ? 'Semua' : 'All';
+  return getTypeLabel(filter, language);
+}
+
+function getSuggestedResults(items: SearchItem[]): SearchItem[] {
+  const order: SearchItemType[] = ['Service', 'Case Study', 'Insight', 'Industry', 'Page'];
+  const groups = new Map<SearchItemType, SearchItem[]>();
+  order.forEach((type) => groups.set(type, items.filter((item) => item.type === type)));
+  const suggested: SearchItem[] = [];
+  for (let index = 0; index < 3; index += 1) {
+    order.forEach((type) => {
+      const item = groups.get(type)?.[index];
+      if (item) suggested.push(item);
+    });
+  }
+  return suggested;
+}
 
 type SearchItem = {
   type: SearchItemType;
@@ -200,6 +229,7 @@ export const Search = () => {
   const [query, setQuery] = useState(params.get('q') || '');
   const [insights, setInsights] = useState<SearchItem[]>(() => getInsightFallbackSearchItems(language));
   const [cmsRevision, setCmsRevision] = useState(0);
+  const [activeFilter, setActiveFilter] = useState<SearchFilter>('All');
 
   useEffect(() => {
     setQuery(params.get('q') || '');
@@ -368,9 +398,20 @@ export const Search = () => {
   );
 
   const trimmedQuery = query.trim();
-  const results = trimmedQuery
+  const matchedItems = trimmedQuery
     ? fuse.search(trimmedQuery).map((entry) => entry.item)
-    : items.slice(0, 18);
+    : items;
+  const defaultSuggestions = useMemo(() => getSuggestedResults(items), [items]);
+  const resultSource = !trimmedQuery && activeFilter === 'All' ? defaultSuggestions : matchedItems;
+  const results = activeFilter === 'All'
+    ? resultSource
+    : resultSource.filter((item) => item.type === activeFilter);
+  const filterCounts = SEARCH_FILTERS.reduce<Record<SearchFilter, number>>((counts, filter) => {
+    counts[filter] = filter === 'All'
+      ? matchedItems.length
+      : matchedItems.filter((item) => item.type === filter).length;
+    return counts;
+  }, { All: 0, Page: 0, Service: 0, 'Case Study': 0, Insight: 0, Industry: 0 });
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
