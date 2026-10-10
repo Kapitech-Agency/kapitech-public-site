@@ -103,14 +103,20 @@ export const Contact = () => {
     }
 
     const normalizedRequest = requestedService.toLowerCase();
+    const requestedTokens = normalizedRequest.split(/[^a-z0-9]+/).filter(Boolean);
     const matchIndex = [serviceOptionsEn, serviceOptionsId].reduce<number | null>((found, options) => {
       if (found !== null) return found;
 
       const index = options.findIndex((option) => {
         const normalizedOption = option.toLowerCase();
+        const optionTokens = normalizedOption.split(/[^a-z0-9]+/).filter(Boolean);
+        const matchesAllRequestedTokens = requestedTokens.length > 0
+          && requestedTokens.every((token) => optionTokens.includes(token));
+
         return normalizedOption === normalizedRequest
           || normalizedOption.includes(normalizedRequest)
-          || normalizedRequest.includes(normalizedOption);
+          || normalizedRequest.includes(normalizedOption)
+          || matchesAllRequestedTokens;
       });
 
       return index >= 0 ? index : null;
@@ -142,9 +148,9 @@ export const Contact = () => {
 
   const serviceGroups = [
     { label: 'Branding', items: serviceOptions.slice(0, 5) },
-    { label: 'Design', items: serviceOptions.slice(5, 10) },
-    { label: 'Development', items: serviceOptions.slice(10, 15) },
-    { label: language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions', items: serviceOptions.slice(15) }
+    { label: 'Design', items: serviceOptions.slice(5, 9) },
+    { label: 'Development', items: serviceOptions.slice(9, 14) },
+    { label: language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions', items: serviceOptions.slice(14) }
   ];
 
   const budgetOptionsEn = [
