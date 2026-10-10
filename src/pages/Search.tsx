@@ -151,7 +151,7 @@ export const Search = () => {
       label: type === 'Service'
         ? (language === 'id' ? 'Layanan' : 'Services')
         : type === 'Case Study'
-          ? 'Case studies'
+          ? (language === 'id' ? 'Studi kasus' : 'Case studies')
           : 'Insights',
       count: queryMatches.filter((item) => item.type === type).length,
     })),
@@ -170,7 +170,7 @@ export const Search = () => {
     setActiveType('All');
   };
 
-  const TypeIcon = ({ type }: { type: SearchItem['type'] }) => {
+  const renderTypeIcon = (type: SearchItem['type']) => {
     if (type === 'Service') return <Layers3 size={14} aria-hidden="true" />;
     if (type === 'Case Study') return <BriefcaseBusiness size={14} aria-hidden="true" />;
     return <BookOpenText size={14} aria-hidden="true" />;
@@ -192,7 +192,7 @@ export const Search = () => {
           : 'Search Kapitech services, case studies, and insights in one place.'}
       >
         <form onSubmit={submit} role="search" className="max-w-3xl">
-          <label className="flex min-h-[58px] min-w-0 items-center gap-3 rounded-2xl border border-white/[0.12] bg-[#111216]/90 px-4 shadow-[0_14px_38px_-24px_rgba(0,0,0,0.9)] transition-colors duration-200 focus-within:border-white/[0.22] sm:gap-3.5 sm:px-5">
+          <div className="flex min-h-[58px] min-w-0 items-center gap-3 rounded-2xl border border-white/[0.12] bg-[#111216]/90 px-4 shadow-[0_14px_38px_-24px_rgba(0,0,0,0.9)] transition-colors duration-200 focus-within:border-white/[0.22] sm:gap-3.5 sm:px-5">
             <SearchIcon size={19} aria-hidden="true" className="shrink-0 text-[#9AA1AC]" />
             <input
               type="text"
@@ -223,7 +223,7 @@ export const Search = () => {
               <span>{language === 'id' ? 'Cari' : 'Search'}</span>
               <ArrowRight size={14} aria-hidden="true" />
             </button>
-          </label>
+          </div>
           <p className="mt-3 px-1 text-[11px] leading-relaxed text-[#8A909D]">
             {language === 'id'
               ? 'Coba kata kunci seperti UI/UX, website, fintech, atau MVP.'
@@ -297,7 +297,7 @@ export const Search = () => {
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1.5 text-[10px] font-medium text-[#B3B9C3]">
-                      <TypeIcon type={item.type} />
+                      {renderTypeIcon(item.type)}
                       <span>{typeLabel(item.type)}</span>
                     </span>
                     <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-[#69717D] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
@@ -315,7 +315,7 @@ export const Search = () => {
                 </Link>
               ))}
             </div>
-          ) : !contentReady && searchTerm ? (
+          ) : !contentReady ? (
             <div className="mt-6 rounded-2xl border border-white/[0.08] bg-white/[0.018] px-5 py-8 sm:px-7">
               <p className="text-sm text-[#A7ACB5]" aria-live="polite">
                 {language === 'id' ? 'Memuat seluruh konten yang dapat dicari...' : 'Loading searchable content...'}
