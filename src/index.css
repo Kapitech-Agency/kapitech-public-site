@@ -1441,6 +1441,28 @@ html.kapi-custom-cursor-enabled select {
   transform: none;
 }
 
+/* The search container owns the only visible outline. Neutralize generic
+   form-field styling on this input and preserve breathing room before text. */
+.kapi-public-shell main input.kapi-global-search-input,
+.kapi-public-shell main input.kapi-global-search-input:focus,
+.kapi-public-shell main input.kapi-global-search-input:focus-visible {
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 0 0 0.625rem !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.kapi-public-shell main input.kapi-global-search-input::placeholder {
+  color: #737B87;
+  opacity: 1;
+}
+
 /* Modal system */
 .kapi-public-shell [role="dialog"].fixed.inset-0 {
   background: var(--kapi-color-overlay) !important;
