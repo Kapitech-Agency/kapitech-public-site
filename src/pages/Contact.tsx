@@ -670,7 +670,7 @@ export const Contact = () => {
                         <p className="mt-1.5 text-xs font-semibold leading-relaxed text-white">
                           {language === 'id' ? 'Senin–Jumat, 09.00–18.00 WIB' : 'Monday–Friday, 09:00–18:00 WIB'}
                         </p>
-                        <p className="mt-1 text-[10px] text-[#8A909D]">GMT+7 · Western Indonesian Time</p>
+                        <p className="mt-1 text-[10px] text-[#8A909D]">{language === 'id' ? 'GMT+7 · Waktu Indonesia Barat' : 'GMT+7 · Western Indonesian Time'}</p>
                       </div>
                     </div>
                   </div>
@@ -859,7 +859,7 @@ export const Contact = () => {
                                       <p className={'mt-2.5 text-xs leading-[1.7] ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
                                         {choice.description}
                                       </p>
-                                      <div className="mt-auto mt-4 border-t border-white/[0.07] pt-3.5">
+                                      <div className="mt-auto border-t border-white/[0.07] pt-3.5">
                                         <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
                                           {language === 'id' ? 'Mencakup' : 'Includes'}
                                         </span>
