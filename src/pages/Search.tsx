@@ -232,8 +232,9 @@ export const Search = () => {
       .then((response) => {
         if (cancelled || !response.success) return;
 
-        const remoteItems = Array.isArray(response.data?.insights)
-          ? response.data.insights.filter((item) =>
+        const rawRemoteItems = response.data?.insights;
+        const remoteItems = Array.isArray(rawRemoteItems)
+          ? rawRemoteItems.filter((item) =>
               Boolean(item) && item.status === 'published' && item.language === language,
             )
           : [];
