@@ -70,20 +70,27 @@ const useDragToScroll = () => {
       drag.active = false;
       drag.pointerId = -1;
       setIsDragging(false);
+    };
 
-      // Keep click suppression until the generated click is captured. A new
-      // pointerdown also resets it, so a drag without a click cannot block the
-      // next deliberate tap.
+    const suppressDraggedClick = (event: MouseEvent) => {
+      if (!suppressClickRef.current) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClickRef.current = false;
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: false });
     window.addEventListener('pointerup', finishPointer);
     window.addEventListener('pointercancel', finishPointer);
+    // Capture at window level so a drag released outside the chip row cannot
+    // accidentally activate a button or link at the pointer-up location.
+    window.addEventListener('click', suppressDraggedClick, true);
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', finishPointer);
       window.removeEventListener('pointercancel', finishPointer);
+      window.removeEventListener('click', suppressDraggedClick, true);
     };
   }, []);
 
@@ -295,8 +302,19 @@ export const Work = () => {
   const [isServiceScrolled, setIsServiceScrolled] = useState(false);
   const [isIndustryScrolled, setIsIndustryScrolled] = useState(false);
 
+  const [isServiceAtEnd, setIsServiceAtEnd] = useState(false);
+  const [isIndustryAtEnd, setIsIndustryAtEnd] = useState(false);
+
   const handleServiceScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    setIsServiceScrolled(e.currentTarget.scrollLeft > 2);
+    const element = e.currentTarget;
+    setIsServiceScrolled(element.scrollLeft > 2);
+    setIsServiceAtEnd(element.scrollLeft + element.clientWidth >= element.scrollWidth - 2);
+  };
+
+  const handleIndustryScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget;
+    setIsIndustryScrolled(element.scrollLeft > 2);
+    setIsIndustryAtEnd(element.scrollLeft + element.clientWidth >= element.scrollWidth - 2);
   };
 
   const featuredProjects = useMemo(() => {
@@ -412,7 +430,28 @@ export const Work = () => {
 
     scroller.scrollTo({ left: 0, behavior: 'auto' });
     setIsServiceScrolled(false);
+    setIsServiceAtEnd(scroller.scrollWidth <= scroller.clientWidth + 2);
   }, [activePillar, serviceOptions.length]);
+
+  useEffect(() => {
+    const updateScrollEdges = () => {
+      const industryScroller = industryDrag.scrollRef.current;
+      if (industryScroller) {
+        setIsIndustryScrolled(industryScroller.scrollLeft > 2);
+        setIsIndustryAtEnd(industryScroller.scrollLeft + industryScroller.clientWidth >= industryScroller.scrollWidth - 2);
+      }
+
+      const serviceScroller = serviceScrollRef.current;
+      if (serviceScroller) {
+        setIsServiceScrolled(serviceScroller.scrollLeft > 2);
+        setIsServiceAtEnd(serviceScroller.scrollLeft + serviceScroller.clientWidth >= serviceScroller.scrollWidth - 2);
+      }
+    };
+
+    updateScrollEdges();
+    window.addEventListener('resize', updateScrollEdges);
+    return () => window.removeEventListener('resize', updateScrollEdges);
+  }, [industryOptions.length, serviceOptions.length, activePillar]);
 
   // Reset granular filter if pillar changes
   const handlePillarChange = (pillar: string) => {
@@ -764,7 +803,7 @@ export const Work = () => {
                 >
                   {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
                 </span>
-                {(activePillar !== 'All' || activeService !== 'All' || activeIndustry !== 'All' || searchQuery) && (
+                {(activePillar !== 'All' || activeService !== 'All' || activeIndustry !== 'All' || searchQuery.trim()) && (
                   <button
                     type="button"
                     onClick={resetFilters}
@@ -827,6 +866,12 @@ export const Work = () => {
                     setSearchQuery(e.target.value);
                     setVisibleCount(12);
                   }}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape' && searchQuery) {
+                      setSearchQuery('');
+                      setVisibleCount(12);
+                    }
+                  }}
                   placeholder={language === 'id' ? 'Cari studi kasus, klien...' : 'Search case study, client...'}
                   className="w-full [appearance:textfield] [&::-webkit-search-cancel-button]:appearance-none bg-[#17191F]/92 border border-white/[0.08] rounded-full pl-10 pr-10 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-[border-color,background-color,box-shadow] duration-200 font-mono min-h-[44px] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                 />
@@ -851,14 +896,22 @@ export const Work = () => {
               ref={industryDrag.scrollRef}
               onPointerDown={industryDrag.handlePointerDown}
               onClickCapture={industryDrag.handleClickCapture}
-              onScroll={(event) => setIsIndustryScrolled(event.currentTarget.scrollLeft > 2)}
+              onScroll={handleIndustryScroll}
               style={{
                 maskImage: isIndustryScrolled
-                  ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
-                  : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                  ? (isIndustryAtEnd
+                    ? 'linear-gradient(to right, transparent 0, black 18px, black 100%)'
+                    : 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)')
+                  : (isIndustryAtEnd
+                    ? 'linear-gradient(to right, black 0, black 100%)'
+                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)'),
                 WebkitMaskImage: isIndustryScrolled
-                  ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
-                  : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                  ? (isIndustryAtEnd
+                    ? 'linear-gradient(to right, transparent 0, black 18px, black 100%)'
+                    : 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)')
+                  : (isIndustryAtEnd
+                    ? 'linear-gradient(to right, black 0, black 100%)'
+                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)'),
               }}
               className={`flex items-center gap-2 overflow-x-auto py-0.5 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${industryDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               aria-label={language === 'id' ? 'Filter industri' : 'Industry filters'}
@@ -889,11 +942,19 @@ export const Work = () => {
                 onClickCapture={serviceDrag.handleClickCapture}
                 style={{
                   maskImage: isServiceScrolled
-                    ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
-                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                    ? (isServiceAtEnd
+                      ? 'linear-gradient(to right, transparent 0, black 18px, black 100%)'
+                      : 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)')
+                    : (isServiceAtEnd
+                      ? 'linear-gradient(to right, black 0, black 100%)'
+                      : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)'),
                   WebkitMaskImage: isServiceScrolled
-                    ? 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)'
-                    : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)',
+                    ? (isServiceAtEnd
+                      ? 'linear-gradient(to right, transparent 0, black 18px, black 100%)'
+                      : 'linear-gradient(to right, transparent 0, black 18px, black calc(100% - 52px), transparent 100%)')
+                    : (isServiceAtEnd
+                      ? 'linear-gradient(to right, black 0, black 100%)'
+                      : 'linear-gradient(to right, black 0, black calc(100% - 52px), transparent 100%)'),
                 }}
                 className={`flex items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-12 sm:pr-20 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
                   isDraggingService ? 'cursor-grabbing' : 'cursor-grab'
