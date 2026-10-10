@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
+import { Mail, Globe, Briefcase, MessageSquare, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -572,34 +572,44 @@ export const Contact = () => {
                       {language === 'id' ? 'Kontak langsung lainnya' : 'Other direct contacts'}
                     </h4>
 
-                    <div className="mt-3 border-y border-white/[0.075]">
+                    <div className="mt-3 flex flex-col gap-2.5">
                       <a
                         href="mailto:business@kapitech.id"
                         aria-label={language === 'id' ? 'Email kemitraan dan bisnis: business@kapitech.id' : 'Email business and partnerships: business@kapitech.id'}
-                        className="group -mx-1 grid min-w-0 grid-cols-[minmax(0,1fr)_16px] items-center gap-x-4 rounded-lg px-3 py-4 transition-colors duration-200 hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:grid-cols-[minmax(0,1fr)_auto_16px]"
+                        className="group flex min-w-0 items-center gap-3.5 rounded-2xl border border-white/[0.085] bg-white/[0.018] px-4 py-3.5 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:px-4"
                       >
-                        <span className="min-w-0">
-                          <span className="block text-[13px] font-medium leading-snug text-white">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-[#A7ACB5] transition-colors duration-300 group-hover:bg-white/[0.07] group-hover:text-white">
+                          <Globe size={16} aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[13px] font-semibold leading-snug text-white">
                             {language === 'id' ? 'Kemitraan & bisnis' : 'Business & partnerships'}
                           </span>
-                          <span className="mt-1 block break-all text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:hidden">business@kapitech.id</span>
+                          <span className="mt-1 block text-[11px] leading-[1.6] text-[#8A909D]">
+                            {language === 'id' ? 'Untuk proposal kemitraan dan kolaborasi bisnis.' : 'For partnership proposals and business collaboration.'}
+                          </span>
+                          <span className="mt-1.5 block break-all text-xs font-medium leading-relaxed text-[#D4D7DE] transition-colors group-hover:text-white">business@kapitech.id</span>
                         </span>
-                        <span className="hidden min-w-0 break-all text-right text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:block">business@kapitech.id</span>
                         <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-[#727985] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                       </a>
 
                       <a
                         href="mailto:recruitment@kapitech.id"
                         aria-label={language === 'id' ? 'Email karier dan rekrutmen: recruitment@kapitech.id' : 'Email careers and recruitment: recruitment@kapitech.id'}
-                        className="group -mx-1 grid min-w-0 grid-cols-[minmax(0,1fr)_16px] items-center gap-x-4 rounded-lg border-t border-white/[0.065] px-3 py-4 transition-colors duration-200 hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:grid-cols-[minmax(0,1fr)_auto_16px]"
+                        className="group flex min-w-0 items-center gap-3.5 rounded-2xl border border-white/[0.085] bg-white/[0.018] px-4 py-3.5 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:px-4"
                       >
-                        <span className="min-w-0">
-                          <span className="block text-[13px] font-medium leading-snug text-white">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-[#A7ACB5] transition-colors duration-300 group-hover:bg-white/[0.07] group-hover:text-white">
+                          <Briefcase size={16} aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[13px] font-semibold leading-snug text-white">
                             {language === 'id' ? 'Karier & rekrutmen' : 'Careers & recruitment'}
                           </span>
-                          <span className="mt-1 block break-all text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:hidden">recruitment@kapitech.id</span>
+                          <span className="mt-1 block text-[11px] leading-[1.6] text-[#8A909D]">
+                            {language === 'id' ? 'Untuk peluang karier dan pertanyaan seputar rekrutmen.' : 'For career opportunities and recruitment inquiries.'}
+                          </span>
+                          <span className="mt-1.5 block break-all text-xs font-medium leading-relaxed text-[#D4D7DE] transition-colors group-hover:text-white">recruitment@kapitech.id</span>
                         </span>
-                        <span className="hidden min-w-0 break-all text-right text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:block">recruitment@kapitech.id</span>
                         <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-[#727985] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                       </a>
 
@@ -608,13 +618,18 @@ export const Contact = () => {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={language === 'id' ? 'Hubungi Kapitech lewat WhatsApp: +62 877-6995-7062' : 'Contact Kapitech on WhatsApp: +62 877-6995-7062'}
-                        className="group -mx-1 grid min-w-0 grid-cols-[minmax(0,1fr)_16px] items-center gap-x-4 rounded-lg border-t border-white/[0.065] px-3 py-4 transition-colors duration-200 hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:grid-cols-[minmax(0,1fr)_auto_16px]"
+                        className="group flex min-w-0 items-center gap-3.5 rounded-2xl border border-white/[0.085] bg-white/[0.018] px-4 py-3.5 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:px-4"
                       >
-                        <span className="min-w-0">
-                          <span className="block text-[13px] font-medium leading-snug text-white">WhatsApp</span>
-                          <span className="mt-1 block text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:hidden">+62 877-6995-7062</span>
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-[#A7ACB5] transition-colors duration-300 group-hover:bg-white/[0.07] group-hover:text-white">
+                          <MessageSquare size={16} aria-hidden="true" />
                         </span>
-                        <span className="hidden min-w-0 text-right text-xs leading-relaxed text-[#B0B5BF] transition-colors group-hover:text-white sm:block">+62 877-6995-7062</span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[13px] font-semibold leading-snug text-white">WhatsApp / phone</span>
+                          <span className="mt-1 block text-[11px] leading-[1.6] text-[#8A909D]">
+                            {language === 'id' ? 'Untuk pertanyaan singkat atau komunikasi langsung dengan tim kami.' : 'For quick questions or a direct conversation with our team.'}
+                          </span>
+                          <span className="mt-1.5 block text-xs font-medium leading-relaxed text-[#D4D7DE] transition-colors group-hover:text-white">+62 877-6995-7062</span>
+                        </span>
                         <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-[#727985] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                       </a>
                     </div>
