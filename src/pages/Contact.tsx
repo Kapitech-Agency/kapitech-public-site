@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, Briefcase, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, Globe, MessageSquare, Briefcase, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -593,6 +593,43 @@ export const Contact = () => {
                       </span>
                       <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
                     </a>
+                  </div>
+                </section>
+                <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
+                  <h4 id="corporate-details-heading" className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                    {language === 'id' ? 'Informasi pendukung' : 'Additional information'}
+                  </h4>
+                  <div className="mt-3 space-y-4">
+                    <div className="flex min-w-0 items-start gap-3">
+                      <MapPin size={15} className="mt-0.5 shrink-0 text-[#8A909D]" />
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">
+                          {language === 'id' ? 'Alamat kantor' : 'Office address'}
+                        </p>
+                        <a
+                          href="https://maps.google.com/?q=Linea+Residence+Block+G+No+5+Melati+Loka+Street+Paku+Jaya+North+Serpong+South+Tangerang+Banten+15220+Indonesia"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1 block text-[11px] leading-[1.75] text-[#A7ACB5] transition-colors hover:text-white"
+                        >
+                          Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex min-w-0 items-start gap-3">
+                      <Clock size={15} className="mt-0.5 shrink-0 text-[#8A909D]" />
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">
+                          {language === 'id' ? 'Jam operasional' : 'Operating hours'}
+                        </p>
+                        <p className="mt-1 text-xs font-medium text-[#D4D7DE]">
+                          {language === 'id' ? 'Senin–Jumat, 09.00–18.00 WIB' : 'Monday–Friday, 09:00–18:00 WIB'}
+                        </p>
+                        <p className="mt-1 text-[10px] text-[#8A909D]">
+                          {language === 'id' ? 'GMT+7 · Waktu Indonesia Barat' : 'GMT+7 · Western Indonesian Time'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </section>
               </div>
