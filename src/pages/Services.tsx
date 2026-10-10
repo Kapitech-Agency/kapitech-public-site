@@ -859,7 +859,7 @@ export const Services = () => {
                     className={`relative z-10 pointer-events-auto inline-flex min-h-[48px] w-full min-w-0 items-center justify-center rounded-xl border px-2.5 py-2.5 text-center text-[10px] leading-snug font-mono font-medium transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:min-h-[44px] sm:px-3 sm:text-[11px] ${
                       selected
                         ? 'border-brand-red bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
-                        : 'border-white/[0.10] bg-white/[0.035] text-white/85 hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white'
+                        : 'border-white/[0.12] bg-[#191B21] text-white hover:border-white/[0.20] hover:bg-[#22252D] hover:text-white'
                     }`}
                   >
                     {language === 'id' ? tab.labelId : tab.labelEn}
