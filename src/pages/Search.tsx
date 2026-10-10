@@ -267,8 +267,8 @@ export const Search = () => {
         type: 'Service',
         title: item.title,
         description: language === 'id'
-          ? item.heroSubtitleId || item.heroSubtitle || item.navSubtitleId || item.description || ''
-          : item.heroSubtitle || item.heroSubtitleId || item.navSubtitle || item.description || '',
+          ? item.heroSubtitleId || item.navSubtitleId || item.heroHeadlineId || ''
+          : item.heroSubtitle || item.navSubtitle || item.heroHeadline || '',
         href: (item.type === 'solution' || item.category === 'Solutions' ? '/solutions/' : '/services/') + encodeURIComponent(item.slug),
         keywords: asKeywords(
           item.category,
