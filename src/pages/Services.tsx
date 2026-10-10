@@ -726,6 +726,17 @@ export const Services = () => {
     return resolvedAllServices.filter(s => s.category === activeCategory);
   }, [activeCategory, resolvedAllServices]);
 
+  const handleCategoryChange = (category: 'All' | 'Branding' | 'Design' | 'Development') => {
+    setActiveCategory(category);
+
+    window.requestAnimationFrame(() => {
+      document.getElementById('services-catalog-grid')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  };
+
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
@@ -777,7 +788,9 @@ export const Services = () => {
               <motion.button
                 key={sol.id}
                 type="button"
-                onClick={() => setSelectedService(sol)}
+                onClick={(event) => { lastServiceTriggerRef.current = event.currentTarget; setSelectedService(sol); }}
+                aria-haspopup="dialog"
+                aria-label={`${language === 'id' ? 'Lihat pratinjau solusi' : 'Preview solution'}: ${sol.title}`}
                 whileTap={{ scale: 0.995 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative rounded-3xl p-6 sm:p-7 min-h-[300px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
@@ -853,7 +866,7 @@ export const Services = () => {
                   <button
                     key={tab.key}
                     type="button"
-                    onClick={() => setActiveCategory(tab.key)}
+                    onClick={() => handleCategoryChange(tab.key)}
                     aria-pressed={selected}
                     aria-controls="services-catalog-grid"
                     className={`relative z-10 pointer-events-auto inline-flex min-h-[48px] w-full min-w-0 items-center justify-center rounded-xl border px-2.5 py-2.5 text-center text-[10px] leading-snug font-mono font-medium transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:min-h-[44px] sm:px-3 sm:text-[11px] ${
@@ -872,7 +885,7 @@ export const Services = () => {
       </section>
 
                   {/* SECTION 2: SERVICES GRID (Categorized into Branding, Design, Development) */}
-      <section id="services-catalog-grid" className="scroll-mt-32 py-14 sm:py-20 px-4 sm:px-6 md:px-12">
+      <section id="services-catalog-grid" className="scroll-mt-[220px] py-14 sm:py-20 px-4 sm:px-6 md:px-12">
         <div className="max-w-7xl mx-auto space-y-16">
           
           {/* Show Group Headers when 'All' is selected, or direct grid when filtered */}
@@ -903,6 +916,8 @@ export const Services = () => {
                       key={srv.id}
                       type="button"
                       onClick={(event) => { lastServiceTriggerRef.current = event.currentTarget; setSelectedService(srv); }}
+                      aria-haspopup="dialog"
+                      aria-label={`${language === 'id' ? 'Lihat pratinjau layanan' : 'Preview service'}: ${srv.title}`}
                       whileTap={{ scale: 0.995 }}
                       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                       className="group rounded-3xl p-6 sm:p-7 min-h-[320px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
@@ -967,7 +982,8 @@ export const Services = () => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-preview-title"
-            onMouseDown={(event) => {
+            aria-describedby="service-preview-description"
+            onPointerDown={(event) => {
               if (event.target === event.currentTarget) setSelectedService(null);
             }}
           >
@@ -994,11 +1010,12 @@ export const Services = () => {
                   </div>
                 </div>
                 <button
+                  ref={serviceModalCloseRef}
+                  type="button"
                   onClick={() => setSelectedService(null)}
                   className="kapi-modal-close"
                   aria-label="Close modal"
                   data-cursor-label="Close"
-                  autoFocus
                 >
                   <X size={18} />
                 </button>
@@ -1010,7 +1027,7 @@ export const Services = () => {
                   <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-2 font-semibold">
                     {language === 'id' ? 'Deskripsi & Ruang Lingkup' : 'Overview & Scope'}
                   </h4>
-                  <p className="text-sm text-[#8A909D] leading-relaxed font-light">
+                  <p id="service-preview-description" className="text-sm text-[#8A909D] leading-relaxed font-light">
                     {'fullDescription' in selectedService 
                       ? (language === 'id' ? selectedService.fullDescriptionId : selectedService.fullDescription)
                       : (language === 'id' ? selectedService.descriptionId : selectedService.description)
