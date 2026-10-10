@@ -222,7 +222,7 @@ export const Search = () => {
               placeholder={language === 'id'
                 ? 'Cari layanan, studi kasus, atau insight...'
                 : 'Search services, case studies, or insights...'}
-              className="block h-12 min-w-0 flex-1 appearance-none border-0 bg-transparent px-0 py-0 text-sm font-normal leading-6 text-white outline-none ring-0 placeholder:text-[#737B87] focus:border-0 focus:outline-none focus:ring-0 sm:text-base [&::-webkit-search-cancel-button]:hidden"
+              className="kapi-global-search-input block h-12 min-w-0 flex-1 appearance-none border-0 bg-transparent px-0 py-0 text-sm font-normal leading-6 text-white outline-none ring-0 placeholder:text-[#737B87] focus:border-0 focus:outline-none focus:ring-0 sm:text-base [&::-webkit-search-cancel-button]:hidden"
               aria-label={language === 'id' ? 'Cari di website Kapitech' : 'Search the Kapitech website'}
             />
             {query ? (
