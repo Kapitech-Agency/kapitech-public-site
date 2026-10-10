@@ -562,57 +562,51 @@ export const Contact = () => {
                     <ArrowUpRight size={16} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
                   </a>
 
-                  <div className="mt-4 grid min-h-0 flex-1 grid-rows-3 gap-2">
+                  <div className="mt-4 flex min-h-0 flex-1 flex-col divide-y divide-white/[0.07]">
                     <a
                       href="mailto:business@kapitech.id"
-                      className="group flex min-w-0 items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-white/[0.015] px-3.5 py-3 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.03]"
+                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
                     >
-                      <span className="flex min-w-0 items-center gap-3">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.02] text-[#8A909D] transition-colors group-hover:text-white">
-                          <Globe size={15} />
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block text-[10px] font-medium text-white">
-                            {language === 'id' ? 'Kemitraan & bisnis' : 'Business & partnerships'}
-                          </span>
-                          <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">business@kapitech.id</span>
-                        </span>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
+                        <Globe size={15} />
                       </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-xs font-medium text-white">
+                          {language === 'id' ? 'Kemitraan & bisnis' : 'Business & partnerships'}
+                        </span>
+                        <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">business@kapitech.id</span>
+                      </span>
+                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
                     </a>
                     <a
                       href="mailto:recruitment@kapitech.id"
-                      className="group flex min-w-0 items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-white/[0.015] px-3.5 py-3 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.03]"
+                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
                     >
-                      <span className="flex min-w-0 items-center gap-3">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.02] text-[#8A909D] transition-colors group-hover:text-white">
-                          <Briefcase size={15} />
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block text-[10px] font-medium text-white">
-                            {language === 'id' ? 'Karier & rekrutmen' : 'Careers & recruitment'}
-                          </span>
-                          <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">recruitment@kapitech.id</span>
-                        </span>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
+                        <Briefcase size={15} />
                       </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-xs font-medium text-white">
+                          {language === 'id' ? 'Karier & rekrutmen' : 'Careers & recruitment'}
+                        </span>
+                        <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">recruitment@kapitech.id</span>
+                      </span>
+                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
                     </a>
                     <a
                       href="tel:+6287769957062"
-                      className="group flex min-w-0 items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-white/[0.015] px-3.5 py-3 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.03]"
+                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
                     >
-                      <span className="flex min-w-0 items-center gap-3">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.02] text-[#8A909D] transition-colors group-hover:text-white">
-                          <Phone size={15} />
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block text-[10px] font-medium text-white">
-                            {language === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}
-                          </span>
-                          <span className="mt-1 block text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">+62 877-6995-7062</span>
-                        </span>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
+                        <Phone size={15} />
                       </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-xs font-medium text-white">
+                          {language === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}
+                        </span>
+                        <span className="mt-1 block text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">+62 877-6995-7062</span>
+                      </span>
+                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
                     </a>
                   </div>
                 </section>
