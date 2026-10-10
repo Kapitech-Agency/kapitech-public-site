@@ -32,7 +32,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, validateResumeFile, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
-import { uploadPublicResume } from '../lib/apiClient';
+import { api, uploadPublicResume } from '../lib/apiClient';
 
 const CareerModalPortal = ({ children }: { children: React.ReactNode }) => {
   if (typeof document === 'undefined') return null;
