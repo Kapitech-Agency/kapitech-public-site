@@ -524,10 +524,10 @@ export const Contact = () => {
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid min-w-0 grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-10 xl:gap-12">
+          <div className="grid min-w-0 grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-8 xl:gap-10">
             {/* Corporate Information */}
-            <div className="min-w-0 w-full lg:sticky lg:top-24">
-              <div className="overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216]">
+            <div className="min-w-0 w-full">
+              <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216]">
                 <header className="border-b border-white/[0.07] px-5 py-6 sm:px-6 sm:py-7">
                   <span className="kapi-section-label mb-3">
                     {language === 'id' ? 'Corporate Information' : 'Corporate Information'}
@@ -595,7 +595,7 @@ export const Contact = () => {
                     </a>
                   </div>
                 </section>
-                <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
+                <section className="mt-auto border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
                   <h4 id="corporate-details-heading" className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                     {language === 'id' ? 'Informasi pendukung' : 'Additional information'}
                   </h4>
@@ -718,7 +718,7 @@ export const Contact = () => {
                     </div>
 
                     <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
-                      <div className="border-b border-white/[0.08] px-5 pt-5 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
+                      <div className="border-b border-white/[0.08] px-5 py-6 sm:px-6 sm:py-6">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
                             <span
