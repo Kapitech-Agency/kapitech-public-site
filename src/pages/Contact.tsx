@@ -530,7 +530,7 @@ export const Contact = () => {
               <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216]">
                 <header className="border-b border-white/[0.07] px-5 py-6 sm:px-6 sm:py-7">
                   <span className="kapi-section-label mb-3">
-                    {language === 'id' ? 'Corporate Information' : 'Corporate Information'}
+                    {language === 'id' ? 'Informasi Kontak' : 'Contact Information'}
                   </span>
                   <h3 className="text-2xl font-display font-semibold leading-tight tracking-[-0.045em] text-white sm:text-3xl">
                     {language === 'id' ? 'Hubungi Kapitech' : 'Get in touch'}
