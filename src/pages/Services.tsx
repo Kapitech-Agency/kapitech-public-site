@@ -71,6 +71,20 @@ export interface StrategicSolution {
   timelineId: string;
 }
 
+const resolveServiceCategory = (
+  value: unknown,
+  fallback: ServiceDetail['category'],
+): ServiceDetail['category'] => {
+  const normalized = String(value ?? '').trim().toLowerCase().replace(/[\s_-]+/g, '');
+
+  if (normalized === 'branding' || normalized === 'brand') return 'Branding';
+  if (normalized === 'design' || normalized === 'uiux') return 'Design';
+  if (normalized === 'development' || normalized === 'dev') return 'Development';
+
+  // "Solutions" are presented in their dedicated section, not as a service-grid category.
+  return fallback;
+};
+
 export const Services = () => {
   const { language } = useLanguage();
   const [selectedService, setSelectedService] = useState<ServiceDetail | StrategicSolution | null>(null);
@@ -692,7 +706,7 @@ export const Services = () => {
     return {
       ...service,
       title: cms.title || service.title,
-      category: cms.category === 'Solutions' ? service.category : cms.category,
+      category: resolveServiceCategory(cms.category, service.category),
       subtitle: cms.navSubtitle || service.subtitle,
       subtitleId: cms.navSubtitleId || service.subtitleId,
       summary: cms.heroSubtitle || service.summary,
@@ -807,53 +821,65 @@ export const Services = () => {
         </div>
       </section>
 
-      {/* Pillar Filter Tabs */}
-      <section className="sticky top-16 sm:top-20 md:top-[72px] z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]">
-        <div className="w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-[#111216] px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
+      {/* Browse Services filters */}
+      <section
+        className="sticky top-20 sm:top-20 md:top-[76px] z-30 px-4 sm:px-6 md:px-12 py-2 bg-[#0B0C0E]"
+        aria-label={language === 'id' ? 'Filter kategori layanan' : 'Service category filters'}
+      >
+        <div className="relative z-10 pointer-events-auto w-fit max-w-full mx-auto rounded-2xl border border-white/[0.08] bg-[#111216] px-2.5 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.24),inset_0_1px_0_rgba(255,255,255,0.025)]">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
               <span className="kapi-section-label mb-0 shrink-0 bg-[#16181D] backdrop-blur-none shadow-none">
                 {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70">
+              <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70" aria-live="polite">
                 {filteredServices.length} {language === 'id' ? 'layanan' : 'services'}
               </span>
             </div>
 
-            <div className="overflow-x-auto touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div
+              className="min-w-0 max-w-full overflow-x-auto overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              role="group"
+              aria-label={language === 'id' ? 'Pilih kategori layanan' : 'Choose a service category'}
+            >
               <div className="flex w-max items-center gap-1 rounded-full border border-white/[0.07] bg-[#0B0C0E] p-1">
-                {[
+                {([
                   { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
-                  { key: 'Branding', labelEn: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `1. Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
-                  { key: 'Design', labelEn: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`, labelId: `2. Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})` },
-                  { key: 'Development', labelEn: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`, labelId: `3. Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})` }
-                ].map(tab => (
-                  <button
-                    key={tab.key}
-                    onClick={() => setActiveCategory(tab.key as any)}
-                    className={`min-h-[44px] sm:min-h-[40px] px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 whitespace-nowrap ${
-                      activeCategory === tab.key
-                        ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
-                        : 'text-[#8A909D] hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {language === 'id' ? tab.labelId : tab.labelEn}
-                  </button>
-                ))}
+                  { key: 'Branding', labelEn: `Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
+                  { key: 'Design', labelEn: `Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`, labelId: `Desain (${resolvedAllServices.filter((service) => service.category === 'Design').length})` },
+                  { key: 'Development', labelEn: `Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`, labelId: `Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})` },
+                ] satisfies { key: 'All' | ServiceDetail['category']; labelEn: string; labelId: string }[]).map((tab) => {
+                  const selected = activeCategory === tab.key;
+                  return (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      onClick={() => setActiveCategory(tab.key)}
+                      aria-pressed={selected}
+                      aria-controls="services-catalog-grid"
+                      className={`relative z-10 pointer-events-auto inline-flex min-h-[44px] sm:min-h-[40px] shrink-0 items-center justify-center whitespace-nowrap rounded-full px-3.5 py-1.5 text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:px-4 ${
+                        selected
+                          ? 'bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
+                          : 'text-[#A1A8B3] hover:bg-white/[0.05] hover:text-white'
+                      }`}
+                    >
+                      {language === 'id' ? tab.labelId : tab.labelEn}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: SERVICES GRID (Categorized into Branding, Design, Development) */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12">
+            {/* SECTION 2: SERVICES GRID (Categorized into Branding, Design, Development) */}
+      <section id="services-catalog-grid" className="scroll-mt-32 py-14 sm:py-20 px-4 sm:px-6 md:px-12">
         <div className="max-w-7xl mx-auto space-y-16">
           
           {/* Show Group Headers when 'All' is selected, or direct grid when filtered */}
-          {['Branding', 'Design', 'Development'].map(cat => {
-            if (activeCategory !== 'All' && activeCategory !== cat) return null;
-            const catServices = resolvedAllServices.filter(s => s.category === cat);
+          {(activeCategory === 'All' ? ['Branding', 'Design', 'Development'] : [activeCategory]).map(cat => {
+            const catServices = filteredServices.filter((service) => service.category === cat);
 
             return (
               <div key={cat} className="space-y-6">
