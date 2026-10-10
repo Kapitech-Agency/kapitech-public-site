@@ -213,6 +213,7 @@ export const api = {
     getServices: () => apiRequest<{ services?: ServiceItemData[] }>('/api/cms/services'),
     getProjects: () => apiRequest<{ projects?: ProjectItem[] }>('/api/cms/projects'),
     getTestimonials: () => apiRequest<{ testimonials?: import('./cmsStore').TestimonialItem[] }>('/api/cms/testimonials'),
+    getCareers: () => apiRequest<{ positions?: Array<Record<string, unknown>> }>('/api/cms/careers'),
     getInsights: (params: Record<string, string | number | boolean | undefined> = {}) => {
       const query = new URLSearchParams();
       Object.entries(params).forEach(([key, value]) => {
