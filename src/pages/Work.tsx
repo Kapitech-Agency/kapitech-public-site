@@ -156,6 +156,8 @@ export const Work = () => {
   const [isSpotlightPaused, setIsSpotlightPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const spotlightRef = React.useRef<HTMLElement>(null);
+  const spotlightCardRef = React.useRef<HTMLElement | null>(null);
+  const restoreSpotlightFocusRef = React.useRef(false);
   const [visibleCount, setVisibleCount] = useState<number>(12);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
@@ -471,6 +473,13 @@ export const Work = () => {
 
   const currentFeatured = spotlightProjects[featuredIndex] || projectsList[0];
 
+  useEffect(() => {
+    if (!restoreSpotlightFocusRef.current) return;
+    restoreSpotlightFocusRef.current = false;
+    const frame = window.requestAnimationFrame(() => spotlightCardRef.current?.focus());
+    return () => window.cancelAnimationFrame(frame);
+  }, [currentFeatured?.id]);
+
   const featuredPositionLabel =
     language === 'id'
       ? `${featuredIndex + 1} dari ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`
@@ -586,6 +595,7 @@ export const Work = () => {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   onClick={(event) => openCaseStudy(currentFeatured, event.currentTarget)}
+                  ref={spotlightCardRef}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault();
@@ -595,17 +605,20 @@ export const Work = () => {
 
                     if (event.key === 'ArrowLeft' && spotlightProjects.length > 1) {
                       event.preventDefault();
+                      restoreSpotlightFocusRef.current = true;
                       setFeaturedIndex(prev => (prev - 1 + spotlightProjects.length) % spotlightProjects.length);
                       return;
                     }
 
                     if (event.key === 'ArrowRight' && spotlightProjects.length > 1) {
                       event.preventDefault();
+                      restoreSpotlightFocusRef.current = true;
                       setFeaturedIndex(prev => (prev + 1) % spotlightProjects.length);
                     }
                   }}
                   role="button"
                   tabIndex={0}
+                  aria-haspopup="dialog"
                   aria-roledescription="slide"
                   aria-label={featuredPositionLabel}
                   data-cursor-label="Open"
@@ -759,7 +772,7 @@ export const Work = () => {
                     data-cursor-label="Reset"
                   >
                     <X size={10} />
-                    <span>Reset</span>
+                    <span>{language === 'id' ? 'Atur Ulang' : 'Reset'}</span>
                   </button>
                 )}
               </div>
@@ -976,6 +989,7 @@ export const Work = () => {
                     }}
                     role="button"
                     tabIndex={0}
+                    aria-haspopup="dialog"
                     aria-label={
                       language === 'id'
                         ? 'Buka studi kasus ' + project.title
