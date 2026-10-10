@@ -542,7 +542,7 @@ export const Contact = () => {
                   </p>
                 </header>
 
-                <section className="px-5 py-5 sm:px-6 sm:py-6" aria-labelledby="corporate-contact-heading">
+                <section className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6" aria-labelledby="corporate-contact-heading">
                   <h4 id="corporate-contact-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                     {language === 'id' ? 'Kontak utama' : 'Primary contact'}
                   </h4>
@@ -562,8 +562,8 @@ export const Contact = () => {
                     <ArrowUpRight size={16} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
                   </a>
 
-                  <div className="mt-5 divide-y divide-white/[0.07]">
-                    <a href="mailto:business@kapitech.id" className="group flex min-w-0 items-center justify-between gap-4 py-3.5">
+                  <div className="mt-5 flex flex-1 flex-col divide-y divide-white/[0.07]">
+                    <a href="mailto:business@kapitech.id" className="group flex min-w-0 flex-1 items-center justify-between gap-4 py-3.5">
                       <span className="flex min-w-0 items-start gap-3">
                         <Globe size={15} className="mt-0.5 shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
                         <span className="min-w-0">
@@ -573,7 +573,7 @@ export const Contact = () => {
                       </span>
                       <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
                     </a>
-                    <a href="mailto:recruitment@kapitech.id" className="group flex min-w-0 items-center justify-between gap-4 py-3.5">
+                    <a href="mailto:recruitment@kapitech.id" className="group flex min-w-0 flex-1 items-center justify-between gap-4 py-3.5">
                       <span className="flex min-w-0 items-start gap-3">
                         <Briefcase size={15} className="mt-0.5 shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
                         <span className="min-w-0">
@@ -583,7 +583,7 @@ export const Contact = () => {
                       </span>
                       <ArrowUpRight size={14} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
                     </a>
-                    <a href="tel:+6287769957062" className="group flex min-w-0 items-center justify-between gap-4 py-3.5">
+                    <a href="tel:+6287769957062" className="group flex min-w-0 flex-1 items-center justify-between gap-4 py-3.5">
                       <span className="flex min-w-0 items-start gap-3">
                         <Phone size={15} className="mt-0.5 shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
                         <span className="min-w-0">
@@ -595,7 +595,7 @@ export const Contact = () => {
                     </a>
                   </div>
                 </section>
-                <section className="mt-auto border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
+                <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
                   <h4 id="corporate-details-heading" className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
                     {language === 'id' ? 'Informasi pendukung' : 'Additional information'}
                   </h4>
