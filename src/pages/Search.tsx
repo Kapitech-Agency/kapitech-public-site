@@ -22,6 +22,14 @@ import PublicPageHero from '../components/ui/PublicPageHero';
 type SearchItemType = 'Page' | 'Service' | 'Case Study' | 'Insight' | 'Industry';
 type SearchFilter = 'All' | SearchItemType;
 
+type SearchItem = {
+  type: SearchItemType;
+  title: string;
+  description: string;
+  href: string;
+  keywords: string[];
+};
+
 const SEARCH_FILTERS: SearchFilter[] = ['All', 'Service', 'Case Study', 'Insight', 'Industry', 'Page'];
 const SEARCH_TYPE_ICONS: Record<SearchItemType, LucideIcon> = {
   Page: FileText,
@@ -49,14 +57,6 @@ function getSuggestedResults(items: SearchItem[]): SearchItem[] {
   }
   return suggested;
 }
-
-type SearchItem = {
-  type: SearchItemType;
-  title: string;
-  description: string;
-  href: string;
-  keywords: string[];
-};
 
 type SitePage = {
   title: string;
@@ -426,7 +426,7 @@ export const Search = () => {
         title={language === 'id' ? 'Cari di seluruh website.' : 'Search across the website.'}
         description={language === 'id' ? 'Temukan layanan, studi kasus, dan insight dari satu pencarian.' : 'Find services, case studies, and insights from one search.'}
       >
-        <form onSubmit={submit} className="mt-8 flex w-full max-w-4xl flex-col gap-3 sm:flex-row sm:items-center">
+        <form onSubmit={submit} className="flex w-full max-w-4xl flex-col gap-3 sm:flex-row sm:items-center">
           <label className="group flex min-h-14 flex-1 items-center gap-3 rounded-full border border-white/[0.1] bg-[#0B0C0E]/65 px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-300 focus-within:border-brand-red/55 focus-within:bg-[#0B0C0E]/80 focus-within:shadow-[0_0_0_3px_rgba(229,9,20,0.08)]">
             <SearchIcon size={18} className="shrink-0 text-[#8A909D] transition-colors group-focus-within:text-white" aria-hidden="true" />
             <input
