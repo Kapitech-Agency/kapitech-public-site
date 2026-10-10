@@ -237,8 +237,41 @@ export interface Position {
   compensation?: string;
 }
 
+const normalizeCmsPosition = (input: Record<string, unknown>, language: 'id' | 'en', index: number): Position => {
+  const value = (englishKey: string, indonesiaKey: string) => {
+    const english = input[englishKey];
+    const indonesia = input[indonesiaKey];
+    const chosen = language === 'id' && typeof indonesia === 'string' && indonesia.trim()
+      ? indonesia
+      : english;
+    return typeof chosen === 'string' ? chosen.trim() : '';
+  };
+  const list = (englishKey: string, indonesiaKey: string): string[] => {
+    const english = input[englishKey];
+    const indonesia = input[indonesiaKey];
+    const chosen = language === 'id' && Array.isArray(indonesia) && indonesia.length
+      ? indonesia
+      : english;
+    return Array.isArray(chosen) ? chosen.filter((item): item is string => typeof item === 'string' && Boolean(item.trim())) : [];
+  };
+  return {
+    id: typeof input.id === 'string' && input.id ? input.id : typeof input.slug === 'string' && input.slug ? input.slug : 'career-' + index,
+    title: value('title', 'titleId'),
+    department: value('department', 'departmentId'),
+    location: value('location', 'locationId'),
+    type: value('type', 'typeId'),
+    workplace: value('workplace', 'workplaceId'),
+    badge: value('badge', 'badgeId'),
+    summary: value('summary', 'summaryId'),
+    responsibilities: list('responsibilities', 'responsibilitiesId'),
+    requirements: list('requirements', 'requirementsId'),
+    compensation: value('compensation', 'compensationId') || undefined
+  };
+};
+
 export const Careers = () => {
   const { language } = useLanguage();
+  const [cmsPositions, setCmsPositions] = useState<Position[] | null>(null);
   const [activePractice, setActivePractice] = useState<'all' | 'Visual Experience' | 'Innovation Development'>('all');
   const [selectedDisciplineId, setSelectedDisciplineId] = useState('frontend-engineering');
   const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
@@ -277,6 +310,23 @@ export const Careers = () => {
     agreedNda: false,
     resume: null as File | null
   });
+
+  useEffect(() => {
+    let active = true;
+    void api.cms.getCareers()
+      .then((res) => {
+        if (!active || !res.success || !Array.isArray(res.data?.positions)) return;
+        setCmsPositions(
+          res.data.positions
+            .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object')
+            .map((item, index) => normalizeCmsPosition(item, language, index)),
+        );
+      })
+      .catch(() => {
+        // Keep the existing local roles visible if the CMS endpoint is temporarily unavailable.
+      });
+    return () => { active = false; };
+  }, [language]);
 
   const hasOpenCareerModal = Boolean(selectedPosition || isFreelanceModalOpen);
   const careerModalRef = React.useRef<HTMLDivElement>(null);
@@ -522,7 +572,7 @@ export const Careers = () => {
     }
   ];
 
-  const positions = language === 'id' ? positionsId : positionsEn;
+  const positions = cmsPositions ?? (language === 'id' ? positionsId : positionsEn);
 
   const benefitsEn = [
     {
@@ -1009,7 +1059,17 @@ export const Careers = () => {
           </div>
 
           <div className="space-y-4 sm:space-y-5">
-            {positions.map((pos) => (
+            {positions.length === 0 ? (
+              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.015] px-6 py-12 text-center">
+                <Briefcase className="mx-auto h-7 w-7 text-white/35" />
+                <h3 className="mt-4 text-lg font-display font-semibold tracking-tight text-white">
+                  {language === 'id' ? 'Belum ada lowongan aktif' : 'No open positions right now'}
+                </h3>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#8A909D]">
+                  {language === 'id' ? 'Silakan kunjungi kembali halaman ini untuk melihat peluang karier terbaru.' : 'Please check back later for new career opportunities.'}
+                </p>
+              </div>
+            ) : positions.map((pos) => (
               <motion.div
                 key={pos.id}
                 role="button"
