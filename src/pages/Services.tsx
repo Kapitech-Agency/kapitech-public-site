@@ -1097,7 +1097,7 @@ export const Services = () => {
                     <Link
                       to={'category' in selectedService ? `/services/${selectedService.id}` : `/solutions/${selectedService.id}`}
                       onClick={() => setSelectedService(null)}
-                      className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-full bg-white/[0.018] border border-white/[0.08] hover:border-brand-red/35 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-full bg-white/[0.018] border border-white/[0.08] hover:border-brand-red/35 text-white font-semibold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116]"
                     >
                       <span>{language === 'id' ? 'Lihat Detail' : 'View Full Detail'}</span>
                       <ChevronRight size={14} />
