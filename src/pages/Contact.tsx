@@ -97,14 +97,38 @@ export const Contact = () => {
     if (hasPrefilledService.current) return;
 
     const requestedService = searchParams.get('service')?.trim();
-    if (!requestedService) {
+    const requestedServiceId = searchParams.get('serviceId')?.trim().toLowerCase();
+    const serviceOptionIndexBySlug: Record<string, number> = {
+      'pitch-deck': 0,
+      'brand-identity': 1,
+      'logo-design': 2,
+      'graphic-design': 3,
+      rebranding: 4,
+      'ui-ux-design': 5,
+      'website-design': 6,
+      'website-redesign': 7,
+      'product-ux-ui-audit': 8,
+      'web-development': 9,
+      'mvp-development': 10,
+      'landing-page': 11,
+      'corporate-websites': 12,
+      'wow-websites': 13,
+      'mvp-design': 14,
+      'product-redesign': 15,
+      'team-extension': 16,
+    };
+    const directMatchIndex = requestedServiceId
+      ? serviceOptionIndexBySlug[requestedServiceId]
+      : undefined;
+
+    if (directMatchIndex === undefined && !requestedService) {
       hasPrefilledService.current = true;
       return;
     }
 
-    const normalizedRequest = requestedService.toLowerCase();
+    const normalizedRequest = requestedService?.toLowerCase() ?? '';
     const requestedTokens = normalizedRequest.split(/[^a-z0-9]+/).filter(Boolean);
-    const matchIndex = [serviceOptionsEn, serviceOptionsId].reduce<number | null>((found, options) => {
+    const matchIndex = directMatchIndex ?? [serviceOptionsEn, serviceOptionsId].reduce<number | null>((found, options) => {
       if (found !== null) return found;
 
       const index = options.findIndex((option) => {
