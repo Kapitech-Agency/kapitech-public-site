@@ -422,77 +422,158 @@ export const Search = () => {
   return (
     <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
       <PublicPageHero
-        eyebrow="Search"
+        eyebrow={language === 'id' ? 'Pencarian' : 'Search'}
         title={language === 'id' ? 'Cari di seluruh website.' : 'Search across the website.'}
         description={language === 'id' ? 'Temukan layanan, studi kasus, dan insight dari satu pencarian.' : 'Find services, case studies, and insights from one search.'}
-      />
-      <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 md:px-12">
-        <form onSubmit={submit} className="mt-8 flex max-w-3xl gap-2">
-          <label className="flex min-h-12 flex-1 items-center gap-3 rounded-full border border-white/[0.09] bg-white/[0.02] px-4">
-            <SearchIcon size={17} className="text-[#69717D]" aria-hidden="true" />
+      >
+        <form onSubmit={submit} className="mt-8 flex w-full max-w-4xl flex-col gap-3 sm:flex-row sm:items-center">
+          <label className="group flex min-h-14 flex-1 items-center gap-3 rounded-full border border-white/[0.1] bg-[#0B0C0E]/65 px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.035)] backdrop-blur-xl transition-[border-color,background-color,box-shadow] duration-300 focus-within:border-brand-red/55 focus-within:bg-[#0B0C0E]/80 focus-within:shadow-[0_0_0_3px_rgba(229,9,20,0.08)]">
+            <SearchIcon size={18} className="shrink-0 text-[#8A909D] transition-colors group-focus-within:text-white" aria-hidden="true" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               autoComplete="off"
               enterKeyHint="search"
-              placeholder={language === 'id' ? 'Cari layanan, studi kasus, insight, halaman...' : 'Search services, case studies, insights, pages...'}
-              className="w-full bg-transparent text-sm text-white outline-none placeholder:text-[#5F6773]"
+              placeholder={language === 'id' ? 'Cari layanan, studi kasus, insight...' : 'Search services, case studies, insights...'}
+              className="min-w-0 w-full bg-transparent py-3 text-sm text-white outline-none placeholder:text-[#737B87]"
               aria-label={language === 'id' ? 'Pencarian global' : 'Global search'}
             />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('');
+                  setParams({});
+                }}
+                aria-label={language === 'id' ? 'Hapus kata pencarian' : 'Clear search'}
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#818894] transition-colors hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              >
+                <X size={15} aria-hidden="true" />
+              </button>
+            ) : null}
           </label>
           <button
             type="submit"
-            className="min-h-12 rounded-full bg-brand-red px-5 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+            className="inline-flex min-h-14 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-7 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_8px_24px_rgba(229,9,20,0.12)] transition-[background-color,box-shadow,transform] duration-300 hover:bg-[#F01825] hover:shadow-[0_10px_28px_rgba(229,9,20,0.2)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
           >
             {language === 'id' ? 'Cari' : 'Search'}
+            <ArrowRight size={14} aria-hidden="true" />
           </button>
         </form>
-
-        <p className="mt-5 text-xs leading-5 text-[#737B87]" role="status" aria-live="polite">
-          {trimmedQuery
-            ? (language === 'id'
-                ? results.length + ' hasil ditemukan untuk “' + trimmedQuery + '”.'
-                : results.length + ' results found for “' + trimmedQuery + '”.')
-            : (language === 'id'
-                ? 'Mulai mengetik untuk mencari layanan, studi kasus, insight, industri, dan halaman website.'
-                : 'Start typing to search services, case studies, insights, industries, and site pages.')}
+        <p className="mt-4 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.1em] text-[#7F8794]">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-red" aria-hidden="true" />
+          {language === 'id' ? 'Cari berdasarkan layanan, klien, teknologi, atau topik.' : 'Search by service, client, technology, or topic.'}
         </p>
+      </PublicPageHero>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {results.map((item) => (
-            <Link
-              key={item.type + ':' + item.href}
-              to={item.href}
-              className="group rounded-3xl border border-white/[0.08] bg-white/[0.018] p-5 hover:border-white/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">{getTypeLabel(item.type, language)}</span>
-                <ArrowUpRight size={14} className="text-[#59616D] group-hover:text-white" aria-hidden="true" />
-              </div>
-              <h2 className="mt-3 text-xl font-display font-semibold tracking-[-0.03em] text-white">{item.title}</h2>
-              <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#7E8692]">{item.description}</p>
-            </Link>
-          ))}
+      <section className="mx-auto w-full max-w-7xl px-4 pb-24 pt-10 sm:px-6 sm:pt-12 md:px-12" aria-label={language === 'id' ? 'Hasil pencarian' : 'Search results'}>
+        <div className="flex flex-col justify-between gap-5 border-b border-white/[0.07] pb-6 md:flex-row md:items-end">
+          <div className="min-w-0">
+            <span className="kapi-section-label">{trimmedQuery ? (language === 'id' ? 'HASIL PENCARIAN' : 'SEARCH RESULTS') : (language === 'id' ? 'JELAJAHI KAPITECH' : 'EXPLORE KAPITECH')}</span>
+            <h2 className="mt-4 font-display text-2xl font-semibold tracking-[-0.045em] text-white sm:text-3xl">
+              {trimmedQuery
+                ? (language === 'id' ? 'Hasil untuk ' : 'Results for ') + '“' + trimmedQuery + '”'
+                : (language === 'id' ? 'Mulai dari sini.' : 'Start here.')}
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#818894]">
+              {trimmedQuery
+                ? (language === 'id' ? 'Persempit hasil berdasarkan jenis konten.' : 'Narrow the results by content type.')
+                : (language === 'id' ? 'Jelajahi halaman dan konten pilihan, atau ketik kata kunci untuk menemukan hal yang lebih spesifik.' : 'Browse a few starting points, or enter a keyword to find something specific.')}
+            </p>
+          </div>
+          <p className="shrink-0 text-xs font-mono uppercase tracking-[0.12em] text-[#858D99]" role="status" aria-live="polite">
+            <span className="text-white">{results.length}</span>{' '}
+            {trimmedQuery
+              ? (language === 'id' ? 'hasil ditemukan' : 'results found')
+              : (language === 'id' ? 'pilihan ditampilkan' : 'suggested results')}
+          </p>
         </div>
 
-        {trimmedQuery && results.length === 0 ? (
-          <div className="mt-10 rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6 sm:p-8">
-            <p className="text-sm text-[#9AA1AC]">
-              {language === 'id' ? 'Tidak ada hasil yang cocok dengan pencarian Anda.' : 'No matching results for your search.'}
+        <div className="flex gap-2 overflow-x-auto py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label={language === 'id' ? 'Filter jenis hasil' : 'Filter result type'}>
+          {SEARCH_FILTERS.map((filter) => {
+            const isActive = activeFilter === filter;
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                aria-pressed={isActive}
+                className={[
+                  'inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-[10px] font-semibold uppercase tracking-[0.1em] transition-[background-color,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]',
+                  isActive
+                    ? 'border-brand-red bg-brand-red text-white'
+                    : 'border-white/[0.09] bg-white/[0.018] text-[#9AA1AC] hover:border-white/[0.18] hover:bg-white/[0.04] hover:text-white',
+                ].join(' ')}
+              >
+                {getFilterLabel(filter, language)}
+                <span className={isActive ? 'text-white/75' : 'text-[#626B76]'}>{filterCounts[filter]}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {results.length > 0 ? (
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {results.map((item) => {
+              const TypeIcon = SEARCH_TYPE_ICONS[item.type];
+              return (
+                <Link
+                  key={item.type + ':' + item.href}
+                  to={item.href}
+                  className="group relative flex min-h-[218px] flex-col overflow-hidden rounded-2xl border border-white/[0.075] bg-white/[0.014] p-5 transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-red/30 hover:bg-white/[0.026] hover:shadow-[0_16px_38px_-30px_rgba(229,9,20,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:p-6"
+                >
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/0 to-transparent transition-colors duration-300 group-hover:via-brand-red/55" aria-hidden="true" />
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex min-w-0 items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-brand-red">
+                      <TypeIcon size={13} className="shrink-0" aria-hidden="true" />
+                      <span className="truncate">{getTypeLabel(item.type, language)}</span>
+                    </span>
+                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-[#858D99] transition-[border-color,background-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-red/40 group-hover:bg-brand-red group-hover:text-white" aria-hidden="true">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-semibold leading-[1.12] tracking-[-0.035em] text-white sm:text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-3 text-[13px] font-light leading-6 text-[#858D99]">
+                    {item.description}
+                  </p>
+                  <div className="mt-auto flex items-center gap-2 pt-6 text-[9px] font-mono uppercase tracking-[0.13em] text-[#626B76] transition-colors group-hover:text-white">
+                    {language === 'id' ? 'Lihat detail' : 'Explore'}
+                    <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="flex min-h-[260px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/[0.12] px-6 py-14 text-center">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-[#7F8794]">
+              <SearchIcon size={18} aria-hidden="true" />
+            </span>
+            <h3 className="mt-5 font-display text-xl font-semibold tracking-[-0.035em] text-white">
+              {language === 'id' ? 'Belum ada hasil yang cocok.' : 'No matching results yet.'}
+            </h3>
+            <p className="mt-2 max-w-md text-sm leading-6 text-[#858D99]">
+              {language === 'id'
+                ? 'Coba kata kunci yang lebih singkat atau gunakan istilah lain yang berkaitan dengan layanan, industri, atau topik yang Anda cari.'
+                : 'Try a shorter phrase or a different term related to the service, industry, or topic you are looking for.'}
             </p>
             <button
               type="button"
               onClick={() => {
                 setQuery('');
                 setParams({});
+                setActiveFilter('All');
               }}
-              className="mt-4 inline-flex min-h-10 items-center rounded-full border border-white/[0.1] px-4 py-2 text-xs font-semibold text-white transition-colors hover:border-brand-red/40 hover:text-brand-red focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.02] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-brand-red/45 hover:bg-brand-red/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
             >
-              {language === 'id' ? 'Reset pencarian' : 'Reset search'}
+              {language === 'id' ? 'Hapus filter' : 'Clear filters'}
+              <X size={13} aria-hidden="true" />
             </button>
           </div>
-        ) : null}
-      </div>
+        )}
+      </section>
     </div>
   );
 };
