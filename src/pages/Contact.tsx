@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, MapPin, Clock, CheckCircle2, ArrowUpRight, Send,, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
+import { Mail, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
 import { useLanguage } from '../lib/LanguageContext';
 import { sanitizeInput, isValidEmail, isValidPhone, clampLength } from '../lib/security';
 import { submitToInbox } from '../lib/submissions';
@@ -618,7 +618,6 @@ export const Contact = () => {
                         <ArrowUpRight size={15} aria-hidden="true" className="shrink-0 text-[#727985] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                       </a>
                     </div>
-                  </div>
                   </div>
                 </section>
                 <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
