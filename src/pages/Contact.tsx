@@ -543,71 +543,86 @@ export const Contact = () => {
                 </header>
 
                 <section className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6" aria-labelledby="corporate-contact-heading">
-                  <h4 id="corporate-contact-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
-                    {language === 'id' ? 'Kontak utama' : 'Primary contact'}
-                  </h4>
-                  <a
-                    href="mailto:hello@kapitech.id"
-                    className="group mt-3 flex min-w-0 items-center justify-between gap-3 rounded-xl border border-white/[0.09] bg-white/[0.025] px-4 py-4 transition-colors duration-300 hover:border-white/[0.17] hover:bg-white/[0.04]"
-                  >
-                    <span className="flex min-w-0 items-center gap-3">
-                      <Mail size={17} className="shrink-0 text-[#A7ACB5] transition-colors group-hover:text-white" />
-                      <span className="min-w-0">
-                        <span className="block text-[9px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">
-                          {language === 'id' ? 'Proyek & pertanyaan umum' : 'Projects & general inquiries'}
+                  <div>
+                    <h4 id="corporate-contact-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Kontak utama' : 'Primary contact'}
+                    </h4>
+                    <a
+                      href="mailto:hello@kapitech.id"
+                      aria-label={language === 'id' ? 'Kirim email untuk proyek dan pertanyaan umum ke hello@kapitech.id' : 'Email hello@kapitech.id for projects and general inquiries'}
+                      className="group mt-3 flex min-h-[86px] min-w-0 items-center justify-between gap-4 rounded-2xl border border-white/[0.09] bg-white/[0.025] px-4 py-4 transition-colors duration-300 hover:border-white/[0.16] hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 sm:px-5"
+                    >
+                      <span className="flex min-w-0 items-center gap-3.5">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-white">
+                          <Mail size={17} />
                         </span>
-                        <span className="mt-1 block break-all text-sm font-semibold tracking-[-0.01em] text-white sm:text-base">hello@kapitech.id</span>
+                        <span className="min-w-0">
+                          <span className="block text-[10px] leading-relaxed text-[#8A909D]">
+                            {language === 'id' ? 'Proyek & pertanyaan umum' : 'Projects & general inquiries'}
+                          </span>
+                          <span className="mt-1 block break-all text-sm font-semibold tracking-[-0.015em] text-white sm:text-base">hello@kapitech.id</span>
+                        </span>
                       </span>
-                    </span>
-                    <ArrowUpRight size={16} className="shrink-0 text-[#6F757F] transition-colors group-hover:text-white" />
-                  </a>
+                      <ArrowUpRight size={17} aria-hidden="true" className="shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
+                    </a>
+                  </div>
 
-                  <div className="mt-4 flex min-h-0 flex-1 flex-col divide-y divide-white/[0.07]">
-                    <a
-                      href="mailto:business@kapitech.id"
-                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
-                    >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
-                        <Globe size={15} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-medium text-white">
-                          {language === 'id' ? 'Kemitraan & bisnis' : 'Business & partnerships'}
+                  <div className="mt-7 flex min-h-0 flex-1 flex-col">
+                    <h4 id="corporate-secondary-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      {language === 'id' ? 'Kontak berdasarkan kebutuhan' : 'Contact by inquiry type'}
+                    </h4>
+
+                    <div className="mt-2 grid flex-1 grid-cols-1 content-stretch sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6">
+                      <a
+                        href="mailto:business@kapitech.id"
+                        aria-label={language === 'id' ? 'Email kemitraan dan bisnis' : 'Email business and partnerships'}
+                        className="group flex min-w-0 items-center gap-3 border-t border-white/[0.08] py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+                      >
+                        <Globe size={18} aria-hidden="true" className="shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-xs font-medium text-white">
+                            {language === 'id' ? 'Kemitraan & bisnis' : 'Business & partnerships'}
+                          </span>
+                          <span className="mt-1 block break-all text-xs leading-relaxed text-[#A7ACB5] transition-colors group-hover:text-white">business@kapitech.id</span>
                         </span>
-                        <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">business@kapitech.id</span>
-                      </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
-                    </a>
-                    <a
-                      href="mailto:recruitment@kapitech.id"
-                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
-                    >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
-                        <Briefcase size={15} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-medium text-white">
-                          {language === 'id' ? 'Karier & rekrutmen' : 'Careers & recruitment'}
+                        <ArrowUpRight size={13} aria-hidden="true" className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
+                      </a>
+
+                      <a
+                        href="mailto:recruitment@kapitech.id"
+                        aria-label={language === 'id' ? 'Email karier dan rekrutmen' : 'Email careers and recruitment'}
+                        className="group flex min-w-0 items-center gap-3 border-t border-white/[0.08] py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60"
+                      >
+                        <Briefcase size={18} aria-hidden="true" className="shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-xs font-medium text-white">
+                            {language === 'id' ? 'Karier & rekrutmen' : 'Careers & recruitment'}
+                          </span>
+                          <span className="mt-1 block break-all text-xs leading-relaxed text-[#A7ACB5] transition-colors group-hover:text-white">recruitment@kapitech.id</span>
                         </span>
-                        <span className="mt-1 block break-all text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">recruitment@kapitech.id</span>
-                      </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
-                    </a>
-                    <a
-                      href="tel:+6287769957062"
-                      className="group flex min-w-0 flex-1 items-center gap-3 py-3.5"
-                    >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.035] text-[#8A909D] transition-colors duration-300 group-hover:bg-white/[0.06] group-hover:text-white">
-                        <Phone size={15} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-medium text-white">
-                          {language === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}
+                        <ArrowUpRight size={13} aria-hidden="true" className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
+                      </a>
+
+                      <a
+                        href="https://wa.me/6287769957062"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={language === 'id' ? 'Hubungi Kapitech melalui WhatsApp di +62 877-6995-7062' : 'Contact Kapitech on WhatsApp at +62 877-6995-7062'}
+                        className="group flex min-w-0 items-center gap-3 border-t border-white/[0.08] py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:col-span-2 sm:justify-between"
+                      >
+                        <MessageSquare size={18} aria-hidden="true" className="shrink-0 text-[#8A909D] transition-colors group-hover:text-white" />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-xs font-medium text-white">
+                            {language === 'id' ? 'WhatsApp / telepon' : 'WhatsApp / phone'}
+                          </span>
+                          <span className="mt-1 block text-xs leading-relaxed text-[#A7ACB5] transition-colors group-hover:text-white">+62 877-6995-7062</span>
                         </span>
-                        <span className="mt-1 block text-[11px] leading-relaxed text-[#8A909D] transition-colors group-hover:text-[#D4D7DE]">+62 877-6995-7062</span>
-                      </span>
-                      <ArrowUpRight size={14} className="shrink-0 text-[#656B75] transition-colors group-hover:text-white" />
-                    </a>
+                        <span className="inline-flex shrink-0 items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#A7ACB5] transition-colors group-hover:text-white">
+                          <span>{language === 'id' ? 'Hubungi' : 'Message us'}</span>
+                          <ArrowUpRight size={13} aria-hidden="true" />
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </section>
                 <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-4 sm:px-6" aria-labelledby="corporate-details-heading">
