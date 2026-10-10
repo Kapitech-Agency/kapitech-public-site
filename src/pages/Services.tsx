@@ -826,7 +826,7 @@ export const Services = () => {
         className="sticky top-20 sm:top-20 md:top-[76px] z-30 px-4 sm:px-6 md:px-12 py-2"
         aria-label={language === 'id' ? 'Filter kategori layanan' : 'Service category filters'}
       >
-        <div className="relative z-10 pointer-events-auto w-full max-w-3xl mx-auto px-2.5 py-2.5 sm:px-3.5 sm:py-3">
+        <div className="relative z-10 pointer-events-auto w-full max-w-3xl mx-auto rounded-2xl border border-white/[0.09] bg-[#111216] px-3 py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.20),inset_0_1px_0_rgba(255,255,255,0.025)] sm:px-4 sm:py-4">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
               <span className="mb-0 shrink-0 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
