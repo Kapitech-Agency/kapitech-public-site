@@ -624,7 +624,7 @@ export const Contact = () => {
                           <MessageSquare size={16} aria-hidden="true" />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block text-[13px] font-semibold leading-snug text-white">WhatsApp / phone</span>
+                          <span className="block text-[13px] font-semibold leading-snug text-white">{language === 'id' ? 'WhatsApp / telepon' : 'WhatsApp / phone'}</span>
                           <span className="mt-1 block text-[11px] leading-[1.6] text-[#8A909D]">
                             {language === 'id' ? 'Untuk pertanyaan singkat atau komunikasi langsung dengan tim kami.' : 'For quick questions or a direct conversation with our team.'}
                           </span>
