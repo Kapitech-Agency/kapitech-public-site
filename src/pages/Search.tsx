@@ -38,8 +38,22 @@ export const Search = () => {
   const [activeType, setActiveType] = useState<SearchFilter>('All');
 
   useEffect(() => {
-    setQuery(params.get('q') || '');
+    const urlQuery = params.get('q') || '';
+    setQuery((current) => current === urlQuery ? current : urlQuery);
   }, [params]);
+
+  // Keep the shareable URL in sync without navigating on every keystroke.
+  useEffect(() => {
+    const value = query.trim();
+    const currentValue = params.get('q') || '';
+    if (value === currentValue) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setParams(value ? { q: value } : {}, { replace: true });
+    }, 300);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [query, params, setParams]);
 
   useEffect(() => {
     let cancelled = false;
@@ -192,44 +206,40 @@ export const Search = () => {
           : 'Search Kapitech services, case studies, and insights in one place.'}
       >
         <form onSubmit={submit} role="search" className="w-full max-w-3xl">
-          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0 sm:overflow-hidden sm:rounded-2xl sm:border sm:border-white/[0.12] sm:bg-[#111216]/90 sm:shadow-[0_14px_38px_-24px_rgba(0,0,0,0.9)] sm:transition-colors sm:duration-200 sm:focus-within:border-white/[0.22]">
-            <div className="flex min-h-[58px] min-w-0 flex-1 items-center gap-3 rounded-2xl border border-white/[0.12] bg-[#111216]/90 px-4 transition-colors duration-200 focus-within:border-white/[0.22] sm:rounded-none sm:border-0 sm:bg-transparent sm:px-5 sm:focus-within:border-transparent">
-              <SearchIcon size={19} aria-hidden="true" className="shrink-0 text-[#9AA1AC]" />
-              <input
-                type="text"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                autoComplete="off"
-                enterKeyHint="search"
-                placeholder={language === 'id'
-                  ? 'Cari layanan, studi kasus, atau insight...'
-                  : 'Search services, case studies, or insights...'}
-                className="h-full min-w-0 flex-1 truncate bg-transparent py-4 text-base text-white outline-none placeholder:text-[#69717D] sm:text-sm"
-                aria-label={language === 'id' ? 'Cari di website Kapitech' : 'Search the Kapitech website'}
-              />
-              {query ? (
-                <button
-                  type="button"
-                  onClick={clearSearch}
-                  aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#8A909D] transition-colors hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-                >
-                  <X size={16} aria-hidden="true" />
-                </button>
-              ) : null}
-            </div>
-            <button
-              type="submit"
-              className="inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-xs font-semibold text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:min-h-[58px] sm:w-auto sm:min-w-[116px] sm:rounded-none sm:rounded-r-[calc(1rem-1px)] sm:px-6"
-            >
-              <span>{language === 'id' ? 'Cari' : 'Search'}</span>
-              <ArrowRight size={14} aria-hidden="true" />
-            </button>
+          <div className="group flex min-h-[64px] w-full min-w-0 items-center gap-3.5 rounded-2xl border border-white/[0.11] bg-[#111216]/90 px-4 transition-[border-color,background-color,box-shadow] duration-200 hover:border-white/[0.16] focus-within:border-white/[0.24] focus-within:bg-[#121318] focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.025)] sm:gap-4 sm:px-5">
+            <SearchIcon
+              size={19}
+              aria-hidden="true"
+              className="shrink-0 text-[#8A909D] transition-colors duration-200 group-focus-within:text-white"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              autoComplete="off"
+              enterKeyHint="search"
+              spellCheck={false}
+              placeholder={language === 'id'
+                ? 'Cari layanan, studi kasus, atau insight...'
+                : 'Search services, case studies, or insights...'}
+              className="block h-12 min-w-0 flex-1 appearance-none border-0 bg-transparent px-0 py-0 text-sm font-normal leading-6 text-white outline-none ring-0 placeholder:text-[#737B87] focus:border-0 focus:outline-none focus:ring-0 sm:text-base [&::-webkit-search-cancel-button]:hidden"
+              aria-label={language === 'id' ? 'Cari di website Kapitech' : 'Search the Kapitech website'}
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={clearSearch}
+                aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              >
+                <X size={16} aria-hidden="true" />
+              </button>
+            ) : null}
           </div>
-          <p className="mt-3 px-1 text-[11px] leading-relaxed text-[#8A909D]">
+          <p className="mt-3 px-1 text-[11px] leading-relaxed text-[#858D99]">
             {language === 'id'
-              ? 'Coba kata kunci seperti UI/UX, website, fintech, atau MVP.'
-              : 'Try keywords such as UI/UX, website, fintech, or MVP.'}
+              ? 'Hasil diperbarui otomatis saat Anda mengetik.'
+              : 'Results update automatically as you type.'}
           </p>
         </form>
       </PublicPageHero>
