@@ -7,6 +7,7 @@ const distDir = join(root, 'dist');
 
 const requiredFiles = [
   'index.html',
+  'kapitech-deployment-health.txt',
   'work/index.html',
   'services/index.html',
   'insights/index.html',
@@ -24,6 +25,15 @@ for (const relativePath of requiredFiles) {
   }
 }
 
+const deploymentHealth = await readFile(join(distDir, 'kapitech-deployment-health.txt'), 'utf8');
+const baselineMatch = deploymentHealth.match(/^Baseline commit:\s*([a-f0-9]{40})\s*$/im);
+const requiredBaselineMatch = deploymentHealth.match(/^Required deployed baseline:\s*([a-f0-9]{40})\s*$/im);
+if (!baselineMatch || !requiredBaselineMatch || baselineMatch[1] !== requiredBaselineMatch[1]) {
+  throw new Error('[deploy-check] deployment health marker must contain matching 40-character baseline SHAs');
+}
+if (!deploymentHealth.includes('Build: Hostinger Node.js 22 / npm run build') || !deploymentHealth.includes('Expected deployment root: public_html')) {
+  throw new Error('[deploy-check] deployment health marker does not match the supported Hostinger build target');
+}
 const mvpInsightAssets = [
   'insights/mvp-vs-prototype-vs-proof-of-concept/hero.svg',
   'insights/mvp-vs-prototype-vs-proof-of-concept/hero-en.svg',
