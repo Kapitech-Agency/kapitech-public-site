@@ -525,6 +525,68 @@ export const Work = () => {
       : `${featuredIndex + 1} of ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`;
   const featuredProgress = `${((featuredIndex + 1) / Math.max(spotlightProjects.length, 1)) * 100}%`;
 
+  // Never manufacture or reveal unreviewed client work to fill the portfolio.
+  // A useful capability-led fallback keeps the page intentional until verified case studies are published.
+  if (projectsList.length === 0) {
+    return (
+      <div className="relative min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+        <PublicPageHero
+          eyebrow={language === 'id' ? 'Portofolio' : 'Portfolio'}
+          title={language === 'id' ? 'Karya yang layak dibagikan, ditampilkan dengan benar.' : 'Work worth sharing, presented with care.'}
+          description={language === 'id'
+            ? 'Studi kasus kami hanya ditampilkan setelah detail proyek dan izin publikasinya ditinjau. Sementara itu, jelajahi kapabilitas kami dan ceritakan apa yang ingin Anda bangun.'
+            : 'Case studies are displayed only after project details and publication approval have been reviewed. In the meantime, explore our capabilities and tell us what you want to build.'}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              to="/services"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Jelajahi Layanan' : 'Explore Services'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
+            <Link
+              to="/contact#project-inquiry-form"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Mulai Diskusi Proyek' : 'Discuss Your Project'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+        </PublicPageHero>
+
+        <section className="border-t border-white/[0.07] bg-[#0B0C0E] px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
+          <div className="mx-auto max-w-7xl">
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'Area Kapabilitas' : 'What We Can Help Build'}
+            </span>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  title: language === 'id' ? 'Brand dan Identitas' : 'Brand & Identity',
+                  description: language === 'id' ? 'Strategi brand, identitas visual, desain grafis, motion, dan konten kreatif.' : 'Brand strategy, visual identity, graphic design, motion, and creative content.'
+                },
+                {
+                  title: language === 'id' ? 'Website dan E-commerce' : 'Websites & Commerce',
+                  description: language === 'id' ? 'Website perusahaan, landing page, toko online, dan pengalaman digital yang responsif.' : 'Company websites, landing pages, online stores, and responsive digital experiences.'
+                },
+                {
+                  title: language === 'id' ? 'Produk Digital dan Sistem' : 'Digital Products & Systems',
+                  description: language === 'id' ? 'Desain UI/UX, aplikasi web khusus, MVP, integrasi, dan dukungan teknis.' : 'UI/UX design, custom web applications, MVPs, integrations, and technical support.'
+                }
+              ].map((capability) => (
+                <article key={capability.title} className="rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
+                  <h2 className="text-lg font-display font-semibold tracking-[-0.03em] text-white">{capability.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[#9299A5]">{capability.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
