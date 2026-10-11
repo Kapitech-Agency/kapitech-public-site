@@ -73,6 +73,45 @@ if (seoManifest.defaultImage !== 'https://kapitech.id/insights/article-hero-back
   throw new Error('[deploy-check] SEO manifest still points at an unowned default image');
 }
 
+const htmlEscape = (value) => String(value ?? '')
+  .replaceAll('&', '&amp;')
+  .replaceAll('"', '&quot;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;');
+const readMetaContent = (html, attribute, key) => {
+  const pattern = new RegExp('<meta\\b(?=[^>]*\\b' + attribute + '="' + key + '")[^>]*\\bcontent="([^"]*)"[^>]*>', 'i');
+  return html.match(pattern)?.[1] || '';
+};
+
+// Social preview metadata must match each canonical prerendered route, not the homepage template.
+for (const route of seoManifest.routes) {
+  if (route.path.startsWith('/insights/')) continue;
+  const relativePath = route.path === '/' ? 'index.html' : route.path.replace(/^\\/+/, '') + '/index.html';
+  let html;
+  try {
+    html = await readFile(join(distDir, relativePath), 'utf8');
+  } catch {
+    throw new Error('[deploy-check] missing SEO prerender for ' + route.path);
+  }
+  const canonicalUrl = seoManifest.siteUrl + (route.path === '/' ? '/' : route.path);
+  const expectedTitle = htmlEscape(route.title);
+  const expectedDescription = htmlEscape(route.description);
+  const expectedUrl = htmlEscape(canonicalUrl);
+  for (const [attribute, key, expected] of [
+    ['property', 'og:url', expectedUrl],
+    ['property', 'og:title', expectedTitle],
+    ['property', 'og:description', expectedDescription],
+    ['name', 'twitter:url', expectedUrl],
+    ['name', 'twitter:title', expectedTitle],
+    ['name', 'twitter:description', expectedDescription]
+  ]) {
+    const actual = readMetaContent(html, attribute, key);
+    if (actual !== expected) {
+      throw new Error('[deploy-check] mismatched ' + attribute + ':' + key + ' metadata for ' + route.path);
+    }
+  }
+}
+
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
 const requiredSecurityHeaders = [
   'Header always set X-Content-Type-Options "nosniff"',
