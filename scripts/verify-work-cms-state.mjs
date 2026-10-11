@@ -13,6 +13,8 @@ assert.match(workPage, /projectsLoadState === 'loading'/, 'The Work page must re
 assert.match(workPage, /projectsLoadState === 'error'/, 'The Work page must render an API error separately from an empty portfolio');
 assert.match(workPage, /retryCmsProjects/, 'The Work page must expose an explicit retry action');
 assert.match(workPage, /getCmsProjectsLoadState\(\)/, 'The Work page must react to the CMS request outcome');
+const initialVisibleCount = workPage.match(/const \[visibleCount, setVisibleCount\] = useState<number>\((\d+)\);/);
+assert.ok(Number(initialVisibleCount?.[1] ?? 0) >= 54, 'The Work page must show the full 54-item demo portfolio without requiring Load More');
 assert.doesNotMatch(workPage, /if \(projectsList\.length === 0\) \{/, 'An empty CMS collection must not replace the full Work layout');
 assert.match(workPage, /work-spotlight-empty-title/, 'The Work spotlight must remain visible with no published cases');
 assert.match(workPage, /Case Studies/, 'The Work case-study listing must remain in the page');
