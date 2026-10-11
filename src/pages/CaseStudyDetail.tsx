@@ -104,7 +104,7 @@ export const CaseStudyDetail = () => {
   };
   const related = useMemo(() => {
     if (!item) return [];
-    const source = projects.length ? projects : allProjects;
+    const source = projects.length ? projects : (import.meta.env.DEV ? allProjects : []);
     return source.filter((candidate) => candidate.id !== item.id && (candidate.industry === item.industry || candidate.service === item.service)).slice(0, 3);
   }, [item, projects]);
 
