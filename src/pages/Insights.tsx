@@ -274,7 +274,7 @@ export const Insights: React.FC = () => {
   return (
     <>
       <InsightSeoMeta />
-      <div className="relative w-full overflow-hidden bg-[#0B0C0E]">
+      <div className="relative w-full overflow-hidden bg-dark-base">
         <PublicPageHero
           eyebrow={eyebrow}
           title={title}
@@ -370,7 +370,7 @@ export const Insights: React.FC = () => {
             <button
               type="button"
               onClick={scrollToLibrary}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(229,9,20,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-bright active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white shadow-[0_16px_35px_-24px_rgba(220, 20, 60,0.9)] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-bright active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
             >
               {libraryLabel}
               <ArrowDown size={14} aria-hidden="true" />
@@ -447,7 +447,7 @@ export const Insights: React.FC = () => {
                   id="insight-search"
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
-                  className="h-11 min-h-11 w-full rounded-full border border-white/[0.08] bg-[#0B0C0E]/62 pl-9 pr-4 text-xs text-white outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#606774] focus:border-brand-red/40 focus:shadow-[0_0_0_3px_rgba(229,9,20,0.07)]"
+                  className="h-11 min-h-11 w-full rounded-full border border-white/[0.08] bg-dark-base/62 pl-9 pr-4 text-xs text-white outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#606774] focus:border-brand-red/40 focus:shadow-[0_0_0_3px_rgba(220, 20, 60,0.07)]"
                   placeholder={language === 'id' ? 'Cari topik...' : 'Search topics...'}
                 />
               </div>
@@ -536,7 +536,7 @@ export const Insights: React.FC = () => {
             </div>
           ) : total === 0 ? (
             <div className="relative overflow-hidden rounded-[28px] border border-white/[0.07] bg-white/[0.018] px-6 py-20 text-center backdrop-blur-xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(229,9,20,0.08),transparent_44%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(220, 20, 60,0.08),transparent_44%)]" />
               <div className="relative">
                 <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-[#717885]" aria-hidden="true">
                   <Sparkles size={16} />
@@ -576,7 +576,7 @@ export const Insights: React.FC = () => {
                   <div className="mb-7 grid gap-5 border-b border-white/[0.08] pb-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.68fr)] lg:items-end">
                     <div>
                       <p className="flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.17em] text-brand-red">
-                        <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_12px_rgba(229,9,20,0.75)]" aria-hidden="true" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_12px_rgba(220, 20, 60,0.75)]" aria-hidden="true" />
                         {language === 'id' ? 'Pilihan editorial' : "Editor's selection"}
                       </p>
                       <h2 id="featured-insight-title" className="mt-4 max-w-2xl text-[2rem] font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-4xl lg:text-[2.75rem]">

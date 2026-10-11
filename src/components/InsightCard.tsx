@@ -44,7 +44,7 @@ export const InsightCard: React.FC<{
         featured
           ? 'rounded-[26px] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch'
           : 'rounded-2xl',
-        'hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(229,9,20,0.25)]'
+        'hover:-translate-y-1 hover:border-brand-red/20 hover:bg-white/[0.022] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.028),0_18px_40px_-30px_rgba(220, 20, 60,0.25)]'
       ].join(' ')}
     >
       <div className={featured ? 'relative overflow-hidden lg:h-full' : 'relative overflow-hidden'}>
@@ -58,7 +58,7 @@ export const InsightCard: React.FC<{
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#090A0C] via-transparent to-transparent" />
             <div className="absolute left-4 top-4">
-              <span className="kapi-section-label !border-white/[0.08] !bg-[#0B0C0E]/72 !px-3 !py-1.5 !text-[8px]">
+              <span className="kapi-section-label !border-white/[0.08] !bg-dark-base/72 !px-3 !py-1.5 !text-[8px]">
                 {featured ? (language === 'id' ? 'PILIHAN EDITOR' : 'EDITOR PICK') : 'INSIGHT'}
               </span>
             </div>
@@ -68,9 +68,9 @@ export const InsightCard: React.FC<{
           </Link>
         ) : (
           <Link to={'/insights/' + insight.slug} aria-label={insight.title} className={['relative flex aspect-[16/9] overflow-hidden bg-[#101114] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-inset', featured ? 'lg:h-full lg:aspect-auto' : ''].join(' ')}>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(229,9,20,0.15),transparent_30%),linear-gradient(135deg,#15171D,#090A0C)]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(220, 20, 60,0.15),transparent_30%),linear-gradient(135deg,#15171D,#090A0C)]" aria-hidden="true" />
             <div className="absolute left-4 top-4">
-              <span className="kapi-section-label !border-white/[0.08] !bg-[#0B0C0E]/72 !px-3 !py-1.5 !text-[8px]">
+              <span className="kapi-section-label !border-white/[0.08] !bg-dark-base/72 !px-3 !py-1.5 !text-[8px]">
                 INSIGHT
               </span>
             </div>
@@ -95,7 +95,7 @@ export const InsightCard: React.FC<{
         </Link>
 
         {insight.excerpt && (
-          <p className={['mt-3 text-[13px] font-light leading-[1.75] text-[#8A909D]', featured ? 'lg:text-sm lg:leading-7' : ''].join(' ')}>
+          <p className={['mt-3 text-[13px] font-light leading-[1.75] text-text-body', featured ? 'lg:text-sm lg:leading-7' : ''].join(' ')}>
             {insight.excerpt}
           </p>
         )}
@@ -123,7 +123,7 @@ export const InsightCard: React.FC<{
                 }
               : {})}
             aria-label={(language === 'id' ? 'Buka Insight: ' : 'Open Insight: ') + insight.title}
-            className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-[#262930] bg-[#16181D] px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+            className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-dark-subtle bg-dark-card px-3.5 text-[9px] font-semibold uppercase tracking-[0.11em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
           >
             {language === 'id' ? 'Buka' : 'Open'}
             <ArrowUpRight size={13} />

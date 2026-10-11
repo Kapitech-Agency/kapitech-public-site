@@ -189,7 +189,7 @@ export const IndustryDetail = () => {
 
   if (!catalog && !legacyIndustry) {
     return (
-      <div className="min-h-screen bg-[#0B0C0E] px-5 pt-32 text-white">
+      <div className="min-h-screen bg-dark-base px-5 pt-32 text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">Industry</p>
           <h1 className="mt-3 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-5xl">
@@ -220,7 +220,7 @@ export const IndustryDetail = () => {
       : 'We combine design, development, and technical delivery around digital needs in ' + currentLabel + '.');
 
   return (
-    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+    <div className="kapi-page-bg min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
       <PublicPageHero
         eyebrow={currentLabel}
         title={heroTitle}
@@ -245,7 +245,7 @@ export const IndustryDetail = () => {
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
             to={consultationHref}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(220, 20, 60,0.8)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
           >
             {language === 'id' ? 'Diskusikan project Anda' : 'Discuss your project'}
             <ArrowUpRight size={14} aria-hidden="true" />
@@ -459,7 +459,7 @@ export const IndustryDetail = () => {
                 ? 'Pilih bentuk engagement yang paling dekat dengan kebutuhan Anda.'
                 : 'Choose the engagement shape that best matches your next move.'}
             </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#8A909D] sm:text-[15px]">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-text-body sm:text-[15px]">
               {language === 'id'
                 ? 'Scope tetap fleksibel. Yang kami tunjukkan di sini adalah bentuk pekerjaan yang paling relevan dengan konteks industri ini.'
                 : 'Scope stays flexible. These are the work shapes most relevant to this industry context.'}
@@ -489,7 +489,7 @@ export const IndustryDetail = () => {
                   <h3 className="mt-8 text-lg font-display font-semibold tracking-[-0.03em] text-white sm:text-xl">
                     {item.title}
                   </h3>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-text-body">
                     {item.description}
                   </p>
                 </motion.article>
@@ -535,7 +535,7 @@ export const IndustryDetail = () => {
                   : 'A clear delivery path, adapted to the context.'}
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-7 text-[#8A909D] lg:pb-1">
+            <p className="max-w-md text-sm leading-7 text-text-body lg:pb-1">
               {language === 'id'
                 ? 'Setiap fase punya tujuan yang jelas agar keputusan, review, dan handoff tetap mudah diikuti.'
                 : 'Each phase has a clear purpose so decisions, reviews, and handoff stay easy to follow.'}
@@ -559,7 +559,7 @@ export const IndustryDetail = () => {
                   <h3 className="mt-5 text-base font-display font-semibold tracking-[-0.025em] text-white sm:text-lg">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-7 text-[#8A909D]">{item.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-text-body">{item.description}</p>
                 </div>
                 <div className="mt-6 border-t border-white/[0.07] pt-4 text-[9px] font-mono uppercase tracking-[0.14em] text-[#555A63]">
                   {language === 'id' ? 'Tahap delivery' : 'Delivery phase'}
@@ -604,10 +604,10 @@ export const IndustryDetail = () => {
                         {item.question}
                       </span>
                     </span>
-                    <ChevronDown size={17} className="shrink-0 text-[#8A909D] transition-transform duration-200 group-open:rotate-180 group-open:text-white" />
+                    <ChevronDown size={17} className="shrink-0 text-text-body transition-transform duration-200 group-open:rotate-180 group-open:text-white" />
                   </summary>
                   <div className="border-t border-white/[0.07] px-5 pb-6 pt-4 sm:px-6">
-                    <p className="pl-0 text-sm leading-7 text-[#8A909D] sm:pl-10">{item.answer}</p>
+                    <p className="pl-0 text-sm leading-7 text-text-body sm:pl-10">{item.answer}</p>
                   </div>
                 </details>
               ))}

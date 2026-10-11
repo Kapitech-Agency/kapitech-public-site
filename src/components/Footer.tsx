@@ -175,7 +175,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-[#0B0C0E] pt-20 pb-12 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-[#262930]" id="main-footer">
+    <footer className="relative bg-dark-base pt-20 pb-12 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-dark-subtle" id="main-footer">
       <div className="max-w-7xl mx-auto relative z-10">
                 {/* Main Footer Links - 5 Columns Grid */}
 
@@ -192,13 +192,13 @@ export const Footer = () => {
                 Kapitech Agency
               </span>
             </Link>
-            <p className="text-xs text-[#8A909D] font-light leading-relaxed max-w-sm">
+            <p className="text-xs text-text-body font-light leading-relaxed max-w-sm">
               {t('footer.about')}
             </p>
             
             {/* Newsletter Subscription */}
             <div className="pt-2">
-              <span className="text-[11px] font-mono text-[#8A909D] uppercase tracking-wider block mb-2 font-medium">
+              <span className="text-[11px] font-mono text-text-body uppercase tracking-wider block mb-2 font-medium">
                 {language === 'id' ? 'Berlangganan Wawasan Proyek' : 'Subscribe for Project Insights'}
               </span>
               <form onSubmit={handleSubscribe} className="relative max-w-sm">
@@ -208,7 +208,7 @@ export const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-[44px] bg-[#16181D] border border-[#262930] rounded-xl px-4 pr-28 py-3 text-xs text-white placeholder:text-[#8A909D]/70 focus:outline-none focus:border-brand-red transition-colors"
+                  className="w-full min-h-[44px] bg-dark-card border border-dark-subtle rounded-xl px-4 pr-28 py-3 text-xs text-white placeholder:text-text-body/70 focus:outline-none focus:border-brand-red transition-colors"
                 />
                 <button 
                   type="submit"
@@ -245,7 +245,7 @@ export const Footer = () => {
                 <li key={srv.name}>
                   <Link 
                     to={srv.href} 
-                    className="group block text-[#8A909D] hover:text-white transition-colors"
+                    className="group block text-text-body hover:text-white transition-colors"
                   >
                     <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
                   </Link>
@@ -264,7 +264,7 @@ export const Footer = () => {
                 <li key={srv.name}>
                   <Link 
                     to={srv.href} 
-                    className="group block text-[#8A909D] hover:text-white transition-colors"
+                    className="group block text-text-body hover:text-white transition-colors"
                   >
                     <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
                   </Link>
@@ -291,7 +291,7 @@ export const Footer = () => {
                 <li key={item.name}>
                   <Link 
                     to={item.href} 
-                    className="text-[#8A909D] hover:text-brand-red transition-colors flex items-center gap-2"
+                    className="text-text-body hover:text-brand-red transition-colors flex items-center gap-2"
                   >
                     <span>{item.name}</span>
                   </Link>
@@ -313,7 +313,7 @@ export const Footer = () => {
                 <li key={policy.name}>
                   <Link
                     to={policy.href}
-                    className="text-[#8A909D]/80 hover:text-brand-red transition-colors block text-[11px]"
+                    className="text-text-body/80 hover:text-brand-red transition-colors block text-[11px]"
                   >
                     {policy.name}
                   </Link>
@@ -336,53 +336,53 @@ export const Footer = () => {
             <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
               {t('footer.contactsTitle')}
             </h4>
-            <div className="space-y-3.5 text-xs text-[#8A909D]">
+            <div className="space-y-3.5 text-xs text-text-body">
               <a href="mailto:hello@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Mail size={13} />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.clientInquiry')}</span>
+                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.clientInquiry')}</span>
                   <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">hello@kapitech.id</span>
                 </div>
               </a>
 
               <a href="mailto:business@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Globe size={13} />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
+                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
                   <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">business@kapitech.id</span>
                 </div>
               </a>
 
               <a href="mailto:recruitment@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Briefcase size={13} />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.recruitment')}</span>
+                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.recruitment')}</span>
                   <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">recruitment@kapitech.id</span>
                 </div>
               </a>
 
               <a href="tel:+6287769957062" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
                   <Phone size={13} />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.phone')}</span>
+                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.phone')}</span>
                   <span className="font-medium text-white group-hover:text-brand-red text-[11px] block">+62 877-6995-7062</span>
                 </div>
               </a>
 
               <div className="flex items-start gap-2.5 pt-1">
-                <div className="w-7 h-7 rounded-lg bg-[#16181D] border border-[#262930] flex items-center justify-center text-brand-red shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red shrink-0 mt-0.5">
                   <MapPin size={13} />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-[#8A909D]/70 block leading-tight">{t('footer.addressTitle')}</span>
+                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.addressTitle')}</span>
                   <p className="leading-tight text-white/90 text-[11px] font-light">
                     {t('footer.address')}
                   </p>
@@ -393,8 +393,8 @@ export const Footer = () => {
         </div>
 
         {/* Social Media Links Bar (Crisp Monochrome Logo Icons) */}
-        <div className="py-6 border-t border-[#262930] flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-xs font-mono text-[#8A909D] uppercase tracking-widest">
+        <div className="py-6 border-t border-dark-subtle flex flex-col md:flex-row items-center justify-between gap-4">
+          <span className="text-xs font-mono text-text-body uppercase tracking-widest">
             {language === 'id' ? 'Kanal Resmi & Media Sosial' : 'Official Channels & Social Media'}
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
@@ -406,7 +406,7 @@ export const Footer = () => {
                 rel="noopener noreferrer"
                 aria-label={social.name}
                 title={social.name}
-                className="w-11 h-11 min-h-[44px] min-w-[44px] rounded-xl flex items-center justify-center text-[#8A909D] hover:text-white bg-[#16181D] hover:bg-[#1B1F26] hover:border-brand-red/30 border border-[#262930] transition-all duration-200"
+                className="w-11 h-11 min-h-[44px] min-w-[44px] rounded-xl flex items-center justify-center text-text-body hover:text-white bg-dark-card hover:bg-dark-card-hover hover:border-brand-red/30 border border-dark-subtle transition-all duration-200"
               >
                 {social.icon}
               </a>
@@ -415,12 +415,12 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Copyright Bar */}
-        <div className="pt-6 border-t border-[#262930] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8A909D]">
+        <div className="pt-6 border-t border-dark-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-text-body">
           <p>© 2021-2026 Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
           <div className="flex items-center gap-4 sm:gap-6">
             <a
               href="https://ams.kapitech.id/"
-              className="text-[#6F7783] hover:text-[#8A909D] transition-colors text-[11px] font-mono"
+              className="text-[#6F7783] hover:text-text-body transition-colors text-[11px] font-mono"
               title="Kapitech Internal Admin Portal"
               rel="noreferrer"
             >
@@ -429,7 +429,7 @@ export const Footer = () => {
             <button 
               onClick={scrollToTop} 
               id="footer-back-to-top"
-              className="flex items-center gap-1.5 hover:text-white transition-colors py-2 px-3 min-h-[36px] rounded-lg bg-[#16181D] hover:bg-[#1B1F26] border border-[#262930]"
+              className="flex items-center gap-1.5 hover:text-white transition-colors py-2 px-3 min-h-[36px] rounded-lg bg-dark-card hover:bg-dark-card-hover border border-dark-subtle"
             >
               <span>{t('footer.backToTop')}</span>
               <ArrowUp size={14} />

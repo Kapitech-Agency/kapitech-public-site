@@ -529,7 +529,7 @@ export const Work = () => {
   // A useful capability-led fallback keeps the page intentional until verified case studies are published.
   if (projectsList.length === 0) {
     return (
-      <div className="relative min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+      <div className="relative min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
         <PublicPageHero
           eyebrow={language === 'id' ? 'Portofolio' : 'Portfolio'}
           title={language === 'id' ? 'Karya yang layak dibagikan, ditampilkan dengan benar.' : 'Work worth sharing, presented with care.'}
@@ -540,7 +540,7 @@ export const Work = () => {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/services"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
             >
               <span>{language === 'id' ? 'Jelajahi Layanan' : 'Explore Services'}</span>
               <ArrowUpRight size={14} aria-hidden="true" />
@@ -555,7 +555,7 @@ export const Work = () => {
           </div>
         </PublicPageHero>
 
-        <section className="border-t border-white/[0.07] bg-[#0B0C0E] px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
+        <section className="border-t border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
           <div className="mx-auto max-w-7xl">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Area Kapabilitas' : 'What We Can Help Build'}
@@ -588,7 +588,7 @@ export const Work = () => {
   }
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
+    <div className="bg-dark-base text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
@@ -599,7 +599,7 @@ export const Work = () => {
             : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
         }
       >
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-text-body">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 backdrop-blur-xl">
             <span className="h-2 w-2 rounded-full bg-brand-red" aria-hidden="true" />
             <span>{projectsList.length} {language === 'id' ? 'Studi Kasus Lengkap' : 'Case Studies'}</span>
@@ -624,7 +624,7 @@ export const Work = () => {
       {currentFeatured && (
         <section
           ref={spotlightRef}
-          className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]"
+          className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base"
           role="region"
           aria-roledescription="carousel"
           aria-label={language === 'id' ? 'Sorotan studi kasus terpilih' : 'Selected case study spotlight'}
@@ -650,7 +650,7 @@ export const Work = () => {
                     ? 'Satu pekerjaan, dilihat lebih dekat.'
                     : 'One project, brought into closer focus.'}
                 </h2>
-                <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light">
+                <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-text-body font-light">
                   {language === 'id'
                     ? 'Pilih salah satu pekerjaan unggulan untuk melihat konteks, hasil, dan cara kami mengeksekusinya.'
                     : 'Explore selected work with the context, outcomes, and execution behind the final result.'}
@@ -658,14 +658,14 @@ export const Work = () => {
               </div>
 
               <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3">
-                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-[#8A909D]/75 min-w-[4.5rem] text-center">
+                <div className="text-[10px] sm:text-xs font-mono tabular-nums text-text-body/75 min-w-[4.5rem] text-center">
                   {String(featuredIndex + 1).padStart(2, '0')} / {String(spotlightProjects.length).padStart(2, '0')}
                 </div>
                 <button
                   type="button"
                   disabled={spotlightProjects.length <= 1}
                   onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev - 1 + spotlightProjects.length) % spotlightProjects.length : 0)}
-                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-text-body hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                   aria-label={language === 'id' ? 'Studi kasus unggulan sebelumnya' : 'Previous featured case study'}
                   data-cursor-label="Previous"
                 >
@@ -675,7 +675,7 @@ export const Work = () => {
                   type="button"
                   disabled={spotlightProjects.length <= 1}
                   onClick={() => setFeaturedIndex(prev => spotlightProjects.length > 1 ? (prev + 1) % spotlightProjects.length : 0)}
-                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-[#8A909D] hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                  className="w-10 h-10 min-w-10 min-h-10 rounded-full border border-white/[0.08] bg-white/[0.018] hover:bg-white/[0.06] hover:border-white/[0.14] flex items-center justify-center text-text-body hover:text-white transition-[background-color,border-color,color] duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
                   aria-label={language === 'id' ? 'Studi kasus unggulan berikutnya' : 'Next featured case study'}
                   data-cursor-label="Next"
                 >
@@ -723,8 +723,8 @@ export const Work = () => {
                   aria-roledescription="slide"
                   aria-label={featuredPositionLabel}
                   data-cursor-label="Open"
-                  className="cursor-pointer group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-[#0F1116]/82 hover:border-brand-red/28 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12"                >
-                  <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[480px] overflow-hidden bg-[#0B0C0E]">
+                  className="cursor-pointer group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-dark-surface/82 hover:border-brand-red/28 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40 transition-[background-color,border-color,box-shadow] duration-300 grid grid-cols-1 lg:grid-cols-12"                >
+                  <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[480px] overflow-hidden bg-dark-base">
                     <img
                       src={currentFeatured.image}
                       alt={currentFeatured.title}
@@ -734,14 +734,14 @@ export const Work = () => {
                       fetchPriority="high"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/92 via-[#0B0C0E]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-base/92 via-dark-base/20 to-transparent" />
                     <div className="absolute top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
-                      <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/72 backdrop-blur-md border border-white/[0.1] text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-white">
+                      <span className="px-2.5 py-1 rounded-full bg-dark-base/72 backdrop-blur-md border border-white/[0.1] text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-white">
                         {hasFeaturedProjects
                           ? (language === 'id' ? 'Unggulan' : 'Featured')
                           : (language === 'id' ? 'Pilihan' : 'Selected')}
                       </span>
-                      <span className="px-2.5 py-1 rounded-full bg-[#0B0C0E]/58 backdrop-blur-md border border-brand-red/25 text-[10px] font-mono text-brand-red">
+                      <span className="px-2.5 py-1 rounded-full bg-dark-base/58 backdrop-blur-md border border-brand-red/25 text-[10px] font-mono text-brand-red">
                         {currentFeatured.year}
                       </span>
                     </div>
@@ -758,10 +758,10 @@ export const Work = () => {
                         <span className="px-2.5 py-1 rounded-full bg-brand-red/[0.07] border border-brand-red/25 text-brand-red text-[10px] sm:text-[11px] font-mono font-medium">
                           {currentFeatured.pillar}
                         </span>
-                        <span className="px-2.5 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-[#8A909D] text-[10px] sm:text-[11px] font-mono backdrop-blur-md">
+                        <span className="px-2.5 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-text-body text-[10px] sm:text-[11px] font-mono backdrop-blur-md">
                           {currentFeatured.service}
                         </span>
-                        <span className="ml-auto shrink-0 text-[#8A909D]/70 text-[10px] sm:text-xs font-mono tabular-nums">
+                        <span className="ml-auto shrink-0 text-text-body/70 text-[10px] sm:text-xs font-mono tabular-nums">
                           {currentFeatured.year}
                         </span>
                       </div>
@@ -769,10 +769,10 @@ export const Work = () => {
                       <h3 className="text-2xl sm:text-3xl lg:text-[2.45rem] font-display font-bold leading-[1.04] tracking-[-0.045em] text-white group-hover:text-brand-red transition-colors mb-3">
                         {currentFeatured.title}
                       </h3>
-                      <p className="text-[11px] sm:text-xs font-mono text-[#8A909D] leading-relaxed mb-5">
+                      <p className="text-[11px] sm:text-xs font-mono text-text-body leading-relaxed mb-5">
                         {currentFeatured.client} <span className="text-white/20">•</span> {currentFeatured.industry}
                       </p>
-                      <p className="text-sm sm:text-[0.95rem] text-[#8A909D] leading-[1.78] line-clamp-4 font-light max-w-xl">
+                      <p className="text-sm sm:text-[0.95rem] text-text-body leading-[1.78] line-clamp-4 font-light max-w-xl">
                         {language === 'id' ? currentFeatured.descId : currentFeatured.desc}
                       </p>
                     </div>
@@ -784,7 +784,7 @@ export const Work = () => {
                             <span className="text-base sm:text-xl font-display font-bold leading-none text-white block truncate">
                               {metric.value}
                             </span>
-                            <span className="text-[9px] sm:text-[10px] font-mono text-[#8A909D] leading-[1.45] block mt-1.5 line-clamp-2">
+                            <span className="text-[9px] sm:text-[10px] font-mono text-text-body leading-[1.45] block mt-1.5 line-clamp-2">
                               {metric.label}
                             </span>
                           </div>
@@ -796,7 +796,7 @@ export const Work = () => {
                           {currentFeatured.technologies.slice(0, 4).map((tech) => (
                             <span
                               key={tech}
-                              className="px-2 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono text-[#8A909D]"
+                              className="px-2 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono text-text-body"
                             >
                               {tech}
                             </span>
@@ -807,7 +807,7 @@ export const Work = () => {
                             <span>{language === 'id' ? 'Buka Detail Studi Kasus' : 'Inspect Full Case Study'}</span>
                             <ArrowUpRight size={14} />
                           </span>
-                          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
+                          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/60">
                             {reducedMotion || isSpotlightPaused
                               ? (language === 'id' ? 'Mode interaksi' : 'Interaction mode')
                               : (language === 'id' ? 'Putar otomatis' : 'Auto showcase')}
@@ -827,7 +827,7 @@ export const Work = () => {
                   style={{ width: featuredProgress }}
                 />
               </div>
-              <span className="shrink-0 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/60">
+              <span className="shrink-0 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/60">
                 {spotlightProjects.length} {hasFeaturedProjects
                   ? (language === 'id' ? 'studi kasus unggulan' : 'featured case studies')
                   : (language === 'id' ? 'studi kasus pilihan' : 'selected case studies')}
@@ -849,7 +849,7 @@ export const Work = () => {
                 <span className="kapi-section-label mb-0 shrink-0">
                   {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
                 </span>
-                <span className="mt-1 flex items-center gap-1.5 text-[10px] font-mono text-[#8A909D]/65">
+                <span className="mt-1 flex items-center gap-1.5 text-[10px] font-mono text-text-body/65">
                   <MoveHorizontal size={12} aria-hidden="true" />
                   <span>
                     {language === 'id'
@@ -860,7 +860,7 @@ export const Work = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span
-                  className="text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70"
+                  className="text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/70"
                   aria-live="polite"
                 >
                   {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
@@ -904,8 +904,8 @@ export const Work = () => {
                       aria-pressed={activePillar === tab.key}
                       className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[11px] font-mono font-medium transition-[background-color,color,box-shadow] duration-200 min-h-[40px] sm:min-h-[34px] flex items-center justify-center whitespace-nowrap ${
                         activePillar === tab.key
-                          ? 'bg-brand-red text-white shadow-[0_8px_24px_-12px_rgba(229,9,20,0.72)]'
-                          : 'text-[#8A909D] hover:text-white hover:bg-white/5'
+                          ? 'bg-brand-red text-white shadow-[0_8px_24px_-12px_rgba(220, 20, 60,0.72)]'
+                          : 'text-text-body hover:text-white hover:bg-white/5'
                       }`}
                     >
                       {language === 'id' ? tab.labelId : tab.labelEn}
@@ -915,7 +915,7 @@ export const Work = () => {
               </div>
 
               <div className="relative w-full md:flex-1 md:min-w-0">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#8A909D]" aria-hidden="true" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-body" aria-hidden="true" />
                 <label htmlFor="work-case-study-search" className="sr-only">
                   {language === 'id' ? 'Cari studi kasus' : 'Search case studies'}
                 </label>
@@ -935,7 +935,7 @@ export const Work = () => {
                     }
                   }}
                   placeholder={language === 'id' ? 'Cari studi kasus, klien...' : 'Search case study, client...'}
-                  className="w-full [appearance:textfield] [&::-webkit-search-cancel-button]:appearance-none bg-[#17191F]/92 border border-white/[0.08] rounded-full pl-10 pr-10 py-1.5 text-base sm:text-xs text-white placeholder:text-[#8A909D] focus:outline-none focus:border-brand-red transition-[border-color,background-color,box-shadow] duration-200 font-mono min-h-[44px] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+                  className="w-full [appearance:textfield] [&::-webkit-search-cancel-button]:appearance-none bg-[#17191F]/92 border border-white/[0.08] rounded-full pl-10 pr-10 py-1.5 text-base sm:text-xs text-white placeholder:text-text-body focus:outline-none focus:border-brand-red transition-[border-color,background-color,box-shadow] duration-200 font-mono min-h-[44px] backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
                 />
                 {searchQuery && (
                   <button
@@ -944,7 +944,7 @@ export const Work = () => {
                       setVisibleCount(12);
                     }}
                     type="button"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 text-[#8A909D] hover:text-white min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/[0.05] transition-colors"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 text-text-body hover:text-white min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/[0.05] transition-colors"
                     aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
                     data-cursor-label="Clear"
                   >
@@ -1035,8 +1035,8 @@ export const Work = () => {
                     data-cursor-label="Filter"
                     className={`pointer-events-auto px-2.5 py-1 rounded-full text-[10px] font-mono whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 shrink-0 border min-h-[44px] sm:min-h-[40px] flex items-center ${
                       activeService === srv
-                        ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_8px_22px_-14px_rgba(229,9,20,0.55)]'
-                        : 'bg-white/[0.018] text-[#8A909D] border-white/[0.08] hover:border-brand-red/30 hover:text-white hover:shadow-[0_6px_18px_-14px_rgba(229,9,20,0.28)]'
+                        ? 'bg-brand-red text-white border-brand-red font-semibold shadow-[0_8px_22px_-14px_rgba(220, 20, 60,0.55)]'
+                        : 'bg-white/[0.018] text-text-body border-white/[0.08] hover:border-brand-red/30 hover:text-white hover:shadow-[0_6px_18px_-14px_rgba(220, 20, 60,0.28)]'
                     }`}
                   >
                     {srv === 'All' ? (language === 'id' ? 'Semua Layanan' : 'All Services') : srv}
@@ -1049,7 +1049,7 @@ export const Work = () => {
       </section>
 
       {/* Projects Grid Section */}
-      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0C0E]">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 mb-8 sm:mb-10">
             <div className="min-w-0">
@@ -1059,7 +1059,7 @@ export const Work = () => {
               <h2 className="mt-1 max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-display font-semibold tracking-[-0.05em] leading-[1.04] text-white">
                 {language === 'id' ? 'Pekerjaan yang kami banggakan.' : 'Selected work, built for impact.'}
               </h2>
-              <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light">
+              <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-[1.75] text-text-body font-light">
                 {language === 'id'
                   ? 'Setiap studi kasus memperlihatkan konteks proyek, hasil utama, dan cara kami mengeksekusinya.'
                   : 'Each case study brings the project context, key outcome, and execution into focus.'}
@@ -1067,7 +1067,7 @@ export const Work = () => {
             </div>
 
             <div className="shrink-0 flex items-center gap-3 self-start sm:self-auto">
-              <span className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]">
+              <span className="px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] text-[10px] font-mono uppercase tracking-[0.12em] text-text-body">
                 {language === 'id'
                   ? 'Menampilkan ' + Math.min(visibleCount, filteredProjects.length) + ' dari ' + filteredProjects.length
                   : 'Showing ' + Math.min(visibleCount, filteredProjects.length) + ' of ' + filteredProjects.length}
@@ -1077,13 +1077,13 @@ export const Work = () => {
 
           {filteredProjects.length === 0 ? (
             <div className="min-h-[340px] flex flex-col items-center justify-center text-center border border-dashed border-white/[0.09] rounded-3xl p-8 sm:p-10 bg-white/[0.012]">
-              <div className="w-12 h-12 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex items-center justify-center text-[#8A909D] mb-5">
+              <div className="w-12 h-12 rounded-2xl border border-white/[0.08] bg-white/[0.018] flex items-center justify-center text-text-body mb-5">
                 <Search className="w-5 h-5" aria-hidden="true" />
               </div>
               <h3 className="text-xl font-display font-bold text-white mb-2">
                 {language === 'id' ? 'Studi Kasus Tidak Ditemukan' : 'No Case Studies Found'}
               </h3>
-              <p className="text-sm text-[#8A909D] max-w-md mb-6 font-light leading-relaxed">
+              <p className="text-sm text-text-body max-w-md mb-6 font-light leading-relaxed">
                 {language === 'id'
                   ? 'Coba ubah kata kunci atau filter Anda untuk melihat studi kasus lain.'
                   : 'Try adjusting your search or filters to explore other case studies.'}
@@ -1091,7 +1091,7 @@ export const Work = () => {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#FF1E27] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#C40F34] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
                 data-cursor-label="Reset"
               >
                 {language === 'id' ? 'Reset Filter' : 'Reset Filters'}
@@ -1121,7 +1121,7 @@ export const Work = () => {
                     data-cursor-label="Open"
                     className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/28 hover:bg-white/[0.024] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-dark-base">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -1130,25 +1130,25 @@ export const Work = () => {
                         loading="lazy"
                         decoding="async"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E]/76 via-transparent to-transparent" aria-hidden="true" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-base/76 via-transparent to-transparent" aria-hidden="true" />
 
                       <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-3 sm:inset-x-4 sm:top-4">
-                        <span className="max-w-[72%] truncate rounded-full border border-white/[0.1] bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-white backdrop-blur-md">
+                        <span className="max-w-[72%] truncate rounded-full border border-white/[0.1] bg-dark-base/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-white backdrop-blur-md">
                           {project.service}
                         </span>
-                        <span className="shrink-0 rounded-full border border-white/[0.1] bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono tabular-nums text-[#D8DCE5] backdrop-blur-md">
+                        <span className="shrink-0 rounded-full border border-white/[0.1] bg-dark-base/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono tabular-nums text-[#D8DCE5] backdrop-blur-md">
                           {project.year}
                         </span>
                       </div>
 
-                      <span className="absolute bottom-3 left-3 rounded-full border border-brand-red/25 bg-[#0B0C0E]/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-brand-red backdrop-blur-md sm:bottom-4 sm:left-4">
+                      <span className="absolute bottom-3 left-3 rounded-full border border-brand-red/25 bg-dark-base/72 px-2.5 py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] text-brand-red backdrop-blur-md sm:bottom-4 sm:left-4">
                         {project.pillar}
                       </span>
                     </div>
 
                     <div className="flex flex-1 flex-col p-5 sm:p-6">
                       <div className="min-w-0">
-                        <div className="mb-2 flex min-w-0 items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.08em] text-[#8A909D]">
+                        <div className="mb-2 flex min-w-0 items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.08em] text-text-body">
                           <span className="min-w-0 truncate text-brand-red">{project.client}</span>
                           <span className="text-white/20" aria-hidden="true">•</span>
                           <span className="min-w-0 truncate">{project.industry}</span>
@@ -1158,7 +1158,7 @@ export const Work = () => {
                           {project.title}
                         </h3>
 
-                        <p className="mt-3 min-h-[3rem] text-xs sm:text-sm font-light leading-[1.7] text-[#8A909D] line-clamp-2">
+                        <p className="mt-3 min-h-[3rem] text-xs sm:text-sm font-light leading-[1.7] text-text-body line-clamp-2">
                           {language === 'id' ? project.descId : project.desc}
                         </p>
                       </div>
@@ -1167,7 +1167,7 @@ export const Work = () => {
                         <div className="flex min-w-0 items-center justify-between gap-4">                          <div className="min-w-0">
                             {project.impact[0] ? (
                               <>
-                                <span className="block truncate text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]/70">
+                                <span className="block truncate text-[10px] font-mono uppercase tracking-[0.08em] text-text-body/70">
                                   {project.impact[0].label}
                                 </span>
                                 <span className="mt-1 block truncate text-sm sm:text-base font-display font-semibold leading-none text-white">
@@ -1175,13 +1175,13 @@ export const Work = () => {
                                 </span>
                               </>
                             ) : (
-                              <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A909D]/70">
+                              <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-text-body/70">
                                 {language === 'id' ? 'Hasil proyek' : 'Project outcome'}
                               </span>
                             )}
                           </div>
 
-                          <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-2 text-[10px] font-mono font-semibold uppercase tracking-[0.08em] text-[#8A909D] transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-white">
+                          <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-2 text-[10px] font-mono font-semibold uppercase tracking-[0.08em] text-text-body transition-[background-color,border-color,color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-white">
                             <span>{language === 'id' ? 'Buka' : 'Open'}</span>
                             <ArrowUpRight size={13} aria-hidden="true" />
                           </span>
@@ -1197,11 +1197,11 @@ export const Work = () => {
                   <button
                     type="button"
                     onClick={() => setVisibleCount(prev => Math.min(prev + 12, filteredProjects.length))}
-                    className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.018] px-6 sm:px-7 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-[0.08em] text-white transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/40 hover:bg-brand-red/[0.08] hover:shadow-[0_14px_34px_-24px_rgba(229,9,20,0.7)] active:scale-[0.985]"
+                    className="inline-flex min-h-[46px] items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.018] px-6 sm:px-7 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-[0.08em] text-white transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/40 hover:bg-brand-red/[0.08] hover:shadow-[0_14px_34px_-24px_rgba(220, 20, 60,0.7)] active:scale-[0.985]"
                     data-cursor-label="Load more"
                   >
                     <span>{language === 'id' ? 'Muat Lebih Banyak' : 'Load More'}</span>
-                    <span className="text-[#8A909D]">+{Math.min(12, filteredProjects.length - visibleCount)}</span>
+                    <span className="text-text-body">+{Math.min(12, filteredProjects.length - visibleCount)}</span>
                   </button>
                 </div>
               )}
@@ -1231,13 +1231,13 @@ export const Work = () => {
                 ref={caseStudyModalRef}
                 className="kapi-modal-surface relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
               >
-                <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
+                <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-dark-surface px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
                   <div className="min-w-0 flex-1">
                     <div className="mb-1.5 flex flex-wrap items-center gap-2">
                       <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">{selectedProject.pillar}</span>
-                      <span className="truncate text-[10px] sm:text-[11px] font-mono text-[#8A909D]">{selectedProject.service}</span>
+                      <span className="truncate text-[10px] sm:text-[11px] font-mono text-text-body">{selectedProject.service}</span>
                       <span className="text-white/15" aria-hidden="true">•</span>
-                      <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-[#8A909D]">{selectedProject.year}</span>
+                      <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-text-body">{selectedProject.year}</span>
                     </div>
                     <h3 id="case-study-modal-title" className="truncate text-sm sm:text-base lg:text-lg font-display font-semibold text-white">{selectedProject.title}</h3>
                   </div>
@@ -1254,12 +1254,12 @@ export const Work = () => {
                 </header>
 
                 <div className="grid min-h-0 flex-1 overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-                  <aside className="min-h-0 border-b border-white/[0.08] bg-[#0B0C0E] lg:overflow-y-auto lg:border-b-0 lg:border-r">
+                  <aside className="min-h-0 border-b border-white/[0.08] bg-dark-base lg:overflow-y-auto lg:border-b-0 lg:border-r">
                     <div className="p-4 sm:p-5 lg:p-6">
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <div>
                           <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Visual Proof</span>
-                          <p className="mt-1 text-xs text-[#8A909D]">
+                          <p className="mt-1 text-xs text-text-body">
                             {selectedProjectGallery.length > 1
                               ? String(selectedProjectGallery.length) + ' ' + (language === 'id' ? 'foto dokumentasi proyek' : 'project proof images')
                               : language === 'id'
@@ -1290,14 +1290,14 @@ export const Work = () => {
                             <button
                               type="button"
                               onClick={() => setSelectedMediaIndex((current) => current === 0 ? selectedProjectGallery.length - 1 : current - 1)}
-                              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-dark-base/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-dark-base/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                               aria-label={language === 'id' ? 'Foto sebelumnya' : 'Previous proof image'}
                               data-cursor-label="Previous"
                             ><ChevronLeft size={17} aria-hidden="true" /></button>
                             <button
                               type="button"
                               onClick={() => setSelectedMediaIndex((current) => (current + 1) % selectedProjectGallery.length)}
-                              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-[#0B0C0E]/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-[#0B0C0E]/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
+                              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-dark-base/78 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-300 hover:border-white/[0.22] hover:bg-dark-base/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60"
                               aria-label={language === 'id' ? 'Foto berikutnya' : 'Next proof image'}
                               data-cursor-label="Next"
                             ><ChevronRight size={17} aria-hidden="true" /></button>
@@ -1340,7 +1340,7 @@ export const Work = () => {
                           <div className="mb-4 flex items-center justify-between gap-3">
                             <div>
                               <span className="text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F7480]">{language === 'id' ? 'Profil pekerjaan' : 'Engagement profile'}</span>
-                              <p className="mt-1 text-xs text-[#8A909D]">{language === 'id' ? 'Gambaran singkat mengenai konteks dan cakupan proyek.' : 'A compact view of the project context and delivery scope.'}</p>
+                              <p className="mt-1 text-xs text-text-body">{language === 'id' ? 'Gambaran singkat mengenai konteks dan cakupan proyek.' : 'A compact view of the project context and delivery scope.'}</p>
                             </div>
                             <span className="shrink-0 rounded-full border border-brand-red/20 bg-brand-red/[0.06] px-2.5 py-1 text-[9px] font-mono font-semibold uppercase tracking-[0.08em] text-brand-red">
                               {selectedProject.pillar}
@@ -1523,7 +1523,7 @@ export const Work = () => {
                                 {selectedProject.impact.map((metric, idx) => (
                                   <div key={metric.label + '-' + idx} className="relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-black/10 p-4 sm:p-5">
                                     <span className="block break-words text-2xl sm:text-3xl font-display font-bold tracking-[-0.03em] text-white">{metric.value}</span>
-                                    <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-[#8A909D]">{metric.label}</span>
+                                    <span className="mt-2 block text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.08em] leading-relaxed text-text-body">{metric.label}</span>
                                   </div>
                                 ))}
                               </div>
@@ -1546,7 +1546,7 @@ export const Work = () => {
                       <section className="rounded-[22px] border border-brand-red/20 bg-gradient-to-br from-brand-red/[0.12] via-white/[0.018] to-transparent p-5 sm:p-6 lg:p-7">
                         <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">{language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</span>
                         <h3 className="mt-1.5 text-lg sm:text-xl font-display font-semibold text-white">{language === 'id' ? 'Mari pecahkan dari konteks bisnisnya.' : 'Let’s solve it from the business context.'}</h3>
-                        <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-[#8A909D] font-light">{language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
+                        <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-text-body font-light">{language === 'id' ? 'Bahas kebutuhan Anda bersama tim Kapitech dan tentukan ruang lingkup yang paling relevan.' : 'Talk through your needs with Kapitech and define the scope that fits the problem.'}</p>
                         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
                           <Link
                             to={'/work/' + projectSlug(selectedProject)}
@@ -1559,7 +1559,7 @@ export const Work = () => {
                           <Link
                             to={'/contact?service=' + encodeURIComponent(selectedProject.service) + '#project-inquiry-form'}
                             onClick={() => { modalTriggerRef.current = null; }}
-                            className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
+                            className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg shadow-brand-red/20 transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1116] sm:w-auto"
                           >
                             <span>{language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule Consultation'}</span>
                             <ArrowUpRight size={14} />

@@ -30,7 +30,7 @@ export const PublicPageCta = ({
     className="kapi-page-cta relative isolate overflow-hidden border-t border-white/[0.07] bg-[#090A0C] px-4 py-14 sm:px-6 sm:py-16 md:px-12 lg:py-20"
   >
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div className="absolute -left-28 -top-36 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(229,9,20,0.10)_0%,rgba(229,9,20,0)_72%)]" />
+      <div className="absolute -left-28 -top-36 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(220, 20, 60,0.10)_0%,rgba(220, 20, 60,0)_72%)]" />
       <div className="absolute -right-28 bottom-[-13rem] h-[32rem] w-[32rem] rounded-full border border-white/[0.035]" />
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" />
     </div>
@@ -77,7 +77,7 @@ export const PublicPageCta = ({
             <div className="mt-5 grid gap-2.5">
               <Link
                 to={primaryHref}
-                className="group inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full bg-brand-red px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.07em] text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.8)] transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright hover:shadow-[0_16px_32px_-18px_rgba(229,9,20,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101115]"
+                className="group inline-flex min-h-12 w-full items-center justify-between gap-3 rounded-full bg-brand-red px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.07em] text-white shadow-[0_12px_28px_-18px_rgba(220, 20, 60,0.8)] transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright hover:shadow-[0_16px_32px_-18px_rgba(220, 20, 60,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101115]"
               >
                 <span className="min-w-0">{primaryLabel}</span>
                 <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.14] transition-transform duration-200 group-hover:translate-x-0.5">

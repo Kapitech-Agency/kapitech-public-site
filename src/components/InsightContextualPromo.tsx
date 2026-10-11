@@ -29,7 +29,7 @@ export const InsightContextualPromo: React.FC<{
   const target = resolvePromoUrl(block.ctaUrl);
 
   const actionClass =
-    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:w-auto';
+    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:w-auto';
 
   const action = target.internal ? (
     <Link to={target.href} className={actionClass}>
@@ -75,7 +75,7 @@ export const InsightContextualPromo: React.FC<{
             <h3 className="font-display text-[1.4rem] font-semibold leading-[1.12] tracking-[-0.03em] text-white sm:text-[1.55rem]">
               {block.title}
             </h3>
-            <p className="mt-2.5 text-[13px] leading-6 text-[#8A909D]">
+            <p className="mt-2.5 text-[13px] leading-6 text-text-body">
               {block.description}
             </p>
           </div>

@@ -28,7 +28,7 @@ export const PublicPageHero = ({
     <div className="absolute inset-0" aria-hidden="true">
       <PatternWaves
         preset={preset}
-        color="#E50914"
+        color="#DC143C"
         backgroundColor="#0B0C0E"
         opacity={0.32}
         fade="edges"
@@ -43,8 +43,8 @@ export const PublicPageHero = ({
         contrast={1.04}
         intro
       />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/55 to-transparent" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(229,9,20,0.08),transparent_42%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-dark-base via-dark-base/55 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(220, 20, 60,0.08),transparent_42%)]" />
     </div>
     <div className="relative z-10 mx-auto max-w-7xl">
       <div className={aside ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:gap-16' : undefined}>

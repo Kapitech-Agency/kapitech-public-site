@@ -16,7 +16,7 @@ export const InsightAmbientBackground: React.FC<{
       <div className="absolute inset-0">
         <PatternWaves
           preset="silk"
-          color="#E50914"
+          color="#DC143C"
           backgroundColor="#0B0C0E"
           opacity={hero ? 0.23 : 0.11}
           fade="edges"
@@ -33,11 +33,11 @@ export const InsightAmbientBackground: React.FC<{
         />
       </div>
 
-      <div className="absolute inset-0 bg-[#0B0C0E]/28" />
-      <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-[#0B0C0E]/88 via-[#0B0C0E]/48 to-transparent" />
-      <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-[#0B0C0E]/88 via-[#0B0C0E]/48 to-transparent" />
-      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#0B0C0E]/82 via-[#0B0C0E]/35 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/74 to-[#0B0C0E]" />
+      <div className="absolute inset-0 bg-dark-base/28" />
+      <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-dark-base/88 via-dark-base/48 to-transparent" />
+      <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-dark-base/88 via-dark-base/48 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-dark-base/82 via-dark-base/35 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-dark-base/74 to-dark-base" />
     </div>
   );
 };

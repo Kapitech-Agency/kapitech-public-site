@@ -171,7 +171,7 @@ export const ServiceDetail = () => {
   };
 
   return (
-    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white selection:bg-brand-red selection:text-white">
+    <div className="kapi-page-bg min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
       <PublicPageHero
         eyebrow={language === 'id' ? service.badgeId : service.badge}
         title={language === 'id' ? service.heroHeadlineId : service.heroHeadline}
@@ -179,11 +179,11 @@ export const ServiceDetail = () => {
         backLink={{ href: '/services', label: language === 'id' ? 'Semua Solusi & Layanan' : 'All Solutions & Services' }}
       >
         <div className="flex flex-wrap items-center gap-2.5">
-          <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">{service.category}</span>
+          <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">{service.category}</span>
           {isSolutionPage ? <span className="rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">Solution</span> : null}
         </div>
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <Link to={'/contact?service=' + encodeURIComponent(service.title) + '&serviceId=' + encodeURIComponent(service.slug) + '#project-inquiry-form'} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(229,9,20,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+          <Link to={'/contact?service=' + encodeURIComponent(service.title) + '&serviceId=' + encodeURIComponent(service.slug) + '#project-inquiry-form'} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-xs font-semibold text-white shadow-[0_12px_28px_-18px_rgba(220, 20, 60,0.48)] transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-red-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
             <span>{language === 'id' ? 'Mulai Proyek Ini' : 'Start This Project'}</span>
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -256,7 +256,7 @@ export const ServiceDetail = () => {
                 </motion.div>
               ))
             ) : (
-              <div className="p-5 text-xs leading-relaxed text-[#8A909D] sm:col-span-3 sm:p-6">
+              <div className="p-5 text-xs leading-relaxed text-text-body sm:col-span-3 sm:p-6">
                 {language === 'id' ? 'Indikator akan disepakati bersama saat discovery dan dievaluasi berdasarkan kondisi awal serta kriteria keberhasilan proyek.' : 'Indicators will be agreed during discovery and reviewed against the project baseline and success criteria.'}
               </div>
             )}
@@ -270,7 +270,7 @@ export const ServiceDetail = () => {
               {service.tools.map((tool, idx) => (
                 <span
                   key={idx}
-                  className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
+                  className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-text-body transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
                 >
                   {tool}
                 </span>
@@ -302,7 +302,7 @@ export const ServiceDetail = () => {
                   : 'Four foundations keep scope, decisions, delivery, and handoff aligned.'}
               </h2>
             </div>
-            <p className="max-w-md text-xs leading-[1.8] text-[#8A909D] sm:text-sm lg:pb-1">
+            <p className="max-w-md text-xs leading-[1.8] text-text-body sm:text-sm lg:pb-1">
               {language === 'id'
                 ? 'Lihat cara layanan ini dibentuk, dari arah strategis sampai toolchain yang dipakai untuk delivery.'
                 : 'See how this service is shaped, from strategic direction to the toolchain used for delivery.'}
@@ -323,7 +323,7 @@ export const ServiceDetail = () => {
                     
 
                     <div className="flex items-start justify-between gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0B0C0E] text-[#A7ACB5] transition-colors duration-300 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-dark-base text-[#A7ACB5] transition-colors duration-300 group-hover:border-brand-red/30 group-hover:bg-brand-red/[0.08] group-hover:text-brand-red">
                         <Icon className="h-4.5 w-4.5" strokeWidth={1.8} />
                       </div>
                       <span className="text-[9px] font-mono tabular-nums uppercase tracking-[0.18em] text-[#555A63] transition-colors duration-300 group-hover:text-brand-red">
@@ -338,7 +338,7 @@ export const ServiceDetail = () => {
                       <h3 className="mt-3 text-base font-display font-semibold leading-[1.12] tracking-[-0.025em] text-white sm:text-lg">
                         {foundation.title}
                       </h3>
-                      <p className="mt-3 text-xs leading-[1.75] text-[#8A909D]">
+                      <p className="mt-3 text-xs leading-[1.75] text-text-body">
                         {foundation.description}
                       </p>
                     </div>
@@ -356,7 +356,7 @@ export const ServiceDetail = () => {
                 {(service.tools || []).slice(0, 5).map((tool) => (
                   <span
                     key={tool}
-                    className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
+                    className="rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1 text-[9px] font-mono text-text-body transition-colors duration-200 hover:border-white/[0.13] hover:text-white"
                   >
                     {tool}
                   </span>
@@ -400,7 +400,7 @@ export const ServiceDetail = () => {
                   <div className="text-base font-semibold text-white">
                     {service.testimonial.author}
                   </div>
-                  <div className="text-xs sm:text-sm text-[#8A909D]">
+                  <div className="text-xs sm:text-sm text-text-body">
                     {service.testimonial.role} &bull; <span className="text-white">{service.testimonial.company}</span>
                   </div>
                 </div>
@@ -432,7 +432,7 @@ export const ServiceDetail = () => {
               >
                 
                 <div>
-                  <div className="mb-5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]/65">
+                  <div className="mb-5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-text-body/65">
                     <span>{language === 'id' ? 'Kasus' : 'Case'}</span>
                     <span>{String(idx + 1).padStart(2, '0')}</span>
                   </div>
@@ -445,7 +445,7 @@ export const ServiceDetail = () => {
                     <h3 className="text-lg font-medium text-white mb-2">
                       {language === 'id' ? item.problemTitleId : item.problemTitle}
                     </h3>
-                    <p className="text-sm text-[#8A909D] leading-relaxed">
+                    <p className="text-sm text-text-body leading-relaxed">
                       {language === 'id' ? item.problemDescId : item.problemDesc}
                     </p>
                   </div>
@@ -459,7 +459,7 @@ export const ServiceDetail = () => {
                     <h4 className="text-base font-semibold text-white mb-2">
                       {language === 'id' ? item.solutionTitleId : item.solutionTitle}
                     </h4>
-                    <p className="text-sm text-[#8A909D] leading-relaxed">
+                    <p className="text-sm text-text-body leading-relaxed">
                       {language === 'id' ? item.solutionDescId : item.solutionDesc}
                     </p>
                   </div>
@@ -496,7 +496,7 @@ export const ServiceDetail = () => {
                 <h3 className="text-base font-medium text-white mb-2">
                   {language === 'id' ? cap.titleId : cap.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed">
+                <p className="text-xs sm:text-sm text-text-body leading-relaxed">
                   {language === 'id' ? cap.descId : cap.desc}
                 </p>
               </motion.div>
@@ -517,7 +517,7 @@ export const ServiceDetail = () => {
             </div>
             <Link
               to="/work"
-              className="inline-flex items-center gap-2 text-sm text-[#8A909D] hover:text-white font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-text-body hover:text-white font-medium transition-colors"
             >
               <span>{language === 'id' ? 'Lihat Semua Proyek' : 'View All Projects'}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -536,7 +536,7 @@ export const ServiceDetail = () => {
                   data-cursor-label="Open"
                   className="block"
                 >
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#0B0C0E]">
+                <div className="relative aspect-[16/10] overflow-hidden bg-dark-base">
                   <img
                     src={project.image}
                     alt={project.title}
@@ -557,16 +557,16 @@ export const ServiceDetail = () => {
                     <h3 className="text-lg font-display font-medium text-white group-hover:text-brand-red transition-colors truncate">
                       {project.title}
                     </h3>
-                    <ArrowUpRight className="w-4 h-4 text-[#8A909D] group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                    <ArrowUpRight className="w-4 h-4 text-text-body group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                   </div>
-                  <p className="text-xs sm:text-sm text-[#8A909D] line-clamp-2 leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-text-body line-clamp-2 leading-relaxed mb-4">
                     {language === 'id' ? project.descId : project.desc}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {project.technologies.slice(0, 2).map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.012] border border-white/[0.07] text-[#8A909D]"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.012] border border-white/[0.07] text-text-body"
                       >
                         {tech}
                       </span>
@@ -607,13 +607,13 @@ export const ServiceDetail = () => {
                   <h3 className="text-base font-semibold text-white mb-2">
                     {language === 'id' ? stage.stageNameId : stage.stageName}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-text-body leading-relaxed mb-6">
                     {language === 'id' ? stage.stageDescId : stage.stageDesc}
                   </p>
                 </div>
 
                 <div className="pt-5 border-t border-white/[0.07] space-y-1.5">
-                  <div className="text-[11px] font-mono uppercase tracking-wider text-[#8A909D] mb-2">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-text-body mb-2">
                     {language === 'id' ? 'Hasil Kerja:' : 'Deliverables:'}
                   </div>
                   {(language === 'id' ? stage.deliverablesId : stage.deliverables).map((del, dIdx) => (
@@ -643,7 +643,7 @@ export const ServiceDetail = () => {
                   {(language === 'id' ? service.businessOutcomes.benefitsId : service.businessOutcomes.benefits).map((benefit, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
-                      <span className="text-sm sm:text-base text-[#8A909D] leading-relaxed">
+                      <span className="text-sm sm:text-base text-text-body leading-relaxed">
                         {benefit}
                       </span>
                     </div>
@@ -659,19 +659,19 @@ export const ServiceDetail = () => {
                   <h3 className="text-xl font-display text-white">
                     {language === 'id' ? 'Siap mendiskusikan kebutuhan Anda?' : 'Ready to discuss your project?'}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#8A909D] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-text-body leading-relaxed">
                     {language === 'id' 
                       ? 'Ajukan permintaan konsultasi dengan konteks proyek dan waktu yang Anda inginkan.' 
                       : 'Send a consultation request with your project context and preferred time.'}
                   </p>
                   <Link
                     to={`/contact?service=${encodeURIComponent(service.title)}#project-inquiry-form`}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#FF1E27] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#C40F34] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Sekarang' : 'Start a Project Now'}</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
-                  <div className="text-xs text-[#8A909D] font-mono">
+                  <div className="text-xs text-text-body font-mono">
                     hello@kapitech.id &bull; Response within 24 business hours
                   </div>
                 </div>
@@ -712,7 +712,7 @@ export const ServiceDetail = () => {
                         {language === 'id' ? faq.qId : faq.q}
                       </span>
                       <ChevronDown
-                        className={`w-5 h-5 shrink-0 text-[#8A909D] transition-transform duration-300 ${
+                        className={`w-5 h-5 shrink-0 text-text-body transition-transform duration-300 ${
                           isOpen ? 'rotate-180 text-white' : ''
                         }`}
                       />
@@ -729,7 +729,7 @@ export const ServiceDetail = () => {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <div className="px-6 pb-6 text-sm text-[#8A909D] leading-relaxed border-t border-white/[0.07] pt-4">
+                          <div className="px-6 pb-6 text-sm text-text-body leading-relaxed border-t border-white/[0.07] pt-4">
                             {language === 'id' ? faq.aId : faq.a}
                           </div>
                         </motion.div>
@@ -757,7 +757,7 @@ export const ServiceDetail = () => {
                   ? 'Pilih layanan yang paling dekat dengan kebutuhan Anda.'
                   : 'Choose the service that best matches your next move.'}
               </h2>
-              <p className="mt-4 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-[15px]">
+              <p className="mt-4 max-w-2xl text-sm font-light leading-[1.8] text-text-body sm:text-[15px]">
                 {language === 'id'
                   ? 'Kami mengelompokkan layanan berdasarkan jenis pekerjaan agar Anda bisa membandingkan pilihan tanpa harus membaca semuanya sekaligus.'
                   : 'Services are grouped by work type so you can compare the right options without scanning one long list.'}
@@ -819,7 +819,7 @@ export const ServiceDetail = () => {
                         <h3 className="mt-2 text-xl font-display font-semibold tracking-[-0.03em] text-white sm:text-[1.35rem]">
                           {categoryLabel}
                         </h3>
-                        <p className="mt-2 max-w-md text-xs leading-[1.7] text-[#8A909D]">
+                        <p className="mt-2 max-w-md text-xs leading-[1.7] text-text-body">
                           {categoryDescription}
                         </p>
                       </div>
@@ -871,7 +871,7 @@ export const ServiceDetail = () => {
                             </div>
                             <div className={cn(
                               'mt-1 text-[10px] leading-[1.5] transition-colors duration-300',
-                              isCurrent ? 'text-[#AEB4BF]' : 'text-[#6F757F] group-hover:text-[#8A909D]'
+                              isCurrent ? 'text-[#AEB4BF]' : 'text-[#6F757F] group-hover:text-text-body'
                             )}>
                               {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                             </div>

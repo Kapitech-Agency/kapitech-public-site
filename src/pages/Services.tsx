@@ -738,7 +738,7 @@ export const Services = () => {
   };
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
+    <div className="bg-dark-base text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Specialized Services'}
@@ -749,7 +749,7 @@ export const Services = () => {
             : 'Complete strategic solutions and specialized capabilities to transform brand identity, digital product design, and high-performance web engineering.'
         }
       >
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-text-body">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 backdrop-blur-xl">
             <span className="h-2 w-2 rounded-full bg-brand-red" aria-hidden="true" />
             <span>{resolvedStrategicSolutions.length} {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}</span>
@@ -775,7 +775,7 @@ export const Services = () => {
                 STRATEGIC SOLUTIONS
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
+            <p className="text-xs sm:text-sm text-text-body font-light max-w-md">
               {language === 'id'
                 ? 'Format kemitraan strategis yang dirancang fleksibel untuk akselerasi ekosistem enterprise, UKM berkembang, maupun ekspansi tim internal.'
                 : 'Tailored strategic engagement models engineered for enterprise ecosystems, scaling SMEs, and dedicated team expansion.'
@@ -801,7 +801,7 @@ export const Services = () => {
                     <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                       {sol.icon}
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-[#8A909D] font-semibold">
+                    <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-text-body font-semibold">
                       {language === 'id' ? sol.badgeId : sol.badge}
                     </span>
                   </div>
@@ -810,17 +810,17 @@ export const Services = () => {
                     {sol.title}
                   </h3>
 
-                  <span className="text-xs font-mono text-[#8A909D] block mb-4">
+                  <span className="text-xs font-mono text-text-body block mb-4">
                     {language === 'id' ? sol.audienceId : sol.audience}
                   </span>
 
-                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-text-body font-light leading-relaxed mb-6">
                     {language === 'id' ? sol.descriptionId : sol.description}
                   </p>
                 </div>
 
                 <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between">
-                  <span className="text-xs font-mono text-[#8A909D]/70">
+                  <span className="text-xs font-mono text-text-body/70">
                     {language === 'id' ? sol.timelineId : sol.timeline}
                   </span>
                   <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red font-semibold group-hover:translate-x-1 transition-transform">
@@ -839,13 +839,13 @@ export const Services = () => {
         className="sticky top-20 sm:top-20 md:top-[76px] z-30 px-4 sm:px-6 md:px-12 py-2"
         aria-label={language === 'id' ? 'Filter kategori layanan' : 'Service category filters'}
       >
-        <div className="relative z-10 pointer-events-auto w-full max-w-3xl mx-auto rounded-2xl border border-white/[0.09] bg-[#111216] px-3 py-3 shadow-[0_18px_50px_-34px_rgba(229,9,20,0.20),inset_0_1px_0_rgba(255,255,255,0.025)] sm:px-4 sm:py-4">
+        <div className="relative z-10 pointer-events-auto w-full max-w-3xl mx-auto rounded-2xl border border-white/[0.09] bg-[#111216] px-3 py-3 shadow-[0_18px_50px_-34px_rgba(220, 20, 60,0.20),inset_0_1px_0_rgba(255,255,255,0.025)] sm:px-4 sm:py-4">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
               <span className="mb-0 shrink-0 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
                 {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
               </span>
-              <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-[#8A909D]/70" aria-live="polite">
+              <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/70" aria-live="polite">
                 {filteredServices.length} {language === 'id' ? 'layanan' : 'services'}
               </span>
             </div>
@@ -871,7 +871,7 @@ export const Services = () => {
                     aria-controls="services-catalog-grid"
                     className={`relative z-10 pointer-events-auto inline-flex min-h-[48px] w-full min-w-0 items-center justify-center rounded-xl border px-2.5 py-2.5 text-center text-[10px] leading-snug font-mono font-medium transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E] sm:min-h-[44px] sm:px-3 sm:text-[11px] ${
                       selected
-                        ? 'border-brand-red bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(229,9,20,0.72)] font-semibold'
+                        ? 'border-brand-red bg-brand-red text-white shadow-[0_8px_22px_-14px_rgba(220, 20, 60,0.72)] font-semibold'
                         : 'border-white/[0.12] bg-[#191B21] text-white hover:border-white/[0.20] hover:bg-[#22252D] hover:text-white'
                     }`}
                   >
@@ -904,7 +904,7 @@ export const Services = () => {
                       {cat}
                     </h2>
                   </div>
-                  <span className="text-xs font-mono text-[#8A909D]">
+                  <span className="text-xs font-mono text-text-body">
                     {catServices.length} {language === 'id' ? 'Layanan Terintegrasi' : 'Capabilities'}
                   </span>
                 </div>
@@ -928,7 +928,7 @@ export const Services = () => {
                           <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                             {srv.icon}
                           </div>
-                          <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-[#8A909D] backdrop-blur-md">
+                          <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-text-body backdrop-blur-md">
                             {srv.category}
                           </span>
                         </div>
@@ -941,13 +941,13 @@ export const Services = () => {
                           {language === 'id' ? srv.subtitleId : srv.subtitle}
                         </p>
 
-                        <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed mb-5 line-clamp-3">
+                        <p className="text-xs sm:text-sm text-text-body font-light leading-relaxed mb-5 line-clamp-3">
                           {language === 'id' ? srv.summaryId : srv.summary}
                         </p>
 
                         <div className="pt-3.5 border-t border-white/[0.07] space-y-1.5 mb-5">
                           {(language === 'id' ? srv.deliverablesId : srv.deliverables).slice(0, 2).map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#8A909D] font-light truncate">
+                            <div key={idx} className="flex items-center gap-2 text-xs text-text-body font-light truncate">
                               <CheckCircle2 size={13} className="text-brand-red shrink-0" />
                               <span className="truncate">{item}</span>
                             </div>
@@ -956,7 +956,7 @@ export const Services = () => {
                       </div>
 
                       <div className="pt-3.5 border-t border-white/[0.07] flex items-center justify-between">
-                        <span className="text-xs font-mono text-[#8A909D]/70">
+                        <span className="text-xs font-mono text-text-body/70">
                           {language === 'id' ? srv.timelineId : srv.timeline}
                         </span>
                         <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red font-semibold group-hover:translate-x-1 transition-transform">
@@ -1024,10 +1024,10 @@ export const Services = () => {
               {/* Modal Scrollable Content */}
               <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-2 font-semibold">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-text-body mb-2 font-semibold">
                     {language === 'id' ? 'Deskripsi & Ruang Lingkup' : 'Overview & Scope'}
                   </h4>
-                  <p id="service-preview-description" className="text-sm text-[#8A909D] leading-relaxed font-light">
+                  <p id="service-preview-description" className="text-sm text-text-body leading-relaxed font-light">
                     {'fullDescription' in selectedService 
                       ? (language === 'id' ? selectedService.fullDescriptionId : selectedService.fullDescription)
                       : (language === 'id' ? selectedService.descriptionId : selectedService.description)
@@ -1037,7 +1037,7 @@ export const Services = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
                   <div>
-                    <span className="text-[11px] font-mono text-[#8A909D] uppercase block mb-1">
+                    <span className="text-[11px] font-mono text-text-body uppercase block mb-1">
                       {language === 'id' ? 'Estimasi Pengerjaan' : 'Estimated Timeline'}
                     </span>
                     <span className="text-sm font-display font-semibold text-white">
@@ -1045,10 +1045,10 @@ export const Services = () => {
                     </span>
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono text-[#8A909D] uppercase block mb-1">
+                    <span className="text-[11px] font-mono text-text-body uppercase block mb-1">
                       {language === 'id' ? 'Target Kebutuhan' : 'Target Audience'}
                     </span>
-                    <span className="text-xs text-[#8A909D] font-light block leading-snug">
+                    <span className="text-xs text-text-body font-light block leading-snug">
                       {'idealFor' in selectedService 
                         ? (language === 'id' ? selectedService.idealForId : selectedService.idealFor)
                         : (language === 'id' ? selectedService.audienceId : selectedService.audience)
@@ -1063,7 +1063,7 @@ export const Services = () => {
                   </h4>
                   <ul className="space-y-2">
                     {(language === 'id' ? selectedService.deliverablesId : selectedService.deliverables).map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#8A909D] font-light">
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-text-body font-light">
                         <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
@@ -1073,12 +1073,12 @@ export const Services = () => {
 
                 {'tools' in selectedService && selectedService.tools && (
                   <div>
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A909D] mb-3 font-semibold">
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-text-body mb-3 font-semibold">
                       {language === 'id' ? 'Alat & Standar Teknologi' : 'Tools & Technologies'}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedService.tools.map((tool, idx) => (
-                        <span key={idx} className="px-3 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-xs font-mono text-[#8A909D]">
+                        <span key={idx} className="px-3 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-xs font-mono text-text-body">
                           {tool}
                         </span>
                       ))}
@@ -1089,7 +1089,7 @@ export const Services = () => {
                 {/* Modal Footer CTA */}
                 <div className="pt-4 border-t border-white/[0.07] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                   <div>
-                    <span className="text-xs text-[#8A909D] font-light block">
+                    <span className="text-xs text-text-body font-light block">
                       {language === 'id' ? 'Konsultasikan kebutuhan spesifik Anda dengan tim kami.' : 'Consult your specific requirements with our team.'}
                     </span>
                   </div>

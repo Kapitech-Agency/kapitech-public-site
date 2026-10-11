@@ -282,7 +282,7 @@ export const About = () => {
   const team = language === 'id' ? teamId : teamEn;
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
+    <div className="bg-dark-base text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={t('about.tag')}
@@ -296,7 +296,7 @@ export const About = () => {
       />
 
       {/* Corporate Information */}
-      <section aria-labelledby="about-corporate-title" className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
+      <section aria-labelledby="about-corporate-title" className="border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-12 xl:gap-16">
             <div>
@@ -316,7 +316,7 @@ export const About = () => {
                   : 'Kapitech Agency is a Digital Product Design & Engineering Agency based in South Tangerang, Indonesia. We help businesses design, build, and improve digital products by connecting product strategy, design, and software engineering.'}
               </p>
 
-              <p className="mt-4 max-w-2xl text-sm font-light leading-7 text-[#8A909D] sm:text-base sm:leading-8">
+              <p className="mt-4 max-w-2xl text-sm font-light leading-7 text-text-body sm:text-base sm:leading-8">
                 {language === 'id'
                   ? 'Kami mengutamakan ruang lingkup yang jelas, komunikasi langsung, serta keputusan desain dan teknis yang selaras dengan kebutuhan pengguna dan tujuan bisnis.'
                   : 'Our work is guided by clear scope, direct communication, and design and engineering decisions aligned with user needs and business goals.'}
@@ -376,7 +376,7 @@ export const About = () => {
               <h3 className="text-sm font-semibold text-white">
                 {language === 'id' ? 'Profil Perusahaan' : 'Company Profile'}
               </h3>
-              <p className="text-xs font-light leading-5 text-[#8A909D] lg:text-right">
+              <p className="text-xs font-light leading-5 text-text-body lg:text-right">
                 {language === 'id' ? 'Identitas usaha dan informasi operasional' : 'Business identity and operating details'}
               </p>
             </div>
@@ -423,7 +423,7 @@ export const About = () => {
       </section>
 
       {/* Executive Leadership */}
-      <section className="relative overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team" aria-labelledby="about-leadership-title">
+      <section className="relative overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team" aria-labelledby="about-leadership-title">
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
@@ -445,7 +445,7 @@ export const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
                 transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+                className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-text-body sm:text-base"
               >
                 {t('about.leadership.subtitle')}
               </motion.p>
@@ -512,7 +512,7 @@ export const About = () => {
                     <p className="mt-3 text-xs font-mono uppercase tracking-[0.12em] text-[#A7ACB5] sm:text-sm">
                       {team[0].role}
                     </p>
-                    <p className="mt-6 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base">
+                    <p className="mt-6 max-w-2xl text-sm font-light leading-[1.85] text-text-body sm:text-base">
                       {team[0].bio}
                     </p>
                   </div>
@@ -595,7 +595,7 @@ export const About = () => {
                         {language === 'id' ? focusId : focusEn}
                       </p>
                     </div>
-                    <p className="mt-3 text-xs font-light leading-[1.75] text-[#8A909D]">
+                    <p className="mt-3 text-xs font-light leading-[1.75] text-text-body">
                       {member.bio}
                     </p>
                   </div>
@@ -607,7 +607,7 @@ export const About = () => {
       </section>
 
       {/* Core Principles / Values */}
-      <section aria-labelledby="about-principles-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-principles-title" className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -628,7 +628,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+              className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-text-body sm:text-base"
             >
               {language === 'id'
                 ? 'Kami memegang standar ketat untuk kegunaan, kecepatan, dan dampak bisnis nyata.'
@@ -659,7 +659,7 @@ export const About = () => {
                   <h3 className="text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white sm:text-[1.35rem]">
                     {v.title}
                   </h3>
-                  <p className="mt-3 text-sm font-light leading-[1.8] text-[#8A909D]">
+                  <p className="mt-3 text-sm font-light leading-[1.8] text-text-body">
                     {v.desc}
                   </p>
                 </div>
@@ -671,7 +671,7 @@ export const About = () => {
       </section>
 
       {/* Timeline Journey */}
-      <section aria-labelledby="about-journey-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-journey-title" className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -713,7 +713,7 @@ export const About = () => {
                     <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.035em] text-white sm:text-xl">
                       {item.title}
                     </h3>
-                    <p className="mt-3 text-sm font-light leading-[1.8] text-[#8A909D]">
+                    <p className="mt-3 text-sm font-light leading-[1.8] text-text-body">
                       {item.desc}
                     </p>
                   </div>
@@ -726,7 +726,7 @@ export const About = () => {
       </section>
 
       {/* Redesigned Technology Stack Grid */}
-      <section aria-labelledby="about-stack-title" className="relative z-10 overflow-hidden border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section aria-labelledby="about-stack-title" className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-24 md:px-12">
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl sm:mb-14 md:mb-16">
@@ -747,7 +747,7 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-[#8A909D] sm:text-base"
+              className="mt-5 max-w-2xl text-sm font-light leading-[1.85] text-text-body sm:text-base"
             >
               {t('about.tools.subtitle')}
             </motion.p>
@@ -768,7 +768,7 @@ export const About = () => {
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-none sm:h-12 sm:w-12">
                       {stack.icon}
                     </div>
-                    <span className="max-w-[72%] rounded-full border border-white/[0.08] bg-[#0B0C0E] px-2.5 py-1 text-right text-[9px] font-mono leading-[1.4] text-brand-red sm:max-w-[68%] sm:text-[10px]">
+                    <span className="max-w-[72%] rounded-full border border-white/[0.08] bg-dark-base px-2.5 py-1 text-right text-[9px] font-mono leading-[1.4] text-brand-red sm:max-w-[68%] sm:text-[10px]">
                       {stack.badge}
                     </span>
                   </div>
@@ -777,7 +777,7 @@ export const About = () => {
                     <h3 className="text-lg font-display font-semibold leading-tight tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-xl">
                       {stack.category}
                     </h3>
-                    <p className="mt-2 text-sm font-light leading-relaxed text-[#8A909D]">
+                    <p className="mt-2 text-sm font-light leading-relaxed text-text-body">
                       {stack.subtitle}
                     </p>
                   </div>
@@ -791,7 +791,7 @@ export const About = () => {
                         <span className="min-w-0 text-xs font-medium leading-relaxed text-white">
                           {tool.name}
                         </span>
-                        <span className="max-w-[44%] shrink-0 text-right text-[9px] font-mono uppercase leading-[1.45] text-[#8A909D] sm:text-[10px]">
+                        <span className="max-w-[44%] shrink-0 text-right text-[9px] font-mono uppercase leading-[1.45] text-text-body sm:text-[10px]">
                           {tool.level}
                         </span>
                       </div>

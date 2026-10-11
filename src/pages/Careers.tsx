@@ -129,10 +129,10 @@ const CareerDropdown = ({
           setOpen((currentOpen) => !currentOpen);
           setActiveOptionIndex(Math.max(0, options.findIndex((option) => option.value === value)));
         }}
-        className="flex min-h-[44px] w-full items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-[#0B0C0E]/70 px-4 py-2.5 text-left font-mono text-xs text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-white/[0.14] hover:bg-white/[0.025] focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20"
+        className="flex min-h-[44px] w-full items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-dark-base/70 px-4 py-2.5 text-left font-mono text-xs text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-white/[0.14] hover:bg-white/[0.025] focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20"
       >
         <span className="min-w-0 truncate">{selected?.label ?? value}</span>
-        <ChevronDown className={`h-4 w-4 shrink-0 text-[#8A909D] transition-transform duration-200 ${open ? 'rotate-180 text-white' : ''}`} />
+        <ChevronDown className={`h-4 w-4 shrink-0 text-text-body transition-transform duration-200 ${open ? 'rotate-180 text-white' : ''}`} />
       </button>
       <AnimatePresence>
         {open && (
@@ -212,7 +212,7 @@ const CareerCheckbox = ({
       />
       <span
         aria-hidden="true"
-        className="flex h-5 w-5 items-center justify-center rounded-md border border-white/[0.14] bg-[#0B0C0E] text-transparent transition-[background-color,border-color,color,box-shadow] duration-200 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-red/30 peer-checked:border-brand-red peer-checked:bg-brand-red peer-checked:text-white"
+        className="flex h-5 w-5 items-center justify-center rounded-md border border-white/[0.14] bg-dark-base text-transparent transition-[background-color,border-color,color,box-shadow] duration-200 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-red/30 peer-checked:border-brand-red peer-checked:bg-brand-red peer-checked:text-white"
       >
         <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
       </span>
@@ -1204,7 +1204,7 @@ export const Careers = () => {
   };
 
   return (
-    <div className="bg-[#0B0C0E] text-white min-h-screen selection:bg-brand-red selection:text-white relative">
+    <div className="bg-dark-base text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={language === 'id' ? 'Karier & Peluang Kemitraan' : 'Careers & Opportunities'}
@@ -1215,7 +1215,7 @@ export const Careers = () => {
             : 'We offer on-site studio roles in South Tangerang as well as a global Freelance Vendor network (100% WFA, Project-Based) to build exceptional digital products together.'
         }
       >
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-[#8A909D]">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-text-body">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5">
             <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
             <span>2 {language === 'id' ? 'Posisi Studio Terbuka' : 'Studio Roles Hiring'}</span>
@@ -1260,7 +1260,7 @@ export const Careers = () => {
       {/* SECTION: Specialist Disciplines */}
       <section
         id="disciplines"
-        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-24 md:px-12"
+        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-dark-base px-4 py-16 sm:px-6 sm:py-24 md:px-12"
       >
         <div className="relative mx-auto w-full max-w-7xl">
           <div className="mb-10 grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,0.62fr)] lg:items-end lg:gap-12">
@@ -1472,7 +1472,7 @@ export const Careers = () => {
                 {language === 'id' ? 'Posisi yang Sedang Dibuka' : 'Available Roles'}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-[#8A909D] font-light max-w-md">
+            <p className="text-xs sm:text-sm text-text-body font-light max-w-md">
               {language === 'id'
                 ? 'Klik salah satu posisi di bawah ini untuk melihat detail kualifikasi, tanggung jawab, dan mengirimkan lamaran langsung.'
                 : 'Click any role below to review full responsibilities, qualification benchmarks, and submit your application.'
@@ -1487,7 +1487,7 @@ export const Careers = () => {
                 <h3 className="mt-4 text-lg font-display font-semibold tracking-tight text-white">
                   {language === 'id' ? 'Belum ada lowongan aktif' : 'No open positions right now'}
                 </h3>
-                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#8A909D]">
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-text-body">
                   {language === 'id' ? 'Silakan kunjungi kembali halaman ini untuk melihat peluang karier terbaru.' : 'Please check back later for new career opportunities.'}
                 </p>
               </div>
@@ -1513,7 +1513,7 @@ export const Careers = () => {
                       <span className="px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-mono font-medium">
                         {pos.workplace}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-white/[0.02] border border-white/[0.08] text-[#8A909D] text-xs font-mono">
+                      <span className="px-3 py-1 rounded-full bg-white/[0.02] border border-white/[0.08] text-text-body text-xs font-mono">
                         {pos.department}
                       </span>
                       <span className="px-3 py-1 rounded-full bg-white/[0.025] border border-white/[0.08] text-emerald-400 text-xs font-mono">
@@ -1525,11 +1525,11 @@ export const Careers = () => {
                       {pos.title}
                     </h3>
 
-                    <p className="text-sm text-[#8A909D] font-light leading-relaxed">
+                    <p className="text-sm text-text-body font-light leading-relaxed">
                       {pos.summary}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#8A909D] pt-1">
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-text-body pt-1">
                       <div className="flex items-center gap-1.5">
                         <MapPin size={13} className="text-brand-red" />
                         <span>{pos.location}</span>
@@ -1556,7 +1556,7 @@ export const Careers = () => {
 
       {/* SECTION: Freelance Partner Network */}
       <section
-        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
+        className="relative isolate overflow-hidden border-b border-white/[0.08] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="freelance-vendor"
       >
         <div className="relative z-10 mx-auto w-full max-w-7xl">
@@ -1585,7 +1585,7 @@ export const Careers = () => {
                   <p className="text-xs font-semibold text-white">
                     {language === 'id' ? 'Punya keahlian yang ingin dibagikan?' : 'Have a craft worth bringing to the table?'}
                   </p>
-                  <p className="mt-1.5 text-xs font-light leading-5 text-[#8A909D]">
+                  <p className="mt-1.5 text-xs font-light leading-5 text-text-body">
                     {language === 'id' ? 'Mulai dengan profil dan portofolio Anda.' : 'Start with your profile and portfolio.'}
                   </p>
                 </div>
@@ -1618,7 +1618,7 @@ export const Careers = () => {
                   <p className="font-display text-3xl font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-4xl">
                     {language === 'id' ? <>Mandiri dalam bekerja.<br />Selaras dalam berkarya.</> : <>Independent by nature.<br />Aligned by craft.</>}
                   </p>
-                  <p className="mt-4 max-w-sm text-xs font-light leading-6 text-[#8A909D]">
+                  <p className="mt-4 max-w-sm text-xs font-light leading-6 text-text-body">
                     {language === 'id'
                       ? 'Anda membawa keahlian dan cara kerja profesional. Kami menyepakati ruang lingkup, deliverable, dan timeline bersama sebelum proyek dimulai.'
                       : 'You bring your expertise and professional practice. Scope, deliverables, and timelines are agreed together before a project begins.'}
@@ -1664,7 +1664,7 @@ export const Careers = () => {
                       <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-red" />
                       <div>
                         <p className="text-xs font-medium text-white/90">{item.title}</p>
-                        <p className="mt-1 text-xs font-light leading-5 text-[#8A909D]">{item.text}</p>
+                        <p className="mt-1 text-xs font-light leading-5 text-text-body">{item.text}</p>
                       </div>
                     </div>
                   ))}
@@ -1681,7 +1681,7 @@ export const Careers = () => {
               <h3 className="mt-4 max-w-md font-display text-2xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-3xl">
                 {language === 'id' ? 'Spesialis berbeda. Satu tim saat dibutuhkan.' : 'Different specialists. One team when it matters.'}
               </h3>
-              <p className="mt-3 max-w-md text-xs font-light leading-6 text-[#8A909D]">
+              <p className="mt-3 max-w-md text-xs font-light leading-6 text-text-body">
                 {language === 'id'
                   ? 'Kami terbuka pada spesialisasi kreatif maupun teknis yang mendukung produk digital dari konsep hingga peluncuran.'
                   : 'We welcome creative and technical specialists who can support digital products from concept through delivery.'}
@@ -1721,7 +1721,7 @@ export const Careers = () => {
                         <span className="text-[9px] font-mono tracking-[0.12em] text-white/30">{number}</span>
                         <h4 className="text-xs font-semibold text-white">{title}</h4>
                       </div>
-                      <p className="mt-1.5 text-xs font-light leading-5 text-[#8A909D]">{detail}</p>
+                      <p className="mt-1.5 text-xs font-light leading-5 text-text-body">{detail}</p>
                     </div>
                   </div>
                 ))}
@@ -1764,7 +1764,7 @@ export const Careers = () => {
                   <div key={step.number} className="rounded-xl border border-white/[0.07] p-4 sm:p-5">
                     <p className="mb-5 font-mono text-xs tabular-nums tracking-[0.15em] text-brand-red">{step.number}</p>
                     <h4 className="text-sm font-semibold tracking-[-0.02em] text-white">{step.title}</h4>
-                    <p className="mt-2.5 text-xs font-light leading-6 text-[#8A909D]">{step.text}</p>
+                    <p className="mt-2.5 text-xs font-light leading-6 text-text-body">{step.text}</p>
                   </div>
                 ))}
               </div>
@@ -1783,7 +1783,7 @@ export const Careers = () => {
       </section>
 
       {/* SECTION: Benefits & Perks */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] bg-[#0B0C0E]">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-white/[0.08] bg-dark-base">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
             <span className="kapi-section-label mb-5">
@@ -1811,7 +1811,7 @@ export const Careers = () => {
                   <h3 className="text-lg font-display font-bold text-white mb-2">
                     {benefit.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#8A909D] font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-text-body font-light leading-relaxed">
                     {benefit.desc}
                   </p>
                 </div>
@@ -1844,17 +1844,17 @@ export const Careers = () => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
               ref={careerModalRef}
-              className="career-modal-shell kapi-modal-surface relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
+              className="career-modal-shell kapi-modal-surface relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-dark-surface/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header with Role Title */}
-              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
+              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-dark-surface/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="px-2.5 py-0.5 rounded-full bg-brand-red/[0.055] border border-brand-red/28 text-brand-red text-[10px] font-mono font-semibold">
                         {selectedPosition.workplace}
                       </span>
-                      <span className="text-[11px] font-mono text-[#8A909D]">
+                      <span className="text-[11px] font-mono text-text-body">
                         {selectedPosition.department}
                       </span>
                     </div>
@@ -1878,7 +1878,7 @@ export const Careers = () => {
                   </button>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-[#8A909D]">
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-mono text-text-body">
                   <span className="flex items-center gap-1.5">
                     <MapPin size={13} className="text-brand-red shrink-0" />
                     <span>{selectedPosition.location}</span>
@@ -1935,7 +1935,7 @@ export const Careers = () => {
                   <h4 className="text-lg font-display font-bold text-white mb-2">
                     {language === 'id' ? 'Kirimkan Lamaran Anda' : 'Submit Your Application'}
                   </h4>
-                  <p className="text-xs text-[#8A909D] font-light mb-6">
+                  <p className="text-xs text-text-body font-light mb-6">
                     {language === 'id'
                       ? 'Lengkapi formulir di bawah ini atau kirimkan CV & portofolio Anda langsung ke recruitment@kapitech.id'
                       : 'Fill in the form below or send your resume and portfolio directly to recruitment@kapitech.id'
@@ -1973,7 +1973,7 @@ export const Careers = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="career-name" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-name" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                             {language === 'id' ? 'Nama Lengkap *' : 'Full Name *'}
                           </label>
                           <input 
@@ -1994,7 +1994,7 @@ export const Careers = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="career-email" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-email" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                             {language === 'id' ? 'Alamat Email *' : 'Email Address *'}
                           </label>
                           <input 
@@ -2017,7 +2017,7 @@ export const Careers = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="career-phone" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-phone" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                             {language === 'id' ? 'Nomor WhatsApp / HP *' : 'Phone / WhatsApp *'}
                           </label>
                           <input 
@@ -2038,7 +2038,7 @@ export const Careers = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="career-portfolio" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                          <label htmlFor="career-portfolio" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                             {language === 'id' ? 'Tautan Portofolio / LinkedIn *' : 'Portfolio / LinkedIn URL *'}
                           </label>
                           <input 
@@ -2057,7 +2057,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="career-cover-letter" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                        <label htmlFor="career-cover-letter" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                           {language === 'id' ? 'Pesan / Pengantar Singkat' : 'Cover Note / Introduction'}
                         </label>
                         <textarea 
@@ -2072,7 +2072,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="career-resume" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase">
+                        <label htmlFor="career-resume" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase">
                           {language === 'id' ? 'Unggah CV / Resume (PDF maks 5MB)' : 'Upload Resume / CV (PDF max 5MB)'}
                         </label>
                         <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
@@ -2084,7 +2084,7 @@ export const Careers = () => {
                             className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                           />
                           <Upload className="w-5 h-5 text-white/40 mx-auto mb-1.5" />
-                          <span className="text-xs text-[#8A909D] font-mono block">
+                          <span className="text-xs text-text-body font-mono block">
                             {formData.resume ? formData.resume.name : (language === 'id' ? 'Klik atau seret file CV Anda ke sini' : 'Click or drag your CV file here')}
                           </span>
                         </div>
@@ -2140,10 +2140,10 @@ export const Careers = () => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
               ref={careerModalRef}
-              className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F1116]/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
+              className="career-modal-shell relative flex w-full max-w-4xl min-h-0 max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-dark-surface/94 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.9)] backdrop-blur-2xl my-2 sm:my-6 sm:max-h-[92vh]"
             >
               {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-[#0F1116]/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
+              <div className="sticky top-0 z-20 px-5 sm:px-7 pt-5 sm:pt-6 pb-5 sm:pb-6 bg-dark-surface/96 backdrop-blur-2xl border-b border-white/[0.08] space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -2174,7 +2174,7 @@ export const Careers = () => {
                   </button>
                 </div>
 
-                <p className="text-xs text-[#8A909D] font-light">
+                <p className="text-xs text-text-body font-light">
                   {language === 'id'
                     ? 'Daftarkan profil Anda untuk bergabung dalam jaringan vendor spesialis Kapitech. Kami akan menghubungi Anda ketika terdapat proyek yang cocok dengan keahlian Anda.'
                     : 'Submit your profile to join Kapitech’s vetted vendor network. We will reach out when a project matching your expertise becomes available.'
@@ -2192,7 +2192,7 @@ export const Careers = () => {
                     <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
                       {language === 'id' ? 'Pendaftaran Vendor Berhasil Diterima!' : 'Vendor Application Received!'}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#8A909D] max-w-lg mx-auto font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-text-body max-w-lg mx-auto font-light leading-relaxed">
                       {language === 'id'
                         ? 'Terima kasih atas minat Anda bermitra dengan Kapitech. Tim operasional dan tech/creative lead kami akan meninjau portofolio Anda dan menghubungi Anda via WhatsApp/Email saat proyek baru dimulai.'
                         : 'Thank you for registering. Our creative and engineering leads will review your portfolio and reach out via WhatsApp/Email when matching project scopes kick off.'
@@ -2228,7 +2228,7 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="vendor-name" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-name" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Nama Lengkap / Studio *' : 'Full Name / Studio Name *'}
                         </label>
                         <input 
@@ -2249,7 +2249,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="vendor-email" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-email" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Alamat Email *' : 'Email Address *'}
                         </label>
                         <input 
@@ -2272,7 +2272,7 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="vendor-phone" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-phone" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Nomor WhatsApp Aktif *' : 'WhatsApp Number (Active) *'}
                         </label>
                         <input 
@@ -2293,7 +2293,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Spesialisasi Utama *' : 'Primary Specialty *'}
                         </label>
                         <CareerDropdown
@@ -2316,7 +2316,7 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="vendor-portfolio" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-portfolio" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Tautan Portofolio / GitHub / Dribbble *' : 'Portfolio / GitHub / Dribbble URL *'}
                         </label>
                         <input 
@@ -2334,7 +2334,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="vendor-rate-card" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-rate-card" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Ekspektasi Rate Card (per Proyek / Jam)' : 'Rate Card Expectation (per Project / Hourly)'}
                         </label>
                         <input 
@@ -2351,7 +2351,7 @@ export const Careers = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Pengalaman Profesional' : 'Years of Experience'}
                         </label>
                         <CareerDropdown
@@ -2368,7 +2368,7 @@ export const Careers = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="vendor-tools" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                        <label htmlFor="vendor-tools" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                           {language === 'id' ? 'Alat Kerja / Stack Utama' : 'Core Tools & Tech Stack'}
                         </label>
                         <input 
@@ -2432,7 +2432,7 @@ export const Careers = () => {
                     )}
 
                     <div>
-                      <label htmlFor="vendor-notes" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                      <label htmlFor="vendor-notes" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                         {language === 'id' ? 'Catatan Tambahan / Deskripsi Keahlian' : 'Additional Notes / Key Highlights'}
                       </label>
                       <textarea 
@@ -2447,7 +2447,7 @@ export const Careers = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="vendor-resume" className="block text-[11px] font-mono text-[#8A909D] mb-1.5 uppercase font-semibold">
+                      <label htmlFor="vendor-resume" className="block text-[11px] font-mono text-text-body mb-1.5 uppercase font-semibold">
                         {language === 'id' ? 'Unggah CV / Portofolio PDF (Opsional, maks 5MB)' : 'Upload CV / Portfolio PDF (Optional, max 5MB)'}
                       </label>
                       <div className="relative border border-dashed border-white/[0.12] rounded-xl p-4 text-center hover:border-brand-red/50 transition-colors bg-white/[0.012]">
@@ -2459,7 +2459,7 @@ export const Careers = () => {
                           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                         />
                         <Upload className="w-5 h-5 text-white/40 mx-auto mb-1.5" />
-                        <span className="text-xs text-[#8A909D] font-mono block">
+                        <span className="text-xs text-text-body font-mono block">
                           {vendorFormData.resume ? vendorFormData.resume.name : (language === 'id' ? 'Klik atau seret file dokumen Anda ke sini' : 'Click or drag your document here')}
                         </span>
                       </div>
