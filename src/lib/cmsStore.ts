@@ -291,7 +291,9 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
           .filter((project) => Boolean(project)
             && typeof project === 'object'
             && !Array.isArray(project)
-            && (project as Record<string, unknown>).isPublished === true)
+            // Existing CMS rows predate the explicit publication flag. Preserve them unless
+            // an editor explicitly marked the record as a draft; quarantined fixtures are false.
+            && (project as Record<string, unknown>).isPublished !== false)
           .map(normalizeCmsProject)
           .filter((project): project is ProjectItem => Boolean(project));
         setCmsCache('projects', publishedProjects);
@@ -322,7 +324,9 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
       if (testimonials) {
         // Only explicitly published CMS testimonials may appear publicly.
         // Empty or draft-only collections remain empty rather than being replaced by sample quotes.
-        const publishedTestimonials = testimonials.filter((item) => item?.isPublished === true);
+        // Older CMS testimonials may not have the publication field. Keep those legacy rows
+        // visible; only an explicit false value means an editor has unpublished the item.
+        const publishedTestimonials = testimonials.filter((item) => item?.isPublished !== false);
         cmsTestimonialsCache = publishedTestimonials;
         markCmsHydrationSuccess('testimonials');
         notifyCmsUpdate('testimonials');
