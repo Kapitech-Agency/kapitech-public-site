@@ -1,5 +1,5 @@
 Kapitech deployment health check
-Baseline commit: 90e4ff6172dab871c62cd920b8cc26e0a89f00e6
-Required deployed baseline: 90e4ff6172dab871c62cd920b8cc26e0a89f00e6
+Baseline commit: 1806745b9054fe16341ef4eed57fcd17c91a8b0e
+Required deployed baseline: 1806745b9054fe16341ef4eed57fcd17c91a8b0e
 Build: Hostinger Node.js 22 / npm run build
 Expected deployment root: public_html
