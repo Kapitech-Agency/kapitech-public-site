@@ -635,6 +635,11 @@ const loadCmsProjectsForPrerender = async () => {
   }
 };
 
+const cmsProjectRecords = await loadCmsProjectsForPrerender();
+const publishedCmsProjects = cmsProjectRecords.filter((project) =>
+  project && typeof project === 'object' && project.isPublished === true
+);
+
 for (const route of manifest.routes) {
   if (route.path.startsWith('/insights/')) continue;
 
@@ -643,7 +648,11 @@ for (const route of manifest.routes) {
   html = setTitle(html, route.title);
   html = setMeta(html, 'name', 'title', route.title);
   html = setMeta(html, 'name', 'description', route.description);
-  html = setMeta(html, 'name', 'robots', route.robots);
+  const industrySlug = route.path.split('/').filter(Boolean).pop() || '';
+  const routeHasPublishedWork = route.kind !== 'industry' || publishedCmsProjects.some((project) =>
+    slugify(project.industry).includes(slugify(industrySlug))
+  );
+  html = setMeta(html, 'name', 'robots', route.kind === 'industry' && !routeHasPublishedWork ? 'noindex, follow' : route.robots);
   html = setMeta(html, 'property', 'og:url', canonicalUrl);
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
@@ -658,10 +667,7 @@ for (const route of manifest.routes) {
   console.log('[seo] generated ' + posix.normalize(route.path + '/index.html'));
 }
 
-const cmsProjectRecords = await loadCmsProjectsForPrerender();
-const allPrerenderProjects = cmsProjectRecords.filter((project) =>
-  project && typeof project === 'object' && project.isPublished === true
-);
+const allPrerenderProjects = publishedCmsProjects;
 const seenProjectSlugs = new Set();
 for (const project of allPrerenderProjects) {
   const slug = slugify(project.slug || project.id || project.title);
