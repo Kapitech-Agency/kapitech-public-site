@@ -171,17 +171,17 @@ export const Navbar = () => {
   const isIndustriesActive = location.pathname.startsWith('/industries');
 
   // Shared navbar material used by the scrolled navbar and mobile controls.
-  const navbarGlassMaterial = "bg-[#0B0C0E]/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/84";
+  const navbarGlassMaterial = "bg-dark-base/92 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-dark-base/84";
   // Dropdown uses the same dark glass language, with stronger blur and a lighter surface.
-  const dropdownGlassMaterial = "bg-[#0B0C0E]/82 backdrop-blur-sm backdrop-saturate-110 supports-[backdrop-filter]:bg-[#0B0C0E]/76";
-  const controlGlassMaterial = "bg-[#0B0C0E]/42 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/34";
+  const dropdownGlassMaterial = "bg-dark-base/82 backdrop-blur-sm backdrop-saturate-110 supports-[backdrop-filter]:bg-dark-base/76";
+  const controlGlassMaterial = "bg-dark-base/42 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-dark-base/34";
 
   const desktopNavItemClass = (active: boolean) =>
     cn(
       "group relative inline-flex items-center h-9 px-2.5 rounded-full text-[9.5px] font-semibold uppercase tracking-[0.14em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
       active
-        ? "text-brand-red border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(229,9,20,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
-        : "text-[#8A909D] border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
+        ? "text-brand-red border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(220, 20, 60,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
+        : "text-text-body border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
   return (
@@ -210,7 +210,7 @@ export const Navbar = () => {
         className={cn(
           "kapi-public-navbar fixed top-0 left-0 w-full z-50 transition-[background-color,border-color,box-shadow,padding] duration-500 border-b pt-[env(safe-area-inset-top)]",
           isScrolled
-              ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${(isServicesDropdownOpen || isIndustriesDropdownOpen) ? "border-transparent shadow-none" : "border-[#262930]/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
+              ? `${navbarGlassMaterial} py-3 sm:py-3.5 ${(isServicesDropdownOpen || isIndustriesDropdownOpen) ? "border-transparent shadow-none" : "border-dark-subtle/80 shadow-[0_12px_36px_rgba(0,0,0,0.28)]"}`
               : (isServicesDropdownOpen || isIndustriesDropdownOpen)
                 ? `${navbarGlassMaterial} py-4 sm:py-5 border-transparent shadow-none`
                 : "bg-transparent backdrop-blur-none py-4 sm:py-5 border-transparent"
@@ -279,7 +279,7 @@ export const Navbar = () => {
                     <ChevronDown
                       className={cn(
                         "h-3.5 w-3.5 transition-colors duration-200",
-                        isServicesDropdownOpen ? "text-white" : "text-[#8A909D]"
+                        isServicesDropdownOpen ? "text-white" : "text-text-body"
                       )}
                     />
                   </motion.span>
@@ -315,7 +315,7 @@ export const Navbar = () => {
                     animate={{ rotate: isIndustriesDropdownOpen ? 180 : 0 }}
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <ChevronDown className={cn("h-3.5 w-3.5 transition-colors duration-200", isIndustriesDropdownOpen ? "text-white" : "text-[#8A909D]")} />
+                    <ChevronDown className={cn("h-3.5 w-3.5 transition-colors duration-200", isIndustriesDropdownOpen ? "text-white" : "text-text-body")} />
                   </motion.span>
                 </button>
               </div>
@@ -353,7 +353,7 @@ export const Navbar = () => {
             {/* Start Project CTA */}
             <Link
               to="/contact#project-inquiry-form"
-              className="group relative isolate inline-flex items-center gap-2 h-10 px-4 rounded-full border border-white/[0.1] bg-[#0B0C0E]/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[#0B0C0E]/28 text-[#F3F4F6] text-[10px] font-bold uppercase tracking-[0.12em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(229,9,20,0.16)]"
+              className="group relative isolate inline-flex items-center gap-2 h-10 px-4 rounded-full border border-white/[0.1] bg-dark-base/34 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-dark-base/28 text-[#F3F4F6] text-[10px] font-bold uppercase tracking-[0.12em] transition-[background-color,border-color,color,box-shadow] duration-500 ease-out shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_8px_24px_rgba(0,0,0,0.1)] hover:border-brand-red/50 hover:bg-brand-red/72 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_10px_28px_rgba(220, 20, 60,0.16)]"
               data-cursor-label="Start"
             >
 
@@ -365,7 +365,7 @@ export const Navbar = () => {
 
             {/* Language Switcher */}
             <div
-              className="inline-flex items-center rounded-full border border-white/[0.09] bg-[#0B0C0E]/42 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_6px_18px_rgba(0,0,0,0.08)]"
+              className="inline-flex items-center rounded-full border border-white/[0.09] bg-dark-base/42 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_6px_18px_rgba(0,0,0,0.08)]"
               role="group"
               aria-label="Language"
             >
@@ -384,7 +384,7 @@ export const Navbar = () => {
                 <span className={cn(
                   "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
                   language === 'en'
-                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.65)]"
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(220, 20, 60,0.65)]"
                     : "bg-[#4E535C]"
                 )} aria-hidden="true" />
                 <span>EN</span>
@@ -405,7 +405,7 @@ export const Navbar = () => {
                 <span className={cn(
                   "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
                   language === 'id'
-                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.65)]"
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(220, 20, 60,0.65)]"
                     : "bg-[#4E535C]"
                 )} aria-hidden="true" />
                 <span>ID</span>
@@ -416,7 +416,7 @@ export const Navbar = () => {
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
           <div className="flex items-center gap-2 sm:gap-3 xl:hidden">
             <div
-              className="inline-flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-[#0B0C0E]/48 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.1)]"
+              className="inline-flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-dark-base/48 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.1)]"
               role="group"
               aria-label="Language"
             >
@@ -435,7 +435,7 @@ export const Navbar = () => {
                 <span className={cn(
                   "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
                   language === 'en'
-                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.55)]"
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(220, 20, 60,0.55)]"
                     : "bg-[#4E535C]"
                 )} aria-hidden="true" />
                 <span>EN</span>
@@ -455,7 +455,7 @@ export const Navbar = () => {
                 <span className={cn(
                   "h-1.5 w-1.5 rounded-full transition-[background-color,box-shadow] duration-200",
                   language === 'id'
-                    ? "bg-brand-red shadow-[0_0_8px_rgba(229,9,20,0.55)]"
+                    ? "bg-brand-red shadow-[0_0_8px_rgba(220, 20, 60,0.55)]"
                     : "bg-[#4E535C]"
                 )} aria-hidden="true" />
                 <span>ID</span>
@@ -508,7 +508,7 @@ export const Navbar = () => {
                 
                 {/* COLUMN 1: SOLUTIONS */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
                     <Sparkles className="w-3.5 h-3.5 text-brand-red" />
                     <span>SOLUTIONS</span>
                   </div>
@@ -534,7 +534,7 @@ export const Navbar = () => {
 
                 {/* COLUMN 2: BRANDING */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
                     <Palette className="w-3.5 h-3.5 text-brand-red" />
                     <span>BRANDING</span>
                   </div>
@@ -560,7 +560,7 @@ export const Navbar = () => {
 
                 {/* COLUMN 3: DESIGN */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
                     <Layers className="w-3.5 h-3.5 text-brand-red" />
                     <span>DESIGN</span>
                   </div>
@@ -586,7 +586,7 @@ export const Navbar = () => {
 
                 {/* COLUMN 4: DEVELOPMENT */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#262930] text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
                     <Code2 className="w-3.5 h-3.5 text-brand-red" />
                     <span>DEVELOPMENT</span>
                   </div>
@@ -613,7 +613,7 @@ export const Navbar = () => {
               </div>
 
               {/* Bottom Quick Hub Bar */}
-              <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-[#262930] flex flex-wrap items-center justify-between gap-4 text-xs text-[#8A909D]">
+              <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-dark-subtle flex flex-wrap items-center justify-between gap-4 text-xs text-text-body">
                 <Link 
                   to="/services" 
                   onClick={() => setIsServicesDropdownOpen(false)}
@@ -622,7 +622,7 @@ export const Navbar = () => {
                   <span>{language === 'id' ? 'Lihat Semua Gambaran Layanan' : 'Browse All Services Overview'}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-brand-red" />
                 </Link>
-                <div className="font-mono text-[11px] text-[#8A909D]">
+                <div className="font-mono text-[11px] text-text-body">
                   {solutions.length} Strategic Solutions &bull; {dedicatedServiceCount} Dedicated Services
                 </div>
               </div>
@@ -703,7 +703,7 @@ export const Navbar = () => {
               role="dialog"
               aria-modal="true"
               aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-              className="absolute left-0 right-0 top-full z-10 xl:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-[#0B0C0E]/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
+              className="absolute left-0 right-0 top-full z-10 xl:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-dark-base/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
               <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
                 <div className="flex flex-col">
@@ -717,14 +717,14 @@ export const Navbar = () => {
                         "flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isWorkActive
                           ? "bg-brand-red/[0.08] text-brand-red"
-                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                          : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-xs font-mono text-brand-red">01</span>
                         <span className="text-xl font-display">{t('nav.work')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isWorkActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                      <ChevronRight size={18} className={cn(isWorkActive ? "text-brand-red" : "text-text-body/50")} />
                     </Link>
 
                     <div className="mt-1 rounded-xl">
@@ -738,7 +738,7 @@ export const Navbar = () => {
                           "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
                           isServicesActive || isMobileServicesOpen
                             ? "bg-brand-red/[0.08] text-brand-red"
-                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                            : "text-text-body hover:bg-white/[0.035] hover:text-white"
                         )}
                       >
                         <div className="flex items-center gap-3">
@@ -748,7 +748,7 @@ export const Navbar = () => {
                         <ChevronDown
                           className={cn(
                             "w-5 h-5 transition-transform duration-200",
-                            isMobileServicesOpen ? "rotate-180 text-brand-red" : "text-[#8A909D]/60"
+                            isMobileServicesOpen ? "rotate-180 text-brand-red" : "text-text-body/60"
                           )}
                         />
                       </button>
@@ -788,7 +788,7 @@ export const Navbar = () => {
                                             "flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                                             itemActive
                                               ? "bg-brand-red/[0.08] text-white"
-                                              : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                                              : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                                           )}
                                         >
                                           <span>{item.title}</span>
@@ -822,14 +822,14 @@ export const Navbar = () => {
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isInsightsActive
                           ? "bg-brand-red/[0.08] text-brand-red"
-                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                          : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-xs font-mono text-brand-red">03</span>
                         <span className="text-xl font-display">{t('nav.insights')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                      <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-text-body/50")} />
                     </Link>
 
                     <div className="mt-1 rounded-xl">
@@ -843,7 +843,7 @@ export const Navbar = () => {
                           "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
                           isIndustriesActive || isMobileIndustriesOpen
                             ? "bg-brand-red/[0.08] text-brand-red"
-                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                            : "text-text-body hover:bg-white/[0.035] hover:text-white"
                         )}
                       >
                         <div className="flex items-center gap-3">
@@ -853,7 +853,7 @@ export const Navbar = () => {
                         <ChevronDown
                           className={cn(
                             "w-5 h-5 transition-transform duration-200",
-                            isMobileIndustriesOpen ? "rotate-180 text-brand-red" : "text-[#8A909D]/60"
+                            isMobileIndustriesOpen ? "rotate-180 text-brand-red" : "text-text-body/60"
                           )}
                         />
                       </button>
@@ -881,7 +881,7 @@ export const Navbar = () => {
                                       "group flex min-h-[52px] items-center justify-between rounded-xl px-3 py-2 transition-colors",
                                       itemActive
                                         ? "bg-brand-red/[0.08] text-white"
-                                        : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white"
+                                        : "text-text-body hover:bg-white/[0.035] hover:text-white"
                                     )}
                                   >
                                     <span className="min-w-0">
@@ -907,14 +907,14 @@ export const Navbar = () => {
                           "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                           location.pathname === '/faq'
                             ? "bg-brand-red/[0.08] text-brand-red"
-                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                            : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <span className="w-6 text-xs font-mono text-brand-red">05</span>
                           <span>FAQ</span>
                         </div>
-                        <ChevronRight size={18} className={location.pathname === '/faq' ? "text-brand-red" : "text-[#8A909D]/50"} />
+                        <ChevronRight size={18} className={location.pathname === '/faq' ? "text-brand-red" : "text-text-body/50"} />
                       </Link>
                       <Link
                         to="/search"
@@ -924,14 +924,14 @@ export const Navbar = () => {
                           "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                           location.pathname === '/search'
                             ? "bg-brand-red/[0.08] text-brand-red"
-                            : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                            : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <span className="w-6 text-xs font-mono text-brand-red">06</span>
                           <span>{language === 'id' ? 'Cari' : 'Search'}</span>
                         </div>
-                        <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red" : "text-[#8A909D]/50"} />
+                        <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red" : "text-text-body/50"} />
                       </Link>
                     </div>
 
@@ -943,14 +943,14 @@ export const Navbar = () => {
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isAboutActive
                           ? "bg-brand-red/[0.08] text-brand-red"
-                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                          : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-xs font-mono text-brand-red">07</span>
                         <span className="text-xl font-display">{t('nav.about')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                      <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-text-body/50")} />
                     </Link>
 
                     <Link
@@ -961,20 +961,20 @@ export const Navbar = () => {
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isCareersActive
                           ? "bg-brand-red/[0.08] text-brand-red"
-                          : "text-[#8A909D] hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
+                          : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <span className="w-6 text-xs font-mono text-brand-red">08</span>
                         <span className="text-xl font-display">{t('nav.careers')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-[#8A909D]/50")} />
+                      <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-text-body/50")} />
                     </Link>
 
                     <Link
                       to="/contact#project-inquiry-form"
                       onClick={() => setIsMenuOpen(false)}
-                      className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] text-xs font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/45 hover:bg-brand-red hover:shadow-[0_12px_30px_-20px_rgba(229,9,20,0.4)]"
+                      className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] text-xs font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/45 hover:bg-brand-red hover:shadow-[0_12px_30px_-20px_rgba(220, 20, 60,0.4)]"
                       data-cursor-label="Start"
                     >
                       <span>{t('nav.startProject')}</span>
@@ -1000,17 +1000,17 @@ export const Navbar = () => {
                       <Mail size={15} className="text-brand-red shrink-0" />
                       <span className="truncate">hello@kapitech.id</span>
                     </a>
-                    <div className="flex items-center justify-between pt-1 text-xs text-[#8A909D]">
+                    <div className="flex items-center justify-between pt-1 text-xs text-text-body">
                       <a
                         href="https://www.instagram.com/kapitechagency/"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Kapitech Agency on Instagram"
-                        className="text-[#8A909D] transition-colors hover:text-white"
+                        className="text-text-body transition-colors hover:text-white"
                       >
                         <Instagram size={16} />
                       </a>
-                      <span className="font-mono text-[10px] text-[#8A909D]">Tangerang Selatan, ID</span>
+                      <span className="font-mono text-[10px] text-text-body">Tangerang Selatan, ID</span>
                     </div>
                   </div>
                 </div>
