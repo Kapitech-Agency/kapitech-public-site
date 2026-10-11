@@ -21,6 +21,7 @@ type RetryState = { count: number; timer: number | null };
 
 let cmsServicesCache: ServiceItemData[] | null = null;
 let cmsProjectsCache: ProjectItem[] | null = null;
+let cmsProjectsLoadState: 'idle' | 'loading' | 'loaded' | 'error' = 'idle';
 let cmsProjectsHasExplicitUnpublishedRecords = false;
 let cmsTestimonialsCache: TestimonialItem[] | null = null;
 let cmsServicesRequest: Promise<ServiceItemData[]> | null = null;
@@ -221,7 +222,10 @@ function setCmsCache(
   value: ServiceItemData[] | ProjectItem[] | TestimonialItem[],
 ): void {
   if (type === 'services') cmsServicesCache = value as ServiceItemData[];
-  if (type === 'projects') cmsProjectsCache = value as ProjectItem[];
+  if (type === 'projects') {
+    cmsProjectsCache = value as ProjectItem[];
+    cmsProjectsLoadState = 'loaded';
+  }
   if (type === 'testimonials') cmsTestimonialsCache = value as TestimonialItem[];
   markCmsHydrationSuccess(type);
   notifyCmsUpdate(type);
@@ -254,6 +258,10 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
   return cmsServicesRequest;
 }
 
+export function getCmsProjectsLoadState(): 'idle' | 'loading' | 'loaded' | 'error' {
+  return cmsProjectsLoadState;
+}
+
 export function getCmsProjects(): ProjectItem[] {
   // Treat a successful empty CMS response as authoritative. In production, never
   // expose bundled sample projects while CMS data is unavailable or empty.
@@ -265,13 +273,14 @@ export function getCmsProjects(): ProjectItem[] {
 
 export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
   if (cmsProjectsRequest) return cmsProjectsRequest;
+  cmsProjectsLoadState = 'loading';
   cmsProjectsRequest = (async () => {
     try {
       const res = await api.cms.getProjects();
       const projects = res.success
         ? extractCmsCollection<unknown>(res.data, 'projects')
         : null;
-      if (projects) {
+      if (projects !== null) {
         cmsProjectsHasExplicitUnpublishedRecords = projects.some((project) =>
           Boolean(project && typeof project === 'object' && !Array.isArray(project) &&
             (project as Record<string, unknown>).isPublished === false),
@@ -289,8 +298,9 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         return publishedProjects;
       }
     } catch {
-      // Keep the empty CMS state visible until the server recovers.
+      // Report the failure separately from a valid, empty CMS collection.
     }
+    cmsProjectsLoadState = 'error';
     scheduleCmsHydrationRetry('projects', () => { void fetchServerCmsProjects(); });
     return getCmsProjects();
   })().finally(() => { cmsProjectsRequest = null; });
