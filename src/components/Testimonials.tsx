@@ -67,8 +67,47 @@ export const Testimonials = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
-  // Do not render a social-proof section unless there are editor-approved testimonials.
-  if (!current) return null;
+  // Keep the homepage section present even when no approved quotes are available.
+  // Never substitute fabricated reviews; direct visitors to a real project conversation instead.
+  if (!current) {
+    return (
+      <section
+        className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28"
+        id="testimonials"
+        aria-labelledby="testimonials-empty-title"
+      >
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div className="max-w-3xl">
+            <span className="kapi-section-label mb-5">
+              {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
+            </span>
+            <h2
+              id="testimonials-empty-title"
+              className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+            >
+              {language === 'id'
+                ? 'Setiap kolaborasi dimulai dengan percakapan yang jelas.'
+                : 'Every strong collaboration starts with a clear conversation.'}
+            </h2>
+          </div>
+          <div className="rounded-3xl border border-white/[0.075] bg-[#0F1013] p-6 sm:p-8 lg:p-10">
+            <p className="text-sm leading-7 text-[#A7ACB5] sm:text-base">
+              {language === 'id'
+                ? 'Umpan balik klien akan ditampilkan setelah kutipan dan izin publikasinya dikonfirmasi. Sementara itu, kami siap membahas kebutuhan dan ruang lingkup proyek Anda secara langsung.'
+                : 'Client feedback is shown once the quote and publication permission are confirmed. In the meantime, we are ready to discuss your goals and project scope directly.'}
+            </p>
+            <Link
+              to="/contact#project-inquiry-form"
+              className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const visibleStart = Math.min(Math.max(0, currentIndex - 3), Math.max(0, testimonials.length - 4));
   const visibleTestimonials = testimonials.slice(visibleStart, visibleStart + 4);
