@@ -556,7 +556,7 @@ const loadCmsServicesForPrerender = async () => {
     if (!response.ok) return [];
     const payload = await response.json().catch(() => ({}));
     return Array.isArray(payload.services)
-      ? payload.services.filter((service) => service?.isPublished !== false && slugify(service.slug || service.id || service.title) !== 'mobile-app-design')
+      ? payload.services.filter((service) => service?.isPublished === true && slugify(service.slug || service.id || service.title) !== 'mobile-app-design')
       : [];
   } catch {
     return [];
@@ -660,7 +660,7 @@ for (const route of manifest.routes) {
 
 const cmsProjectRecords = await loadCmsProjectsForPrerender();
 const allPrerenderProjects = cmsProjectRecords.filter((project) =>
-  project && typeof project === 'object' && project.isPublished !== false
+  project && typeof project === 'object' && project.isPublished === true
 );
 const seenProjectSlugs = new Set();
 for (const project of allPrerenderProjects) {
