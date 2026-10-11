@@ -653,9 +653,17 @@ for (const route of manifest.routes) {
     slugify(project.industry).includes(slugify(industrySlug))
   );
   html = setMeta(html, 'name', 'robots', route.kind === 'industry' && !routeHasPublishedWork ? 'noindex, follow' : route.robots);
+  html = setMeta(html, 'property', 'og:type', 'website');
   html = setMeta(html, 'property', 'og:url', canonicalUrl);
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
+  html = setMeta(html, 'property', 'og:image', manifest.defaultImage);
+  html = setMeta(html, 'property', 'og:site_name', manifest.siteName);
+  html = setMeta(html, 'name', 'twitter:card', 'summary_large_image');
+  html = setMeta(html, 'name', 'twitter:url', canonicalUrl);
+  html = setMeta(html, 'name', 'twitter:title', route.title);
+  html = setMeta(html, 'name', 'twitter:description', route.description);
+  html = setMeta(html, 'name', 'twitter:image', manifest.defaultImage);
   html = setCanonical(html, canonicalUrl);
 
   const outputPath = route.path === '/'
