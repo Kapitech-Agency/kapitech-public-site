@@ -103,7 +103,7 @@ class InsightDetailErrorBoundary extends React.Component<
     if (!this.state.hasError) return this.props.children;
 
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-dark-base px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">
             Insight / Render error
@@ -120,7 +120,7 @@ class InsightDetailErrorBoundary extends React.Component<
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {this.props.language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
@@ -549,7 +549,7 @@ export const InsightDetail: React.FC = () => {
 
   if (loadError === 'content') {
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-dark-base px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Content validation</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
@@ -574,7 +574,7 @@ export const InsightDetail: React.FC = () => {
 
   if (loadError === 'network') {
     return (
-      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-[#0B0C0E] px-4 pt-28 sm:px-6 md:px-12">
+      <section className="relative flex min-h-[70vh] w-full items-center overflow-hidden bg-dark-base px-4 pt-28 sm:px-6 md:px-12">
         <div className="mx-auto w-full max-w-[980px]">
           <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red">Insight / Network error</p>
           <h1 className="mt-4 max-w-2xl text-4xl font-display font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-6xl">
@@ -589,7 +589,7 @@ export const InsightDetail: React.FC = () => {
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#FF1E27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
@@ -654,7 +654,7 @@ export const InsightDetail: React.FC = () => {
       <>
         <InsightSeoMeta article={article} />
 
-        <header className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E]">
+        <header className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] bg-dark-base">
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <img
               src="/insights/article-hero-background.jpg"
@@ -664,12 +664,12 @@ export const InsightDetail: React.FC = () => {
               fetchPriority="high"
               className="absolute inset-0 h-full w-full object-cover opacity-[0.15]"
             />
-            <div className="absolute inset-0 bg-[#0B0C0E]/35" />
+            <div className="absolute inset-0 bg-dark-base/35" />
           </div>
           <div className="absolute inset-0" aria-hidden="true">
           <PatternWaves
             preset="lines"
-            color="#E50914"
+            color="#DC143C"
             backgroundColor="#0B0C0E"
             opacity={0.32}
             fade="edges"
@@ -686,11 +686,11 @@ export const InsightDetail: React.FC = () => {
           />
           </div>
           <div
-            className="absolute inset-0 bg-[#0B0C0E]/15"
+            className="absolute inset-0 bg-dark-base/15"
             aria-hidden="true"
           />
           <div
-            className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#0B0C0E]/40 to-[#0B0C0E]"
+            className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-dark-base/40 to-dark-base"
             aria-hidden="true"
           />
           <div className="relative mx-auto w-full max-w-[1600px] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
@@ -729,7 +729,7 @@ export const InsightDetail: React.FC = () => {
                   </span>
                 )}
                 {article.editorialMeta?.editorialType && (
-                  <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-[#8A909D]">
+                  <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-[9px] font-mono uppercase tracking-[0.14em] text-text-body">
                     {formatEditorialType(article.editorialMeta.editorialType, article.language)}
                   </span>
                 )}
@@ -933,7 +933,7 @@ export const InsightDetail: React.FC = () => {
                 >
                   {article.language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-[#8A909D]">
+                <p className="mt-3 text-sm leading-7 text-text-body">
                   {article.language === 'id'
                     ? 'Jawaban singkat untuk pertanyaan yang paling sering muncul setelah membaca artikel ini.'
                     : 'Short answers to the questions readers are most likely to have after this article.'}
@@ -995,7 +995,7 @@ export const InsightDetail: React.FC = () => {
                   >
                     {article.language === 'id' ? 'Insight yang masih relevan' : 'More insights worth reading'}
                   </h2>
-                  <p className="mt-3 text-sm leading-7 text-[#8A909D]">
+                  <p className="mt-3 text-sm leading-7 text-text-body">
                     {article.language === 'id'
                       ? 'Lanjutkan dari topik yang paling dekat dengan keputusan produk Anda.'
                       : 'Continue with topics closest to the product decision you are making.'}
@@ -1038,7 +1038,7 @@ export const InsightDetail: React.FC = () => {
                       ? 'Ingin menerapkan insight ini ke proyek Anda?'
                       : 'Have a question about applying this insight?'}
                   </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-text-body">
                     {article.language === 'id'
                       ? 'Ceritakan hal yang ingin Anda perbaiki. Kami bantu menentukan langkah berikutnya, mulai dari strategi, desain, hingga engineering.'
                       : 'Tell us what you are trying to improve. We will help identify the next practical step across strategy, design, or engineering.'}
