@@ -16,7 +16,7 @@ const escapeXml = (value) => String(value)
 
 const urls = new Map();
 
-for (const route of manifest.routes.filter((item) => item.robots?.startsWith('index'))) {
+for (const route of manifest.routes.filter((item) => item.robots?.startsWith('index') && item.kind !== 'industry')) {
   const loc = manifest.siteUrl + (route.path === '/' ? '/' : route.path);
   urls.set(loc, { loc, lastmod: undefined });
 }
