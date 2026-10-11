@@ -699,7 +699,7 @@ export const Services = () => {
     };
   }), [cmsBySlug]);
 
-  const resolvedAllServices = useMemo(() => allServices.map((service) => {
+  const resolvedAllServices = useMemo(() => allServices.filter((service) => service.id !== 'mobile-app-design').map((service) => {
     const cms = cmsBySlug.get(service.id);
     if (!cms) return service;
 
