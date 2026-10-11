@@ -101,14 +101,14 @@ export const Search = () => {
   const items = useMemo<SearchItem[]>(() => {
     const cmsProjects = getCmsProjects();
     const cmsServices = getCmsServices();
-    const projects = cmsProjects.length ? cmsProjects : allProjects;
-    const services = cmsServices.length ? cmsServices : allSolutionsAndServices;
+    const projects = cmsProjects.length ? cmsProjects : (import.meta.env.DEV ? allProjects : []);
+    const services = cmsServices.length ? cmsServices : allSolutionsAndServices.filter((service) => service.slug !== 'mobile-app-design');
 
     return [
       ...services.map((item) => ({
         type: 'Service' as const,
         title: item.title,
-        description: item.heroSubtitle || item.description || '',
+        description: item.heroSubtitle || '',
         href: '/services/' + item.slug,
         keywords: [item.category, item.title],
       })),

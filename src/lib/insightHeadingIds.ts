@@ -18,5 +18,9 @@ export function buildInsightToc(
   blocks: InsightBlock[],
   headingIds: Array<string | undefined>
 ): InsightTocItem[] {
-  return buildInsightTocList(blocks, headingIds);
+  return buildInsightTocList(blocks, headingIds).map((item: { id?: unknown; text?: unknown; level?: unknown }) => ({
+    id: typeof item.id === 'string' ? item.id : '',
+    text: typeof item.text === 'string' ? item.text : '',
+    level: item.level === 3 ? 3 : 2
+  }));
 }

@@ -4,7 +4,7 @@ import { PolicyPageShell } from '../components/ui/PolicyPageShell';
 import type { PolicySection } from '../components/ui/PolicyPageShell';
 import { useLanguage } from '../lib/LanguageContext';
 
-type Section = { title: string; body?: string; paragraphs?: string[] };
+type Section = PolicySection;
 
 const sections: Record<'en' | 'id', Section[]> = {
   en: [

@@ -689,7 +689,7 @@ export const Home = () => {
 
             <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
               {allSolutionsAndServices
-                .filter((item) => item.type === 'solution')
+                .filter((item) => item.slug !== 'mobile-app-design' && item.type === 'solution')
                 .map((solution, index) => {
                   const solutionMeta = {
                     'mvp-design': {

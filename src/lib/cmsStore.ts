@@ -47,74 +47,8 @@ export const CMS_EVENT_KEY = 'kapitech_cms_updated';
  * when the live CMS endpoint returns an empty collection or is temporarily unavailable.
  * Non-empty published CMS content always takes precedence.
  */
-export const defaultTestimonials: TestimonialItem[] = [
-  {
-    id: 't_01',
-    quote: 'Kapitech built our real estate portal from scratch using Next.js. The page load speed is blazing fast and our inbound lead conversions increased by 45% within the first month.',
-    quoteId: 'Kapitech membangun portal real estate kami dari nol menggunakan Next.js. Kecepatan loading halamannya luar biasa cepat dan konversi prospek kami meningkat 45% dalam bulan pertama.',
-    author: 'Marcus Thorne',
-    role: 'Managing Director',
-    company: 'Lumina Real Estate',
-    location: 'Jakarta, Indonesia',
-    rating: 5,
-    isPublished: true,
-  },
-  {
-    id: 't_02',
-    quote: 'Their design team has an exceptional eye for modern typography and layout. They delivered a cohesive brand identity and a stunning web experience that elevated our firm completely.',
-    quoteId: 'Tim desain mereka memiliki keahlian luar biasa dalam tipografi dan tata letak modern. Mereka menghadirkan identitas brand yang sangat kohesif dan pengalaman web yang memukau.',
-    author: 'Sarah Chen',
-    role: 'Creative Director',
-    company: 'Aura Creative Studio',
-    location: 'Singapore',
-    rating: 5,
-    isPublished: true,
-  },
-  {
-    id: 't_03',
-    quote: 'Working with Kapitech on our mobile banking interface was seamless. They simplified complex account journeys and delivered pixel-perfect Figma specs ready for our dev squad.',
-    quoteId: 'Bekerja dengan Kapitech untuk antarmuka mobile banking sangat lancar. Mereka menyederhanakan alur pengguna yang kompleks dan menyerahkan spesifikasi Figma yang presisi untuk tim developer kami.',
-    author: 'David Miller',
-    role: 'Head of Product',
-    company: 'Nexus Fintech',
-    location: 'Hong Kong',
-    rating: 5,
-    isPublished: true,
-  },
-  {
-    id: 't_04',
-    quote: 'The solar energy monitoring dashboard Kapitech engineered gave our operations team instant visibility across 40+ solar farms with zero lag. Highly dependable engineering.',
-    quoteId: 'Dashboard monitoring energi surya yang dikembangkan Kapitech memberi tim operasi kami visibilitas langsung di lebih dari 40 ladang surya tanpa lag. Rekayasa yang sangat andal.',
-    author: 'Elena Rodriguez',
-    role: 'Operations VP',
-    company: 'Solaris CleanTech',
-    location: 'Melbourne, Australia',
-    rating: 5,
-    isPublished: true,
-  },
-  {
-    id: 't_05',
-    quote: 'Our headless Shopify migration handled our flash sale traffic peaks without a hitch. Checkout conversion increased by 38%. Kapitech delivers genuine business results.',
-    quoteId: 'Migrasi Shopify headless kami menangani lonjakan traffic flash sale tanpa hambatan. Konversi checkout meningkat 38%. Kapitech memberikan hasil bisnis nyata.',
-    author: 'Julian Vane',
-    role: 'Founder & CEO',
-    company: 'Vivid Commerce',
-    location: 'Jakarta, Indonesia',
-    rating: 5,
-    isPublished: true,
-  },
-  {
-    id: 't_06',
-    quote: 'Clear milestones, proactive communication, and zero technical fluff. Kapitech is our go-to partner whenever we need to launch a new digital product on a tight timeline.',
-    quoteId: 'Milestone yang jelas, komunikasi proaktif, dan tanpa basa-basi teknis. Kapitech adalah mitra andalan kami setiap kali kami perlu meluncurkan produk digital dalam jadwal ketat.',
-    author: 'Michael Kross',
-    role: 'Chief Technology Officer',
-    company: 'Kross Cloud Systems',
-    location: 'Kuala Lumpur, Malaysia',
-    rating: 5,
-    isPublished: true,
-  },
-];
+// Testimonials require explicit CMS publication. Do not fall back to unverified sample quotes.
+export const defaultTestimonials: TestimonialItem[] = [];
 
 const PUBLIC_PROJECT_SERVICES = new Set<ProjectItem['service']>([
   'UI/UX Design',
@@ -173,8 +107,11 @@ function normalizeCmsProject(value: unknown): ProjectItem | null {
 
   const impact = Array.isArray(raw.impact)
     ? raw.impact
-        .filter((metric): metric is Record<string, unknown> => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
-        .map((metric) => ({ label: cmsText(metric.label), value: cmsText(metric.value) }))
+        .filter((metric) => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
+        .map((metric) => {
+          const value = metric as Record<string, unknown>;
+          return { label: cmsText(value.label), value: cmsText(value.value) };
+        })
         .filter((metric) => metric.label && metric.value)
     : [];
 
@@ -227,8 +164,19 @@ function extractCmsCollection<T>(payload: unknown, collectionKey: string): T[] |
   return null;
 }
 
+const EXCLUDED_PUBLIC_SERVICE_SLUGS = new Set(['mobile-app-design']);
+
+function isExcludedPublicService(service: Partial<ServiceItemData> & Record<string, unknown>): boolean {
+  const rawSlug = String(service.slug || service.id || service.title || '')
+    .trim()
+    .toLowerCase()
+    .replace(/^seed[-_]srv[-_]/, '')
+    .replace(/[\s_]+/g, '-');
+  return EXCLUDED_PUBLIC_SERVICE_SLUGS.has(rawSlug);
+}
+
 function getStaticServiceFallback(): ServiceItemData[] {
-  return allSolutionsAndServices.map((service) => ({
+  return allSolutionsAndServices.filter((service) => !isExcludedPublicService(service as ServiceItemData & Record<string, unknown>)).map((service) => ({
     ...service,
     metrics: [],
     testimonial: undefined,
@@ -288,14 +236,14 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
   cmsServicesRequest = (async () => {
     try {
       const res = await api.cms.getServices();
-      if (res.success && Array.isArray(res.data?.services) && res.data.services.length > 0) {
-        // Prevent draft CMS services from becoming publicly routable/SEO-indexed
-        // if the upstream endpoint accidentally includes unpublished records.
-        const services = res.data.services.filter((service) => service?.isPublished !== false);
-        if (services.length > 0) {
-          setCmsCache('services', services);
-          return services;
-        }
+      if (res.success && Array.isArray(res.data?.services)) {
+        // A successful CMS response is authoritative, including an empty collection.
+        // Never expose an excluded service or a stale static service when CMS is empty.
+        const services = res.data.services.filter((service) =>
+          service?.isPublished === true && !isExcludedPublicService(service as ServiceItemData & Record<string, unknown>),
+        );
+        setCmsCache('services', services);
+        return services;
       }
     } catch {
       // Keep the local curated dataset while the server recovers.
@@ -307,9 +255,10 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
 }
 
 export function getCmsProjects(): ProjectItem[] {
-  if (cmsProjectsCache && cmsProjectsCache.length > 0) return cmsProjectsCache;
-  // A genuinely empty CMS response keeps the curated portfolio fallback, but an
-  // explicit all-unpublished response is authoritative and must not re-expose drafts.
+  // Treat a successful empty CMS response as authoritative. In production, never
+  // expose bundled sample projects while CMS data is unavailable or empty.
+  if (cmsProjectsCache !== null) return cmsProjectsCache;
+  if (import.meta.env.PROD) return [];
   if (cmsHydrated.projects && cmsProjectsHasExplicitUnpublishedRecords) return [];
   return allProjects;
 }
@@ -330,8 +279,12 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         // Normalize JSON at the runtime boundary; TypeScript casts alone cannot
         // guarantee the optional CMS fields are valid arrays/strings.
         const publishedProjects = projects
+          .filter((project) => Boolean(project)
+            && typeof project === 'object'
+            && !Array.isArray(project)
+            && (project as Record<string, unknown>).isPublished === true)
           .map(normalizeCmsProject)
-          .filter((project): project is ProjectItem => Boolean(project) && project.isPublished !== false);
+          .filter((project): project is ProjectItem => Boolean(project));
         setCmsCache('projects', publishedProjects);
         return publishedProjects;
       }
@@ -357,19 +310,16 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
         ? extractCmsCollection<TestimonialItem>(res.data, 'testimonials')
         : null;
       if (testimonials) {
-        // Keep draft records out of the public cache. An empty/draft-only result
-        // falls back to the seeded testimonials instead of rendering an empty state.
-        const publishedTestimonials = testimonials.filter((item) => item?.isPublished !== false);
-        const resolvedTestimonials = publishedTestimonials.length > 0
-          ? publishedTestimonials
-          : defaultTestimonials;
-        cmsTestimonialsCache = resolvedTestimonials;
+        // Only explicitly published CMS testimonials may appear publicly.
+        // Empty or draft-only collections remain empty rather than being replaced by sample quotes.
+        const publishedTestimonials = testimonials.filter((item) => item?.isPublished === true);
+        cmsTestimonialsCache = publishedTestimonials;
         markCmsHydrationSuccess('testimonials');
         notifyCmsUpdate('testimonials');
-        return resolvedTestimonials;
+        return publishedTestimonials;
       }
     } catch {
-      // Keep local seeded testimonials available while the server recovers.
+      // Keep the public state empty while the CMS recovers; never inject sample quotes.
     }
     scheduleCmsHydrationRetry('testimonials', () => { void fetchServerCmsTestimonials(); });
     return getCmsTestimonials();

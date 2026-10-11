@@ -54,6 +54,13 @@ if (!indexHtml.includes('<div id="root"></div>')) {
 }
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
+if (!htaccess.includes('RewriteRule ^services/mobile-app-design/?$ /services [R=301,L,NE]')) {
+  throw new Error('[deploy-check] retired mobile app service redirect is missing');
+}
+const sitemap = await readFile(join(distDir, 'sitemap.xml'), 'utf8');
+if (sitemap.includes('/services/mobile-app-design')) {
+  throw new Error('[deploy-check] retired mobile app service must not appear in sitemap.xml');
+}
 if (!htaccess.includes('RewriteCond %{REQUEST_URI} ^/insights/')) {
   throw new Error('[deploy-check] dist/.htaccess is missing the explicit Insight detail fallback');
 }

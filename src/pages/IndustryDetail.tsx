@@ -72,7 +72,7 @@ export const IndustryDetail = () => {
   }, []);
 
   const source = useMemo(
-    () => (cmsProjects.length ? cmsProjects : allProjects).filter((project) => project.isPublished !== false),
+    () => (cmsProjects.length ? cmsProjects : (import.meta.env.DEV ? allProjects : [])).filter((project) => project.isPublished !== false),
     [cmsProjects],
   );
 

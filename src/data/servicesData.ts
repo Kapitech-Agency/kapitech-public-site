@@ -1836,6 +1836,8 @@ export const allSolutionsAndServices: ServiceItemData[] = [
 ];
 
 export const getServiceBySlug = (slug: string): ServiceItemData | undefined => {
+  const normalizedSlug = String(slug || '').trim().toLowerCase();
+  if (normalizedSlug === 'mobile-app-design') return undefined;
   if (typeof window !== 'undefined') {
     try {
       const raw = localStorage.getItem('kapitech_cms_services_v1');

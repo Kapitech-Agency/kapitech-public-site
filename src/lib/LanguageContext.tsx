@@ -57,7 +57,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Clients
     'clients.tag': 'Selected Clients & Partners',
-    'clients.title': 'Trusted by 50+ innovative companies and growing brands worldwide.',
+    'clients.title': 'Trusted by teams and growing brands.',
     'clients.desc': 'We collaborate with ambitious startups, established enterprises, and global founders to deliver measurable digital impact.',
 
     // Services section
@@ -384,7 +384,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Clients
     'clients.tag': 'Klien & Mitra Pilihan',
-    'clients.title': 'Dipercaya oleh 50+ perusahaan inovatif dan brand terkemuka di seluruh dunia.',
+    'clients.title': 'Dipercaya oleh tim dan brand yang terus berkembang.',
     'clients.desc': 'Kami berkolaborasi dengan startup ambisius, perusahaan mapan, dan pendiri global untuk menghadirkan dampak digital yang terukur.',
 
     // Services section

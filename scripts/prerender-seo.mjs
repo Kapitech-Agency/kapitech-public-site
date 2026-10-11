@@ -556,7 +556,7 @@ const loadCmsServicesForPrerender = async () => {
     if (!response.ok) return [];
     const payload = await response.json().catch(() => ({}));
     return Array.isArray(payload.services)
-      ? payload.services.filter((service) => service?.isPublished !== false)
+      ? payload.services.filter((service) => service?.isPublished === true && slugify(service.slug || service.id || service.title) !== 'mobile-app-design')
       : [];
   } catch {
     return [];
@@ -623,141 +623,6 @@ for (const service of cmsServices) {
   console.log('[seo] generated CMS service ' + routePath + '/index.html');
 }
 
-const projectSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
-
-const extractProjectObjectLiterals = (source) => {
-  const declarationIndex = source.indexOf('export const allProjects');
-  const arrayStart = source.indexOf('= [', declarationIndex);
-  if (declarationIndex < 0 || arrayStart < 0) return [];
-
-  const records = [];
-  let arrayDepth = 0;
-  let objectDepth = 0;
-  let objectStart = -1;
-  let quote = '';
-  let escaped = false;
-  let lineComment = false;
-  let blockComment = false;
-
-  for (let index = arrayStart + 2; index < source.length; index += 1) {
-    const current = source[index];
-    const next = source[index + 1];
-
-    if (lineComment) {
-      if (current === '\n') lineComment = false;
-      continue;
-    }
-    if (blockComment) {
-      if (current === '*' && next === '/') {
-        blockComment = false;
-        index += 1;
-      }
-      continue;
-    }
-    if (quote) {
-      if (escaped) escaped = false;
-      else if (current === '\\') escaped = true;
-      else if (current === quote) quote = '';
-      continue;
-    }
-    if (current === '/' && next === '/') {
-      lineComment = true;
-      index += 1;
-      continue;
-    }
-    if (current === '/' && next === '*') {
-      blockComment = true;
-      index += 1;
-      continue;
-    }
-    if (current === "'" || current === '"') {
-      quote = current;
-      continue;
-    }
-    if (current === '[') {
-      arrayDepth += 1;
-      continue;
-    }
-    if (current === ']') {
-      arrayDepth -= 1;
-      if (arrayDepth <= 0) break;
-      continue;
-    }
-    if (current === '{') {
-      if (arrayDepth === 1 && objectDepth === 0) objectStart = index;
-      objectDepth += 1;
-      continue;
-    }
-    if (current === '}') {
-      objectDepth -= 1;
-      if (objectDepth === 0 && objectStart >= 0) {
-        records.push(source.slice(objectStart, index + 1));
-        objectStart = -1;
-      }
-    }
-  }
-  return records;
-};
-
-const decodeTypeScriptString = (value) => String(value || '')
-  .replace(/\\'/g, "'")
-  .replace(/\\n/g, '\n')
-  .replace(/\\r/g, '\r')
-  .replace(/\\t/g, '\t')
-  .replace(/\\\\/g, '\\');
-
-const readProjectString = (record, key) => {
-  const match = record.match(new RegExp('\\b' + key + "\\s*:\\s*'((?:\\\\.|[^'\\\\])*)'", 's'));
-  return match ? decodeTypeScriptString(match[1]) : '';
-};
-
-const readProjectStringArray = (record, key) => {
-  const match = record.match(new RegExp('\\b' + key + '\\s*:\\s*\\[([\\s\\S]*?)\\]'));
-  if (!match) return [];
-  const values = [];
-  const pattern = /'((?:\\.|[^'\\])*)'/g;
-  for (const value of match[1].matchAll(pattern)) values.push(decodeTypeScriptString(value[1]));
-  return values;
-};
-
-const parseStaticProjectRecords = (source) => extractProjectObjectLiterals(source).map((record) => {
-  const impactMatch = record.match(/\bimpact\s*:\s*\[([\s\S]*?)\]\s*,?\s*year\s*:/);
-  const impact = [];
-  if (impactMatch) {
-    const metricPattern = /\{\s*label:\s*'((?:\\.|[^'\\])*)'\s*,\s*value:\s*'((?:\\.|[^'\\])*)'\s*\}/g;
-    for (const metric of impactMatch[1].matchAll(metricPattern)) {
-      impact.push({ label: decodeTypeScriptString(metric[1]), value: decodeTypeScriptString(metric[2]) });
-    }
-  }
-  return {
-    id: readProjectString(record, 'id'),
-    slug: readProjectString(record, 'slug'),
-    title: readProjectString(record, 'title'),
-    client: readProjectString(record, 'client'),
-    industry: readProjectString(record, 'industry'),
-    pillar: readProjectString(record, 'pillar'),
-    service: readProjectString(record, 'service'),
-    image: readProjectString(record, 'image'),
-    gallery: readProjectStringArray(record, 'gallery'),
-    desc: readProjectString(record, 'desc'),
-    descId: readProjectString(record, 'descId'),
-    challenge: readProjectString(record, 'challenge'),
-    challengeId: readProjectString(record, 'challengeId'),
-    solution: readProjectString(record, 'solution'),
-    solutionId: readProjectString(record, 'solutionId'),
-    execution: readProjectString(record, 'execution'),
-    executionId: readProjectString(record, 'executionId'),
-    outcome: readProjectString(record, 'outcome'),
-    outcomeId: readProjectString(record, 'outcomeId'),
-    deliverables: readProjectStringArray(record, 'deliverables'),
-    technologies: readProjectStringArray(record, 'technologies'),
-    impact,
-    year: readProjectString(record, 'year')
-  };
-});
-
-const projectRecords = parseStaticProjectRecords(projectSource);
-
 const loadCmsProjectsForPrerender = async () => {
   const apiBase = String(process.env.VITE_AMS_API_BASE_URL || 'https://ams.kapitech.id/api').replace(/\/+$/, '');
   try {
@@ -770,6 +635,11 @@ const loadCmsProjectsForPrerender = async () => {
   }
 };
 
+const cmsProjectRecords = await loadCmsProjectsForPrerender();
+const publishedCmsProjects = cmsProjectRecords.filter((project) =>
+  project && typeof project === 'object' && project.isPublished === true
+);
+
 for (const route of manifest.routes) {
   if (route.path.startsWith('/insights/')) continue;
 
@@ -778,7 +648,11 @@ for (const route of manifest.routes) {
   html = setTitle(html, route.title);
   html = setMeta(html, 'name', 'title', route.title);
   html = setMeta(html, 'name', 'description', route.description);
-  html = setMeta(html, 'name', 'robots', route.robots);
+  const industrySlug = route.path.split('/').filter(Boolean).pop() || '';
+  const routeHasPublishedWork = route.kind !== 'industry' || publishedCmsProjects.some((project) =>
+    slugify(project.industry).includes(slugify(industrySlug))
+  );
+  html = setMeta(html, 'name', 'robots', route.kind === 'industry' && !routeHasPublishedWork ? 'noindex, follow' : route.robots);
   html = setMeta(html, 'property', 'og:url', canonicalUrl);
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
@@ -793,22 +667,7 @@ for (const route of manifest.routes) {
   console.log('[seo] generated ' + posix.normalize(route.path + '/index.html'));
 }
 
-const cmsProjectRecords = await loadCmsProjectsForPrerender();
-const unpublishedProjectSlugs = new Set(
-  cmsProjectRecords
-    .filter((project) => project?.isPublished === false)
-    .flatMap((project) => [project?.slug, project?.id, project?.title])
-    .map((value) => slugify(value))
-    .filter(Boolean)
-);
-const cmsProjects = cmsProjectRecords.filter((project) => project?.isPublished !== false);
-const fallbackStaticProjects = projectRecords.filter((project) =>
-  ![project.slug, project.id, project.title]
-    .map((value) => slugify(value))
-    .filter(Boolean)
-    .some((slug) => unpublishedProjectSlugs.has(slug))
-);
-const allPrerenderProjects = [...cmsProjects, ...fallbackStaticProjects];
+const allPrerenderProjects = publishedCmsProjects;
 const seenProjectSlugs = new Set();
 for (const project of allPrerenderProjects) {
   const slug = slugify(project.slug || project.id || project.title);
