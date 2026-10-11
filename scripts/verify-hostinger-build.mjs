@@ -86,7 +86,7 @@ const readMetaContent = (html, attribute, key) => {
 // Social preview metadata must match each canonical prerendered route, not the homepage template.
 for (const route of seoManifest.routes) {
   if (route.path.startsWith('/insights/')) continue;
-  const relativePath = route.path === '/' ? 'index.html' : route.path.replace(/^\\/+/, '') + '/index.html';
+  const relativePath = route.path === '/' ? 'index.html' : route.path.slice(1) + '/index.html';
   let html;
   try {
     html = await readFile(join(distDir, relativePath), 'utf8');
