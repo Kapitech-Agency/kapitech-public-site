@@ -591,79 +591,21 @@ export const Work = () => {
     );
   }
 
-  // Never manufacture or reveal unreviewed client work to fill the portfolio.
-  // A useful capability-led fallback keeps the page intentional until verified case studies are published.
-  if (projectsList.length === 0) {
-    return (
-      <div className="relative min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
-        <PublicPageHero
-          eyebrow={language === 'id' ? 'Portofolio' : 'Portfolio'}
-          title={language === 'id' ? 'Karya yang layak dibagikan, ditampilkan dengan benar.' : 'Work worth sharing, presented with care.'}
-          description={language === 'id'
-            ? 'Studi kasus kami hanya ditampilkan setelah detail proyek dan izin publikasinya ditinjau. Sementara itu, jelajahi kapabilitas kami dan ceritakan apa yang ingin Anda bangun.'
-            : 'Case studies are displayed only after project details and publication approval have been reviewed. In the meantime, explore our capabilities and tell us what you want to build.'}
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              to="/services"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-            >
-              <span>{language === 'id' ? 'Jelajahi Layanan' : 'Explore Services'}</span>
-              <ArrowUpRight size={14} aria-hidden="true" />
-            </Link>
-            <Link
-              to="/contact#project-inquiry-form"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
-            >
-              <span>{language === 'id' ? 'Mulai Diskusi Proyek' : 'Discuss Your Project'}</span>
-              <ArrowUpRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-        </PublicPageHero>
-
-        <section className="border-t border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
-          <div className="mx-auto max-w-7xl">
-            <span className="kapi-section-label mb-5">
-              {language === 'id' ? 'Area Kapabilitas' : 'What We Can Help Build'}
-            </span>
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                {
-                  title: language === 'id' ? 'Brand dan Identitas' : 'Brand & Identity',
-                  description: language === 'id' ? 'Strategi brand, identitas visual, desain grafis, motion, dan konten kreatif.' : 'Brand strategy, visual identity, graphic design, motion, and creative content.'
-                },
-                {
-                  title: language === 'id' ? 'Website dan E-commerce' : 'Websites & Commerce',
-                  description: language === 'id' ? 'Website perusahaan, landing page, toko online, dan pengalaman digital yang responsif.' : 'Company websites, landing pages, online stores, and responsive digital experiences.'
-                },
-                {
-                  title: language === 'id' ? 'Produk Digital dan Sistem' : 'Digital Products & Systems',
-                  description: language === 'id' ? 'Desain UI/UX, aplikasi web khusus, MVP, integrasi, dan dukungan teknis.' : 'UI/UX design, custom web applications, MVPs, integrations, and technical support.'
-                }
-              ].map((capability) => (
-                <article key={capability.title} className="rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:p-6">
-                  <h2 className="text-lg font-display font-semibold tracking-[-0.03em] text-white">{capability.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-[#9299A5]">{capability.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-dark-base text-white min-h-screen selection:bg-brand-red selection:text-white relative">
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={language === 'id' ? 'Koleksi Portofolio & Studi Kasus' : 'Portfolio & Case Studies'}
-        title={language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.'}
-        description={
-          language === 'id'
-            ? `Jelajahi ${projectsList.length} studi kasus dan portofolio komprehensif kami yang mencakup pilar Visual Experience dan Innovation Development untuk para pemimpin industri global.`
-            : `Explore our portfolio of ${projectsList.length} comprehensive case studies spanning Visual Experience and Innovation Development across global industry leaders.`
-        }
+        title={projectsList.length === 0
+          ? (language === 'id' ? 'Studi Kasus Kapitech' : 'Kapitech Case Studies')
+          : (language === 'id' ? 'Karya Nyata. Dampak Nyata.' : 'Crafted for Real Impact.')}
+        description={projectsList.length === 0
+          ? (language === 'id'
+            ? 'Bagian portofolio tetap tersedia. Studi kasus asli akan ditampilkan setelah data CMS dan izin publikasinya terverifikasi.'
+            : 'The portfolio remains available while original case-study records and their publication permissions are verified.')
+          : (language === 'id'
+            ? `Jelajahi ${projectsList.length} studi kasus yang mencakup Visual Experience dan Innovation Development.`
+            : `Explore ${projectsList.length} case studies spanning Visual Experience and Innovation Development.`)}
       >
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-text-body">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 backdrop-blur-xl">
@@ -687,7 +629,7 @@ export const Work = () => {
       </PublicPageHero>
 
       {/* Featured Spotlight Carousel */}
-      {currentFeatured && (
+      {currentFeatured ? (
         <section
           ref={spotlightRef}
           className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base"
@@ -899,6 +841,30 @@ export const Work = () => {
                   : (language === 'id' ? 'studi kasus pilihan' : 'selected case studies')}
               </span>
             </div>
+          </div>
+        </section>
+      ) : (
+        <section className="relative border-y border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="work-spotlight-empty-title">
+          <div className="mx-auto grid max-w-7xl gap-6 rounded-3xl border border-white/[0.08] bg-white/[0.014] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
+            <div>
+              <span className="kapi-section-label mb-4">{language === 'id' ? 'Sorotan Studi Kasus' : 'Case Study Spotlight'}</span>
+              <h2 id="work-spotlight-empty-title" className="mt-3 max-w-3xl text-2xl font-display font-semibold tracking-[-0.05em] text-white sm:text-3xl">
+                {language === 'id' ? 'Sorotan proyek akan tampil di sini.' : 'Project highlights will appear here.'}
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-text-body">
+                {language === 'id'
+                  ? 'Belum ada case study berstatus published yang dikirim CMS. Data proyek asli perlu dipulihkan atau dipublikasikan di AMS; proyek contoh tidak akan ditampilkan sebagai pekerjaan nyata.'
+                  : 'The CMS has not returned published case studies. Original project records need to be restored or published in AMS; sample projects will not be presented as real client work.'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={retryCmsProjects}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Cek Ulang CMS' : 'Retry CMS'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </button>
           </div>
         </section>
       )}
@@ -1150,18 +1116,29 @@ export const Work = () => {
                 {language === 'id' ? 'Studi Kasus Tidak Ditemukan' : 'No Case Studies Found'}
               </h3>
               <p className="text-sm text-text-body max-w-md mb-6 font-light leading-relaxed">
-                {language === 'id'
-                  ? 'Coba ubah kata kunci atau filter Anda untuk melihat studi kasus lain.'
-                  : 'Try adjusting your search or filters to explore other case studies.'}
+                {projectsList.length === 0
+                  ? (language === 'id'
+                    ? 'CMS belum mengirimkan studi kasus yang terpublikasi. Konten contoh tidak akan dipakai sebagai pengganti data proyek asli.'
+                    : 'The CMS has not supplied any published case studies. Sample projects will not be substituted for original client work.')
+                  : (language === 'id'
+                    ? 'Tidak ada studi kasus yang cocok dengan pencarian atau filter ini. Coba atur ulang pilihan Anda.'
+                    : 'No case studies match your search or filters. Try resetting your selection.')}
               </p>
-              <button
-                type="button"
-                onClick={resetFilters}
-                className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#C40F34] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
-                data-cursor-label="Reset"
-              >
-                {language === 'id' ? 'Reset Filter' : 'Reset Filters'}
-              </button>
+              {projectsList.length === 0 ? (
+                <button type="button" onClick={retryCmsProjects} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-xs font-mono font-semibold text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">
+                  <span>{language === 'id' ? 'Muat Ulang dari CMS' : 'Reload from CMS'}</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="px-6 py-3 rounded-full bg-brand-red text-white text-xs font-mono font-semibold hover:bg-[#C40F34] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+                  data-cursor-label="Reset"
+                >
+                  {language === 'id' ? 'Reset Filter' : 'Reset Filters'}
+                </button>
+              )}
             </div>
           ) : (
             <>
