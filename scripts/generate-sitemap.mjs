@@ -21,13 +21,6 @@ for (const route of manifest.routes.filter((item) => item.robots?.startsWith('in
   urls.set(loc, { loc, lastmod: undefined });
 }
 
-const projectsSource = await readFile(join(root, 'src/data/projectsData.ts'), 'utf8');
-const projectRecords = [];
-const projectPattern = /\{\s*id:\s*'([^']+)'[\s\S]*?title:\s*'([^']+)'[\s\S]*?client:\s*'([^']+)'[\s\S]*?industry:\s*'([^']+)'/g;
-for (const match of projectsSource.matchAll(projectPattern)) {
-  projectRecords.push({ id: match[1], title: match[2], client: match[3], industry: match[4] });
-}
-
 const slugify = (value) => String(value || '')
   .normalize('NFKD')
   .replace(/[\u0300-\u036f]/g, '')
@@ -36,17 +29,6 @@ const slugify = (value) => String(value || '')
   .replace(/&/g, ' and ')
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
-
-for (const project of projectRecords) {
-  const projectSlug = slugify(project.id || project.title);
-  const loc = manifest.siteUrl + '/work/' + encodeURIComponent(projectSlug);
-  urls.set(loc, { loc, lastmod: undefined });
-}
-
-for (const industry of new Set(projectRecords.map((project) => project.industry).filter(Boolean))) {
-  const loc = manifest.siteUrl + '/industries/' + encodeURIComponent(slugify(industry));
-  urls.set(loc, { loc, lastmod: undefined });
-}
 
 const fetchPublicCmsProjects = async () => {
   const configuredApiBase = String(process.env.VITE_AMS_API_BASE_URL || '').trim().replace(/\/+$/, '');
@@ -83,7 +65,7 @@ const fetchPublicCmsServices = async () => {
     if (!response.ok) return [];
     const payload = await response.json().catch(() => ({}));
     return Array.isArray(payload.services)
-      ? payload.services.filter((service) => service?.isPublished !== false)
+      ? payload.services.filter((service) => service?.isPublished !== false && slugify(service.slug || service.id || service.title) !== 'mobile-app-design')
       : [];
   } catch {
     return [];
