@@ -279,8 +279,12 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         // Normalize JSON at the runtime boundary; TypeScript casts alone cannot
         // guarantee the optional CMS fields are valid arrays/strings.
         const publishedProjects = projects
+          .filter((project) => Boolean(project)
+            && typeof project === 'object'
+            && !Array.isArray(project)
+            && (project as Record<string, unknown>).isPublished === true)
           .map(normalizeCmsProject)
-          .filter((project): project is ProjectItem => Boolean(project) && project.isPublished === true);
+          .filter((project): project is ProjectItem => Boolean(project));
         setCmsCache('projects', publishedProjects);
         return publishedProjects;
       }
@@ -315,7 +319,7 @@ export function fetchServerCmsTestimonials(): Promise<TestimonialItem[]> {
         return publishedTestimonials;
       }
     } catch {
-      // Keep local seeded testimonials available while the server recovers.
+      // Keep the public state empty while the CMS recovers; never inject sample quotes.
     }
     scheduleCmsHydrationRetry('testimonials', () => { void fetchServerCmsTestimonials(); });
     return getCmsTestimonials();
