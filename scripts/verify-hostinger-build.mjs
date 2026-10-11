@@ -52,6 +52,26 @@ const indexHtml = await readFile(join(distDir, 'index.html'), 'utf8');
 if (!indexHtml.includes('<div id="root"></div>')) {
   throw new Error('[deploy-check] dist/index.html is not the expected Vite entry file');
 }
+if (indexHtml.includes('Kapitech-Agency.github.io')) {
+  throw new Error('[deploy-check] index.html still references assets from the retired GitHub Pages repository');
+}
+if (!indexHtml.includes('href="/favicon.svg"')) {
+  throw new Error('[deploy-check] local SVG favicon reference is missing');
+}
+if (!indexHtml.includes('https://kapitech.id/insights/article-hero-background.jpg')) {
+  throw new Error('[deploy-check] self-hosted Open Graph image reference is missing');
+}
+for (const asset of ['favicon.svg', 'insights/article-hero-background.jpg']) {
+  try {
+    await access(join(distDir, asset));
+  } catch {
+    throw new Error('[deploy-check] missing self-hosted SEO asset: ' + asset);
+  }
+}
+const seoManifest = JSON.parse(await readFile(join(root, 'src/data/seoRoutes.json'), 'utf8'));
+if (seoManifest.defaultImage !== 'https://kapitech.id/insights/article-hero-background.jpg') {
+  throw new Error('[deploy-check] SEO manifest still points at an unowned default image');
+}
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
 const requiredSecurityHeaders = [
