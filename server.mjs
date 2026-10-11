@@ -175,6 +175,13 @@ async function detectDistState() {
 }
 
 const server = createServer(async (req, res) => {
+  // Keep security headers consistent when this Node runtime serves the site directly.
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Permissions-Policy', 'camera=(), geolocation=(), microphone=()');
+  res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+
   try {
     if (!req.url || (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS')) {
       res.statusCode = 405;

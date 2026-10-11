@@ -2,7 +2,7 @@
   "version": 1,
   "siteName": "Kapitech Agency",
   "siteUrl": "https://kapitech.id",
-  "defaultImage": "https://raw.githubusercontent.com/Kapitech-Agency/Kapitech-Agency.github.io/main/public/hero_background_3d.png",
+  "defaultImage": "https://kapitech.id/insights/article-hero-background.jpg",
   "routes": [
     {
       "path": "/",

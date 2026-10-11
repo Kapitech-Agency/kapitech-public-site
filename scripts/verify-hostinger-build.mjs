@@ -52,8 +52,54 @@ const indexHtml = await readFile(join(distDir, 'index.html'), 'utf8');
 if (!indexHtml.includes('<div id="root"></div>')) {
   throw new Error('[deploy-check] dist/index.html is not the expected Vite entry file');
 }
+if (indexHtml.includes('Kapitech-Agency.github.io')) {
+  throw new Error('[deploy-check] index.html still references assets from the retired GitHub Pages repository');
+}
+if (!indexHtml.includes('href="/favicon.svg"')) {
+  throw new Error('[deploy-check] local SVG favicon reference is missing');
+}
+if (!indexHtml.includes('https://kapitech.id/insights/article-hero-background.jpg')) {
+  throw new Error('[deploy-check] self-hosted Open Graph image reference is missing');
+}
+for (const asset of ['favicon.svg', 'insights/article-hero-background.jpg']) {
+  try {
+    await access(join(distDir, asset));
+  } catch {
+    throw new Error('[deploy-check] missing self-hosted SEO asset: ' + asset);
+  }
+}
+const seoManifest = JSON.parse(await readFile(join(root, 'src/data/seoRoutes.json'), 'utf8'));
+if (seoManifest.defaultImage !== 'https://kapitech.id/insights/article-hero-background.jpg') {
+  throw new Error('[deploy-check] SEO manifest still points at an unowned default image');
+}
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
+const requiredSecurityHeaders = [
+  'Header always set X-Content-Type-Options "nosniff"',
+  'Header always set Referrer-Policy "strict-origin-when-cross-origin"',
+  'Header always set X-Frame-Options "SAMEORIGIN"',
+  'Header always set Permissions-Policy "camera=(), geolocation=(), microphone=()"',
+  'Header always set X-Permitted-Cross-Domain-Policies "none"',
+  'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS'
+];
+for (const directive of requiredSecurityHeaders) {
+  if (!htaccess.includes(directive)) {
+    throw new Error('[deploy-check] missing production security header directive: ' + directive);
+  }
+}
+
+const runtimeServer = await readFile(join(root, 'server.mjs'), 'utf8');
+for (const headerName of [
+  "'X-Content-Type-Options'",
+  "'Referrer-Policy'",
+  "'X-Frame-Options'",
+  "'Permissions-Policy'",
+  "'X-Permitted-Cross-Domain-Policies'"
+]) {
+  if (!runtimeServer.includes('res.setHeader(' + headerName)) {
+    throw new Error('[deploy-check] Node runtime is missing security header: ' + headerName);
+  }
+}
 if (!htaccess.includes('RewriteRule ^services/mobile-app-design/?$ /services [R=301,L,NE]')) {
   throw new Error('[deploy-check] retired mobile app service redirect is missing');
 }
