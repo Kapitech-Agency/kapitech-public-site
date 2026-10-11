@@ -110,11 +110,11 @@ export const CaseStudyDetail = () => {
 
   if (!item) {
     return (
-      <div className="kapi-utility-page min-h-screen bg-[#0B0C0E] px-5 pb-20 pt-32 text-white sm:px-8">
+      <div className="kapi-utility-page min-h-screen bg-dark-base px-5 pb-20 pt-32 text-white sm:px-8">
         <div className="mx-auto max-w-4xl">
           <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Studi Kasus' : 'Case Study'}</p>
           <h1 className="mt-4 text-4xl font-display font-semibold tracking-[-0.04em] sm:text-6xl">{language === 'id' ? 'Studi kasus tidak ditemukan.' : 'Case study not found.'}</h1>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-[#8A909D]">{language === 'id' ? 'Proyek yang diminta tidak tersedia pada daftar proyek publik saat ini.' : 'The requested project is not available in the current public project list.'}</p>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-text-body">{language === 'id' ? 'Proyek yang diminta tidak tersedia pada daftar proyek publik saat ini.' : 'The requested project is not available in the current public project list.'}</p>
           <button type="button" onClick={() => navigate('/work')} className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.03] px-5 text-xs font-semibold text-white"><ArrowLeft size={15} /> {language === 'id' ? 'Kembali ke Portofolio' : 'Back to Work'}</button>
         </div>
       </div>
@@ -126,7 +126,7 @@ export const CaseStudyDetail = () => {
   const metaLabels = language === 'id' ? [['Klien', item.client], ['Industri', item.industry], ['Layanan', item.service], ['Tahun', item.year], ['Pilar', item.pillar]] : [['Client', item.client], ['Industry', item.industry], ['Service', item.service], ['Year', item.year], ['Pillar', item.pillar]];
 
   return (
-    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-dark-base text-white">
       <PublicPageHero
         eyebrow={(language === 'id' ? 'Studi Kasus / ' : 'Case Study / ') + (item.client || (language === 'id' ? 'Klien' : 'Client'))}
         title={item.title}
@@ -172,7 +172,7 @@ export const CaseStudyDetail = () => {
                 {hasAdditionalVisuals ? <span className="shrink-0 text-[10px] font-mono tabular-nums text-[#727A86]">{String(visualGallery.length).padStart(2, '0')} {language === 'id' ? 'gambar' : 'images'}</span> : null}
               </div>
               <img src={visualGallery[0] || CASE_STUDY_FALLBACK_IMAGE} alt={isIllustrativeCover ? (language === 'id' ? 'Gambar ilustratif untuk ' + item.title : 'Illustrative cover image for ' + item.title) : item.title} onError={handleCaseStudyImageError} className="aspect-[16/10] w-full bg-[#101115] object-cover" loading="eager" decoding="async" />
-              {visualGallery.length > 1 ? <div className="grid gap-2 p-2 sm:grid-cols-2">{visualGallery.slice(1).map((image, index) => <figure key={image} className="min-w-0 overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0B0C0E]"><img src={image} alt={item.title + ' — ' + (language === 'id' ? 'visual proyek' : 'project visual') + ' ' + (index + 2)} onError={handleCaseStudyImageError} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" /></figure>)}</div> : null}
+              {visualGallery.length > 1 ? <div className="grid gap-2 p-2 sm:grid-cols-2">{visualGallery.slice(1).map((image, index) => <figure key={image} className="min-w-0 overflow-hidden rounded-2xl border border-white/[0.06] bg-dark-base"><img src={image} alt={item.title + ' — ' + (language === 'id' ? 'visual proyek' : 'project visual') + ' ' + (index + 2)} onError={handleCaseStudyImageError} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" /></figure>)}</div> : null}
             </section>
             <section id="case-study-context" aria-labelledby="case-study-context-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Latar belakang & sasaran' : 'Context & objectives'}</p>
@@ -190,7 +190,7 @@ export const CaseStudyDetail = () => {
                 <h3 className="text-lg font-display font-semibold text-white">{language === 'id' ? 'Tujuan yang menjadi arah pengerjaan' : 'Objectives guiding the work'}</h3>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {narrative.objectives.map((objective, index) => (
-                    <div key={objective} className="flex min-w-0 gap-3 rounded-2xl border border-white/[0.06] bg-[#0B0C0E]/55 p-4">
+                    <div key={objective} className="flex min-w-0 gap-3 rounded-2xl border border-white/[0.06] bg-dark-base/55 p-4">
                       <span className="mt-0.5 shrink-0 font-mono text-[10px] tabular-nums text-brand-red">{String(index + 1).padStart(2, '0')}</span>
                       <p className="text-sm leading-7 text-[#A4AAB6]">{objective}</p>
                     </div>
@@ -337,7 +337,7 @@ export const CaseStudyDetail = () => {
             <div className="rounded-3xl border border-white/[0.08] bg-white/[0.018] p-6">
               <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-brand-red">{language === 'id' ? 'Punya tantangan serupa?' : 'A similar challenge?'}</p>
               <h2 className="mt-2 text-2xl font-display font-semibold tracking-[-0.03em]">{language === 'id' ? 'Mari bahas proyek Anda.' : 'Let’s discuss your project.'}</h2>
-              <p className="mt-3 text-sm leading-6 text-[#8A909D]">{language === 'id' ? 'Ceritakan kebutuhan dan sasaran Anda agar ruang lingkup yang tepat dapat dibahas bersama.' : 'Share your needs and goals so we can discuss the right project scope together.'}</p>
+              <p className="mt-3 text-sm leading-6 text-text-body">{language === 'id' ? 'Ceritakan kebutuhan dan sasaran Anda agar ruang lingkup yang tepat dapat dibahas bersama.' : 'Share your needs and goals so we can discuss the right project scope together.'}</p>
               <Link to={'/contact?service=' + encodeURIComponent(item.service) + '#project-inquiry-form'} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-red px-5 text-xs font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70">{language === 'id' ? 'Ajukan konsultasi' : 'Request consultation'} <ArrowUpRight size={14} aria-hidden="true" /></Link>
             </div>
           </aside>
