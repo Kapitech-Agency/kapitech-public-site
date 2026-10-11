@@ -155,19 +155,28 @@ export const Contact = () => {
     hasPrefilledService.current = true;
   }, [searchParams, serviceOptions]);
 
-  // Hash navigation can happen before this lazy-loaded route has rendered its form.
-  // Scroll again after Contact mounts so case-study CTAs land on the actual inquiry form.
+  // Re-align the inquiry form after the lazy route and its first layout pass mount.
   useEffect(() => {
     if (hash !== '#project-inquiry-form') return;
 
-    const frame = window.requestAnimationFrame(() => {
-      document.getElementById('project-inquiry-form')?.scrollIntoView({
-        behavior: 'instant',
-        block: 'start',
+    let secondFrame: number | null = null;
+    let settleTimer: number | null = null;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        const form = document.getElementById('project-inquiry-form');
+        if (!form) return;
+        form.scrollIntoView({ behavior: 'instant', block: 'start' });
+        settleTimer = window.setTimeout(() => {
+          document.getElementById('project-inquiry-form')?.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }, 180);
       });
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      if (secondFrame !== null) window.cancelAnimationFrame(secondFrame);
+      if (settleTimer !== null) window.clearTimeout(settleTimer);
+    };
   }, [hash]);
 
   const serviceGroups = [
