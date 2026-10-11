@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getServiceBySlug, allSolutionsAndServices, type ServiceItemData } from '../data/servicesData';
-import { allProjects, type ProjectItem } from '../data/projectsData';
+import { type ProjectItem } from '../data/projectsData';
 import { industryBySlug, industrySlug, projectBySlug, projectSlug, slugify } from '../lib/publicContent';
 import { faqItems } from '../data/faqData';
 import { useLanguage } from '../lib/LanguageContext';
@@ -154,7 +154,7 @@ function getRouteSeo(
 
   const caseStudyMatch = pathname.match(/^\/work\/([^/]+)$/);
   if (caseStudyMatch) {
-    const project = projectBySlug(projects, caseStudyMatch[1]) || (projects === allProjects ? projectBySlug(allProjects, caseStudyMatch[1]) : undefined);
+    const project = projectBySlug(projects, caseStudyMatch[1]);
     if (project) {
       const canonicalSlug = projectSlug(project);
       const canonicalUrl = SITE_URL + '/work/' + canonicalSlug;
@@ -179,7 +179,7 @@ function getRouteSeo(
 
   const industryMatch = pathname.match(/^\/industries\/([^/]+)$/);
   if (industryMatch) {
-    const industry = industryBySlug(projects, industryMatch[1]) || industryBySlug(allProjects, industryMatch[1]);
+    const industry = industryBySlug(projects, industryMatch[1]);
     if (industry) {
       const canonicalUrl = SITE_URL + '/industries/' + industrySlug(industry);
       return {
