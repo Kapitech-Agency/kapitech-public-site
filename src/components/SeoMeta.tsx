@@ -130,7 +130,10 @@ function getRouteSeo(
       seo: {
         title: base.title,
         description: base.description,
-        robots: base.robots,
+        // Industry landing pages should not be indexable until at least one approved public case study supports the page.
+        robots: base.kind === 'industry' && !industryBySlug(projects, pathname.split('/').filter(Boolean).pop() || '')
+          ? 'noindex, follow'
+          : base.robots,
       } satisfies SeoDefinition,
       canonicalPath,
       structuredData: {

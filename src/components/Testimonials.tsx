@@ -67,48 +67,8 @@ export const Testimonials = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
-  if (!current) {
-    return (
-      <section
-        className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28"
-        id="testimonials"
-        aria-labelledby="testimonials-heading"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <span className="kapi-section-label mb-5">
-                {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
-              </span>
-              <h2
-                id="testimonials-heading"
-                className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
-              >
-                {language === 'id'
-                  ? 'Pengalaman nyata dari orang yang bekerja bersama kami.'
-                  : 'Real experiences from people who work with us.'}
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 rounded-3xl border border-white/[0.075] bg-[#0F1013] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <p className="max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D]">
-              {language === 'id'
-                ? 'Testimoni yang telah dipublikasikan akan tampil di sini. Untuk mengetahui lebih lanjut tentang cara kami bekerja, mari diskusikan kebutuhan proyek Anda.'
-                : 'Published client testimonials will appear here. To learn more about how we work, let us discuss your project needs.'}
-            </p>
-            <Link
-              to="/book-a-call"
-              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08]"
-            >
-              <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // Do not render a social-proof section unless there are editor-approved testimonials.
+  if (!current) return null;
 
   const visibleStart = Math.min(Math.max(0, currentIndex - 3), Math.max(0, testimonials.length - 4));
   const visibleTestimonials = testimonials.slice(visibleStart, visibleStart + 4);
