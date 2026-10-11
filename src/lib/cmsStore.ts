@@ -237,7 +237,7 @@ export function fetchServerCmsServices(): Promise<ServiceItemData[]> {
         // A successful CMS response is authoritative, including an empty collection.
         // Never expose an excluded service or a stale static service when CMS is empty.
         const services = res.data.services.filter((service) =>
-          service?.isPublished !== false && !isExcludedPublicService(service as ServiceItemData & Record<string, unknown>),
+          service?.isPublished === true && !isExcludedPublicService(service as ServiceItemData & Record<string, unknown>),
         );
         setCmsCache('services', services);
         return services;
@@ -277,7 +277,7 @@ export function fetchServerCmsProjects(): Promise<ProjectItem[]> {
         // guarantee the optional CMS fields are valid arrays/strings.
         const publishedProjects = projects
           .map(normalizeCmsProject)
-          .filter((project): project is ProjectItem => Boolean(project) && project.isPublished !== false);
+          .filter((project): project is ProjectItem => Boolean(project) && project.isPublished === true);
         setCmsCache('projects', publishedProjects);
         return publishedProjects;
       }
