@@ -775,7 +775,7 @@ export const ServiceDetail = () => {
 
           <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
             {(['Solutions', 'Branding', 'Design', 'Development'] as const).map((category) => {
-              const items = allSolutionsAndServices.filter((item) => item.category === category);
+              const items = allSolutionsAndServices.filter((item) => item.slug !== 'mobile-app-design' && item.category === category);
               const categoryLabel =
                 category === 'Solutions'
                   ? 'Strategic Solutions'
