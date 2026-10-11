@@ -91,9 +91,8 @@ for (const project of cmsProjects) {
     .filter(Boolean);
   const projectSlug = slugify(project?.slug || project?.id || project?.title);
 
-  // Static fallback URLs are inserted first for availability, but an explicit
-  // unpublished CMS record must remove its matching public route from the sitemap.
-  if (project?.isPublished === false) {
+  // Only explicitly published CMS records are eligible for indexing.
+  if (project?.isPublished !== true) {
     for (const candidateSlug of candidateSlugs) {
       urls.delete(manifest.siteUrl + '/work/' + encodeURIComponent(candidateSlug));
     }
