@@ -54,6 +54,7 @@
   --color-text-muted: var(--kapi-color-text-subtle);
   --color-text-soft: var(--kapi-color-text-soft);
   --color-brand-red-text: var(--kapi-color-accent-text);
+  --color-danger: #F97066;
 }
 
 @layer base {
