@@ -54,6 +54,32 @@ if (!indexHtml.includes('<div id="root"></div>')) {
 }
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
+const requiredSecurityHeaders = [
+  'Header always set X-Content-Type-Options "nosniff"',
+  'Header always set Referrer-Policy "strict-origin-when-cross-origin"',
+  'Header always set X-Frame-Options "SAMEORIGIN"',
+  'Header always set Permissions-Policy "camera=(), geolocation=(), microphone=()"',
+  'Header always set X-Permitted-Cross-Domain-Policies "none"',
+  'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS'
+];
+for (const directive of requiredSecurityHeaders) {
+  if (!htaccess.includes(directive)) {
+    throw new Error('[deploy-check] missing production security header directive: ' + directive);
+  }
+}
+
+const runtimeServer = await readFile(join(root, 'server.mjs'), 'utf8');
+for (const headerName of [
+  "'X-Content-Type-Options'",
+  "'Referrer-Policy'",
+  "'X-Frame-Options'",
+  "'Permissions-Policy'",
+  "'X-Permitted-Cross-Domain-Policies'"
+]) {
+  if (!runtimeServer.includes('res.setHeader(' + headerName)) {
+    throw new Error('[deploy-check] Node runtime is missing security header: ' + headerName);
+  }
+}
 if (!htaccess.includes('RewriteRule ^services/mobile-app-design/?$ /services [R=301,L,NE]')) {
   throw new Error('[deploy-check] retired mobile app service redirect is missing');
 }
