@@ -197,7 +197,7 @@ export const Search = () => {
   };
 
   return (
-    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-dark-base text-white">
       <PublicPageHero
         eyebrow={language === 'id' ? 'Pencarian Website' : 'Website Search'}
         title={language === 'id' ? 'Temukan yang Anda cari.' : 'Find what you’re looking for.'}
@@ -210,7 +210,7 @@ export const Search = () => {
             <SearchIcon
               size={19}
               aria-hidden="true"
-              className="shrink-0 text-[#8A909D] transition-colors duration-200 group-focus-within:text-white"
+              className="shrink-0 text-text-body transition-colors duration-200 group-focus-within:text-white"
             />
             <input
               type="search"
@@ -230,7 +230,7 @@ export const Search = () => {
                 type="button"
                 onClick={clearSearch}
                 aria-label={language === 'id' ? 'Hapus pencarian' : 'Clear search'}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#8A909D] transition-colors duration-200 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-text-body transition-colors duration-200 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
               >
                 <X size={16} aria-hidden="true" />
               </button>
@@ -258,7 +258,7 @@ export const Search = () => {
                     ? (language === 'id' ? 'Mulai dari sini' : 'A good place to start')
                     : (language === 'id' ? 'Jelajahi' : 'Explore') + ' ' + activeTypeLabel}
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#8A909D]">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-text-body">
                 {searchTerm
                   ? (language === 'id'
                     ? 'Pilih hasil yang paling relevan, atau gunakan filter untuk mempersempit pencarian.'
@@ -291,7 +291,7 @@ export const Search = () => {
                     : 'border-white/[0.08] bg-white/[0.015] text-[#9AA1AC] hover:border-white/[0.15] hover:bg-white/[0.04] hover:text-white'}`}
                 >
                   <span>{option.label}</span>
-                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] tabular-nums ${selected ? 'bg-white/[0.1] text-white' : 'bg-white/[0.04] text-[#8A909D]'}`}>
+                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] tabular-nums ${selected ? 'bg-white/[0.1] text-white' : 'bg-white/[0.04] text-text-body'}`}>
                     {option.count}
                   </span>
                 </button>
@@ -343,7 +343,7 @@ export const Search = () => {
                   ? (language === 'id' ? 'Tidak ada hasil di kategori ini' : 'No results in this category')
                   : (language === 'id' ? 'Belum ada hasil yang cocok' : 'No matching results yet')}
               </h3>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-[#8A909D]">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-text-body">
                 {queryMatches.length > 0
                   ? (language === 'id' ? 'Pilih filter “Semua” untuk melihat hasil di kategori lain.' : 'Choose “All content” to see matches in other categories.')
                   : (language === 'id'
