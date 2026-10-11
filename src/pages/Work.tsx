@@ -146,7 +146,7 @@ const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>
   image.dataset.fallbackApplied = 'true';
   image.src = CASE_STUDY_IMAGE_FALLBACK;
 };
-import { fetchServerCmsProjects, getCmsProjects } from '../lib/cmsStore';
+import { fetchServerCmsProjects, getCmsProjects, getCmsProjectsLoadState } from '../lib/cmsStore';
 
 export const Work = () => {
   const { t, language } = useLanguage();
@@ -154,6 +154,9 @@ export const Work = () => {
   const lastSyncedSearchParamsRef = React.useRef(searchParams.toString());
   const skipFilterUrlWriteRef = React.useRef(false);
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => getCmsProjects());
+  const [projectsLoadState, setProjectsLoadState] = useState<'loading' | 'error' | 'loaded'>(() =>
+    getCmsProjects().length > 0 ? 'loaded' : 'loading',
+  );
   const [activePillar, setActivePillar] = useState<string>(() => searchParams.get('pillar') || 'All');
   const [activeService, setActiveService] = useState<string>(() => searchParams.get('service') || 'All');
   const [activeIndustry, setActiveIndustry] = useState<string>(() => searchParams.get('industry') || 'All');
@@ -170,19 +173,29 @@ export const Work = () => {
   const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
   const modalTriggerRef = React.useRef<HTMLElement | null>(null);
 
-  // Sync with CMS updates
+  // Sync with CMS updates and distinguish an empty portfolio from an unavailable API.
   useEffect(() => {
     const handleUpdate = () => {
       setProjectsList(getCmsProjects());
+      setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
     };
 
     window.addEventListener('kapitech_cms_updated', handleUpdate);
     void fetchServerCmsProjects().then(() => {
       setProjectsList(getCmsProjects());
+      setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
     });
 
     return () => window.removeEventListener('kapitech_cms_updated', handleUpdate);
   }, []);
+
+  const retryCmsProjects = () => {
+    setProjectsLoadState('loading');
+    void fetchServerCmsProjects().then(() => {
+      setProjectsList(getCmsProjects());
+      setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
+    });
+  };
 
   const selectedProjectGallery = useMemo(() => {
     if (!selectedProject) return [];
@@ -524,6 +537,59 @@ export const Work = () => {
       ? `${featuredIndex + 1} dari ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`
       : `${featuredIndex + 1} of ${spotlightProjects.length}: ${currentFeatured?.title ?? ''}`;
   const featuredProgress = `${((featuredIndex + 1) / Math.max(spotlightProjects.length, 1)) * 100}%`;
+
+  // Avoid flashing the empty-portfolio state while the CMS request is still resolving.
+  if (projectsList.length === 0 && projectsLoadState === 'loading') {
+    return (
+      <div className="relative min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
+        <PublicPageHero
+          eyebrow={language === 'id' ? 'Portofolio' : 'Portfolio'}
+          title={language === 'id' ? 'Memuat studi kasus Kapitech.' : 'Loading Kapitech case studies.'}
+          description={language === 'id'
+            ? 'Kami sedang mengambil studi kasus yang telah dipublikasikan dari CMS.'
+            : 'We are retrieving published case studies from the CMS.'}
+        />
+        <section className="border-t border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
+          <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 text-sm text-text-body" role="status" aria-live="polite">
+            <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-brand-red" aria-hidden="true" />
+            <span>{language === 'id' ? 'Menghubungkan ke CMS…' : 'Connecting to the CMS…'}</span>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  if (projectsList.length === 0 && projectsLoadState === 'error') {
+    return (
+      <div className="relative min-h-screen bg-dark-base text-white selection:bg-brand-red selection:text-white">
+        <PublicPageHero
+          eyebrow={language === 'id' ? 'Portofolio' : 'Portfolio'}
+          title={language === 'id' ? 'Studi kasus belum dapat dimuat.' : 'Case studies are temporarily unavailable.'}
+          description={language === 'id'
+            ? 'Koneksi ke CMS sedang bermasalah. Konten tidak dihapus; coba muat ulang daftar studi kasus.'
+            : 'The CMS request failed. This does not mean your case studies were deleted. Please retry the request.'}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={retryCmsProjects}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Coba Lagi' : 'Try Again'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </button>
+            <Link
+              to="/contact#project-inquiry-form"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+        </PublicPageHero>
+      </div>
+    );
+  }
 
   // Never manufacture or reveal unreviewed client work to fill the portfolio.
   // A useful capability-led fallback keeps the page intentional until verified case studies are published.
