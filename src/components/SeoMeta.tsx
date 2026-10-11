@@ -103,7 +103,7 @@ function buildBreadcrumbs(pathname: string, currentName: string) {
 function getRouteSeo(
   pathname: string,
   language: 'en' | 'id',
-  projects: ProjectItem[] = allProjects,
+  projects: ProjectItem[] = [],
   services: ServiceItemData[] = allSolutionsAndServices,
 ) {
   if (pathname === '/faq') {
