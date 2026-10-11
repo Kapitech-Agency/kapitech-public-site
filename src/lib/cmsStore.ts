@@ -107,8 +107,11 @@ function normalizeCmsProject(value: unknown): ProjectItem | null {
 
   const impact = Array.isArray(raw.impact)
     ? raw.impact
-        .filter((metric): metric is Record<string, unknown> => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
-        .map((metric) => ({ label: cmsText(metric.label), value: cmsText(metric.value) }))
+        .filter((metric) => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
+        .map((metric) => {
+          const value = metric as Record<string, unknown>;
+          return { label: cmsText(value.label), value: cmsText(value.value) };
+        })
         .filter((metric) => metric.label && metric.value)
     : [];
 
