@@ -803,16 +803,22 @@ export const Home = () => {
               </h2>
               <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
                 {language === 'id'
-                  ? 'Pilihan case study dari pekerjaan visual, product, dan digital engineering yang kami bangun bersama klien.'
-                  : 'A selection of visual, product, and digital engineering work built in close partnership with our clients.'}
+                  ? (homepageProjects.length > 0
+                    ? 'Pilihan case study dari pekerjaan visual, product, dan digital engineering yang kami bangun bersama klien.'
+                    : 'Case study ditampilkan setelah detail dan izin publikasinya ditinjau. Sambil menunggu, jelajahi layanan kami atau diskusikan kebutuhan proyek Anda.')
+                  : (homepageProjects.length > 0
+                    ? 'A selection of visual, product, and digital engineering work built in close partnership with our clients.'
+                    : 'Case studies are shared after details and publication approval are reviewed. In the meantime, explore our services or discuss your project needs.')}
               </p>
             </div>
 
             <Link
-              to="/work"
+              to={homepageProjects.length > 0 ? "/work" : "/services"}
               className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] lg:self-end"
             >
-              <span>{language === 'id' ? 'Lihat Semua Case Studies' : 'View All Case Studies'}</span>
+              <span>{homepageProjects.length > 0
+                ? (language === 'id' ? 'Lihat Semua Case Studies' : 'View All Case Studies')
+                : (language === 'id' ? 'Jelajahi Layanan' : 'Explore Services')}</span>
               <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
@@ -912,15 +918,25 @@ export const Home = () => {
             })}
             </div>
           ) : (
-            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.014] px-6 py-12 text-center sm:px-10">
-              <p className="text-xs font-mono uppercase tracking-[0.14em] text-white/40">
-                {language === 'id' ? 'Case study dikelola melalui AMS' : 'Case studies are managed through AMS'}
+            <div className="rounded-3xl border border-white/[0.08] bg-white/[0.014] px-6 py-10 sm:px-8 sm:py-12">
+              <p className="text-xs font-mono uppercase tracking-[0.14em] text-[#9299A5]">
+                {language === 'id' ? 'Studi Kasus Terverifikasi' : 'Reviewed Case Studies'}
               </p>
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#8A909D]">
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#A7ACB5]">
                 {language === 'id'
-                  ? 'Case study akan tampil otomatis setelah dipublikasikan melalui CMS.'
-                  : 'Case studies appear automatically once they are published through the CMS.'}
+                  ? 'Kami hanya membagikan pekerjaan yang detail dan izin publikasinya telah disetujui. Jelajahi layanan kami atau beri tahu kami tentang proyek Anda.'
+                  : 'We only share work after its details and publication permissions are approved. Explore our services or tell us about your project.'}
               </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link to="/services" className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.05]">
+                  <span>{language === 'id' ? 'Lihat Layanan' : 'Explore Services'}</span>
+                  <ArrowUpRight size={13} aria-hidden="true" />
+                </Link>
+                <Link to="/contact#project-inquiry-form" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#FF1E27]">
+                  <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
+                  <ArrowUpRight size={13} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           )}
         </div>
