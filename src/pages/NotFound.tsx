@@ -8,7 +8,7 @@ export const NotFound = () => {
   const { language } = useLanguage();
 
   return (
-    <div className="kapi-page-bg min-h-screen bg-[#0B0C0E] text-white">
+    <div className="kapi-page-bg min-h-screen bg-dark-base text-white">
       <PublicPageHero
         eyebrow="404 / Not Found"
         title={language === 'id' ? 'Halaman tidak ditemukan.' : 'This page could not be found.'}
