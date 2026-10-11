@@ -52,6 +52,15 @@ const indexHtml = await readFile(join(distDir, 'index.html'), 'utf8');
 if (!indexHtml.includes('<div id="root"></div>')) {
   throw new Error('[deploy-check] dist/index.html is not the expected Vite entry file');
 }
+
+const appSource = await readFile(join(root, 'src/App.tsx'), 'utf8');
+const contactSource = await readFile(join(root, 'src/pages/Contact.tsx'), 'utf8');
+if (!appSource.includes('const scrollToTarget = () =>') || !appSource.includes('attempts >= 60')) {
+  throw new Error('[deploy-check] hash navigation must wait for lazy-loaded route targets');
+}
+if (!contactSource.includes('id="project-inquiry-form"') || !contactSource.includes("form.scrollIntoView({ behavior: 'instant', block: 'start' })")) {
+  throw new Error('[deploy-check] project inquiry form anchor or post-mount scrolling is missing');
+}
 if (indexHtml.includes('Kapitech-Agency.github.io')) {
   throw new Error('[deploy-check] index.html still references assets from the retired GitHub Pages repository');
 }
