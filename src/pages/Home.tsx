@@ -257,7 +257,7 @@ export const Home = () => {
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="silk"
-            color="#E50914"
+            color="#DC143C"
             backgroundColor="#0B0C0E"
             opacity={0.58}
             fade="none"
@@ -272,20 +272,20 @@ export const Home = () => {
             contrast={1.08}
             intro
           />
-          <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
-          <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-[#0B0C0E]/65 via-[#0B0C0E]/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-b from-transparent via-[#0B0C0E]/72 to-[#0B0C0E] pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-dark-base/65 via-dark-base/20 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-dark-base/65 via-dark-base/20 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-b from-transparent via-dark-base/72 to-dark-base pointer-events-none" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full relative z-10 -translate-y-2 sm:-translate-y-3 md:-translate-y-4">
           <div className="max-w-4xl lg:max-w-5xl">
             {/* Status Chip */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#262930] bg-[#16181D]/80 backdrop-blur-md mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-dark-subtle bg-dark-card/80 backdrop-blur-md mb-6 sm:mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-[#8A909D]">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-text-body">
                 Digital Product Design & Development Agency
               </span>
             </div>
@@ -298,7 +298,7 @@ export const Home = () => {
               )}
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#8A909D] font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-body font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
               {language === 'id'
                 ? 'Kami merancang dan mengembangkan website berkinerja tinggi, aplikasi web kustom, sistem visual, dan infrastruktur cloud terpercaya untuk bisnis visioner.'
                 : 'We design and develop high-performance websites, custom web applications, visual systems, and resilient cloud infrastructures for visionary enterprises.'}
@@ -307,21 +307,21 @@ export const Home = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <Link 
                 to="/contact#project-inquiry-form" 
-                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#FF1E27] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#C40F34] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
                 <ArrowUpRight size={16} />
               </Link>
               <Link 
                 to="/work" 
-                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-[#262930] bg-[#16181D] hover:bg-[#1B1F26] text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 rounded-full border border-dark-subtle bg-dark-card hover:bg-dark-card-hover text-white transition-colors duration-300 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95"
               >
                 <span>{language === 'id' ? 'Jelajahi Case Studies' : 'Explore Case Studies'}</span>
               </Link>
             </div>
 
-            <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-[#8A909D]">
-              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D]/75">
+            <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-text-body">
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-text-body/75">
                 {language === 'id' ? 'Partner' : 'Partner'}
               </span>
               <span className="h-px w-5 sm:w-7 bg-[#262930]" aria-hidden="true" />
@@ -347,7 +347,7 @@ export const Home = () => {
 
       {/* STUDIO PROOF / EDITORIAL METRICS */}
       <section
-        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         aria-label="Agency metrics"
       >
         <div className="mx-auto w-full max-w-7xl relative">
@@ -361,7 +361,7 @@ export const Home = () => {
                 {language === 'id' ? 'Pengalaman yang terlihat dari pekerjaan kami.' : 'Experience you can see in the work.'}
               </h2>
             </div>
-            <p className="max-w-xl lg:justify-self-end text-sm sm:text-base leading-[1.8] text-[#8A909D] font-light">
+            <p className="max-w-xl lg:justify-self-end text-sm sm:text-base leading-[1.8] text-text-body font-light">
               {language === 'id'
                 ? 'Bukan sekadar angka. Ini adalah potongan kecil dari bagaimana Kapitech bekerja: dekat dengan bisnis, serius pada detail, dan terlibat dari awal sampai selesai.'
                 : 'Not just numbers. A small glimpse into how Kapitech works: close to the business, serious about detail, and involved from first brief to final delivery.'}
@@ -379,10 +379,10 @@ export const Home = () => {
                   className={`group relative h-full min-h-[232px] rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-5 lg:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
                 >
                   <div className="flex items-start justify-between gap-6">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#8A909D] transition-colors duration-300 group-hover:text-white">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-text-body transition-colors duration-300 group-hover:text-white">
                       {stat.label}
                     </span>
-                    <span className="text-[10px] font-mono tabular-nums text-[#8A909D]/60 group-hover:text-brand-red transition-colors duration-300">
+                    <span className="text-[10px] font-mono tabular-nums text-text-body/60 group-hover:text-brand-red transition-colors duration-300">
                       {stat.index}
                     </span>
                   </div>
@@ -392,7 +392,7 @@ export const Home = () => {
                         {stat.value}
                       </span>
                       {stat.suffix && (
-                        <span className="max-w-[104px] sm:max-w-[112px] text-[10px] sm:text-xs font-mono leading-tight text-[#8A909D]">
+                        <span className="max-w-[104px] sm:max-w-[112px] text-[10px] sm:text-xs font-mono leading-tight text-text-body">
                           {stat.suffix}
                         </span>
                       )}
@@ -402,7 +402,7 @@ export const Home = () => {
                         {stat.meta}
                       </span>
                     </div>
-                    <p className="max-w-xl text-xs sm:text-sm leading-[1.7] text-[#8A909D] font-light">
+                    <p className="max-w-xl text-xs sm:text-sm leading-[1.7] text-text-body font-light">
                       {stat.desc}
                     </p>
                   </div>
@@ -415,7 +415,7 @@ export const Home = () => {
       </section>
       {/* SELECTED CLIENT WORK */}
       <section
-        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-14 sm:px-6 sm:py-20 md:px-12"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-20 md:px-12"
         id="clients"
       >
         <div className="mx-auto w-full max-w-7xl">
@@ -480,11 +480,11 @@ export const Home = () => {
             const renderRow = (logos, keyPrefix, reverse = false) => (
               <div className="relative w-full overflow-hidden py-4 sm:py-5">
                 <div
-                  className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent sm:w-28 lg:w-40"
+                  className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-dark-base via-dark-base/90 to-transparent sm:w-28 lg:w-40"
                   aria-hidden="true"
                 />
                 <div
-                  className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-[#0B0C0E] via-[#0B0C0E]/90 to-transparent sm:w-28 lg:w-40"
+                  className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-dark-base via-dark-base/90 to-transparent sm:w-28 lg:w-40"
                   aria-hidden="true"
                 />
 
@@ -530,7 +530,7 @@ export const Home = () => {
 
       {/* SERVICES & SOLUTIONS */}
       <section
-        className="relative overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
+        className="relative overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="engagement"
         aria-labelledby="services-solutions-heading"
       >
@@ -548,7 +548,7 @@ export const Home = () => {
               </h2>
             </div>
 
-            <p className="max-w-md text-sm font-light leading-[1.85] text-[#8A909D] lg:justify-self-end lg:pb-1">
+            <p className="max-w-md text-sm font-light leading-[1.85] text-text-body lg:justify-self-end lg:pb-1">
               {language === 'id'
                 ? 'Pilih kapabilitas untuk kebutuhan spesifik Anda, atau mulai dari solusi yang sesuai dengan tantangan bisnis saat ini.'
                 : 'Choose the capability your team needs, or start with a focused solution for the challenge in front of your business.'}
@@ -612,7 +612,7 @@ export const Home = () => {
                   <h3 className="mt-6 text-[1.55rem] font-display font-semibold leading-[1.08] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.7rem]">
                     {categoryMeta.title}
                   </h3>
-                  <p className="mt-3 min-h-[3.5rem] max-w-sm text-sm font-light leading-[1.75] text-[#8A909D]">
+                  <p className="mt-3 min-h-[3.5rem] max-w-sm text-sm font-light leading-[1.75] text-text-body">
                     {categoryMeta.description}
                   </p>
 
@@ -680,7 +680,7 @@ export const Home = () => {
                   {language === 'id' ? 'Mulai dari tantangan yang ingin Anda selesaikan.' : 'Start with the challenge you need to solve.'}
                 </h3>
               </div>
-              <p className="max-w-lg text-sm font-light leading-[1.8] text-[#8A909D] sm:text-right">
+              <p className="max-w-lg text-sm font-light leading-[1.8] text-text-body sm:text-right">
                 {language === 'id'
                   ? 'Tiga jalur praktis untuk memvalidasi ide, meningkatkan produk, atau memperkuat kapasitas tim.'
                   : 'Three practical paths to validate an idea, improve an existing product, or extend your team.'}
@@ -748,7 +748,7 @@ export const Home = () => {
                       <h4 className="mt-2 text-xl font-display font-semibold leading-tight tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red sm:text-[1.4rem]">
                         {solution.title}
                       </h4>
-                      <p className="mt-3 text-sm font-light leading-[1.75] text-[#8A909D]">
+                      <p className="mt-3 text-sm font-light leading-[1.75] text-text-body">
                         {solutionMeta.bestFor}
                       </p>
 
@@ -773,7 +773,7 @@ export const Home = () => {
               <p className="text-sm font-semibold text-white">
                 {language === 'id' ? 'Belum yakin harus mulai dari mana?' : 'Not sure where to start?'}
               </p>
-              <p className="mt-1 max-w-2xl text-xs font-light leading-[1.75] text-[#8A909D] sm:text-sm">
+              <p className="mt-1 max-w-2xl text-xs font-light leading-[1.75] text-text-body sm:text-sm">
                 {language === 'id'
                   ? 'Ceritakan tujuan dan kendala Anda. Kami bantu menentukan langkah yang paling masuk akal.'
                   : 'Tell us your goals and constraints. We will help you map out a sensible next step.'}
@@ -781,7 +781,7 @@ export const Home = () => {
             </div>
             <Link
               to="/contact#project-inquiry-form"
-              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#FF1E27]"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#C40F34]"
             >
               <span>{language === 'id' ? 'Diskusikan proyek' : 'Discuss your project'}</span>
               <ArrowUpRight size={14} aria-hidden="true" />
@@ -791,7 +791,7 @@ export const Home = () => {
       </section>
 
       {/* FEATURED CASE STUDIES */}
-      <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
+      <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
             <div className="max-w-3xl">
@@ -801,7 +801,7 @@ export const Home = () => {
               <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
               </h2>
-              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-[#8A909D] sm:text-base">
+              <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-text-body sm:text-base">
                 {language === 'id'
                   ? (homepageProjects.length > 0
                     ? 'Pilihan case study dari pekerjaan visual, product, dan digital engineering yang kami bangun bersama klien.'
@@ -901,7 +901,7 @@ export const Home = () => {
                         {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
                           <span
                             key={technology}
-                            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono text-[#8A909D] transition-colors duration-300 group-hover:border-white/[0.13] group-hover:text-white"
+                            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono text-text-body transition-colors duration-300 group-hover:border-white/[0.13] group-hover:text-white"
                           >
                             {technology}
                           </span>
@@ -932,7 +932,7 @@ export const Home = () => {
                   <span>{language === 'id' ? 'Lihat Layanan' : 'Explore Services'}</span>
                   <ArrowUpRight size={13} aria-hidden="true" />
                 </Link>
-                <Link to="/contact#project-inquiry-form" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#FF1E27]">
+                <Link to="/contact#project-inquiry-form" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34]">
                   <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
                   <ArrowUpRight size={13} aria-hidden="true" />
                 </Link>
@@ -946,7 +946,7 @@ export const Home = () => {
       <Testimonials />
 
       {/* WORKING PROCESS STEPPING */}
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#0B0C0E] border-b border-[#262930]">
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-dark-base border-b border-dark-subtle">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <motion.div
             className="absolute -right-32 top-16 h-72 w-72 rounded-full border border-brand-red/[0.045]"
@@ -990,7 +990,7 @@ export const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-12% 0px' }}
               transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-md lg:pb-1 text-xs sm:text-sm lg:text-base leading-[1.75] text-[#8A909D] font-light"
+              className="max-w-md lg:pb-1 text-xs sm:text-sm lg:text-base leading-[1.75] text-text-body font-light"
             >
               {language === 'id'
                 ? 'Empat fase yang saling terhubung menjaga kualitas, momentum, dan keputusan proyek tetap berada di jalur.'
@@ -1033,8 +1033,8 @@ export const Home = () => {
                         className={cn(
                           "absolute z-20 left-0 top-[11px] h-2.5 w-2.5 rounded-full border transition-all duration-500 lg:hidden",
                           isActive
-                            ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(229,9,20,0.08),0_0_20px_rgba(229,9,20,0.45)]"
-                            : "border-white/[0.18] bg-[#0B0C0E] group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(229,9,20,0.05)]"
+                            ? "border-brand-red bg-brand-red shadow-[0_0_0_5px_rgba(220, 20, 60,0.08),0_0_20px_rgba(220, 20, 60,0.45)]"
+                            : "border-white/[0.18] bg-dark-base group-hover:border-brand-red/70 group-hover:shadow-[0_0_0_4px_rgba(220, 20, 60,0.05)]"
                         )}
                       />
 
@@ -1048,7 +1048,7 @@ export const Home = () => {
                           <motion.span
                             animate={{ opacity: isActive ? 1 : 0.45, x: isActive ? 0 : 4 }}
                             transition={{ duration: 0.35 }}
-                            className="kapi-framework-step-index text-[10px] font-mono tabular-nums text-[#8A909D]"
+                            className="kapi-framework-step-index text-[10px] font-mono tabular-nums text-text-body"
                           >
                             {step.step}
                           </motion.span>
@@ -1065,7 +1065,7 @@ export const Home = () => {
                         <motion.p
                           animate={{ opacity: isActive ? 1 : 0.68, y: isActive ? 0 : 2 }}
                           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                          className="kapi-framework-step-description mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-[#8A909D] font-light"
+                          className="kapi-framework-step-description mt-3 max-w-sm text-xs sm:text-sm leading-[1.75] text-text-body font-light"
                         >
                           {step.desc}
                         </motion.p>
@@ -1089,7 +1089,7 @@ export const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.28 }}
-              className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]"
+              className="mt-4 lg:mt-5 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.01] px-4 py-3 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.16em] text-text-body"
             >
               <span>{language === 'id' ? 'Arahkan kursor untuk preview, pilih phase untuk membuka detail' : 'Hover to preview, select a phase for details'}</span>
               <span className="text-brand-red/85 tabular-nums">
@@ -1128,17 +1128,17 @@ export const Home = () => {
                   aria-labelledby="process-phase-modal-title"
                   aria-describedby="process-phase-modal-description"
                 >
-                  <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0F1116] px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
+                  <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-dark-surface px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
                     <div className="min-w-0 flex-1">
                       <div className="mb-1.5 flex flex-wrap items-center gap-2">
                         <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">
                           Framework Phase
                         </span>
-                        <span className="truncate text-[10px] sm:text-[11px] font-mono text-[#8A909D]">
+                        <span className="truncate text-[10px] sm:text-[11px] font-mono text-text-body">
                           {language === 'id' ? 'Fase ' + step.step : 'Phase ' + step.step}
                         </span>
                         <span className="text-white/15" aria-hidden="true">•</span>
-                        <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-[#8A909D]">
+                        <span className="tabular-nums text-[10px] sm:text-[11px] font-mono text-text-body">
                           {String(selectedProcessStep + 1).padStart(2, '0')} / {String(processSteps.length).padStart(2, '0')}
                         </span>
                       </div>
@@ -1159,12 +1159,12 @@ export const Home = () => {
                   </header>
 
                   <div className="kapi-process-modal-body grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-                    <aside className="kapi-process-modal-overview min-h-0 overflow-y-auto border-b border-white/[0.08] bg-[#0B0C0E] lg:border-b-0 lg:border-r">
+                    <aside className="kapi-process-modal-overview min-h-0 overflow-y-auto border-b border-white/[0.08] bg-dark-base lg:border-b-0 lg:border-r">
                       <div className="p-4 sm:p-5 lg:p-6">
                         <div className="mb-3 flex items-center justify-between gap-3">
                           <div>
                             <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Phase Overview</span>
-                            <p className="mt-1 text-xs text-[#8A909D]">
+                            <p className="mt-1 text-xs text-text-body">
                               {language === 'id' ? 'Tujuan dan checkpoint fase ini.' : 'Objective and checkpoint for this phase.'}
                             </p>
                           </div>
@@ -1290,7 +1290,7 @@ export const Home = () => {
                     <button
                       type="button"
                       onClick={() => setSelectedProcessStep(null)}
-                      className="inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-[#8A909D] transition-colors duration-300 hover:text-white"
+                      className="inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-text-body transition-colors duration-300 hover:text-white"
                     >
                       {language === 'id' ? 'Tutup' : 'Close'}
                     </button>
@@ -1298,7 +1298,7 @@ export const Home = () => {
                     <button
                       type="button"
                       onClick={() => openProcessStep(selectedProcessStep + 1)}
-                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#FF1E27] disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#C40F34] disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
                       disabled={isLast}
                     >
                       <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>
