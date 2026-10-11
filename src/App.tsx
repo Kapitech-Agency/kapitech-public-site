@@ -60,10 +60,35 @@ const ScrollToTop = () => {
   useEffect(() => {
     if (hash) {
       const id = decodeURIComponent(hash.replace(/^#/, ''));
-      window.requestAnimationFrame(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
-      });
-      return;
+      let attempts = 0;
+      let frame: number | null = null;
+      let settleTimer: number | null = null;
+      let cancelled = false;
+
+      // Routes are lazy-loaded and may mount after the first hash-navigation frame.
+      // Retry briefly, then align once more after layout and font transitions settle.
+      const scrollToTarget = () => {
+        if (cancelled) return;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'instant', block: 'start' });
+          if (settleTimer !== null) window.clearTimeout(settleTimer);
+          settleTimer = window.setTimeout(() => {
+            if (!cancelled) document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }, 180);
+          return;
+        }
+        if (attempts >= 60) return;
+        attempts += 1;
+        frame = window.requestAnimationFrame(scrollToTarget);
+      };
+
+      frame = window.requestAnimationFrame(scrollToTarget);
+      return () => {
+        cancelled = true;
+        if (frame !== null) window.cancelAnimationFrame(frame);
+        if (settleTimer !== null) window.clearTimeout(settleTimer);
+      };
     }
 
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
