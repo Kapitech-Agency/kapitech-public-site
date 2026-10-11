@@ -168,7 +168,7 @@ export const Work = () => {
   const spotlightRef = React.useRef<HTMLElement>(null);
   const spotlightCardRef = React.useRef<HTMLElement | null>(null);
   const restoreSpotlightFocusRef = React.useRef(false);
-  const [visibleCount, setVisibleCount] = useState<number>(12);
+  const [visibleCount, setVisibleCount] = useState<number>(100);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
   const modalTriggerRef = React.useRef<HTMLElement | null>(null);
