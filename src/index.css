@@ -19,10 +19,11 @@
   --kapi-color-text-secondary: #8A909D;
   --kapi-color-text-subtle: #6F7783;
   --kapi-color-text-soft: #C5CAD2;
-  --kapi-color-accent: #E50914;
-  --kapi-color-accent-hover: #FF1E27;
-  --kapi-color-accent-soft: rgba(229, 9, 20, 0.12);
-  --kapi-color-accent-line: rgba(229, 9, 20, 0.42);
+  --kapi-color-accent: #DC143C;
+  --kapi-color-accent-hover: #C40F34;
+  --kapi-color-accent-text: #FF4D6D;
+  --kapi-color-accent-soft: rgba(220, 20, 60, 0.12);
+  --kapi-color-accent-line: rgba(220, 20, 60, 0.42);
   --kapi-color-overlay: rgba(4, 5, 7, 0.76);
   --kapi-color-modal-surface: rgba(15, 17, 22, 0.94);
   --kapi-color-popover-surface: rgba(15, 17, 22, 0.98);
@@ -37,9 +38,10 @@
   --color-brand-red: var(--kapi-color-accent);
   --color-brand-red-bright: var(--kapi-color-accent-hover);
   --color-brand-red-hover: var(--kapi-color-accent-hover);
-  --color-brand-red-glow: rgba(229, 9, 20, 0.25);
+  --color-brand-red-glow: rgba(220, 20, 60, 0.25);
 
   --color-dark-base: var(--kapi-color-canvas);
+  --color-dark-surface: var(--kapi-color-surface);
   --color-dark-card: var(--kapi-color-panel);
   --color-dark-card-hover: var(--kapi-color-panel-hover);
   --color-dark-subtle: var(--kapi-color-line-solid);
@@ -50,6 +52,8 @@
   --color-text-headline: var(--kapi-color-text-primary);
   --color-text-body: var(--kapi-color-text-secondary);
   --color-text-muted: var(--kapi-color-text-subtle);
+  --color-text-soft: var(--kapi-color-text-soft);
+  --color-brand-red-text: var(--kapi-color-accent-text);
 }
 
 @layer base {
@@ -66,8 +70,12 @@
     font-family: var(--font-sans);
     overflow-x: hidden;
     width: 100%;
-    selection-background-color: #E50914;
-    selection-color: #FFFFFF;
+    
+  }
+
+  ::selection {
+    background: var(--kapi-color-accent);
+    color: #FFFFFF;
   }
 
   /* PUBLIC SITE CARD TOKENS */
@@ -213,13 +221,13 @@
 }
 
 .kapi-public-shell button.kapi-framework-step:focus-visible {
-  outline: 2px solid rgba(229,9,20,0.7);
+  outline: 2px solid rgba(220, 20, 60,0.7);
   outline-offset: 4px;
 }
 
 .kapi-public-shell button.kapi-framework-step[data-active="true"] .kapi-framework-step-label,
 .kapi-public-shell button.kapi-framework-step[data-active="true"] .kapi-framework-step-title {
-  color: #FF1E27 !important;
+  color: var(--kapi-color-accent-text) !important;
 }
 
 .kapi-public-shell button.kapi-framework-step[data-active="false"] .kapi-framework-step-label {
@@ -239,7 +247,7 @@
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 9999px;
   background: rgba(11,12,14,0.46);
-  color: #E50914;
+  color: var(--kapi-color-accent-text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 10px;
   line-height: 1.25rem;
@@ -288,7 +296,7 @@
 
 /* Public-site focus styling stays out of AMS so modal/control focus states are not cascaded. */
 .kapi-public-shell .text-brand-red {
-  color: #FF1E27;
+  color: var(--kapi-color-accent-text);
 }
 
 .kapi-skip-link {
@@ -297,14 +305,14 @@
   left: 0.75rem;
   z-index: 260;
   transform: translateY(-150%);
-  border: 1px solid rgba(229, 9, 20, 0.55);
+  border: 1px solid rgba(220, 20, 60, 0.55);
   border-radius: 9999px;
   background: #0B0C0E;
   color: #FFFFFF;
   padding: 0.7rem 1rem;
   font-size: 0.75rem;
   font-weight: 600;
-  box-shadow: 0 12px 28px -18px rgba(229, 9, 20, 0.7);
+  box-shadow: 0 12px 28px -18px rgba(220, 20, 60, 0.7);
   transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -368,7 +376,7 @@
   height: 55vw;
   max-width: 800px;
   max-height: 800px;
-  background: radial-gradient(circle, var(--kapi-red-primary) 0%, rgba(229, 9, 20, 0) 70%);
+  background: radial-gradient(circle, var(--kapi-red-primary) 0%, rgba(220, 20, 60, 0) 70%);
   opacity: 0.10;
   animation: kapiFloatOrbOne 22s ease-in-out infinite alternate;
 }
@@ -473,7 +481,7 @@
   background-color: var(--kapi-bg-card-hover);
   box-shadow: 
     0 12px 36px -8px rgba(0, 0, 0, 0.7),
-    0 0 24px 0 rgba(229, 9, 20, 0.15);
+    0 0 24px 0 rgba(220, 20, 60, 0.15);
 }
 
 .kapi-card:hover::before {
@@ -522,7 +530,7 @@
 }
 
 .kapi-card:hover .kapi-card-icon-box {
-  background-color: rgba(229, 9, 20, 0.12);
+  background-color: rgba(220, 20, 60, 0.12);
   border-color: var(--kapi-red-border-hover);
   color: var(--kapi-red-electric);
   transform: scale(1.05);
@@ -620,7 +628,7 @@
 
 .kapi-card:hover .kapi-card-footer {
   color: var(--kapi-red-electric);
-  border-color: rgba(229, 9, 20, 0.2);
+  border-color: rgba(220, 20, 60, 0.2);
 }
 
 .kapi-card:hover .kapi-card-arrow {
@@ -705,7 +713,7 @@ body,
 
 .kapi-public-shell main section .group.rounded-2xl:focus-within,
 .kapi-public-shell main section .kapi-card:focus-within {
-  border-color: rgba(229, 9, 20, 0.45);
+  border-color: rgba(220, 20, 60, 0.45);
 }
 
 .kapi-public-shell .kapi-card {
@@ -716,7 +724,7 @@ body,
   transform: translate3d(0, -4px, 0);
   box-shadow:
     0 14px 34px -18px rgba(0, 0, 0, 0.75),
-    0 0 22px rgba(229, 9, 20, 0.10);
+    0 0 22px rgba(220, 20, 60, 0.10);
 }
 
 .kapi-public-shell a[class*="bg-brand-red"],
@@ -768,7 +776,7 @@ body,
   transform: scaleX(0);
   transform-origin: left center;
   background: linear-gradient(90deg, transparent 0%, var(--color-brand-red) 18%, var(--color-brand-red-bright) 78%, rgba(255,255,255,0.55) 100%);
-  box-shadow: 0 0 14px rgba(229, 9, 20, 0.28);
+  box-shadow: 0 0 14px rgba(220, 20, 60, 0.28);
   will-change: transform;
 }
 
@@ -1006,7 +1014,7 @@ body,
 
 .kapi-public-shell :where(input, textarea, select):focus {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -16px rgba(229, 9, 20, 0.55);
+  box-shadow: 0 8px 24px -16px rgba(220, 20, 60, 0.55);
 }
 
 .kapi-public-shell [role="alert"] {
@@ -1082,7 +1090,7 @@ body,
 
 .kapi-public-shell main section .group.rounded-2xl:hover,
 .kapi-public-shell main section .group.rounded-3xl:hover {
-  border-color: rgba(229, 9, 20, 0.34);
+  border-color: rgba(220, 20, 60, 0.34);
 }
 
 .kapi-public-shell main section input,
@@ -1099,8 +1107,8 @@ body,
 .kapi-public-shell main section textarea:focus-visible,
 .kapi-public-shell main section select:focus-visible {
   outline: none;
-  border-color: rgba(229, 9, 20, 0.62);
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.09);
+  border-color: rgba(220, 20, 60, 0.62);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.09);
   transform: translateY(-1px);
 }
 
@@ -1120,7 +1128,7 @@ body,
 
 .kapi-public-shell :where(button, a):focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.12);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.12);
 }
 
 .kapi-public-shell svg {
@@ -1173,8 +1181,8 @@ body,
   opacity: 0;
   background: radial-gradient(
     170px circle at var(--kapi-spotlight-x) var(--kapi-spotlight-y),
-    rgba(229, 9, 20, 0.055) 0%,
-    rgba(229, 9, 20, 0.022) 34%,
+    rgba(220, 20, 60, 0.055) 0%,
+    rgba(220, 20, 60, 0.022) 34%,
     transparent 72%
   );
   filter: blur(18px);
@@ -1328,7 +1336,7 @@ html.kapi-custom-cursor-enabled select {
 .kapi-public-shell main > [role="main"] > section:first-of-type {
   border-color: var(--kapi-v2-line);
   background:
-    radial-gradient(circle at 78% 15%, rgba(229, 9, 20, 0.055), transparent 30%),
+    radial-gradient(circle at 78% 15%, rgba(220, 20, 60, 0.055), transparent 30%),
     var(--kapi-v2-bg);
 }
 
@@ -1395,14 +1403,14 @@ html.kapi-custom-cursor-enabled select {
 
 /* Unified action language. No vertical lift on hover. */
 .kapi-public-shell main :where(a, button)[class~="bg-brand-red"],
-.kapi-public-shell main :where(a, button)[class~="bg-[#E50914]"],
+.kapi-public-shell main :where(a, button)[class~="bg-[#DC143C]"],
 .kapi-public-shell footer :where(a, button)[class~="bg-brand-red"],
-.kapi-public-shell footer :where(a, button)[class~="bg-[#E50914]"] {
+.kapi-public-shell footer :where(a, button)[class~="bg-[#DC143C]"] {
   background-color: var(--kapi-color-accent);
   border-color: var(--kapi-color-accent-line);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.12),
-    0 12px 30px -22px rgba(229,9,20,0.72);
+    0 12px 30px -22px rgba(220, 20, 60,0.72);
   transition: background-color 280ms var(--kapi-v2-ease),
               border-color 280ms var(--kapi-v2-ease),
               box-shadow 280ms var(--kapi-v2-ease),
@@ -1410,12 +1418,12 @@ html.kapi-custom-cursor-enabled select {
 }
 
 .kapi-public-shell main :where(a, button)[class~="bg-brand-red"]:hover,
-.kapi-public-shell main :where(a, button)[class~="bg-[#E50914]"]:hover,
+.kapi-public-shell main :where(a, button)[class~="bg-[#DC143C]"]:hover,
 .kapi-public-shell footer :where(a, button)[class~="bg-brand-red"]:hover,
-.kapi-public-shell footer :where(a, button)[class~="bg-[#E50914]"]:hover {
+.kapi-public-shell footer :where(a, button)[class~="bg-[#DC143C]"]:hover {
   transform: none;
   background-color: var(--kapi-color-accent-hover);
-  border-color: rgba(229, 9, 20, 0.62);
+  border-color: rgba(220, 20, 60, 0.62);
 }
 
 /* Input / form material */
@@ -1434,9 +1442,9 @@ html.kapi-custom-cursor-enabled select {
 }
 
 .kapi-public-shell main :where(input, textarea, select):focus {
-  border-color: rgba(229, 9, 20, 0.52);
+  border-color: rgba(220, 20, 60, 0.52);
   box-shadow:
-    0 0 0 3px rgba(229, 9, 20, 0.08),
+    0 0 0 3px rgba(220, 20, 60, 0.08),
     inset 0 1px 0 rgba(255,255,255,0.035);
   transform: none;
 }
@@ -1561,7 +1569,7 @@ html.kapi-custom-cursor-enabled select {
 }
 
 .kapi-public-shell > footer .kapi-cookie-preferences-trigger:focus-visible {
-  outline: 2px solid rgba(229, 9, 20, 0.7);
+  outline: 2px solid rgba(220, 20, 60, 0.7);
   outline-offset: 3px;
 }
 
@@ -1607,7 +1615,7 @@ html.kapi-custom-cursor-enabled select {
 
 .kapi-public-shell .kapi-utility-page {
   background:
-    radial-gradient(circle at 50% 35%, rgba(229,9,20,0.06), transparent 32%),
+    radial-gradient(circle at 50% 35%, rgba(220, 20, 60,0.06), transparent 32%),
     var(--kapi-v2-bg);
 }
 
@@ -1781,7 +1789,7 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
   border-color: rgba(255, 255, 255, 0.18) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 0 0 1px rgba(229, 9, 20, 0.06);
+    0 0 0 1px rgba(220, 20, 60, 0.06);
 }
 
 .kapi-public-shell .kapi-insight-toc :where(a):active {
@@ -1836,7 +1844,7 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
   position: relative;
   isolation: isolate;
   background:
-    radial-gradient(circle at 78% 8%, rgba(229, 9, 20, 0.045), transparent 24%),
+    radial-gradient(circle at 78% 8%, rgba(220, 20, 60, 0.045), transparent 24%),
     radial-gradient(circle at 18% 26%, rgba(255,255,255,0.022), transparent 28%),
     var(--kapi-v2-bg);
 }
@@ -1916,7 +1924,7 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
 }
 
 .kapi-public-shell .kapi-utility-page :where(input, textarea, select):focus {
-  border-color: rgba(229,9,20,0.56);
+  border-color: rgba(220, 20, 60,0.56);
 }
 
 .kapi-public-shell .kapi-utility-page section + section {
@@ -1929,7 +1937,7 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
 
 .kapi-public-shell .kapi-utility-page :where(a, button):focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(229,9,20,0.16);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60,0.16);
 }
 
 @media (max-width: 767px) {
@@ -1959,11 +1967,11 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
 /* Navbar interaction consistency */
 .kapi-public-navbar :where(a, button):focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.18);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.18);
 }
 
 .kapi-public-navbar :where(a, button)[aria-current="page"] {
-  color: #FF1E27;
+  color: #C40F34;
 }
 
 @media (max-width: 1279px) {
