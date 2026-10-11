@@ -629,7 +629,7 @@ export const Work = () => {
       </PublicPageHero>
 
       {/* Featured Spotlight Carousel */}
-      {currentFeatured && (
+      {currentFeatured ? (
         <section
           ref={spotlightRef}
           className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base"
@@ -841,6 +841,30 @@ export const Work = () => {
                   : (language === 'id' ? 'studi kasus pilihan' : 'selected case studies')}
               </span>
             </div>
+          </div>
+        </section>
+      ) : (
+        <section className="relative border-y border-white/[0.07] bg-dark-base px-4 py-14 sm:px-6 sm:py-16 md:px-12" aria-labelledby="work-spotlight-empty-title">
+          <div className="mx-auto grid max-w-7xl gap-6 rounded-3xl border border-white/[0.08] bg-white/[0.014] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
+            <div>
+              <span className="kapi-section-label mb-4">{language === 'id' ? 'Sorotan Studi Kasus' : 'Case Study Spotlight'}</span>
+              <h2 id="work-spotlight-empty-title" className="mt-3 max-w-3xl text-2xl font-display font-semibold tracking-[-0.05em] text-white sm:text-3xl">
+                {language === 'id' ? 'Sorotan proyek akan tampil di sini.' : 'Project highlights will appear here.'}
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-text-body">
+                {language === 'id'
+                  ? 'Belum ada case study berstatus published yang dikirim CMS. Data proyek asli perlu dipulihkan atau dipublikasikan di AMS; proyek contoh tidak akan ditampilkan sebagai pekerjaan nyata.'
+                  : 'The CMS has not returned published case studies. Original project records need to be restored or published in AMS; sample projects will not be presented as real client work.'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={retryCmsProjects}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+            >
+              <span>{language === 'id' ? 'Cek Ulang CMS' : 'Retry CMS'}</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </button>
           </div>
         </section>
       )}
