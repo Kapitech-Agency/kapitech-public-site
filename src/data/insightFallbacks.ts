@@ -118,8 +118,8 @@ function toInsightItem(pack: EditorialPack, language: 'id' | 'en'): InsightItem 
 }
 
 const fallbackInsights = [
-  toInsightItem(mvpEnPack as EditorialPack, 'en'),
-  toInsightItem(mvpIdPack as EditorialPack, 'id'),
+  toInsightItem(mvpEnPack as unknown as EditorialPack, 'en'),
+  toInsightItem(mvpIdPack as unknown as EditorialPack, 'id'),
   toInsightItem(websiteCostEnPack as EditorialPack, 'en'),
   toInsightItem(websiteCostIdPack as EditorialPack, 'id'),
   toInsightItem(wordpressVsCustomEnPack as EditorialPack, 'en'),
