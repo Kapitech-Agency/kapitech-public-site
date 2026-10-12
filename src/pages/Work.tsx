@@ -1154,8 +1154,8 @@ export const Work = () => {
         </div>
       </section>
 
-      {/* Projects Grid Section */}
-      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base">
+      {/* Projects Grid Section: keep published case studies visible on first paint. */}
+      <section data-kapi-motion-static="true" className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-12 bg-dark-base">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 mb-8 sm:mb-10">
             <div className="min-w-0">

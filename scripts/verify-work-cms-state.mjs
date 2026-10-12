@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 
 const cmsStore = await readFile(new URL('../src/lib/cmsStore.ts', import.meta.url), 'utf8');
 const workPage = await readFile(new URL('../src/pages/Work.tsx', import.meta.url), 'utf8');
+const publicMotion = await readFile(new URL('../src/components/ui/PublicMotion.tsx', import.meta.url), 'utf8');
 const testimonialSection = await readFile(new URL('../src/components/Testimonials.tsx', import.meta.url), 'utf8');
 
 assert.match(cmsStore, /export function getCmsProjectsLoadState\(\)/, 'CMS project hydration state must be observable');
@@ -14,6 +15,8 @@ assert.match(workPage, /projectsLoadState === 'error'/, 'The Work page must rend
 assert.match(workPage, /retryCmsProjects/, 'The Work page must expose an explicit retry action');
 assert.match(workPage, /getCmsProjectsLoadState\(\)/, 'The Work page must react to the CMS request outcome');
 assert.match(workPage, /const normalizeWorkProjects = \(value: unknown\)/, 'CMS records must be normalized before reaching the case-study renderer');
+assert.match(workPage, /data-kapi-motion-static="true"/, 'The Work case-study grid must not depend on the scroll-reveal observer to become visible');
+assert.match(publicMotion, /element\.closest\('\[data-kapi-motion-static="true"\]'\)/, 'Static content regions and their descendants must be excluded from motion observation');
 assert.match(workPage, /setProjectsList\(normalizeWorkProjects\(getCmsProjects\(\)\)\)/, 'Every CMS refresh must normalize the case-study list before rendering');
 assert.match(workPage, /const workStringArray = \(value: unknown\)/, 'CMS array fields must be guarded against unexpected shapes');
 const initialVisibleCount = workPage.match(/const \[visibleCount, setVisibleCount\] = useState<number>\((\d+)\);/);

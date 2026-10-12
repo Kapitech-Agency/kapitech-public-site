@@ -62,7 +62,9 @@ export const PublicMotion = () => {
     };
 
     const decorate = () => {
-      const elements = root.querySelectorAll<HTMLElement>(MOTION_SELECTOR);
+      const elements = Array.from(root.querySelectorAll<HTMLElement>(MOTION_SELECTOR)).filter(
+        (element) => !element.closest('[data-kapi-motion-static="true"]'),
+      );
 
       elements.forEach((element) => {
         if (element.dataset.kapiMotionBound === 'true') return;
@@ -118,13 +120,17 @@ export const PublicMotion = () => {
         });
 
     if (observer) {
-      root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]').forEach((element) => observer.observe(element));
+      Array.from(root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]'))
+          .filter((element) => !element.closest('[data-kapi-motion-static="true"]'))
+          .forEach((element) => observer.observe(element));
     }
 
     const mutationObserver = new MutationObserver(() => {
       decorate();
       if (observer) {
-        root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]').forEach((element) => observer.observe(element));
+        Array.from(root.querySelectorAll<HTMLElement>('[data-kapi-motion-state="hidden"]'))
+          .filter((element) => !element.closest('[data-kapi-motion-static="true"]'))
+          .forEach((element) => observer.observe(element));
       }
     });
 
