@@ -72,7 +72,7 @@ if (!globalStyles.includes('.pattern-waves > canvas')) {
   throw new Error('[deploy-check] PatternWaves global canvas styles are missing from the main stylesheet');
 }
 const builtAssets = await readdir(join(distDir, 'assets'));
-if (builtAssets.some((asset) => /^PatternWavesTyped-[^.]+\\.css$/.test(asset))) {
+if (builtAssets.some((asset) => /^PatternWavesTyped-[^.]+\.css$/.test(asset))) {
   throw new Error('[deploy-check] PatternWaves is still emitting a standalone lazy-loaded CSS asset');
 }
 const appSource = await readFile(join(root, 'src/App.tsx'), 'utf8');
