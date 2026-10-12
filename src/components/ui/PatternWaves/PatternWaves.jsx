@@ -493,15 +493,33 @@ const PatternWaves = ({
     const connection = navigator.connection;
     const saveData = Boolean(connection?.saveData);
     const slowConnection = /(^|-)2g$/.test(connection?.effectiveType || '');
-    if (reducedMotion || saveData || slowConnection) {
+    const setStaticFallback = () => {
       container.style.background = 'radial-gradient(circle at 50% 42%, rgba(220, 20, 60,0.10), transparent 58%), #0B0C0E';
+    };
+
+    if (reducedMotion || saveData || slowConnection) {
+      setStaticFallback();
       return undefined;
     }
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
+    let renderer;
+    try {
+      renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
+    } catch {
+      // WebGL context creation can fail in restricted browsers, crawlers, or virtualized GPUs.
+      // Keep the page usable with the same static background used for reduced-motion devices.
+      setStaticFallback();
+      return undefined;
+    }
+
     const gl = renderer.gl;
-    if (!renderer.isWebgl2) {
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    if (!gl || !renderer.isWebgl2) {
+      try {
+        gl?.getExtension('WEBGL_lose_context')?.loseContext();
+      } catch {
+        // Context cleanup must never prevent the page content from rendering.
+      }
+      setStaticFallback();
       return undefined;
     }
     gl.clearColor(0, 0, 0, 0);
