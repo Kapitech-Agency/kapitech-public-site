@@ -132,6 +132,14 @@ for (const route of seoManifest.routes) {
 }
 
 const htaccess = await readFile(join(distDir, '.htaccess'), 'utf8');
+if (!htaccess.includes('<FilesMatch "\\.html$">')) {
+  throw new Error('[deploy-check] .htaccess must target HTML files with a valid escaped-dot regex');
+}
+if (!htaccess.includes('Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"')
+  || !htaccess.includes('Header set Pragma "no-cache"')
+  || !htaccess.includes('Header set Expires "0"')) {
+  throw new Error('[deploy-check] prerendered HTML routes must not be cached across deployments');
+}
 const requiredSecurityHeaders = [
   'Header always set X-Content-Type-Options "nosniff"',
   'Header always set Referrer-Policy "strict-origin-when-cross-origin"',
