@@ -63,7 +63,7 @@ const useDragToScroll = () => {
       const drag = dragRef.current;
       if (!drag.active || drag.pointerId !== event.pointerId) return;
 
-      suppressClickRef.current = drag.moved;
+      suppressClickRef.current = event.type === 'pointerup' && drag.moved;
       // Do not capture the pointer on the scroll container: doing so retargets
       // the generated click to the container and prevents child filter buttons
       // from receiving their onClick handlers.
