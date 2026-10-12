@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises';
+import { access, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -63,6 +63,18 @@ if (!indexHtml.includes('<div id="root"></div>')) {
   throw new Error('[deploy-check] dist/index.html is not the expected Vite entry file');
 }
 
+const patternWavesSource = await readFile(join(root, 'src/components/ui/PatternWaves/PatternWaves.jsx'), 'utf8');
+const globalStyles = await readFile(join(root, 'src/index.css'), 'utf8');
+if (patternWavesSource.includes("import './PatternWaves.css'")) {
+  throw new Error('[deploy-check] PatternWaves must not depend on a separate lazy-loaded CSS chunk');
+}
+if (!globalStyles.includes('.pattern-waves > canvas')) {
+  throw new Error('[deploy-check] PatternWaves global canvas styles are missing from the main stylesheet');
+}
+const builtAssets = await readdir(join(distDir, 'assets'));
+if (builtAssets.some((asset) => /^PatternWavesTyped-[^.]+\.css$/.test(asset))) {
+  throw new Error('[deploy-check] PatternWaves is still emitting a standalone lazy-loaded CSS asset');
+}
 const appSource = await readFile(join(root, 'src/App.tsx'), 'utf8');
 const contactSource = await readFile(join(root, 'src/pages/Contact.tsx'), 'utf8');
 if (!appSource.includes('const scrollToTarget = () =>') || !appSource.includes('attempts >= 60')) {

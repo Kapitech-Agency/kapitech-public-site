@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, RenderTarget, Texture } from 'ogl';
 
-import './PatternWaves.css';
+
 
 const SURFACE_PRESETS = {
   silk: {

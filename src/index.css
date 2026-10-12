@@ -340,6 +340,22 @@
   }
 }
 
+/* PatternWaves uses a tiny global style block so lazy-loaded routes do not
+   need to preload a separate CSS asset before their content can render. */
+.pattern-waves {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Keep the WebGL field's existing horizontal overscan at Hero edges. */
+.pattern-waves > canvas {
+  width: 104% !important;
+  max-width: none;
+  margin-left: -2%;
+}
+
 /* ==========================================================================
    1. GLOBAL FLUID AMBIENT BACKGROUND
    ========================================================================== */
