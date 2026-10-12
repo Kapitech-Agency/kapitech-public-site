@@ -522,6 +522,8 @@ const PatternWaves = ({
       setStaticFallback();
       return undefined;
     }
+    let cleanupOnFailure = null;
+    try {
     gl.clearColor(0, 0, 0, 0);
     const canvas = gl.canvas;
     canvas.style.display = 'block';
@@ -693,14 +695,24 @@ const PatternWaves = ({
     };
 
     const resize = () => {
-      containerRect = container.getBoundingClientRect();
-      width = Math.max(1, Math.round(containerRect.width));
-      height = Math.max(1, Math.round(containerRect.height));
-      renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
-      renderer.setSize(width, height);
-      buildRipple();
-      dirty = true;
-      start();
+      try {
+        containerRect = container.getBoundingClientRect();
+        width = Math.max(1, Math.round(containerRect.width));
+        height = Math.max(1, Math.round(containerRect.height));
+        renderer.dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / (width * height)));
+        renderer.setSize(width, height);
+        buildRipple();
+        dirty = true;
+        start();
+      } catch {
+        setStaticFallback();
+        try {
+          cleanupOnFailure?.();
+        } catch {
+          // Preserve the page even if the GPU resources are already partially disposed.
+        }
+        container.querySelector('canvas')?.remove();
+      }
     };
 
     const stepRipple = (field, s, dt) => {
@@ -728,7 +740,7 @@ const PatternWaves = ({
       pointer.lastY = pointer.y;
     };
 
-    const frame = now => {
+    const renderFrame = now => {
       raf = 0;
       if (!alive) return;
       const s = settingsRef.current;
@@ -819,6 +831,20 @@ const PatternWaves = ({
       if (visible && (moving || introClock < 1 || rippleActive || dirty)) raf = requestAnimationFrame(frame);
     };
 
+    const frame = now => {
+      try {
+        renderFrame(now);
+      } catch {
+        setStaticFallback();
+        try {
+          cleanupOnFailure?.();
+        } catch {
+          // Context-loss cleanup must not interrupt page rendering.
+        }
+        container.querySelector('canvas')?.remove();
+      }
+    };
+
     const start = () => {
       if (raf || !visible || !pageVisible || !alive) return;
       last = performance.now();
@@ -902,30 +928,16 @@ const PatternWaves = ({
       }
     };
 
-    container.addEventListener('pointermove', onPointerMove, { passive: true });
-    container.addEventListener('pointerdown', onPointerDown, { passive: true });
-    container.addEventListener('pointerout', onPointerOut, { passive: true });
-    container.addEventListener('pointerup', onPointerUp, { passive: true });
-    window.addEventListener('pointermove', onViewportPointerMove, { passive: true });
-    window.addEventListener('pointerdown', onViewportPointerDown, { passive: true });
-    window.addEventListener('pointerup', onViewportPointerUp, { passive: true });
-    document.addEventListener('visibilitychange', onVisibility);
-
     const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(container);
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       start();
     });
-    intersectionObserver.observe(container);
 
-    wakeRef.current = () => {
-      dirty = true;
-      start();
-    };
-    resize();
-
-    return () => {
+    let cleanupComplete = false;
+    const cleanupRuntime = () => {
+      if (cleanupComplete) return;
+      cleanupComplete = true;
       alive = false;
       visible = false;
       cancelAnimationFrame(raf);
@@ -949,6 +961,42 @@ const PatternWaves = ({
       gl.getExtension('WEBGL_lose_context')?.loseContext();
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     };
+    cleanupOnFailure = cleanupRuntime;
+
+    container.addEventListener('pointermove', onPointerMove, { passive: true });
+    container.addEventListener('pointerdown', onPointerDown, { passive: true });
+    container.addEventListener('pointerout', onPointerOut, { passive: true });
+    container.addEventListener('pointerup', onPointerUp, { passive: true });
+    window.addEventListener('pointermove', onViewportPointerMove, { passive: true });
+    window.addEventListener('pointerdown', onViewportPointerDown, { passive: true });
+    window.addEventListener('pointerup', onViewportPointerUp, { passive: true });
+    document.addEventListener('visibilitychange', onVisibility);
+
+    resizeObserver.observe(container);
+    intersectionObserver.observe(container);
+
+    wakeRef.current = () => {
+      dirty = true;
+      start();
+    };
+    resize();
+
+    return cleanupRuntime;
+    } catch {
+      try {
+        cleanupOnFailure?.();
+      } catch {
+        // Preserve page content if GPU initialization only partially completed.
+      }
+      setStaticFallback();
+      try {
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
+      } catch {
+        // Context cleanup must not prevent the rest of the page from rendering.
+      }
+      container.querySelector('canvas')?.remove();
+      return undefined;
+    }
   }, []);
 
   return <div ref={containerRef} className={`pattern-waves ${className}`.trim()} style={style} />;
