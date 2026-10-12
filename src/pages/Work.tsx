@@ -146,6 +146,80 @@ const handleCaseStudyImageError = (event: React.SyntheticEvent<HTMLImageElement>
   image.dataset.fallbackApplied = 'true';
   image.src = CASE_STUDY_IMAGE_FALLBACK;
 };
+
+const workText = (value: unknown): string =>
+  typeof value === 'string' ? value.trim() : '';
+
+const workStringArray = (value: unknown): string[] =>
+  Array.isArray(value)
+    ? value.map(workText).filter(Boolean)
+    : [];
+
+/**
+ * Keep the public card renderer resilient to legacy and newer CMS record shapes.
+ * Do not use fabricated portfolio entries as a fallback; only normalize real records.
+ */
+const normalizeWorkProject = (value: unknown): ProjectItem | null => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+
+  const raw = value as Record<string, unknown>;
+  const id = workText(raw.id);
+  const title = workText(raw.title) || workText(raw.name);
+
+  if (!id || !title || raw.isPublished === false) return null;
+
+  const impact = Array.isArray(raw.impact)
+    ? raw.impact
+        .filter((metric) => Boolean(metric) && typeof metric === 'object' && !Array.isArray(metric))
+        .map((metric) => {
+          const item = metric as Record<string, unknown>;
+          return { label: workText(item.label), value: workText(item.value) };
+        })
+        .filter((metric) => metric.label && metric.value)
+    : [];
+
+  const description = workText(raw.desc) || workText(raw.description);
+  const challenge = workText(raw.challenge);
+  const solution = workText(raw.solution);
+  const execution = workText(raw.execution);
+  const outcome = workText(raw.outcome);
+
+  return {
+    ...raw,
+    id,
+    slug: workText(raw.slug) || id,
+    isPublished: true,
+    title,
+    client: workText(raw.client) || workText(raw.company),
+    industry: workText(raw.industry) || 'Unspecified',
+    pillar: (workText(raw.pillar) || 'Innovation Development') as ProjectItem['pillar'],
+    service: (workText(raw.service) || 'Web Application') as ProjectItem['service'],
+    featured: raw.featured === true,
+    image: workText(raw.image) || workText(raw.coverImage) || CASE_STUDY_IMAGE_FALLBACK,
+    gallery: workStringArray(raw.gallery),
+    desc: description,
+    descId: workText(raw.descId) || description,
+    challenge,
+    challengeId: workText(raw.challengeId) || challenge,
+    solution,
+    solutionId: workText(raw.solutionId) || solution,
+    execution,
+    executionId: workText(raw.executionId) || execution,
+    outcome,
+    outcomeId: workText(raw.outcomeId) || outcome,
+    deliverables: workStringArray(raw.deliverables),
+    technologies: workStringArray(raw.technologies),
+    impact,
+    year: workText(raw.year),
+  } as ProjectItem;
+};
+
+const normalizeWorkProjects = (value: unknown): ProjectItem[] =>
+  Array.isArray(value)
+    ? value
+        .map(normalizeWorkProject)
+        .filter((project): project is ProjectItem => Boolean(project))
+    : [];
 import { fetchServerCmsProjects, getCmsProjects, getCmsProjectsLoadState } from '../lib/cmsStore';
 
 export const Work = () => {
@@ -153,7 +227,7 @@ export const Work = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const lastSyncedSearchParamsRef = React.useRef(searchParams.toString());
   const skipFilterUrlWriteRef = React.useRef(false);
-  const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => getCmsProjects());
+  const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => normalizeWorkProjects(getCmsProjects()));
   const [projectsLoadState, setProjectsLoadState] = useState<'loading' | 'error' | 'loaded'>(() =>
     getCmsProjects().length > 0 ? 'loaded' : 'loading',
   );
@@ -176,13 +250,13 @@ export const Work = () => {
   // Sync with CMS updates and distinguish an empty portfolio from an unavailable API.
   useEffect(() => {
     const handleUpdate = () => {
-      setProjectsList(getCmsProjects());
+      setProjectsList(normalizeWorkProjects(getCmsProjects()));
       setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
     };
 
     window.addEventListener('kapitech_cms_updated', handleUpdate);
     void fetchServerCmsProjects().then(() => {
-      setProjectsList(getCmsProjects());
+      setProjectsList(normalizeWorkProjects(getCmsProjects()));
       setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
     });
 
@@ -192,7 +266,7 @@ export const Work = () => {
   const retryCmsProjects = () => {
     setProjectsLoadState('loading');
     void fetchServerCmsProjects().then(() => {
-      setProjectsList(getCmsProjects());
+      setProjectsList(normalizeWorkProjects(getCmsProjects()));
       setProjectsLoadState(getCmsProjectsLoadState() === 'error' ? 'error' : 'loaded');
     });
   };

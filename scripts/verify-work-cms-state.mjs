@@ -13,6 +13,9 @@ assert.match(workPage, /projectsLoadState === 'loading'/, 'The Work page must re
 assert.match(workPage, /projectsLoadState === 'error'/, 'The Work page must render an API error separately from an empty portfolio');
 assert.match(workPage, /retryCmsProjects/, 'The Work page must expose an explicit retry action');
 assert.match(workPage, /getCmsProjectsLoadState\(\)/, 'The Work page must react to the CMS request outcome');
+assert.match(workPage, /const normalizeWorkProjects = \(value: unknown\)/, 'CMS records must be normalized before reaching the case-study renderer');
+assert.match(workPage, /setProjectsList\(normalizeWorkProjects\(getCmsProjects\(\)\)\)/, 'Every CMS refresh must normalize the case-study list before rendering');
+assert.match(workPage, /const workStringArray = \(value: unknown\)/, 'CMS array fields must be guarded against unexpected shapes');
 const initialVisibleCount = workPage.match(/const \[visibleCount, setVisibleCount\] = useState<number>\((\d+)\);/);
 assert.ok(Number(initialVisibleCount?.[1] ?? 0) >= 54, 'The Work page must show the full 54-item demo portfolio without requiring Load More');
 assert.doesNotMatch(workPage, /if \(projectsList\.length === 0\) \{/, 'An empty CMS collection must not replace the full Work layout');
