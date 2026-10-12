@@ -135,9 +135,9 @@ class RouteErrorBoundary extends React.Component<
               ? 'A client-side error occurred while rendering this article. Reload the page or return to the Insights library.'
               : 'A client-side error occurred while rendering this page. Reload the page or return to the home page.'}
           </p>
-          {import.meta.env.DEV || (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('debugRouteError') === '1') ? (
-            <pre className="mt-6 max-h-64 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
-              {this.state.error.name + ': ' + this.state.error.message + '\n' + (this.state.error.stack || '')}
+          {import.meta.env.DEV ? (
+            <pre className="mt-6 max-h-40 overflow-auto rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-xs leading-6 text-[#B9BEC8]">
+              {this.state.error.name + ': ' + this.state.error.message}
             </pre>
           ) : null}
           <div className="mt-6 flex flex-wrap gap-3">
