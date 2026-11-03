@@ -304,7 +304,9 @@ function AppShell() {
             secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
           />
         )}
-        <Footer />
+        <div className="relative z-10 w-full shrink-0" data-site-footer>
+          <Footer />
+        </div>
         <FloatingContact />
         <CookieConsent />
       </div>
