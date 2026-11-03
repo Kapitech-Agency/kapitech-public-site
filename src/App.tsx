@@ -219,6 +219,10 @@ const AnimatedRoutes = () => {
 
 function AppShell() {
   const { language } = useLanguage();
+  const { pathname } = useLocation();
+  const isContactPage = pathname === '/contact' || pathname === '/book-a-call';
+  const isWorkPage = pathname === '/work' || pathname.startsWith('/work/');
+  const isServicePage = pathname === '/services' || pathname.startsWith('/services/') || pathname.startsWith('/solutions/');
   const [maintenanceMode, setMaintenanceMode] = React.useState(false);
 
   useEffect(() => {
@@ -276,15 +280,29 @@ function AppShell() {
         <main id="main-content" className="flex-grow flex flex-col" tabIndex={-1}>
           <AnimatedRoutes />
         </main>
-        <PublicPageCta
-          eyebrow={language === 'id' ? 'Langkah berikutnya' : 'Next step'}
-          title={language === 'id' ? 'Siap membahas kebutuhan proyek Anda?' : 'Ready to discuss your project?'}
-          description={language === 'id' ? 'Ceritakan tujuan, kendala, atau tahap proyek Anda. Kami bantu menentukan titik awal dan cakupan kerja yang paling tepat.' : 'Share your goals, constraints, and current stage. We will help identify a clear starting point and the right scope of work.'}
-          actionEyebrow={language === 'id' ? 'Pilih cara memulai' : 'Choose how to start'}
-          actionDescription={language === 'id' ? 'Mulai dari brief proyek atau hubungi tim kami secara langsung.' : 'Start with a project brief or contact our team directly.'}
-          primaryLabel={language === 'id' ? 'Kirim Brief Proyek' : 'Send a Project Brief'}
-          secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
-        />
+        {!isContactPage && (
+          <PublicPageCta
+            eyebrow={language === 'id' ? 'Langkah berikutnya' : 'Next step'}
+            title={
+              isWorkPage
+                ? (language === 'id' ? 'Punya tantangan serupa untuk diselesaikan?' : 'Have a similar challenge to solve?')
+                : isServicePage
+                  ? (language === 'id' ? 'Mari pilih pendekatan yang tepat untuk proyek Anda.' : 'Find the right approach for your project.')
+                  : (language === 'id' ? 'Siap membahas kebutuhan proyek Anda?' : 'Ready to discuss your project?')
+            }
+            description={
+              isWorkPage
+                ? (language === 'id' ? 'Bagikan konteks dan target proyek Anda. Kami akan membantu memetakan pendekatan yang relevan.' : 'Share your project context and goals. We will help map a relevant approach.')
+                : isServicePage
+                  ? (language === 'id' ? 'Ceritakan kebutuhan bisnis, prioritas, dan tantangan Anda. Kami bantu menentukan ruang lingkup yang sesuai.' : 'Tell us about your business needs, priorities, and constraints. We will help define an appropriate scope.')
+                  : (language === 'id' ? 'Ceritakan tujuan, kendala, atau tahap proyek Anda. Kami bantu menentukan titik awal dan cakupan kerja yang paling tepat.' : 'Share your goals, constraints, and current stage. We will help identify a clear starting point and the right scope of work.')
+            }
+            actionEyebrow={language === 'id' ? 'Pilih cara memulai' : 'Choose how to start'}
+            actionDescription={language === 'id' ? 'Mulai dari brief proyek atau hubungi tim kami secara langsung.' : 'Start with a project brief or contact our team directly.'}
+            primaryLabel={language === 'id' ? 'Kirim Brief Proyek' : 'Send a Project Brief'}
+            secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
+          />
+        )}
         <Footer />
         <FloatingContact />
         <CookieConsent />
