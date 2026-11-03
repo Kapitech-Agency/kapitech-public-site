@@ -12,6 +12,7 @@ type PublicPageCtaProps = {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  nextSteps?: [string, string, string];
 };
 
 export const PublicPageCta = ({
@@ -23,7 +24,8 @@ export const PublicPageCta = ({
   primaryHref = '/contact#project-inquiry-form',
   primaryLabel = 'Start a Project',
   secondaryHref = '/contact#contact-details',
-  secondaryLabel = 'Contact Kapitech'
+  secondaryLabel = 'Contact Kapitech',
+  nextSteps = ['Share your brief', 'Align on scope', 'Plan next steps']
 }: PublicPageCtaProps) => (
   <section
     aria-labelledby="global-project-cta-title"
@@ -73,6 +75,15 @@ export const PublicPageCta = ({
             <p className="mt-3 max-w-sm text-sm font-light leading-[1.8] text-[#858D99]">
               {actionDescription}
             </p>
+
+            <ol className="mt-5 grid grid-cols-1 gap-2 border-t border-white/[0.07] pt-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3" aria-label="Project inquiry process">
+              {nextSteps.map((step, index) => (
+                <li key={index} className="flex items-center gap-2 text-[10px] leading-5 text-[#A0A7B2]">
+                  <span className="font-mono text-brand-red" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
 
             <div className="mt-5 grid gap-2.5">
               <Link
