@@ -917,10 +917,9 @@ export const InsightDetail: React.FC = () => {
           </div>
 
           {faq.length > 0 && (
-            <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
-              <div className="hidden xl:block" aria-hidden="true" />
+            <div className="w-full">
               <section
-              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-8 sm:mt-20"
+              className="mt-16 w-full border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12"
               aria-labelledby="faq-title"
             >
               <div className="max-w-2xl">
@@ -975,15 +974,13 @@ export const InsightDetail: React.FC = () => {
                 ))}
               </div>
               </section>
-              <div className="hidden xl:block" aria-hidden="true" />
             </div>
           )}
 
           {relatedInsights.length > 0 && (
-            <div className="grid items-start gap-6 lg:gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
-              <div className="hidden xl:block" aria-hidden="true" />
+            <div className="w-full">
               <section
-                className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:mt-20 sm:px-2 sm:pt-12 lg:px-6"
+                className="mt-16 w-full border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12"
                 aria-labelledby="related-insights-title"
               >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -1018,14 +1015,12 @@ export const InsightDetail: React.FC = () => {
                 ))}
               </div>
               </section>
-              <div className="hidden xl:block" aria-hidden="true" />
             </div>
           )}
 
-          <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
-            <div className="hidden xl:block" aria-hidden="true" />
+          <div className="w-full">
             <section
-              className="w-full mt-16 px-0 sm:mt-20 sm:px-2 lg:px-8"
+              className="mt-16 w-full sm:mt-20"
               aria-labelledby="article-final-cta-title"
             >
             <div className="overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#111216] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
@@ -1060,12 +1055,10 @@ export const InsightDetail: React.FC = () => {
               </div>
             </div>
             </section>
-            <div className="hidden xl:block" aria-hidden="true" />
           </div>
 
-          <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
-            <div className="hidden xl:block" aria-hidden="true" />
-            <div className="w-full mt-8 px-0 sm:px-2 lg:px-8">
+          <div className="w-full">
+            <div className="mt-8 w-full">
               <Link
                 to="/insights"
                 className="inline-flex items-center gap-2 text-xs font-semibold text-[#8C94A1] underline decoration-white/15 underline-offset-4 transition-colors hover:text-white hover:decoration-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
@@ -1074,7 +1067,6 @@ export const InsightDetail: React.FC = () => {
                 {article.language === 'id' ? 'Kembali ke Insight' : 'Back to Insights'}
               </Link>
             </div>
-            <div className="hidden xl:block" aria-hidden="true" />
           </div>
         </div>
       </>
