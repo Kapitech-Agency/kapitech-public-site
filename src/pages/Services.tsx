@@ -742,11 +742,11 @@ export const Services = () => {
       {/* Hero Section */}
       <PublicPageHero
         eyebrow={language === 'id' ? 'Layanan & Solusi Lengkap' : 'Solutions & Specialized Services'}
-        title={language === 'id' ? 'Layanan & Solusi Digital.' : 'Services & Strategic Solutions.'}
+        title={language === 'id' ? 'Temukan keahlian untuk kebutuhan bisnis Anda.' : 'Find the right expertise for your next move.'}
         description={
           language === 'id'
-            ? 'Pilihan solusi strategis dan keahlian spesialis terlengkap untuk mentransformasi identitas brand, desain produk digital, dan rekayasa web skala modern.'
-            : 'Complete strategic solutions and specialized capabilities to transform brand identity, digital product design, and high-performance web engineering.'
+            ? 'Jelajahi branding, desain produk digital, pengembangan website, dan solusi strategis. Pilih area yang sesuai, lalu bahas kebutuhan proyek bersama tim kami.'
+            : 'Explore branding, digital product design, web development, and strategic solutions. Find the right fit, then discuss your project with our team.'
         }
       >
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-text-body">
