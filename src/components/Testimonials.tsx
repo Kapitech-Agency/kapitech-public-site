@@ -72,18 +72,18 @@ export const Testimonials = () => {
   if (!current) {
     return (
       <section
-        className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28"
+        className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
         id="testimonials"
         aria-labelledby="testimonials-empty-title"
       >
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        <div className="mx-auto grid max-w-7xl items-end gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
             </span>
             <h2
               id="testimonials-empty-title"
-              className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]"
+              className="mt-4 text-3xl font-display font-semibold leading-[1.08] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]"
             >
               {language === 'id'
                 ? 'Setiap kolaborasi dimulai dengan percakapan yang jelas.'
@@ -114,7 +114,7 @@ export const Testimonials = () => {
 
   return (
     <section
-      className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28"
+      className="border-b border-[#262930] bg-[#0B0C0E] px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24"
       id="testimonials"
       onMouseEnter={() => setIsInteractionPaused(true)}
       onMouseLeave={() => setIsInteractionPaused(false)}
@@ -126,19 +126,19 @@ export const Testimonials = () => {
       }}
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-9 flex flex-col gap-6 sm:mb-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'Testimoni Klien' : 'Client Testimonials'}
             </span>
-            <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+            <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.08] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]">
               {language === 'id'
                 ? 'Pengalaman nyata dari orang yang bekerja bersama kami.'
                 : 'Real experiences from people who work with us.'}
             </h2>
           </div>
 
-          <div className="flex items-center gap-4 lg:pb-1">
+          <div className="flex flex-wrap items-center gap-4 lg:shrink-0 lg:pb-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8A909D]">
               {String(currentIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
             </span>
@@ -167,8 +167,8 @@ export const Testimonials = () => {
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-white/[0.075] bg-[#0F1013]">
-          <div className="grid lg:grid-cols-[1.42fr_0.78fr]">
-            <div className="relative flex min-h-[430px] flex-col justify-between overflow-hidden border-b border-white/[0.07] p-6 sm:p-8 lg:min-h-[500px] lg:border-b-0 lg:border-r lg:p-10 xl:p-12">
+          <div className="grid min-w-0 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.8fr)]">
+            <div className="relative flex min-h-[360px] min-w-0 flex-col overflow-hidden border-b border-white/[0.07] p-6 sm:min-h-[420px] sm:p-8 lg:min-h-[460px] lg:border-b-0 lg:border-r lg:p-9 xl:p-10">
               <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-brand-red/[0.05]" aria-hidden="true" />
               <div className="pointer-events-none absolute -right-6 top-10 h-40 w-40 rounded-full border border-white/[0.025]" aria-hidden="true" />
 
@@ -187,7 +187,7 @@ export const Testimonials = () => {
                 </div>
               </div>
 
-              <div className="relative mt-12 flex-1">
+              <div className="relative mt-8 flex-1 sm:mt-10">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={current.id + language}
@@ -197,11 +197,11 @@ export const Testimonials = () => {
                     transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     className="flex h-full flex-col"
                   >
-                    <blockquote className="max-w-4xl text-2xl font-display font-medium leading-[1.28] tracking-[-0.04em] text-white sm:text-3xl lg:text-[2.65rem]">
+                    <blockquote className="max-w-4xl break-words text-[1.45rem] font-display font-medium leading-[1.35] tracking-[-0.035em] text-white sm:text-[1.9rem] lg:text-[2.25rem]">
                       “{current.quote}”
                     </blockquote>
 
-                    <div className="mt-auto pt-10">
+                    <div className="mt-auto pt-8">
                       <div className="h-px w-10 bg-white/70" aria-hidden="true" />
                       <div className="mt-5 flex flex-col gap-1">
                         <span className="text-sm font-semibold text-white">{current.author}</span>
@@ -217,7 +217,7 @@ export const Testimonials = () => {
                 </AnimatePresence>
               </div>
 
-              <div className="relative mt-8 flex items-center gap-2">
+              <div className="relative mt-7 flex flex-wrap items-center gap-2">
                 {testimonials.map((item, index) => (
                   <button
                     key={item.id}
@@ -235,8 +235,8 @@ export const Testimonials = () => {
               </div>
             </div>
 
-            <div className="bg-white/[0.012] p-4 sm:p-5 lg:p-6">
-              <div className="mb-4 px-2 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#737984]">
+            <div className="min-w-0 bg-white/[0.012] p-4 sm:p-5 lg:p-6">
+              <div className="mb-3 px-2 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-[#737984]">
                 {language === 'id' ? 'Klien yang berbicara' : 'Clients speaking'}
               </div>
 
@@ -250,7 +250,7 @@ export const Testimonials = () => {
                     onClick={() => setCurrentIndex(testimonialIndex)}
                     data-analytics-event="testimonial_select"
                     data-testimonial-index={testimonialIndex + 1}
-                    className={`group w-full rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
+                    className={`group w-full min-w-0 rounded-2xl p-4 text-left transition-[background-color,border-color] duration-300 ${
                       currentIndex === testimonialIndex
                         ? 'bg-white/[0.05] border border-white/[0.16]'
                         : 'border border-transparent hover:bg-white/[0.025]'
@@ -265,7 +265,7 @@ export const Testimonials = () => {
                         >
                           {item.author}
                         </span>
-                        <span className="mt-1 block truncate text-[10px] font-mono uppercase tracking-[0.1em] text-[#737984]">
+                        <span className="mt-1 block break-words text-[10px] font-mono uppercase leading-[1.5] tracking-[0.08em] text-[#929AA6]">
                           {item.role} · {item.company}
                         </span>
                       </div>
