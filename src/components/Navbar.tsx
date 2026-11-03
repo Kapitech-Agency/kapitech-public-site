@@ -640,7 +640,7 @@ export const Navbar = () => {
               id="desktop-industries-dropdown"
               ref={industriesDropdownRef}
               className={cn(
-                "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-7 px-6 lg:px-12",
+                "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] px-6 py-6 lg:px-12 lg:py-7",
                 dropdownGlassMaterial
               )}
             >
@@ -650,7 +650,7 @@ export const Navbar = () => {
                     <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
                       {language === 'id' ? 'Pilih industri' : 'Choose an industry'}
                     </span>
-                    <h2 className="mt-2 text-2xl font-display font-semibold tracking-[-0.04em] text-white">
+                    <h2 className="mt-2 max-w-3xl text-xl font-display font-semibold leading-tight tracking-[-0.035em] text-white lg:text-2xl">
                       {language === 'id' ? 'Lihat bagaimana Kapitech bekerja di konteks yang paling relevan.' : 'See how Kapitech works in the context that matters to you.'}
                     </h2>
                   </div>
@@ -658,7 +658,7 @@ export const Navbar = () => {
                     {industryCatalog.length} {language === 'id' ? 'industry paths' : 'industry paths'}
                   </span>
                 </div>
-                <div className="mt-5 grid grid-cols-4 gap-2 lg:gap-3">
+                <div className="mt-5 grid grid-cols-4 items-stretch gap-3">
                   {industryCatalog.map((item, index) => {
                     const active = location.pathname === '/industries/' + item.slug;
                     return (
@@ -668,7 +668,7 @@ export const Navbar = () => {
                         onClick={() => setIsIndustriesDropdownOpen(false)}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          "group rounded-2xl border p-4 transition-[border-color,background-color,transform] duration-200",
+                          "group flex h-full min-w-0 flex-col rounded-2xl border p-4 transition-[border-color,background-color,transform] duration-200",
                           active
                             ? "border-brand-red/30 bg-brand-red/[0.07]"
                             : "border-white/[0.07] bg-white/[0.018] hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.035]"
@@ -678,9 +678,9 @@ export const Navbar = () => {
                           <span className="font-mono text-[9px] tabular-nums tracking-[0.14em] text-[#505965]">{String(index + 1).padStart(2, '0')}</span>
                           <ArrowUpRight size={13} className={active ? "text-brand-red" : "text-[#5E6672] group-hover:text-brand-red"} />
                         </div>
-                        <p className="mt-6 text-[9px] font-mono uppercase tracking-[0.12em] text-[#69727D]">{item.eyebrow}</p>
-                        <p className="mt-1.5 text-base font-display font-semibold leading-tight tracking-[-0.025em] text-white">{item.shortLabel}</p>
-                        <p className="mt-2 line-clamp-2 text-xs leading-5 text-[#69727D]">{item.description}</p>
+                        <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#929AA6]">{item.eyebrow}</p>
+                        <p className="mt-1.5 text-base font-display font-semibold leading-snug tracking-[-0.025em] text-white">{item.shortLabel}</p>
+                        <p className="mt-2 line-clamp-2 text-xs leading-[1.65] text-[#A1A8B4]">{item.description}</p>
                       </Link>
                     );
                   })}
@@ -868,7 +868,7 @@ export const Navbar = () => {
                             transition={{ duration: 0.2 }}
                             className="overflow-hidden"
                           >
-                            <div className="mt-2 space-y-1 rounded-xl bg-white/[0.018] p-3">
+                            <div className="mt-2 space-y-1 rounded-2xl border border-white/[0.07] bg-[#111216] p-2 sm:p-3">
                               {industryCatalog.map((item, index) => {
                                 const itemActive = location.pathname === '/industries/' + item.slug;
                                 return (
@@ -878,15 +878,15 @@ export const Navbar = () => {
                                     onClick={() => setIsMenuOpen(false)}
                                     aria-current={itemActive ? 'page' : undefined}
                                     className={cn(
-                                      "group flex min-h-[52px] items-center justify-between rounded-xl px-3 py-2 transition-colors",
+                                      "group flex min-h-[56px] min-w-0 items-center justify-between gap-3 rounded-xl px-3 py-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60",
                                       itemActive
                                         ? "bg-brand-red/[0.08] text-white"
                                         : "text-text-body hover:bg-white/[0.035] hover:text-white"
                                     )}
                                   >
                                     <span className="min-w-0">
-                                      <span className="block text-sm font-semibold">{item.shortLabel}</span>
-                                      <span className="mt-0.5 block truncate text-[10px] text-[#626B76]">{item.label}</span>
+                                      <span className="block text-sm font-semibold leading-snug">{item.shortLabel}</span>
+                                      <span className="mt-1 block truncate text-[11px] leading-relaxed text-[#929AA6]">{item.label}</span>
                                     </span>
                                     <ChevronRight size={16} className="shrink-0 text-[#59616D] group-hover:text-brand-red" />
                                   </Link>
