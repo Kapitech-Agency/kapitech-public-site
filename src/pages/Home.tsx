@@ -794,12 +794,12 @@ export const Home = () => {
       {/* FEATURED CASE STUDIES */}
       <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24" id="work">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-9 grid gap-6 sm:mb-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-12">
-            <div className="max-w-3xl">
+          <div className="mb-9 flex flex-col items-start gap-6 sm:mb-10 xl:flex-row xl:items-end xl:justify-between xl:gap-10">
+            <div className="min-w-0 max-w-[820px] flex-1">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
               </span>
-              <h2 className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.08] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]">
+              <h2 className="mt-4 max-w-[820px] font-display text-3xl font-semibold leading-[1.14] tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.85rem]">
                 {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
               </h2>
               <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-text-body sm:text-base">
@@ -815,7 +815,7 @@ export const Home = () => {
 
             <Link
               to={homepageProjects.length > 0 ? "/work" : "/services"}
-              className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] lg:self-end"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/[0.1] bg-white/[0.025] px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-red/35 hover:bg-brand-red/[0.08] xl:mb-1 xl:shrink-0"
             >
               <span>{homepageProjects.length > 0
                 ? (language === 'id' ? 'Lihat Semua Case Studies' : 'View All Case Studies')
