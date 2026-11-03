@@ -24,9 +24,11 @@ export const SiteCursor = () => {
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const lowPower = (navigator.hardwareConcurrency ?? 8) <= 4 || connection?.saveData === true;
 
     const updateLabelFromTarget = (target: EventTarget | null) => {
-      if (!canHover.matches || reducedMotion.matches) return;
+      if (!canHover.matches || reducedMotion.matches || lowPower) return;
 
       const interactive = getInteractiveElement(target);
 
@@ -51,7 +53,7 @@ export const SiteCursor = () => {
     };
 
     const handleModeChange = () => {
-      if (!canHover.matches || reducedMotion.matches) {
+      if (!canHover.matches || reducedMotion.matches || lowPower) {
         currentInteractiveRef.current = null;
         setLabel(null);
       }
