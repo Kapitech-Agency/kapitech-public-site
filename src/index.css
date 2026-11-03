@@ -130,6 +130,9 @@
 }
 
 .kapi-modal-surface {
+  min-width: 0;
+  isolation: isolate;
+  overscroll-behavior: contain;
   border: 1px solid var(--kapi-color-line);
   border-radius: 1.5rem;
   background: var(--kapi-color-modal-surface);
