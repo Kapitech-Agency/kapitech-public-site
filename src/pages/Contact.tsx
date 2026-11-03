@@ -862,7 +862,7 @@ export const Contact = () => {
                                 {serviceChoices.map((choice) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   const partial = !selected && choice.values.some(value => selectedServices.includes(value));
-                                  const cardClass = 'group flex min-h-[156px] min-w-0 flex-col rounded-2xl border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
+                                  const cardClass = 'group flex min-h-[124px] min-w-0 flex-col rounded-2xl border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
                                     ? 'border-brand-red/60 bg-brand-red/[0.075] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
                                     : partial
                                       ? 'border-brand-red/30 bg-brand-red/[0.025]'
@@ -896,14 +896,7 @@ export const Contact = () => {
                                       <p className={'mt-2.5 text-xs leading-[1.7] ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
                                         {choice.description}
                                       </p>
-                                      <div className="mt-auto border-t border-white/[0.07] pt-3.5">
-                                        <span className="block text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">
-                                          {language === 'id' ? 'Mencakup' : 'Includes'}
-                                        </span>
-                                        <p className={'mt-1.5 text-[10px] leading-[1.65] ' + (selected ? 'text-[#D4D7DE]' : 'text-[#9299A5]')}>
-                                          {choice.includes}
-                                        </p>
-                                      </div>
+
                                     </motion.button>
                                   );
                                 })}
