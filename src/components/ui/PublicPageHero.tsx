@@ -24,7 +24,7 @@ export const PublicPageHero = ({
   aside,
   preset = 'lines'
 }: PublicPageHeroProps) => (
-  <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-32 md:px-12 md:pb-22 md:pt-36">
+  <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 md:px-12 md:pb-24 md:pt-36">
     <div className="absolute inset-0" aria-hidden="true">
       <PatternWaves
         preset={preset}
