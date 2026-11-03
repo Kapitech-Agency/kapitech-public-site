@@ -320,6 +320,26 @@ export const Home = () => {
               </Link>
             </div>
 
+            <nav aria-label={language === 'id' ? 'Jelajahi keahlian Kapitech' : 'Explore Kapitech expertise'} className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-white/[0.09] pt-5">
+              <span className="w-full text-[10px] font-mono uppercase tracking-[0.12em] text-[#8B929F] sm:w-auto">
+                {language === 'id' ? 'Temukan solusi' : 'Explore expertise'}
+              </span>
+              {[
+                { href: '/services', en: 'Services', id: 'Layanan' },
+                { href: '/services/web-development', en: 'Web Development', id: 'Web Development' },
+                { href: '/services/ui-ux-design', en: 'UI/UX Design', id: 'Desain UI/UX' }
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="inline-flex min-h-9 items-center gap-1.5 text-[11px] font-medium text-[#BEC3CC] transition-colors hover:text-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+                >
+                  {language === 'id' ? item.id : item.en}
+                  <ArrowUpRight size={12} className="text-brand-red" aria-hidden="true" />
+                </Link>
+              ))}
+            </nav>
+
             <div className="mt-5 sm:mt-6 inline-flex items-center gap-3 text-text-body">
               <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.18em] text-text-body/75">
                 {language === 'id' ? 'Partner' : 'Partner'}
