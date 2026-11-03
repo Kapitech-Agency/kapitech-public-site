@@ -1348,7 +1348,7 @@ export const Work = () => {
       <WorkModalPortal>
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center kapi-modal-overlay p-2 sm:p-4 lg:p-6"
+            <div className="fixed inset-0 z-[100] flex items-center justify-center kapi-modal-overlay p-3 sm:p-5 lg:p-6"
               role="dialog"
               aria-modal="true"
               aria-labelledby="case-study-modal-title"
@@ -1363,9 +1363,9 @@ export const Work = () => {
                 exit={{ opacity: 0, scale: 0.965, y: 16 }}
                 transition={{ duration: 0.26 }}
                 ref={caseStudyModalRef}
-                className="kapi-modal-surface relative flex h-[calc(100dvh-1rem)] w-full max-w-[1400px] flex-col overflow-hidden sm:h-[calc(100dvh-2rem)] lg:max-h-[94vh]"
+                className="kapi-modal-surface relative flex h-[calc(100dvh-1.5rem)] w-full max-w-[1400px] flex-col overflow-hidden sm:h-[calc(100dvh-2.5rem)] lg:max-h-[94dvh]"
               >
-                <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-dark-surface px-4 py-4 sm:px-6 sm:py-5 lg:px-7">
+                <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-dark-surface px-5 py-4 sm:px-7 sm:py-5">
                   <div className="min-w-0 flex-1">
                     <div className="mb-1.5 flex flex-wrap items-center gap-2">
                       <span className="rounded-full border border-brand-red/30 bg-brand-red/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-brand-red">{selectedProject.pillar}</span>
@@ -1387,9 +1387,9 @@ export const Work = () => {
                   </button>
                 </header>
 
-                <div className="grid min-h-0 flex-1 overflow-y-auto lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+                <div className="grid min-h-0 flex-1 overflow-y-auto overscroll-contain lg:overflow-hidden lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
                   <aside className="min-h-0 border-b border-white/[0.08] bg-dark-base lg:overflow-y-auto lg:border-b-0 lg:border-r">
-                    <div className="p-4 sm:p-5 lg:p-6">
+                    <div className="p-5 sm:p-6 lg:p-7">
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <div>
                           <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-brand-red">Visual Proof</span>
