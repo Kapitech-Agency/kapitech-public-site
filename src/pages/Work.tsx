@@ -244,6 +244,7 @@ export const Work = () => {
   const restoreSpotlightFocusRef = React.useRef(false);
   const [visibleCount, setVisibleCount] = useState<number>(12);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(() => Boolean(searchParams.get('industry') || searchParams.get('service')));
+  // Secondary filters remain discoverable without occupying the primary browsing workspace.
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
   const modalTriggerRef = React.useRef<HTMLElement | null>(null);
