@@ -486,6 +486,7 @@ export const Work = () => {
     setActivePillar(searchParams.get('pillar') || 'All');
     setActiveService(searchParams.get('service') || 'All');
     setActiveIndustry(searchParams.get('industry') || 'All');
+    if (searchParams.has('industry') || searchParams.has('service')) setShowAdvancedFilters(true);
     setSearchQuery(searchParams.get('q') || '');
     setVisibleCount(12);
   }, [searchParams]);
