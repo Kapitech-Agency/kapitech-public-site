@@ -767,7 +767,7 @@ export const Services = () => {
         <a href="#strategic-solutions" className="inline-flex min-h-11 items-center rounded-full border border-brand-red/30 bg-brand-red/[0.09] px-4 text-xs font-semibold text-white transition-colors hover:bg-brand-red/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
           {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'} <ChevronRight size={14} className="ml-2" aria-hidden="true" />
         </a>
-        <a href="#specialized-services" className="inline-flex min-h-11 items-center rounded-full border border-white/[0.12] bg-white/[0.025] px-4 text-xs font-semibold text-[#D5D8DF] transition-colors hover:border-brand-red/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
+        <a href="#services-catalog-grid" className="inline-flex min-h-11 items-center rounded-full border border-white/[0.12] bg-white/[0.025] px-4 text-xs font-semibold text-[#D5D8DF] transition-colors hover:border-brand-red/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
           {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'} <ChevronRight size={14} className="ml-2" aria-hidden="true" />
         </a>
       </nav>
