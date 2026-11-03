@@ -29,7 +29,7 @@ export const PublicPageCta = ({
 }: PublicPageCtaProps) => (
   <section
     aria-labelledby="global-project-cta-title"
-    className="kapi-page-cta relative isolate overflow-hidden border-t border-white/[0.07] bg-[#090A0C] px-4 py-14 sm:px-6 sm:py-16 md:px-12 lg:py-20"
+    className="kapi-page-cta relative isolate overflow-hidden border-t border-white/[0.07] bg-[#090A0C] px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:py-20"
   >
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <div className="absolute -left-28 -top-36 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(220, 20, 60,0.10)_0%,rgba(220, 20, 60,0)_72%)]" />
@@ -44,8 +44,8 @@ export const PublicPageCta = ({
           aria-hidden="true"
         />
 
-        <div className="relative grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.43fr)]">
-          <div className="min-w-0 p-6 sm:p-8 lg:p-10 xl:p-12">
+        <div className="relative grid lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]">
+          <div className="min-w-0 p-6 sm:p-8 lg:p-10">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
               <span className="kapi-section-label">{eyebrow}</span>
               <span className="inline-flex items-center gap-2 text-[9px] font-mono uppercase tracking-[0.13em] text-[#6F7783]">
@@ -56,7 +56,7 @@ export const PublicPageCta = ({
 
             <h2
               id="global-project-cta-title"
-              className="mt-5 max-w-3xl text-[clamp(2rem,4.1vw,3.75rem)] font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white"
+              className="mt-5 max-w-3xl text-[clamp(2rem,4.1vw,3.75rem)] font-display font-semibold leading-[1.06] [text-wrap:balance] tracking-[-0.055em] text-white"
             >
               {title}
             </h2>
@@ -76,7 +76,7 @@ export const PublicPageCta = ({
               {actionDescription}
             </p>
 
-            <ol className="mt-5 grid grid-cols-1 gap-2 border-t border-white/[0.07] pt-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3" aria-label="Project inquiry process">
+            <ol className="mt-5 grid grid-cols-1 gap-2 border-t border-white/[0.07] pt-4 sm:grid-cols-3 lg:grid-cols-1 2xl:grid-cols-3" aria-label="Project inquiry process">
               {nextSteps.map((step, index) => (
                 <li key={index} className="flex items-center gap-2 text-[10px] leading-5 text-[#A0A7B2]">
                   <span className="font-mono text-brand-red" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
