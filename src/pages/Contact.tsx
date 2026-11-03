@@ -551,8 +551,8 @@ export const Contact = () => {
         }
         description={
           language === 'id'
-            ? 'Punya ide proyek, membutuhkan konsultasi arsitektur perangkat lunak, atau ingin menjajaki kemitraan? Hubungi tim Kapitech Agency secara langsung.'
-            : 'Have an upcoming project, need technical consultation, or want to explore collaboration? Reach out to Kapitech Agency directly.'
+            ? 'Ceritakan tantangan bisnis, target, dan kebutuhan proyek Anda. Kami akan meninjau brief dan menghubungi Anda untuk membahas pendekatan yang sesuai.'
+            : 'Tell us about your business challenge, goals, and project needs. We will review your brief and follow up to discuss the right approach.'
         }
       />
 
