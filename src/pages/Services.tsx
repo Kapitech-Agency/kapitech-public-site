@@ -763,14 +763,6 @@ export const Services = () => {
         </div>
       </PublicPageHero>
 
-      <nav aria-label={language === 'id' ? 'Jelajahi layanan' : 'Explore services'} className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 pt-5 sm:px-6 md:px-12">
-        <a href="#strategic-solutions" className="inline-flex min-h-11 items-center rounded-full border border-brand-red/30 bg-brand-red/[0.09] px-4 text-xs font-semibold text-white transition-colors hover:bg-brand-red/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
-          {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'} <ChevronRight size={14} className="ml-2" aria-hidden="true" />
-        </a>
-        <a href="#services-catalog-grid" className="inline-flex min-h-11 items-center rounded-full border border-white/[0.12] bg-white/[0.025] px-4 text-xs font-semibold text-[#D5D8DF] transition-colors hover:border-brand-red/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
-          {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'} <ChevronRight size={14} className="ml-2" aria-hidden="true" />
-        </a>
-      </nav>
       {/* SECTION 1: STRATEGIC SOLUTIONS (Always visible above filter) */}
       <section id="strategic-solutions" className="scroll-mt-28 py-14 sm:py-20 px-4 sm:px-6 md:px-12 relative">
         <div className="max-w-7xl mx-auto">
