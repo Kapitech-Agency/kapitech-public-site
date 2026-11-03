@@ -799,7 +799,7 @@ export const Home = () => {
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
               </span>
-              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.06] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
                 {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
               </h2>
               <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-text-body sm:text-base">
@@ -825,7 +825,7 @@ export const Home = () => {
           </div>
 
           {homepageProjects.length > 0 ? (
-            <div className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
+            <div className="grid items-stretch gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
             {homepageProjects.map((project, index) => {
               const isLead = index === 0;
               const impact = project.impact?.[0];
