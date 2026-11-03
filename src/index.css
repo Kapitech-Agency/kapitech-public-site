@@ -24,8 +24,8 @@
   --kapi-color-accent-text: #E83252;
   --kapi-color-accent-soft: rgba(220, 20, 60, 0.12);
   --kapi-color-accent-line: rgba(220, 20, 60, 0.42);
-  --kapi-color-overlay: rgba(4, 5, 7, 0.76);
-  --kapi-color-modal-surface: rgba(15, 17, 22, 0.94);
+  --kapi-color-overlay: rgba(4, 5, 7, 0.88);
+  --kapi-color-modal-surface: #0f1116;
   --kapi-color-popover-surface: rgba(15, 17, 22, 0.98);
   --bg: var(--kapi-color-canvas);
   --text: var(--kapi-color-text-primary);
