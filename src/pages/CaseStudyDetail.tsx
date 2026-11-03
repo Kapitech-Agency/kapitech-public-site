@@ -163,6 +163,19 @@ export const CaseStudyDetail = () => {
       </PublicPageHero>
 
 
+      <nav aria-label={language === 'id' ? 'Bagian studi kasus' : 'Case study sections'} className="mx-auto flex max-w-7xl flex-wrap gap-2 px-5 pt-6 sm:px-8 lg:px-12">
+        {[
+          ['case-study-context', language === 'id' ? 'Konteks' : 'Context'],
+          ['case-study-challenge', language === 'id' ? 'Tantangan' : 'Challenge'],
+          ['case-study-solution', language === 'id' ? 'Solusi' : 'Solution'],
+          ['case-study-process', language === 'id' ? 'Proses' : 'Process'],
+          ['case-study-outcome', language === 'id' ? 'Dampak' : 'Outcome']
+        ].map(([id, label]) => (
+          <a key={id} href={'#' + id} className="inline-flex min-h-10 items-center rounded-full border border-white/[0.1] bg-white/[0.02] px-4 text-[11px] font-medium text-[#BCC2CC] transition-colors hover:border-brand-red/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red">
+            {label}
+          </a>
+        ))}
+      </nav>
       <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12 lg:py-16" aria-label={language === 'id' ? 'Detail studi kasus' : 'Case study details'}>
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.7fr)] xl:gap-14">
           <div className="min-w-0 space-y-12">
