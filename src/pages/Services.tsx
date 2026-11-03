@@ -774,7 +774,7 @@ export const Services = () => {
       {/* SECTION 1: STRATEGIC SOLUTIONS (Always visible above filter) */}
       <section id="strategic-solutions" className="scroll-mt-28 py-14 sm:py-20 px-4 sm:px-6 md:px-12 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-9 sm:mb-10">
             <div>
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Kategori Solusi' : 'Solutions Overview'}
@@ -791,7 +791,7 @@ export const Services = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-5">
             {resolvedStrategicSolutions.map((sol) => (
               <motion.button
                 key={sol.id}
@@ -801,11 +801,11 @@ export const Services = () => {
                 aria-label={`${language === 'id' ? 'Lihat pratinjau solusi' : 'Preview solution'}: ${sol.title}`}
                 whileTap={{ scale: 0.995 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative rounded-3xl p-6 sm:p-7 min-h-[300px] bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
+                className="group relative rounded-3xl p-6 sm:p-7 min-h-[300px] h-full bg-white/[0.018] hover:bg-white/[0.024] border border-white/[0.08] hover:border-brand-red/25 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] transition-[background-color,border-color,box-shadow] duration-300 flex flex-col justify-between text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]"
                 data-cursor-label="Preview"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-start justify-between gap-4 mb-6">
                     <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
                       {sol.icon}
                     </div>
@@ -827,7 +827,7 @@ export const Services = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between">
+                <div className="pt-4 border-t border-white/[0.07] flex flex-wrap items-center justify-between gap-3">
                   <span className="text-xs font-mono text-text-body/70">
                     {language === 'id' ? sol.timelineId : sol.timeline}
                   </span>
