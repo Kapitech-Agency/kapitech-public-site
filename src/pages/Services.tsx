@@ -978,7 +978,7 @@ export const Services = () => {
         <AnimatePresence>
           {selectedService && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto kapi-modal-overlay"
+            className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-3 sm:p-5 lg:p-6 kapi-modal-overlay"
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-preview-title"
@@ -992,10 +992,10 @@ export const Services = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="kapi-modal-surface relative w-full max-w-3xl overflow-hidden my-0 max-h-[calc(100dvh-2rem)] sm:max-h-[92vh] flex flex-col"
+              className="kapi-modal-surface relative my-0 flex max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl flex-col overflow-hidden sm:max-h-[calc(100dvh-2.5rem)]"
             >
               {/* Modal Header */}
-              <div className="sticky top-0 z-20 flex items-center justify-between p-4 sm:p-6 bg-white/[0.02] backdrop-blur-2xl border-b border-white/[0.07]">
+              <div className="sticky top-0 z-20 flex shrink-0 items-center justify-between gap-4 border-b border-white/[0.07] bg-[#111216] px-5 py-4 sm:px-7 sm:py-5">
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-brand-red/[0.07] border border-brand-red/25 flex items-center justify-center text-brand-red">
                     {selectedService.icon}
@@ -1022,7 +1022,7 @@ export const Services = () => {
               </div>
 
               {/* Modal Scrollable Content */}
-              <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
+              <div className="min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-contain px-5 py-6 sm:px-7 sm:py-7">
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-text-body mb-2 font-semibold">
                     {language === 'id' ? 'Deskripsi & Ruang Lingkup' : 'Overview & Scope'}
@@ -1035,7 +1035,7 @@ export const Services = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-white/[0.018] border border-white/[0.07]">
+                <div className="grid grid-cols-1 gap-4 rounded-2xl p-4 sm:grid-cols-2 sm:p-5 bg-white/[0.018] border border-white/[0.07]">
                   <div>
                     <span className="text-[11px] font-mono text-text-body uppercase block mb-1">
                       {language === 'id' ? 'Estimasi Pengerjaan' : 'Estimated Timeline'}
