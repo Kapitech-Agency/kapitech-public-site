@@ -893,7 +893,7 @@ export const Services = () => {
       </section>
 
                   {/* SECTION 2: SERVICES GRID (Categorized into Branding, Design, Development) */}
-      <section id="services-catalog-grid" className="scroll-mt-28 py-14 sm:py-20 px-4 sm:px-6 md:px-12" aria-label="Specialized service catalog">
+      <section id="services-catalog-grid" className="scroll-mt-28 py-14 sm:py-20 px-4 sm:px-6 md:px-12" aria-label={language === 'id' ? 'Katalog layanan spesialis' : 'Specialized service catalog'}>
         <div className="max-w-7xl mx-auto space-y-16">
           
           {/* Show Group Headers when 'All' is selected, or direct grid when filtered */}
