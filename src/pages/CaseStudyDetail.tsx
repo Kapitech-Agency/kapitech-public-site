@@ -187,7 +187,7 @@ export const CaseStudyDetail = () => {
               <img src={visualGallery[0] || CASE_STUDY_FALLBACK_IMAGE} alt={isIllustrativeCover ? (language === 'id' ? 'Gambar ilustratif untuk ' + item.title : 'Illustrative cover image for ' + item.title) : item.title} onError={handleCaseStudyImageError} className="aspect-[16/10] w-full bg-[#101115] object-cover" loading="eager" decoding="async" />
               {visualGallery.length > 1 ? <div className="grid gap-2 p-2 sm:grid-cols-2">{visualGallery.slice(1).map((image, index) => <figure key={image} className="min-w-0 overflow-hidden rounded-2xl border border-white/[0.06] bg-dark-base"><img src={image} alt={item.title + ' — ' + (language === 'id' ? 'visual proyek' : 'project visual') + ' ' + (index + 2)} onError={handleCaseStudyImageError} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" /></figure>)}</div> : null}
             </section>
-            <section id="case-study-context" aria-labelledby="case-study-context-title">
+            <section id="case-study-context" className="scroll-mt-28" aria-labelledby="case-study-context-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Latar belakang & sasaran' : 'Context & objectives'}</p>
               <h2 id="case-study-context-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Memahami kebutuhan proyek' : 'Understanding the project brief'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.context}</p>
@@ -212,7 +212,7 @@ export const CaseStudyDetail = () => {
               </div>
             </section>
 
-            <section id="case-study-challenge" aria-labelledby="case-study-challenge-title">
+            <section id="case-study-challenge" className="scroll-mt-28" aria-labelledby="case-study-challenge-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Masalah awal' : 'The starting problem'}</p>
               <h2 id="case-study-challenge-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Tantangan yang perlu diselesaikan' : 'The challenge to solve'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.challenge}</p>
@@ -227,7 +227,7 @@ export const CaseStudyDetail = () => {
               </div>
             </section>
 
-            <section id="case-study-solution" aria-labelledby="case-study-solution-title">
+            <section id="case-study-solution" className="scroll-mt-28" aria-labelledby="case-study-solution-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Respons Kapitech' : 'Kapitech response'}</p>
               <h2 id="case-study-solution-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Solusi dan alasan di baliknya' : 'The solution and the reasoning behind it'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.solution}</p>
@@ -244,7 +244,7 @@ export const CaseStudyDetail = () => {
               </div>
             </section>
 
-            <section id="case-study-process" aria-labelledby="case-study-execution-title">
+            <section id="case-study-process" className="scroll-mt-28" aria-labelledby="case-study-execution-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Dari rencana ke hasil kerja' : 'From plan to delivery'}</p>
               <h2 id="case-study-execution-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Tahapan proses pengerjaan' : 'The execution process'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{language === 'id' ? 'Bagian ini menjabarkan hubungan antara tantangan, keputusan solusi, dan keluaran yang tercatat. Setiap tahap diuraikan sesuai jenis layanan proyek ini, bukan memakai satu template proses yang sama untuk semua layanan.' : 'This section explains how the challenge, solution decisions, and recorded outputs fit together. The stages are tailored to this project’s service type rather than using one identical process template for every engagement.'}</p>
@@ -280,7 +280,7 @@ export const CaseStudyDetail = () => {
               )}
             </section>
 
-            <section id="case-study-outcome" aria-labelledby="case-study-outcome-title">
+            <section id="case-study-outcome" className="scroll-mt-28" aria-labelledby="case-study-outcome-title">
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Hasil, dampak, dan bukti' : 'Results, impact, and evidence'}</p>
               <h2 id="case-study-outcome-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Apa dampaknya bagi klien?' : 'What changed for the client?'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.impact}</p>
