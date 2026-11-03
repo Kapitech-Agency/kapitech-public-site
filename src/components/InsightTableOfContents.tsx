@@ -646,14 +646,14 @@ export const InsightTableOfContents: React.FC<{
             </div>
           </summary>
 
-          <div className="border-t border-white/[0.07] p-2.5">
+          <div className="border-t border-white/[0.07] p-3">
             {renderList(true)}
           </div>
         </details>
       </div>
 
       <div className={variant === 'mobile' ? 'hidden' : 'hidden h-full min-h-0 xl:flex'}>
-        <div className="flex h-full min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.08] bg-[#101114] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
+        <div className="flex h-full min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.08] bg-[#101114] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]">
           <div className="flex shrink-0 items-end justify-between gap-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
