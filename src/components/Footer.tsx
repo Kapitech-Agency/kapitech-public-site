@@ -208,7 +208,7 @@ export const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-[44px] bg-dark-card border border-dark-subtle rounded-xl px-4 pr-28 py-3 text-xs text-white placeholder:text-text-body/70 focus:outline-none focus:border-brand-red transition-colors"
+                  className="w-full min-h-[48px] bg-dark-card border border-dark-subtle rounded-full px-5 pr-32 py-3 text-xs text-white placeholder:text-text-body/70 focus:outline-none focus:border-brand-red transition-colors"
                 />
                 <button 
                   type="submit"
