@@ -910,7 +910,7 @@ export const Services = () => {
                 </div>
 
                 {/* 5-Column / Responsive Grid for This Pillar */}
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+                <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
                   {catServices.map((srv) => (
                     <motion.button
                       key={srv.id}
@@ -955,7 +955,7 @@ export const Services = () => {
                         </div>
                       </div>
 
-                      <div className="pt-3.5 border-t border-white/[0.07] flex items-center justify-between">
+                      <div className="pt-3.5 border-t border-white/[0.07] flex flex-wrap items-center justify-between gap-3">
                         <span className="text-xs font-mono text-text-body/70">
                           {language === 'id' ? srv.timelineId : srv.timeline}
                         </span>
