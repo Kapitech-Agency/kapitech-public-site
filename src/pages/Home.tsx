@@ -286,7 +286,7 @@ export const Home = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
               </span>
               <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-text-body">
-                Digital Product Design & Development Agency
+                Creative & IT Development Agency
               </span>
             </div>
             
