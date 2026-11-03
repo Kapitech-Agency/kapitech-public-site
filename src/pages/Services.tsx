@@ -1087,13 +1087,13 @@ export const Services = () => {
                 )}
 
                 {/* Modal Footer CTA */}
-                <div className="pt-4 border-t border-white/[0.07] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="flex flex-col items-stretch justify-between gap-4 border-t border-white/[0.07] pt-5 sm:flex-row sm:items-center">
                   <div>
                     <span className="text-xs text-text-body font-light block">
                       {language === 'id' ? 'Konsultasikan kebutuhan spesifik Anda dengan tim kami.' : 'Consult your specific requirements with our team.'}
                     </span>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+                  <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row">
                     <Link
                       to={'category' in selectedService ? `/services/${selectedService.id}` : `/solutions/${selectedService.id}`}
                       onClick={() => setSelectedService(null)}
