@@ -24,7 +24,7 @@ export const PublicPageHero = ({
   aside,
   preset = 'lines'
 }: PublicPageHeroProps) => (
-  <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 md:px-12 md:pb-24 md:pt-40">
+  <section className="kapi-page-hero relative overflow-hidden border-b border-white/[0.07] px-4 pb-14 pt-28 sm:px-6 sm:pb-18 sm:pt-32 md:px-12 md:pb-22 md:pt-36">
     <div className="absolute inset-0" aria-hidden="true">
       <PatternWaves
         preset={preset}
@@ -47,7 +47,7 @@ export const PublicPageHero = ({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(220, 20, 60,0.08),transparent_42%)]" />
     </div>
     <div className="relative z-10 mx-auto max-w-7xl">
-      <div className={aside ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:gap-16' : undefined}>
+      <div className={aside ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-end lg:gap-12' : undefined}>
         <div className="min-w-0">
           {backLink ? (
             <Link
@@ -60,15 +60,15 @@ export const PublicPageHero = ({
           ) : null}
           <div className={backLink ? 'mt-8' : ''}>
             <span className="kapi-section-label">{eyebrow}</span>
-            <h1 className="mt-5 max-w-5xl text-4xl font-display font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[5.25rem]">
+            <h1 className="mt-5 max-w-5xl text-[clamp(2.25rem,5.8vw,5.25rem)] font-display font-semibold leading-[1.04] tracking-[-0.05em] text-white [text-wrap:balance]">
               {titleNode ?? title}
             </h1>
             {description ? (
-              <p className="mt-6 max-w-3xl text-base leading-8 text-[#9097A4] sm:text-lg">
+              <p className="mt-5 max-w-3xl text-sm leading-7 text-[#A0A7B3] sm:mt-6 sm:text-base sm:leading-8 lg:text-lg">
                 {description}
               </p>
             ) : null}
-            {children ? <div className="mt-8">{children}</div> : null}
+            {children ? <div className="mt-7 sm:mt-8">{children}</div> : null}
           </div>
         </div>
         {aside ? <div className="min-w-0">{aside}</div> : null}
