@@ -836,7 +836,7 @@ export const InsightDetail: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
+          <div className="grid items-start gap-6 lg:gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
             <InsightLeftRail
               language={article.language}
               readingProgress={readingProgress}
@@ -848,11 +848,11 @@ export const InsightDetail: React.FC = () => {
             <article
               id="insight-content"
               ref={articleReadingRef}
-              className="min-w-0 w-full justify-self-center scroll-mt-28 px-0 sm:px-2 lg:px-8 text-[#C3C7D0]"
+              className="min-w-0 w-full justify-self-center scroll-mt-32 px-0 sm:px-2 lg:px-6 text-[#C3C7D0]"
             >
               {introductionBlocks.length > 0 && (
                 <section
-                  className="mb-12 sm:mb-14"
+                  className="mb-10 sm:mb-12"
                   aria-label={article.language === 'id' ? 'Pendahuluan' : 'Introduction'}
                 >
                   <InsightContentRenderer
