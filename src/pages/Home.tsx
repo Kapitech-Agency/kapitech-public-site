@@ -844,7 +844,7 @@ export const Home = () => {
                 >
                   <div className={cn(
                     "relative overflow-hidden",
-                    isLead ? "aspect-[16/9] lg:aspect-[16/10]" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/10]"
+                    isLead ? "aspect-[16/9] lg:aspect-auto lg:min-h-[280px] lg:flex-1" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/10]"
                   )}>
                     <img
                       src={project.image}
@@ -874,7 +874,7 @@ export const Home = () => {
                   </div>
 
                   <div className={cn(
-                    "relative z-10 flex min-w-0 flex-1 flex-col bg-[#101114]",
+                    "relative z-10 flex min-w-0 flex-col bg-[#101114]",
                     isLead ? "p-6 sm:p-8" : "p-6 sm:p-7"
                   )}>
                     <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase leading-5 tracking-[0.08em] text-[#B7BDC6]">
