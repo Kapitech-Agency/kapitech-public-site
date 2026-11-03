@@ -177,8 +177,8 @@ export const CaseStudyDetail = () => {
         ))}
       </nav>
       <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12 lg:py-16" aria-label={language === 'id' ? 'Detail studi kasus' : 'Case study details'}>
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.7fr)] xl:gap-14">
-          <div className="min-w-0 space-y-12">
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.7fr)] lg:gap-10 xl:gap-12">
+          <div className="min-w-0 space-y-10 sm:space-y-12">
             <section aria-labelledby="case-study-visual-title" className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.018]">
               <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
                 <div><p className="text-[10px] font-mono uppercase tracking-[0.15em] text-brand-red">{isIllustrativeCover ? (language === 'id' ? 'Referensi ilustratif' : 'Illustrative reference') : (language === 'id' ? 'Dokumentasi proyek' : 'Project documentation')}</p><h2 id="case-study-visual-title" className="mt-1 text-sm font-medium text-white">{isIllustrativeCover ? (language === 'id' ? 'Gambar ilustratif, bukan dokumentasi proyek' : 'Illustrative cover, not project documentation') : hasAdditionalVisuals ? (language === 'id' ? 'Galeri proyek' : 'Project gallery') : (language === 'id' ? 'Gambar sampul' : 'Cover image')}</h2></div>
@@ -191,7 +191,7 @@ export const CaseStudyDetail = () => {
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Latar belakang & sasaran' : 'Context & objectives'}</p>
               <h2 id="case-study-context-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Memahami kebutuhan proyek' : 'Understanding the project brief'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.context}</p>
-              <div className="mt-6 grid gap-3 md:grid-cols-2">
+              <div className="mt-6 grid items-stretch gap-4 md:grid-cols-2">
                 {narrative.contextDetails.map((detail) => (
                   <div key={detail.title} className="min-w-0 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5">
                     <h3 className="text-sm font-semibold leading-6 text-white">{detail.title}</h3>
@@ -216,7 +216,7 @@ export const CaseStudyDetail = () => {
               <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-brand-red">{language === 'id' ? 'Masalah awal' : 'The starting problem'}</p>
               <h2 id="case-study-challenge-title" className="mt-3 text-2xl font-display font-semibold tracking-[-0.035em] sm:text-4xl">{language === 'id' ? 'Tantangan yang perlu diselesaikan' : 'The challenge to solve'}</h2>
               <p className="mt-4 max-w-4xl text-base leading-8 text-[#A4AAB6] sm:text-lg">{narrative.challenge}</p>
-              <div className="mt-6 grid gap-3 md:grid-cols-3">
+              <div className="mt-6 grid items-stretch gap-4 md:grid-cols-3">
                 {narrative.diagnosis.map((detail, index) => (
                   <div key={detail.title} className="min-w-0 rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5">
                     <span className="font-mono text-[10px] tabular-nums text-brand-red">{String(index + 1).padStart(2, '0')}</span>
