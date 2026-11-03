@@ -563,7 +563,7 @@ export const Contact = () => {
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid min-w-0 grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-8 xl:gap-10">
+          <div className="grid min-w-0 grid-cols-1 items-stretch gap-5 sm:gap-6 lg:grid-cols-2 lg:gap-8">
             {/* Corporate Information */}
             <div className="min-w-0 w-full">
               <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216]">
