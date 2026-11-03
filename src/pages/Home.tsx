@@ -352,23 +352,23 @@ export const Home = () => {
         aria-label="Agency metrics"
       >
         <div className="mx-auto w-full max-w-7xl relative">
-          <div className="kapi-surface overflow-hidden p-5 pb-6 sm:p-7 sm:pb-8 lg:p-8 lg:pb-9">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 lg:gap-10 items-end mb-8 sm:mb-9 lg:mb-10">
+          <div className="kapi-surface overflow-hidden p-5 sm:p-7 lg:p-9">
+          <div className="mb-8 grid grid-cols-1 items-end gap-5 sm:mb-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12">
             <div>
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'SEKILAS KAPITECH' : 'A FEW SIGNALS'}
               </span>
-              <h2 className="mt-4 max-w-xl text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-[-0.06em] leading-[0.98] text-white">
+              <h2 className="mt-4 max-w-2xl text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-display font-semibold tracking-[-0.055em] leading-[1.06] text-white">
                 {language === 'id' ? 'Pengalaman yang terlihat dari pekerjaan kami.' : 'Experience you can see in the work.'}
               </h2>
             </div>
-            <p className="max-w-xl lg:justify-self-end text-sm sm:text-base leading-[1.8] text-text-body font-light">
+            <p className="max-w-lg lg:justify-self-end text-sm sm:text-base leading-[1.8] text-text-body font-light">
               {language === 'id'
                 ? 'Bukan sekadar angka. Ini adalah potongan kecil dari bagaimana Kapitech bekerja: dekat dengan bisnis, serius pada detail, dan terlibat dari awal sampai selesai.'
                 : 'Not just numbers. A small glimpse into how Kapitech works: close to the business, serious about detail, and involved from first brief to final delivery.'}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-stretch gap-4">
+          <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {stats.map((stat, i) => {
               return (
                 <motion.article
@@ -377,9 +377,9 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-12% 0px' }}
                   transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative flex h-full min-h-[232px] flex-col rounded-2xl border border-white/[0.07] bg-white/[0.014] p-5 sm:p-5 lg:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
+                  className={`group relative flex h-full min-h-[220px] min-w-0 flex-col rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 sm:min-h-[238px] sm:p-6 transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/20 hover:bg-white/[0.022] shadow-[inset_0_1px_0_rgba(255,255,255,0.018)]`}
                 >
-                  <div className="flex items-start justify-between gap-6">
+                  <div className="flex min-w-0 items-start justify-between gap-3">
                     <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-text-body transition-colors duration-300 group-hover:text-white">
                       {stat.label}
                     </span>
@@ -387,9 +387,9 @@ export const Home = () => {
                       {stat.index}
                     </span>
                   </div>
-                  <div className="mt-7 flex min-w-0 flex-1 flex-col gap-3 sm:mt-8">
-                    <div className="flex min-w-0 min-h-[4.25rem] sm:min-h-[5rem] items-end flex-wrap gap-x-2.5 gap-y-1.5">
-                      <span className="min-w-0 max-w-full text-[3.25rem] sm:text-[4.25rem] lg:text-[4.5rem] font-display font-semibold leading-[0.86] tracking-[-0.07em] text-white transition-colors duration-500 group-hover:text-brand-red break-words">
+                  <div className="mt-8 flex min-w-0 flex-1 flex-col justify-end gap-3">
+                    <div className="flex min-h-[4.5rem] min-w-0 flex-wrap items-end gap-x-2.5 gap-y-1.5">
+                      <span className="min-w-0 max-w-full text-[3.25rem] sm:text-[3.75rem] xl:text-[4.25rem] font-display font-semibold leading-[0.86] tracking-[-0.07em] text-white transition-colors duration-500 group-hover:text-brand-red break-words">
                         {stat.value}
                       </span>
                       {stat.suffix && (
@@ -403,7 +403,7 @@ export const Home = () => {
                         {stat.meta}
                       </span>
                     </div>
-                    <p className="max-w-xl text-xs sm:text-sm leading-[1.7] text-text-body font-light">
+                    <p className="max-w-xl text-xs sm:text-sm leading-[1.75] text-text-body font-light">
                       {stat.desc}
                     </p>
                   </div>
