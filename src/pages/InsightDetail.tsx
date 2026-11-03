@@ -980,10 +980,12 @@ export const InsightDetail: React.FC = () => {
           )}
 
           {relatedInsights.length > 0 && (
-            <section
-              className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:px-2 sm:pt-12 lg:px-12 sm:mt-20"
-              aria-labelledby="related-insights-title"
-            >
+            <div className="grid items-start gap-6 lg:gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
+              <div className="hidden xl:block" aria-hidden="true" />
+              <section
+                className="mx-auto mt-16 w-full max-w-[1120px] border-t border-white/[0.07] px-0 pt-10 sm:mt-20 sm:px-2 sm:pt-12 lg:px-6"
+                aria-labelledby="related-insights-title"
+              >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div className="max-w-2xl">
                   <span className="kapi-section-label mb-4">
@@ -1015,7 +1017,9 @@ export const InsightDetail: React.FC = () => {
                   <InsightCard key={item.id} insight={item} language={article.language} analyticsContext="related" />
                 ))}
               </div>
-            </section>
+              </section>
+              <div className="hidden xl:block" aria-hidden="true" />
+            </div>
           )}
 
           <div className="grid items-start gap-8 xl:grid-cols-[64px_minmax(0,1120px)_304px]">
