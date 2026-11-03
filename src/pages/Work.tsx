@@ -1297,7 +1297,8 @@ export const Work = () => {
                       </div>
 
                       <div className="mt-auto border-t border-white/[0.07] pt-4">
-                        <div className="flex min-w-0 items-center justify-between gap-4">                          <div className="min-w-0">
+                        <div className="flex min-w-0 items-center justify-between gap-4">
+                          <div className="min-w-0">
                             {project.impact[0] ? (
                               <>
                                 <span className="block truncate text-[10px] font-mono uppercase tracking-[0.08em] text-text-body/70">
