@@ -242,7 +242,7 @@ export const Work = () => {
   const spotlightRef = React.useRef<HTMLElement>(null);
   const spotlightCardRef = React.useRef<HTMLElement | null>(null);
   const restoreSpotlightFocusRef = React.useRef(false);
-  const [visibleCount, setVisibleCount] = useState<number>(12);
+  const [visibleCount, setVisibleCount] = useState<number>(54);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(() => Boolean(searchParams.get('industry') || searchParams.get('service')));
   // Secondary filters remain discoverable without occupying the primary browsing workspace.
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
@@ -488,7 +488,7 @@ export const Work = () => {
     setActiveIndustry(searchParams.get('industry') || 'All');
     if (searchParams.has('industry') || searchParams.has('service')) setShowAdvancedFilters(true);
     setSearchQuery(searchParams.get('q') || '');
-    setVisibleCount(12);
+    setVisibleCount(54);
   }, [searchParams]);
 
   useEffect(() => {
@@ -547,7 +547,7 @@ export const Work = () => {
   const handlePillarChange = (pillar: string) => {
     setActivePillar(pillar);
     setActiveService('All');
-    setVisibleCount(12);
+    setVisibleCount(54);
   };
 
   const resetFilters = () => {
@@ -555,7 +555,7 @@ export const Work = () => {
     setActiveService('All');
     setActiveIndustry('All');
     setSearchQuery('');
-    setVisibleCount(12);
+    setVisibleCount(54);
 
     const behavior: ScrollBehavior = reducedMotion ? 'auto' : 'smooth';
     disciplineDrag.scrollRef.current?.scrollTo({ left: 0, behavior });
@@ -1046,12 +1046,12 @@ export const Work = () => {
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
-                    setVisibleCount(12);
+                    setVisibleCount(54);
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 'Escape' && searchQuery) {
                       setSearchQuery('');
-                      setVisibleCount(12);
+                      setVisibleCount(54);
                     }
                   }}
                   placeholder={language === 'id' ? 'Cari studi kasus, klien...' : 'Search case study, client...'}
@@ -1061,7 +1061,7 @@ export const Work = () => {
                   <button
                     onClick={() => {
                       setSearchQuery('');
-                      setVisibleCount(12);
+                      setVisibleCount(54);
                     }}
                     type="button"
                     className="absolute right-1.5 top-1/2 -translate-y-1/2 text-text-body hover:text-white min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/[0.05] transition-colors"
@@ -1104,7 +1104,7 @@ export const Work = () => {
                 <button
                   key={industry}
                   type="button"
-                  onClick={() => { setActiveIndustry(industry); setVisibleCount(12); }}
+                  onClick={() => { setActiveIndustry(industry); setVisibleCount(54); }}
                   aria-pressed={activeIndustry === industry}
                   className={`shrink-0 rounded-full border px-3 py-1.5 text-[10px] font-mono transition-[background-color,border-color,color] duration-200 ${activeIndustry === industry ? 'border-brand-red bg-brand-red text-white' : 'border-white/[0.08] bg-white/[0.018] text-[#818995] hover:border-white/[0.16] hover:text-white'}`}
                 >
@@ -1150,7 +1150,7 @@ export const Work = () => {
                     type="button"
                     onClick={() => {
                       setActiveService(srv);
-                      setVisibleCount(12);
+                      setVisibleCount(54);
                     }}
                     aria-pressed={activeService === srv}
                     data-cursor-label="Filter"
