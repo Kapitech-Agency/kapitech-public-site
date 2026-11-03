@@ -282,7 +282,7 @@ function AppShell() {
           description={language === 'id' ? 'Ceritakan tujuan, kendala, atau tahap proyek Anda. Kami bantu menentukan titik awal dan cakupan kerja yang paling tepat.' : 'Share your goals, constraints, and current stage. We will help identify a clear starting point and the right scope of work.'}
           actionEyebrow={language === 'id' ? 'Pilih cara memulai' : 'Choose how to start'}
           actionDescription={language === 'id' ? 'Mulai dari brief proyek atau hubungi tim kami secara langsung.' : 'Start with a project brief or contact our team directly.'}
-          primaryLabel={language === 'id' ? 'Jadwalkan Konsultasi' : 'Schedule a Consultation'}
+          primaryLabel={language === 'id' ? 'Kirim Brief Proyek' : 'Send a Project Brief'}
           secondaryLabel={language === 'id' ? 'Hubungi Kapitech' : 'Contact Kapitech'}
         />
         <Footer />
