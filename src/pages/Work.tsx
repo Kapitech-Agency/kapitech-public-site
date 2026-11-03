@@ -243,6 +243,7 @@ export const Work = () => {
   const spotlightCardRef = React.useRef<HTMLElement | null>(null);
   const restoreSpotlightFocusRef = React.useRef(false);
   const [visibleCount, setVisibleCount] = useState<number>(12);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(() => Boolean(searchParams.get('industry') || searchParams.get('service')));
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const caseStudyModalRef = React.useRef<HTMLDivElement>(null);
   const modalTriggerRef = React.useRef<HTMLElement | null>(null);
@@ -971,6 +972,17 @@ export const Work = () => {
                 >
                   {filteredProjects.length} {language === 'id' ? 'proyek' : 'projects'}
                 </span>
+                <button
+                  type="button"
+                  onClick={() => setShowAdvancedFilters((previous) => !previous)}
+                  aria-expanded={showAdvancedFilters}
+                  aria-controls="work-advanced-filters"
+                  className="inline-flex min-h-[40px] shrink-0 items-center rounded-full border border-white/[0.1] bg-white/[0.025] px-3 text-[10px] font-mono uppercase tracking-[0.08em] text-[#C5CAD2] transition-colors hover:border-brand-red/40 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+                >
+                  {showAdvancedFilters
+                    ? (language === 'id' ? 'Tutup Filter' : 'Fewer Filters')
+                    : (language === 'id' ? 'Filter Lanjutan' : 'More Filters')}
+                </button>
                 {(activePillar !== 'All' || activeService !== 'All' || activeIndustry !== 'All' || searchQuery.trim()) && (
                   <button
                     type="button"
@@ -1060,6 +1072,7 @@ export const Work = () => {
               </div>
             </div>
 
+            <div id="work-advanced-filters" className={showAdvancedFilters ? 'contents' : 'hidden'}>
             <div
               ref={industryDrag.scrollRef}
               onPointerDown={industryDrag.handlePointerDown}
@@ -1149,6 +1162,7 @@ export const Work = () => {
                   </button>
                 ))}
               </div>
+            </div>
             </div>
           </div>
         </div>
