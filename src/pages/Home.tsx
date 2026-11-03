@@ -844,7 +844,7 @@ export const Home = () => {
                 >
                   <div className={cn(
                     "relative overflow-hidden",
-                    isLead ? "aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto" : "aspect-[16/8] sm:aspect-[16/7] lg:aspect-[16/9]"
+                    isLead ? "aspect-[16/10] lg:aspect-[16/10]" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/9]"
                   )}>
                     <img
                       src={project.image}
@@ -852,30 +852,30 @@ export const Home = () => {
                       loading="lazy"
                       decoding="async"
                       onError={handleCaseStudyImageError}
-                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                      className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C] via-[#090A0C]/25 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0C]/45 via-transparent to-[#090A0C]/35" />
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
 
-                    <div className="absolute left-4 top-4 flex items-center gap-2 sm:left-5 sm:top-5">
-                      <span className="rounded-full border border-white/[0.12] bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                    <div className="absolute inset-x-4 top-4 flex flex-wrap items-start gap-2 pr-16 sm:inset-x-5 sm:top-5">
+                      <span className="max-w-full break-words rounded-full border border-white/[0.15] bg-[#090A0C] px-2.5 py-1 text-[10px] font-mono uppercase leading-5 tracking-[0.08em] text-white">
                         {project.service}
                       </span>
                       {impact && (
-                        <span className="hidden rounded-full border border-brand-red/25 bg-[#090A0C]/70 px-2.5 py-1 text-[10px] font-mono text-brand-red backdrop-blur-md sm:inline-flex">
+                        <span className="hidden max-w-full rounded-full border border-brand-red/30 bg-[#090A0C] px-2.5 py-1 text-[10px] font-mono leading-5 text-[#FF6D89] sm:inline-flex">
                           {impact.value} {impact.label}
                         </span>
                       )}
                     </div>
 
-                    <span className="absolute right-4 top-4 text-[10px] font-mono tabular-nums text-white/65 sm:right-5 sm:top-5">
+                    <span className="absolute right-4 top-4 rounded-full border border-white/[0.14] bg-[#090A0C] px-2.5 py-1 font-mono text-[10px] leading-5 tabular-nums text-white sm:right-5 sm:top-5">
                       {project.year}
                     </span>
                   </div>
 
                   <div className={cn(
-                    "relative z-10 flex min-w-0 flex-1 flex-col", 
-                    isLead ? "p-5 sm:p-7 lg:absolute lg:inset-x-0 lg:bottom-0 lg:p-8" : "p-5 sm:p-6"
+                    "relative z-10 flex min-w-0 flex-1 flex-col bg-[#101114]",
+                    isLead ? "p-5 sm:p-7 lg:p-8" : "p-5 sm:p-6"
                   )}>
                     <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#B7BDC6]">
                       <span>{project.client}</span>
@@ -884,31 +884,31 @@ export const Home = () => {
                     </div>
 
                     <h3 className={cn(
-                      "mt-3 break-words font-display font-semibold leading-[1.12] tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red",
+                      "mt-3 break-words font-display font-semibold leading-[1.16] tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]",
                       isLead ? "max-w-3xl text-2xl sm:text-3xl md:text-4xl" : "text-xl sm:text-[1.45rem]"
                     )}>
                       {project.title}
                     </h3>
 
                     <p className={cn(
-                      "mt-3 max-w-2xl font-light leading-[1.75] text-[#B1B7C0]",
+                      "mt-3 max-w-2xl font-normal leading-[1.75] text-[#CDD1D8]",
                       isLead ? "text-xs sm:text-sm" : "text-xs"
                     )}>
                       {language === 'id' ? project.descId : project.desc}
                     </p>
 
-                    <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.08] pt-4">
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.12] pt-4">
                       <div className="flex min-w-0 flex-wrap gap-1.5">
                         {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
                           <span
                             key={technology}
-                            className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-[9px] font-mono text-text-body transition-colors duration-300 group-hover:border-white/[0.13] group-hover:text-white"
+                            className="max-w-full break-words rounded-full border border-white/[0.12] bg-white/[0.04] px-2.5 py-1 font-mono text-[10px] leading-4 text-[#C7CCD5] transition-colors duration-300 group-hover:border-white/[0.2] group-hover:text-white"
                           >
                             {technology}
                           </span>
                         ))}
                       </div>
-                      <span className="inline-flex shrink-0 items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 group-hover:text-brand-red">
+                      <span className="inline-flex shrink-0 items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]">
                         {language === 'id' ? 'Buka Kasus' : 'Inspect Case'}
                         <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                       </span>
