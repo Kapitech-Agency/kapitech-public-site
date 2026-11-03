@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
+import { ContactScheduleFields } from '../components/ui/ContactScheduleFields';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Globe, Briefcase, MessageSquare, MapPin, Clock, CheckCircle2, ArrowUpRight, Send, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, AlertCircle, LoaderCircle } from 'lucide-react';
@@ -796,7 +797,7 @@ export const Contact = () => {
                       <input type="text" id="company_website_hp" name="company_website_hp" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
+                    <div className="relative flex flex-col rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
                       <div className="border-b border-white/[0.08] px-5 py-6 sm:px-7 sm:py-7">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
@@ -861,7 +862,7 @@ export const Contact = () => {
                                 {serviceChoices.map((choice) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   const partial = !selected && choice.values.some(value => selectedServices.includes(value));
-                                  const cardClass = 'group flex min-h-[176px] min-w-0 flex-col rounded-2xl border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
+                                  const cardClass = 'group flex min-h-[156px] min-w-0 flex-col rounded-2xl border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
                                     ? 'border-brand-red/60 bg-brand-red/[0.075] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
                                     : partial
                                       ? 'border-brand-red/30 bg-brand-red/[0.025]'
@@ -967,8 +968,8 @@ export const Contact = () => {
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
                                   <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
                                     {language === 'id'
-                                      ? 'Pilih satu atau beberapa area. Anda masih bisa memperinci layanan di bawah.'
-                                      : 'Choose one or more areas. You can still refine the exact services below.'}
+                                      ? 'Pilih kategori yang paling sesuai. Anda dapat mengubah pilihan atau memperinci layanan sebelum melanjutkan.'
+                                      : 'Choose the areas that fit your project. You can change or refine your selection before continuing.'}
                                   </p>
                                   <button
                                     type="button"
@@ -1120,21 +1121,17 @@ export const Contact = () => {
                                     <label htmlFor="inquiry-industry" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Industri (opsional)' : 'Industry (optional)'}</label>
                                     <input id="inquiry-industry" type="text" value={industry} maxLength={120} onChange={(event) => setIndustry(event.target.value)} placeholder={language === 'id' ? 'Mis. teknologi finansial' : 'e.g. Fintech'} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white placeholder:text-text-body/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
                                   </div>
-                                  <div>
-                                    <label htmlFor="inquiry-timezone" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Zona waktu' : 'Timezone'}</label>
-                                    <select id="inquiry-timezone" value={timezone} onChange={(event) => setTimezone(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-[#111216] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm">
-                                      {['Asia/Jakarta', 'Asia/Singapore', 'Asia/Kuala_Lumpur', 'Asia/Bangkok', 'Asia/Tokyo', 'Australia/Perth', 'Europe/London', 'Europe/Berlin', 'America/New_York', 'America/Los_Angeles'].map((zone) => <option key={zone} value={zone}>{zone}</option>)}
-                                    </select>
-                                  </div>
-                                  <div>
-                                    <label htmlFor="inquiry-preferred-date" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Tanggal yang diinginkan' : 'Preferred date'}</label>
-                                    <input id="inquiry-preferred-date" type="date" min={today} value={preferredDate} onChange={(event) => setPreferredDate(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
-                                  </div>
-                                  <div>
-                                    <label htmlFor="inquiry-preferred-time" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Waktu yang diinginkan' : 'Preferred time'}</label>
-                                    <input id="inquiry-preferred-time" type="time" value={preferredTime} onChange={(event) => setPreferredTime(event.target.value)} className="w-full min-h-[46px] rounded-xl border border-white/[0.09] bg-white/[0.015] px-4 py-3 text-base text-white focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 sm:text-sm" />
-                                  </div>
                                 </div>
+                                <ContactScheduleFields
+                                  language={language}
+                                  today={today}
+                                  date={preferredDate}
+                                  time={preferredTime}
+                                  timezone={timezone}
+                                  onDateChange={setPreferredDate}
+                                  onTimeChange={setPreferredTime}
+                                  onTimezoneChange={setTimezone}
+                                />
                                 <label className="flex items-start gap-3 rounded-xl border border-white/[0.07] bg-black/[0.08] p-3.5">
                                   <input type="checkbox" checked={ndaRequested} onChange={(event) => setNdaRequested(event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-brand-red" />
                                   <span className="text-[11px] leading-[1.7] text-[#A7ACB5]">{language === 'id' ? 'Mohon catat bahwa inquiry ini memerlukan NDA atau penanganan rahasia sebelum detail proyek dibagikan.' : 'Please note that this inquiry requires NDA or confidential handling before detailed project information is shared.'}</span>
