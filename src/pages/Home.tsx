@@ -792,14 +792,14 @@ export const Home = () => {
       </section>
 
       {/* FEATURED CASE STUDIES */}
-      <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="work">
+      <section className="relative z-10 overflow-hidden border-b border-white/[0.07] bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:py-24" id="work">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-7 sm:mb-12 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+          <div className="mb-9 grid gap-6 sm:mb-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-12">
             <div className="max-w-3xl">
               <span className="kapi-section-label mb-5">
                 {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Studies'}
               </span>
-              <h2 className="mt-4 text-3xl font-display font-semibold leading-[1.06] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[4rem]">
+              <h2 className="mt-4 max-w-3xl text-3xl font-display font-semibold leading-[1.08] tracking-[-0.05em] text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]">
                 {language === 'id' ? 'Pekerjaan yang menunjukkan bagaimana kami berpikir dan membangun.' : 'Work that shows how we think and build.'}
               </h2>
               <p className="mt-5 max-w-2xl text-sm font-light leading-[1.8] text-text-body sm:text-base">
@@ -825,7 +825,7 @@ export const Home = () => {
           </div>
 
           {homepageProjects.length > 0 ? (
-            <div className="grid items-stretch gap-4 lg:grid-cols-[1.35fr_0.65fr] lg:grid-rows-2 lg:gap-5">
+            <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-rows-2 lg:gap-5">
             {homepageProjects.map((project, index) => {
               const isLead = index === 0;
               const impact = project.impact?.[0];
@@ -838,7 +838,7 @@ export const Home = () => {
                   data-analytics-event="featured_case_click"
                   data-case-id={project.id}
                   className={cn(
-                    "group relative overflow-hidden rounded-2xl border border-white/[0.075] bg-[#101114] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-red/25",
+                    "group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#101114] transition-[border-color,transform,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-red/30 hover:shadow-[0_18px_48px_rgba(0,0,0,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60",
                     isLead ? "lg:row-span-2" : "min-h-[260px] lg:min-h-0"
                   )}
                 >
@@ -874,30 +874,30 @@ export const Home = () => {
                   </div>
 
                   <div className={cn(
-                    "relative z-10 flex flex-col",
+                    "relative z-10 flex min-w-0 flex-1 flex-col", 
                     isLead ? "p-5 sm:p-7 lg:absolute lg:inset-x-0 lg:bottom-0 lg:p-8" : "p-5 sm:p-6"
                   )}>
-                    <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.12em] text-[#A7ACB5]">
+                    <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#B7BDC6]">
                       <span>{project.client}</span>
                       <span className="h-px w-4 bg-white/[0.18]" aria-hidden="true" />
                       <span>{project.industry}</span>
                     </div>
 
                     <h3 className={cn(
-                      "mt-3 font-display font-semibold leading-[1.02] tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-brand-red",
+                      "mt-3 break-words font-display font-semibold leading-[1.12] tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-brand-red",
                       isLead ? "max-w-3xl text-2xl sm:text-3xl md:text-4xl" : "text-xl sm:text-[1.45rem]"
                     )}>
                       {project.title}
                     </h3>
 
                     <p className={cn(
-                      "mt-3 max-w-2xl font-light leading-[1.7] text-[#A0A5AE]",
+                      "mt-3 max-w-2xl font-light leading-[1.75] text-[#B1B7C0]",
                       isLead ? "text-xs sm:text-sm" : "text-xs"
                     )}>
                       {language === 'id' ? project.descId : project.desc}
                     </p>
 
-                    <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/[0.08] pt-4">
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.08] pt-4">
                       <div className="flex min-w-0 flex-wrap gap-1.5">
                         {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
                           <span
