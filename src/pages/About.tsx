@@ -298,7 +298,7 @@ export const About = () => {
       {/* Corporate Information */}
       <section aria-labelledby="about-corporate-title" className="border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-12 xl:gap-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:gap-10 xl:gap-12">
             <div>
               <span className="kapi-section-label">
                 {language === 'id' ? 'Informasi Korporat' : 'Corporate Information'}
@@ -426,7 +426,7 @@ export const About = () => {
       <section className="relative overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-28" id="team" aria-labelledby="about-leadership-title">
 
         <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+          <div className="mb-10 grid gap-6 lg:mb-12 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10">
             <div className="max-w-4xl">
               <span className="kapi-section-label mb-5">
                 {t('about.leadership.tag')}
@@ -542,7 +542,7 @@ export const About = () => {
             </motion.article>
           )}
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {team.slice(1).map((member, index) => {
               const focusEn = [
                 'Project delivery & operations',
@@ -564,7 +564,7 @@ export const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-10% 0px' }}
                   transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519]"
+                  className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111216] transition-[border-color,background-color] duration-200 hover:border-white/[0.15] hover:bg-[#141519]"
                 >
                   <div className="relative aspect-[16/15] overflow-hidden bg-[#171920]">
                     <img
@@ -636,7 +636,7 @@ export const About = () => {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 xl:gap-8">
+          <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-3 lg:gap-5">
             {values.map((v, i) => (
               <motion.article
                 key={v.title}
@@ -689,7 +689,7 @@ export const About = () => {
             </motion.h2>
           </div>
 
-          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+          <div className="grid min-w-0 grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {journey.map((item, index) => (
               <motion.article
                 key={item.year}
@@ -753,7 +753,7 @@ export const About = () => {
             </motion.p>
           </div>
 
-          <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:gap-6">
+          <div className="grid min-w-0 grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:gap-5">
             {techStack.map((stack, index) => (
               <motion.article
                 key={stack.category}
