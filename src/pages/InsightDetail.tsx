@@ -917,7 +917,7 @@ export const InsightDetail: React.FC = () => {
           </div>
 
           {faq.length > 0 && (
-            <div className="w-full">
+            <div className="w-full lg:pl-6 xl:pl-[120px]">
               <section
               className="mt-16 w-full border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12"
               aria-labelledby="faq-title"
@@ -978,7 +978,7 @@ export const InsightDetail: React.FC = () => {
           )}
 
           {relatedInsights.length > 0 && (
-            <div className="w-full">
+            <div className="w-full lg:pl-6 xl:pl-[120px]">
               <section
                 className="mt-16 w-full border-t border-white/[0.07] pt-10 sm:mt-20 sm:pt-12"
                 aria-labelledby="related-insights-title"
@@ -1018,7 +1018,7 @@ export const InsightDetail: React.FC = () => {
             </div>
           )}
 
-          <div className="w-full">
+          <div className="w-full lg:pl-6 xl:pl-[120px]">
             <section
               className="mt-16 w-full sm:mt-20"
               aria-labelledby="article-final-cta-title"
@@ -1057,7 +1057,7 @@ export const InsightDetail: React.FC = () => {
             </section>
           </div>
 
-          <div className="w-full">
+          <div className="w-full lg:pl-6 xl:pl-[120px]">
             <div className="mt-8 w-full">
               <Link
                 to="/insights"
