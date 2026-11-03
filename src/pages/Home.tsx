@@ -420,7 +420,7 @@ export const Home = () => {
         id="clients"
       >
         <div className="mx-auto w-full max-w-7xl">
-          <div className="mx-auto mb-10 max-w-4xl px-4 text-center sm:mb-12 sm:px-6 md:px-12">
+          <div className="mx-auto mb-10 max-w-4xl text-center sm:mb-12">
             <span className="kapi-section-label mb-5">
               {language === 'id' ? 'KLIEN TERPILIH' : 'SELECTED CLIENT WORK'}
             </span>
