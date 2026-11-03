@@ -153,7 +153,7 @@ export const InsightContentRenderer: React.FC<{
 
         if (block.type === 'paragraph') {
           return (
-            <p key={index} className="mb-5 max-w-none text-[15px] font-light leading-[1.82] text-[#C3C7D0] sm:text-[15.5px] sm:leading-[1.84]">
+            <p key={index} className="mb-5 max-w-none text-[15px] font-light leading-[1.85] text-[#C3C7D0] sm:text-base sm:leading-[1.9]">
               {inlineMarkdown(block.text)}
             </p>
           );
@@ -168,10 +168,10 @@ export const InsightContentRenderer: React.FC<{
               key={index}
               id={headingIds[index] || undefined}
               className={[
-                'scroll-mt-28 font-display font-semibold text-white',
+                'scroll-mt-32 break-words font-display font-semibold text-white [text-wrap:balance]',
                 isSection
-                  ? 'mb-4 mt-12 first:mt-2 text-[1.85rem] leading-[1.12] tracking-[-0.04em] sm:text-[2rem]'
-                  : 'mb-3 mt-8 border-l border-white/[0.12] pl-4 text-xl leading-[1.2] tracking-[-0.025em] sm:text-[1.3rem]'
+                  ? 'mb-5 mt-12 first:mt-2 text-[1.7rem] leading-[1.18] tracking-[-0.035em] sm:mt-14 sm:text-[2rem]'
+                  : 'mb-4 mt-8 border-l-2 border-brand-red/45 pl-4 text-lg leading-[1.3] tracking-[-0.02em] sm:mt-9 sm:text-[1.3rem]'
               ].join(' ')}
             >
               {block.text}
@@ -187,7 +187,7 @@ export const InsightContentRenderer: React.FC<{
               key={index}
               className={[
                 block.ordered ? 'list-decimal' : 'list-disc',
-                'mb-6 pl-6 text-[15px] font-light leading-7 text-[#C3C7D0] sm:text-base',
+                'mb-7 pl-6 text-[15px] font-light leading-[1.85] text-[#C3C7D0] sm:text-base',
                 block.ordered ? 'space-y-3' : 'space-y-2.5'
               ].join(' ')}
             >
