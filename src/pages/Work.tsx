@@ -1232,7 +1232,7 @@ export const Work = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 sm:gap-5 lg:gap-6">
                 {filteredProjects.slice(0, visibleCount).map((project) => (
                   <article
                     key={project.id}
@@ -1252,7 +1252,7 @@ export const Work = () => {
                         : 'Open case study ' + project.title
                     }
                     data-cursor-label="Open"
-                    className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/28 hover:bg-white/[0.024] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40"
+                    className="group relative flex h-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.018] shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,transform] duration-300 hover:border-brand-red/28 hover:bg-white/[0.024] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/40"
                   >
                     <div className="relative aspect-[16/10] overflow-hidden bg-dark-base">
                       <img
@@ -1279,7 +1279,7 @@ export const Work = () => {
                       </span>
                     </div>
 
-                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6">
                       <div className="min-w-0">
                         <div className="mb-2 flex min-w-0 items-center gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.08em] text-text-body">
                           <span className="min-w-0 truncate text-brand-red">{project.client}</span>
@@ -1296,7 +1296,7 @@ export const Work = () => {
                         </p>
                       </div>
 
-                      <div className="mt-6 border-t border-white/[0.07] pt-4">
+                      <div className="mt-auto border-t border-white/[0.07] pt-4">
                         <div className="flex min-w-0 items-center justify-between gap-4">                          <div className="min-w-0">
                             {project.impact[0] ? (
                               <>
