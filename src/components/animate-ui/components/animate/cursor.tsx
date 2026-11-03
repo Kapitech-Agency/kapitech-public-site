@@ -39,9 +39,12 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const activeRef = React.useRef(false);
+  const enabledRef = React.useRef(false);
   const cursorRef = React.useRef<HTMLDivElement>(null);
   const mediaHoverRef = React.useRef<MediaQueryList | null>(null);
   const mediaReducedRef = React.useRef<MediaQueryList | null>(null);
+  const frameRef = React.useRef<number | null>(null);
+  const pendingPositionRef = React.useRef<{ x: number; y: number } | null>(null);
 
   React.useEffect(() => {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -51,13 +54,19 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
 
     const root = document.documentElement;
     const updateAvailability = () => {
-      const shouldEnable = canHover.matches && !reducedMotion.matches;
+      const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+      const lowPower = (navigator.hardwareConcurrency ?? 8) <= 4 || connection?.saveData === true;
+      const shouldEnable = canHover.matches && !reducedMotion.matches && !lowPower;
+      enabledRef.current = shouldEnable;
       setEnabled(shouldEnable);
 
       if (shouldEnable) {
         root.classList.add('kapi-custom-cursor-enabled');
       } else {
         root.classList.remove('kapi-custom-cursor-enabled');
+        if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+        pendingPositionRef.current = null;
         setCursorActive(false);
         cursorX.set(-100);
         cursorY.set(-100);
@@ -71,21 +80,25 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (!canHover.matches || reducedMotion.matches) return;
-
-      if (!global) {
-        const parent = containerRef.current?.parentElement;
-        if (!parent) return;
-
-        const rect = parent.getBoundingClientRect();
-        cursorX.set(event.clientX - rect.left);
-        cursorY.set(event.clientY - rect.top);
-      } else {
-        cursorX.set(event.clientX);
-        cursorY.set(event.clientY);
-      }
-
-      setCursorActive(true);
+      if (!enabledRef.current || event.pointerType !== 'mouse') return;
+      pendingPositionRef.current = { x: event.clientX, y: event.clientY };
+      if (frameRef.current !== null) return;
+      frameRef.current = window.requestAnimationFrame(() => {
+        frameRef.current = null;
+        const point = pendingPositionRef.current;
+        if (!point) return;
+        if (!global) {
+          const parent = containerRef.current?.parentElement;
+          if (!parent) return;
+          const rect = parent.getBoundingClientRect();
+          cursorX.set(point.x - rect.left);
+          cursorY.set(point.y - rect.top);
+        } else {
+          cursorX.set(point.x);
+          cursorY.set(point.y);
+        }
+        setCursorActive(true);
+      });
     };
 
     const handlePointerOut = (event: PointerEvent) => {
@@ -120,6 +133,10 @@ export function CursorProvider({ children, global = false }: CursorProviderProps
       target?.removeEventListener('pointercancel', handlePointerCancel as EventListener);
       window.removeEventListener('blur', handleWindowBlur);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+      pendingPositionRef.current = null;
+      enabledRef.current = false;
       root.classList.remove('kapi-custom-cursor-enabled');
       mediaHoverRef.current = null;
       mediaReducedRef.current = null;
