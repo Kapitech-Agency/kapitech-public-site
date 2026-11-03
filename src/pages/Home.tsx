@@ -825,7 +825,7 @@ export const Home = () => {
           </div>
 
           {homepageProjects.length > 0 ? (
-            <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-rows-2 lg:gap-5">
+            <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-rows-2 lg:gap-5">
             {homepageProjects.map((project, index) => {
               const isLead = index === 0;
               const impact = project.impact?.[0];
@@ -844,7 +844,7 @@ export const Home = () => {
                 >
                   <div className={cn(
                     "relative overflow-hidden",
-                    isLead ? "aspect-[16/10] lg:aspect-[16/10]" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/9]"
+                    isLead ? "aspect-[16/9] lg:aspect-[16/10]" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/10]"
                   )}>
                     <img
                       src={project.image}
@@ -875,31 +875,31 @@ export const Home = () => {
 
                   <div className={cn(
                     "relative z-10 flex min-w-0 flex-1 flex-col bg-[#101114]",
-                    isLead ? "p-5 sm:p-7 lg:p-8" : "p-5 sm:p-6"
+                    isLead ? "p-6 sm:p-8" : "p-6 sm:p-7"
                   )}>
-                    <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase tracking-[0.1em] text-[#B7BDC6]">
+                    <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase leading-5 tracking-[0.08em] text-[#B7BDC6]">
                       <span>{project.client}</span>
                       <span className="h-px w-4 bg-white/[0.18]" aria-hidden="true" />
                       <span>{project.industry}</span>
                     </div>
 
                     <h3 className={cn(
-                      "mt-3 break-words font-display font-semibold leading-[1.16] tracking-[-0.035em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]",
-                      isLead ? "max-w-3xl text-2xl sm:text-3xl md:text-4xl" : "text-xl sm:text-[1.45rem]"
+                      "mt-4 break-words font-display font-semibold leading-[1.18] tracking-[-0.03em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]",
+                      isLead ? "max-w-3xl text-2xl sm:text-3xl lg:text-[2rem]" : "text-xl sm:text-[1.35rem]"
                     )}>
                       {project.title}
                     </h3>
 
                     <p className={cn(
-                      "mt-3 max-w-2xl font-normal leading-[1.75] text-[#CDD1D8]",
-                      isLead ? "text-xs sm:text-sm" : "text-xs"
+                      "mt-3 max-w-2xl font-normal leading-[1.8] text-[#BFC5CF]",
+                      isLead ? "text-sm" : "text-[13px]"
                     )}>
                       {language === 'id' ? project.descId : project.desc}
                     </p>
 
-                    <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.12] pt-4">
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.12] pt-5">
                       <div className="flex min-w-0 flex-wrap gap-1.5">
-                        {project.technologies.slice(0, isLead ? 3 : 2).map((technology) => (
+                        {project.technologies.slice(0, isLead ? 2 : 1).map((technology) => (
                           <span
                             key={technology}
                             className="max-w-full break-words rounded-full border border-white/[0.12] bg-white/[0.04] px-2.5 py-1 font-mono text-[10px] leading-4 text-[#C7CCD5] transition-colors duration-300 group-hover:border-white/[0.2] group-hover:text-white"
