@@ -58,25 +58,25 @@ export const PolicyPageShell = ({
         ) : null}
       </PublicPageHero>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 sm:px-6 md:px-12">
-        <div className="mt-14 min-w-0 max-w-4xl space-y-12 sm:space-y-14">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 md:px-12">
+        <div className="mt-10 min-w-0 max-w-4xl space-y-10 sm:mt-12 sm:space-y-12 lg:mt-14">
           {sections.map((section, index) => {
             const id = getSectionId(index);
             return (
-              <section key={id} id={id} className="scroll-mt-28">
-                <h2 className="max-w-4xl text-[clamp(1.35rem,2.2vw,1.8rem)] font-semibold leading-[1.2] tracking-[-0.03em] text-white">{section.title.replace(/^\d+[.)]\s*/, '').trim()}</h2>
+              <section key={id} id={id} className="scroll-mt-28 min-w-0">
+                <h2 className="max-w-4xl text-[clamp(1.35rem,2.2vw,1.8rem)] font-semibold leading-[1.25] tracking-[-0.03em] [text-wrap:balance] text-white">{section.title.replace(/^\d+[.)]\s*/, '').trim()}</h2>
                 {section.body && (
-                  <div className="mt-4 space-y-4 text-sm leading-[1.95] text-[#9097A4] sm:text-[15px]">
+                  <div className="mt-4 space-y-4 text-sm leading-[1.85] text-[#A0A7B3] sm:text-[15px] sm:leading-[1.9]">
                     {section.body.split('\n\n').map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
                   </div>
                 )}
                 {section.paragraphs?.length ? (
-                  <div className="mt-5 space-y-4 text-sm leading-[1.95] text-[#9097A4] sm:text-[15px]">
+                  <div className="mt-4 space-y-4 text-sm leading-[1.85] text-[#A0A7B3] sm:text-[15px] sm:leading-[1.9]">
                     {section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
                   </div>
                 ) : null}
                 {section.table && (
-                  <div className="mt-6 max-w-full overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.018]">
+                  <div className="mt-6 max-w-full overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] overscroll-x-contain">
                     <table className="w-full min-w-[760px] border-collapse text-left text-xs sm:text-sm">
                       {section.table.caption && <caption className="px-4 py-3 text-left text-[10px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">{section.table.caption}</caption>}
                       <thead><tr className="border-b border-white/[0.08]">{section.table.headers.map((header) => <th key={header} scope="col" className="px-4 py-3 font-semibold text-white">{header}</th>)}</tr></thead>
@@ -90,8 +90,8 @@ export const PolicyPageShell = ({
         </div>
 
         {showContact && (
-          <section className="mt-16 border-t border-white/[0.08] pt-10 sm:mt-20 sm:pt-12" aria-labelledby="policy-contact-title">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:items-start">
+          <section className="mt-14 border-t border-white/[0.08] pt-10 sm:mt-16 sm:pt-12" aria-labelledby="policy-contact-title">
+            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] lg:gap-10">
               <div>
                 <span className="kapi-section-label mb-4">Questions</span>
                 <h2 id="policy-contact-title" className="text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">Contact Kapitech</h2>
@@ -106,13 +106,13 @@ export const PolicyPageShell = ({
           </section>
         )}
 
-        <section className="mt-12 border-t border-white/[0.08] pt-10" aria-labelledby="policy-related-title">
+        <section className="mt-12 border-t border-white/[0.08] pt-10 sm:mt-14" aria-labelledby="policy-related-title">
           <h2 id="policy-related-title" className="text-xl font-semibold tracking-[-0.025em] text-white sm:text-2xl">Related policy documents</h2>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {relatedLinks.map((item) => (
-              <Link key={item.href} to={item.href} className="group rounded-2xl border border-white/[0.08] bg-white/[0.018] p-4 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50">
+              <Link key={item.href} to={item.href} className="group flex h-full min-w-0 flex-col rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50">
                 <span className="block text-sm font-semibold text-white transition-colors group-hover:text-brand-red">{item.label}</span>
-                <span className="mt-2 block text-xs leading-[1.7] text-[#747B87]">{item.description}</span>
+                <span className="mt-3 block text-xs leading-[1.75] text-[#929AA6]">{item.description}</span>
               </Link>
             ))}
           </div>
