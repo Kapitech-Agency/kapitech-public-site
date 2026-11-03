@@ -962,8 +962,8 @@ export const Work = () => {
                   <MoveHorizontal size={12} aria-hidden="true" />
                   <span>
                     {language === 'id'
-                      ? 'Geser atau drag filter untuk melihat semua pilihan.'
-                      : 'Drag or swipe the filter rows to explore all options.'}
+                      ? 'Pilih bidang atau gunakan pencarian. Filter industri dan layanan tersedia di Filter Lanjutan.'
+                      : 'Choose a discipline or search projects. Industry and service filters are under More Filters.'}
                   </span>
                 </span>
               </div>
