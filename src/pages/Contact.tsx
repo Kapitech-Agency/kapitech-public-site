@@ -817,8 +817,8 @@ export const Contact = () => {
                             <p className="mt-2.5 max-w-2xl text-xs leading-relaxed text-text-body sm:text-sm">
                               {formStep === 0
                                 ? (language === 'id'
-                                  ? 'Pilih semua kategori yang paling sesuai. Setiap kategori merangkum layanan terkait, dan Anda bisa memilih lebih dari satu.'
-                                  : 'Select every category that fits. Each option groups related services, and you can choose more than one.')
+                                  ? 'Mulai dengan memilih satu atau beberapa kebutuhan utama. Tiap kartu mencakup beberapa layanan. Gunakan pilihan spesifik jika diperlukan.'
+                                  : 'Start with one or more project needs. Each card covers a group of services. Refine individual services only if needed.')
                                 : formStep === 1
                                   ? (language === 'id'
                                     ? 'Nama dan email sudah cukup untuk memulai. Detail lain sepenuhnya opsional.'
@@ -920,8 +920,8 @@ export const Contact = () => {
                                     {showSpecificServices ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
                                   </span>
                                   <span className="min-w-0">
-                                    <span className="block text-xs font-medium text-white/90">{language === 'id' ? 'Perlu pilihan yang lebih spesifik?' : 'Need a more specific service?'}</span>
-                                    <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Pilih layanan individual di bawah.' : 'Choose individual services below.'}</span>
+                                    <span className="block text-xs font-medium text-white/90">{language === 'id' ? 'Pilih layanan satu per satu' : 'Select individual services'}</span>
+                                    <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Opsional, untuk memperinci kebutuhan Anda.' : 'Optional, to refine your project needs.'}</span>
                                   </span>
                                 </span>
                                 <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F] group-hover:text-[#A7ACB5]">
@@ -968,8 +968,8 @@ export const Contact = () => {
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
                                   <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
                                     {language === 'id'
-                                      ? 'Pilih kategori yang paling sesuai. Anda dapat mengubah pilihan atau memperinci layanan sebelum melanjutkan.'
-                                      : 'Choose the areas that fit your project. You can change or refine your selection before continuing.'}
+                                      ? 'Pilih kebutuhan utama, lalu lanjutkan. Detail proyek dapat Anda jelaskan pada langkah terakhir.'
+                                      : 'Choose your main project needs, then continue. You can explain the details in the final step.'}
                                   </p>
                                   <button
                                     type="button"
