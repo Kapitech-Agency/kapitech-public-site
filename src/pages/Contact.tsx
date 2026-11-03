@@ -743,8 +743,8 @@ export const Contact = () => {
                       </h3>
                       <p className="mt-3 text-xs sm:text-sm text-text-body font-light leading-relaxed">
                         {language === 'id'
-                          ? 'Tim Kapitech akan meninjau kebutuhan proyek Anda dan menghubungi Anda dalam 24 jam kerja untuk langkah berikutnya.'
-                          : 'The Kapitech team will review your project details and contact you within 24 business hours with the next steps.'}
+                          ? 'Tim Kapitech akan meninjau kebutuhan proyek Anda dan menghubungi Anda melalui email untuk membahas langkah berikutnya.'
+                          : 'The Kapitech team will review your project details and follow up by email to discuss the next steps.'}
                       </p>
                       {submissionId && (
                         <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.02] px-3.5 py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
