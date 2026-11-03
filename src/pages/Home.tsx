@@ -844,7 +844,7 @@ export const Home = () => {
                 >
                   <div className={cn(
                     "relative overflow-hidden",
-                    isLead ? "aspect-[16/9] lg:aspect-auto lg:min-h-[280px] lg:flex-1" : "aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/10]"
+                    isLead ? "aspect-[16/9] lg:aspect-auto lg:min-h-[220px] lg:flex-1" : "aspect-[16/9] sm:aspect-[16/9] lg:aspect-[16/7]"
                   )}>
                     <img
                       src={project.image}
@@ -875,7 +875,7 @@ export const Home = () => {
 
                   <div className={cn(
                     "relative z-10 flex min-w-0 flex-col bg-[#101114]",
-                    isLead ? "p-6 sm:p-8" : "p-6 sm:p-7"
+                    isLead ? "p-5 sm:p-6" : "p-5 sm:p-6"
                   )}>
                     <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono uppercase leading-5 tracking-[0.08em] text-[#B7BDC6]">
                       <span>{project.client}</span>
@@ -884,20 +884,20 @@ export const Home = () => {
                     </div>
 
                     <h3 className={cn(
-                      "mt-4 break-words font-display font-semibold leading-[1.18] tracking-[-0.03em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]",
+                      "mt-3 break-words font-display font-semibold leading-[1.18] tracking-[-0.03em] text-white transition-colors duration-300 group-hover:text-[#FF6D89]",
                       isLead ? "max-w-3xl text-2xl sm:text-3xl lg:text-[2rem]" : "text-xl sm:text-[1.35rem]"
                     )}>
                       {project.title}
                     </h3>
 
                     <p className={cn(
-                      "mt-3 max-w-2xl font-normal leading-[1.8] text-[#BFC5CF]",
+                      "mt-2 max-w-2xl font-normal leading-[1.8] text-[#BFC5CF]",
                       isLead ? "text-sm" : "text-[13px]"
                     )}>
                       {language === 'id' ? project.descId : project.desc}
                     </p>
 
-                    <div className="mt-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.12] pt-5">
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-t border-white/[0.12] pt-4">
                       <div className="flex min-w-0 flex-wrap gap-1.5">
                         {project.technologies.slice(0, isLead ? 2 : 1).map((technology) => (
                           <span
