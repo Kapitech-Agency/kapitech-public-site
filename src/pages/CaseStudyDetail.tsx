@@ -163,7 +163,7 @@ export const CaseStudyDetail = () => {
       </PublicPageHero>
 
 
-      <nav aria-label={language === 'id' ? 'Bagian studi kasus' : 'Case study sections'} className="mx-auto flex max-w-7xl flex-wrap gap-2 px-5 pt-6 sm:px-8 lg:px-12">
+      <nav aria-label={language === 'id' ? 'Bagian studi kasus' : 'Case study sections'} className="mx-auto flex max-w-7xl flex-wrap gap-2 px-5 pt-6 sm:px-8 lg:hidden">
         {[
           ['case-study-context', language === 'id' ? 'Konteks' : 'Context'],
           ['case-study-challenge', language === 'id' ? 'Tantangan' : 'Challenge'],
