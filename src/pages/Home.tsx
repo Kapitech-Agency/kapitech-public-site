@@ -292,16 +292,16 @@ export const Home = () => {
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] font-display font-bold leading-[1.03] tracking-[-0.045em] max-w-4xl mb-5 sm:mb-8 text-white">
               {language === 'id' ? (
-                <>Studio produk digital yang dirancang untuk <span className="text-brand-red">membangun & memperluas</span> bisnis Anda.</>
+                <>Ide kreatif dan teknologi untuk <span className="text-brand-red">mengembangkan bisnis</span> Anda.</>
               ) : (
-                <>Digital product studio crafted to <span className="text-brand-red">build & scale</span> your business.</>
+                <>Creative thinking and technology to <span className="text-brand-red">move your business forward.</span></>
               )}
             </h1>
             
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-body font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
               {language === 'id'
-                ? 'Kami merancang dan mengembangkan website berkinerja tinggi, aplikasi web kustom, sistem visual, dan infrastruktur cloud terpercaya untuk bisnis visioner.'
-                : 'We design and develop high-performance websites, custom web applications, visual systems, and resilient cloud infrastructures for visionary enterprises.'}
+                ? 'Kapitech menyatukan strategi kreatif, identitas brand, desain produk, dan pengembangan website serta aplikasi kustom. Dari konsep hingga peluncuran, dalam satu tim.'
+                : 'Kapitech brings together creative strategy, brand identity, product design, and custom website and application development. From concept to launch, with one team.'}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
