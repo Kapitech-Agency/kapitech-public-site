@@ -426,7 +426,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Right Controls: Language Switcher & Hamburger Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3 xl:hidden">
+          <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3 xl:hidden">
             <div
               className="inline-flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-dark-base/48 p-1 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_6px_18px_rgba(0,0,0,0.1)]"
               role="group"
