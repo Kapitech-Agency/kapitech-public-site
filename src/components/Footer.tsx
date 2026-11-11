@@ -370,30 +370,38 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <div className="flex min-h-[44px] items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red shrink-0">
+              <div className="flex min-h-[44px] items-start gap-2.5">
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red">
                   <Phone size={13} />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.phone')}</span>
-                  <div className="flex flex-wrap items-center gap-x-2 text-[11px] font-medium text-white">
-                    <a href="tel:+6287769957062" className="inline-flex min-h-6 items-center transition-colors hover:text-brand-red">+62 877-6995-7062</a>
-                    <a href="https://wa.me/6287769957062" className="inline-flex min-h-6 items-center text-text-body transition-colors hover:text-brand-red">WhatsApp</a>
+                  <span className="block font-mono text-[10px] leading-tight text-text-body/70">{t('footer.phone')}</span>
+                  <div className="mt-0.5 flex flex-col items-start text-[11px] font-medium">
+                    <a href="tel:+6287769957062" className="inline-flex min-h-6 items-center text-white transition-colors hover:text-brand-red">+62 877-6995-7062</a>
+                    <a href="https://wa.me/6287769957062" className="inline-flex min-h-6 items-center gap-1 text-text-body transition-colors hover:text-brand-red">
+                      WhatsApp <ArrowUpRight size={11} aria-hidden="true" />
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2.5 pt-1">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red shrink-0 mt-0.5">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Kapitech+Agency%2C+Linea+Residence%2C+Paku+Jaya%2C+Tangerang+Selatan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex min-h-[44px] items-start gap-2.5 pt-1"
+              >
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red group-hover:border-brand-red/40">
                   <MapPin size={13} />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.addressTitle')}</span>
-                  <p className="leading-tight text-white/90 text-[11px] font-light">
-                    {t('footer.address')}
+                  <span className="block font-mono text-[10px] leading-tight text-text-body/70">{t('footer.addressTitle')}</span>
+                  <p className="text-[11px] font-light leading-tight text-white/90 transition-colors group-hover:text-brand-red group-focus-visible:text-brand-red">
+                    {t('footer.address')}{' '}
+                    <ArrowUpRight size={11} aria-hidden="true" className="inline align-text-bottom" />
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
