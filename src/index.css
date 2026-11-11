@@ -1565,7 +1565,7 @@ html.kapi-custom-cursor-enabled select {
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  color: rgba(138, 144, 157, 0.8) !important;
+  color: color-mix(in oklab, var(--color-text-body) 80%, transparent) !important;
   font-size: 11px !important;
   font-weight: 400 !important;
   line-height: 1.5;
@@ -1579,7 +1579,7 @@ html.kapi-custom-cursor-enabled select {
 .kapi-public-shell > footer .kapi-cookie-preferences-trigger:hover {
   background: transparent !important;
   border-color: transparent !important;
-  color: var(--kapi-red-electric) !important;
+  color: var(--color-brand-red) !important;
   transform: none !important;
 }
 

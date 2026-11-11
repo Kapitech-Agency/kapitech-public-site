@@ -201,19 +201,21 @@ export const Footer = () => {
               <span className="text-[11px] font-mono text-text-body uppercase tracking-wider block mb-2 font-medium">
                 {language === 'id' ? 'Berlangganan Wawasan Proyek' : 'Subscribe for Project Insights'}
               </span>
-              <form onSubmit={handleSubscribe} className="relative max-w-sm">
+              <form onSubmit={handleSubscribe} className="flex min-h-[48px] max-w-sm items-center gap-1 rounded-full border border-dark-subtle bg-dark-card py-1 pr-1.5 transition-colors focus-within:border-brand-red">
                 <input 
-                  type="email" 
+                  type="email"
+                  aria-label={language === 'id' ? 'Email bisnis' : 'Work email'}
+                  autoComplete="email"
                   placeholder={language === 'id' ? 'Masukkan email bisnis Anda...' : 'Enter your work email...'} 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-h-[48px] bg-dark-card border border-dark-subtle rounded-full px-5 pr-32 py-3 text-xs text-white placeholder:text-text-body/70 focus:outline-none focus:border-brand-red transition-colors"
+                  className="min-w-0 flex-1 rounded-full bg-transparent py-2 pl-4 text-xs text-white placeholder:text-text-body/70 focus:outline-none"
                 />
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-brand-red-bright transition-colors min-h-[34px] disabled:cursor-wait disabled:opacity-60"
+                  className="shrink-0 px-3.5 py-1.5 rounded-full bg-brand-red text-white text-xs font-semibold hover:bg-brand-red-bright transition-colors min-h-[34px] disabled:cursor-wait disabled:opacity-60"
                 >
                   {isSubmitting
                     ? (language === 'id' ? 'Mengirim…' : 'Sending…')
@@ -343,7 +345,7 @@ export const Footer = () => {
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.clientInquiry')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">hello@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">hello@kapitech.id</span>
                 </div>
               </a>
 
@@ -353,7 +355,7 @@ export const Footer = () => {
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">business@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">business@kapitech.id</span>
                 </div>
               </a>
 
@@ -363,7 +365,7 @@ export const Footer = () => {
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.recruitment')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] truncate block">recruitment@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">recruitment@kapitech.id</span>
                 </div>
               </a>
 
@@ -394,7 +396,7 @@ export const Footer = () => {
 
         {/* Social Media Links Bar (Crisp Monochrome Logo Icons) */}
         <div className="py-6 border-t border-dark-subtle flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-xs font-mono text-text-body uppercase tracking-widest">
+          <span className="text-center text-xs font-mono text-text-body uppercase tracking-widest md:text-left">
             {language === 'id' ? 'Kanal Resmi & Media Sosial' : 'Official Channels & Social Media'}
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
@@ -416,8 +418,8 @@ export const Footer = () => {
 
         {/* Bottom Copyright Bar */}
         <div className="pt-6 border-t border-dark-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-text-body">
-          <p>© 2021-2026 Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
-          <div className="flex items-center gap-4 sm:gap-6">
+          <p className="text-center sm:text-left">© 2021-{currentYear} Kapitech. {language === 'id' ? 'Beroperasi di bawah naungan PT Kapitech Digital Indonesia.' : 'Operating under PT Kapitech Digital Indonesia.'} {t('footer.rights')}</p>
+          <div className="flex shrink-0 items-center gap-4 sm:gap-6">
             <a
               href="https://ams.kapitech.id/"
               className="text-[#6F7783] hover:text-text-body transition-colors text-[11px] font-mono"
