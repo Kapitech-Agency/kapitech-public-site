@@ -577,10 +577,15 @@ export const Contact = () => {
             ? 'Ceritakan tantangan bisnis, target, dan kebutuhan proyek Anda. Kami akan meninjau brief dan menghubungi Anda untuk membahas pendekatan yang sesuai.'
             : 'Tell us about your business challenge, goals, and project needs. We will review your brief and follow up to discuss the right approach.'
         }
-      />
+      >
+        <a href="#project-inquiry-form" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-xs font-semibold text-white sm:w-auto lg:hidden">
+          {language === 'id' ? 'Isi Brief Proyek' : 'Start Your Project Brief'}
+          <ArrowUpRight size={15} aria-hidden="true" />
+        </a>
+      </PublicPageHero>
 
       {/* Main Form & Info Section */}
-      <section id="contact-details" className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-14 sm:px-6 sm:py-20 md:px-12 lg:py-24">
+      <section id="contact-details" className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-8 sm:px-6 sm:py-20 md:px-12 lg:py-24">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="absolute -left-40 top-16 h-80 w-80 rounded-full border border-white/[0.025]" />
           <div className="absolute right-[-8rem] bottom-[-10rem] h-96 w-96 rounded-full border border-brand-red/[0.03]" />
@@ -590,7 +595,7 @@ export const Contact = () => {
             {/* Corporate Information */}
             <div className="min-w-0 w-full">
               <div className="flex w-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#111216]">
-                <header className="border-b border-white/[0.07] px-5 py-6 sm:px-7 sm:py-7">
+                <header className="border-b border-white/[0.07] px-4 py-4 sm:px-7 sm:py-7">
                   <span className="kapi-section-label mb-3">
                     {language === 'id' ? 'Informasi Kontak' : 'Contact Information'}
                   </span>
@@ -604,9 +609,9 @@ export const Contact = () => {
                   </p>
                 </header>
 
-                <section className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-7" aria-labelledby="corporate-contact-heading">
+                <section className="flex flex-1 flex-col px-4 py-4 sm:px-7 sm:py-7" aria-labelledby="corporate-contact-heading">
                   <div>
-                    <h4 id="corporate-contact-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                    <h4 id="corporate-contact-heading" className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                       {language === 'id' ? 'Kontak utama' : 'Primary contact'}
                     </h4>
                     <a
@@ -698,30 +703,30 @@ export const Contact = () => {
                   </div>
                 </section>
                 <section className="border-t border-white/[0.07] bg-white/[0.012] px-5 py-5 sm:px-7 sm:py-6" aria-labelledby="corporate-details-heading">
-                  <h4 id="corporate-details-heading" className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                  <h4 id="corporate-details-heading" className="text-[9px] font-mono uppercase tracking-[0.14em] text-text-body">
                     {language === 'id' ? 'Informasi pendukung' : 'Additional information'}
                   </h4>
                   <div className="mt-3 space-y-4">
                     <div className="flex min-w-0 items-start gap-3">
                       <MapPin size={15} className="mt-0.5 shrink-0 text-text-body" />
                       <div className="min-w-0">
-                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">
+                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-text-body">
                           {language === 'id' ? 'Alamat kantor' : 'Office address'}
                         </p>
                         <a
-                          href="https://maps.google.com/?q=Linea+Residence+Block+G+No+5+Melati+Loka+Street+Paku+Jaya+North+Serpong+South+Tangerang+Banten+15220+Indonesia"
+                          href="https://www.google.com/maps/search/?api=1&query=Kapitech+Agency%2C+Linea+Residence%2C+Paku+Jaya%2C+Tangerang+Selatan"
                           target="_blank"
                           rel="noreferrer"
                           className="mt-1 block text-[11px] leading-[1.75] text-[#A7ACB5] transition-colors hover:text-white"
                         >
-                          Linea Residence, Block G No. 5, Melati Loka Street, Paku Jaya, North Serpong, South Tangerang City, Banten 15220, Indonesia
+                          {t('footer.address')}
                         </a>
                       </div>
                     </div>
                     <div className="flex min-w-0 items-start gap-3">
                       <Clock size={15} className="mt-0.5 shrink-0 text-text-body" />
                       <div className="min-w-0">
-                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-[#6F757F]">
+                        <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-text-body">
                           {language === 'id' ? 'Jam operasional' : 'Operating hours'}
                         </p>
                         <p className="mt-1 text-xs font-medium text-[#D4D7DE]">
@@ -820,7 +825,7 @@ export const Contact = () => {
                     </div>
 
                     <div className="relative flex flex-col rounded-3xl border border-white/[0.08] bg-[#111216] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]">
-                      <div className="border-b border-white/[0.08] px-5 py-6 sm:px-7 sm:py-7">
+                      <div className="border-b border-white/[0.08] px-4 py-4 sm:px-7 sm:py-7">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
                             <span
@@ -869,7 +874,7 @@ export const Contact = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-col px-5 py-6 sm:px-7 sm:py-7">
+                      <div className="flex flex-col px-4 py-4 sm:px-7 sm:py-7">
                         <AnimatePresence mode="wait" initial={false}>
                           {formStep === 0 && (
                             <motion.div
@@ -884,7 +889,7 @@ export const Contact = () => {
                                 {serviceChoices.map((choice) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   const partial = !selected && choice.values.some(value => selectedServices.includes(value));
-                                  const cardClass = 'group flex min-h-[124px] min-w-0 flex-col rounded-2xl border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
+                                  const cardClass = 'group flex min-w-0 flex-col rounded-2xl border p-3.5 sm:min-h-[124px] sm:p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
                                     ? 'border-brand-red/60 bg-brand-red/[0.075] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
                                     : partial
                                       ? 'border-brand-red/30 bg-brand-red/[0.025]'
@@ -915,7 +920,7 @@ export const Contact = () => {
                                           {selected ? <CheckCircle2 size={12} strokeWidth={2.6} /> : partial ? <span className="h-1.5 w-1.5 rounded-sm bg-brand-red" /> : <CheckCircle2 size={12} strokeWidth={2.6} />}
                                         </span>
                                       </div>
-                                      <p className={'mt-2.5 text-xs leading-[1.7] ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
+                                      <p className={'mt-1.5 text-xs leading-[1.6] sm:mt-2.5 ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
                                         {choice.description}
                                       </p>
 
@@ -936,10 +941,10 @@ export const Contact = () => {
                                   </span>
                                   <span className="min-w-0">
                                     <span className="block text-xs font-medium text-white/90">{language === 'id' ? 'Pilih layanan satu per satu' : 'Select individual services'}</span>
-                                    <span className="mt-0.5 block text-[10px] text-[#6F757F]">{language === 'id' ? 'Opsional, untuk memperinci kebutuhan Anda.' : 'Optional, to refine your project needs.'}</span>
+                                    <span className="mt-0.5 block text-[10px] text-text-body">{language === 'id' ? 'Opsional, untuk memperinci kebutuhan Anda.' : 'Optional, to refine your project needs.'}</span>
                                   </span>
                                 </span>
-                                <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-[#6F757F] group-hover:text-[#A7ACB5]">
+                                <span className="shrink-0 text-[9px] font-mono uppercase tracking-[0.12em] text-text-body group-hover:text-[#A7ACB5]">
                                   {showSpecificServices ? (language === 'id' ? 'Tutup' : 'Collapse') : (language === 'id' ? 'Buka' : 'Explore')}
                                 </span>
                               </button>
@@ -981,7 +986,7 @@ export const Contact = () => {
 
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
-                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-text-body sm:text-[11px]">
                                     {language === 'id'
                                       ? 'Pilih kebutuhan utama, lalu lanjutkan. Detail proyek dapat Anda jelaskan pada langkah terakhir.'
                                       : 'Choose your main project needs, then continue. You can explain the details in the final step.'}
@@ -1055,7 +1060,7 @@ export const Contact = () => {
 
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
-                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-text-body sm:text-[11px]">
                                     {language === 'id'
                                       ? 'Nama dan email wajib diisi. Perusahaan dan WhatsApp bisa ditambahkan bila diperlukan.'
                                       : 'Name and work email are required. Company and phone details are optional.'}
@@ -1154,13 +1159,13 @@ export const Contact = () => {
                                 <div>
                                   <label htmlFor="inquiry-project-brief" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Lampiran project brief (opsional)' : 'Project brief attachment (optional)'}</label>
                                   <input ref={briefInputRef} id="inquiry-project-brief" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => handleBriefChange(event.target.files?.[0] || null)} className="block w-full rounded-xl border border-dashed border-white/[0.12] bg-black/20 p-3 text-xs text-[#8E96A2] file:mr-3 file:rounded-full file:border-0 file:bg-white/[0.06] file:px-3 file:py-2 file:text-[11px] file:font-semibold file:text-white" />
-                                  {briefError ? <p className="mt-2 text-[11px] leading-5 text-brand-red" role="alert">{briefError}</p> : projectBrief ? <p className="mt-2 text-[11px] leading-5 text-text-body">{projectBrief.name} · {(projectBrief.size / 1024 / 1024).toFixed(2)} MB · {language === 'id' ? 'Maks. 10 MB' : '10 MB maximum'}</p> : <p className="mt-2 text-[11px] leading-5 text-[#6F757F]">{language === 'id' ? 'Format PDF, DOC, atau DOCX. Maksimal 10 MB.' : 'PDF, DOC, or DOCX. Maximum 10 MB.'}</p>}
+                                  {briefError ? <p className="mt-2 text-[11px] leading-5 text-brand-red" role="alert">{briefError}</p> : projectBrief ? <p className="mt-2 text-[11px] leading-5 text-text-body">{projectBrief.name} · {(projectBrief.size / 1024 / 1024).toFixed(2)} MB · {language === 'id' ? 'Maks. 10 MB' : '10 MB maximum'}</p> : <p className="mt-2 text-[11px] leading-5 text-text-body">{language === 'id' ? 'Format PDF, DOC, atau DOCX. Maksimal 10 MB.' : 'PDF, DOC, or DOCX. Maximum 10 MB.'}</p>}
                                 </div>
                               </section>
 
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
                                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
-                                  <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
+                                  <p className="max-w-md text-[10px] leading-[1.7] text-text-body sm:text-[11px]">
                                     {language === 'id'
                                       ? 'Booking konsultasi, NDA, dan lampiran brief bersifat opsional.'
                                       : 'Consultation timing, NDA, and project brief details are all optional.'}
@@ -1204,7 +1209,7 @@ export const Contact = () => {
       </section>
 
       {/* Frequently Asked Questions */}
-      <section className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-16 sm:px-6 sm:py-24 md:px-12">
+      <section className="relative z-10 overflow-hidden border-b border-dark-subtle bg-dark-base px-4 py-10 sm:px-6 sm:py-24 md:px-12">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="absolute -left-56 top-12 h-[28rem] w-[28rem] rounded-full border border-white/[0.02]" />
           <div className="absolute -right-48 bottom-[-12rem] h-[32rem] w-[32rem] rounded-full border border-brand-red/[0.028]" />
@@ -1245,7 +1250,7 @@ export const Contact = () => {
               </div>
 
               <div className="mt-8 max-w-sm border-t border-white/[0.07] pt-5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                   {language === 'id' ? 'Butuh jawaban lain?' : 'Need another answer?'}
                 </span>
                 <p className="mt-1.5 text-xs leading-relaxed text-text-body">
@@ -1317,7 +1322,7 @@ export const Contact = () => {
                 })}
               </div>
 
-              <p className="mt-4 text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+              <p className="mt-4 text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                 {language === 'id'
                   ? 'Pilih pertanyaan untuk membuka jawabannya.'
                   : 'Select a question to reveal the answer.'}
