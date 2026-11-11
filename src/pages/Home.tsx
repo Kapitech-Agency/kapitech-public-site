@@ -298,7 +298,7 @@ export const Home = () => {
               )}
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-body font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 font-light leading-[1.7] max-w-2xl mb-8 sm:mb-10">
               {language === 'id'
                 ? 'Kapitech menyatukan strategi kreatif, identitas brand, desain produk, dan pengembangan website serta aplikasi kustom. Dari konsep hingga peluncuran, dalam satu tim.'
                 : 'Kapitech brings together creative strategy, brand identity, product design, and custom website and application development. From concept to launch, with one team.'}

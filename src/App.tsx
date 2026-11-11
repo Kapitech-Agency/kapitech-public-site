@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, MotionConfig } from 'motion/react';
+import { motion, MotionConfig } from 'motion/react';
 import { LanguageProvider, useLanguage } from './lib/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -168,52 +168,50 @@ const BookCallRedirect = () => {
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const { language } = useLanguage();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -4 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full flex-1 flex flex-col"
-      >
-        <RouteErrorBoundary key={location.pathname} pathname={location.pathname}>
-          <Suspense
-            fallback={
-              <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm text-white/60" role="status" aria-live="polite">
-                Loading…
-              </div>
-            }
-          >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:slug" element={<CaseStudyDetail />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/insights" element={<Insights />} />
-              <Route path="/insights/:slug" element={<InsightDetail />} />
-              <Route path="/services/:slug" element={<ServiceDetail />} />
-              <Route path="/solutions/:slug" element={<ServiceDetail />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/industries/:slug" element={<IndustryDetail />} />
-              <Route path="/faq" element={<Faq />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/book-a-call" element={<BookCallRedirect />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/ai-instructions" element={<AiInstructions />} />
-              <Route path="/editorial-policy" element={<EditorialPolicy />} />
-              <Route path="/cookie-policy" element={<CookiePolicy />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </RouteErrorBoundary>
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      key={location.pathname}
+      initial={{ y: 6 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      className="w-full flex-1 flex flex-col"
+    >
+      <RouteErrorBoundary key={location.pathname} pathname={location.pathname}>
+        <Suspense
+          fallback={
+            <div className="flex min-h-[40vh] items-center justify-center px-6 text-sm text-white/60" role="status" aria-live="polite">
+              {language === 'id' ? 'Memuat halaman…' : 'Loading page…'}
+            </div>
+          }
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/work/:slug" element={<CaseStudyDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/insights/:slug" element={<InsightDetail />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/solutions/:slug" element={<ServiceDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/industries/:slug" element={<IndustryDetail />} />
+            <Route path="/faq" element={<Faq />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/book-a-call" element={<BookCallRedirect />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/ai-instructions" element={<AiInstructions />} />
+            <Route path="/editorial-policy" element={<EditorialPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </RouteErrorBoundary>
+    </motion.div>
   );
 };
 

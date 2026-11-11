@@ -703,9 +703,9 @@ export const Navbar = () => {
               role="dialog"
               aria-modal="true"
               aria-label={language === 'id' ? 'Navigasi utama' : 'Main navigation'}
-              className="absolute left-0 right-0 top-full z-10 xl:hidden max-h-[calc(100dvh-5rem)] overflow-hidden border-b border-white/[0.08] bg-dark-base/96 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
+              className="absolute left-0 right-0 top-full z-10 flex max-h-[calc(100dvh-5rem)] flex-col overflow-hidden border-b border-white/[0.08] bg-dark-base xl:hidden shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl backdrop-saturate-150"
             >
-              <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
+              <div className="min-h-0 overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-7">
                 <div className="flex flex-col">
                   {/* Nav Links in Mobile */}
                   <div className="flex flex-col">
@@ -809,7 +809,7 @@ export const Navbar = () => {
                                 <ArrowUpRight className="w-3.5 h-3.5" />
                               </Link>
                             </div>
-                          </motion.div>
+                                    </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
@@ -970,16 +970,6 @@ export const Navbar = () => {
                       </div>
                       <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-text-body/50")} />
                     </Link>
-
-                    <Link
-                      to="/contact#project-inquiry-form"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] text-xs font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/45 hover:bg-brand-red hover:shadow-[0_12px_30px_-20px_rgba(220, 20, 60,0.4)]"
-                      data-cursor-label="Start"
-                    >
-                      <span>{t('nav.startProject')}</span>
-                      <ArrowUpRight size={16} />
-                    </Link>
                   </div>
 
                   {/* Quick Contact & Footer */}
@@ -1014,6 +1004,17 @@ export const Navbar = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="shrink-0 border-t border-white/[0.07] bg-dark-base px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8">
+                <Link
+                  to="/contact#project-inquiry-form"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.035] text-xs font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:border-brand-red/45 hover:bg-brand-red hover:shadow-[0_12px_30px_-20px_rgba(220, 20, 60,0.4)]"
+                  data-cursor-label="Start"
+                >
+                  <span>{t('nav.startProject')}</span>
+                  <ArrowUpRight size={16} />
+                </Link>
               </div>
             </motion.div>
           )}

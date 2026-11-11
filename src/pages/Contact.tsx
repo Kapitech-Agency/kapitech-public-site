@@ -39,6 +39,15 @@ export const Contact = () => {
   const [submitError, setSubmitError] = useState('');
   const [submissionId, setSubmissionId] = useState('');
   const [formStep, setFormStep] = useState(0);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const previousStepRef = useRef(formStep);
+
+  useEffect(() => {
+    if (previousStepRef.current === formStep) return;
+    previousStepRef.current = formStep;
+    stepHeadingRef.current?.focus({ preventScroll: true });
+    stepHeadingRef.current?.scrollIntoView({ block: 'start' });
+  }, [formStep]);
   const [showSpecificServices, setShowSpecificServices] = useState(false);
   const [showOptionalContact, setShowOptionalContact] = useState(false);
 
@@ -315,15 +324,18 @@ export const Contact = () => {
       nextErrors.email = language === 'id' ? 'Format email tidak valid' : 'Invalid email address';
     }
 
-    setFormErrors(prev => ({ ...prev, ...nextErrors }));
-    if (Object.keys(nextErrors).length > 0) return false;
-
     setFormErrors(prev => {
       const next = { ...prev };
       delete next.name;
       delete next.email;
-      return next;
+      return { ...next, ...nextErrors };
     });
+    if (nextErrors.name || nextErrors.email) {
+      const field = nextErrors.name ? 'inquiry-name' : 'inquiry-email';
+      requestAnimationFrame(() => document.getElementById(field)?.focus());
+      return false;
+    }
+
     return true;
   };
 
@@ -368,6 +380,10 @@ export const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formStep < 2) {
+      handleNextStep();
+      return;
+    }
     // Anti-spam honeypot detection
     if (honeypot.trim().length > 0) {
       // Silently reject bot submissions
@@ -406,6 +422,12 @@ export const Contact = () => {
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
+      if (errors.name || errors.email || errors.phone) {
+        setFormStep(1);
+        if (errors.phone) setShowOptionalContact(true);
+      } else {
+        requestAnimationFrame(() => document.getElementById('inquiry-message')?.focus());
+      }
       return;
     }
 
@@ -807,7 +829,7 @@ export const Contact = () => {
                             >
                               {language === 'id' ? `Langkah 0${formStep + 1} dari 03` : `Step 0${formStep + 1} of 03`}
                             </span>
-                            <h3 className="mt-1.5 text-xl sm:text-2xl font-display font-semibold tracking-[-0.04em] text-white">
+                            <h3 ref={stepHeadingRef} tabIndex={-1} className="mt-1.5 scroll-mt-24 text-xl sm:text-2xl font-display font-semibold tracking-[-0.04em] text-white">
                               {formStep === 0
                                 ? (language === 'id' ? 'Apa yang ingin Anda bangun?' : 'What are you looking to build?')
                                 : formStep === 1
@@ -1032,7 +1054,7 @@ export const Contact = () => {
                               </AnimatePresence>
 
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
-                                <div className="flex items-end justify-between gap-5">
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
                                   <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
                                     {language === 'id'
                                       ? 'Nama dan email wajib diisi. Perusahaan dan WhatsApp bisa ditambahkan bila diperlukan.'
@@ -1137,14 +1159,14 @@ export const Contact = () => {
                               </section>
 
                               <div className="mt-auto border-t border-white/[0.07] pt-6">
-                                <div className="flex items-end justify-between gap-5">
+                                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
                                   <p className="max-w-md text-[10px] leading-[1.7] text-[#6F757F] sm:text-[11px]">
                                     {language === 'id'
                                       ? 'Booking konsultasi, NDA, dan lampiran brief bersifat opsional.'
                                       : 'Consultation timing, NDA, and project brief details are all optional.'}
                                   </p>
-                                  <div className="flex shrink-0 items-center gap-2.5">
-                                    <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-text-body hover:text-white hover:border-white/15 transition-colors">
+                                  <div className="flex flex-col items-stretch gap-2.5 min-[400px]:flex-row min-[400px]:items-center sm:shrink-0">
+                                    <button type="button" onClick={handlePreviousStep} className="inline-flex items-center gap-2 min-h-[46px] self-start rounded-full border border-white/[0.09] bg-white/[0.02] px-4 text-xs font-semibold text-text-body hover:text-white hover:border-white/15 transition-colors">
                                       <ChevronLeft size={15} />
                                       <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
                                     </button>
