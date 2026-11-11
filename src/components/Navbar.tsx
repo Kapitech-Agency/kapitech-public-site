@@ -34,6 +34,7 @@ export const Navbar = () => {
   const [isIndustriesDropdownOpen, setIsIndustriesDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = useState(false);
+  const pinnedDropdown = useRef<'services' | 'industries' | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const location = useLocation();
@@ -80,7 +81,7 @@ export const Navbar = () => {
 
       if (focusable.length === 0) return;
 
-      const first = focusable[0];
+      const first = mobileMenuTriggerRef.current ?? focusable[0];
       const last = focusable[focusable.length - 1];
       const activeElement = document.activeElement;
 
@@ -126,9 +127,11 @@ export const Navbar = () => {
     setIsIndustriesDropdownOpen(false);
     setIsMobileServicesOpen(false);
     setIsMobileIndustriesOpen(false);
+    pinnedDropdown.current = null;
   }, [location.pathname]);
 
   const handleMouseEnterServices = () => {
+    if (pinnedDropdown.current && pinnedDropdown.current !== 'services') return;
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
     }
@@ -137,12 +140,14 @@ export const Navbar = () => {
   };
 
   const handleMouseLeaveServices = () => {
+    if (pinnedDropdown.current === 'services') return;
     dropdownTimeoutRef.current = setTimeout(() => {
       setIsServicesDropdownOpen(false);
     }, 150);
   };
 
   const handleMouseEnterIndustries = () => {
+    if (pinnedDropdown.current && pinnedDropdown.current !== 'industries') return;
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
     }
@@ -151,9 +156,27 @@ export const Navbar = () => {
   };
 
   const handleMouseLeaveIndustries = () => {
+    if (pinnedDropdown.current === 'industries') return;
     dropdownTimeoutRef.current = setTimeout(() => {
       setIsIndustriesDropdownOpen(false);
     }, 150);
+  };
+
+  const setDesktopDropdown = (dropdown: 'services' | 'industries' | null) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    pinnedDropdown.current = dropdown;
+    setIsServicesDropdownOpen(dropdown === 'services');
+    setIsIndustriesDropdownOpen(dropdown === 'industries');
+  };
+
+  const handleDesktopTriggerKey = (event: React.KeyboardEvent<HTMLButtonElement>, panel: HTMLDivElement | null) => {
+    if (event.key === 'Escape') setDesktopDropdown(null);
+    if (event.key !== 'Tab' || event.shiftKey) return;
+
+    const firstLink = panel?.querySelector<HTMLAnchorElement>('a[href]');
+    if (!firstLink) return;
+    event.preventDefault();
+    firstLink.focus();
   };
 
   // Organize services by categories
@@ -254,13 +277,9 @@ export const Navbar = () => {
               >
                 <button
                   type="button"
-                  onClick={() => setIsServicesDropdownOpen(prev => !prev)}
-                  onFocus={handleMouseEnterServices}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Escape') {
-                      setIsServicesDropdownOpen(false);
-                    }
-                  }}
+                  id="desktop-services-trigger"
+                  onClick={() => setDesktopDropdown(pinnedDropdown.current === 'services' ? null : 'services')}
+                  onKeyDown={(event) => handleDesktopTriggerKey(event, isServicesDropdownOpen ? servicesDropdownRef.current : null)}
                   className={cn(
                     desktopNavItemClass(isServicesActive || isServicesDropdownOpen),
                     "gap-1.5",
@@ -293,16 +312,9 @@ export const Navbar = () => {
               >
                 <button
                   type="button"
-                  onClick={() => {
-                    setIsIndustriesDropdownOpen((prev) => !prev);
-                    setIsServicesDropdownOpen(false);
-                  }}
-                  onFocus={handleMouseEnterIndustries}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Escape') {
-                      setIsIndustriesDropdownOpen(false);
-                    }
-                  }}
+                  id="desktop-industries-trigger"
+                  onClick={() => setDesktopDropdown(pinnedDropdown.current === 'industries' ? null : 'industries')}
+                  onKeyDown={(event) => handleDesktopTriggerKey(event, isIndustriesDropdownOpen ? industriesDropdownRef.current : null)}
                   className={cn(desktopNavItemClass(isIndustriesActive || isIndustriesDropdownOpen), "gap-1.5")}
                   aria-expanded={isIndustriesDropdownOpen}
                   aria-controls="desktop-industries-dropdown"
@@ -489,14 +501,16 @@ export const Navbar = () => {
               onMouseLeave={handleMouseLeaveServices}
               id="desktop-services-dropdown"
               ref={servicesDropdownRef}
+              onKeyDown={(event) => {
+                if (event.key !== 'Escape') return;
+                setDesktopDropdown(null);
+                document.getElementById('desktop-services-trigger')?.focus();
+              }}
               onBlur={(event) => {
-                const nextTarget = event.relatedTarget;
-                const trigger = event.currentTarget.parentElement?.querySelector<HTMLButtonElement>('button[aria-haspopup="true"]');
-                if (
-                  nextTarget instanceof Node &&
-                  (event.currentTarget.contains(nextTarget) || trigger?.contains(nextTarget))
-                ) return;
-                setIsServicesDropdownOpen(false);
+                const next = event.relatedTarget;
+                if (next instanceof Node && event.currentTarget.contains(next)) return;
+                if (next instanceof HTMLElement && next.id === 'desktop-services-trigger') return;
+                setDesktopDropdown(null);
               }}
               className={cn(
                 "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] py-8 px-6 lg:px-12",
@@ -639,6 +653,17 @@ export const Navbar = () => {
               onMouseLeave={handleMouseLeaveIndustries}
               id="desktop-industries-dropdown"
               ref={industriesDropdownRef}
+              onKeyDown={(event) => {
+                if (event.key !== 'Escape') return;
+                setDesktopDropdown(null);
+                document.getElementById('desktop-industries-trigger')?.focus();
+              }}
+              onBlur={(event) => {
+                const next = event.relatedTarget;
+                if (next instanceof Node && event.currentTarget.contains(next)) return;
+                if (next instanceof HTMLElement && next.id === 'desktop-industries-trigger') return;
+                setDesktopDropdown(null);
+              }}
               className={cn(
                 "hidden xl:block absolute top-full left-0 w-full border-b border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.38)] px-6 py-6 lg:px-12 lg:py-7",
                 dropdownGlassMaterial
@@ -992,7 +1017,7 @@ export const Navbar = () => {
                     </a>
                     <div className="flex items-center justify-between pt-1 text-xs text-text-body">
                       <a
-                        href="https://www.instagram.com/kapitechagency/"
+                        href="https://instagram.com/kapitech.agency"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Kapitech Agency on Instagram"
