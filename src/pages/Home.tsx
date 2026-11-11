@@ -253,7 +253,7 @@ export const Home = () => {
   return (
     <div className="kapi-page-bg min-h-screen text-white selection:bg-brand-red selection:text-white">
       {/* Hero Section */}
-      <section className="kapi-page-hero relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-24 sm:py-32 md:py-36 overflow-hidden">
+      <section className="kapi-page-hero relative sm:min-h-[90vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-24 pb-12 sm:py-32 md:py-36 overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-auto" aria-hidden="true">
           <PatternWaves
             preset="silk"

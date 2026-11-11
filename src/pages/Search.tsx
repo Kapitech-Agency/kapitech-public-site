@@ -277,7 +277,7 @@ export const Search = () => {
             </p>
           </div>
 
-          <div className="mt-7 flex gap-2 overflow-x-auto pb-2" role="group" aria-label={language === 'id' ? 'Filter tipe konten' : 'Filter by content type'}>
+          <div className="mt-7 flex flex-wrap gap-2 pb-2" role="group" aria-label={language === 'id' ? 'Filter tipe konten' : 'Filter by content type'}>
             {filterOptions.map((option) => {
               const selected = activeType === option.value;
               return (

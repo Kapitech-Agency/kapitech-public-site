@@ -1760,7 +1760,7 @@ html.kapi-custom-cursor-enabled select {
 
 
 /* Mobile interaction hardening: keep floating UI out of the open navigation layer. */
-body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
+body[data-kapi-mobile-menu-open="true"] :is(.kapi-floating-contact, .kapi-cookie-consent) {
   display: none;
 }
 
@@ -1779,7 +1779,23 @@ body[data-kapi-mobile-menu-open="true"] .kapi-floating-contact {
   }
 
   .kapi-public-navbar {
-    padding-top: env(safe-area-inset-top);
+    padding-top: calc(0.5rem + env(safe-area-inset-top));
+    padding-bottom: 0.5rem;
+  }
+
+  .kapi-public-navbar #mobile-navigation {
+    max-height: calc(100dvh - 65px - env(safe-area-inset-top));
+  }
+
+  /* Keep content in place while scrolling through narrow layouts. */
+  .kapi-public-shell main [data-kapi-motion-kind]:is(
+    [data-kapi-motion-state="hidden"],
+    [data-kapi-motion-state="entering"]
+  ):not([data-kapi-motion-kind="modal"]) {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
   }
 
   .kapi-public-shell :where(input, textarea, select) {

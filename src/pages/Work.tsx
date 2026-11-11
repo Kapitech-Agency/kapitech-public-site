@@ -948,12 +948,12 @@ export const Work = () => {
 
       {/* Filter & Search Bar Section */}
       <section
-        className="sticky top-20 md:top-[72px] z-30 px-4 sm:px-6 md:px-12 py-2 sm:py-2.5 bg-transparent"
+        className="relative z-30 px-4 sm:sticky sm:top-20 md:top-[72px] sm:px-6 md:px-12 py-2 sm:py-2.5 bg-transparent"
         aria-label={language === 'id' ? 'Filter dan pencarian studi kasus' : 'Case study filters and search'}
       >
         <div className="max-w-7xl mx-auto rounded-2xl border border-white/[0.085] bg-[#111318]/94 px-3 py-2.5 sm:px-3.5 sm:py-3 shadow-[0_18px_44px_-34px_rgba(0,0,0,0.92),inset_0_1px_0_rgba(255,255,255,0.035)] backdrop-blur-xl backdrop-saturate-110">
           <div className="flex flex-col gap-2.5 sm:gap-3">
-            <div className="flex items-center justify-between gap-3 px-0.5">
+            <div className="flex flex-col gap-2 px-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
               <div className="min-w-0">
                 <span className="kapi-section-label mb-0 shrink-0">
                   {language === 'id' ? 'Jelajahi Portofolio' : 'Browse the Work'}
@@ -967,7 +967,7 @@ export const Work = () => {
                   </span>
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span
                   className="text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/70"
                   aria-live="polite"
@@ -1004,11 +1004,11 @@ export const Work = () => {
                 ref={disciplineDrag.scrollRef}
                 onPointerDown={disciplineDrag.handlePointerDown}
                 onClickCapture={disciplineDrag.handleClickCapture}
-                className={`min-w-0 w-fit max-w-full flex-none overflow-x-auto rounded-full border border-white/[0.08] bg-[#17191F]/92 p-1 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${disciplineDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                className={`min-w-0 w-full max-w-full flex-none rounded-2xl sm:w-fit sm:overflow-x-auto sm:rounded-full border border-white/[0.08] bg-[#17191F]/92 p-1 select-none touch-pan-y [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${disciplineDrag.isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                 role="group"
                 aria-label={language === 'id' ? 'Filter bidang' : 'Discipline filters'}
               >
-                <div className="flex w-max items-center gap-1">
+                <div className="flex flex-wrap items-center gap-1 sm:w-max sm:flex-nowrap">
                   {[
                     { key: 'All', labelEn: 'All Disciplines', labelId: 'Semua Bidang' },
                     { key: 'Visual Experience', labelEn: 'Visual Experience', labelId: 'Visual Experience' },
