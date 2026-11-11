@@ -8,7 +8,6 @@ import { useLanguage } from '../lib/LanguageContext';
 export const FloatingContact = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isCookieVisible, setIsCookieVisible] = useState(false);
   const { language } = useLanguage();
   const contactTriggerRef = React.useRef<HTMLButtonElement>(null);
   const contactPanelRef = React.useRef<HTMLDivElement>(null);
@@ -16,18 +15,6 @@ export const FloatingContact = () => {
   const wasOpenRef = React.useRef(false);
 
   useEffect(() => {
-    try {
-      const consent = window.localStorage.getItem('kapitech_cookie_consent');
-      setIsCookieVisible(consent !== 'accepted' && consent !== 'necessary');
-    } catch {
-      setIsCookieVisible(true);
-    }
-
-    const handleCookieOpen = () => setIsCookieVisible(true);
-    const handleCookieChange = () => setIsCookieVisible(false);
-    window.addEventListener('kapitech_open_cookie_preferences', handleCookieOpen);
-    window.addEventListener('kapitech_consent_changed', handleCookieChange);
-
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
         setIsVisible(true);
@@ -40,8 +27,6 @@ export const FloatingContact = () => {
     window.addEventListener('scroll', toggleVisibility);
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
-      window.removeEventListener('kapitech_open_cookie_preferences', handleCookieOpen);
-      window.removeEventListener('kapitech_consent_changed', handleCookieChange);
     };
   }, []);
 
@@ -144,11 +129,6 @@ export const FloatingContact = () => {
 
       <div
         className="kapi-floating-contact fixed right-4 z-[95] flex flex-col items-end gap-3 sm:right-8 sm:bottom-8"
-        style={{
-          bottom: isCookieVisible
-            ? 'calc(6.5rem + env(safe-area-inset-bottom))'
-            : 'calc(1rem + env(safe-area-inset-bottom))'
-        }}
       >
         <AnimatePresence>
           {isOpen && (

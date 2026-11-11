@@ -324,7 +324,8 @@ export const Footer = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => window.dispatchEvent(new CustomEvent('kapitech_open_cookie_preferences'))}
+                  aria-haspopup="dialog"
+                  onClick={(event) => window.dispatchEvent(new CustomEvent('kapitech_open_cookie_preferences', { detail: event.currentTarget }))}
                   className="kapi-cookie-preferences-trigger"
                 >
                   {language === 'id' ? 'Kelola preferensi cookie' : 'Manage cookie preferences'}
@@ -369,15 +370,18 @@ export const Footer = () => {
                 </div>
               </a>
 
-              <a href="tel:+6287769957062" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+              <div className="flex min-h-[44px] items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red shrink-0">
                   <Phone size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.phone')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] block">+62 877-6995-7062</span>
+                  <div className="flex flex-wrap items-center gap-x-2 text-[11px] font-medium text-white">
+                    <a href="tel:+6287769957062" className="inline-flex min-h-6 items-center transition-colors hover:text-brand-red">+62 877-6995-7062</a>
+                    <a href="https://wa.me/6287769957062" className="inline-flex min-h-6 items-center text-text-body transition-colors hover:text-brand-red">WhatsApp</a>
+                  </div>
                 </div>
-              </a>
+              </div>
 
               <div className="flex items-start gap-2.5 pt-1">
                 <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red shrink-0 mt-0.5">
@@ -399,7 +403,7 @@ export const Footer = () => {
           <span className="text-center text-xs font-mono text-text-body uppercase tracking-widest md:text-left">
             {language === 'id' ? 'Kanal Resmi & Media Sosial' : 'Official Channels & Social Media'}
           </span>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          <div className="flex max-w-[16rem] flex-wrap items-center justify-center gap-2 sm:max-w-none sm:gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.name}

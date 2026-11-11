@@ -1545,6 +1545,10 @@ html.kapi-custom-cursor-enabled select {
   border-top-color: var(--kapi-v2-line);
 }
 
+.kapi-public-shell > [data-site-footer] > footer {
+  padding-bottom: calc(5rem + max(var(--kapi-cookie-banner-height, 0px), env(safe-area-inset-bottom)));
+}
+
 .kapi-public-shell > footer :where(input, textarea) {
   border-color: var(--kapi-v2-line);
   background: rgba(11,12,14,0.58);
@@ -1554,7 +1558,7 @@ html.kapi-custom-cursor-enabled select {
 
 /* Footer cookie preferences is a text action in the Policy & Legal list,
    not a generic filled/bordered button. Keep it visually aligned with links. */
-.kapi-public-shell > footer .kapi-cookie-preferences-trigger {
+.kapi-public-shell > [data-site-footer] > footer .kapi-cookie-preferences-trigger {
   display: block;
   width: 100%;
   min-height: 0 !important;
@@ -1576,19 +1580,19 @@ html.kapi-custom-cursor-enabled select {
   transition: color 180ms ease;
 }
 
-.kapi-public-shell > footer .kapi-cookie-preferences-trigger:hover {
+.kapi-public-shell > [data-site-footer] > footer .kapi-cookie-preferences-trigger:hover {
   background: transparent !important;
   border-color: transparent !important;
   color: var(--color-brand-red) !important;
   transform: none !important;
 }
 
-.kapi-public-shell > footer .kapi-cookie-preferences-trigger:active {
+.kapi-public-shell > [data-site-footer] > footer .kapi-cookie-preferences-trigger:active {
   background: transparent !important;
   transform: none !important;
 }
 
-.kapi-public-shell > footer .kapi-cookie-preferences-trigger:focus-visible {
+.kapi-public-shell > [data-site-footer] > footer .kapi-cookie-preferences-trigger:focus-visible {
   outline: 2px solid rgba(220, 20, 60, 0.7);
   outline-offset: 3px;
 }
@@ -1706,6 +1710,10 @@ html.kapi-custom-cursor-enabled select {
 /* ==========================================================================
    RESPONSIVE HARDENING - PUBLIC SITE ONLY
    ========================================================================== */
+.kapi-public-shell .kapi-floating-contact {
+  bottom: calc(1rem + max(var(--kapi-cookie-banner-height, 0px), env(safe-area-inset-bottom)));
+}
+
 .kapi-cookie-consent {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
