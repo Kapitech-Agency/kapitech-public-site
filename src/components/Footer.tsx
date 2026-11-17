@@ -189,7 +189,7 @@ export const Footer = () => {
                 alt="Kapitech Agency" 
                 className="h-6 sm:h-7 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
               />
-              <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-brand-red transition-colors">
+              <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-brand-red-text transition-colors">
                 Kapitech Agency
               </span>
             </Link>
@@ -226,7 +226,7 @@ export const Footer = () => {
                 </button>
               </form>
               {isSubscribed && (
-                <p className="text-[11px] text-brand-red font-mono mt-2 flex items-center gap-1.5" role="status" aria-live="polite">
+                <p className="text-[11px] text-brand-red-text font-mono mt-2 flex items-center gap-1.5" role="status" aria-live="polite">
                   <CheckCircle2 size={12} /> {language === 'id' ? 'Terima kasih telah berlangganan info Kapitech Agency.' : 'Thank you for subscribing to Kapitech Agency updates.'}
                 </p>
               )}
@@ -240,7 +240,7 @@ export const Footer = () => {
 
           {/* Col 2: Branding & Design (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mb-5 font-semibold">
               Branding & Design
             </h4>
             <ul className="space-y-2.5 text-xs">
@@ -250,7 +250,7 @@ export const Footer = () => {
                     to={srv.href} 
                     className="group block text-text-body hover:text-white transition-colors"
                   >
-                    <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
+                    <span className="font-medium group-hover:text-brand-red-text transition-colors">{srv.name}</span>
                   </Link>
                 </li>
               ))}
@@ -259,7 +259,7 @@ export const Footer = () => {
 
           {/* Col 3: Development & Solutions (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mb-5 font-semibold">
               Development & Solutions
             </h4>
             <ul className="space-y-2.5 text-xs">
@@ -269,7 +269,7 @@ export const Footer = () => {
                     to={srv.href} 
                     className="group block text-text-body hover:text-white transition-colors"
                   >
-                    <span className="font-medium group-hover:text-brand-red transition-colors">{srv.name}</span>
+                    <span className="font-medium group-hover:text-brand-red-text transition-colors">{srv.name}</span>
                   </Link>
                 </li>
               ))}
@@ -278,7 +278,7 @@ export const Footer = () => {
           
           {/* Col 4: Company & Case Studies (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mb-5 font-semibold">
               {language === 'id' ? 'Perusahaan & Karya' : 'Company & Work'}
             </h4>
             <ul className="space-y-2.5 text-xs">
@@ -294,7 +294,7 @@ export const Footer = () => {
                 <li key={item.name}>
                   <Link 
                     to={item.href} 
-                    className="text-text-body hover:text-brand-red transition-colors flex items-center gap-2"
+                    className="text-text-body hover:text-brand-red-text transition-colors flex items-center gap-2"
                   >
                     <span>{item.name}</span>
                   </Link>
@@ -302,7 +302,7 @@ export const Footer = () => {
               ))}
             </ul>
 
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mt-6 mb-3 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mt-6 mb-3 font-semibold">
               {language === 'id' ? 'Kebijakan & Legalitas' : 'Policy & Legal'}
             </h4>
             <ul className="space-y-2 text-xs">
@@ -316,7 +316,7 @@ export const Footer = () => {
                 <li key={policy.name}>
                   <Link
                     to={policy.href}
-                    className="text-text-body/80 hover:text-brand-red transition-colors block text-[11px]"
+                    className="text-text-body/80 hover:text-brand-red-text transition-colors block text-[11px]"
                   >
                     {policy.name}
                   </Link>
@@ -337,49 +337,49 @@ export const Footer = () => {
 
           {/* Col 5: Direct Office & Contacts (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-5 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mb-5 font-semibold">
               {t('footer.contactsTitle')}
             </h4>
             <div className="space-y-3.5 text-xs text-text-body">
-              <a href="mailto:hello@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+              <a href="mailto:hello@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red-text transition-colors group">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red-text group-hover:border-brand-red/40 shrink-0">
                   <Mail size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.clientInquiry')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">hello@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red-text text-[11px] wrap-anywhere block">hello@kapitech.id</span>
                 </div>
               </a>
 
-              <a href="mailto:business@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+              <a href="mailto:business@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red-text transition-colors group">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red-text group-hover:border-brand-red/40 shrink-0">
                   <Globe size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{language === 'id' ? 'Kerja Sama Bisnis' : 'Business Inquiry'}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">business@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red-text text-[11px] wrap-anywhere block">business@kapitech.id</span>
                 </div>
               </a>
 
-              <a href="mailto:recruitment@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red transition-colors group">
-                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red group-hover:border-brand-red/40 shrink-0">
+              <a href="mailto:recruitment@kapitech.id" className="flex min-h-[44px] items-center gap-2.5 hover:text-brand-red-text transition-colors group">
+                <div className="w-7 h-7 rounded-lg bg-dark-card border border-dark-subtle flex items-center justify-center text-brand-red-text group-hover:border-brand-red/40 shrink-0">
                   <Briefcase size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[10px] font-mono text-text-body/70 block leading-tight">{t('footer.recruitment')}</span>
-                  <span className="font-medium text-white group-hover:text-brand-red text-[11px] wrap-anywhere block">recruitment@kapitech.id</span>
+                  <span className="font-medium text-white group-hover:text-brand-red-text text-[11px] wrap-anywhere block">recruitment@kapitech.id</span>
                 </div>
               </a>
 
               <div className="flex min-h-[44px] items-start gap-2.5">
-                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red">
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red-text">
                   <Phone size={13} />
                 </div>
                 <div className="min-w-0">
                   <span className="block font-mono text-[10px] leading-tight text-text-body/70">{t('footer.phone')}</span>
                   <div className="mt-0.5 flex flex-col items-start text-[11px] font-medium">
-                    <a href="tel:+6287769957062" className="inline-flex min-h-6 items-center text-white transition-colors hover:text-brand-red">+62 877-6995-7062</a>
-                    <a href="https://wa.me/6287769957062" className="inline-flex min-h-6 items-center gap-1 text-text-body transition-colors hover:text-brand-red">
+                    <a href="tel:+6287769957062" className="inline-flex min-h-6 items-center text-white transition-colors hover:text-brand-red-text">+62 877-6995-7062</a>
+                    <a href="https://wa.me/6287769957062" className="inline-flex min-h-6 items-center gap-1 text-text-body transition-colors hover:text-brand-red-text">
                       WhatsApp <ArrowUpRight size={11} aria-hidden="true" />
                     </a>
                   </div>
@@ -392,12 +392,12 @@ export const Footer = () => {
                 rel="noopener noreferrer"
                 className="group flex min-h-[44px] items-start gap-2.5 pt-1"
               >
-                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red group-hover:border-brand-red/40">
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-dark-subtle bg-dark-card text-brand-red-text group-hover:border-brand-red/40">
                   <MapPin size={13} />
                 </div>
                 <div className="space-y-0.5">
                   <span className="block font-mono text-[10px] leading-tight text-text-body/70">{t('footer.addressTitle')}</span>
-                  <p className="text-[11px] font-light leading-tight text-white/90 transition-colors group-hover:text-brand-red group-focus-visible:text-brand-red">
+                  <p className="text-[11px] font-light leading-tight text-white/90 transition-colors group-hover:text-brand-red-text group-focus-visible:text-brand-red-text">
                     {t('footer.address')}{' '}
                     <ArrowUpRight size={11} aria-hidden="true" className="inline align-text-bottom" />
                   </p>

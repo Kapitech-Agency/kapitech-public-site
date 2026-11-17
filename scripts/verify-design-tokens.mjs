@@ -32,7 +32,7 @@ const tokens = await readFile(path.join(sourceRoot, 'index.css'), 'utf8');
 const requiredTokens = [
   '--kapi-color-accent: #DC143C;',
   '--kapi-color-accent-hover: #C40F34;',
-  '--kapi-color-accent-text: #E83252;',
+  '--kapi-color-accent-text: #F04E69;',
   '--color-brand-red: var(--kapi-color-accent);',
   '--color-brand-red-text: var(--kapi-color-accent-text);',
   '--color-dark-base: var(--kapi-color-canvas);',

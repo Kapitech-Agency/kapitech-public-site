@@ -21,7 +21,7 @@
   --kapi-color-text-soft: #C5CAD2;
   --kapi-color-accent: #DC143C;
   --kapi-color-accent-hover: #C40F34;
-  --kapi-color-accent-text: #E83252;
+  --kapi-color-accent-text: #F04E69;
   --kapi-color-accent-soft: rgba(220, 20, 60, 0.12);
   --kapi-color-accent-line: rgba(220, 20, 60, 0.42);
   --kapi-color-overlay: rgba(4, 5, 7, 0.88);
@@ -2010,12 +2010,12 @@ body[data-kapi-mobile-menu-open="true"] :is(.kapi-floating-contact, .kapi-cookie
 
 /* Navbar interaction consistency */
 .kapi-public-navbar :where(a, button):focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.18);
+  outline: 2px solid var(--kapi-color-accent-text);
+  outline-offset: 2px;
 }
 
 .kapi-public-navbar :where(a, button)[aria-current="page"] {
-  color: #C40F34;
+  color: var(--kapi-color-accent-text);
 }
 
 @media (max-width: 1279px) {

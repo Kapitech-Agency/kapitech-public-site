@@ -265,7 +265,7 @@ export const IndustryDetail = () => {
             [language === 'id' ? 'Solusi' : 'Solutions', String(solutionTypes.length)],
           ].map(([label, value]) => (
             <div key={label} className="kapi-surface min-w-0 px-4 py-3.5">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">{label}</span>
+              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-text-body">{label}</span>
               <span className="mt-1.5 block text-lg font-display font-semibold leading-none tracking-[-0.04em] text-white">{value}</span>
             </div>
           ))}

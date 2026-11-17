@@ -121,7 +121,7 @@ export const CookieConsent = () => {
                     setShowPreferences(true);
                   }} className="min-h-[42px] rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#C2C7D1] hover:bg-white/[0.06]">{language === 'id' ? 'Kelola preferensi' : 'Manage preferences'}</button>
                   <button type="button" onClick={() => saveConsent('necessary')} className="min-h-[42px] rounded-full border border-white/[0.09] bg-white/[0.025] px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#C2C7D1] hover:bg-white/[0.06]">{language === 'id' ? 'Hanya yang diperlukan' : 'Only necessary'}</button>
-                  <button type="button" onClick={() => saveConsent('accepted')} className="col-span-2 min-h-[42px] rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-white hover:bg-[#C40F34]">{language === 'id' ? 'Terima semua' : 'Accept all'}</button>
+                  <button type="button" onClick={() => saveConsent('accepted')} className="col-span-2 min-h-[42px] rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-white hover:bg-brand-red-hover">{language === 'id' ? 'Terima semua' : 'Accept all'}</button>
                 </div>
               </div>
             </div>

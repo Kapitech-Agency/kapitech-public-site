@@ -29,7 +29,7 @@ export const InsightContextualPromo: React.FC<{
   const target = resolvePromoUrl(block.ctaUrl);
 
   const actionClass =
-    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:w-auto';
+    'inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white transition-[background-color,border-color,box-shadow] duration-300 hover:bg-brand-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:w-auto';
 
   const action = target.internal ? (
     <Link to={target.href} className={actionClass}>

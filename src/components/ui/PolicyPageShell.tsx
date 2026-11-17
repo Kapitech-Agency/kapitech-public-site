@@ -78,7 +78,7 @@ export const PolicyPageShell = ({
                 {section.table && (
                   <div className="mt-6 max-w-full overflow-x-auto rounded-2xl border border-white/[0.08] bg-white/[0.018] overscroll-x-contain">
                     <table className="w-full min-w-[760px] border-collapse text-left text-xs sm:text-sm">
-                      {section.table.caption && <caption className="px-4 py-3 text-left text-[10px] font-mono uppercase tracking-[0.12em] text-[#6F757F]">{section.table.caption}</caption>}
+                      {section.table.caption && <caption className="px-4 py-3 text-left text-[10px] font-mono uppercase tracking-[0.12em] text-text-body">{section.table.caption}</caption>}
                       <thead><tr className="border-b border-white/[0.08]">{section.table.headers.map((header) => <th key={header} scope="col" className="px-4 py-3 font-semibold text-white">{header}</th>)}</tr></thead>
                       <tbody>{section.table.rows.map((row, rowIndex) => <tr key={rowIndex} className="border-b border-white/[0.06] last:border-b-0">{row.map((cell, cellIndex) => <td key={cellIndex} className="align-top px-4 py-3.5 leading-[1.7] text-[#8F96A2]">{cell}</td>)}</tr>)}</tbody>
                     </table>
@@ -112,7 +112,7 @@ export const PolicyPageShell = ({
             {relatedLinks.map((item) => (
               <Link key={item.href} to={item.href} className="group flex h-full min-w-0 flex-col rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-white/[0.14] hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50">
                 <span className="block text-sm font-semibold text-white transition-colors group-hover:text-brand-red">{item.label}</span>
-                <span className="mt-3 block text-xs leading-[1.75] text-[#929AA6]">{item.description}</span>
+                <span className="mt-3 block text-xs leading-[1.75] text-text-body">{item.description}</span>
               </Link>
             ))}
           </div>

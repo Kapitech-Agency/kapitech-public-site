@@ -82,7 +82,7 @@ export const InsightCard: React.FC<{
       </div>
 
       <div className={['flex flex-1 flex-col p-5 sm:p-6', featured ? 'lg:justify-center lg:p-8 xl:p-10' : ''].join(' ')}>
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[8px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[8px] font-mono uppercase tracking-[0.14em] text-text-body">
           {categoryName && <span className="text-brand-red">{categoryName}</span>}
           {insight.readingTime && <><span className="text-white/[0.18]">/</span><span className="inline-flex items-center gap-1.5"><Clock3 size={10} />{insight.readingTime} {language === 'id' ? 'menit baca' : 'min read'}</span></>}
           {insight.publishedAt && <><span className="text-white/[0.18]">/</span><span>{formatDate(insight.publishedAt, language)}</span></>}
@@ -104,7 +104,7 @@ export const InsightCard: React.FC<{
           <div className="min-w-0">
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-x-2.5 gap-y-1">
-                {tags.map(tag => <span key={tag.id || tag.slug} className="text-[8px] font-mono uppercase tracking-[0.11em] text-[#6F757F]">#{tag.name}</span>)}
+                {tags.map(tag => <span key={tag.id || tag.slug} className="text-[8px] font-mono uppercase tracking-[0.11em] text-text-body">#{tag.name}</span>)}
               </div>
             )}
             {insight.author?.name && (

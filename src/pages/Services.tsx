@@ -757,7 +757,7 @@ export const Services = () => {
           <span className="rounded-full border border-white/[0.08] bg-white/[0.018] px-3 py-1.5 text-white backdrop-blur-xl">
             {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
           </span>
-          <span className="rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-1.5 font-semibold text-brand-red">
+          <span className="rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-1.5 font-semibold text-brand-red-text">
             {language === 'id' ? 'Identitas Brand • Desain • Pengembangan' : 'Branding • Design • Development'}
           </span>
         </div>
@@ -798,7 +798,7 @@ export const Services = () => {
               >
                 <div>
                   <div className="flex items-start justify-between gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red-text group-hover:scale-110 transition-transform">
                       {sol.icon}
                     </div>
                     <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-text-body font-semibold">
@@ -806,7 +806,7 @@ export const Services = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-1.5">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-brand-red-text transition-colors mb-1.5">
                     {sol.title}
                   </h3>
 
@@ -823,7 +823,7 @@ export const Services = () => {
                   <span className="text-xs font-mono text-text-body/70">
                     {language === 'id' ? sol.timelineId : sol.timeline}
                   </span>
-                  <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red font-semibold group-hover:translate-x-1 transition-transform">
+                  <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red-text font-semibold group-hover:translate-x-1 transition-transform">
                     <span>{language === 'id' ? 'Detail Solusi' : 'Explore Solution'}</span>
                     <ArrowUpRight size={14} />
                   </div>
@@ -842,7 +842,7 @@ export const Services = () => {
         <div className="relative z-10 pointer-events-auto w-full max-w-3xl mx-auto rounded-2xl border border-white/[0.09] bg-[#111216] px-3 py-3 shadow-[0_18px_50px_-34px_rgba(220, 20, 60,0.20),inset_0_1px_0_rgba(255,255,255,0.025)] sm:px-4 sm:py-4">
           <div className="flex flex-col gap-2.5 sm:gap-3">
             <div className="flex items-center justify-between gap-3 px-0.5">
-              <span className="mb-0 shrink-0 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+              <span className="mb-0 shrink-0 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red-text">
                 {language === 'id' ? 'Jelajahi Layanan' : 'Browse Services'}
               </span>
               <span className="shrink-0 text-[10px] font-mono uppercase tracking-[0.12em] text-text-body/70" aria-live="polite">
@@ -897,7 +897,7 @@ export const Services = () => {
                 {/* Category Pillar Header */}
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/[0.07]">
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono tracking-widest text-brand-red font-semibold uppercase">
+                    <span className="text-xs font-mono tracking-widest text-brand-red-text font-semibold uppercase">
                       {cat === 'Branding' ? '01. ' : cat === 'Design' ? '02. ' : '03. '}
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tight text-white">
@@ -925,7 +925,7 @@ export const Services = () => {
                     >
                       <div>
                         <div className="flex items-start justify-between gap-4 mb-5">
-                          <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform">
+                          <div className="w-11 h-11 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red-text group-hover:scale-110 transition-transform">
                             {srv.icon}
                           </div>
                           <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-text-body backdrop-blur-md">
@@ -933,7 +933,7 @@ export const Services = () => {
                           </span>
                         </div>
 
-                        <h3 className="text-lg sm:text-xl font-display font-bold text-white group-hover:text-brand-red transition-colors mb-1">
+                        <h3 className="text-lg sm:text-xl font-display font-bold text-white group-hover:text-brand-red-text transition-colors mb-1">
                           {srv.title}
                         </h3>
 
@@ -948,7 +948,7 @@ export const Services = () => {
                         <div className="pt-3.5 border-t border-white/[0.07] space-y-1.5 mb-5">
                           {(language === 'id' ? srv.deliverablesId : srv.deliverables).slice(0, 2).map((item, idx) => (
                             <div key={idx} className="flex items-center gap-2 text-xs text-text-body font-light truncate">
-                              <CheckCircle2 size={13} className="text-brand-red shrink-0" />
+                              <CheckCircle2 size={13} className="text-brand-red-text shrink-0" />
                               <span className="truncate">{item}</span>
                             </div>
                           ))}
@@ -959,7 +959,7 @@ export const Services = () => {
                         <span className="text-xs font-mono text-text-body/70">
                           {language === 'id' ? srv.timelineId : srv.timeline}
                         </span>
-                        <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red font-semibold group-hover:translate-x-1 transition-transform">
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-brand-red-text font-semibold group-hover:translate-x-1 transition-transform">
                           <span>{language === 'id' ? 'Detail' : 'Explore'}</span>
                           <ArrowUpRight size={14} />
                         </div>
@@ -997,11 +997,11 @@ export const Services = () => {
               {/* Modal Header */}
               <div className="sticky top-0 z-20 flex shrink-0 items-center justify-between gap-4 border-b border-white/[0.07] bg-[#111216] px-5 py-4 sm:px-7 sm:py-5">
                 <div className="flex min-w-0 items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-brand-red/[0.07] border border-brand-red/25 flex items-center justify-center text-brand-red">
+                  <div className="w-10 h-10 rounded-2xl bg-brand-red/[0.07] border border-brand-red/25 flex items-center justify-center text-brand-red-text">
                     {selectedService.icon}
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[11px] font-mono text-brand-red block">
+                    <span className="text-[11px] font-mono text-brand-red-text block">
                       {'category' in selectedService ? selectedService.category : 'Strategic Solution'}
                     </span>
                     <h3 id="service-preview-title" className="text-base sm:text-xl font-display font-bold text-white">
@@ -1058,13 +1058,13 @@ export const Services = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red mb-3 font-semibold">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-brand-red-text mb-3 font-semibold">
                     {language === 'id' ? 'Deliverable & Serah Terima' : 'Key Deliverables'}
                   </h4>
                   <ul className="space-y-2">
                     {(language === 'id' ? selectedService.deliverablesId : selectedService.deliverables).map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-text-body font-light">
-                        <CheckCircle2 size={15} className="text-brand-red shrink-0 mt-0.5" />
+                        <CheckCircle2 size={15} className="text-brand-red-text shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}

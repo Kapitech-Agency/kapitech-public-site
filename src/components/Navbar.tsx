@@ -204,7 +204,7 @@ export const Navbar = () => {
     cn(
       "group relative inline-flex items-center h-9 px-2.5 rounded-full text-[9.5px] font-semibold uppercase tracking-[0.14em] leading-none border transition-[background-color,border-color,color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C0E]",
       active
-        ? "text-brand-red border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(220, 20, 60,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
+        ? "text-brand-red-text border-white/[0.08] bg-brand-red/[0.08] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(220, 20, 60,0.08),0_6px_18px_rgba(0,0,0,0.08)]"
         : "text-text-body border-transparent bg-transparent hover:text-white hover:border-white/[0.08] hover:bg-white/[0.035] hover:backdrop-blur-xl hover:backdrop-saturate-150"
     );
 
@@ -252,7 +252,7 @@ export const Navbar = () => {
               className="h-6 sm:h-[22px] md:h-6 w-auto max-h-7 object-contain transition-opacity duration-300 group-hover:opacity-90 shrink-0 select-none"
             />
             {/* Hidden strictly on mobile view to maximize space and preserve top-tier minimal aesthetics */}
-            <span className="hidden xl:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red transition-colors whitespace-nowrap">
+            <span className="hidden xl:inline font-display font-bold text-[15px] sm:text-base md:text-[17px] tracking-[-0.02em] text-white group-hover:text-brand-red-text transition-colors whitespace-nowrap">
               Kapitech Agency
             </span>
           </Link>
@@ -391,7 +391,7 @@ export const Navbar = () => {
                   "inline-flex h-8 min-w-[40px] items-center justify-center gap-1.5 rounded-full px-2 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
-                    : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
+                    : "text-text-body hover:text-white hover:bg-white/[0.035]"
                 )}
               >
                 <span className={cn(
@@ -412,7 +412,7 @@ export const Navbar = () => {
                   "inline-flex h-8 min-w-[42px] items-center justify-center gap-1.5 rounded-full px-2.5 text-[9px] font-mono font-bold tracking-[0.12em] transition-[background-color,color,box-shadow] duration-200 cursor-pointer",
                   language === 'id'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px 0_rgba(255,255,255,0.07)]"
-                    : "text-[#6F757F] hover:text-white hover:bg-white/[0.035]"
+                    : "text-text-body hover:text-white hover:bg-white/[0.035]"
                 )}
               >
                 <span className={cn(
@@ -442,7 +442,7 @@ export const Navbar = () => {
                   "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-200 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'en'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
-                    : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
+                    : "text-text-body hover:bg-white/[0.035] hover:text-white"
                 )}
               >
                 <span className={cn(
@@ -462,7 +462,7 @@ export const Navbar = () => {
                   "min-w-[42px] min-h-[38px] rounded-full px-3 text-[10px] font-mono font-bold tracking-[0.1em] transition-[background-color,color,box-shadow] duration-200 flex items-center justify-center gap-1.5 cursor-pointer",
                   language === 'id'
                     ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]"
-                    : "text-[#6F757F] hover:bg-white/[0.035] hover:text-white"
+                    : "text-text-body hover:bg-white/[0.035] hover:text-white"
                 )}
               >
                 <span className={cn(
@@ -523,8 +523,8 @@ export const Navbar = () => {
                 
                 {/* COLUMN 1: SOLUTIONS */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Sparkles className="w-3.5 h-3.5 text-brand-red" />
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red-text uppercase font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-brand-red-text" />
                     <span>SOLUTIONS</span>
                   </div>
                   <div className="space-y-3">
@@ -535,9 +535,9 @@ export const Navbar = () => {
                         onClick={() => setIsServicesDropdownOpen(false)}
                         className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.06] hover:bg-transparent transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red-text transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red-text" />
                         </div>
                         <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -549,8 +549,8 @@ export const Navbar = () => {
 
                 {/* COLUMN 2: BRANDING */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Palette className="w-3.5 h-3.5 text-brand-red" />
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red-text uppercase font-semibold">
+                    <Palette className="w-3.5 h-3.5 text-brand-red-text" />
                     <span>BRANDING</span>
                   </div>
                   <div className="space-y-3">
@@ -561,9 +561,9 @@ export const Navbar = () => {
                         onClick={() => setIsServicesDropdownOpen(false)}
                         className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red-text transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red-text" />
                         </div>
                         <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -575,8 +575,8 @@ export const Navbar = () => {
 
                 {/* COLUMN 3: DESIGN */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Layers className="w-3.5 h-3.5 text-brand-red" />
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red-text uppercase font-semibold">
+                    <Layers className="w-3.5 h-3.5 text-brand-red-text" />
                     <span>DESIGN</span>
                   </div>
                   <div className="space-y-3">
@@ -587,9 +587,9 @@ export const Navbar = () => {
                         onClick={() => setIsServicesDropdownOpen(false)}
                         className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red-text transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red-text" />
                         </div>
                         <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -601,8 +601,8 @@ export const Navbar = () => {
 
                 {/* COLUMN 4: DEVELOPMENT */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red uppercase font-semibold">
-                    <Code2 className="w-3.5 h-3.5 text-brand-red" />
+                  <div className="flex items-center gap-2 pb-3 border-b border-dark-subtle text-xs font-mono tracking-widest text-brand-red-text uppercase font-semibold">
+                    <Code2 className="w-3.5 h-3.5 text-brand-red-text" />
                     <span>DEVELOPMENT</span>
                   </div>
                   <div className="space-y-3">
@@ -613,9 +613,9 @@ export const Navbar = () => {
                         onClick={() => setIsServicesDropdownOpen(false)}
                         className="group block p-2.5 rounded-xl border border-transparent hover:border-white/[0.07] hover:bg-white/[0.02] transition-all duration-200"
                       >
-                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red transition-colors">
+                        <div className="flex items-center justify-between text-sm font-semibold text-[#E9EAF0] group-hover:text-brand-red-text transition-colors">
                           <span>{item.title}</span>
-                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red" />
+                          <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-red-text" />
                         </div>
                         <div className="text-xs text-[#737985] group-hover:text-[#A4A8B2] transition-colors mt-0.5 font-light">
                           {language === 'id' ? item.navSubtitleId : item.navSubtitle}
@@ -635,7 +635,7 @@ export const Navbar = () => {
                   className="hover:text-white inline-flex items-center gap-1.5 transition-colors font-medium"
                 >
                   <span>{language === 'id' ? 'Lihat Semua Gambaran Layanan' : 'Browse All Services Overview'}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red-text" />
                 </Link>
                 <div className="font-mono text-[11px] text-text-body">
                   {solutions.length} Strategic Solutions &bull; {dedicatedServiceCount} Dedicated Services
@@ -673,7 +673,7 @@ export const Navbar = () => {
               <div className="mx-auto max-w-7xl">
                 <div className="flex items-end justify-between gap-6 border-b border-white/[0.07] pb-5">
                   <div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red-text">
                       {language === 'id' ? 'Pilih industri' : 'Choose an industry'}
                     </span>
                     <h2 className="mt-2 max-w-3xl text-xl font-display font-semibold leading-tight tracking-[-0.035em] text-white lg:text-2xl">
@@ -702,9 +702,9 @@ export const Navbar = () => {
                       >
                         <div className="flex items-center justify-between gap-3">
                           <span className="font-mono text-[9px] tabular-nums tracking-[0.14em] text-[#505965]">{String(index + 1).padStart(2, '0')}</span>
-                          <ArrowUpRight size={13} className={active ? "text-brand-red" : "text-[#5E6672] group-hover:text-brand-red"} />
+                          <ArrowUpRight size={13} className={active ? "text-brand-red-text" : "text-[#5E6672] group-hover:text-brand-red-text"} />
                         </div>
-                        <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.12em] text-[#929AA6]">{item.eyebrow}</p>
+                        <p className="mt-5 text-[9px] font-mono uppercase tracking-[0.12em] text-text-body">{item.eyebrow}</p>
                         <p className="mt-1.5 text-base font-display font-semibold leading-snug tracking-[-0.025em] text-white">{item.shortLabel}</p>
                         <p className="mt-2 line-clamp-2 text-xs leading-[1.65] text-[#A1A8B4]">{item.description}</p>
                       </Link>
@@ -742,15 +742,15 @@ export const Navbar = () => {
                       className={cn(
                         "flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isWorkActive
-                          ? "bg-brand-red/[0.08] text-brand-red"
+                          ? "bg-brand-red/[0.08] text-brand-red-text"
                           : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">01</span>
+                        <span className="w-6 text-xs font-mono text-brand-red-text">01</span>
                         <span className="text-xl font-display">{t('nav.work')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isWorkActive ? "text-brand-red" : "text-text-body/50")} />
+                      <ChevronRight size={18} className={cn(isWorkActive ? "text-brand-red-text" : "text-text-body/50")} />
                     </Link>
 
                     <div className="mt-1 rounded-xl">
@@ -763,18 +763,18 @@ export const Navbar = () => {
                         className={cn(
                           "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
                           isServicesActive || isMobileServicesOpen
-                            ? "bg-brand-red/[0.08] text-brand-red"
+                            ? "bg-brand-red/[0.08] text-brand-red-text"
                             : "text-text-body hover:bg-white/[0.035] hover:text-white"
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 text-xs font-mono text-brand-red">02</span>
+                          <span className="w-6 text-xs font-mono text-brand-red-text">02</span>
                           <span>{t('nav.services')}</span>
                         </div>
                         <ChevronDown
                           className={cn(
                             "w-5 h-5 transition-transform duration-200",
-                            isMobileServicesOpen ? "rotate-180 text-brand-red" : "text-text-body/60"
+                            isMobileServicesOpen ? "rotate-180 text-brand-red-text" : "text-text-body/60"
                           )}
                         />
                       </button>
@@ -797,7 +797,7 @@ export const Navbar = () => {
                                 { label: 'DEVELOPMENT', items: development, base: '/services/' }
                               ].map((group) => (
                                 <div key={group.label}>
-                                  <div className="mb-2 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red">
+                                  <div className="mb-2 text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-brand-red-text">
                                     {group.label}
                                   </div>
                                   <div className="space-y-1">
@@ -829,7 +829,7 @@ export const Navbar = () => {
                                 to="/services"
                                 onClick={() => setIsMenuOpen(false)}
                                 aria-current={location.pathname === '/services' ? 'page' : undefined}
-                                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-3 text-xs font-mono uppercase tracking-[0.12em] text-brand-red transition-colors hover:bg-brand-red/[0.08]"
+                                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-3 text-xs font-mono uppercase tracking-[0.12em] text-brand-red-text transition-colors hover:bg-brand-red/[0.08]"
                               >
                                 <span>{language === 'id' ? 'Lihat Semua Layanan' : 'View All Services'}</span>
                                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -847,15 +847,15 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isInsightsActive
-                          ? "bg-brand-red/[0.08] text-brand-red"
+                          ? "bg-brand-red/[0.08] text-brand-red-text"
                           : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">03</span>
+                        <span className="w-6 text-xs font-mono text-brand-red-text">03</span>
                         <span className="text-xl font-display">{t('nav.insights')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red" : "text-text-body/50")} />
+                      <ChevronRight size={18} className={cn(isInsightsActive ? "text-brand-red-text" : "text-text-body/50")} />
                     </Link>
 
                     <div className="mt-1 rounded-xl">
@@ -868,18 +868,18 @@ export const Navbar = () => {
                         className={cn(
                           "w-full flex items-center justify-between rounded-xl px-3 py-3.5 text-left font-display text-xl min-h-[52px] cursor-pointer transition-colors",
                           isIndustriesActive || isMobileIndustriesOpen
-                            ? "bg-brand-red/[0.08] text-brand-red"
+                            ? "bg-brand-red/[0.08] text-brand-red-text"
                             : "text-text-body hover:bg-white/[0.035] hover:text-white"
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 text-xs font-mono text-brand-red">04</span>
+                          <span className="w-6 text-xs font-mono text-brand-red-text">04</span>
                           <span>{language === 'id' ? 'Industri' : 'Industries'}</span>
                         </div>
                         <ChevronDown
                           className={cn(
                             "w-5 h-5 transition-transform duration-200",
-                            isMobileIndustriesOpen ? "rotate-180 text-brand-red" : "text-text-body/60"
+                            isMobileIndustriesOpen ? "rotate-180 text-brand-red-text" : "text-text-body/60"
                           )}
                         />
                       </button>
@@ -912,9 +912,9 @@ export const Navbar = () => {
                                   >
                                     <span className="min-w-0">
                                       <span className="block text-sm font-semibold leading-snug">{item.shortLabel}</span>
-                                      <span className="mt-1 block truncate text-[11px] leading-relaxed text-[#929AA6]">{item.label}</span>
+                                      <span className="mt-1 block truncate text-[11px] leading-relaxed text-text-body">{item.label}</span>
                                     </span>
-                                    <ChevronRight size={16} className="shrink-0 text-[#59616D] group-hover:text-brand-red" />
+                                    <ChevronRight size={16} className="shrink-0 text-[#59616D] group-hover:text-brand-red-text" />
                                   </Link>
                                 );
                               })}
@@ -932,15 +932,15 @@ export const Navbar = () => {
                         className={cn(
                           "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                           location.pathname === '/faq'
-                            ? "bg-brand-red/[0.08] text-brand-red"
+                            ? "bg-brand-red/[0.08] text-brand-red-text"
                             : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 text-xs font-mono text-brand-red">05</span>
+                          <span className="w-6 text-xs font-mono text-brand-red-text">05</span>
                           <span>FAQ</span>
                         </div>
-                        <ChevronRight size={18} className={location.pathname === '/faq' ? "text-brand-red" : "text-text-body/50"} />
+                        <ChevronRight size={18} className={location.pathname === '/faq' ? "text-brand-red-text" : "text-text-body/50"} />
                       </Link>
                       <Link
                         to="/search"
@@ -949,15 +949,15 @@ export const Navbar = () => {
                         className={cn(
                           "flex min-h-[52px] items-center justify-between rounded-xl px-3 py-3 text-xl font-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70 focus-visible:ring-inset",
                           location.pathname === '/search'
-                            ? "bg-brand-red/[0.08] text-brand-red"
+                            ? "bg-brand-red/[0.08] text-brand-red-text"
                             : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 text-xs font-mono text-brand-red">06</span>
+                          <span className="w-6 text-xs font-mono text-brand-red-text">06</span>
                           <span>{language === 'id' ? 'Cari' : 'Search'}</span>
                         </div>
-                        <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red" : "text-text-body/50"} />
+                        <SearchIcon size={15} className={location.pathname === '/search' ? "text-brand-red-text" : "text-text-body/50"} />
                       </Link>
                     </div>
 
@@ -968,15 +968,15 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isAboutActive
-                          ? "bg-brand-red/[0.08] text-brand-red"
+                          ? "bg-brand-red/[0.08] text-brand-red-text"
                           : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">07</span>
+                        <span className="w-6 text-xs font-mono text-brand-red-text">07</span>
                         <span className="text-xl font-display">{t('nav.about')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red" : "text-text-body/50")} />
+                      <ChevronRight size={18} className={cn(isAboutActive ? "text-brand-red-text" : "text-text-body/50")} />
                     </Link>
 
                     <Link
@@ -986,15 +986,15 @@ export const Navbar = () => {
                       className={cn(
                         "mt-1 flex items-center justify-between rounded-xl px-3 py-3.5 min-h-[52px] transition-colors",
                         isCareersActive
-                          ? "bg-brand-red/[0.08] text-brand-red"
+                          ? "bg-brand-red/[0.08] text-brand-red-text"
                           : "text-text-body hover:bg-white/[0.035] hover:text-white active:bg-white/[0.05]"
                       )}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 text-xs font-mono text-brand-red">08</span>
+                        <span className="w-6 text-xs font-mono text-brand-red-text">08</span>
                         <span className="text-xl font-display">{t('nav.careers')}</span>
                       </div>
-                      <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red" : "text-text-body/50")} />
+                      <ChevronRight size={18} className={cn(isCareersActive ? "text-brand-red-text" : "text-text-body/50")} />
                     </Link>
                   </div>
 
@@ -1006,14 +1006,14 @@ export const Navbar = () => {
                       rel="noopener noreferrer"
                       className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 text-sm text-white transition-colors hover:bg-white/[0.045] active:bg-white/[0.06]"
                     >
-                      <Phone size={15} className="text-brand-red shrink-0" />
+                      <Phone size={15} className="text-brand-red-text shrink-0" />
                       <span className="truncate">+62 877-6995-7062 (WhatsApp)</span>
                     </a>
                     <a
                       href="mailto:hello@kapitech.id"
                       className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 text-sm text-white transition-colors hover:bg-white/[0.045] active:bg-white/[0.06]"
                     >
-                      <Mail size={15} className="text-brand-red shrink-0" />
+                      <Mail size={15} className="text-brand-red-text shrink-0" />
                       <span className="truncate">hello@kapitech.id</span>
                     </a>
                     <div className="flex items-center justify-between pt-1 text-xs text-text-body">

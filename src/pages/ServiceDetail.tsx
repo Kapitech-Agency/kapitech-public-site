@@ -199,7 +199,7 @@ export const ServiceDetail = () => {
             { label: language === 'id' ? 'Tahap awal' : 'Starting point', value: language === 'id' ? service.processStages?.[0]?.stageNameId || 'Discovery' : service.processStages?.[0]?.stageName || 'Discovery' }
           ].map((item) => (
             <div key={item.label} className="kapi-surface min-w-0 px-4 py-3.5">
-              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-[#6F757F]">{item.label}</span>
+              <span className="block text-[9px] font-mono uppercase tracking-[0.15em] text-text-body">{item.label}</span>
               <span className="mt-1.5 block text-xs font-medium leading-[1.55] text-white">{item.value}</span>
             </div>
           ))}
@@ -666,7 +666,7 @@ export const ServiceDetail = () => {
                   </p>
                   <Link
                     to={`/contact?service=${encodeURIComponent(service.title)}#project-inquiry-form`}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-[#C40F34] hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-brand-red-hover hover:text-white transition-[background-color,color,box-shadow] duration-300 shadow-[0_0_20px_rgba(255,26,26,0.3)]"
                   >
                     <span>{language === 'id' ? 'Mulai Proyek Sekarang' : 'Start a Project Now'}</span>
                     <ArrowUpRight className="w-4 h-4" />
@@ -824,7 +824,7 @@ export const ServiceDetail = () => {
                         </p>
                       </div>
 
-                      <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1.5 text-[9px] font-mono tabular-nums uppercase tracking-[0.12em] text-[#6F757F]">
+                      <span className="shrink-0 rounded-full border border-white/[0.07] bg-white/[0.018] px-2.5 py-1.5 text-[9px] font-mono tabular-nums uppercase tracking-[0.12em] text-text-body">
                         {String(items.length).padStart(2, '0')} {language === 'id' ? 'Layanan' : 'Services'}
                       </span>
                     </div>
@@ -871,7 +871,7 @@ export const ServiceDetail = () => {
                             </div>
                             <div className={cn(
                               'mt-1 text-[10px] leading-[1.5] transition-colors duration-300',
-                              isCurrent ? 'text-[#AEB4BF]' : 'text-[#6F757F] group-hover:text-text-body'
+                              isCurrent ? 'text-[#AEB4BF]' : 'text-text-body group-hover:text-text-body'
                             )}>
                               {language === 'id' ? item.navSubtitleId : item.navSubtitle}
                             </div>
@@ -882,7 +882,7 @@ export const ServiceDetail = () => {
                               'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-[border-color,background-color,color,transform] duration-300',
                               isCurrent
                                 ? 'border-brand-red/35 bg-brand-red/[0.14] text-white'
-                                : 'border-white/[0.07] bg-white/[0.012] text-[#6F757F] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-white/[0.14] group-hover:text-white'
+                                : 'border-white/[0.07] bg-white/[0.012] text-text-body group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-white/[0.14] group-hover:text-white'
                             )}
                             aria-hidden="true"
                           >

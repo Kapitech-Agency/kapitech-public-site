@@ -634,7 +634,7 @@ export const InsightTableOfContents: React.FC<{
               </div>
 
               <div className="flex shrink-0 items-center gap-2">
-                <span className="rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
+                <span className="rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-text-body">
                   {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
                 </span>
                 <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-[#707884] transition-transform duration-200 group-open:rotate-90" aria-hidden="true">
@@ -667,7 +667,7 @@ export const InsightTableOfContents: React.FC<{
               </p>
             </div>
 
-            <span className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-[#929AA6]">
+            <span className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.035] px-2.5 py-1 font-mono text-[9px] font-semibold tabular-nums text-text-body">
               {String(currentIndex + 1).padStart(2, '0')} / {String(sectionItems.length).padStart(2, '0')}
             </span>
           </div>

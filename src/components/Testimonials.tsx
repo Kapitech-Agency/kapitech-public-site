@@ -98,7 +98,7 @@ export const Testimonials = () => {
             </p>
             <Link
               to="/contact#project-inquiry-form"
-              className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
+              className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/70"
             >
               <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
               <ArrowUpRight size={14} aria-hidden="true" />
@@ -265,7 +265,7 @@ export const Testimonials = () => {
                         >
                           {item.author}
                         </span>
-                        <span className="mt-1 block break-words text-[10px] font-mono uppercase leading-[1.5] tracking-[0.08em] text-[#929AA6]">
+                        <span className="mt-1 block break-words text-[10px] font-mono uppercase leading-[1.5] tracking-[0.08em] text-text-body">
                           {item.role} · {item.company}
                         </span>
                       </div>

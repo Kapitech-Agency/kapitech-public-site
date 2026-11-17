@@ -452,12 +452,12 @@ export const About = () => {
             </div>
 
             <div className="hidden lg:flex lg:flex-col lg:items-end lg:gap-3">
-              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#6F757F]">
+              <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-text-body">
                 {language === 'id' ? 'Tim inti' : 'Core team'}
               </span>
               <div className="flex items-center gap-3">
                 <span className="text-3xl font-display font-semibold tracking-[-0.05em] text-white">{String(team.length).padStart(2, '0')}</span>
-                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                   {language === 'id' ? 'Peran kepemimpinan' : 'Leadership roles'}
                 </span>
               </div>
@@ -501,7 +501,7 @@ export const About = () => {
                         {language === 'id' ? 'Kepemimpinan Eksekutif' : 'Executive Leadership'}
                       </span>
                       <span className="h-px w-6 bg-white/[0.12]" aria-hidden="true" />
-                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                         {String(1).padStart(2, '0')} / {String(team.length).padStart(2, '0')}
                       </span>
                     </div>
@@ -520,7 +520,7 @@ export const About = () => {
                   <div className="mt-10 border-t border-white/[0.07] pt-6">
                     <div className="grid gap-6 sm:grid-cols-2">
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                           {language === 'id' ? 'Fokus kepemimpinan' : 'Leadership focus'}
                         </span>
                         <p className="mt-2 text-sm font-medium leading-relaxed text-white">
@@ -528,7 +528,7 @@ export const About = () => {
                         </p>
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-text-body">
                           {language === 'id' ? 'Cara memimpin' : 'Leadership approach'}
                         </span>
                         <p className="mt-2 text-sm font-medium leading-relaxed text-white">
@@ -588,7 +588,7 @@ export const About = () => {
                       {member.role}
                     </p>
                     <div className="mt-4 border-t border-white/[0.07] pt-4">
-                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-[#6F757F]">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-text-body">
                         {language === 'id' ? 'Fokus' : 'Focus'}
                       </span>
                       <p className="mt-1.5 text-xs font-medium leading-relaxed text-white/90">
@@ -650,7 +650,7 @@ export const About = () => {
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand-red/20 bg-brand-red/10 text-brand-red transition-none sm:h-12 sm:w-12">
                     {v.icon}
                   </div>
-                  <span className="pt-1 text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#6F757F]">
+                  <span className="pt-1 text-[10px] font-mono tabular-nums tracking-[0.14em] text-text-body">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -704,7 +704,7 @@ export const About = () => {
                     <span className="text-2xl font-display font-semibold tracking-[-0.05em] text-brand-red font-mono sm:text-[1.7rem]">
                       {item.year}
                     </span>
-                    <span className="text-[10px] font-mono tabular-nums tracking-[0.14em] text-[#6F757F]">
+                    <span className="text-[10px] font-mono tabular-nums tracking-[0.14em] text-text-body">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>

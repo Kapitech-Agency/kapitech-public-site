@@ -309,7 +309,7 @@ export const Home = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               <Link 
                 to="/contact#project-inquiry-form" 
-                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-[#C40F34] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
+                className="h-12 sm:h-13 px-7 sm:px-8 bg-brand-red hover:bg-brand-red-hover text-white rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-red/20 active:scale-95"
               >
                 <span>{language === 'id' ? 'Mulai Proyek' : 'Start a Project'}</span>
                 <ArrowUpRight size={16} />
@@ -803,7 +803,7 @@ export const Home = () => {
             </div>
             <Link
               to="/contact#project-inquiry-form"
-              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#C40F34]"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-brand-red-hover"
             >
               <span>{language === 'id' ? 'Diskusikan proyek' : 'Discuss your project'}</span>
               <ArrowUpRight size={14} aria-hidden="true" />
@@ -954,7 +954,7 @@ export const Home = () => {
                   <span>{language === 'id' ? 'Lihat Layanan' : 'Explore Services'}</span>
                   <ArrowUpRight size={13} aria-hidden="true" />
                 </Link>
-                <Link to="/contact#project-inquiry-form" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#C40F34]">
+                <Link to="/contact#project-inquiry-form" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-brand-red px-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-brand-red-hover">
                   <span>{language === 'id' ? 'Diskusikan Proyek' : 'Discuss Your Project'}</span>
                   <ArrowUpRight size={13} aria-hidden="true" />
                 </Link>
@@ -1320,7 +1320,7 @@ export const Home = () => {
                     <button
                       type="button"
                       onClick={() => openProcessStep(selectedProcessStep + 1)}
-                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#C40F34] disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
+                      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-red px-5 text-[10px] font-mono font-semibold uppercase tracking-[0.1em] text-white transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-red-hover disabled:cursor-not-allowed disabled:opacity-35 sm:min-w-[160px]"
                       disabled={isLast}
                     >
                       <span>{language === 'id' ? 'Phase Berikutnya' : 'Next Phase'}</span>

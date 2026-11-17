@@ -570,8 +570,8 @@ export const Contact = () => {
         title="Let’s build something exceptional together."
         titleNode={
           language === 'id'
-            ? <>Mari bangun produk digital <span className="text-brand-red">luar biasa</span> bersama kami.</>
-            : <>Let’s build something <span className="text-brand-red">exceptional</span> together.</>
+            ? <>Mari bangun produk digital <span className="text-brand-red-text">luar biasa</span> bersama kami.</>
+            : <>Let’s build something <span className="text-brand-red-text">exceptional</span> together.</>
         }
         description={
           language === 'id'
@@ -610,7 +610,7 @@ export const Contact = () => {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ delay: 0.08, type: 'spring', stiffness: 220, damping: 18 }}
-                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brand-red/10 border border-brand-red/25 flex items-center justify-center text-brand-red mx-auto mb-5"
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brand-red/10 border border-brand-red/25 flex items-center justify-center text-brand-red-text mx-auto mb-5"
                       >
                         <CheckCircle2 size={30} />
                       </motion.div>
@@ -680,7 +680,7 @@ export const Contact = () => {
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
                             <span
-                              className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red"
+                              className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-red-text"
                               aria-live="polite"
                             >
                               {language === 'id' ? `Langkah 0${formStep + 1} dari 03` : `Step 0${formStep + 1} of 03`}
@@ -708,7 +708,7 @@ export const Contact = () => {
                           </div>
                           <div className="flex shrink-0 items-center gap-2">
                             {formStep === 0 && selectedServices.length > 0 && (
-                              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red">
+                              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-brand-red/20 bg-brand-red/[0.05] px-2.5 py-1 text-[9px] font-mono uppercase tracking-[0.12em] text-brand-red-text">
                                 <CheckCircle2 size={11} />
                                 {language === 'id' ? `${selectedServices.length} dipilih` : `${selectedServices.length} selected`}
                               </span>
@@ -748,7 +748,7 @@ export const Contact = () => {
                                   const checkClass = 'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors ' + (selected
                                     ? 'border-brand-red bg-brand-red text-white'
                                     : partial
-                                      ? 'border-brand-red/45 bg-brand-red/[0.08] text-brand-red'
+                                      ? 'border-brand-red/45 bg-brand-red/[0.08] text-brand-red-text'
                                       : 'border-white/[0.17] bg-transparent text-transparent group-hover:border-white/[0.3]');
                                   return (
                                     <motion.button
@@ -845,7 +845,7 @@ export const Contact = () => {
                                   <button
                                     type="button"
                                     onClick={handleNextStep}
-                                    className="inline-flex shrink-0 items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5.5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#C40F34] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(220, 20, 60,0.72)]"
+                                    className="inline-flex shrink-0 items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5.5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-brand-red-hover transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_10px_24px_-18px_rgba(220, 20, 60,0.72)]"
                                     data-cursor-label="Next"
                                   >
                                     <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
@@ -869,12 +869,12 @@ export const Contact = () => {
                                 <div>
                                   <label htmlFor="inquiry-name" className="block text-[10px] font-mono text-text-body uppercase mb-1.5">{language === 'id' ? 'Nama Lengkap *' : 'Your Name *'}</label>
                                   <input id="inquiry-name" type="text" name="name" required autoComplete="name" value={formState.name} onChange={handleInputChange} placeholder={language === 'id' ? 'cth. Budi Santoso' : 'e.g. John Doe'} aria-invalid={Boolean(formErrors.name)} aria-describedby={formErrors.name ? 'inquiry-name-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.name ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-text-body/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
-                                  {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
+                                  {formErrors.name && <p id="inquiry-name-error" className="text-[11px] font-mono text-danger mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.name}</span></p>}
                                 </div>
                                 <div>
                                   <label htmlFor="inquiry-email" className="block text-[10px] font-mono text-text-body uppercase mb-1.5">{language === 'id' ? 'Email Kerja *' : 'Work Email *'}</label>
                                   <input id="inquiry-email" type="email" name="email" required autoComplete="email" inputMode="email" value={formState.email} onChange={handleInputChange} placeholder="name@company.com" aria-invalid={Boolean(formErrors.email)} aria-describedby={formErrors.email ? 'inquiry-email-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.email ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-text-body/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
-                                  {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
+                                  {formErrors.email && <p id="inquiry-email-error" className="text-[11px] font-mono text-danger mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.email}</span></p>}
                                 </div>
                               </div>
 
@@ -903,7 +903,7 @@ export const Contact = () => {
                                     <div>
                                       <label htmlFor="inquiry-phone" className="block text-[10px] font-mono text-text-body uppercase mb-1.5">{language === 'id' ? 'WhatsApp / Telepon' : 'Phone / WhatsApp'}</label>
                                       <input id="inquiry-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formState.phone} onChange={handleInputChange} placeholder="+62 812-xxxx-xxxx" aria-invalid={Boolean(formErrors.phone)} aria-describedby={formErrors.phone ? 'inquiry-phone-error' : undefined} className={`w-full min-h-[46px] bg-white/[0.015] border ${formErrors.phone ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-text-body/50 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 transition-[border-color,box-shadow,background-color] duration-300`} />
-                                      {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
+                                      {formErrors.phone && <p id="inquiry-phone-error" className="text-[11px] font-mono text-danger mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.phone}</span></p>}
                                     </div>
                                   </motion.div>
                                 )}
@@ -921,7 +921,7 @@ export const Contact = () => {
                                       <ChevronLeft size={15} />
                                       <span>{language === 'id' ? 'Kembali' : 'Back'}</span>
                                     </button>
-                                    <button type="button" onClick={handleNextStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#C40F34] transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(220, 20, 60,0.9)]" data-cursor-label="Next">
+                                    <button type="button" onClick={handleNextStep} className="inline-flex items-center gap-2 min-h-[46px] rounded-full bg-brand-red px-5 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-brand-red-hover transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.98] shadow-[0_12px_28px_-18px_rgba(220, 20, 60,0.9)]" data-cursor-label="Next">
                                       <span>{language === 'id' ? 'Lanjut' : 'Continue'}</span>
                                       <ChevronRight size={15} />
                                     </button>
@@ -947,7 +947,7 @@ export const Contact = () => {
                                 </div>
                                 <textarea id="inquiry-message" name="message" required rows={6} maxLength={3000} value={formState.message} onChange={handleInputChange} placeholder={language === 'id' ? 'Contoh: kami butuh website company profile baru untuk launching kuartal depan.' : 'Example: we need a new company website for a launch next quarter.'} aria-invalid={Boolean(formErrors.message)} aria-describedby={formErrors.message ? 'inquiry-message-error' : undefined} className={`w-full min-h-[150px] bg-white/[0.015] border ${formErrors.message ? 'border-brand-red/70' : 'border-white/[0.09]'} rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-text-body/50 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/10 resize-y transition-all duration-200`} />
                                 {formErrors.message ? (
-                                  <p id="inquiry-message-error" className="text-[11px] font-mono text-brand-red mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
+                                  <p id="inquiry-message-error" className="text-[11px] font-mono text-danger mt-1.5 flex items-center gap-1" role="alert"><AlertCircle size={12} /><span>{formErrors.message}</span></p>
                                 ) : (
                                   <p className="mt-1.5 text-[11px] text-text-body/75">{language === 'id' ? 'Minimal 10 karakter. Singkat saja sudah cukup.' : 'Minimum 10 characters. Keep it concise.'}</p>
                                 )}
@@ -1010,7 +1010,7 @@ export const Contact = () => {
                                 <div>
                                   <label htmlFor="inquiry-project-brief" className="block text-[10px] font-mono uppercase tracking-[0.12em] text-text-body mb-1.5">{language === 'id' ? 'Lampiran project brief (opsional)' : 'Project brief attachment (optional)'}</label>
                                   <input ref={briefInputRef} id="inquiry-project-brief" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => handleBriefChange(event.target.files?.[0] || null)} className="block w-full rounded-xl border border-dashed border-white/[0.12] bg-black/20 p-3 text-xs text-[#8E96A2] file:mr-3 file:rounded-full file:border-0 file:bg-white/[0.06] file:px-3 file:py-2 file:text-[11px] file:font-semibold file:text-white" />
-                                  {briefError ? <p className="mt-2 text-[11px] leading-5 text-brand-red" role="alert">{briefError}</p> : projectBrief ? <p className="mt-2 text-[11px] leading-5 text-text-body">{projectBrief.name} · {(projectBrief.size / 1024 / 1024).toFixed(2)} MB · {language === 'id' ? 'Maks. 10 MB' : '10 MB maximum'}</p> : <p className="mt-2 text-[11px] leading-5 text-text-body">{language === 'id' ? 'Format PDF, DOC, atau DOCX. Maksimal 10 MB.' : 'PDF, DOC, or DOCX. Maximum 10 MB.'}</p>}
+                                  {briefError ? <p className="mt-2 text-[11px] leading-5 text-danger" role="alert">{briefError}</p> : projectBrief ? <p className="mt-2 text-[11px] leading-5 text-text-body">{projectBrief.name} · {(projectBrief.size / 1024 / 1024).toFixed(2)} MB · {language === 'id' ? 'Maks. 10 MB' : '10 MB maximum'}</p> : <p className="mt-2 text-[11px] leading-5 text-text-body">{language === 'id' ? 'Format PDF, DOC, atau DOCX. Maksimal 10 MB.' : 'PDF, DOC, or DOCX. Maximum 10 MB.'}</p>}
                                 </div>
                               </section>
 
@@ -1029,7 +1029,7 @@ export const Contact = () => {
                                     <button
                                       type="submit"
                                       disabled={isSubmitting}
-                                      className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#C40F34] disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.99] shadow-[0_10px_24px_-18px_rgba(220, 20, 60,0.72)]"
+                                      className="group inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full bg-brand-red px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-brand-red-hover disabled:opacity-70 disabled:cursor-wait transition-[background-color,box-shadow,transform] duration-300 active:scale-[0.99] shadow-[0_10px_24px_-18px_rgba(220, 20, 60,0.72)]"
                                       data-cursor-label="Send"
                                     >
                                       {isSubmitting ? <LoaderCircle size={15} className="animate-spin" /> : <span>{language === 'id' ? 'Kirim inquiry' : 'Send inquiry'}</span>}
@@ -1040,7 +1040,7 @@ export const Contact = () => {
                               </div>
 
                               {submitError && (
-                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-xl border border-brand-red/25 bg-brand-red/[0.06] px-4 py-3 text-xs font-mono text-brand-red" role="alert">
+                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2 rounded-xl border border-brand-red/25 bg-brand-red/[0.06] px-4 py-3 text-xs font-mono text-danger" role="alert">
                                   <AlertCircle size={15} className="mt-0.5 shrink-0" />
                                   <span>{submitError}</span>
                                 </motion.div>
@@ -1226,8 +1226,8 @@ export const Contact = () => {
 
               <h2 className="max-w-xl text-3xl font-display font-semibold leading-[1.02] tracking-[-0.055em] text-white sm:text-4xl md:text-5xl lg:text-[3.25rem]">
                 {language === 'id'
-                  ? <>Pertanyaan yang <span className="text-brand-red">sering muncul</span> sebelum kita mulai.</>
-                  : <>The questions that come up <span className="text-brand-red">before we start.</span></>}
+                  ? <>Pertanyaan yang <span className="text-brand-red-text">sering muncul</span> sebelum kita mulai.</>
+                  : <>The questions that come up <span className="text-brand-red-text">before we start.</span></>}
               </h2>
 
               <p className="mt-6 max-w-md text-sm font-light leading-[1.85] text-[#A7ACB5] sm:text-base">
@@ -1289,7 +1289,7 @@ export const Contact = () => {
                         aria-controls={`faq-answer-${i}`}
                         className={`group flex w-full items-start gap-4 px-4 py-5 text-left transition-[background-color,color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red/60 sm:gap-5 sm:px-6 sm:py-6 ${isOpen ? 'bg-white/[0.025]' : 'hover:bg-white/[0.018]'}`}
                       >
-                        <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[9px] font-mono font-semibold tracking-[0.12em] transition-all duration-300 sm:h-8 sm:w-8 ${isOpen ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red' : 'border-white/[0.08] bg-white/[0.02] text-[#A7ACB5] group-hover:border-white/[0.16] group-hover:text-white'}`}>
+                        <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[9px] font-mono font-semibold tracking-[0.12em] transition-all duration-300 sm:h-8 sm:w-8 ${isOpen ? 'border-brand-red/35 bg-brand-red/[0.08] text-brand-red-text' : 'border-white/[0.08] bg-white/[0.02] text-[#A7ACB5] group-hover:border-white/[0.16] group-hover:text-white'}`}>
                           {String(i + 1).padStart(2, '0')}
                         </span>
                         <span className="min-w-0 flex-1">
@@ -1297,7 +1297,7 @@ export const Contact = () => {
                             {faq.q}
                           </span>
                         </span>
-                        <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${isOpen ? 'rotate-180 border-brand-red/35 bg-brand-red/[0.07] text-brand-red' : 'border-white/[0.08] bg-white/[0.02] text-text-body group-hover:border-white/[0.16] group-hover:text-white'}`}>
+                        <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${isOpen ? 'rotate-180 border-brand-red/35 bg-brand-red/[0.07] text-brand-red-text' : 'border-white/[0.08] bg-white/[0.02] text-text-body group-hover:border-white/[0.16] group-hover:text-white'}`}>
                           <ChevronDown size={14} />
                         </span>
                       </button>

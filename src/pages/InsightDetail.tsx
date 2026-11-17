@@ -120,7 +120,7 @@ class InsightDetailErrorBoundary extends React.Component<
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-brand-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {this.props.language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
@@ -589,7 +589,7 @@ export const InsightDetail: React.FC = () => {
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-[#C40F34] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-red px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-white transition-colors hover:bg-brand-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
             >
               {language === 'id' ? 'Muat ulang' : 'Reload'}
             </button>
