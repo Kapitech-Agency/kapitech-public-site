@@ -46,7 +46,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.careers': 'Careers',
     'nav.insights': 'Insights',
     'nav.contact': 'Contact',
-    'nav.startProject': 'Start a Project',
+    'nav.startProject': 'Start Your Project Brief',
 
     // Hero
     'hero.badge': 'Digital Product & Engineering Agency',
@@ -373,7 +373,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.careers': 'Karir',
     'nav.insights': 'Insight',
     'nav.contact': 'Kontak',
-    'nav.startProject': 'Mulai Proyek',
+    'nav.startProject': 'Isi Brief Proyek',
 
     // Hero
     'hero.badge': 'Agensi Produk Digital & Rekayasa Perangkat Lunak',

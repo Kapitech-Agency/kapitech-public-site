@@ -1,3 +1,4 @@
+import { headquartersMapUrl } from '../lib/publicContacts';
 import React, { useEffect, useRef, useState } from 'react';
 import PublicPageHero from '../components/ui/PublicPageHero';
 import { ContactScheduleFields } from '../components/ui/ContactScheduleFields';
@@ -739,7 +740,7 @@ export const Contact = () => {
                                 {serviceChoices.map((choice) => {
                                   const selected = choice.values.every(value => selectedServices.includes(value));
                                   const partial = !selected && choice.values.some(value => selectedServices.includes(value));
-                                  const cardClass = 'group flex min-w-0 flex-col rounded-2xl border p-3.5 sm:min-h-[124px] sm:p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
+                                  const cardClass = 'group flex min-w-0 flex-col rounded-xl border px-3.5 py-2.5 sm:min-h-[124px] sm:rounded-2xl sm:p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 ' + (selected
                                     ? 'border-brand-red/60 bg-brand-red/[0.075] shadow-[inset_0_1px_0_rgba(255,255,255,0.035)]'
                                     : partial
                                       ? 'border-brand-red/30 bg-brand-red/[0.025]'
@@ -770,7 +771,7 @@ export const Contact = () => {
                                           {selected ? <CheckCircle2 size={12} strokeWidth={2.6} /> : partial ? <span className="h-1.5 w-1.5 rounded-sm bg-brand-red" /> : <CheckCircle2 size={12} strokeWidth={2.6} />}
                                         </span>
                                       </div>
-                                      <p className={'mt-1.5 text-xs leading-[1.6] sm:mt-2.5 ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
+                                      <p className={'mt-1 text-xs leading-[1.5] sm:mt-2.5 sm:leading-[1.6] ' + (selected ? 'text-[#E6E8ED]' : 'text-[#A7ACB5]')}>
                                         {choice.description}
                                       </p>
 
@@ -1177,7 +1178,7 @@ export const Contact = () => {
                           {language === 'id' ? 'Alamat kantor' : 'Office address'}
                         </p>
                         <a
-                          href="https://www.google.com/maps/search/?api=1&query=Kapitech+Agency%2C+Linea+Residence%2C+Paku+Jaya%2C+Tangerang+Selatan"
+                          href={headquartersMapUrl}
                           target="_blank"
                           rel="noreferrer"
                           className="mt-1 block text-[11px] leading-[1.75] text-[#A7ACB5] transition-colors hover:text-white"

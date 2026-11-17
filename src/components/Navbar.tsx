@@ -1,3 +1,4 @@
+import { instagramUrl } from '../lib/publicContacts';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -1017,7 +1018,7 @@ export const Navbar = () => {
                     </a>
                     <div className="flex items-center justify-between pt-1 text-xs text-text-body">
                       <a
-                        href="https://instagram.com/kapitech.agency"
+                        href={instagramUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Kapitech Agency on Instagram"

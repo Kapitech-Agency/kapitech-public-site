@@ -2,7 +2,7 @@ import { createReadStream } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
-import { extname, join, normalize, resolve } from 'node:path';
+import { extname, join, resolve, sep } from 'node:path';
 import { readdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
@@ -93,12 +93,12 @@ function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split('?')[0] || '/');
   const relative = decoded.replace(/^[/\\]+/, '');
   const candidate = resolve(join(distDir, relative));
-  return candidate === distDir || candidate.startsWith(distDir + '/') ? candidate : null;
+  return candidate === distDir || candidate.startsWith(distDir + sep) ? candidate : null;
 }
 
-async function sendFile(req, res, filePath) {
+async function sendFile(req, res, filePath, statusCode = 200) {
   const extension = extname(filePath).toLowerCase();
-  res.statusCode = 200;
+  res.statusCode = statusCode;
   res.setHeader('Content-Type', contentTypes[extension] || 'application/octet-stream');
   if (extension === '.html') {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
@@ -222,8 +222,9 @@ const server = createServer(async (req, res) => {
       return;
     }
 
-    const candidate = requested;
+    let candidate = requested;
     try {
+      if ((await stat(candidate)).isDirectory()) candidate = join(candidate, 'index.html');
       const fileStat = await stat(candidate);
       if (fileStat.isFile()) {
         await sendFile(req, res, candidate);
@@ -233,9 +234,13 @@ const server = createServer(async (req, res) => {
       // Fall through to the SPA entry file.
     }
 
-    const spaEntry = join(distDir, 'index.html');
-    await stat(spaEntry);
-    await sendFile(req, res, spaEntry);
+    const pathname = new URL(req.url, 'http://localhost').pathname;
+    if (/^\/(?:insights\/[^/]+|work\/[^/]+|book-a-call)\/?$/.test(pathname)) {
+      await sendFile(req, res, join(distDir, 'index.html'));
+      return;
+    }
+
+    await sendFile(req, res, join(distDir, '404.html'), 404);
   } catch (error) {
     console.error('[server] request failed:', error);
     res.statusCode = 500;

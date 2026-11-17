@@ -758,7 +758,7 @@ export const Services = () => {
             {resolvedAllServices.length} {language === 'id' ? 'Layanan Spesialis' : 'Specialized Services'}
           </span>
           <span className="rounded-full border border-brand-red/25 bg-brand-red/[0.07] px-3 py-1.5 font-semibold text-brand-red">
-            Branding • Design • Development
+            {language === 'id' ? 'Identitas Brand • Desain • Pengembangan' : 'Branding • Design • Development'}
           </span>
         </div>
       </PublicPageHero>
@@ -772,7 +772,7 @@ export const Services = () => {
                 {language === 'id' ? 'Kategori Solusi' : 'Solutions Overview'}
               </span>
               <h2 className="text-2xl sm:text-4xl font-display font-bold text-white tracking-tight">
-                STRATEGIC SOLUTIONS
+                {language === 'id' ? 'Solusi Strategis' : 'Strategic Solutions'}
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-text-body font-light max-w-md">
@@ -857,9 +857,9 @@ export const Services = () => {
             >
               {([
                 { key: 'All', labelEn: `All Services (${resolvedAllServices.length})`, labelId: `Semua Layanan (${resolvedAllServices.length})` },
-                { key: 'Branding', labelEn: `Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
+                { key: 'Branding', labelEn: `Branding (${resolvedAllServices.filter((service) => service.category === 'Branding').length})`, labelId: `Identitas Brand (${resolvedAllServices.filter((service) => service.category === 'Branding').length})` },
                 { key: 'Design', labelEn: `Design (${resolvedAllServices.filter((service) => service.category === 'Design').length})`, labelId: `Desain (${resolvedAllServices.filter((service) => service.category === 'Design').length})` },
-                { key: 'Development', labelEn: `Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`, labelId: `Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})` },
+                { key: 'Development', labelEn: `Development (${resolvedAllServices.filter((service) => service.category === 'Development').length})`, labelId: `Pengembangan (${resolvedAllServices.filter((service) => service.category === 'Development').length})` },
               ] satisfies { key: 'All' | ServiceDetail['category']; labelEn: string; labelId: string }[]).map((tab) => {
                 const selected = activeCategory === tab.key;
                 return (
@@ -901,7 +901,7 @@ export const Services = () => {
                       {cat === 'Branding' ? '01. ' : cat === 'Design' ? '02. ' : '03. '}
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-display font-bold uppercase tracking-tight text-white">
-                      {cat}
+                      {language === 'id' ? ({ Branding: 'Identitas Brand', Design: 'Desain', Development: 'Pengembangan' }[cat] ?? cat) : cat}
                     </h2>
                   </div>
                   <span className="text-xs font-mono text-text-body">
@@ -929,7 +929,7 @@ export const Services = () => {
                             {srv.icon}
                           </div>
                           <span className="px-2.5 py-1 rounded-full bg-white/[0.018] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono text-text-body backdrop-blur-md">
-                            {srv.category}
+                            {language === 'id' ? ({ Branding: 'Identitas Brand', Design: 'Desain', Development: 'Pengembangan' }[srv.category] ?? srv.category) : srv.category}
                           </span>
                         </div>
 

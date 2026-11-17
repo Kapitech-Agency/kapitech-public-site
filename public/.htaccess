@@ -1,6 +1,7 @@
 Options -MultiViews
 RewriteEngine On
 RewriteBase /
+ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
@@ -43,5 +44,7 @@ RewriteRule ^(.+?)/?$ /$1/index.html [L]
 RewriteCond %{REQUEST_URI} ^/insights/[^/]+/?$
 RewriteRule ^ /index.html [L]
 
-# React Router fallback for other client-side routes.
-RewriteRule ^ /index.html [L]
+# CMS-backed Work details and the legacy contact redirect use React Router.
+RewriteRule ^(work/[^/]+|book-a-call)/?$ /index.html [L]
+
+RewriteRule ^ - [R=404,L]

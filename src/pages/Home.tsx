@@ -139,6 +139,8 @@ export const Home = () => {
     .slice(0, 3);
   const homepageProjects = (featuredProjects.length > 0 ? featuredProjects : publishedProjects).slice(0, 3);
 
+  const leadProject = homepageProjects[0];
+
   const stats = [
     {
       index: "01",
@@ -345,6 +347,25 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {leadProject && (
+        <div className="border-b border-white/[0.07] px-4 py-4 sm:hidden">
+          <Link
+            to={`/work?project=${encodeURIComponent(leadProject.id)}`}
+            data-analytics-event="featured_case_click"
+            data-case-id={leadProject.id}
+            className="group flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-white/[0.09] bg-dark-card px-4 py-3 hover:border-brand-red/30"
+          >
+            <span className="min-w-0">
+              <span className="block font-mono text-[10px] uppercase tracking-wider text-text-body">
+                {language === 'id' ? 'Studi Kasus Unggulan' : 'Featured Case Study'}
+              </span>
+              <span className="mt-1 block break-words text-sm font-semibold text-white">{leadProject.title}</span>
+            </span>
+            <ArrowUpRight size={16} className="shrink-0 text-brand-red" aria-hidden="true" />
+          </Link>
+        </div>
+      )}
 
       {/* STUDIO PROOF / EDITORIAL METRICS */}
       <section
